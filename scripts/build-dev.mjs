@@ -8,7 +8,7 @@ if (process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== 'dev') {
   throw new Error('This Cloudflare project deploys only the dev branch.');
 }
 mkdirSync(out, { recursive: true });
-for (const file of ['index.html', 'privacy.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons']) {
+for (const file of ['index.html', 'privacy.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'offline.js', 'sw.js']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
 }
 // A test deployment cannot connect to production even if served at another URL.
@@ -25,3 +25,4 @@ writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');
 await import('./test-persistence.mjs');
+await import('./test-offline.mjs');

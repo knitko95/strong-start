@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
 /* Layout: single phone column, sticky top bar, fixed bottom tab bar; soft white cards on blush, serif for titles and numbers, spaced caps for labels */
 :root{
   --bg:#f6eeec; --surface:#ffffff; --sunk:#faf4f3; --ink:#3d1621; --muted:#8c6f76; --line:#ecdfe0;
@@ -1393,7 +1394,7 @@ let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', li
 function dayStart(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
 function defaults(){
   return {v:6, weightUnits:'lb', settings:{units:'lb', days:[1,3,5], mins:45, bw:null, name:'', age:null, gender:'', color:'blush', goals:[], level:'start', comfort:'machines', pain:[]},
-    places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, weekModes:{}, draft:null, levelDismiss:null,
+    places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, weekModes:{}, draft:null, levelDismiss:null,
     weigh:{on:false, day:1, hide:false, list:[]}, coach:{note:''}, checkin:null, easeExtra:0, updatedAt:0};
 }
 function loadLocal(){
@@ -1966,7 +1967,7 @@ function hsEnv(){
 }
 function hsStandalone(){ try{ return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true; }catch(e){ return false; } }
 function hsCan(){ const e=hsEnv(); return (e.ios||e.android) && !hsStandalone() && !lsGet(HS_DONE); }
-function hsScreenDue(){ return hsCan() && AUTH.user && !coachMode && state.setup && !state.setup.paused && !lsGet(HS_SKIP); }
+function hsScreenDue(){ return hsCan() && AUTH.user && !coachMode && state.setup && !state.setup.a.quickSetup && !state.setup.paused && !lsGet(HS_SKIP); }
 function hsCardDue(){ return hsCan() && AUTH.user && !coachMode && Date.now() > (+lsGet(HS_HIDE)||0); }
 const HS_IC={
   dots:'<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg>',
@@ -2117,7 +2118,7 @@ async function signOut(){
 function accountCard(){
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
-    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Open the app while online before using it without a signal; offline startup is not guaranteed.</p>
+    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Before going offline, check Offline access below. Sign-in and messages need a connection.</p>
     <div class="row"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a></div>`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
@@ -2431,6 +2432,7 @@ function render(){
   document.body.classList.toggle('in-setup', !!inSetup);
   document.body.classList.toggle('in-focus', !inSetup && ((ui.tab==='workout' && !!state.draft) || ui.tab==='preview'));
   if(inSetup){ $('#tabs').innerHTML=''; $('#app').innerHTML=renderSetup(); renderTimer(); return; }
+  if(!state.block && state.setup){ $('#tabs').innerHTML=''; $('#app').innerHTML=renderToday(); renderTimer(); return; }
   const nUnread=fbUnreadTotal();
   $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people'||ui.tab==='inbox')&&k==='settings')?'aria-current="page"':''} ${k==='settings'&&nUnread?`aria-label="Settings, ${nUnread} unread"`:''}><span class="ticon">${ICONS[k]}${k==='settings'&&nUnread?`<span class="tbadge" aria-hidden="true">${nUnread>99?'99+':nUnread}</span>`:''}</span><span>${l}</span></button>`).join('');
   const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, inbox:renderInbox, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
@@ -2601,7 +2603,8 @@ const EQ_ICON = {"rigstep": "<svg viewBox=\"0 0 48 48\" fill=\"none\" stroke=\"c
 
 /* ---------------- Setup wizard ---------------- */
 const SETUP_ORDER = ['about','goal','places','equip','routine','last','years','comfort','style','pain','cardio','schedule','result','week1'];
-function setupSteps(a){ return SETUP_ORDER.filter(k => k==='style' ? needStyle(a.places) : k==='last' ? a.routine==='yes' : k==='years' ? (a.routine==='yes' && (a.last==='still'||a.last==='month')) : true); }
+const QUICK_SETUP_ORDER=['about','goal','places','equip','experience','pain','schedule','week1'];
+function setupSteps(a){ if(a.quickSetup && !(state.setup&&state.setup.edit)) return QUICK_SETUP_ORDER; return SETUP_ORDER.filter(k => k==='style' ? needStyle(a.places) : k==='last' ? a.routine==='yes' : k==='years' ? (a.routine==='yes' && (a.last==='still'||a.last==='month')) : true); }
 function computeLevel(a){
   if(a.routine!=='yes' || a.last==='more6') return 'start';
   if(a.last==='1to6') return a.comfort==='learning' ? 'start' : 'back';
@@ -2615,7 +2618,7 @@ function prefillSetup(){
     places:(state.places||[]).map(p=>({k:p.k, eq:p.eq.slice()})), days:(s.days&&s.days.length?s.days:[1,3,5]).slice(), mins:s.mins||45, flex:!!s.flex, nDays:s.nDays||3, pain:(s.pain||[]).slice(), painNone:!(s.pain||[]).length, comfort:s.comfort||'', level:s.level||null,
     tstyle:s.tstyleAuto?null:(s.tstyle||null), cstyle:s.cardio&&s.cardio.style||null, cjog:s.cardio&&s.cardio.jog||null};
 }
-function startSetup(prefill){ state.setup={step:'about', a: prefill ? prefillSetup() : {units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}; }
+function startSetup(prefill){ state.setup={step:'about', a: prefill ? prefillSetup() : {quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}; }
 function suOpt(action, val, ic, t, d, sel, check){
   return `<button class="opt ${sel?'sel':''}" data-action="${action}" data-v="${val}" aria-pressed="${!!sel}"><span class="ic">${ic}</span><span style="flex:1"><b>${t}</b>${d?`<span class="d">${d}</span>`:''}</span>${check?`<span class="tkb">${sel?'&#10003;':''}</span>`:''}</button>`;
 }
@@ -2626,6 +2629,8 @@ function eqGrid(eqArr, action){
       <div class="eqgrid">${items.map(([k,l])=>`<button class="eq ${on.has(k)?'on':''}" data-action="${action}" data-k="${k}" aria-pressed="${on.has(k)}"><span class="tk">&#10003;</span>${EQ_ICON[k]||EQ_ICON.mcgen}<span>${esc(l)}</span></button>`).join('')}</div>`; }).join('');
 }
 function setupValid(step,a){
+  if(step==='experience') return !!(a.level && a.comfort);
+  if(step==='equip' && a.quickSetup) return a.places.length>0 && a.places.every(p=>p.confirmed);
   if(step==='goal') return a.goals.length>0;
   if(step==='places') return a.places.length>0;
   if(step==='routine') return !!a.routine;
@@ -2667,6 +2672,10 @@ function applySetup(a){
   state.curPlace=state.places[0].k;
   if(state.weigh && !state.weigh.touched) state.weigh.on = s.goals.includes('lose');
   if(needStyle(a.places)){ if(a.tstyle){ s.tstyle=a.tstyle; delete s.tstyleAuto; } } else { s.tstyle=autoStyle(a.places); s.tstyleAuto=true; }
+  if(a.quickSetup){
+    if(!a.tstyle && needStyle(a.places)){ s.tstyle='mix'; delete s.tstyleAuto; }
+    if(!a.cstyle && !s.cardio){ a.cstyle='walk'; a.cjog='none'; s.cardio={style:'walk',jog:'none',after:0,adj:0,checks:0}; }
+  }
   if(a.cstyle && a.cjog) s.cardio=Object.assign(s.cardio||{}, {style:a.cstyle, jog:a.cjog, adj:(s.cardio&&s.cardio.jog===a.cjog)?(s.cardio.adj||0):0});
 }
 function buildPlanFromSetup(){
@@ -2694,12 +2703,13 @@ function renderSetup(){
   const next=(label='Next')=>`<div class="spacer"></div><button class="cta" data-action="sunext" ${ok?'':'disabled'}>${fin?'Save changes':label}</button>${su.edit?`<button class="later" data-action="sueditcancel">Cancel</button>`:`<button class="later" data-action="sulater">Save and finish later</button>`}`;
   let b='';
   if(step==='about'){
-    b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>First, a little about you</h1></div><p class="lead">Used to suggest starting weights. You can change any of this later in Settings.</p>
+    b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>First, a little about you</h1></div><p class="lead">${a.quickSetup?'Eight short steps to your first plan. Optional details and preferences can wait.':'Used to suggest starting weights. You can change any of this later in Settings.'}</p>
       <label class="field2" for="su-name"><span class="flabel">First name</span><input class="in" id="su-name" value="${esc(a.name||'')}" autocomplete="given-name"></label>
+      ${a.quickSetup?'<details id="su-details" class="card" '+(a.aboutExpanded?'open':'')+'><summary>Add age, body weight, or gender (optional)</summary><div class="stack" style="margin-top:12px">':''}
       <div class="two"><label class="field2" for="su-age"><span class="flabel">Age <span class="tiny muted">(optional)</span></span><input class="in" id="su-age" inputmode="numeric" value="${esc(a.age||'')}"></label>
         <label class="field2" for="su-bw"><span class="flabel">Body weight <span class="tiny muted">(optional)</span></span><span class="inwrap"><input class="in" id="su-bw" inputmode="decimal" value="${esc(weightNumber(a.bw)||'')}"><span class="seg mini">${['lb','kg'].map(u=>`<button data-action="suunits" data-v="${u}" aria-pressed="${a.units===u}">${u}</button>`).join('')}</span></span></label></div>
       <div class="field2"><span class="flabel">Gender</span><div class="seg wide">${GENDERS.map(([k,l])=>`<button data-action="sugender" data-v="${k}" aria-pressed="${a.gender===k}">${l}</button>`).join('')}</div></div>
-      <div class="field2"><span class="flabel">Pick your colors</span>${swatches(a.color||'blush','sucolor')}</div>`+next();
+      ${a.quickSetup?'</div></details><p class="tiny muted">You can choose app colors in Settings later.</p>':`<div class="field2"><span class="flabel">Pick your colors</span>${swatches(a.color||'blush','sucolor')}</div>`}`+next();
   } else if(step==='goal'){
     b=`<h1>What are you working toward?</h1><p class="lead">Pick up to two. Your plan, and the note explaining it, are built around this.</p>`
       + Object.entries(GOALS).map(([k,g])=>suOpt('sugoal',k,g.ic,g.n,g.d,a.goals.includes(k),true)).join('')+next();
@@ -2709,9 +2719,25 @@ function renderSetup(){
       + Object.entries(PLACE_TYPES).map(([k,p])=>suOpt('suplace',k,(EQ_ICON[{gym:'mcgen',full:'rack',home:'db',apt:'adjb',any:'bd'}[k]]||'').replace('<svg','<svg width="26" height="26"'),p.n,p.d,has(k),true)).join('')+next();
   } else if(step==='equip'){
     const tab = a.places.find(p=>p.k===su.tab) || a.places[0];
-    b=`<h1>What equipment do you have?</h1><p class="lead">Tap to check or uncheck. Your workouts only use what’s checked${a.places.length>1?' for that place':''}.</p>`
-      + (a.places.length>1?`<div class="tabs2">${a.places.map(p=>`<button data-action="sutab" data-v="${p.k}" class="${p.k===tab.k?'on':''}">${esc(PLACE_TYPES[p.k].n)} · ${p.eq.length}</button>`).join('')}</div>`:'')
-      + eqGrid(tab.eq,'sueq') + `<button class="cta" data-action="sunext" style="margin-top:6px">Next</button><button class="later" data-action="sulater">Save and finish later</button>`;
+    if(a.quickSetup){
+      b=`<h1>Check your equipment</h1><p class="lead">We selected a starting list for each place. Review it and remove anything you don’t have before continuing.</p>`
+        + (a.places.length>1?`<div class="tabs2" role="group" aria-label="Training places">${a.places.map(p=>`<button data-action="sutab" data-v="${p.k}" aria-pressed="${p.k===tab.k}">${esc(PLACE_TYPES[p.k].n)}${p.confirmed?' ✓':''}</button>`).join('')}</div>`:'')
+        + `<section class="card stack"><h2>${esc(PLACE_TYPES[tab.k].n)}</h2><p class="small" style="margin:0">${tab.eq.length?tab.eq.map(k=>esc(EQ_NAME[k]||k)).join(' · '):'Bodyweight only; no equipment selected.'}</p>
+          <button class="btn" data-action="sueqedit" aria-expanded="${!!su.eqCustomize}">${su.eqCustomize?'Hide equipment choices':'Change equipment'}</button>
+          ${su.eqCustomize?eqGrid(tab.eq,'sueq'):''}
+          <button class="btn ${tab.confirmed?'':'primary'}" data-action="sueqconfirm" aria-pressed="${!!tab.confirmed}">${tab.confirmed?'Equipment confirmed':'This matches my equipment'}</button></section>`
+        + (a.places.some(p=>!p.confirmed)?'<p class="tiny muted">Confirm the equipment at each selected place to continue.</p>':'')+next();
+    } else {
+      b=`<h1>What equipment do you have?</h1><p class="lead">Tap to check or uncheck. Your workouts only use what’s checked${a.places.length>1?' for that place':''}.</p>`
+        + (a.places.length>1?`<div class="tabs2">${a.places.map(p=>`<button data-action="sutab" data-v="${p.k}" class="${p.k===tab.k?'on':''}">${esc(PLACE_TYPES[p.k].n)} · ${p.eq.length}</button>`).join('')}</div>`:'')
+        + eqGrid(tab.eq,'sueq')+next();
+    }
+  } else if(step==='experience'){
+    b=`<h1>What feels like your starting point?</h1><p class="lead">Choose the closest match. You can change your level in Settings.</p>`
+      + LEVEL_ORDER.map(k=>suOpt('sulevel',k,'',LEVELS[k].n,LEVELS[k].d,a.level===k)).join('')
+      + `<h2>Equipment comfort</h2><p class="small muted">This limits the exercises in your plan.</p>`
+      + [['learning','Still learning','Simple moves while you learn'],['machines','Machines and dumbbells','Comfortable with common gym equipment'],['barbell','Barbell lifts too','Comfortable with squats, deadlifts, and bench press']]
+        .map(([k,t,d])=>suOpt('suquickcomfort',k,'',t,d,a.comfort===k)).join('')+next();
   } else if(step==='routine'){
     b=`<div><div class="eyebrow">Your starting point</div><h1>Have you ever stuck with a workout routine?</h1></div><p class="lead">For a few months, at least 2 times a week.</p>`
       + suOpt('suroutine','yes','&#10003;','Yes','I’ve had a steady routine before, or I have one now',a.routine==='yes')
@@ -2771,39 +2797,44 @@ function renderSetup(){
       + keys.map((k,j)=>{ const ss=sessionSlots(k);
         return `<div class="wday"><div class="h"><b>${esc(tplOf(k).name)}</b><span class="tiny muted">${dayLabel(j,true)} · ${lenText(k)}</span></div><div style="margin-top:6px">${ss.map(sl=>{ const tg=target(sl), w=tg.w??tg.sug;
           return `<div class="wex"><span>${esc(EX[sl.id].n)}</span><span>${tg.sets} × ${usesLoad(tg.ex)||tg.ex.mode==='P'?tg.lo+'–'+tg.hi:tg.r}${tg.unit==='sec'?' s':''}${usesLoad(tg.ex)&&w!=null?' · '+fmtW(w):''}</span></div>`; }).join('')}</div></div>`; }).join('')
-      + `<p class="tiny muted" style="margin:0">Weights are a starting guess. After your first set, tap Too easy or Too heavy and the app adjusts.</p>
+      + `${a.quickSetup?'<p class="small muted">We start with a mix of suitable exercises, a walking warm-up, and no extra cardio after lifting. Customize these in Settings.</p>':''}<p class="tiny muted" style="margin:0">Weights are a starting guess. After your first set, tap Too easy or Too heavy and the app adjusts.</p>
         <button class="cta" data-action="sufinish">Looks good, let’s go</button><button class="later" data-action="suchange">Change something</button>`;
   }
   return `<div class="ob">${head}${b}</div>`;
 }
 function suReadInputs(){
   const a=state.setup.a, g=id=>{ const el=document.getElementById(id); return el?el.value:null; };
+  const details=document.getElementById('su-details'); if(details) a.aboutExpanded=!!details.open;
   if(g('su-name')!=null) a.name=g('su-name'); if(g('su-age')!=null) a.age=g('su-age').replace(/[^0-9]/g,''); if(g('su-bw')!=null) a.bw=g('su-bw').trim();
 }
 function setupAction(act, b){
   const su=state.setup, a=su.a; suReadInputs();
   if(['sunext','sulater','supickdone'].includes(act) && !checkBodyWeight(a.bw,a.units||'lb','su-bw',true).ok) return;
   const steps=setupSteps(a), i=steps.indexOf(su.step);
-  const go=k=>{ su.step=k; su.pick=false; save(); render(); window.scrollTo(0,0); };
+  const go=k=>{ su.step=k; su.pick=false; save(); render(); window.scrollTo(0,0); const title=$('#app h1'); if(title){title.tabIndex=-1;title.focus({preventScroll:true});} };
   switch(act){
     case 'sunext': {
       if(!setupValid(su.step,a)) return;
       if(su.edit){ if(editEnds(su.step)){ applySetup(a); buildPlanFromSetup(); if(su.fromSettings) return editDone(); su.edit=null; su.snap=null; go('week1'); toast('Plan updated'); return; }
         if(su.step==='comfort'){ a.level=null; go('result'); return; } }
-      if(su.step==='result'){ applySetup(a); buildPlanFromSetup(); }
+      if(su.step==='result' || (a.quickSetup && !su.edit && su.step==='schedule')){ applySetup(a); buildPlanFromSetup(); }
       const nx=setupSteps(a)[setupSteps(a).indexOf(su.step)+1]; if(nx) go(nx); return; }
     case 'suback': if(su.pick){ su.pick=false; render(); return; } if(su.edit && su.step===su.edit){ setupAction('sueditcancel'); return; } if(i>0) go(steps[i-1]); return;
     case 'sulater': {
-      if(!state.block){ applySetup(a); buildPlanFromSetup(); } su.paused=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
+      if(!state.block && !a.quickSetup){ applySetup(a); buildPlanFromSetup(); } su.paused=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
       toast('Saved. Tap “Finish setting up” whenever you’re ready.'); return; }
     case 'suunits': a.bw=convertWeight(a.bw,a.units||'lb',b.dataset.v); a.units=b.dataset.v; break;
     case 'sugender': a.gender=b.dataset.v; break;
     case 'sucolor': a.color=b.dataset.c; state.settings.color=a.color; break;
     case 'sugoal': { const v=b.dataset.v, ix=a.goals.indexOf(v); if(ix>=0) a.goals.splice(ix,1); else { if(a.goals.length>=2){ toast('Pick up to two'); return; } a.goals.push(v); } break; }
     case 'suplace': { const v=b.dataset.v, ix=a.places.findIndex(p=>p.k===v); if(ix>=0) a.places.splice(ix,1); else a.places.push({k:v, eq:PLACE_TYPES[v].eq.split(' ')}); break; }
-    case 'sutab': su.tab=b.dataset.v; break;
+    case 'sutab': su.tab=b.dataset.v; su.eqCustomize=false; break;
+    case 'sueqedit': su.eqCustomize=!su.eqCustomize; break;
+    case 'sueqconfirm': { const p=a.places.find(p=>p.k===su.tab)||a.places[0]; if(p) p.confirmed=true; break; }
+    case 'suquickcomfort': a.comfort=b.dataset.v; break;
     case 'sueq': case 'sueqall': {
       const tab=a.places.find(p=>p.k===su.tab)||a.places[0]; if(!tab) return;
+      tab.confirmed=false;
       if(act==='sueq'){ const k=b.dataset.k, ix=tab.eq.indexOf(k); if(ix>=0) tab.eq.splice(ix,1); else tab.eq.push(k); }
       else { const items=EQ_GROUPS[+b.dataset.g][1].map(x=>x[0]); tab.eq = b.dataset.on==='1' ? [...new Set(tab.eq.concat(items))] : tab.eq.filter(k=>!items.includes(k)); }
       const y=window.scrollY; save(); render(); window.scrollTo(0,y); return; }
@@ -2828,7 +2859,8 @@ function setupAction(act, b){
     case 'supickdone': if(su.edit==='result'){ su.pick=false; applySetup(a); buildPlanFromSetup(); if(su.fromSettings) return editDone(); su.edit=null; su.snap=null; go('week1'); toast('Plan updated'); return; }
       su.pick=false; save(); render(); window.scrollTo(0,0); return;
     case 'sufinish': {
-      state.setup=null; state.onboarded=true; state.tips=state.tips||{}; save(); ui.tab='today'; render(); window.scrollTo(0,0);
+      state.tips=state.tips||{}; if(a.quickSetup) state.tips.firstWorkout=true;
+      state.setup=null; state.onboarded=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
       toast(state.settings.name?`You’re all set, ${state.settings.name}!`:'You’re all set!'); return; }
   }
   save(); const y=window.scrollY; render(); window.scrollTo(0,y);
@@ -3875,11 +3907,13 @@ function addDayBanner(w){
     <div class="row"><button class="btn primary sm" data-action="opensched">Add a day</button><button class="btn ghost sm" data-action="leveldismiss">Not yet</button></div></div>`;
 }
 function renderToday(){
+  if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off. Your plan will be ready after you check your equipment, experience, and limitations.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
   const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w), ds=trainDays();
   const doneKeys=new Set(wl.map(l=>l.key)), nextKey=keys.find(k=>!doneKeys.has(k));
   const over=w>L, total=logs.filter(l=>l.block===state.block.n).length, nm=state.settings.name?`, ${esc(state.settings.name)}`:'';
   const todayDow=new Date().getDay(), isTrain=isFlex() || ds.includes(todayDow);
   let h=hsCard()+ringsCard(w,keys,wl,{L,over,total});
+  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) h+=`<section class="card stack"><h2>Your first workout</h2><ol class="small"><li>Tap a workout below to preview it, then choose Start workout.</li><li>Enter the weight and reps you actually do, then mark the set done. Suggested weights are starting points.</li><li>Follow the rest timer. Use Take a break to pause and resume later.</li></ol><button class="btn ghost" data-action="firstworkoutdismiss">Got it</button></section>`;
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
   if(!coachMode && state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
   if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row">${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</div></div>`;
@@ -3992,6 +4026,7 @@ function renderSettings(){
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
   ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
   ${coachMode?'':accountCard()}
+  <section class="card stack"><h2>Offline access</h2><p class="small" data-offline-status role="status">Checking offline readiness…</p><button class="btn" data-offline-help>Check offline access</button></section>
   ${profileCard(s)}
   ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
     <div class="chips">${Object.entries(GOALS).map(([k,g])=>`<button class="painchip ${goals().includes(k)&&s.goals.includes(k)?'on':''}" data-action="setgoal" data-v="${k}">${g.n}</button>`).join('')}</div>`)}
@@ -4143,10 +4178,60 @@ function renderTimer(){
 }
 
 /* ---------------- Modals ---------------- */
-function modal(html){ $('#modal').innerHTML=`<div class="scrim" data-action="closemodal"><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`; }
-function closeModal(){ $('#modal').innerHTML=''; }
+let modalReturn=null, modalInert=[];
+function focusKey(el){
+  if(!el || !el.getAttribute) return null;
+  if(el.id) return '#'+CSS.escape(el.id);
+  const attrs=['data-action','data-pk','data-id','data-v','data-k','data-tab','data-c','data-g'];
+  const parts=attrs.filter(k=>el.hasAttribute(k)).map(k=>'['+k+'="'+CSS.escape(el.getAttribute(k))+'"]');
+  return parts.length?parts.join(''):null;
+}
+function modalFocusables(sheet){
+  return [...sheet.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]')]
+    .filter(el=>!el.disabled && el.tabIndex>=0 && !el.closest('[hidden],[inert]') && el.getClientRects().length);
+}
+function modal(html){
+  const host=$('#modal'), previous=host.querySelector('.sheet'), active=document.activeElement;
+  const keep=previous&&previous.contains(active)?focusKey(active):null;
+  if(!previous){
+    modalReturn={element:active,key:focusKey(active)};
+    modalInert=[...document.body.children].filter(el=>el!==host && el.id!=='toast' && !['SCRIPT','STYLE'].includes(el.tagName)).map(el=>[el,el.inert]);
+    modalInert.forEach(([el])=>{el.inert=true;});
+  }
+  host.innerHTML=`<div class="scrim" data-action="closemodal"><div class="sheet" role="dialog" aria-modal="true" tabindex="-1">${html}</div></div>`;
+  const sheet=host.querySelector('.sheet'), title=sheet.querySelector('h1,h2,h3');
+  if(title){ title.id=title.id||'modal-title'; title.tabIndex=-1; sheet.setAttribute('aria-labelledby',title.id); }
+  else sheet.setAttribute('aria-label','Strong Start dialog');
+  const retained=keep&&sheet.querySelector(keep);
+  (retained || sheet.querySelector('[data-modal-initial]') || title || sheet).focus({preventScroll:true});
+}
+function closeModal(){
+  const host=$('#modal'); if(!host.querySelector('.sheet')) return;
+  host.innerHTML=''; confirmCb=null;
+  modalInert.forEach(([el,was])=>{el.inert=was;}); modalInert=[];
+  const back=modalReturn; modalReturn=null;
+  // Callers often rerender after closing. Find the equivalent control after that render.
+  setTimeout(()=>{
+    if(host.querySelector('.sheet')) return;
+    const target=(back&&back.element&&back.element.isConnected&&back.element) || (back&&back.key&&document.querySelector(back.key));
+    if(target && !target.disabled && target.getClientRects().length) target.focus({preventScroll:true});
+    else { const fallback=$('#app h1, #app h2, #app'); if(fallback){fallback.tabIndex=-1;fallback.focus({preventScroll:true});} }
+  },0);
+}
+document.addEventListener('keydown',e=>{
+  const sheet=$('#modal .sheet'); if(!sheet) return;
+  if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeModal();return;}
+  if(e.key!=='Tab') return;
+  const items=modalFocusables(sheet), first=items[0], last=items[items.length-1], active=document.activeElement;
+  if(!first){e.preventDefault();sheet.focus();return;}
+  if(e.shiftKey && (active===first || !items.includes(active))){e.preventDefault();last.focus();}
+  else if(!e.shiftKey && (active===last || !items.includes(active))){e.preventDefault();first.focus();}
+},true);
+document.addEventListener('focusin',e=>{
+  const sheet=$('#modal .sheet'); if(sheet&&!sheet.contains(e.target)) sheet.focus({preventScroll:true});
+});
 let confirmCb=null;
-function confirmBox(title,body,okLabel,cb){ confirmCb=cb; modal(`<h2>${esc(title)}</h2><p class="small muted" style="margin:0">${body}</p><div class="row"><button class="btn primary" data-action="confirmok">${esc(okLabel)}</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`); }
+function confirmBox(title,body,okLabel,cb){ confirmCb=cb; modal(`<h2>${esc(title)}</h2><p class="small muted" style="margin:0">${body}</p><div class="row"><button class="btn primary" data-action="confirmok">${esc(okLabel)}</button><button class="btn ghost" data-action="closemodal" data-modal-initial>Cancel</button></div>`); }
 function toast(t){ const el=$('#toast'); el.innerHTML=`<div class="toast" role="status">${esc(t)}</div>`; clearTimeout(toast.t); toast.t=setTimeout(()=>el.innerHTML='',2600); }
 
 function similarity(a,b){
@@ -4262,6 +4347,7 @@ document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   const a=b.dataset.action;
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
+  if(a==='firstworkoutdismiss'){ state.tips.firstWorkout=false; save(); render(); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
   if(a==='syncchoose'){ resolveSyncConflict(b.dataset.v); return; }
   if(a==='synccopy'){ copySyncRecovery(); return; }
@@ -4471,5 +4557,6 @@ document.addEventListener('change', e=>{
   if(!storageOk) toast('This browser is not saving data. Use Settings > Backup.');
 })();
 </script>
+<script src="offline.js" defer></script>
 </body>
 </html>

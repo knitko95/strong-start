@@ -8,7 +8,7 @@ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('function defaults()')).split('/* ---------------- Boot ---------------- */')[0];
 function harness(){
   const storage=new Map(), elements=new Map(), timers=new Map(), handlers=new Map(); let nextTimer=0;
-  const element=()=>({style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},innerHTML:'',focus(){}});
+  const element=()=>({style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},innerHTML:'',querySelector(){return null;},focus(){}});
   const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,
     location:new URL('http://localhost:8731/'),history:{replaceState(){}},
     navigator:{onLine:true,userAgent:'Test'},matchMedia:()=>({matches:false,addEventListener(){}}),
@@ -326,6 +326,41 @@ await test('conflict resolution stops if the recovery copy cannot be saved',asyn
   b.run("state.settings.name='Device';save();");await b.run('pushCloud()');
   b.run("localStorage.setItem=()=>{throw Error('Quota');};");await b.run("resolveSyncConflict('account')");
   assert.equal(b.run('state.settings.name'),'Device');assert.ok(b.run('SYNC.conflict'));
+});
+await test('new onboarding has eight steps and existing saved setup keeps its full flow',()=>{
+  const h=harness();h.run('state=defaults();');
+  assert.equal(h.run('setupSteps(state.setup.a).length'),8);
+  h.run("delete state.setup.a.quickSetup;state.setup.a.routine='yes';state.setup.a.last='still';");
+  assert.ok(h.run('setupSteps(state.setup.a).length')>=12);
+  h.run("startSetup(true);state.setup.edit='routine';");
+  assert.ok(h.run("setupSteps(state.setup.a).includes('routine')"));
+});
+await test('quick setup requires equipment confirmation at every selected place',()=>{
+  const h=harness();h.run("state=defaults();state.setup.step='equip';state.setup.a.places=[{k:'home',eq:['db']},{k:'any',eq:[]}];");
+  h.click('sunext');assert.equal(h.run('state.setup.step'),'equip');
+  h.click('sueqconfirm');h.click('sunext');assert.equal(h.run('state.setup.step'),'equip');
+  h.click('sutab',{v:'any'});h.click('sueqconfirm');h.click('sunext');assert.equal(h.run('state.setup.step'),'experience');
+  h.run("state.setup.step='equip';");h.click('sueq',{k:'bd'});assert.equal(h.run('state.setup.a.places[1].confirmed'),false);
+});
+await test('pausing early setup preserves answers without creating an unchecked plan',()=>{
+  const h=harness();h.run("state=defaults();state.setup.a.name='Synthetic';");h.click('sulater');
+  assert.equal(h.run('state.block'),null);assert.equal(h.run('state.setup.paused'),true);
+  assert.match(h.run('renderToday()'),/Continue setup/);
+  h.run('state=migrate(JSON.parse(JSON.stringify(state)));');
+  assert.equal(h.run('state.setup.a.name'),'Synthetic');assert.equal(h.run('state.setup.a.quickSetup'),true);
+  h.click('suresume');assert.equal(h.run('state.setup.paused'),false);
+});
+await test('quick setup retains experience and limitations and produces a valid first week',()=>{
+  const h=harness();h.run("state=defaults();logs=[];state.setup.step='experience';state.setup.a.goals=['muscle'];state.setup.a.places=[{k:'home',eq:['db','bn'],confirmed:true}];");
+  h.click('sunext');assert.equal(h.run('state.setup.step'),'experience');
+  h.click('sulevel',{v:'back'});h.click('suquickcomfort',{v:'learning'});h.click('sunext');
+  assert.equal(h.run('state.setup.step'),'pain');h.click('sunext');assert.equal(h.run('state.setup.step'),'pain');
+  h.click('supain',{v:'none'});h.click('sunext');h.click('sunext');
+  assert.equal(h.run('state.setup.step'),'week1');assert.equal(h.run('state.settings.level'),'back');assert.equal(h.run('state.settings.comfort'),'learning');
+  assert.equal(h.run('state.settings.cardio.after'),0);
+  assert.ok(h.run('weekKeys().every(k=>sessionSlots(k).length>0 && sessionSlots(k).every(sl=>available(EX[sl.id])&&allowed(EX[sl.id])))'));
+  h.click('sufinish');assert.equal(h.run('state.setup'),null);assert.equal(h.run('pendingQs().length'),0);
+  assert.match(h.run('renderToday()'),/Your first workout/);
 });
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){

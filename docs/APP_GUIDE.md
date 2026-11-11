@@ -25,11 +25,15 @@ After sign-in, supported phone browsers show Home Screen instructions before set
 
 The iPhone Home Screen app may require signing in again because its sign-in storage is separate from Safari. A skipped installation screen can be revisited from the reminder on Today; dismissing that reminder hides it for a week. Desktop and standalone sessions do not show the same prompts.
 
-The icon/full-screen presentation does not guarantee offline startup or background timer accuracy. Open the app while connected before relying on it at the gym.
+After an online visit, open **Settings > Offline access** and wait for **Ready to reopen offline on this browser**. Sign in and load your plan first. The cached app can then reopen, log sets, and resume a saved workout without the app server. Account sync, sign-in, messages, and coach updates still need a connection. Reconnect and check **Synced** before relying on another device. Clearing browser data or browser storage eviction removes offline files and local data; check readiness again afterward. A Home Screen installation may need its own first online visit. Background/locked-screen timer accuracy still depends on the phone.
 
 ## Setup
 
-The wizard collects a name, optional age/body weight, gender choice, colors, up to two goals, training places/equipment, experience, equipment comfort, aches/limitations, cardio preferences, and schedule. Some questions depend on earlier answers.
+New users have eight screens: optional profile details, goals, training places, equipment confirmation, experience and equipment comfort, limitations, schedule, and first-week preview. Equipment presets show a compact selected list with **Change equipment** for the full checklist; every selected place must be confirmed. Age, body weight, and gender are behind an optional disclosure. Colors and detailed exercise/cardio preferences can be changed later in Settings. New plans initially use suitable exercises for the available equipment, a walking warm-up, and no additional cardio after lifting. A short first-workout guide appears on Today.
+
+Existing in-progress setups keep their longer question flow and saved answers. Pausing a new setup before plan review saves the checkpoint without generating an unchecked plan.
+
+The full legacy/edit flow also offers detailed training-history, color, and cardio questions. Some questions depend on earlier answers.
 
 - Goals: lose weight, build muscle, get stronger, feel healthier, or athletic performance.
 - Places: gym, full-size gym, home, apartment/hotel gym, or anywhere. Check actual equipment at each place; presets are starting selections.
@@ -103,3 +107,7 @@ For a coach, **Settings > Your people > Open** shows approved people's activity,
 App owners can manage eligible non-staff accounts from Your people. **Disable** preserves data and pauses access; **Turn back on** reverses it. **Delete** permanently removes the account and related workout/plan data after typing the person's name/email. Staff/self-deletion are guarded. App feedback remains with its profile reference removed and workout reference cleared; its free text can still identify someone. Do not use deletion as a test.
 
 See [architecture](ARCHITECTURE.md) for permission boundaries and [the review](REVIEW-2026-11-11.md) for outstanding reliability/validation work.
+
+## Dialog accessibility
+
+Dialogs have accessible names, place focus inside on opening, keep Tab/Shift+Tab within the dialog, and close with Escape. Closing restores focus to the opening control (or a nearby page heading if it no longer exists). The underlying page is temporarily inert. Confirmation dialogs initially focus Cancel. Touch zoom restrictions and safe-area layout are preserved.
