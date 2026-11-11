@@ -5,9 +5,9 @@
 | Environment | Source | Host | Supabase ref |
 | --- | --- | --- | --- |
 | Production | `main` | `https://knitko95.github.io/strong-start/` | `aybtxqsneywuqxzjwoek` |
-| Development | `dev` | Cloudflare Pages project `strong-start-dev` | `gvyfgqhgqnfmtoytqpeo` |
+| Development | `dev` | `https://strong-start-dev.pages.dev/` | `gvyfgqhgqnfmtoytqpeo` |
 
-Cloudflare build command: `node scripts/build-dev.mjs`. Output directory: `dist`. Set the Cloudflare project's production branch to `dev`; this means its stable testing URL, not the live app. Disable preview branch deployments. GitHub Pages remains on `main`.
+Cloudflare build command: `node scripts/build-dev.mjs`. Output directory: `dist`. The build runs syntax and environment-isolation checks before deployment. The Cloudflare project's production branch is `dev`; this means its stable testing URL, not the live app. Preview branch deployments are disabled. GitHub Pages remains on `main`.
 
 The source page uses the production backend only at the exact existing production origin/path. Other URLs, including localhost, use the test backend. The Cloudflare build additionally removes production credentials and forces development mode. Development localStorage keys have a `dev_` prefix; Supabase sessions are scoped to their project. The testing banner and Home Screen manifest distinguish this installation.
 
@@ -34,3 +34,14 @@ The seven historical SQL files were recovered from production migration history.
 5. Verify GitHub Pages for the release SHA and the live flow. Reverting frontend code does not reverse database changes.
 
 There is deliberately no automatic production database migration or production release on a `dev` push. Do not restore the test database over production or promote test account records.
+
+## Verification on November 11, 2026
+
+- Schema parity: 10 table/sequence entries, 46 columns, 22 policies, 11 functions, 27 constraints, and 564 column-grant entries matched production.
+- Synthetic tests in a rolled-back development transaction checked account isolation, denied cross-account writes, approval-column protection, owner-RPC denial, and disabled-account access.
+- All seven migration version IDs match production history. No production migrations or member records were changed.
+- The hosted development HTML contains only the test database reference. `X-Robots-Tag: noindex, nofollow` and `Cache-Control: no-store` are present.
+- Hosted sign-in page loaded with no captured browser errors/warnings. Environment checks preserve production storage keys and isolate development state/account keys.
+- Production HTML SHA-256 matched the unchanged `main` commit `149f807bd8e67c7c95204157e07e33e1202763a7`.
+- Security advisor notices match the deliberately restricted role tables and the existing authenticated security-definer RPC design. Functional permission checks passed; this is not a full security audit.
+- The browser viewport override did not apply, so a phone-width visual check remains unverified.
