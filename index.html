@@ -1449,19 +1449,37 @@ function rawSlots(key){
   for(const pk of refs){
     // Under time (easy levels at 60–75 min)? Add up to 2 more moves while there's room for them
     if(out.length>=N && (out.length>=N+2 || liftSec(finalize(out))+300>lim)) break;
-    const [k,i]=pk.split('.'), slot=TPL[k].slots[+i]; if(!slot) continue;
-    let id=planId(pk); if(!id || !EX[id]) continue;
-    const cfg=cfgFor(slot), ps=placeSub(pk,id,cfg);
-    if(ps==='' || seen.has(ps||id)) continue;
-    seen.add(ps||id);
-    const x={pk, cfg, id: ps||id, g, label:String(g+1)}; if(ps) x.placeFrom=id;
-    out.push(applyAdj(x)); g++;
+    const x=baseSlot(pk); if(!x || seen.has(x.id)) continue;
+    seen.add(x.id);
+    out.push(applyAdj({...x, g, label:String(g+1)})); g++;
   }
   return fitSlots(out);
 }
+// One planned exercise before the workout is fitted to the time budget
+function baseSlot(pk){
+  const [k,i]=pk.split('.'), slot=TPL[k]&&TPL[k].slots[+i]; if(!slot) return null;
+  const id=planId(pk); if(!id || !EX[id]) return null;
+  const cfg=cfgFor(slot), ps=placeSub(pk,id,cfg); if(ps==='') return null;
+  const x={pk, cfg, id: ps||id}; if(ps) x.placeFrom=id;
+  return x;
+}
 const tplOf = key => TPL[key] || DERIVED[key];
 function dSlots(){ const d=state.draft, keep=state.curPlace; if(d.place) state.curPlace=d.place; try{ return dSlotsInner(d); } finally{ state.curPlace=keep; } }
-function dSlotsInner(d){ return finalize(rawSlots(d.key).map(s=>d.subs&&d.subs[s.pk]&&EX[d.subs[s.pk]]?{...s,id:d.subs[s.pk],sub:true}:s)); }
+// A started workout keeps its exercises, order and pairings (d.shape). Changing sets or rest with Adjust re-fits the
+// plan to the time budget, which must not drop, add or re-pair an exercise in the middle of a workout.
+// redo: the person reordered the workout before logging anything, so take the new order.
+function lockShape(d,redo){
+  if(d!==state.draft || (d.shape && !redo)) return;
+  const have=Object.keys(d.sets||{}); delete d.shape;
+  const sl=dSlots().filter(s=>d.sets[s.pk]); let g=Math.max(0,...sl.map(s=>s.g));
+  d.shape=sl.map(s=>[s.pk,s.g]); have.forEach(pk=>{ if(!sl.some(s=>s.pk===pk)) d.shape.push([pk,++g]); });
+}
+function shapedSlots(d){
+  const raw=rawSlots(d.key); if(!d.shape) return raw;
+  const have=new Map(raw.map(s=>[s.pk,s]));
+  return d.shape.map(([pk,g])=>{ let s=have.get(pk); if(!s){ const x=baseSlot(pk); s=x&&applyAdj({...x,g,label:String(g)}); } return s?{...s,g}:null; }).filter(Boolean);
+}
+function dSlotsInner(d){ return finalize(shapedSlots(d).map(s=>d.subs&&d.subs[s.pk]&&EX[d.subs[s.pk]]?{...s,id:d.subs[s.pk],sub:true}:s)); }
 
 /* ---------------- Progression ---------------- */
 const KB_LB=[9,13,18,26,35,44,53,62,70,80], KB_KG=[4,6,8,12,16,20,24,28,32,36];
@@ -2498,6 +2516,7 @@ function startWorkout(key){
     state.draft.sets[s.pk] = Array.from({length:t.sets},(_,i)=>({w: usesLoad(t.ex) ? String(t.w ?? (t.last&&t.last[i]?t.last[i].w:null) ?? t.sug ?? '') : '', r:'', done:false}));
     state.draft.planCounts[s.pk]=t.sets;
   }
+  lockShape(state.draft);
   save();
 }
 
@@ -3275,14 +3294,16 @@ function fAction(a,b){
         <button class="btn primary block" data-action="fskipyes" data-pk="${s.pk}">Skip it</button><button class="btn ghost block" data-action="closemodal">Keep it</button>`); return true; }
     case 'fskipyes': { closeModal(); const pk=b.dataset.pk, slots=dSlots(), idx=slots.findIndex(x=>x.pk===pk);
       d.sets[pk]=(d.sets[pk]||[]).filter(x=>x.done); d.skipped=d.skipped||{}; d.skipped[pk]=true; fClearTimer();
-      const n=nextGroupStart(d,slots,idx); d.step = n>=0 ? {ph:'ex',pk:slots[n].pk} : {ph:'cool'}; save(); render(); window.scrollTo(0,0); toast('Skipped'); return true; }
+      // Skipping one move of a pair continues with its partner before moving on
+      const inG=pickInGroup(d,slots,fGroups(slots).find(g=>g.includes(idx))||[]), n=inG>=0?inG:nextGroupStart(d,slots,idx); d.step = n>=0 ? {ph:'ex',pk:slots[n].pk} : {ph:'cool'}; save(); render(); window.scrollTo(0,0); toast('Skipped'); return true; }
     case 'fundo': { const s=d.sets[b.dataset.pk][+b.dataset.i]; s.done=false; fClearTimer(); d.step={ph:'ex',pk:b.dataset.pk}; save(); render(); toast(`Set ${+b.dataset.i+1} reopened. Fix it and tap Done.`); return true; }
     case 'fdone': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===b.dataset.pk), s=slots[idx], tg=target(s), arr=d.sets[s.pk], i=+b.dataset.i;
-      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } arr[i].done=true;
+      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } lockShape(d); arr[i].done=true;
         // carry weight forward to the next open set if they changed it
         const nx=arr.find(x=>!x.done); if(nx && usesLoad(tg.ex) && nx.w!==arr[i].w) nx.w=arr[i].w; }
       const grp=fGroups(slots).find(g=>g.includes(idx)), nIn=pickInGroup(d,slots,grp);
-      if(nIn>=0){ const rest = tg.ssFirst ? 0 : tg.rest;
+      // In a pair, the first move goes straight to its partner; if the partner has no sets left, it rests like any other move
+      if(nIn>=0){ const rest = tg.ssFirst && slots[nIn].pk!==s.pk ? 0 : s.cfg.rest;
         d.step={ph: rest && state.settings.autoRest!==false ? 'rest':'ex', pk:slots[nIn].pk};
         if(d.step.ph==='rest') fRest(rest,{label:'Rest'}); else if(slots[nIn].pk!==s.pk) toast(`Now: ${EX[slots[nIn].id].n}`);
       } else {
@@ -4451,8 +4472,8 @@ document.addEventListener('click', e=>{
     case 'setvariety': state.settings.variety=b.dataset.v; save(); render(); toast('Takes effect when your next 6-week program starts'); break;
     case 'addcardio': state.settings.cardio=Object.assign(cSet()||{style:'walk',jog:'none',adj:0},{after:10}); save(); render(); toast('Added 10 min of cardio. Change or turn it off anytime in Settings.'); break;
     case 'ordmv': { const k=b.dataset.key, sl=sessionSlots(k).map(x=>x.pk), i=sl.indexOf(b.dataset.pk), j=i+(+b.dataset.dir);
-      if(i<0||j<0||j>=sl.length) break; [sl[i],sl[j]]=[sl[j],sl[i]]; state.order=state.order||{}; state.order[k]=sl; if(state.draft&&state.draft.key===k) state.draft._x=null; save(); render(); reorderSheet(k); break; }
-    case 'ordreset': { const k=b.dataset.key; if(state.order) delete state.order[k]; save(); render(); reorderSheet(k); break; }
+      if(i<0||j<0||j>=sl.length) break; [sl[i],sl[j]]=[sl[j],sl[i]]; state.order=state.order||{}; state.order[k]=sl; if(state.draft&&state.draft.key===k){ state.draft._x=null; lockShape(state.draft,true); } save(); render(); reorderSheet(k); break; }
+    case 'ordreset': { const k=b.dataset.key; if(state.order) delete state.order[k]; if(state.draft&&state.draft.key===k){ state.draft._x=null; lockShape(state.draft,true); } save(); render(); reorderSheet(k); break; }
     case 'muscle': ui.musSel = ui.musSel===b.dataset.m?null:b.dataset.m; render(); { const el=document.getElementById('musclemap'); if(el && ui.musSel) setTimeout(()=>{ const pn=el.querySelector('.stack:last-child'); pn&&pn.scrollIntoView({block:'nearest',behavior:'smooth'}); },30); } break;
     case 'openmap': ui.tab='plan'; render(); setTimeout(()=>{ const el=document.getElementById('musclemap'); el&&el.scrollIntoView({block:'start'}); window.scrollBy(0,-64); },30); break;
     case 'xswap': xSwapSheet(b.dataset.g,b.dataset.k); break;

@@ -182,6 +182,52 @@ await test('reducing sets preserves completed rows and skipping still leaves par
   assert.ok(h.run('state.draft.planCounts[skip]')>0);h.run('finishWorkout()');assert.equal(h.run('logs[0].status'),'partial');
   h.run('resumePartial()');assert.equal(h.run('state.draft.sets[skip].length'),h.run('state.draft.planCounts[skip]'));
 });
+// A workout whose last two moves are paired, where a bigger Adjust on the second move would re-fit the plan differently.
+function pairedWorkout(){
+  for(let n=0;n<200;n++){
+    const h=harness();
+    const found=h.run(`(()=>{state.settings.mins=[30,45][${n}%2];newBlock();
+      for(const key of weekKeys()){const sl=sessionSlots(key),b=sl.filter(s=>s.cfg.ssLen).pop();if(!b)continue;
+        const a=sl.find(s=>s.g===b.g&&s.pk!==b.pk);const keep=JSON.stringify(state.adj||{});
+        state.adj={...(state.adj||{}),[b.pk]:{ex:b.id,sets:6,rest:150}};const refit=sessionSlots(key);state.adj=JSON.parse(keep);
+        const still=refit.find(s=>s.pk===b.pk);if(still&&still.cfg.ssLen&&refit.some(s=>s.pk===a.pk))continue;
+        globalThis.K=key;globalThis.A=a.pk;globalThis.B=b.pk;globalThis.BID=b.id;return true;}
+      return false;})()`);
+    if(found) return h;
+  }
+  throw Error('No paired workout found');
+}
+const shape=h=>h.run(`JSON.stringify(dSlots().map(s=>[s.pk,s.label]))`);
+await test('Adjust during a paired workout keeps both exercises, their pairing and their logged sets',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.step={ph:'ex',pk:A};`);
+  const before=shape(h);h.click('fdone',{pk:h.run('A'),i:'0'});
+  assert.equal(h.run('state.draft.step.pk'),h.run('B'));h.click('fdone',{pk:h.run('B'),i:'0'});
+  h.run(`document.getElementById('adj-sets').value='6';document.getElementById('adj-rest').value='150';`);h.click('adjsave',{pk:h.run('B'),id:h.run('BID')});
+  assert.equal(shape(h),before);assert.equal(h.run('state.draft.sets[B].length'),6);assert.equal(h.run('state.draft.sets[B][0].done'),true);
+  h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);assert.equal(shape(h),before);
+  h.run('finishWorkout()');assert.deepEqual(JSON.parse(h.run(`JSON.stringify(logs[0].entries.map(e=>e.pk).filter(pk=>pk===A||pk===B))`)),[h.run('A'),h.run('B')]);
+});
+await test('Adjust before the first set keeps the started workout intact, and Reorder still applies',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);`);const before=shape(h);
+  h.run(`document.getElementById('adj-sets').value='6';document.getElementById('adj-rest').value='150';`);h.click('adjsave',{pk:h.run('B'),id:h.run('BID')});
+  assert.equal(shape(h),before);assert.equal(h.run('state.draft.sets[B].length'),6);
+  h.run(`delete state.adj[B];const first=dSlots()[0].pk,second=dSlots()[1].pk;`);h.click('ordmv',{key:h.run('K'),pk:h.run('first'),dir:'1'});
+  assert.equal(h.run('dSlots()[0].pk'),h.run('second'));
+  assert.equal(h.run(`dSlots().every(s=>state.draft.sets[s.pk])&&Object.keys(state.draft.sets).every(pk=>dSlots().some(s=>s.pk===pk))`),true);
+});
+await test('a workout started before this fix keeps every exercise that already has sets',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);delete state.draft.shape;state.draft.step={ph:'ex',pk:A};`);
+  const before=shape(h);h.click('fdone',{pk:h.run('A'),i:'0'});
+  h.run(`state.adj={...(state.adj||{}),[B]:{ex:BID,sets:6,rest:150}};`);assert.equal(shape(h),before);
+});
+await test('skipping or finishing one move of a pair continues with its partner and keeps its rest',()=>{
+  let h=pairedWorkout();h.run(`startWorkout(K);state.settings.betweenTimer=false;const other=dSlots().find(s=>s.pk!==A&&s.pk!==B).pk;state.draft.step={ph:'ex',pk:A};`);
+  h.click('fskipyes',{pk:h.run('A')});assert.equal(h.run('state.draft.step.pk'),h.run('B'));
+  h.click('fdone',{pk:h.run('B'),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');assert.equal(h.run('state.draft.step.pk'),h.run('B'));
+  h=pairedWorkout();h.run(`startWorkout(K);state.draft.step={ph:'ex',pk:A};`);h.click('fskipyes',{pk:h.run('B')});
+  assert.equal(h.run('state.draft.step.pk'),h.run('A'));h.click('fdone',{pk:h.run('A'),i:'0'});
+  assert.equal(h.run('state.draft.step.ph'),'rest');assert.ok(h.run('ui.timer.total')>0);
+});
 await test('week order and exercise order resets are independent',()=>{
   const h=harness();h.run(`const original=weekKeys().join();const key=weekKeys()[0];const originalExercises=sessionSlots(key).map(s=>s.pk).join();`);
   h.click('ordmove',{i:'0',d:'1'});const changed=h.run('weekKeys().join()');assert.notEqual(changed,h.run('original'));
