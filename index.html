@@ -1870,6 +1870,7 @@ async function onSignedIn(u){
     const [co,ow]=await Promise.all([sb.rpc('is_coach'),sb.rpc('is_app_owner')]);
     if(!AUTH.user || AUTH.user.id!==u.id) return;
     AUTH.coach=!co.error&&co.data===true; FB.owner=!ow.error&&ow.data===true;
+    sb.from('profiles').update({last_seen:new Date().toISOString()}).eq('id',u.id).then(()=>{},()=>{});
     CLOUD.ok=true;
     await pushCloud();
     if(!AUTH.user || AUTH.user.id!==u.id) return;
