@@ -69,6 +69,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 | 21 | Remove the Offline access card from Settings | On the test app | Requested November 11. Removes the card and the account text pointing to it; automatic offline downloads, saved workouts, and the offline notice stay unchanged. Awaiting live release approval. |
 | 22 | Users can delete their own account | On the test app | Requested November 11: build and test on dev first. Keep app feedback with account/workout links removed; retain message text and screen/device context and explain that these may identify the sender. Allow requests to the app owner for feedback removal. Recent sign-in and typed confirmation required; staff accounts remain protected. Development migration `20261111195538_self_service_account_deletion`; browser, real Auth/API, and database checks in [verification](ACCOUNT-DELETION-2026-11-11.md). Live publication needs separate release approval. |
 
+| 23 | Finish setting up remains after completing information in Settings | On the test app | Settings changes now carry into paused answers. An existing plan with the required saved settings clears the reminder without rebuilding the plan or resetting progress; incomplete setup retains its answers on Continue and reload. Checked in headless Chrome at desktop and 390/320 px phone widths with synthetic data. No database migration. Awaiting live release approval. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.

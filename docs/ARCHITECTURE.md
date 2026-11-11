@@ -91,6 +91,8 @@ Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/reco
 
 `migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. Version 6 adds `weightUnits`; `normalizeLogs()` tags legacy logs with their source profile unit and preserves their existing completion status. All numeric weight fields are converted by `changeUnits()`; log units are normalized before cloud/local merging, restoring backups, and coach viewing. Free-text historical notes retain their explicitly written units. Earlier incorrect switches cannot be inferred.
 
+Paused setup records an additive `setup.savedSettings` snapshot. `save()` and Continue reconcile later Settings changes into the wizard answers while retaining unfinished wizard-only answers. Older checkpoints compare against the default profile on their first reconciliation. When saved Settings supply goals, places, level/comfort and a valid schedule for an existing plan, the changed checkpoint is retired and `onboarded` becomes true; plan, progression, logs and draft are retained. Equipment editing defers this until outside the equipment screen. An early quick-setup checkpoint still requires its equipment/experience/limitations flow before a plan exists. No schema version or database migration is required.
+
 ## Database structure
 
 The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.

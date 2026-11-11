@@ -1661,7 +1661,7 @@ function lenText(key){ const a=afterMin(); return `~${totalMinutes(key)} min${a>
 /* ---------------- Saving (this browser only) ---------------- */
 let remote={status:'local'};   // replaced by the cloud block below
 let coachMode=null;   // {own:{state,logs}, name} while viewing someone else's app; nothing is saved then
-function save(){ state.updatedAt = Math.max(Date.now(),(state.updatedAt||0)+1); if(coachMode) return; persistLocal(); queueCloud(); }
+function save(){ state.updatedAt = Math.max(Date.now(),(state.updatedAt||0)+1); if(coachMode) return; syncPausedSetup(); persistLocal(); queueCloud(); }
 function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
 /* ---------------- Accounts (Supabase) ----------------
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
@@ -2695,11 +2695,29 @@ function computeLevel(a){
   if(a.comfort==='learning') L='back';
   return L;
 }
-function prefillSetup(){
-  const s=state.settings||{};
+function prefillSetup(source=state){
+  const s=source.settings||{};
   return {name:s.name||'', age:s.age||'', bw:s.bw||'', units:s.units||'lb', gender:s.gender||'', color:s.color||'blush', goals:(s.goals||[]).slice(),
-    places:(state.places||[]).map(p=>({k:p.k, eq:p.eq.slice()})), days:(s.days&&s.days.length?s.days:[1,3,5]).slice(), mins:s.mins||45, flex:!!s.flex, nDays:s.nDays||3, pain:(s.pain||[]).slice(), painNone:!(s.pain||[]).length, comfort:s.comfort||'', level:s.level||null,
+    places:(source.places||[]).map(p=>({k:p.k, eq:p.eq.slice()})), days:(s.days&&s.days.length?s.days:[1,3,5]).slice(), mins:s.mins||45, flex:!!s.flex, nDays:s.nDays||3, pain:(s.pain||[]).slice(), painNone:!(s.pain||[]).length, comfort:s.comfort||'', level:s.level||null,
     tstyle:s.tstyleAuto?null:(s.tstyle||null), cstyle:s.cardio&&s.cardio.style||null, cjog:s.cardio&&s.cardio.jog||null};
+}
+function syncPausedSetup(){
+  const su=state.setup;
+  if(!su || !su.paused || su.edit) return;
+  const current=prefillSetup(), previous=su.savedSettings||prefillSetup(defaults());
+  let changed=false;
+  if(current.units!==previous.units && current.bw===previous.bw) su.a.bw=convertWeight(su.a.bw,su.a.units||previous.units,current.units);
+  // Only replace answers changed outside the wizard; keep its unfinished answers.
+  for(const key of Object.keys(current)){
+    if(JSON.stringify(current[key])===JSON.stringify(previous[key])) continue;
+    su.a[key]=current[key]; changed=true;
+  }
+  su.savedSettings=current;
+  // A usable existing plan and saved Settings already supply the setup answers.
+  // Retire the checkpoint without rebuilding the plan or clearing workout progress.
+  if(changed && ui.tab!=='equip' && state.block && current.goals.length && current.places.length && current.level && current.comfort && setupValid('schedule',current)){
+    state.setup=null; state.onboarded=true;
+  }
 }
 function startSetup(prefill){ state.setup={step:'about', a: prefill ? prefillSetup() : {quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}; }
 function suOpt(action, val, ic, t, d, sel, check){
@@ -2904,7 +2922,7 @@ function setupAction(act, b){
       const nx=setupSteps(a)[setupSteps(a).indexOf(su.step)+1]; if(nx) go(nx); return; }
     case 'suback': if(su.pick){ su.pick=false; render(); return; } if(su.edit && su.step===su.edit){ setupAction('sueditcancel'); return; } if(i>0) go(steps[i-1]); return;
     case 'sulater': {
-      if(!state.block && !a.quickSetup){ applySetup(a); buildPlanFromSetup(); } su.paused=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
+      if(!state.block && !a.quickSetup){ applySetup(a); buildPlanFromSetup(); } su.savedSettings=prefillSetup(); su.paused=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
       toast('Saved. Tap “Finish setting up” whenever you’re ready.'); return; }
     case 'suunits': a.bw=convertWeight(a.bw,a.units||'lb',b.dataset.v); a.units=b.dataset.v; break;
     case 'sugender': a.gender=b.dataset.v; break;
@@ -4485,7 +4503,7 @@ document.addEventListener('click', e=>{
   if(a==='coachsendopen'){ coachSendSheet(); return; }
   if(a==='coachsend'){ coachSend(); return; }
   if(a==='suedit' && !state.setup && ui.editFromSettings) state.setup={step:'week1', a:prefillSetup()};
-  if(a.startsWith('su') && a!=='subtoday' && state.setup){ if(a==='suresume'){ state.setup.paused=false; save(); render(); window.scrollTo(0,0); return; } setupAction(a,b); return; }
+  if(a.startsWith('su') && a!=='subtoday' && state.setup){ if(a==='suresume'){ syncPausedSetup(); if(state.setup) state.setup.paused=false; save(); render(); window.scrollTo(0,0); return; } setupAction(a,b); return; }
   if(a[0]==='f' && fAction(a,b)) return;
   if(a[0]==='c' && cAction(a,b)) return;
   if((a[0]==='g'||a==='framp'||a==='frampskip') && gAction(a,b)) return;

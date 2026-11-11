@@ -33,6 +33,8 @@ New users have eight screens: optional profile details, goals, training places, 
 
 Existing in-progress setups keep their longer question flow and saved answers. Pausing a new setup before plan review saves the checkpoint without generating an unchecked plan.
 
+If you pause setup and update your information in Settings, those saved changes carry into the paused answers. Once you have a plan, goals, training places, experience/comfort, and a valid schedule saved, a Settings change clears **Finish setting up** without rebuilding your plan or resetting progress. If setup is still incomplete, Continue keeps your saved information and unfinished answers.
+
 The full legacy/edit flow also offers detailed training-history, color, and cardio questions. Some questions depend on earlier answers.
 
 - Goals: lose weight, build muscle, get stronger, feel healthier, or athletic performance.
