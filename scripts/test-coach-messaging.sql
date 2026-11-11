@@ -1,5 +1,9 @@
 -- Development only. Synthetic people and temporary staff roles roll back.
 begin;
+do $$ begin
+ assert exists(select 1 from pg_publication_tables where pubname='supabase_realtime' and schemaname='public' and tablename='coach_messages'),'Live message publication missing';
+ assert (select relrowsecurity from pg_class where oid='public.coach_messages'::regclass),'Live table has no RLS';
+end $$;
 insert into auth.users(id,email) values
  ('00000000-0000-4000-8000-000000000301','message-member@example.invalid'),
  ('00000000-0000-4000-8000-000000000302','message-coach@example.invalid'),
@@ -41,7 +45,11 @@ select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000302'
 do $$ declare r jsonb; msg jsonb; through text; begin
  r:=public.coach_messaging('summary');assert jsonb_array_length(r->'inbox')=1,'Coach missing thread';
  assert r#>>'{inbox,0,unread}'='1' and r#>>'{inbox,0,needs_reply}'='true','Missing unread/reply state';
+ r:=public.coach_messaging('peek','00000000-0000-4000-8000-000000000301');
+ assert r#>>'{messages,0,read_at}' is null,'Background peek issued a receipt';
+ assert public.coach_messaging('summary')#>>'{inbox,0,unread}'='1','Peek cleared unread';
  r:=public.coach_messaging('read','00000000-0000-4000-8000-000000000301');through:=r#>>'{messages,0,id}';
+ assert r#>>'{messages,0,read_at}' is not null,'Opened conversation has no read receipt';
  r:=public.coach_messaging('summary');assert r#>>'{inbox,0,unread}'='0' and r#>>'{inbox,0,needs_reply}'='true','Reading cleared needs reply';
  perform public.coach_messaging('send','00000000-0000-4000-8000-000000000301',jsonb_build_object('message','Synthetic reply','client_id','00000000-0000-4000-8000-000000000313','through',through));
  assert (select count(*) from public.coach_messages where sender_id=auth.uid())=1,'Sender was forged';
@@ -51,13 +59,19 @@ end $$;
 select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000301',true);
 do $$ declare r jsonb; through text; begin
  r:=public.coach_messaging('summary');assert r#>>'{coach,unread}'='1','Reply missing unread badge';through:=r#>>'{coach,through}';
+ r:=public.coach_messaging('peek');assert r#>>'{messages,1,read_at}' is null,'Unopened reply was marked read';
  perform public.coach_messaging('dismiss',null,jsonb_build_object('through',through));
+ r:=public.coach_messaging('peek');assert r#>>'{messages,1,read_at}' is not null,'Dismiss did not issue Read receipt';
  r:=public.coach_messaging('summary');assert r#>>'{coach,unread}'='0','Dismiss did not clear badge';
  r:=public.coach_messaging('read');assert jsonb_array_length(r->'messages')=2,'Dismiss deleted conversation';
  perform public.coach_messaging('send',null,'{"client_id":"00000000-0000-4000-8000-000000000314","message":"New incoming after coach read"}');
 end $$;
 select set_config('request.jwt.claim.sub','00000000-0000-4000-8000-000000000302',true);
-do $$ declare r jsonb; begin
+do $$ declare r jsonb; previous_ctid text; begin
+ select ctid::text into previous_ctid from public.coach_messages where sender_id<>auth.uid() and message='Synthetic question';
+ r:=public.coach_messaging('peek','00000000-0000-4000-8000-000000000301');assert r#>>'{messages,1,read_at}' is not null,'Sender cannot see Read receipt';
+ perform public.coach_messaging('read','00000000-0000-4000-8000-000000000301');
+ assert (select ctid::text from public.coach_messages where sender_id<>auth.uid() and message='Synthetic question')=previous_ctid,'Repeated read rewrote a receipt and would cause live loops';
  -- A stale retry/done must never resolve a newer member message.
  perform public.coach_messaging('send','00000000-0000-4000-8000-000000000301','{"client_id":"00000000-0000-4000-8000-000000000313","message":"Synthetic reply","through":"999999999"}');
  perform public.coach_messaging('done','00000000-0000-4000-8000-000000000301','{"through":"0"}');

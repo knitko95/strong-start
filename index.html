@@ -576,6 +576,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 /* Coach messages share the existing profile, button and color tokens. */
 .cm-avatar{flex:none;width:48px;height:48px}.cm-name{font-family:var(--body);font-size:18px;font-weight:700;font-style:normal;line-height:1.4;letter-spacing:0}.cm-card{position:relative;gap:12px;padding:14px 16px}.cm-identity{display:flex;align-items:center;gap:12px;padding-right:28px}.cm-today .cm-name{display:block}.cm-card .chip{letter-spacing:normal;text-transform:none}.cm-preview{font-size:14px;line-height:1.4;margin:10px 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.cm-dismiss{position:absolute;right:4px;top:4px;border:0;background:none;color:var(--muted);font-size:24px;min-width:36px;min-height:36px}.cm-card .grow{min-width:0;flex:1}.cm-card>.btn{flex:none}.cm-person{width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:var(--surface);padding:14px 16px;display:flex;align-items:center;gap:12px}.cm-person:last-child{border-bottom:0}.cm-person .grow{min-width:0;flex:1}.cm-person .tiny{white-space:nowrap}.cm-snippet{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;margin-top:4px;font-size:13px}.cm-status{margin-top:6px}.coach-messaging-open{overflow:hidden}.coach-messaging-open>nav.tabs{visibility:hidden}.coach-thread-scrim{top:var(--cm-top,0px);bottom:auto;height:var(--cm-height,100dvh)}.sheet.coach-thread-sheet{height:calc(var(--cm-height,100dvh) - 64px);max-height:calc(var(--cm-height,100dvh) - 24px);background:var(--bg);padding:0;gap:0;overflow:hidden}.cm-head{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface);flex:none}.cm-head .grow{flex:1;min-width:0}.cm-head .btn{flex:none}.cm-conversation{flex:1;min-height:0;overflow:auto;padding:12px 16px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}.cm-date{text-align:center;font-size:12px;color:var(--muted)}.cm-bubble{max-width:88%;padding:12px 14px;border:1px solid var(--line);background:var(--surface);border-radius:16px 16px 16px 4px;font-size:15px;line-height:1.4;flex:none}.cm-bubble.mine{align-self:flex-end;background:var(--accent-soft);border:0;border-radius:16px 16px 4px 16px}.cm-bubble p{margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}.cm-bubble .tiny{display:block;margin-top:6px}.cm-bubble.plan-note{border-left:3px solid var(--accent)}.cm-composer{padding:10px 16px max(14px,var(--safe-bottom));background:var(--surface);border-top:1px solid var(--line);flex:none}.cm-tools{display:flex;align-items:center;min-height:28px;margin-bottom:6px}.cm-tag-toggle{font:inherit;font-size:13px;color:var(--muted);border:0;background:none;padding:4px 0}.cm-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.cm-tags .btn{min-height:32px;font-size:12px}.cm-tags [aria-pressed=true]{background:var(--accent-soft);color:var(--accent)}.cm-compose-row{display:flex;align-items:flex-end;gap:8px}.cm-compose-row textarea{min-height:44px;height:44px;max-height:120px;resize:none;overflow-y:auto;font-family:var(--body);font-size:16px;line-height:22px;padding:10px 14px;border-radius:22px}.cm-compose-row .btn{flex:none;min-height:44px}.cm-done{display:flex;justify-content:center;margin-top:8px}.cm-done .btn{font-size:12px;min-height:32px}.cm-workout-ref{margin-top:6px}.cm-history-tools{flex:none}
 
+.cm-messages{display:flex;flex-direction:column;gap:12px;flex:none}.cm-new-host{display:flex;justify-content:center;padding:8px 16px;background:var(--surface);flex:none}.cm-new-host:empty{display:none}.cm-receipt{text-align:right}
 </style>
 </head>
 <body>
@@ -2581,8 +2582,9 @@ function renderInbox(){
   </section>`; }).join('')}`;
 }
 /* ---------------- Assigned-coach conversations ---------------- */
-const CM={owner:null,summary:null,err:'',flight:null,thread:null,drafts:{},generation:0};
+const CM={owner:null,summary:null,err:'',flight:null,thread:null,drafts:{},generation:0,live:null};
 function cmReset(owner=null){
+  cmLiveStop();
   if(CM.thread) closeModal();
   CM.owner=owner;CM.summary=null;CM.err='';CM.flight=null;CM.thread=null;CM.drafts={};CM.generation++;
 }
@@ -2596,9 +2598,14 @@ async function cmRefresh(){
   if(CM.owner!==AUTH.user.id)cmReset(AUTH.user.id);
   if(CM.flight)return CM.flight;
   const owner=CM.owner,generation=CM.generation;
-  const flight=(async()=>{try{const data=await cmRpc('summary');if(!cmCurrent(owner,generation))return;CM.summary=data;CM.err='';render();}
-    catch(e){if(cmCurrent(owner,generation)){CM.err='Couldn’t load messages. Check your connection and try again.';render();}}})();
+  const flight=(async()=>{try{const data=await cmRpc('summary');if(!cmCurrent(owner,generation))return;const changed=JSON.stringify(CM.summary)!==JSON.stringify(data)||!!CM.err;CM.summary=data;CM.err='';cmLiveStart();if(changed)cmSummaryRender();}
+    catch(e){if(cmCurrent(owner,generation)){CM.err='Couldn’t load messages. Check your connection and try again.';cmSummaryRender();}}})();
   CM.flight=flight;try{await flight;}finally{if(CM.flight===flight)CM.flight=null;}
+}
+function cmSummaryRender(){
+  const active=document.activeElement;
+  if(ui.tab==='workout'||ui.tab==='preview'||(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName)&&active.closest('#app')))return;
+  render();
 }
 function cmAvatar(name){return `<span class="prof-av cm-avatar" aria-hidden="true">${esc((name||'?').trim()[0].toUpperCase())}</span>`;}
 function cmCoachCard(today=false){
@@ -2644,16 +2651,15 @@ async function cmLoad(t,older=false){
 function cmDraw(bottom=false){
   const t=CM.thread;if(!t)return;const old=$('#cm-conversation'),scroll=old&&old.scrollTop,box=$('#cm-text'),selection=box&&[box.selectionStart,box.selectionEnd];
   const needs=t.coach&&(t.needsReply??t.messages.some(m=>m.sender_id!==CM.owner&&!m.resolved_at));
-  let date='';const messages=t.messages.map(m=>{const d=new Date(m.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'}),stamp=d!==date?`<div class="cm-date">${esc(d)}</div>`:'';date=d;
-    return stamp+`<div class="cm-bubble ${m.sender_id===CM.owner?'mine':''} ${m.kind==='plan'?'plan-note':''}">${m.kind==='plan'?'<span class="chip">Plan update</span>':m.tag?`<span class="chip">${esc(fbTagName(m.tag))}</span>`:''}<p>${esc(m.message)}</p>${m.workout&&m.workout.name?`<span class="tiny muted">Workout: ${esc(m.workout.name)}${m.workout.status?' · '+esc(m.workout.status):''}</span>`:''}<span class="tiny muted">${esc(m.sender_id===CM.owner?'You':t.name)} · ${esc(new Date(m.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}))}</span></div>`;}).join('');
+  const messages=cmMessageMarkup(t);
   modal(`<header class="cm-head"><div class="row" style="flex-wrap:nowrap">${cmAvatar(t.name)}<div class="grow"><div class="eyebrow">${t.coach?'Messages':'Your coach'}</div><h2 class="cm-name">${esc(t.name)}</h2></div><button class="btn sm ghost" data-action="closemodal">${ui.tab==='workout'?'Back to workout':t.coach?'Back':'Done'}</button></div></header>
-    <div id="cm-conversation" class="cm-conversation"><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':'<span></span>'}<button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div>${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
-    <footer class="cm-composer"><div class="cm-tools">${t.coach?`<span class="tiny muted">${needs?'Needs reply':'Done'}</span>`:`<button class="cm-tag-toggle" data-action="cmtags" aria-expanded="${!!t.draft.tagsOpen}">${t.draft.tag?'Tag: '+esc(fbTagName(t.draft.tag))+' ×':'+ Add tag'}</button>`}</div>
+    <div id="cm-conversation" class="cm-conversation"><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':''}<span id="cm-live-status" class="tiny muted" role="status" style="flex:1"></span><button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div><div id="cm-messages" class="cm-messages">${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}</div>${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
+    <div id="cm-new-host" class="cm-new-host"></div><footer class="cm-composer"><div class="cm-tools">${t.coach?`<span id="cm-reply-status" class="tiny muted">${needs?'Needs reply':'Done'}</span>`:`<button class="cm-tag-toggle" data-action="cmtags" aria-expanded="${!!t.draft.tagsOpen}">${t.draft.tag?'Tag: '+esc(fbTagName(t.draft.tag))+' ×':'+ Add tag'}</button>`}</div>
       ${!t.coach&&t.draft.tagsOpen?`<div class="cm-tags">${FB_TAGS.coach.map(([k,l])=>`<button class="btn sm" data-action="cmtag" data-v="${k}" aria-pressed="${t.draft.tag===k}">${l}</button>`).join('')}</div>`:''}
       <div class="cm-compose-row"><textarea id="cm-text" aria-label="${t.coach?'Reply to '+esc(t.name):'Message '+esc(t.name)}" placeholder="${t.coach?'Reply to':'Message'} ${esc(t.name)}…" rows="1" maxlength="4000" ${t.busy?'disabled':''}>${esc(t.draft.text)}</textarea><button class="btn primary" data-action="cmsend" ${t.busy||t.loading?'disabled':''}>${t.busy?'Sending…':'Send'}</button></div>
       ${t.draft.workout&&t.draft.workout.name?`<div class="tiny muted cm-workout-ref">With: ${esc(t.draft.workout.name)} · ${esc(t.draft.workout.status||'')}</div>`:''}
-      ${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</footer>`);
-  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmViewport();cmGrow();
+      <div id="cm-done-host">${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</div></footer>`);
+  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmViewport();cmGrow();cmLiveStart();cmLiveStatus();cmNewButton();
   const conversation=$('#cm-conversation');conversation.scrollTop=bottom?conversation.scrollHeight:scroll||0;
   if(selection&&document.activeElement===$('#cm-text'))$('#cm-text').setSelectionRange(...selection);
 }
@@ -2672,6 +2678,7 @@ async function cmSend(){
 async function cmDone(){const t=CM.thread;if(!t||!t.coach||t.busy)return;const owner=CM.owner,generation=CM.generation;t.busy=true;const through=cmThrough(t);try{await cmRpc('done',t.member,{through});if(!cmCurrent(owner,generation))return;t.busy=false;if(CM.thread===t)await cmLoad(t);cmRefresh();}catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.err='Couldn’t mark done. Try again.';if(CM.thread===t)cmDraw();}}}
 async function cmDismiss(){const c=CM.summary&&CM.summary.coach;if(!c||!c.unread)return;const owner=CM.owner,generation=CM.generation;try{await cmRpc('dismiss',null,{through:c.through});if(cmCurrent(owner,generation))await cmRefresh();}catch(e){if(cmCurrent(owner,generation))toast('Couldn’t dismiss the message. Check your connection and try again.');}}
 function cmAction(a,b){
+  if(a==='cmnew'){cmShowNew();return true;}
   if(a==='cmopen'){cmOpen(b.dataset.id||null,b.dataset.n||'',b.dataset.log||null);return true;}
   if(a==='cmrefresh'){cmRefresh();return true;}
   if(a==='cmdismiss'){cmDismiss();return true;}
@@ -2687,6 +2694,91 @@ function cmAction(a,b){
 document.addEventListener('input',e=>{if(e.target.id==='cm-text'&&CM.thread){CM.thread.draft.text=e.target.value;CM.thread.draft.clientId=null;cmGrow();}});
 window.addEventListener('resize',cmViewport);if(window.visualViewport){window.visualViewport.addEventListener('resize',cmViewport);window.visualViewport.addEventListener('scroll',cmViewport);}
 
+
+/* Realtime is an invalidation signal; authorized RPCs remain the source of truth. */
+function cmLiveVisible(){return document.visibilityState!=='hidden';}
+function cmLiveCurrent(live){return CM.live===live&&cmCurrent(live.owner,live.generation)&&!coachMode&&AUTH.access==='ok';}
+function cmLiveStop(){
+  const live=CM.live;if(!live)return;CM.live=null;clearTimeout(live.timer);clearTimeout(live.retry);clearInterval(live.poll);
+  if(live.channel){try{const removed=live.client.removeChannel(live.channel);if(removed&&removed.catch)removed.catch(()=>{});}catch(e){}}
+}
+function cmLiveStatus(){
+  const label=!navigator.onLine?'Offline':!CM.live||CM.live.status!=='SUBSCRIBED'||CM.live.fetchFailed?'Reconnecting…':'';
+  const el=$('#cm-live-status');if(el)el.textContent=label;
+}
+function cmLiveStart(){
+  if(!sb||!AUTH.user||AUTH.deleting||coachMode||AUTH.access!=='ok'||!cmLiveVisible()||navigator.onLine===false)return;
+  if(CM.live&&cmLiveCurrent(CM.live))return;
+  cmLiveStop();const live={owner:CM.owner,generation:CM.generation,client:sb,status:'CONNECTING',channel:null,timer:null,poll:null,running:false,pending:false};CM.live=live;
+  if(typeof sb.channel==='function')try{
+    live.channel=sb.channel('coach-messages-'+live.owner+'-'+live.generation)
+      .on('postgres_changes',{event:'INSERT',schema:'public',table:'coach_messages'},()=>cmLiveSchedule(live))
+      .on('postgres_changes',{event:'UPDATE',schema:'public',table:'coach_messages'},()=>cmLiveSchedule(live));
+    live.channel.subscribe(status=>{if(!cmLiveCurrent(live))return;live.status=status;cmLiveStatus();
+      if(status==='SUBSCRIBED'){clearTimeout(live.retry);live.retry=null;cmLiveSchedule(live);}
+      else if(['CHANNEL_ERROR','TIMED_OUT','CLOSED'].includes(status)&&!live.retry)live.retry=setTimeout(()=>{if(cmLiveCurrent(live)){cmLiveStop();cmLiveStart();cmLiveSchedule();}},10000);
+    });
+  }catch(e){live.status='CHANNEL_ERROR';}
+  // Also catches changes missed during disconnects or a failed subscription.
+  live.poll=setInterval(()=>{if(cmLiveCurrent(live)&&cmLiveVisible())cmLiveSchedule(live);},15000);cmLiveStatus();
+}
+function cmLiveSchedule(live=CM.live){
+  if(!live||!cmLiveCurrent(live)||!cmLiveVisible())return;live.pending=true;if(live.timer||live.running)return;
+  live.timer=setTimeout(()=>{live.timer=null;cmLiveFlush(live);},180);
+}
+async function cmLiveFlush(live){
+  if(!cmLiveCurrent(live)||!cmLiveVisible())return;
+  const t=CM.thread;if(t&&(t.busy||t.loading||t.liveLoading)){live.timer=setTimeout(()=>{live.timer=null;cmLiveFlush(live);},300);return;}
+  live.running=true;live.pending=false;
+  try{await cmRefresh();if(cmLiveCurrent(live)&&cmLiveVisible()&&CM.thread)await cmLiveThread(CM.thread,live);}
+  finally{live.running=false;if(live.pending&&cmLiveCurrent(live))cmLiveSchedule(live);}
+}
+function cmNearBottom(){const el=$('#cm-conversation');return !!el&&el.scrollHeight-el.scrollTop-el.clientHeight<64;}
+function cmMessageMarkup(t){
+  const latest=t.messages.filter(m=>m.sender_id===CM.owner).at(-1);let date='';
+  return t.messages.map(m=>{const d=new Date(m.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'}),stamp=d!==date?`<div class="cm-date">${esc(d)}</div>`:'';date=d;
+    return stamp+`<div class="cm-bubble ${m.sender_id===CM.owner?'mine':''} ${m.kind==='plan'?'plan-note':''}" data-message-id="${esc(m.id)}">${m.kind==='plan'?'<span class="chip">Plan update</span>':m.tag?`<span class="chip">${esc(fbTagName(m.tag))}</span>`:''}<p>${esc(m.message)}</p>${m.workout&&m.workout.name?`<span class="tiny muted">Workout: ${esc(m.workout.name)}${m.workout.status?' · '+esc(m.workout.status):''}</span>`:''}<span class="tiny muted">${esc(m.sender_id===CM.owner?'You':t.name)} · ${esc(new Date(m.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}))}</span>${m===latest?`<span class="tiny muted cm-receipt" aria-label="Message ${m.read_at?'read':'sent'}">${m.read_at?'Read':'Sent'}</span>`:''}</div>`;
+  }).join('');
+}
+function cmNewButton(){const host=$('#cm-new-host');if(host)host.innerHTML=CM.thread&&CM.thread.newCount?'<button class="btn sm" data-action="cmnew">New messages ↓</button>':'';}
+async function cmLiveThread(t,live){
+  if(CM.thread!==t||t.loading||t.busy||!cmLiveVisible())return;
+  const request=t.readVersion=(t.readVersion||0)+1,follow=cmNearBottom()&&!t.newCount;const owner=CM.owner,generation=CM.generation;
+  t.liveLoading=true;
+  try{const data=await cmRpc(follow?'read':'peek',t.member);
+    const known=new Set(t.messages.map(m=>m.id));let page=data;
+    // Fetch any gap after an outage before replacing the visible history.
+    while(page.has_more&&page.messages.length&&!page.messages.some(m=>known.has(m.id))){
+      if(!cmLiveCurrent(live)||CM.thread!==t||!cmLiveVisible())return;
+      page=await cmRpc('peek',t.member,{before:page.messages[0].id});data.messages=[...page.messages,...data.messages];
+    }
+    if(!cmCurrent(owner,generation)||!cmLiveCurrent(live)||CM.thread!==t||t.readVersion!==request||!cmLiveVisible())return;
+    const el=$('#cm-conversation'),messages=$('#cm-messages');if(!el||!messages)return;
+    const scroll=el.scrollTop,wasBottom=cmNearBottom()&&!t.newCount,oldIds=new Set(t.messages.map(m=>m.id)),previous=JSON.stringify(t.messages);
+    const merged=new Map(t.messages.map(m=>[m.id,m]));data.messages.forEach(m=>merged.set(m.id,m));
+    t.messages=[...merged.values()].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||(BigInt(a.id)<BigInt(b.id)?-1:1));
+    t.through=data.through;t.needsReply=data.needs_reply??t.messages.some(m=>m.sender_id!==owner&&!m.resolved_at);live.fetchFailed=false;
+    const fresh=data.messages.filter(m=>!oldIds.has(m.id)&&m.sender_id!==owner).length;
+    if(!wasBottom)t.newCount=(t.newCount||0)+fresh;
+    if(previous!==JSON.stringify(t.messages)){
+      // Keep the actual composer node, focus, selection, and keyboard intact.
+      messages.innerHTML=cmMessageMarkup(t);el.scrollTop=wasBottom?el.scrollHeight:scroll;
+    }
+    if(wasBottom)t.newCount=0;cmNewButton();
+    if(t.coach){const status=$('#cm-reply-status'),done=$('#cm-done-host');if(status)status.textContent=t.needsReply?'Needs reply':'Done';if(done&&!!done.querySelector('[data-action="cmdone"]')!==!!t.needsReply)done.innerHTML=t.needsReply?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':'';}
+    if(follow&&fresh)live.pending=true;
+  }catch(e){if(cmLiveCurrent(live))live.fetchFailed=true;}
+  finally{t.liveLoading=false;cmLiveStatus();}
+}
+function cmShowNew(){const t=CM.thread,el=$('#cm-conversation');if(!t||!el)return;t.newCount=0;cmNewButton();el.scrollTop=el.scrollHeight;cmLiveSchedule();}
+document.addEventListener('scroll',e=>{if(e.target&&e.target.id==='cm-conversation'&&CM.thread&&cmNearBottom()&&cmLiveVisible()){
+  const t=CM.thread;if(t.newCount){t.newCount=0;cmNewButton();}
+  if(t.messages.some(m=>m.sender_id!==CM.owner&&!m.read_at))cmLiveSchedule();
+}},true);
+document.addEventListener('visibilitychange',()=>{if(!cmLiveVisible()){cmLiveStop();return;}cmLiveStart();cmLiveSchedule();});
+window.addEventListener('online',()=>{cmLiveStop();cmLiveStart();cmLiveSchedule();});
+window.addEventListener('offline',()=>{cmLiveStop();cmLiveStatus();});
+window.addEventListener('pagehide',cmLiveStop);
 
 /* ---------------- Rendering ---------------- */
 const $ = s => document.querySelector(s);
