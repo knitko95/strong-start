@@ -486,11 +486,27 @@ body.in-focus .wrap{padding-bottom:24px}
 .prow .linkbtn,.fl-list .linkbtn{text-decoration:none}
 .fpair{display:flex;gap:10px;width:100%}.fpair .btn{flex:1;min-width:0;border-radius:14px;min-height:50px}
 .ffeel .btn{padding:8px 4px;font-size:15px;white-space:nowrap}
+.hright{display:flex;align-items:center;gap:10px;flex:none}
+.fbbtn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 12px 6px 10px;font-size:13px;font-weight:700;min-height:34px}
+.fbbtn svg,.ficon.fbq svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.fbbtn svg{color:var(--accent)}
+.ficon.fbq svg{width:19px;height:19px}
+.fbbtn[hidden]{display:none}
+@media (max-width:389px){ .top .wrap{gap:8px} .brand{font-size:20px} .bmark{width:28px;height:28px} .hright{gap:7px} .fbbtn{padding:6px 10px 6px 8px;gap:5px} }
+@media (max-width:339px){ .brand .bword{font-size:18px} .sync span:last-child{display:none} }
+nav.tabs .ticon{position:relative;display:inline-flex}
+.tbadge{position:absolute;top:-6px;left:13px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:var(--on-accent);font-size:11px;font-weight:800;line-height:18px;text-align:center;box-shadow:0 0 0 2px var(--surface)}
+.fbtags{display:flex;flex-wrap:wrap;gap:8px}.fbtags .painchip{padding:7px 13px;font-size:14px}
+#fbtext{font-family:var(--body);font-size:15px;min-height:110px;padding:10px 12px;border-radius:14px}
+.inboxrow{display:flex;align-items:center;gap:12px;width:100%;border:0;background:none;padding:4px 0;text-align:left;color:var(--ink)}
+.inboxrow .ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
+.inboxrow .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+.fbitem.isnew{box-shadow:inset 3px 0 0 var(--accent),var(--shadow)}
 .pstart{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3;background:linear-gradient(transparent,var(--bg) 22%);padding-top:18px;margin-top:-8px}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="sync" id="sync"><span class="dot ok"></span><span>Saved on this device</span></div></div></header>
+<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><div class="sync" id="sync" title="Saved on this device"><span class="dot ok"></span><span>Saved</span></div><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header>
 <div class="wrap"><main id="app"></main></div>
 <div id="timer"></div>
 <nav class="tabs" aria-label="Sections"><div class="in" id="tabs"></div></nav>
@@ -1530,8 +1546,8 @@ function needsAuth(){ return !!sb && !AUTH.user && !rememberedAcct() && !localOn
 function withTimeout(p,ms){ return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),ms))]); }
 function setSync(kind){
   const el=document.getElementById('sync'); if(!el) return;
-  const m={ cloud:['ok','Saved to your account'], saving:['','Saving…'], local:['ok','Saved on this device'], off:['warn','Saved on this phone · syncs when online'], coach:['warn','Their app · not saved'] }[kind]||['ok','Saved on this device'];
-  el.innerHTML=`<span class="dot ${m[0]}"></span><span>${m[1]}</span>`;
+  const m={ cloud:['ok','Saved','Saved to your account'], saving:['','Saving…','Saving'], local:['ok','Saved','Saved on this device'], off:['warn','Offline','Saved on this phone · syncs when online'], coach:['warn','Their app','Their app · not saved'] }[kind]||['ok','Saved','Saved on this device'];
+  el.title=m[2]; el.innerHTML=`<span class="dot ${m[0]}"></span><span>${m[1]}</span>`;
 }
 const substantive = (st,lg) => !!(st && (st.onboarded || st.block)) || (lg && lg.length>0);
 
@@ -1563,13 +1579,13 @@ async function onSignedIn(u){
   render();
   try{
     setSync('saving');
-    const [st,lg,co]=await Promise.all([
+    const [st,lg,co,ow]=await Promise.all([
       sb.from('app_state').select('state,updated_at').eq('user_id',u.id).maybeSingle(),
       sb.from('workout_logs').select('id,data').eq('user_id',u.id).order('date',{ascending:false}),
-      sb.rpc('is_coach')
+      sb.rpc('is_coach'), sb.rpc('is_app_owner')
     ]);
     if(st.error) throw st.error; if(lg.error) throw lg.error;
-    AUTH.coach=!co.error && co.data===true;
+    AUTH.coach=!co.error && co.data===true; FB.owner=!ow.error && ow.data===true;
     const rs=st.data&&st.data.state, rl=(lg.data||[]).map(r=>r.data);
     CLOUD.written={}; rl.forEach(l=>CLOUD.written[l.id]=JSON.stringify(l));
     // Workouts: keep every one from both places. Setup and plan: keep the newer copy.
@@ -1584,7 +1600,7 @@ async function onSignedIn(u){
       if(state.draft && !state.setup && ui.tab!=='workout') ui.tab='workout';
       render(); await pushCloud(); await applyPlanUpdates();
     } else render();
-    setSync('cloud');
+    setSync('cloud'); refreshUnread();
   }catch(e){ CLOUD.ok=!!AUTH.user; setSync('off'); }
 }
 
@@ -1613,7 +1629,7 @@ async function pullCloud(){
   try{
     const {data,error}=await sb.from('app_state').select('updated_at').eq('user_id',AUTH.user.id).maybeSingle();
     if(!error && data && (+data.updated_at||0) > (state.updatedAt||0) && !state.draft){ AUTH.user && onSignedIn(AUTH.user); return; }
-    await applyPlanUpdates();
+    await applyPlanUpdates(); refreshUnread();
   }catch(e){}
 }
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pullCloud(); });
@@ -1699,7 +1715,7 @@ async function signOut(){
   try{ await sb.auth.signOut(); }catch(e){}
   try{ localStorage.removeItem(LS); }catch(e){}
   lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
-  AUTH.user=null; AUTH.coach=false; AUTH.mode='signin'; CLOUD.ok=false; CLOUD.written={}; CLOUD.stateJson=null; coachMode=null;
+  AUTH.user=null; AUTH.coach=false; FB.owner=false; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; CLOUD.written={}; CLOUD.stateJson=null; coachMode=null;
   state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync('local');
 }
 function accountCard(){
@@ -1716,6 +1732,7 @@ function accountCard(){
 function agoText(d){ if(!d) return 'No workouts yet'; const days=Math.floor((Date.now()-new Date(d).getTime())/864e5); return days<=0?'Worked out today':days===1?'Last workout yesterday':`Last workout ${days} days ago`; }
 async function loadPeople(){
   ui.people={loading:true, list:(ui.people&&ui.people.list)||[]}; render();
+  refreshUnread();
   const {data,error}=await sb.rpc('coach_people');
   ui.people={loading:false, err:error?authFriendly(error):'', list:data||[]}; if(ui.tab==='people') render();
 }
@@ -1723,6 +1740,7 @@ function renderPeople(){
   const P=ui.people||{list:[]}, me=AUTH.user&&AUTH.user.id;
   return `<section><div class="eyebrow">Coach</div><h1>Your people</h1></section>
   <div class="row"><button class="btn sm" data-action="tab" data-tab="settings">‹ Settings</button><button class="btn sm ghost" data-action="peoplereload">${P.loading?'Loading…':'Refresh'}</button></div>
+  ${inboxCards()}
   ${P.err?`<p class="small" role="alert">${esc(P.err)}</p>`:''}
   ${!P.loading && !P.list.length?`<section class="card"><p class="small muted" style="margin:0">No one has signed up yet. Send people the app link and they’ll show up here once they create an account.</p></section>`:''}
   ${P.list.map(p=>`<section class="card stack" style="gap:6px">
@@ -1754,6 +1772,140 @@ async function coachSend(){
   if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
   closeModal(); toast(`Sent. ${coachMode.name}’s app updates next time they open it.`);
 }
+
+/* Feedback: "About the app" goes only to the app owner; "To my coach" goes to coaches */
+const FB={owner:false, unread:{app:0,coach:0}, box:null};
+let FBS={side:'app', tag:'', text:'', busy:false};
+const FB_TAGS={app:[['bug','Bug'],['idea','Idea'],['confusing','Confusing'],['exercise','Exercise']], coach:[['too_hard','Too hard'],['too_easy','Too easy'],['hurt','Something hurt'],['question','Question']]};
+const fbTagName=t=>{ for(const k in FB_TAGS){ const f=FB_TAGS[k].find(x=>x[0]===t); if(f) return f[1]; } return ''; };
+const BUBBLE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>';
+function fbUnreadTotal(){ return (AUTH.coach?FB.unread.coach:0)+(FB.owner?FB.unread.app:0); }
+async function refreshUnread(){
+  if(!sb || !AUTH.user || !(AUTH.coach||FB.owner)) return;
+  try{
+    const q=k=>sb.from('feedback').select('id',{count:'exact',head:true}).eq('kind',k).is('read_at',null).neq('user_id',AUTH.user.id);
+    const [c,a]=await Promise.all([AUTH.coach?q('coach'):{count:0}, FB.owner?q('app'):{count:0}]);
+    const nu={coach:c.error?FB.unread.coach:(c.count||0), app:a.error?FB.unread.app:(a.count||0)};
+    if(nu.coach!==FB.unread.coach || nu.app!==FB.unread.app){ FB.unread=nu; render(); }
+  }catch(e){}
+}
+function fbDevice(){
+  const ua=navigator.userAgent||''; let os='Computer', v='';
+  if(/iPhone/.test(ua)) os='iPhone'; else if(/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1)) os='iPad'; else if(/Android/.test(ua)) os='Android'; else if(/Mac/.test(ua)) os='Mac'; else if(/Windows/.test(ua)) os='Windows';
+  const io=ua.match(/OS (\d+)_(\d+)/); if(io && (os==='iPhone'||os==='iPad')) v=' (iOS '+io[1]+'.'+io[2]+')'; const an=ua.match(/Android (\d+)/); if(an) v=' '+an[1];
+  const br=/EdgiOS|Edg\//.test(ua)?'Edge':/CriOS|Chrome\//.test(ua)?'Chrome':/FxiOS|Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'Browser';
+  let home=false; try{ home=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true; }catch(e){}
+  return `${os}${v} · ${home?'Home Screen app':br} · ${innerWidth}×${innerHeight}`;
+}
+function fbScreen(){
+  try{
+    if(state.setup && !state.setup.paused) return 'Setup';
+    if(ui.tab==='workout' && state.draft){ const st=state.draft.step||{}, nm=tplOf(state.draft.key).name;
+      const sl=st.pk?dSlots().find(x=>x.pk===st.pk):null;
+      return `Workout: ${nm} · ${st.ph==='warm'?'warm-up':st.ph==='cool'?'cool-down':sl?EX[sl.id].n:'in progress'}`; }
+    if(ui.tab==='preview' && ui.preview) return 'Workout preview: '+tplOf(ui.preview).name;
+    return ({today:'Today',plan:'Plan',library:'Library',history:'History',settings:'Settings',people:'Your people',inbox:'Inbox',weigh:'Weigh-in',equip:'Equipment'})[ui.tab]||ui.tab;
+  }catch(e){ return ui.tab||''; }
+}
+function fbWorkout(side,logId){
+  try{
+    if(logId){ const l=logs.find(x=>x.id===logId); if(l) return {id:l.id, name:l.name, date:l.date, status:'finished'}; }
+    if(state.draft) return {name:tplOf(state.draft.key).name, status:'in progress', week:state.draft.week};
+    if(side==='coach'){
+      const today=new Date().toDateString(), l=logs.find(x=>new Date(x.date).toDateString()===today);
+      if(l) return {id:l.id, name:l.name, date:l.date, status:'finished'};
+      if(state.block){ const done=new Set(weekLogs(weekNum()).map(x=>x.key)), k=weekKeys().find(x=>!done.has(x)); if(k) return {name:tplOf(k).name, status:'up next'}; }
+    }
+  }catch(e){}
+  return null;
+}
+function fbOpen(side,logId){
+  if(!AUTH.user){ toast('Sign in to send feedback.'); return; }
+  FBS={side:side==='coach'?'coach':'app', tag:'', text:FBS.text||'', busy:false, screen:fbScreen(), device:fbDevice(), logId:logId||null};
+  fbRender();
+}
+function fbRender(){
+  const S=FBS, app=S.side==='app', w=fbWorkout(S.side,S.logId);
+  const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
+  modal(`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>
+    <p class="small muted" style="margin:0">${app?'Something broken, confusing or missing? Tell us. This goes to the people who make the app.':`Only ${esc(coachName())} sees this.`}</p>
+    <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
+    <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
+    <div class="tiny muted">Sent with: ${sentWith}</div>
+    <div class="row"><button class="btn primary" data-action="msgsend" ${S.busy?'disabled':''}>${S.busy?'Sending…':app?'Send':'Send to my coach'}</button><button class="btn" data-action="msgcancel">Cancel</button></div>`);
+}
+document.addEventListener('input',e=>{ if(e.target&&e.target.id==='fbtext') FBS.text=e.target.value; });
+function fbKeepText(){ const t=$('#fbtext'); if(t) FBS.text=t.value; }
+async function fbSend(){
+  fbKeepText(); const msg=(FBS.text||'').trim();
+  if(!msg){ toast('Write a few words first.'); const t=$('#fbtext'); if(t) t.focus(); return; }
+  if(FBS.busy) return; FBS.busy=true; fbRender();
+  const app=FBS.side==='app', w=fbWorkout(FBS.side,FBS.logId);
+  const row={kind:FBS.side, tag:FBS.tag||null, message:msg.slice(0,4000), workout:w};
+  if(app){ row.screen=String(FBS.screen||'').slice(0,200); row.device=String(FBS.device||'').slice(0,300); }
+  let error=null; try{ ({error}=await withTimeout(sb.from('feedback').insert(row),12000)); }catch(e){ error=e; }
+  FBS.busy=false;
+  if(error){ fbRender(); toast('Couldn’t send. Check your connection and try again.'); return; }
+  FBS.text=''; closeModal(); toast(app?'Thanks! Your feedback was sent.':`Sent to ${coachName()}.`);
+  refreshUnread();
+}
+function fbAction(a,b){
+  if(a==='msgopen'){ fbOpen(b.dataset.side,b.dataset.log); return true; }
+  if(a==='msgside'){ fbKeepText(); FBS.side=b.dataset.side; FBS.tag=''; fbRender(); return true; }
+  if(a==='msgtag'){ fbKeepText(); FBS.tag=FBS.tag===b.dataset.v?'':b.dataset.v; fbRender(); return true; }
+  if(a==='msgsend'){ fbSend(); return true; }
+  if(a==='msgcancel'){ fbKeepText(); closeModal(); return true; }
+  if(a==='msginbox'){ ui.tab='inbox'; loadInbox(b.dataset.k); window.scrollTo(0,0); return true; }
+  if(a==='msgfilter'){ if(FB.box){ FB.box.filter=b.dataset.v; render(); } return true; }
+  if(a==='msgdone'){ markDone(+b.dataset.id, b.dataset.v!=='0'); return true; }
+  if(a==='msgperson'){ openPerson(b.dataset.id,b.dataset.n); return true; }
+  return false;
+}
+async function loadInbox(kind){
+  const prev=FB.box&&FB.box.kind===kind?FB.box:null;
+  FB.box={kind, loading:true, err:'', list:prev?prev.list:[], filter:prev?prev.filter:'new'}; render();
+  const {data,error}=await sb.from('feedback').select('id,user_id,kind,tag,message,screen,device,workout,created_at,read_at,done_at,profiles(name,email)').eq('kind',kind).order('created_at',{ascending:false}).limit(300);
+  if(!FB.box || FB.box.kind!==kind) return;
+  if(error){ FB.box.loading=false; FB.box.err=authFriendly(error); render(); return; }
+  (data||[]).forEach(r=>r.isNew=!r.read_at);
+  FB.box.list=data||[]; FB.box.loading=false; render();
+  const ids=FB.box.list.filter(r=>!r.read_at).map(r=>r.id);
+  if(ids.length){ const now=new Date().toISOString(); const {error:e2}=await sb.from('feedback').update({read_at:now}).in('id',ids);
+    if(!e2){ FB.box.list.forEach(r=>{ if(ids.includes(r.id)) r.read_at=now; }); FB.unread[kind]=0; render(); } }
+  refreshUnread();
+}
+async function markDone(id,done){
+  const r=FB.box&&FB.box.list.find(x=>x.id===id); if(!r) return;
+  const {error}=await sb.from('feedback').update({done_at:done?new Date().toISOString():null}).eq('id',id);
+  if(error){ toast('Couldn’t save. Check your connection.'); return; }
+  r.done_at=done?new Date().toISOString():null; render(); if(done) toast('Marked done');
+}
+function fbAgo(d){ const m=Math.round((Date.now()-new Date(d).getTime())/6e4); if(m<1) return 'just now'; if(m<60) return m+' min ago'; const h=Math.round(m/60); if(h<24) return h+' h ago';
+  return new Date(d).toLocaleDateString(undefined,{month:'short',day:'numeric'})+', '+new Date(d).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
+function inboxCards(){
+  const row=(k,t,sub)=>{ const n=FB.unread[k]; return `<button class="inboxrow" data-action="msginbox" data-k="${k}"><span class="ic">${BUBBLE}</span><span style="flex:1;min-width:0"><b>${t}</b><br><span class="tiny muted">${sub}</span></span>${n?`<span class="chip acc">${n} new</span>`:''}<span class="muted" aria-hidden="true">›</span></button>`; };
+  const rows=[AUTH.coach?row('coach','From your people','Messages people send you as their coach'):'', FB.owner?row('app','App feedback','Bugs, ideas and questions about the app'):''].filter(Boolean);
+  return rows.length?`<section class="card stack" style="gap:8px">${rows.join('<div style="height:1px;background:var(--line)"></div>')}</section>`:'';
+}
+function renderInbox(){
+  const B=FB.box||{kind:'app',list:[],filter:'new'}, app=B.kind==='app', me=AUTH.user&&AUTH.user.id;
+  const open=B.list.filter(r=>!r.done_at), shown=B.filter==='all'?B.list:open;
+  return `<section><div class="eyebrow">${app?'Inbox':'Coach'}</div><h1>${app?'App feedback':'From your people'}</h1></section>
+  <div class="row"><button class="btn sm" data-action="people">‹ Your people</button><button class="btn sm ghost" data-action="msginbox" data-k="${B.kind}">${B.loading?'Loading…':'Refresh'}</button></div>
+  <div class="tabs2"><button class="${B.filter!=='all'?'on':''}" data-action="msgfilter" data-v="new">New (${open.length})</button><button class="${B.filter==='all'?'on':''}" data-action="msgfilter" data-v="all">All (${B.list.length})</button></div>
+  ${B.err?`<p class="small" role="alert">${esc(B.err)}</p>`:''}
+  ${!B.loading && !shown.length?`<section class="card"><p class="small muted" style="margin:0">${B.filter==='all'?'Nothing here yet.':'All caught up.'}</p></section>`:''}
+  ${shown.map(r=>{ const p=r.profiles||{}, nm=p.name||p.email||'Someone', w=r.workout;
+    return `<section class="card stack fbitem ${r.isNew?'isnew':''}" style="gap:6px">
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap;gap:8px"><div style="min-width:0"><b>${esc(nm)}</b>${r.user_id===me?' <span class="tiny muted">(you)</span>':''} <span class="tiny muted">· ${esc(fbAgo(r.created_at))}</span></div>${r.tag?`<span class="chip acc">${esc(fbTagName(r.tag))}</span>`:''}</div>
+    <div class="small" style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(r.message)}</div>
+    ${app&&r.screen?`<div class="tiny muted">Screen: ${esc(r.screen)}</div>`:''}
+    ${w&&w.name?`<div class="tiny muted">Workout: ${esc(w.name)}${w.status?` (${esc(w.status)})`:''}</div>`:''}
+    ${app&&r.device?`<div class="tiny muted">Device: ${esc(r.device)}</div>`:''}
+    <div class="row" style="gap:8px">${r.done_at?`<span class="chip good">Done</span><button class="btn sm ghost" data-action="msgdone" data-id="${r.id}" data-v="0">Undo</button>`:`<button class="btn sm" data-action="msgdone" data-id="${r.id}" data-v="1">Mark done</button>`}
+      ${r.user_id!==me&&AUTH.coach?`<button class="btn sm primary" data-action="msgperson" data-id="${esc(r.user_id)}" data-n="${esc(nm)}">Open their app</button>`:''}</div>
+  </section>`; }).join('')}`;
+}
 /* ---------------- Rendering ---------------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1776,13 +1928,15 @@ const GENDERS=[['f','Woman'],['m','Man'],['x','Rather not say']];
 function genderSeg(cur, action){ return `<div class="seg" role="group" aria-label="Gender" style="flex-wrap:wrap">${GENDERS.map(([k,l])=>`<button data-action="${action}" data-g="${k}" aria-pressed="${cur===k}">${l}</button>`).join('')}</div>`; }
 function render(){
   applyColor();
+  const fbb=document.getElementById('fbbtn'); if(fbb) fbb.hidden=!(AUTH.user && !AUTH.recovery);
   if(AUTH.recovery || needsAuth()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderAuth(); renderTimer(); return; }
   const inSetup = state.setup && !state.setup.paused;
   document.body.classList.toggle('in-setup', !!inSetup);
   document.body.classList.toggle('in-focus', !inSetup && ((ui.tab==='workout' && !!state.draft) || ui.tab==='preview'));
   if(inSetup){ $('#tabs').innerHTML=''; $('#app').innerHTML=renderSetup(); renderTimer(); return; }
-  $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people')&&k==='settings')?'aria-current="page"':''}>${ICONS[k]}<span>${l}</span></button>`).join('');
-  const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
+  const nUnread=fbUnreadTotal();
+  $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people'||ui.tab==='inbox')&&k==='settings')?'aria-current="page"':''} ${k==='settings'&&nUnread?`aria-label="Settings, ${nUnread} unread"`:''}><span class="ticon">${ICONS[k]}${k==='settings'&&nUnread?`<span class="tbadge" aria-hidden="true">${nUnread>99?'99+':nUnread}</span>`:''}</span><span>${l}</span></button>`).join('');
+  const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, inbox:renderInbox, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
   $('#app').innerHTML = (coachMode && ui.tab!=='workout' && ui.tab!=='preview' ? coachBanner() : '') + v;
   renderTimer(); syncWake(); warmClock();
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
@@ -2406,7 +2560,7 @@ function fTop(d,slots){
   segs.push(st.ph==='cool'?'c':'');
   return `<div class="ftop"><button class="ficon" data-action="fexit" aria-label="Pause or end workout">✕</button>
     <div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
-    <button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div>`;
+    ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div>`;
 }
 function stepper(pk,i,f,val,unit,label){
   return `<div class="fstep"><div class="fl">${label}</div><div class="frow">
@@ -3351,7 +3505,7 @@ function sec(id,title,summary,body){
 function renderSettings(){
   const s=state.settings, ds=trainDays();
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
-  ${AUTH.coach&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b><div class="tiny muted">See everyone’s progress and update their plans</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
+  ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
   ${coachMode?'':accountCard()}
   ${profileCard(s)}
   ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
@@ -3650,11 +3804,12 @@ function finishWorkout(){
   modal(`<div class="eyebrow">Workout saved</div><h2>${esc(l.name)} done</h2><p class="small muted" style="margin:0">${l.dur} min logged. Next time:</p>
     <div>${entries.map(e=>`<div class="slotrow" style="grid-template-columns:1fr"><div><b>${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div></div>`).join('')}</div>
     <p class="small" style="margin:0">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
-    <div class="stack" style="gap:6px;background:var(--accent-soft);border-radius:14px;padding:12px">
+    ${AUTH.user && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">Your coach can see this workout. It’s saved to your account, so there’s nothing to copy or send.</div>
+    <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="stack" style="gap:6px;background:var(--accent-soft);border-radius:14px;padding:12px">
       <b>Send this to ${esc(coachName())}</b>
       <div class="small">Tap <b>Send progress</b>, copy the report and text it to ${esc(coachName())}. That's how your plan gets updated: what you lifted, how it felt and any swaps you made.</div>
     </div>
-    <div class="row"><button class="btn primary" data-action="copyreport">Send progress</button><button class="btn ghost" data-action="closemodal">Later</button></div>`);
+    <div class="row"><button class="btn primary" data-action="copyreport">Send progress</button><button class="btn ghost" data-action="closemodal">Later</button></div>`}`);
 }
 
 document.addEventListener('click', e=>{
@@ -3662,7 +3817,8 @@ document.addEventListener('click', e=>{
   const a=b.dataset.action;
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
-  if(a==='people'){ ui.tab='people'; loadPeople(); window.scrollTo(0,0); return; }
+  if(a.startsWith('msg') && fbAction(a,b)) return;
+  if(a==='people'){ ui.tab='people'; if(AUTH.coach) loadPeople(); else { refreshUnread(); render(); } window.scrollTo(0,0); return; }
   if(a==='peoplereload'){ loadPeople(); return; }
   if(a==='personopen'){ openPerson(b.dataset.id,b.dataset.n); return; }
   if(a==='coachsendopen'){ coachSendSheet(); return; }
