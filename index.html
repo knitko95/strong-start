@@ -136,6 +136,12 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 .timer .bar i{display:block;height:100%;background:var(--accent)}
 .timer button{background:transparent;border:1px solid rgba(127,127,127,.5);color:inherit;border-radius:8px;padding:6px 8px;font-weight:600;font-size:14px}
 /* Plan & library */
+.pain-warning-title{display:flex;align-items:flex-start;gap:7px}
+.pain-warning-badge{display:inline-flex;align-items:center;justify-content:center;flex:none;width:26px;height:26px;margin-top:1px;border-radius:999px;background:#fff1d6;color:#805000}
+.pain-warning-box{background:#fff5e3;border:1px solid #e9c882;border-left:4px solid #bc790a;border-radius:12px;padding:13px 14px;color:#704600}
+.pain-warning-heading{display:flex;gap:8px;align-items:center;font-size:15px;font-weight:800}
+.pain-warning-box p{font-size:14px;line-height:1.5;margin:6px 0 0}
+.pain-warning-box svg{flex:none}
 .slotrow{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
 .slotrow:first-of-type{border-top:0}
 .lib-item{border-top:1px solid var(--line);padding:10px 0}
@@ -1300,6 +1306,20 @@ function lvl(){ return LEVEL_ORDER.includes(state.settings.level) ? state.settin
 function goals(){ const g=state.settings.goals; return g&&g.length?g:['muscle']; }
 function hasGoal(k){ return goals().includes(k); }
 function painRe(){ return (state.settings.pain||[]).map(k=>PAIN[k]&&PAIN[k].re).filter(Boolean); }
+function painConflicts(ex){ return (state.settings.pain||[]).filter(k=>PAIN[k]&&PAIN[k].re.test(ex.n)); }
+function painAreas(keys){ return keys.map(k=>PAIN[k].n.toLowerCase()).join(', ').replace(/, ([^,]*)$/,' and $1'); }
+function painWarningIcon(){ return '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M10.3 4.2a2 2 0 0 1 3.4 0l8 13.8a2 2 0 0 1-1.7 3H4a2 2 0 0 1-1.7-3z" fill="currentColor"/><path d="M12 9v5" stroke="#fff8e9" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="#fff8e9"/></svg>'; }
+function painWarningBubble(ex){
+  const keys=painConflicts(ex); if(!keys.length) return '';
+  const label=`Caution: may aggravate your ${painAreas(keys)}`;
+  return `<span class="pain-warning-badge" role="img" aria-label="${esc(label)}" title="${esc(label)}">${painWarningIcon()}</span>`;
+}
+function painWarningCard(ex){
+  const keys=painConflicts(ex); if(!keys.length) return '';
+  const nouns={knees:'knee',back:'lower back',shoulders:'shoulder',wrists:'wrist',hips:'hip',neck:'neck',ankles:'ankle'};
+  const detail=keys.length===1?`You’ve flagged ${nouns[keys[0]]} pain in your settings. This exercise may aggravate that area.`:'You’ve flagged pain in these areas in your settings. This exercise may aggravate them.';
+  return `<div class="pain-warning-box"><div class="pain-warning-heading">${painWarningIcon()}<span>May aggravate your ${esc(painAreas(keys))}</span></div><p>${esc(detail)}</p></div>`;
+}
 function allowed(ex){
   const L=lvl(), comfort=state.settings.comfort||'machines';
   if(painRe().some(re=>re.test(ex.n))) return false;
@@ -2971,8 +2991,8 @@ function renderLibrary(){
     </div>
     <label class="toggle" for="libeasy" style="border:0;padding:0"><span class="small"><b>Only moves that fit your level</b></span><input type="checkbox" id="libeasy" ${ui.libEasy?'checked':''}></label></section>
     <section class="card"><div class="small muted" style="margin-bottom:6px"><span class="num">${list.length}</span> shown${hidden?` · <button class="linkbtn" data-action="libshowall">${ui.libShowAll?'Hide':'Show'} ${hidden} for equipment you don't have</button>`:''}</div>
-    <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}" aria-haspopup="dialog">
-      <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="ln">${esc(e.n)}</div>
+    <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}" aria-haspopup="dialog">
+      <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="ln pain-warning-title">${painWarningBubble(e)}<span>${esc(e.n)}</span></div>
       ${musLine(e.id)}<div class="tiny muted">${e.eq.map(x=>EQ_SHORT[x]).join(', ')}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div></button>
     </div>`).join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}</div></section>`;
 }
@@ -3658,6 +3678,7 @@ function exInfo(id, pk){
   const tg = slot ? target(slot) : null, w = tg ? (tg.w??tg.sug) : null;
   modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(ex.n)}</h2>
       <div class="row" style="margin-top:6px">${planeChip(ex.pl)}${ex.uni?'<span class="chip">One side at a time</span>':''}</div>${eqLabelList(ex).length?`<div class="small muted" style="margin-top:6px">You’ll need: ${esc(eqLabelList(ex).join(', '))}</div>`:''}</div>
+    ${painWarningCard(ex)}
     ${med&&med.video?`<div class="exmedia"><video src="${med.video}" controls playsinline muted loop></video></div>`:''}
     ${EX_PHOTOS.has(id)?`<div class="expics">${[['a','Start'],['b','Finish']].map(([k,l])=>`<figure class="expic"><img src="img/${id}-${k}.jpg" alt="${esc(ex.n)}, ${l.toLowerCase()} position" loading="lazy"><figcaption>${l}</figcaption></figure>`).join('')}</div>`:''}
     ${tg?`<div class="card" style="box-shadow:none;background:var(--accent-soft);padding:10px 14px"><span class="small"><b>Today:</b> ${tg.sets} sets × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}${ex.uni?' per side':''}${usesLoad(ex)?` at ${w!=null?fmtW(w):'a light weight'}`:''}</span></div>`:''}

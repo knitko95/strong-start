@@ -53,7 +53,7 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 | --- | --- |
 | Today | See weekly/program progress, next workout, active-workout Resume, coach notes, check-ins, and weigh-in reminders. |
 | Plan | Review the week, muscles trained, exercise targets, and persistent swaps/adjustments. |
-| Library | Search names/muscles and filter by equipment, body part, or movement. Equipment/level filters affect what is shown. Tap anywhere on an exercise row (marked with ›) to open **How to do it**, with the same steps, equipment list, and muscle diagrams available in workout previews. Closing the instructions returns to the library with your filters kept. |
+| Library | Search names/muscles and filter by equipment, body part, or movement. Equipment/level filters affect what is shown. Tap anywhere on an exercise row (marked with ›) to open **How to do it**, with the same steps, equipment list, and muscle diagrams available in workout previews. Closing the instructions returns to the library with your filters kept. On dev, exercises matching pain areas selected in Settings have an amber warning bubble to the left of the name. Their how-to cards identify the affected areas in a warning above the steps. These use the same matches as plan exclusions; turn off **Only moves that fit your level** to browse excluded exercises. Unmarked exercises are not a guarantee of pain-free movement. |
 | History | Review saved sessions and exercise progress; expand a session for details. |
 | Settings | Change profile, goals, schedule/split/order, places/equipment, level/limitations, exercise choices, cardio, weigh-ins, timers, program, account, and backup. |
 
