@@ -59,6 +59,12 @@ Deliberate set edits update `draft.planCounts` to the retained rows, including a
 
 ## Local state and sync
 
+### Assigned-coach messaging on dev
+
+`CM` owns account-scoped in-memory message summaries and unsent drafts, separate from `state` and workout drafts. `cmOpen`/`cmDraw` use the existing accessible modal host, inert background and focus restoration. The thread keeps the current tab/scroll/workout state and hides bottom navigation; visual-viewport sizing keeps the compact composer inside the visible overlay. Input grows to 120 pixels. A failed send retains its draft and request ID; unchanged retries are idempotent. Closing retains unsent text for that page session, while sign-out/deletion/account switching clears it and invalidates pending responses. Message drafts are not part of local backups or account sync.
+
+The `coach_messaging` RPC supports summary/read/send/done/dismiss. It derives recipients from existing invite assignment, verifies both profiles and coach membership, serializes thread mutations and exposes no general client write grants. Reading and resolving are separate states. A read returns a bounded chronological page and full-thread reply status; seen-message cursors protect against a reply/dismiss consuming a newer message. `coach_plan_message` copies new assigned-coach plan notes without modifying atomic plan application. Existing assigned legacy feedback is retained in threads; unassigned history stays in the original tables. See [the messaging verification and migration record](COACH-MESSAGING-2026-11-11.md) for migration order, compatibility and verification limits.
+
 | Item | Meaning |
 | --- | --- |
 | `strongstart_state_v3` | Local JSON `{state, logs, sync}`; current `state.v` is 6 |

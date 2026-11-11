@@ -544,6 +544,9 @@ nav.tabs .ticon{position:relative;display:inline-flex}
   /* Avoid input-focus auto zoom, including small inline-styled note fields. */
   textarea,#invlink{font-size:16px!important}
 }
+/* Coach messages share the existing profile, button and color tokens. */
+.cm-avatar{flex:none;width:48px;height:48px}.cm-name{font-family:var(--body);font-size:18px;font-weight:700;font-style:normal;line-height:1.4;letter-spacing:0}.cm-card{position:relative;gap:12px;padding:14px 16px}.cm-identity{display:flex;align-items:center;gap:12px;padding-right:28px}.cm-today .cm-name{display:block}.cm-card .chip{letter-spacing:normal;text-transform:none}.cm-preview{font-size:14px;line-height:1.4;margin:10px 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.cm-dismiss{position:absolute;right:4px;top:4px;border:0;background:none;color:var(--muted);font-size:24px;min-width:36px;min-height:36px}.cm-card .grow{min-width:0;flex:1}.cm-card>.btn{flex:none}.cm-person{width:100%;text-align:left;border:0;border-bottom:1px solid var(--line);background:var(--surface);padding:14px 16px;display:flex;align-items:center;gap:12px}.cm-person:last-child{border-bottom:0}.cm-person .grow{min-width:0;flex:1}.cm-person .tiny{white-space:nowrap}.cm-snippet{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;margin-top:4px;font-size:13px}.cm-status{margin-top:6px}.coach-messaging-open{overflow:hidden}.coach-messaging-open>nav.tabs{visibility:hidden}.coach-thread-scrim{top:var(--cm-top,0px);bottom:auto;height:var(--cm-height,100dvh)}.sheet.coach-thread-sheet{height:calc(var(--cm-height,100dvh) - 64px);max-height:calc(var(--cm-height,100dvh) - 24px);background:var(--bg);padding:0;gap:0;overflow:hidden}.cm-head{padding:12px 16px;border-bottom:1px solid var(--line);background:var(--surface);flex:none}.cm-head .grow{flex:1;min-width:0}.cm-head .btn{flex:none}.cm-conversation{flex:1;min-height:0;overflow:auto;padding:12px 16px;display:flex;flex-direction:column;gap:12px;overscroll-behavior:contain}.cm-date{text-align:center;font-size:12px;color:var(--muted)}.cm-bubble{max-width:88%;padding:12px 14px;border:1px solid var(--line);background:var(--surface);border-radius:16px 16px 16px 4px;font-size:15px;line-height:1.4;flex:none}.cm-bubble.mine{align-self:flex-end;background:var(--accent-soft);border:0;border-radius:16px 16px 4px 16px}.cm-bubble p{margin:6px 0;white-space:pre-wrap;overflow-wrap:anywhere}.cm-bubble .tiny{display:block;margin-top:6px}.cm-bubble.plan-note{border-left:3px solid var(--accent)}.cm-composer{padding:10px 16px max(14px,var(--safe-bottom));background:var(--surface);border-top:1px solid var(--line);flex:none}.cm-tools{display:flex;align-items:center;min-height:28px;margin-bottom:6px}.cm-tag-toggle{font:inherit;font-size:13px;color:var(--muted);border:0;background:none;padding:4px 0}.cm-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.cm-tags .btn{min-height:32px;font-size:12px}.cm-tags [aria-pressed=true]{background:var(--accent-soft);color:var(--accent)}.cm-compose-row{display:flex;align-items:flex-end;gap:8px}.cm-compose-row textarea{min-height:44px;height:44px;max-height:120px;resize:none;overflow-y:auto;font-family:var(--body);font-size:16px;line-height:22px;padding:10px 14px;border-radius:22px}.cm-compose-row .btn{flex:none;min-height:44px}.cm-done{display:flex;justify-content:center;margin-top:8px}.cm-done .btn{font-size:12px;min-height:32px}.cm-workout-ref{margin-top:6px}.cm-history-tools{flex:none}
+
 </style>
 </head>
 <body>
@@ -1238,7 +1241,7 @@ function candidates(slot, eqset){ eqset=eqset||placeEq(homeBase());
   return c; }
 const available = ex => hasEq(ex, placeEq(state.curPlace||homeBase()));
 function primeEq(ex){ return ex.eq.find(e=>e!=='bn') || ex.eq[0]; }
-const coachName = () => (PROGRAM.coach || 'your coach');
+const coachName = () => (CM.summary&&CM.summary.coach&&CM.summary.coach.name || PROGRAM.coach || 'your coach');
 
 // Sets, reps and rest for a slot, from level + goals
 function cfgFor(slot){
@@ -1881,6 +1884,7 @@ function restoreSnapshot(o){
 
 async function onSignedIn(u){
   if(AUTH.deleting) return;
+  if(CM.owner!==u.id){cmReset(u.id);FB.box=null;FB.unread={app:0,coach:0};FBS={side:'app',tag:'',text:'',busy:false};}
   AUTH.user=u; AUTH.busy=false;
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
   if(!AUTH.user || AUTH.user.id!==u.id) return;
@@ -2132,7 +2136,7 @@ function authAction(a,b){
     if(AUTH.user){ AUTH.busy=true; render(); redeemInvite(c).then(ok=>{ AUTH.busy=false; if(ok) onSignedIn(AUTH.user); else render(); }); }
     else { lsSet(INVITE_KEY,c); AUTH.mode='signup'; AUTH.err=''; render(); window.scrollTo(0,0); } }
   else if(a==='authrecheck'){ AUTH.access=null; render(); onSignedIn(AUTH.user); }
-  else if(a==='authgateout'){ try{ sb.auth.signOut(); }catch(e){} lsSet(ACCT_KEY,null); AUTH.user=null; AUTH.access=null; AUTH.invErr=''; AUTH.netErr=false; AUTH.mode='signin'; render(); window.scrollTo(0,0); }
+  else if(a==='authgateout'){ try{ sb.auth.signOut(); }catch(e){} lsSet(ACCT_KEY,null); cmReset(); AUTH.user=null; AUTH.access=null; AUTH.invErr=''; AUTH.netErr=false; AUTH.mode='signin'; render(); window.scrollTo(0,0); }
   else if(a==='authlocal'){ lsSet(LOCAL_ONLY_KEY,'1'); render(); setSync('local'); }
   else if(a==='authstart'){ lsSet(LOCAL_ONLY_KEY,null); AUTH.mode=b.dataset.v||'signup'; render(); window.scrollTo(0,0); }
   else if(a==='authout') confirmBox('Sign out?','Sign out after your changes have synced. Signing out clears this device’s saved copy; your account data stays.','Sign out',signOut);
@@ -2142,6 +2146,7 @@ async function signOut(){
   try{ const {error}=await sb.auth.signOut(); if(error) throw error; }catch(e){ toast('Couldn’t sign out. Your data is still on this device.'); return; }
   try{ localStorage.removeItem(LS); }catch(e){}
   lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
+  cmReset();closeModal();
   AUTH.user=null; AUTH.access=null; AUTH.coach=false; FB.owner=false; ui.invites=null; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; coachMode=null;
   SYNC={owner:null,base:null,conflict:null,recovery:null}; CLOUD.pending=false; CLOUD.failed=false; clearTimeout(CLOUD.t); CLOUD.t=null;
   state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync();
@@ -2183,6 +2188,7 @@ async function clearDeletedAccount(){
   try{ const k='sb-'+new URL(SB_URL).hostname.split('.')[0]+'-auth-token'; localStorage.removeItem(k); localStorage.removeItem(k+'-code-verifier'); localStorage.removeItem(k+'-user'); localStorage.removeItem(LS); }catch(e){}
   for(const k of [ACCT_KEY,'strongstart_owner',LOCAL_ONLY_KEY,INVITE_KEY]) lsSet(k,null);
   AUTH.user=null; AUTH.access=null; AUTH.coach=false; AUTH.recovery=false; AUTH.busy=false; AUTH.pw=''; AUTH.email=''; AUTH.err=''; AUTH.msg=''; AUTH.mode='signin';
+  cmReset();
   FB.owner=false; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false};
   coachMode=null; ui.people=null; ui.invites=null; ui.selfDeleteUser=null;
   SYNC={owner:null,base:null,conflict:null,recovery:null}; CLOUD.pending=false; CLOUD.failed=false; CLOUD.again=false;
@@ -2357,12 +2363,16 @@ let FBS={side:'app', tag:'', text:'', busy:false};
 const FB_TAGS={app:[['bug','Bug'],['idea','Idea'],['confusing','Confusing'],['exercise','Exercise']], coach:[['too_hard','Too hard'],['too_easy','Too easy'],['hurt','Something hurt'],['question','Question']]};
 const fbTagName=t=>{ for(const k in FB_TAGS){ const f=FB_TAGS[k].find(x=>x[0]===t); if(f) return f[1]; } return ''; };
 const BUBBLE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>';
-function fbUnreadTotal(){ return (AUTH.coach?FB.unread.coach:0)+(FB.owner?FB.unread.app:0); }
+function fbUnreadTotal(){ return (AUTH.coach?(CM.summary&&CM.summary.inbox||[]).reduce((n,p)=>n+p.unread,0):0)+(FB.owner?FB.unread.app:0)+(CM.summary&&CM.summary.coach&&CM.summary.coach.unread||0); }
 async function refreshUnread(){
-  if(!sb || !AUTH.user || !(AUTH.coach||FB.owner)) return;
+  if(!sb || !AUTH.user) return;
+  cmRefresh();
+  if(!FB.owner) return;
+  const owner=AUTH.user.id;
   try{
     const q=k=>sb.from('feedback').select('id',{count:'exact',head:true}).eq('kind',k).is('read_at',null).neq('user_id',AUTH.user.id);
-    const [c,a]=await Promise.all([AUTH.coach?q('coach'):{count:0}, FB.owner?q('app'):{count:0}]);
+    const [c,a]=await Promise.all([{count:0},q('app')]);
+    if(!AUTH.user||AUTH.user.id!==owner)return;
     const nu={coach:c.error?FB.unread.coach:(c.count||0), app:a.error?FB.unread.app:(a.count||0)};
     if(nu.coach!==FB.unread.coach || nu.app!==FB.unread.app){ FB.unread=nu; render(); }
   }catch(e){}
@@ -2399,14 +2409,16 @@ function fbWorkout(side,logId){
 }
 function fbOpen(side,logId){
   if(!AUTH.user){ toast('Sign in to send feedback.'); return; }
+  if(side==='coach'){ cmOpen(null,'',logId);return; }
   FBS={side:side==='coach'?'coach':'app', tag:'', text:FBS.text||'', busy:false, screen:fbScreen(), device:fbDevice(), logId:logId||null};
   fbRender();
 }
 function fbRender(){
+  if(FBS.side==='coach'){cmOpen(null,'',FBS.logId);return;}
   const S=FBS, app=S.side==='app', w=fbWorkout(S.side,S.logId);
   const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
   modal(`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>
-    <p class="small muted" style="margin:0">${app?'Something broken, confusing or missing? Tell us. This goes to the people who make the app.':`This goes to the shared coach inbox. Coaches with access to Strong Start can read it.`}</p>
+    <p class="small muted" style="margin:0">Something broken, confusing or missing? Tell us. This goes to the people who make the app.</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
     <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
     <div class="tiny muted">Sent with: ${sentWith}</div>
@@ -2430,12 +2442,13 @@ async function fbSend(){
   refreshUnread();
 }
 function fbAction(a,b){
+  if(cmAction(a,b))return true;
   if(a==='msgopen'){ fbOpen(b.dataset.side,b.dataset.log); return true; }
-  if(a==='msgside'){ fbKeepText(); FBS.side=b.dataset.side; FBS.tag=''; fbRender(); return true; }
+  if(a==='msgside'){ fbKeepText(); if(b.dataset.side==='coach'){cmOpen(null,'',FBS.logId);return true;} FBS.side='app'; FBS.tag=''; fbRender(); return true; }
   if(a==='msgtag'){ fbKeepText(); FBS.tag=FBS.tag===b.dataset.v?'':b.dataset.v; fbRender(); return true; }
   if(a==='msgsend'){ fbSend(); return true; }
   if(a==='msgcancel'){ fbKeepText(); closeModal(); return true; }
-  if(a==='msginbox'){ ui.tab='inbox'; loadInbox(b.dataset.k); window.scrollTo(0,0); return true; }
+  if(a==='msginbox'){ ui.tab='inbox'; if(b.dataset.k==='coach'){ui.cmInbox=true;cmRefresh();render();}else{ui.cmInbox=false;loadInbox('app');} window.scrollTo(0,0); return true; }
   if(a==='msgfilter'){ if(FB.box){ FB.box.filter=b.dataset.v; render(); } return true; }
   if(a==='msgdone'){ markDone(+b.dataset.id, b.dataset.v!=='0'); return true; }
   if(a==='msgperson'){ openPerson(b.dataset.id,b.dataset.n); return true; }
@@ -2463,11 +2476,12 @@ async function markDone(id,done){
 function fbAgo(d){ const m=Math.round((Date.now()-new Date(d).getTime())/6e4); if(m<1) return 'just now'; if(m<60) return m+' min ago'; const h=Math.round(m/60); if(h<24) return h+' h ago';
   return new Date(d).toLocaleDateString(undefined,{month:'short',day:'numeric'})+', '+new Date(d).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
 function inboxCards(){
-  const row=(k,t,sub)=>{ const n=FB.unread[k]; return `<button class="inboxrow" data-action="msginbox" data-k="${k}"><span class="ic">${BUBBLE}</span><span style="flex:1;min-width:0"><b>${t}</b><br><span class="tiny muted">${sub}</span></span>${n?`<span class="chip acc">${n} new</span>`:''}<span class="muted" aria-hidden="true">›</span></button>`; };
-  const rows=[AUTH.coach?row('coach','From your people','Messages people send you as their coach'):'', FB.owner?row('app','App feedback','Bugs, ideas and questions about the app'):''].filter(Boolean);
+  const row=(k,t,sub)=>{ const n=k==='coach'?(CM.summary&&CM.summary.inbox||[]).reduce((n,p)=>n+p.unread,0):FB.unread[k]; return `<button class="inboxrow" data-action="msginbox" data-k="${k}"><span class="ic">${BUBBLE}</span><span style="flex:1;min-width:0"><b>${t}</b><br><span class="tiny muted">${sub}</span></span>${n?`<span class="chip acc">${n} new</span>`:''}<span class="muted" aria-hidden="true">›</span></button>`; };
+  const rows=[AUTH.coach?row('coach','Messages','Conversations with your people'):'', FB.owner?row('app','App feedback','Bugs, ideas and questions about the app'):''].filter(Boolean);
   return rows.length?`<section class="card stack" style="gap:8px">${rows.join('<div style="height:1px;background:var(--line)"></div>')}</section>`:'';
 }
 function renderInbox(){
+  if(ui.cmInbox)return cmInbox();
   const B=FB.box||{kind:'app',list:[],filter:'new'}, app=B.kind==='app', me=AUTH.user&&AUTH.user.id;
   const open=B.list.filter(r=>!r.done_at), shown=B.filter==='all'?B.list:open;
   return `<section><div class="eyebrow">${app?'Inbox':'Coach'}</div><h1>${app?'App feedback':'From your people'}</h1></section>
@@ -2486,6 +2500,112 @@ function renderInbox(){
       ${r.user_id&&r.user_id!==me&&AUTH.coach?`<button class="btn sm primary" data-action="msgperson" data-id="${esc(r.user_id)}" data-n="${esc(nm)}">Open their app</button>`:''}</div>
   </section>`; }).join('')}`;
 }
+/* ---------------- Assigned-coach conversations ---------------- */
+const CM={owner:null,summary:null,err:'',flight:null,thread:null,drafts:{},generation:0};
+function cmReset(owner=null){
+  if(CM.thread) closeModal();
+  CM.owner=owner;CM.summary=null;CM.err='';CM.flight=null;CM.thread=null;CM.drafts={};CM.generation++;
+}
+function cmCurrent(owner,generation){return AUTH.user&&AUTH.user.id===owner&&CM.owner===owner&&CM.generation===generation&&!AUTH.deleting;}
+async function cmRpc(action,member=null,body={}){
+  const {data,error}=await withTimeout(sb.rpc('coach_messaging',{p_action:action,p_member:member,p_body:body}),12000);
+  if(error) throw error;return data;
+}
+async function cmRefresh(){
+  if(!sb||!AUTH.user||coachMode||AUTH.deleting||AUTH.access!=='ok')return;
+  if(CM.owner!==AUTH.user.id)cmReset(AUTH.user.id);
+  if(CM.flight)return CM.flight;
+  const owner=CM.owner,generation=CM.generation;
+  const flight=(async()=>{try{const data=await cmRpc('summary');if(!cmCurrent(owner,generation))return;CM.summary=data;CM.err='';render();}
+    catch(e){if(cmCurrent(owner,generation)){CM.err='Couldn’t load messages. Check your connection and try again.';render();}}})();
+  CM.flight=flight;try{await flight;}finally{if(CM.flight===flight)CM.flight=null;}
+}
+function cmAvatar(name){return `<span class="prof-av cm-avatar" aria-hidden="true">${esc((name||'?').trim()[0].toUpperCase())}</span>`;}
+function cmCoachCard(today=false){
+  if(coachMode||!AUTH.user||CM.owner!==AUTH.user.id)return '';
+  const c=CM.summary&&CM.summary.coach;
+  if(!c){return today?'':`<section class="card row between"><div><b>Your coach</b><div class="small muted">${CM.err?esc(CM.err):CM.summary?'No coach is linked to this account yet.':'Loading your coach…'}</div></div>${CM.err?'<button class="btn sm" data-action="cmrefresh">Retry</button>':''}</section>`;}
+  if(today&&!c.unread)return '';
+  return today?`<section class="card cm-card cm-today"><div class="cm-identity">${cmAvatar(c.name)}<div><div class="row"><span class="eyebrow">Your coach</span><span class="chip acc">${c.unread} new</span></div><b class="cm-name">${esc(c.name)}</b></div></div><button class="cm-dismiss" data-action="cmdismiss" aria-label="Dismiss and mark as read">×</button><p class="cm-preview">${esc(c.preview||'You have a new message.')}</p><button class="btn sm primary" data-action="cmopen">Open message</button></section>`:
+    `<section class="card cm-card row" style="flex-wrap:nowrap">${cmAvatar(c.name)}<div class="grow"><div class="row"><b class="cm-name">${esc(c.name)}</b>${c.unread?`<span class="chip acc">${c.unread} new</span>`:''}</div><span class="small muted">Your coach</span></div><button class="btn sm primary" data-action="cmopen">Messages</button></section>`;
+}
+function cmInbox(){
+  const list=CM.summary&&CM.summary.inbox||[],needs=list.filter(p=>p.needs_reply),filter=ui.cmFilter||'all',shown=filter==='needs'?needs:list;
+  return `<section><div class="eyebrow">Coach</div><h1>Messages</h1></section><div class="row between"><button class="btn sm" data-action="people">‹ Your people</button><button class="btn sm ghost" data-action="cmrefresh">Refresh</button></div>
+    <div class="tabs2" role="tablist" aria-label="Messages"><button role="tab" aria-selected="${filter==='needs'}" class="${filter==='needs'?'on':''}" data-action="cmfilter" data-v="needs">Needs reply (${needs.length})</button><button role="tab" aria-selected="${filter==='all'}" class="${filter==='all'?'on':''}" data-action="cmfilter" data-v="all">All (${list.length})</button></div>
+    ${CM.err?`<p class="small" role="alert">${esc(CM.err)}</p>`:''}<section class="card" style="padding:0;overflow:hidden">${shown.map(p=>`<button class="cm-person" data-action="cmopen" data-id="${esc(p.member_id)}" data-n="${esc(p.name)}">${cmAvatar(p.name)}<span class="grow"><span class="row between" style="flex-wrap:nowrap"><b class="cm-name">${esc(p.name)}</b><span class="tiny muted">${esc(fbAgo(p.last_at))}</span></span><span class="small muted cm-snippet">${p.mine?'You: ':''}${esc(p.preview)}</span><span class="row cm-status">${p.unread?`<span class="chip acc">${p.unread} new</span>`:''}${p.needs_reply?'<span class="tiny muted">Needs reply</span>':''}</span></span><span class="muted" aria-hidden="true">›</span></button>`).join('')||`<p class="small muted" style="padding:16px">${CM.summary?(filter==='needs'?'You’re all caught up.':'No conversations yet.'):'Loading messages…'}</p>`}</section>`;
+}
+function cmKeepDraft(){const t=CM.thread,box=$('#cm-text');if(t&&box){t.draft.text=box.value;CM.drafts[t.member]=t.draft;}}
+function cmClose(){cmKeepDraft();CM.thread=null;document.body.classList.remove('coach-messaging-open');}
+function cmGrow(){const box=$('#cm-text');if(box){box.style.height='44px';box.style.height=Math.min(120,box.scrollHeight)+'px';}}
+function cmThrough(t){return t.through||t.messages.filter(m=>m.sender_id!==CM.owner).reduce((max,m)=>BigInt(m.id)>BigInt(max)?m.id:max,'0');}
+async function cmOpen(member=null,name='',logId=null){
+  if(!AUTH.user||coachMode||!sb)return;
+  if(CM.owner!==AUTH.user.id)cmReset(AUTH.user.id);
+  const mid=member||AUTH.user.id,coach=mid!==AUTH.user.id;
+  if(coach&&!AUTH.coach)return;
+  cmKeepDraft();
+  const draft=CM.drafts[mid]||{text:'',tag:'',tagsOpen:false,clientId:null,workout:coach?null:fbWorkout('coach',logId)};
+  if(logId&&!coach)draft.workout=fbWorkout('coach',logId);
+  const t={member:mid,coach,name:coach?name:CM.summary&&CM.summary.coach&&CM.summary.coach.name||'Your coach',messages:[],loading:true,err:'',draft,hasMore:false,busy:false};
+  CM.thread=t;cmDraw();await cmLoad(t);
+}
+async function cmLoad(t,older=false){
+  const owner=CM.owner,generation=CM.generation;
+  t.loading=true;t.err='';cmDraw();
+  try{const data=await cmRpc('read',t.member,older?{before:t.messages[0].id}:{});
+    if(!cmCurrent(owner,generation)||CM.thread!==t)return;
+    t.name=t.coach?data.member_name:data.coach_name;
+    const merged=new Map((older?t.messages:[]).map(m=>[m.id,m]));data.messages.forEach(m=>merged.set(m.id,m));
+    t.messages=[...merged.values()].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||(BigInt(a.id)<BigInt(b.id)?-1:1));t.hasMore=data.has_more;t.through=data.through;t.needsReply=data.needs_reply;t.loading=false;cmDraw(!older);cmRefresh();
+  }catch(e){if(cmCurrent(owner,generation)&&CM.thread===t){t.loading=false;t.err='Couldn’t load this conversation. Check your connection and try again.';cmDraw();}}
+}
+function cmDraw(bottom=false){
+  const t=CM.thread;if(!t)return;const old=$('#cm-conversation'),scroll=old&&old.scrollTop,box=$('#cm-text'),selection=box&&[box.selectionStart,box.selectionEnd];
+  const needs=t.coach&&(t.needsReply??t.messages.some(m=>m.sender_id!==CM.owner&&!m.resolved_at));
+  let date='';const messages=t.messages.map(m=>{const d=new Date(m.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'}),stamp=d!==date?`<div class="cm-date">${esc(d)}</div>`:'';date=d;
+    return stamp+`<div class="cm-bubble ${m.sender_id===CM.owner?'mine':''} ${m.kind==='plan'?'plan-note':''}">${m.kind==='plan'?'<span class="chip">Plan update</span>':m.tag?`<span class="chip">${esc(fbTagName(m.tag))}</span>`:''}<p>${esc(m.message)}</p>${m.workout&&m.workout.name?`<span class="tiny muted">Workout: ${esc(m.workout.name)}${m.workout.status?' · '+esc(m.workout.status):''}</span>`:''}<span class="tiny muted">${esc(m.sender_id===CM.owner?'You':t.name)} · ${esc(new Date(m.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}))}</span></div>`;}).join('');
+  modal(`<header class="cm-head"><div class="row" style="flex-wrap:nowrap">${cmAvatar(t.name)}<div class="grow"><div class="eyebrow">${t.coach?'Messages':'Your coach'}</div><h2 class="cm-name">${esc(t.name)}</h2></div><button class="btn sm ghost" data-action="closemodal">${ui.tab==='workout'?'Back to workout':t.coach?'Back':'Done'}</button></div></header>
+    <div id="cm-conversation" class="cm-conversation"><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':'<span></span>'}<button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div>${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
+    <footer class="cm-composer"><div class="cm-tools">${t.coach?`<span class="tiny muted">${needs?'Needs reply':'Done'}</span>`:`<button class="cm-tag-toggle" data-action="cmtags" aria-expanded="${!!t.draft.tagsOpen}">${t.draft.tag?'Tag: '+esc(fbTagName(t.draft.tag))+' ×':'+ Add tag'}</button>`}</div>
+      ${!t.coach&&t.draft.tagsOpen?`<div class="cm-tags">${FB_TAGS.coach.map(([k,l])=>`<button class="btn sm" data-action="cmtag" data-v="${k}" aria-pressed="${t.draft.tag===k}">${l}</button>`).join('')}</div>`:''}
+      <div class="cm-compose-row"><textarea id="cm-text" aria-label="${t.coach?'Reply to '+esc(t.name):'Message '+esc(t.name)}" placeholder="${t.coach?'Reply to':'Message'} ${esc(t.name)}…" rows="1" maxlength="4000" ${t.busy?'disabled':''}>${esc(t.draft.text)}</textarea><button class="btn primary" data-action="cmsend" ${t.busy||t.loading?'disabled':''}>${t.busy?'Sending…':'Send'}</button></div>
+      ${t.draft.workout&&t.draft.workout.name?`<div class="tiny muted cm-workout-ref">With: ${esc(t.draft.workout.name)} · ${esc(t.draft.workout.status||'')}</div>`:''}
+      ${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</footer>`);
+  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmViewport();cmGrow();
+  const conversation=$('#cm-conversation');conversation.scrollTop=bottom?conversation.scrollHeight:scroll||0;
+  if(selection&&document.activeElement===$('#cm-text'))$('#cm-text').setSelectionRange(...selection);
+}
+function cmViewport(){const viewport=window.visualViewport;document.documentElement.style.setProperty('--cm-height',(viewport?viewport.height:window.innerHeight)+'px');document.documentElement.style.setProperty('--cm-top',(viewport?viewport.offsetTop:0)+'px');}
+async function cmSend(){
+  const t=CM.thread;if(!t||t.busy)return;cmKeepDraft();const message=t.draft.text.trim();if(!message){$('#cm-text').focus();return;}
+  const owner=CM.owner,generation=CM.generation;
+  t.draft.clientId=t.draft.clientId||crypto.randomUUID();const id=t.draft.clientId;
+  const body={message,tag:t.draft.tag||null,client_id:id,through:cmThrough(t),workout:t.draft.workout};t.busy=true;t.err='';cmDraw();
+  try{await cmRpc('send',t.member,body);if(!cmCurrent(owner,generation))return;
+    if(t.draft.clientId===id){t.draft.text='';t.draft.tag='';t.draft.tagsOpen=false;t.draft.clientId=null;}
+    CM.drafts[t.member]=t.draft;t.busy=false;if(CM.thread===t)await cmLoad(t);cmRefresh();
+  }catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.err='Couldn’t confirm send. Your message is kept here. Retry to send it once.';if(CM.thread===t)cmDraw();}}
+}
+async function cmDone(){const t=CM.thread;if(!t||!t.coach||t.busy)return;const owner=CM.owner,generation=CM.generation;t.busy=true;const through=cmThrough(t);try{await cmRpc('done',t.member,{through});if(!cmCurrent(owner,generation))return;t.busy=false;if(CM.thread===t)await cmLoad(t);cmRefresh();}catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.err='Couldn’t mark done. Try again.';if(CM.thread===t)cmDraw();}}}
+async function cmDismiss(){const c=CM.summary&&CM.summary.coach;if(!c||!c.unread)return;const owner=CM.owner,generation=CM.generation;try{await cmRpc('dismiss',null,{through:c.through});if(cmCurrent(owner,generation))await cmRefresh();}catch(e){if(cmCurrent(owner,generation))toast('Couldn’t dismiss the message. Check your connection and try again.');}}
+function cmAction(a,b){
+  if(a==='cmopen'){cmOpen(b.dataset.id||null,b.dataset.n||'',b.dataset.log||null);return true;}
+  if(a==='cmrefresh'){cmRefresh();return true;}
+  if(a==='cmdismiss'){cmDismiss();return true;}
+  if(a==='cmfilter'){ui.cmFilter=b.dataset.v;render();return true;}
+  if(a==='cmsend'){cmSend();return true;}
+  if(a==='cmdone'){cmDone();return true;}
+  const t=CM.thread;if(!t)return false;
+  if(a==='cmreload'||a==='cmolder'){if(!t.loading&&!t.busy)cmLoad(t,a==='cmolder');return true;}
+  if(a==='cmtags'){cmKeepDraft();if(t.draft.tag){t.draft.tag='';t.draft.clientId=null;}else t.draft.tagsOpen=!t.draft.tagsOpen;cmDraw();return true;}
+  if(a==='cmtag'){cmKeepDraft();t.draft.tag=t.draft.tag===b.dataset.v?'':b.dataset.v;t.draft.tagsOpen=false;t.draft.clientId=null;cmDraw();return true;}
+  return false;
+}
+document.addEventListener('input',e=>{if(e.target.id==='cm-text'&&CM.thread){CM.thread.draft.text=e.target.value;CM.thread.draft.clientId=null;cmGrow();}});
+window.addEventListener('resize',cmViewport);if(window.visualViewport){window.visualViewport.addEventListener('resize',cmViewport);window.visualViewport.addEventListener('scroll',cmViewport);}
+
+
 /* ---------------- Rendering ---------------- */
 const $ = s => document.querySelector(s);
 const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -4014,12 +4134,12 @@ function renderToday(){
   const doneKeys=new Set(wl.map(l=>l.key)), nextKey=keys.find(k=>!doneKeys.has(k));
   const over=w>L, total=logs.filter(l=>l.block===state.block.n).length, nm=state.settings.name?`, ${esc(state.settings.name)}`:'';
   const todayDow=new Date().getDay(), isTrain=isFlex() || ds.includes(todayDow);
-  let h=hsCard()+ringsCard(w,keys,wl,{L,over,total});
+  let h=hsCard()+ringsCard(w,keys,wl,{L,over,total})+cmCoachCard(true);
   if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) h+=`<section class="card stack"><h2>Your first workout</h2><ol class="small"><li>Tap a workout below to preview it, then choose Start workout.</li><li>Enter the weight and reps you actually do, then mark the set done. Suggested weights are starting points.</li><li>Follow the rest timer. Use Take a break to pause and resume later.</li></ol><button class="btn ghost" data-action="firstworkoutdismiss">Got it</button></section>`;
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
   if(!coachMode && state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
   if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row">${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</div></div>`;
-  if(state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
+  if(!AUTH.user && state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
   if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div>${coachMode?'<span class="small">Plan updates wait until this workout is finished or discarded.</span>':`<button class="btn primary sm" data-action="resume">${state.draft.partialSaved?'Resume remaining sets':'Resume'}</button>`}</div>`;
   h+=checkinCard(w)+addDayBanner(w);
   if(!coachMode && weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
@@ -4127,6 +4247,7 @@ function renderSettings(){
   const s=state.settings, ds=trainDays();
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
   ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
+  ${cmCoachCard()}
   ${coachMode?'':accountCard()}
   ${profileCard(s)}
   ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
@@ -4330,6 +4451,7 @@ function modal(html){
   (retained || sheet.querySelector('[data-modal-initial]') || title || sheet).focus({preventScroll:true});
 }
 function closeModal(){
+  cmClose();
   const host=$('#modal'); if(!host.querySelector('.sheet')) return;
   host.innerHTML=''; confirmCb=null;
   modalInert.forEach(([el,was])=>{el.inert=was;}); modalInert=[];
@@ -4480,7 +4602,7 @@ document.addEventListener('click', e=>{
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
   if(a.startsWith('hs') && hsAction(a)) return;
-  if(a.startsWith('msg') && fbAction(a,b)) return;
+  if((a.startsWith('msg')||a.startsWith('cm')) && fbAction(a,b)) return;
   if(a==='people'){ ui.tab='people'; if(AUTH.coach) loadPeople(); else { refreshUnread(); render(); } window.scrollTo(0,0); return; }
   if(a==='peoplereload'){ loadPeople(); return; }
   if(a==='invitenew'){ inviteSheet(); return; }
