@@ -13,6 +13,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -1510,58 +1511,243 @@ function lenText(key){ const a=afterMin(); return `~${totalMinutes(key)} min${a>
 let remote={status:'local'};   // replaced by the cloud block below
 let coachMode=null;   // {own:{state,logs}, name} while viewing someone else's app; nothing is saved then
 function save(){ state.updatedAt = Date.now(); if(coachMode) return; persistLocal(); queueCloud(); }
-function pushLog(){} function deleteRemoteLog(){}
-/* ---------------- Account saving (signed-in owner / organization members) ----------------
-   Saves state + logs to this person's private data/users/<id>/ area so a wiped device copy
-   doesn't lose anything. Falls back to on-device only when the viewer can't use it. */
-const CLOUD={ db:null, col:null, ok:false, busy:false, again:false, t:null, written:{} };
-const LOG_CHUNK=60;
+function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
+/* ---------------- Accounts (Supabase) ----------------
+   Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
+   so they follow them to any device. The phone keeps a copy too, so the app works with no signal at the gym.
+   Coaches (listed in the coaches table, added from the Supabase dashboard) can see everyone and send plan updates. */
+const SB_URL='https://aybtxqsneywuqxzjwoek.supabase.co', SB_KEY='sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl';
+const SITE_URL=location.origin+location.pathname;
+let sb=null; try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}); }catch(e){ sb=null; }
+const AUTH={user:null, ready:false, coach:false, recovery:false, mode:'signin', busy:false, err:'', msg:'', email:'', pw:''};
+const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
+const CLOUD={ok:false, busy:false, again:false, t:null, written:{}, stateJson:null, name:undefined};
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v); }catch(e){} }
+function rememberedAcct(){ try{ return JSON.parse(lsGet(ACCT_KEY)||'null'); }catch(e){ return null; } }
+function localOnly(){ return lsGet(LOCAL_ONLY_KEY)==='1'; }
+function needsAuth(){ return !!sb && !AUTH.user && !rememberedAcct() && !localOnly() && !coachMode; }
+function withTimeout(p,ms){ return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),ms))]); }
 function setSync(kind){
   const el=document.getElementById('sync'); if(!el) return;
-  const m={ cloud:['ok','Saved to your account'], saving:['','Saving…'], local:['ok','Saved on this device'], off:['warn','Saved on this device only'], coach:['warn','Their app · not saved'] }[kind]||['ok','Saved on this device'];
+  const m={ cloud:['ok','Saved to your account'], saving:['','Saving…'], local:['ok','Saved on this device'], off:['warn','Saved on this phone · syncs when online'], coach:['warn','Their app · not saved'] }[kind]||['ok','Saved on this device'];
   el.innerHTML=`<span class="dot ${m[0]}"></span><span>${m[1]}</span>`;
 }
 const substantive = (st,lg) => !!(st && (st.onboarded || st.block)) || (lg && lg.length>0);
-function withTimeout(p,ms){ return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),ms))]); }
+
 async function initRemote(){
+  if(!sb){ setSync('local'); return; }
+  sb.auth.onAuthStateChange((ev,session)=>{
+    if(ev==='PASSWORD_RECOVERY'){ AUTH.recovery=true; AUTH.err=''; AUTH.msg=''; render(); }
+    const u=session&&session.user||null;
+    if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
+  });
   try{
-    if(!window.claude || !claude.use) return;
-    const db=await claude.use('db'), user=await claude.use('user'); if(!db||!user) return;
-    const id=await user.id(); if(!id) return;
-    CLOUD.db=db; CLOUD.col=db.collection('data/users/'+id);
-    const snap=await withTimeout(CLOUD.col.doc('state').get(),10000);
-    CLOUD.ok=true;
-    if(snap.exists){
-      const d=snap.data()||{}; let rs=null; try{ rs=JSON.parse(d.json||'null'); }catch(e){}
-      const n=+d.logChunks||0; let rl=[];
-      for(let k=0;k<n;k++){ const c=await withTimeout(CLOUD.col.doc('logs'+k).get(),10000); if(c.exists){ try{ rl=rl.concat(JSON.parse((c.data()||{}).json||'[]')); CLOUD.written['logs'+k]=(c.data()||{}).json; }catch(e){} } }
-      const takeRemote = rs && ( (!substantive(state,logs) && substantive(rs,rl)) || ((+d.updatedAt||0) > (state.updatedAt||0) && substantive(rs,rl)) );
-      if(takeRemote){
-        state=migrate(rs); logs=rl; persistLocal();
-        if(state.block && state.places && state.places.length) ensurePlan();
-        if(state.draft && !state.setup) ui.tab='workout';
-        render(); setSync('cloud'); return;
-      }
-    }
-    setSync('cloud');
-    if(substantive(state,logs)) pushCloud();
-  }catch(e){ CLOUD.ok=false; }
+    const {data}=await withTimeout(sb.auth.getSession(),8000);
+    const u=data&&data.session&&data.session.user;
+    if(u){ if(!AUTH.user){ AUTH.user=u; onSignedIn(u); } }
+    else if(rememberedAcct() && navigator.onLine){ lsSet(ACCT_KEY,null); }   // signed out elsewhere or session expired: ask to sign in again
+    else if(rememberedAcct()) setSync('off');
+  }catch(e){ if(rememberedAcct()) setSync('off'); }
+  AUTH.ready=true; render();
+  if(!AUTH.user && !rememberedAcct()) setSync('local');
 }
-function queueCloud(){ if(!CLOUD.ok) return; clearTimeout(CLOUD.t); CLOUD.t=setTimeout(pushCloud,1200); }
-async function pushCloud(){
-  if(!CLOUD.ok || coachMode) return; if(CLOUD.busy){ CLOUD.again=true; return; }
-  CLOUD.busy=true; setSync('saving');
+
+async function onSignedIn(u){
+  const prevOwner=(rememberedAcct()||{}).owner || lsGet('strongstart_owner');
+  if(prevOwner && prevOwner!==u.id){ state=defaults(); state.updatedAt=0; logs=[]; }   // this phone held someone else's data
+  lsSet(ACCT_KEY, JSON.stringify({id:u.id, email:u.email})); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
+  AUTH.mode='signin'; AUTH.pw=''; AUTH.err=''; AUTH.msg='';
+  render();
   try{
-    const chunks=[]; for(let i=0;i<logs.length;i+=LOG_CHUNK) chunks.push(JSON.stringify(logs.slice(i,i+LOG_CHUNK)));
-    // logs are newest-first; re-chunking shifts them, so write only chunks whose text changed
-    for(let k=0;k<chunks.length;k++){ const key='logs'+k; if(CLOUD.written[key]!==chunks[k]){ await CLOUD.col.doc(key).set({json:chunks[k]}); CLOUD.written[key]=chunks[k]; } }
-    await CLOUD.col.doc('state').set({json:JSON.stringify(state), updatedAt:state.updatedAt||Date.now(), logChunks:chunks.length, v:state.v||5});
+    setSync('saving');
+    const [st,lg,co]=await Promise.all([
+      sb.from('app_state').select('state,updated_at').eq('user_id',u.id).maybeSingle(),
+      sb.from('workout_logs').select('id,data').eq('user_id',u.id).order('date',{ascending:false}),
+      sb.rpc('is_coach')
+    ]);
+    if(st.error) throw st.error; if(lg.error) throw lg.error;
+    AUTH.coach=!co.error && co.data===true;
+    const rs=st.data&&st.data.state, rl=(lg.data||[]).map(r=>r.data);
+    CLOUD.written={}; rl.forEach(l=>CLOUD.written[l.id]=JSON.stringify(l));
+    // Workouts: keep every one from both places. Setup and plan: keep the newer copy.
+    const byId=new Map(); rl.concat(logs).forEach(l=>{ if(l&&l.id&&!byId.has(l.id)) byId.set(l.id,l); });
+    const merged=[...byId.values()].sort((a,b)=>new Date(b.date)-new Date(a.date));
+    const remoteNewer = rs && substantive(rs,rl) && (!substantive(state,[]) || (+st.data.updated_at||0) >= (state.updatedAt||0));
+    if(remoteNewer && !coachMode){ state=migrate(rs); CLOUD.stateJson=JSON.stringify(state); if(state.block && state.places && state.places.length) ensurePlan(); }
+    if(!coachMode){ logs=merged; persistLocal(); }
+    CLOUD.ok=true; CLOUD.name=undefined;
+    sb.from('profiles').update({last_seen:new Date().toISOString()}).eq('id',u.id).then(()=>{},()=>{});
+    if(!coachMode){
+      if(state.draft && !state.setup && ui.tab!=='workout') ui.tab='workout';
+      render(); await pushCloud(); await applyPlanUpdates();
+    } else render();
     setSync('cloud');
-  }catch(e){
-    if(e && (e.code==='invalid_argument'||e.code==='revoked'||e.code==='not_granted'||e.code==='capability_disabled')){ CLOUD.ok=false; setSync('local'); }
-    else setSync('off');
-  }
+  }catch(e){ CLOUD.ok=!!AUTH.user; setSync('off'); }
+}
+
+function queueCloud(){ if(!CLOUD.ok || !AUTH.user) return; clearTimeout(CLOUD.t); CLOUD.t=setTimeout(pushCloud,1200); }
+async function pushCloud(){
+  if(!CLOUD.ok || !AUTH.user || coachMode) return; if(CLOUD.busy){ CLOUD.again=true; return; }
+  CLOUD.busy=true; CLOUD.failed=false; setSync('saving');
+  try{
+    const uid=AUTH.user.id, sj=JSON.stringify(state);
+    if(sj!==CLOUD.stateJson){ const {error}=await sb.from('app_state').upsert({user_id:uid, state, updated_at:state.updatedAt||Date.now(), saved_at:new Date().toISOString()}); if(error) throw error; CLOUD.stateJson=sj; }
+    const ids=new Set(), rows=[];
+    for(const l of logs){ if(!l.id) l.id='log-'+(Date.parse(l.date)||Date.now()); ids.add(l.id); const j=JSON.stringify(l); if(CLOUD.written[l.id]!==j) rows.push({user_id:uid, id:l.id, date:l.date||new Date().toISOString(), data:l}); }
+    if(rows.length){ const {error}=await sb.from('workout_logs').upsert(rows); if(error) throw error; rows.forEach(r=>CLOUD.written[r.id]=JSON.stringify(r.data)); }
+    const gone=Object.keys(CLOUD.written).filter(id=>!ids.has(id));
+    if(gone.length){ const {error}=await sb.from('workout_logs').delete().eq('user_id',uid).in('id',gone); if(error) throw error; gone.forEach(id=>delete CLOUD.written[id]); }
+    const nm=(state.settings&&state.settings.name)||null;
+    if(nm!==CLOUD.name){ const {error}=await sb.from('profiles').update({name:nm}).eq('id',uid); if(!error) CLOUD.name=nm; }
+    setSync('cloud');
+  }catch(e){ CLOUD.failed=true; setSync('off'); }
   CLOUD.busy=false; if(CLOUD.again){ CLOUD.again=false; pushCloud(); }
+}
+// Coming back to the app: send anything that didn't go through, and pick up changes from another device or the coach
+async function pullCloud(){
+  if(!CLOUD.ok || !AUTH.user || coachMode || CLOUD.busy) return;
+  if(CLOUD.failed){ await pushCloud(); if(CLOUD.failed) return; }
+  try{
+    const {data,error}=await sb.from('app_state').select('updated_at').eq('user_id',AUTH.user.id).maybeSingle();
+    if(!error && data && (+data.updated_at||0) > (state.updatedAt||0) && !state.draft){ AUTH.user && onSignedIn(AUTH.user); return; }
+    await applyPlanUpdates();
+  }catch(e){}
+}
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pullCloud(); });
+window.addEventListener('online',()=>{ if(AUTH.user) pullCloud(); });
+
+function applyPlanCode(o){ state.block.plan={...state.block.plan,...o.plan}; if(o.orig) state.block.orig=o.orig; state.adj=o.adj||{}; state.coach={note:o.note||''}; if(o.level&&LEVELS[o.level]) state.settings.level=o.level; }
+async function applyPlanUpdates(){
+  if(!AUTH.user || coachMode || !state.block || state.draft) return;   // never change a plan mid-workout; it waits for next time
+  const {data,error}=await sb.from('plan_updates').select('id,update').eq('user_id',AUTH.user.id).is('applied_at',null).order('id');
+  if(error || !data || !data.length) return;
+  for(const r of data){ if(r.update && r.update.plan) applyPlanCode(r.update); }
+  const {error:e2}=await sb.from('plan_updates').update({applied_at:new Date().toISOString()}).in('id',data.map(r=>r.id));
+  if(e2) return;
+  save(); render(); toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+}
+
+/* Sign in / create account screens */
+function authMsg(){ return AUTH.err?`<p class="small" role="alert" style="margin:0;color:var(--warn,#b3261e)">${esc(AUTH.err)}</p>`:AUTH.msg?`<p class="small" role="status" style="margin:0">${esc(AUTH.msg)}</p>`:''; }
+function renderAuth(){
+  const m=AUTH.recovery?'recovery':AUTH.mode, busy=AUTH.busy?'disabled':'';
+  const email=`<label class="field2" for="au-email"><span class="flabel">Email</span><input class="in" id="au-email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" value="${esc(AUTH.email)}"></label>`;
+  const pw=(lbl,ac)=>`<label class="field2" for="au-pw"><span class="flabel">${lbl}</span><input class="in" id="au-pw" type="password" autocomplete="${ac}" minlength="8" value="${esc(AUTH.pw)}"></label>`;
+  let b='';
+  if(m==='signup') b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>Create your account</h1></div><p class="lead">Your plan, weights and workouts save to your account, so they follow you to any phone or computer.</p>
+    <form class="stack" novalidate data-authform="signup">${email}${pw('Password <span class="tiny muted">(8 or more characters)</span>','new-password')}${authMsg()}
+    <button class="cta" type="submit" ${busy}>${AUTH.busy?'Creating…':'Create account'}</button></form>
+    <button class="later" data-action="authmode" data-v="signin">I already have an account</button>`;
+  else if(m==='forgot') b=`<div><div class="eyebrow">Strong Start</div><h1>Reset your password</h1></div><p class="lead">We’ll email you a link to choose a new password.</p>
+    <form class="stack" novalidate data-authform="forgot">${email}${authMsg()}<button class="cta" type="submit" ${busy}>${AUTH.busy?'Sending…':'Send reset link'}</button></form>
+    <button class="later" data-action="authmode" data-v="signin">Back to sign in</button>`;
+  else if(m==='recovery') b=`<div><div class="eyebrow">Strong Start</div><h1>Choose a new password</h1></div>
+    <form class="stack" novalidate data-authform="recovery">${pw('New password <span class="tiny muted">(8 or more characters)</span>','new-password')}${authMsg()}<button class="cta" type="submit" ${busy}>Save password</button></form>`;
+  else if(m==='check') b=`<div><div class="eyebrow">Almost there</div><h1>Check your email</h1></div><p class="lead">We sent a link to ${esc(AUTH.email)}. Tap it to confirm your account, then come back here and sign in.</p>${authMsg()}
+    <button class="cta" data-action="authmode" data-v="signin">Sign in</button>`;
+  else b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>Sign in</h1></div><p class="lead">Your plan, weights and workouts are saved to your account.</p>
+    <form class="stack" novalidate data-authform="signin">${email}${pw('Password','current-password')}${authMsg()}
+    <button class="cta" type="submit" ${busy}>${AUTH.busy?'Signing in…':'Sign in'}</button></form>
+    <button class="later" data-action="authmode" data-v="forgot" style="margin-top:-8px">Forgot your password?</button>
+    <div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><button class="btn primary block" data-action="authmode" data-v="signup">Create an account</button></div>`;
+  const skip = m==='recovery' ? '' : `<div class="spacer"></div><button class="later" data-action="authlocal">Use without an account <span class="tiny">(saves on this device only)</span></button>`;
+  return `<div class="ob">${b}${skip}</div>`;
+}
+function authFriendly(e){
+  const s=String((e&&(e.message||e.error_description))||e||'');
+  if(/invalid login/i.test(s)) return 'That email and password don’t match. Check them, or reset your password.';
+  if(/not confirmed/i.test(s)) return 'Please confirm your email first. Look for the link we sent you.';
+  if(/already registered|already exists/i.test(s)) return 'There’s already an account with that email. Sign in instead.';
+  if(/rate limit|too many/i.test(s)) return 'Too many tries. Wait a few minutes and try again.';
+  if(/password/i.test(s) && /(6|8|short|weak|characters)/i.test(s)) return 'Pick a longer password (8 or more characters).';
+  if(/fetch|network|timeout/i.test(s)) return 'Can’t reach the internet. Check your connection and try again.';
+  return s || 'Something went wrong. Try again.';
+}
+async function authSubmit(kind){
+  if(AUTH.busy) return;
+  const em=($('#au-email')||{}).value, p=($('#au-pw')||{}).value;
+  if(em!=null) AUTH.email=em.trim(); if(p!=null) AUTH.pw=p;
+  AUTH.err=''; AUTH.msg='';
+  if(kind!=='recovery' && !/^\S+@\S+\.\S+$/.test(AUTH.email)){ AUTH.err='Enter your email address.'; render(); return; }
+  if(kind!=='forgot' && (AUTH.pw||'').length<8){ AUTH.err='Your password needs 8 or more characters.'; render(); return; }
+  AUTH.busy=true; render();
+  try{
+    if(kind==='signin'){ const {error}=await sb.auth.signInWithPassword({email:AUTH.email, password:AUTH.pw}); if(error) throw error; }
+    else if(kind==='signup'){ const {data,error}=await sb.auth.signUp({email:AUTH.email, password:AUTH.pw, options:{emailRedirectTo:SITE_URL}}); if(error) throw error;
+      if(!data.session){ if(data.user && Array.isArray(data.user.identities) && !data.user.identities.length) throw {message:'already registered'}; AUTH.mode='check'; AUTH.pw=''; } }
+    else if(kind==='forgot'){ const {error}=await sb.auth.resetPasswordForEmail(AUTH.email,{redirectTo:SITE_URL}); if(error) throw error;
+      AUTH.msg='If that email has an account, a reset link is on its way. No email after a few minutes? Ask your coach to help.'; }
+    else if(kind==='recovery'){ const {error}=await sb.auth.updateUser({password:AUTH.pw}); if(error) throw error; AUTH.recovery=false; AUTH.pw=''; toast('Password saved'); }
+  }catch(e){ AUTH.err=authFriendly(e); }
+  AUTH.busy=false; render();
+}
+function authAction(a,b){
+  if(a==='authmode'){ AUTH.mode=b.dataset.v; AUTH.err=''; AUTH.msg=''; render(); window.scrollTo(0,0); }
+  else if(a==='authlocal'){ lsSet(LOCAL_ONLY_KEY,'1'); render(); setSync('local'); }
+  else if(a==='authstart'){ lsSet(LOCAL_ONLY_KEY,null); AUTH.mode=b.dataset.v||'signup'; render(); window.scrollTo(0,0); }
+  else if(a==='authout') confirmBox('Sign out?','Everything is saved to your account. This phone forgets it until you sign in again.','Sign out',signOut);
+}
+async function signOut(){
+  if(CLOUD.failed||CLOUD.busy) await pushCloud();
+  if(CLOUD.failed){ toast('Some changes haven’t saved yet. Get online, then sign out.'); return; }
+  try{ await sb.auth.signOut(); }catch(e){}
+  try{ localStorage.removeItem(LS); }catch(e){}
+  lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
+  AUTH.user=null; AUTH.coach=false; AUTH.mode='signin'; CLOUD.ok=false; CLOUD.written={}; CLOUD.stateJson=null; coachMode=null;
+  state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync('local');
+}
+function accountCard(){
+  if(!sb) return '';
+  if(AUTH.user) return sec('account','Account',AUTH.user.email,`
+    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts save to your account, and this phone keeps a copy so the app works without signal.</p>
+    <div class="row"><button class="btn sm" data-action="authout">Sign out</button></div>`);
+  return sec('account','Account','Not signed in · saved on this device only',`
+    <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
+    <div class="row"><button class="btn sm primary" data-action="authstart" data-v="signup">Create account</button><button class="btn sm" data-action="authstart" data-v="signin">Sign in</button></div>`);
+}
+
+/* Coach: your people */
+function agoText(d){ if(!d) return 'No workouts yet'; const days=Math.floor((Date.now()-new Date(d).getTime())/864e5); return days<=0?'Worked out today':days===1?'Last workout yesterday':`Last workout ${days} days ago`; }
+async function loadPeople(){
+  ui.people={loading:true, list:(ui.people&&ui.people.list)||[]}; render();
+  const {data,error}=await sb.rpc('coach_people');
+  ui.people={loading:false, err:error?authFriendly(error):'', list:data||[]}; if(ui.tab==='people') render();
+}
+function renderPeople(){
+  const P=ui.people||{list:[]}, me=AUTH.user&&AUTH.user.id;
+  return `<section><div class="eyebrow">Coach</div><h1>Your people</h1></section>
+  <div class="row"><button class="btn sm" data-action="tab" data-tab="settings">‹ Settings</button><button class="btn sm ghost" data-action="peoplereload">${P.loading?'Loading…':'Refresh'}</button></div>
+  ${P.err?`<p class="small" role="alert">${esc(P.err)}</p>`:''}
+  ${!P.loading && !P.list.length?`<section class="card"><p class="small muted" style="margin:0">No one has signed up yet. Send people the app link and they’ll show up here once they create an account.</p></section>`:''}
+  ${P.list.map(p=>`<section class="card stack" style="gap:6px">
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div style="min-width:0"><b>${esc(p.name||p.email||'New person')}</b>${p.id===me?' <span class="tiny muted">(you)</span>':''}<div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')}</div></div>
+      ${p.pending_update?'<span class="chip">Update waiting</span>':''}</div>
+    <div class="small">${esc(agoText(p.last_workout))}</div>
+    <div class="tiny muted">${p.workouts_7d} this week · ${p.workouts_28d} in 4 weeks · ${p.workouts_total} total</div>
+    ${p.id===me?'':`<button class="btn sm primary" style="align-self:flex-start" data-action="personopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'their')}">Open their app</button>`}
+  </section>`).join('')}`;
+}
+async function openPerson(id,name){
+  toast('Opening…');
+  const [st,lg]=await Promise.all([ sb.from('app_state').select('state').eq('user_id',id).maybeSingle(), sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}) ]);
+  if(st.error||lg.error){ toast('Couldn’t open their app. Check your connection.'); return; }
+  if(!st.data || !st.data.state || !st.data.state.block){ toast(`${name} hasn’t finished setup yet`); return; }
+  try{ fClearTimer(); }catch(e){}
+  coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
+  state=migrate(st.data.state); logs=(lg.data||[]).map(r=>r.data); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
+}
+function coachSendSheet(){
+  modal(`<h2>Send changes to ${esc(coachMode.name)}</h2>
+    <p class="small muted" style="margin:0">Sends the exercises, swaps and tweaks you see here, plus your note. Their app updates the next time they open it (never in the middle of a workout). Their history and weights stay.</p>
+    <label class="field2" for="sendnote"><span class="flabel">Note to them <span class="tiny muted">(shows on their home screen)</span></span><textarea id="sendnote" style="font-family:var(--body);font-size:14px;min-height:80px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
+    <div class="row"><button class="btn primary" data-action="coachsend">Send plan update</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
+}
+async function coachSend(){
+  const n=$('#sendnote'); state.coach={note:n?n.value.trim():''};
+  const {error}=await sb.from('plan_updates').insert({user_id:coachMode.uid, update:JSON.parse(planCode())});
+  if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
+  closeModal(); toast(`Sent. ${coachMode.name}’s app updates next time they open it.`);
 }
 /* ---------------- Rendering ---------------- */
 const $ = s => document.querySelector(s);
@@ -1585,18 +1771,19 @@ const GENDERS=[['f','Woman'],['m','Man'],['x','Rather not say']];
 function genderSeg(cur, action){ return `<div class="seg" role="group" aria-label="Gender" style="flex-wrap:wrap">${GENDERS.map(([k,l])=>`<button data-action="${action}" data-g="${k}" aria-pressed="${cur===k}">${l}</button>`).join('')}</div>`; }
 function render(){
   applyColor();
+  if(AUTH.recovery || needsAuth()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderAuth(); renderTimer(); return; }
   const inSetup = state.setup && !state.setup.paused;
   document.body.classList.toggle('in-setup', !!inSetup);
   document.body.classList.toggle('in-focus', !inSetup && ((ui.tab==='workout' && !!state.draft) || ui.tab==='preview'));
   if(inSetup){ $('#tabs').innerHTML=''; $('#app').innerHTML=renderSetup(); renderTimer(); return; }
-  $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||(ui.tab==='equip'&&k==='settings')?'aria-current="page"':''}>${ICONS[k]}<span>${l}</span></button>`).join('');
-  const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
+  $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people')&&k==='settings')?'aria-current="page"':''}>${ICONS[k]}<span>${l}</span></button>`).join('');
+  const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
   $('#app').innerHTML = (coachMode && ui.tab!=='workout' && ui.tab!=='preview' ? coachBanner() : '') + v;
   renderTimer(); syncWake(); warmClock();
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
 function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Nothing here touches your own app. Changes you make stay until you exit.</div></div>
-  <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="opencoach">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
+  <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="${coachMode.uid?'coachsendopen':'opencoach'}">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
 
 function ringStats(w, keys, wl, o){
   const L=o.L, wk=Math.min(w,L), perWeek=keys.length;
@@ -3159,6 +3346,8 @@ function sec(id,title,summary,body){
 function renderSettings(){
   const s=state.settings, ds=trainDays();
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
+  ${AUTH.coach&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b><div class="tiny muted">See everyone’s progress and update their plans</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
+  ${coachMode?'':accountCard()}
   ${profileCard(s)}
   ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
     <div class="chips">${Object.entries(GOALS).map(([k,g])=>`<button class="painchip ${goals().includes(k)&&s.goals.includes(k)?'on':''}" data-action="setgoal" data-v="${k}">${g.n}</button>`).join('')}</div>`)}
@@ -3214,8 +3403,8 @@ function renderSettings(){
       <label class="field2" for="coachnote"><span class="flabel">Note to them</span><textarea id="coachnote" style="font-family:var(--body);font-size:14px;min-height:70px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
       <button class="btn sm" style="align-self:flex-start" data-action="copyplan">Copy plan update</button></div></details>
   `)}
-  ${sec('backup','Backup','Saved on this device · copy or restore',`
-    <p class="small muted" style="margin:0">Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.</p>
+  ${sec('backup','Backup',AUTH.user?'Saved to your account · copy or restore':'Saved on this device · copy or restore',`
+    <p class="small muted" style="margin:0">${AUTH.user?'Your workouts are saved to your account and on this device. You can still copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
     <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
     <button class="btn sm" data-action="restore">Restore my backup</button>
@@ -3467,6 +3656,12 @@ document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   const a=b.dataset.action;
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
+  if(a.startsWith('auth')){ authAction(a,b); return; }
+  if(a==='people'){ ui.tab='people'; loadPeople(); window.scrollTo(0,0); return; }
+  if(a==='peoplereload'){ loadPeople(); return; }
+  if(a==='personopen'){ openPerson(b.dataset.id,b.dataset.n); return; }
+  if(a==='coachsendopen'){ coachSendSheet(); return; }
+  if(a==='coachsend'){ coachSend(); return; }
   if(a==='suedit' && !state.setup && ui.editFromSettings) state.setup={step:'week1', a:prefillSetup()};
   if(a.startsWith('su') && a!=='subtoday' && state.setup){ if(a==='suresume'){ state.setup.paused=false; save(); render(); window.scrollTo(0,0); return; } setupAction(a,b); return; }
   if(a[0]==='f' && fAction(a,b)) return;
@@ -3596,7 +3791,7 @@ document.addEventListener('click', e=>{
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
     case 'copyplan': { const n=$('#coachnote'); if(n){ state.coach.note=n.value.trim(); save(); } const txt=planCode(); try{ navigator.clipboard.writeText(txt).then(()=>toast('Plan update copied. Send it to them.'),()=>{ $('#plancode').value=txt; toast('Copy blocked. Code placed in the box above.'); }); }catch(err){ $('#plancode').value=txt; } break; }
     case 'loadplan': { try{ const o=JSON.parse($('#plancode').value); if(o.t!=='ssplan'||!o.plan) throw 0;
-      confirmBox('Load this plan update?','Your exercises, tweaks and coach note are replaced with your coach’s version. Your history and weights stay.','Load',()=>{ state.block.plan={...state.block.plan,...o.plan}; if(o.orig) state.block.orig=o.orig; state.adj=o.adj||{}; state.coach={note:o.note||''}; if(o.level&&LEVELS[o.level]) state.settings.level=o.level; save(); ui.tab='today'; render(); toast('Plan updated'); }); }catch(err){ toast('That code could not be read. Paste the whole thing.'); } break; }
+      confirmBox('Load this plan update?','Your exercises, tweaks and coach note are replaced with your coach’s version. Your history and weights stay.','Load',()=>{ applyPlanCode(o); save(); ui.tab='today'; render(); toast('Plan updated'); }); }catch(err){ toast('That code could not be read. Paste the whole thing.'); } break; }
     case 'copyreport': copyReport(); break;
     case 'copyfull': { const txt=JSON.stringify({state,logs}); const ta=$('#reporttxt');
       try{ navigator.clipboard.writeText(txt).then(()=>toast('Full data copied. Paste it into a text or email.'),()=>{ ta.value=txt; ta.select(); toast('Select all and copy'); }); }catch(err){ ta.value=txt; ta.select(); toast('Select all and copy'); } break; }
@@ -3614,13 +3809,15 @@ document.addEventListener('click', e=>{
       if(!o||!o.state||!o.state.block){ toast('That could not be read. Paste the full text they sent.'); break; }
       coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name:(o.state.settings&&o.state.settings.name)||'their'};
       fClearTimer && fClearTimer(); state=migrate(o.state); logs=o.logs||[]; ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${coachMode.name}’s app`); break; }
-    case 'coachexit': { if(!coachMode) break; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab='today'; try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
+    case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
     case 'opencoach': ui.tab='settings'; ui.open=ui.open||{}; ui.open.coach=true; render(); setTimeout(()=>{ const d=document.querySelector('#coachnote'); if(d){ d.closest('details').open=true; d.scrollIntoView({block:'center'}); } },50); break;
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
 });
+document.addEventListener('submit', e=>{ const f=e.target.closest('[data-authform]'); if(!f) return; e.preventDefault(); authSubmit(f.dataset.authform); });
 document.addEventListener('input', e=>{
   const t=e.target;
+  if(t.id==='au-email'){ AUTH.email=t.value; return; } if(t.id==='au-pw'){ AUTH.pw=t.value; return; }
   if(t.dataset.f && state.draft){ const s=state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
   if(t.id==='libq'){ ui.libQ=t.value; const pos=t.selectionStart; render(); const n=$('#libq'); n.focus(); n.setSelectionRange(pos,pos); }
 });
