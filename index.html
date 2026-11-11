@@ -1519,7 +1519,7 @@ function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
 const SB_URL='https://aybtxqsneywuqxzjwoek.supabase.co', SB_KEY='sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl';
 const SITE_URL=location.origin+location.pathname;
 let sb=null; try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}); }catch(e){ sb=null; }
-const AUTH={user:null, ready:false, coach:false, recovery:false, mode:'signin', busy:false, err:'', msg:'', email:'', pw:''};
+const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:'signin', busy:false, err:'', msg:'', email:'', pw:''};
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
 const CLOUD={ok:false, busy:false, again:false, t:null, written:{}, stateJson:null, name:undefined};
 function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
@@ -1542,6 +1542,7 @@ async function initRemote(){
     const u=session&&session.user||null;
     if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
   });
+  fetch(SB_URL+'/auth/v1/settings',{headers:{apikey:SB_KEY}}).then(r=>r.json()).then(j=>{ const g=!!(j&&j.external&&j.external.google); if(g!==AUTH.google){ AUTH.google=g; if(needsAuth()) render(); } }).catch(()=>{});
   try{
     const {data}=await withTimeout(sb.auth.getSession(),8000);
     const u=data&&data.session&&data.session.user;
@@ -1554,6 +1555,7 @@ async function initRemote(){
 }
 
 async function onSignedIn(u){
+  AUTH.user=u;
   const prevOwner=(rememberedAcct()||{}).owner || lsGet('strongstart_owner');
   if(prevOwner && prevOwner!==u.id){ state=defaults(); state.updatedAt=0; logs=[]; }   // this phone held someone else's data
   lsSet(ACCT_KEY, JSON.stringify({id:u.id, email:u.email})); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
@@ -1651,6 +1653,8 @@ function renderAuth(){
     <button class="cta" type="submit" ${busy}>${AUTH.busy?'Signing in…':'Sign in'}</button></form>
     <button class="later" data-action="authmode" data-v="forgot" style="margin-top:-8px">Forgot your password?</button>
     <div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><button class="btn primary block" data-action="authmode" data-v="signup">Create an account</button></div>`;
+  const g=AUTH.google && (m==='signin'||m==='signup') ? `<button class="btn block" data-action="authgoogle" ${busy} style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;border-radius:14px;font-size:16px"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</button><div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>` : '';
+  b=b.replace('<form ', g+'<form ');
   const skip = m==='recovery' ? '' : `<div class="spacer"></div><button class="later" data-action="authlocal">Use without an account <span class="tiny">(saves on this device only)</span></button>`;
   return `<div class="ob">${b}${skip}</div>`;
 }
@@ -1684,6 +1688,7 @@ async function authSubmit(kind){
 }
 function authAction(a,b){
   if(a==='authmode'){ AUTH.mode=b.dataset.v; AUTH.err=''; AUTH.msg=''; render(); window.scrollTo(0,0); }
+  else if(a==='authgoogle'){ AUTH.busy=true; render(); sb.auth.signInWithOAuth({provider:'google', options:{redirectTo:SITE_URL}}).then(({error})=>{ if(error){ AUTH.busy=false; AUTH.err=authFriendly(error); render(); } }); }
   else if(a==='authlocal'){ lsSet(LOCAL_ONLY_KEY,'1'); render(); setSync('local'); }
   else if(a==='authstart'){ lsSet(LOCAL_ONLY_KEY,null); AUTH.mode=b.dataset.v||'signup'; render(); window.scrollTo(0,0); }
   else if(a==='authout') confirmBox('Sign out?','Everything is saved to your account. This phone forgets it until you sign in again.','Sign out',signOut);
