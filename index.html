@@ -1386,6 +1386,7 @@ const STRETCH = {
 /* ---------------- State ---------------- */
 const LS = storageKey('strongstart_state_v3');
 let state = null, logs = [];
+let SYNC={owner:null,base:null,conflict:null,recovery:null};
 let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histEx:'', histOpen:null, planMode:'ppl3', timer:null, musSel:null};
 
 
@@ -1402,7 +1403,7 @@ function loadLocal(){
 let storageOk=true;
 function persistLocal(){
   if(typeof coachMode!=='undefined' && coachMode) return;
-  try{ localStorage.setItem(LS, JSON.stringify({state, logs})); storageOk=true; }catch(e){ storageOk=false; }
+  try{ localStorage.setItem(LS, JSON.stringify({state, logs, sync:SYNC})); storageOk=true; }catch(e){ storageOk=false; }
   setSync();
 }
 
@@ -1657,7 +1658,7 @@ function parseInvite(v){ v=String(v||'').trim(); const m=v.match(/invite=([A-Za-
 (function(){ try{ const q=new URLSearchParams(location.search), c=parseInvite(q.get('invite')); if(q.has('invite')){ if(c) lsSet(INVITE_KEY,c); q.delete('invite'); const qs=q.toString(); history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash); } }catch(e){} })();
 const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
-const CLOUD={ok:false, busy:false, again:false, pending:false, failed:false, t:null, flight:null, written:{}, stateJson:null, name:undefined};
+const CLOUD={ok:false, busy:false, again:false, pending:false, failed:false, t:null, flight:null};
 function lsGet(k){ try{ return localStorage.getItem(storageKey(k)); }catch(e){ return null; } }
 function lsSet(k,v){ try{ const key=storageKey(k); v==null?localStorage.removeItem(key):localStorage.setItem(key,v); }catch(e){} }
 function rememberedAcct(){ try{ return JSON.parse(lsGet(ACCT_KEY)||'null'); }catch(e){ return null; } }
@@ -1670,6 +1671,7 @@ function saveStatus(){
   const account=AUTH.user||rememberedAcct();
   if(!account) return ['ok','Saved on device','Saved in this browser only. It is not synced to an account.'];
   if(!sb || !AUTH.user) return ['warn','Sync unavailable','Saved on this device. Reconnect or sign in to sync your account.'];
+  if(SYNC.conflict) return ['warn','Review sync conflict','Both versions are preserved. Tap to choose how to resolve changes from another device.'];
   if(CLOUD.busy) return ['','Syncing…','Saved on this device. Sending changes to your account.'];
   if(navigator.onLine===false) return ['warn','Sync pending','Saved on this device. Account sync will retry when you are online.'];
   if(CLOUD.failed) return ['warn','Sync failed','Saved on this device. Account sync failed. Tap Retry sync to try again.'];
@@ -1686,8 +1688,9 @@ function setSync(){
   }
 }
 function syncDetails(){
+  if(SYNC.conflict) return syncConflictDetails();
   const m=saveStatus();
-  modal(`<h2>${esc(m[1])}</h2><p class="small" style="margin:0">${esc(m[2])}</p><div class="row">${AUTH.user&&!coachMode?'<button class="btn primary" data-action="syncretry">Retry sync</button>':''}<button class="btn" data-action="closemodal">Close</button></div>`);
+  modal(`<h2>${esc(m[1])}</h2><p class="small" style="margin:0">${esc(m[2])}</p><div class="row">${AUTH.user&&!coachMode?'<button class="btn primary" data-action="syncretry">Retry sync</button>':''}${SYNC.recovery?'<button class="btn" data-action="synccopy">Copy last conflict recovery</button>':''}<button class="btn" data-action="closemodal">Close</button></div>`);
 }
 const substantive = (st,lg) => !!(st && (st.onboarded || st.block)) || (lg && lg.length>0);
 
@@ -1754,48 +1757,132 @@ function renderGate(){
     <div class="spacer"></div><button class="later" data-action="authgateout">Sign out</button>
     <a class="tiny muted" href="privacy.html" style="text-align:center;margin-top:-6px">Privacy policy</a></div>`;
 }
+// A baseline is stored in the same localStorage write as the editable copy.
+// Client timestamps are display metadata, never authority for overwriting data.
+const copySync = value => value==null?value:JSON.parse(JSON.stringify(value));
+function syncKey(value){
+  if(Array.isArray(value)) return '['+value.map(syncKey).join(',')+']';
+  if(value && typeof value==='object') return '{'+Object.keys(value).filter(k=>k!=='updatedAt').sort().map(k=>JSON.stringify(k)+':'+syncKey(value[k])).join(',')+'}';
+  return JSON.stringify(value);
+}
+const sameSync=(a,b)=>syncKey(a)===syncKey(b);
+function deviceSnapshot(){ return copySync({state,logs}); }
+function normalizeSnapshot(s){
+  s=copySync(s); s.logs=s.logs||[]; s.deleted=s.deleted||[]; s.revision=String(s.revision||'0');
+  if(s.state){ s.state=migrate(s.state); normalizeLogs(s.logs,s.state.settings.units); }
+  return s;
+}
+function mergeSnapshots(base,local,account,choice){
+  const conflicts=[], deleted=new Set(account.deleted||[]);
+  function pick(b,l,r,path){
+    if(sameSync(l,r)) return l;
+    if(sameSync(l,b)) return r;
+    if(sameSync(r,b)) return l;
+    conflicts.push(path); return choice==='account'?r:l;
+  }
+  // Plans, progression, units and drafts have interdependent fields. Resolve the
+  // document together instead of producing a hybrid plan with mismatched units.
+  let st;
+  if(!base){
+    const localUsed=substantive(local.state,local.logs) || !!(local.state&&local.state.updatedAt);
+    if(!account.state) st=local.state;
+    else if(!localUsed) st=account.state;
+    else st=pick(undefined,local.state,account.state,'Plan, settings or active workout');
+  }else st=pick(base.state,local.state,account.state,'Plan, settings or active workout');
+  const byId=xs=>Object.fromEntries((xs||[]).map(l=>[l.id,l]));
+  const b=byId(base&&base.logs), l=byId(local.logs), r=byId(account.logs), result=[];
+  for(const id of new Set([...Object.keys(b),...Object.keys(l),...Object.keys(r)])){
+    if(deleted.has(id)) continue;
+    const item=pick(b[id],l[id],r[id],'Workout '+id);
+    if(item) result.push(copySync(item));
+  }
+  st=copySync(st||local.state);
+  // Keep unfinished effort when its previously saved partial log was deleted on
+  // another device. Finishing it creates a new session, never revives that ID.
+  if(st.draft && deleted.has(st.draft.logId)){
+    delete st.draft.logId; st.draft.partialSaved=false;
+  }
+  normalizeLogs(result,st.settings.units);
+  result.sort((a,b)=>new Date(b.date)-new Date(a.date)||String(a.id).localeCompare(String(b.id)));
+  return {state:st,logs:result,conflicts};
+}
+function setSyncConflict(account){
+  SYNC.conflict=copySync(account); CLOUD.pending=true;
+  persistLocal(); setSync();
+}
+function adoptSnapshot(next,base){
+  const changed=!sameSync(state,next.state)||!sameSync(logs,next.logs);
+  const draftChanged=!sameSync(state.draft,next.state.draft);
+  state=copySync(next.state); logs=copySync(next.logs); SYNC.base=copySync(base); SYNC.conflict=null;
+  if(draftChanged){ ui.timer=null; clearInterval(timerInt); if(!state.draft&&ui.tab==='workout') ui.tab='today'; }
+  persistLocal(); if(changed) render();
+}
+function syncConflictDetails(){
+  if(!SYNC.conflict) return syncDetails();
+  const merged=mergeSnapshots(SYNC.base,deviceSnapshot(),SYNC.conflict);
+  modal(`<h2>Review sync conflict</h2><p class="small">This device and your account changed since their last shared save. Choose which plan, settings and conflicting workouts to keep. Workouts added independently are kept from both copies; deleted workouts stay deleted.</p>
+    <p class="small">Your device: ${logs.length} workouts${state.draft?', unfinished workout':''}. Account: ${SYNC.conflict.logs.length} workouts${SYNC.conflict.state&&SYNC.conflict.state.draft?', unfinished workout':''}.</p>
+    <p class="small">${merged.conflicts.length} conflicting item(s). Copy both versions before choosing. Your latest conflict recovery copy stays on this device until sign-out.</p>
+    <div class="row"><button class="btn" data-action="synccopy">Copy both versions</button><button class="btn" data-action="syncchoose" data-v="device">Keep this device’s version</button><button class="btn" data-action="syncchoose" data-v="account">Use account version</button><button class="btn" data-action="closemodal">Decide later</button></div>`);
+}
+async function resolveSyncConflict(choice){
+  if(!SYNC.conflict || !AUTH.user || coachMode || CLOUD.busy || !['device','account'].includes(choice)) return;
+  const local=deviceSnapshot(), account=copySync(SYNC.conflict);
+  // Persist recovery before replacing anything. Do not proceed if storage fails.
+  SYNC.recovery={device:local,account,at:new Date().toISOString()}; persistLocal();
+  if(!storageOk){ toast('Copy both versions first. This device cannot save the recovery copy.'); return; }
+  const next=mergeSnapshots(SYNC.base,local,account,choice);
+  adoptSnapshot(next,account); closeModal(); CLOUD.pending=true;
+  await pushCloud();
+}
+function copySyncRecovery(){
+  const data=SYNC.conflict?{device:deviceSnapshot(),account:SYNC.conflict}:SYNC.recovery;
+  if(!data) return;
+  const text=JSON.stringify(data);
+  const fallback=()=>modal(`<h2>Copy sync recovery</h2><p class="small">Keep this private. Each version contains a state and logs object that can be restored as a personal backup.</p><textarea aria-label="Sync recovery copies">${esc(text)}</textarea><button class="btn" data-action="closemodal">Close</button>`);
+  try{ navigator.clipboard.writeText(text).then(()=>toast('Both versions copied'),fallback); }catch(e){fallback();}
+}
+function newLogId(){ return 'log-'+(window.crypto&&window.crypto.randomUUID?window.crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+Math.random().toString(36).slice(2)); }
+function restoreSnapshot(o){
+  state=migrate(copySync(o.state)); logs=normalizeLogs(copySync(o.logs||[]),state.settings.units);
+  // An explicit restore is allowed to restore previously deleted content, under
+  // new identities. Ordinary reconnects must never reuse deleted workout IDs.
+  if(AUTH.user||rememberedAcct()){
+    const ids=new Map();
+    logs.forEach(l=>{ const id=newLogId(); ids.set(l.id,id); l.id=id; });
+    for(const d of [state.draft,state.prevBlock&&state.prevBlock.draft]) if(d&&ids.has(d.logId)) d.logId=ids.get(d.logId);
+  }
+}
+
 async function onSignedIn(u){
   AUTH.user=u; AUTH.busy=false;
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
-  const prevOwner=(rememberedAcct()||{}).owner || lsGet('strongstart_owner');
-  if(prevOwner && prevOwner!==u.id){ state=defaults(); state.updatedAt=0; logs=[]; }   // this phone held someone else's data
-  lsSet(ACCT_KEY, JSON.stringify({id:u.id, email:u.email})); if(hsStandalone()) lsSet(HS_WELCOMED,'1'); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
-  AUTH.mode='signin'; AUTH.pw=''; AUTH.err=''; AUTH.msg='';
-  render();
+  if(!AUTH.user || AUTH.user.id!==u.id) return;
+  const prevOwner=(rememberedAcct()||{}).id || lsGet('strongstart_owner');
+  if((prevOwner && prevOwner!==u.id) || (SYNC.owner && SYNC.owner!==u.id)){
+    state=defaults(); logs=[]; SYNC={owner:u.id,base:null,conflict:null,recovery:null};
+  }
+  SYNC.owner=u.id;
+  lsSet(ACCT_KEY,JSON.stringify({id:u.id,email:u.email})); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
+  if(hsStandalone()) lsSet(HS_WELCOMED,'1');
+  AUTH.mode='signin'; AUTH.pw=''; AUTH.err=''; AUTH.msg=''; persistLocal(); render();
   try{
-    setSync('saving');
-    const [st,lg,co,ow]=await Promise.all([
-      sb.from('app_state').select('state,updated_at').eq('user_id',u.id).maybeSingle(),
-      sb.from('workout_logs').select('id,data').eq('user_id',u.id).order('date',{ascending:false}),
-      sb.rpc('is_coach'), sb.rpc('is_app_owner')
-    ]);
-    if(st.error) throw st.error; if(lg.error) throw lg.error;
-    AUTH.coach=!co.error && co.data===true; FB.owner=!ow.error && ow.data===true;
-    const rs=st.data&&st.data.state, rsJson=JSON.stringify(rs), rl=(lg.data||[]).map(r=>r.data);
-    CLOUD.written={}; rl.forEach(l=>CLOUD.written[l.id]=JSON.stringify(l));
-    // Workouts: keep every one from both places. Setup and plan: keep the newer copy.
-    normalizeLogs(rl, state.settings.units, (rs&&rs.settings&&rs.settings.units)||state.settings.units);
-    const byId=new Map(); rl.concat(logs).forEach(l=>{ if(l&&l.id){ const old=byId.get(l.id); if(!old || (+l.updatedAt||0)>(+old.updatedAt||0)) byId.set(l.id,l); } });
-    const merged=[...byId.values()].sort((a,b)=>new Date(b.date)-new Date(a.date));
-    const remoteNewer = rs && substantive(rs,rl) && (!substantive(state,[]) || (+st.data.updated_at||0) >= (state.updatedAt||0));
-    if(remoteNewer && !coachMode){ state=migrate(rs); CLOUD.stateJson=rsJson; if(state.block && state.places && state.places.length) ensurePlan(); }
-    if(!coachMode){ logs=normalizeLogs(merged,state.settings.units); persistLocal(); }
-    CLOUD.ok=true; CLOUD.name=undefined;
-    sb.from('profiles').update({last_seen:new Date().toISOString()}).eq('id',u.id).then(()=>{},()=>{});
-    if(!coachMode){
-      if(state.draft && !state.setup && !state.draft.partialSaved && ui.tab!=='workout') ui.tab='workout';
-      render(); await pushCloud(); await applyPlanUpdates();
-    } else render();
-    setSync('cloud'); refreshUnread();
-  }catch(e){ CLOUD.ok=false; CLOUD.failed=true; setSync(); }
+    const [co,ow]=await Promise.all([sb.rpc('is_coach'),sb.rpc('is_app_owner')]);
+    if(!AUTH.user || AUTH.user.id!==u.id) return;
+    AUTH.coach=!co.error&&co.data===true; FB.owner=!ow.error&&ow.data===true;
+    CLOUD.ok=true;
+    await pushCloud();
+    if(!AUTH.user || AUTH.user.id!==u.id) return;
+    if(state.draft && !state.setup && !state.draft.partialSaved) ui.tab='workout';
+    render(); refreshUnread();
+  }catch(e){ CLOUD.failed=true; setSync(); }
 }
-
 function queueCloud(){
   if(coachMode) return;
   if(AUTH.user||rememberedAcct()) CLOUD.pending=true;
   if(CLOUD.busy) CLOUD.again=true;
   clearTimeout(CLOUD.t);
-  if(CLOUD.ok && AUTH.user) CLOUD.t=setTimeout(()=>{ CLOUD.t=null; pushCloud(); },1200);
+  if(CLOUD.ok && AUTH.user && !SYNC.conflict) CLOUD.t=setTimeout(()=>{CLOUD.t=null;pushCloud();},1200);
   setSync();
 }
 function pushCloud(){
@@ -1803,60 +1890,64 @@ function pushCloud(){
   clearTimeout(CLOUD.t); CLOUD.t=null;
   if(CLOUD.flight){ CLOUD.again=true; return CLOUD.flight; }
   CLOUD.busy=true; CLOUD.failed=false; setSync();
-  const uid=AUTH.user.id;
+  const uid=AUTH.user.id, current=()=>AUTH.user&&AUTH.user.id===uid&&!coachMode;
   CLOUD.flight=(async()=>{
-    // Assign flight before a no-op pass or synchronous SDK error can finish.
     await Promise.resolve();
     try{
-      do{
+      for(let attempt=0;attempt<8;attempt++){
         CLOUD.again=false;
-        // Freeze one upload generation so edits during requests cannot be marked saved.
-        const sj=JSON.stringify(state), snapshot=JSON.parse(sj), savedLogs=JSON.parse(JSON.stringify(logs));
-        if(sj!==CLOUD.stateJson){ const {error}=await sb.from('app_state').upsert({user_id:uid, state:snapshot, updated_at:snapshot.updatedAt||Date.now(), saved_at:new Date().toISOString()}); if(error) throw error; CLOUD.stateJson=sj; }
-        const ids=new Set(), rows=[];
-        for(const l of savedLogs){ ids.add(l.id); const j=JSON.stringify(l); if(CLOUD.written[l.id]!==j) rows.push({user_id:uid,id:l.id,date:l.date||new Date().toISOString(),data:l}); }
-        if(rows.length){ const {error}=await sb.from('workout_logs').upsert(rows); if(error) throw error; rows.forEach(r=>CLOUD.written[r.id]=JSON.stringify(r.data)); }
-        const gone=Object.keys(CLOUD.written).filter(id=>!ids.has(id));
-        if(gone.length){ const {error}=await sb.from('workout_logs').delete().eq('user_id',uid).in('id',gone); if(error) throw error; gone.forEach(id=>delete CLOUD.written[id]); }
-        const nm=(snapshot.settings&&snapshot.settings.name)||null;
-        if(nm!==CLOUD.name){ const {error}=await sb.from('profiles').update({name:nm}).eq('id',uid); if(error) throw error; CLOUD.name=nm; }
-        CLOUD.again=CLOUD.again || sj!==JSON.stringify(state) || JSON.stringify(savedLogs)!==JSON.stringify(logs);
-      }while(CLOUD.again && AUTH.user&&AUTH.user.id===uid && !coachMode);
-      CLOUD.pending=false;
-      return true;
-    }catch(e){ CLOUD.failed=true; CLOUD.pending=true; return false; }
+        const {data,error}=await sb.rpc('read_account_snapshot');
+        if(!current()) return false;
+        if(error || !data) throw error||Error('Account unavailable');
+        const account=normalizeSnapshot(data), local=deviceSnapshot();
+        const merged=mergeSnapshots(SYNC.base,local,account);
+        if(merged.conflicts.length){ setSyncConflict(account); return false; }
+        adoptSnapshot(merged,account);
+        if(!storageOk) throw Error('Device save failed');
+        const sent=deviceSnapshot();
+        // First commit local changes; only a clean shared snapshot may receive
+        // coach changes. A retry after a lost response therefore remains safe.
+        const applyCoach=sameSync(sent.state,account.state)&&sameSync(sent.logs,account.logs);
+        const response=await sb.rpc('commit_account_snapshot',{
+          p_revision:account.revision,p_state:sent.state,p_logs:sent.logs,p_apply_coach:applyCoach
+        });
+        if(!current()) return false;
+        if(response.error) throw response.error;
+        if(!response.data || !response.data.snapshot) throw Error('Invalid sync response');
+        if(!response.data.ok) continue; // Another device won the revision check. Read and reconcile again.
+        const committed=normalizeSnapshot(response.data.snapshot), latest=deviceSnapshot();
+        const after=mergeSnapshots(sent,latest,committed);
+        if(after.conflicts.length){ SYNC.base=sent; setSyncConflict(committed); return false; }
+        adoptSnapshot(after,committed);
+        if(!storageOk) throw Error('Device save failed');
+        if(response.data.applied) toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+        if(!CLOUD.again && sameSync(after.state,committed.state)&&sameSync(after.logs,committed.logs) && applyCoach){
+          CLOUD.pending=false; return true;
+        }
+      }
+      throw Error('Account changed repeatedly; retry sync');
+    }catch(e){ if(current()){ CLOUD.failed=true; CLOUD.pending=true; } return false; }
     finally{ CLOUD.busy=false; CLOUD.flight=null; setSync(); }
   })();
   return CLOUD.flight;
 }
 async function flushCloud(){
   clearTimeout(CLOUD.t); CLOUD.t=null;
-  if(!CLOUD.ok || !AUTH.user || !sb || coachMode) return false;
+  if(SYNC.conflict) return false;
   return await pushCloud();
 }
-// Coming back to the app: send anything that didn't go through, and pick up changes from another device or the coach
 async function pullCloud(){
   if(!CLOUD.ok || !AUTH.user || coachMode || CLOUD.busy) return;
-  if(CLOUD.failed||CLOUD.pending){ if(!await pushCloud()) return; }
-  try{
-    const {data,error}=await sb.from('app_state').select('updated_at').eq('user_id',AUTH.user.id).maybeSingle();
-    if(!error && data && (+data.updated_at||0) > (state.updatedAt||0) && !state.draft){ AUTH.user && onSignedIn(AUTH.user); return; }
-    await applyPlanUpdates(); refreshUnread();
-  }catch(e){}
+  await pushCloud(); refreshUnread();
 }
-document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pullCloud(); });
-window.addEventListener('online',()=>{ setSync(); if(AUTH.user){ if(CLOUD.ok) pullCloud(); else onSignedIn(AUTH.user); } });
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible') pullCloud();});
+window.addEventListener('online',()=>{setSync();if(AUTH.user){if(CLOUD.ok) pullCloud();else onSignedIn(AUTH.user);}});
 window.addEventListener('offline',()=>setSync());
 
 function applyPlanCode(o){ state.block.plan={...state.block.plan,...o.plan}; if(o.orig) state.block.orig=o.orig; state.adj=o.adj||{}; state.coach={note:o.note||''}; if(o.level&&LEVELS[o.level]) state.settings.level=o.level; }
 async function applyPlanUpdates(){
-  if(!AUTH.user || coachMode || !state.block || state.draft) return;   // never change a plan mid-workout; it waits for next time
-  const {data,error}=await sb.from('plan_updates').select('id,update').eq('user_id',AUTH.user.id).is('applied_at',null).order('id');
-  if(error || !data || !data.length) return;
-  for(const r of data){ if(r.update && r.update.plan) applyPlanCode(r.update); }
-  const {error:e2}=await sb.from('plan_updates').update({applied_at:new Date().toISOString()}).in('id',data.map(r=>r.id));
-  if(e2) return;
-  save(); render(); toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+  if(!AUTH.user || coachMode || !state.block || state.draft) return;
+  return await pushCloud(); // Server applies and acknowledges in the save transaction.
 }
 
 /* Add to Home Screen (#20): a screen before setup, a card on Today, and a one-time "sign in once more" in the iPhone Home Screen app */
@@ -2018,8 +2109,8 @@ async function signOut(){
   try{ const {error}=await sb.auth.signOut(); if(error) throw error; }catch(e){ toast('Couldn’t sign out. Your data is still on this device.'); return; }
   try{ localStorage.removeItem(LS); }catch(e){}
   lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
-  AUTH.user=null; AUTH.access=null; AUTH.coach=false; FB.owner=false; ui.invites=null; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; CLOUD.written={}; CLOUD.stateJson=null; coachMode=null;
-  CLOUD.pending=false; CLOUD.failed=false; clearTimeout(CLOUD.t); CLOUD.t=null;
+  AUTH.user=null; AUTH.access=null; AUTH.coach=false; FB.owner=false; ui.invites=null; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; coachMode=null;
+  SYNC={owner:null,base:null,conflict:null,recovery:null}; CLOUD.pending=false; CLOUD.failed=false; clearTimeout(CLOUD.t); CLOUD.t=null;
   state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync();
 }
 function accountCard(){
@@ -4146,7 +4237,7 @@ function finishWorkout(){
   }
   if(!entries.length){ toast('Mark at least one set done first.'); return; }
   const elapsed=(d.elapsedMs||0)+(d.partialSaved?0:Math.max(0,Date.now()-d.startedAt));
-  const l={id:d.logId||'log-'+Date.now(), date:previous?previous.date:new Date().toISOString(), updatedAt:Math.max(Date.now(),(previous&&previous.updatedAt||0)+1), units:state.settings.units, key:d.key, name:tplOf(d.key).name, block:d.block, week:d.week, mode:d.mode, dur:Math.round(elapsed/60000), entries, ...completion};
+  const l={id:d.logId||newLogId(), date:previous?previous.date:new Date().toISOString(), updatedAt:Math.max(Date.now(),(previous&&previous.updatedAt||0)+1), units:state.settings.units, key:d.key, name:tplOf(d.key).name, block:d.block, week:d.week, mode:d.mode, dur:Math.round(elapsed/60000), entries, ...completion};
   if(d.cardioDone) l.cardio=d.cardioDone;
   logs=logs.filter(x=>x.id!==l.id); logs.unshift(l);
   if(l.status==='partial'){ d.logId=l.id; d.elapsedMs=elapsed; d.partialSaved=true; }
@@ -4171,6 +4262,8 @@ document.addEventListener('click', e=>{
   const a=b.dataset.action;
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
+  if(a==='syncchoose'){ resolveSyncConflict(b.dataset.v); return; }
+  if(a==='synccopy'){ copySyncRecovery(); return; }
   if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
@@ -4327,7 +4420,7 @@ document.addEventListener('click', e=>{
     case 'setunits': changeUnits(b.dataset.u); save(); render(); toast('Weights converted to '+state.settings.units+'.'); break;
     case 'copybackup': { const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
     case 'restore': { try{ const o=JSON.parse($('#restore').value); if(!o.state||!o.state.block) throw 0;
-      confirmBox('Load this data?',`This replaces the plan, weights and history in this browser with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} backup. ${AUTH.user?'The replacement also syncs to your account and other devices. Account workouts absent from the backup may be deleted.':'It affects this browser’s saved data.'} Copy a current backup first.`,'Load',()=>{ state=migrate(o.state); logs=normalizeLogs(o.logs||[],state.settings.units); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
+      confirmBox('Load this data?',`This replaces the plan, weights and history in this browser with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} backup. ${AUTH.user?'The replacement also syncs to your account and other devices. Account workouts absent from the backup may be deleted.':'It affects this browser’s saved data.'} Copy a current backup first.`,'Load',()=>{ restoreSnapshot(o); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
     case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
@@ -4365,7 +4458,7 @@ document.addEventListener('change', e=>{
 /* ---------------- Boot ---------------- */
 (function boot(){
   const saved=loadLocal();
-  if(saved && saved.state){ state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
+  if(saved && saved.state){ if(saved.sync) SYNC=saved.sync; state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
   if(state.block && state.places && state.places.length){ const rep=ensurePlan(); if(rep.length) save(); }
   persistLocal();

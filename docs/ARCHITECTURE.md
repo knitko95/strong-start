@@ -59,7 +59,7 @@ Deliberate set edits update `draft.planCounts` to the retained rows, including a
 
 | Item | Meaning |
 | --- | --- |
-| `strongstart_state_v3` | Local JSON `{state, logs}`; current `state.v` is 6 |
+| `strongstart_state_v3` | Local JSON `{state, logs, sync}`; current `state.v` is 6 |
 | `state.settings` | Profile, units, goals, schedule, experience/comfort, pain flags, display/cardio preferences |
 | `state.places`, `curPlace` | Per-place equipment/current selection |
 | `state.block` | Program number/start, base plan slots, original picks, introductory easing |
@@ -73,11 +73,17 @@ Deliberate set edits update `draft.planCounts` to the retained rows, including a
 
 The keys above describe production. Development prefixes the app keys with `dev_`. Supabase manages its own project-specific Auth session storage. Do not copy/inspect tokens to establish documentation facts.
 
-`save()` timestamps state, persists locally, and schedules upload after 1.2 seconds. `CLOUD.flight/busy/again` serializes and drains uploads, including edits made while a request is pending. Each pass freezes state/log payloads; `flushCloud()` awaits all passes before sign-out clears the cache. Failures preserve local data and keep a retryable status. `CLOUD.pending` marks the debounce period immediately; `written` and `stateJson` avoid resending unchanged records. State upsert, workout upserts/deletes, and name updates are separate operations, not one transaction.
+`save()` preserves the local `{state, logs, sync}` envelope and queues a save after 1.2 seconds. The optional `sync` metadata records the account owner, last shared snapshot, unresolved conflict, and latest conflict recovery copy. Existing `{state, logs}` saves and personal backups remain readable; state stays at v6 and the storage key is unchanged. No baseline is assumed for legacy copies: differing substantive device/account data is retained for review.
 
-On sign-in, access is checked, a different account's cache is discarded, and state/logs/roles are fetched. Logs merge by ID; an explicitly newer log `updatedAt` wins (legacy ties still prefer remote). This allows resumed partial sessions to update one log instead of creating duplicates. The whole remote state wins when substantive and at least as new as local (or local is not substantive). `pushCloud()` reconciles logs against known remote IDs, including deletes.
+`read_account_snapshot()` reads state, logs, server revision, and deleted workout IDs in one database snapshot. `commit_account_snapshot()` locks the caller's profile, checks approval and the expected revision, then commits state, logs, deletions, profile name, and eligible coach acknowledgements in one transaction. Revisions, not client clocks, determine whether a write can proceed. Old direct table writes are denied, including column-level grants, so stale application versions cannot bypass this boundary.
 
-Foreground visibility and `online` events trigger `pullCloud()`. A newer state can reload when no draft is active. Pending coach updates wait for a block and no draft, apply in ID order, get marked applied, then save. A paused draft still blocks them. This is event-driven/polling reconciliation, not Realtime subscriptions or field-level conflict resolution.
+Reconciliation compares the shared baseline, current device copy, and account snapshot. Plans/settings/progression/units/drafts are treated as one interdependent document. One-sided changes are adopted; divergent changes stop with **Review sync conflict** instead of guessing. Logs merge independently by ID; conflicting edits to the same log require a choice. The dialog preserves both versions, offers a copy/export, and stores the last recovery pair before replacing local data. Recovery is retained until the next resolved conflict, account switch, or sign-out. Sign-out remains blocked by failed or unresolved syncing.
+
+`workout_log_deletions` remembers removed IDs; stale clients cannot restore them. An unfinished draft referencing a deleted partial log keeps its sets but receives a new history identity when finished. Explicit backup restore imports workouts with new IDs (and remaps draft references), allowing intentional restoration without weakening ordinary deletion protection.
+
+Uploads are serialized and check account identity after every network await. Edits made during a request are reconciled against the submitted snapshot; they are never marked synced merely because an earlier request finished. The baseline and current data are persisted together. Device-storage failures stop further writes and preserve the warning; lost responses are recovered by reading the committed snapshot on retry.
+
+Foreground visibility and online events retry syncing. Coach application occurs only on a clean shared snapshot with a plan and no active or paused draft. The server applies pending updates in ID order and marks them applied in the same transaction. A failed transaction leaves updates pending; a lost response does not apply them twice. New user edits during delivery are retained, with explicit conflict review if necessary. This is event-driven reconciliation, not continuous Realtime or field-by-field plan merging.
 
 Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/recovery overrides, level, and note). `renderCoachSettings()` shows personal settings as read-only context; working-weight edits, workout recording, history deletion, program resets, and backups are unavailable in coach view. `coachActionAllowed()` and input/change guards prevent unsupported UI actions, while database RLS remains the authorization boundary. Previewing a different place changes only the temporary view. Sending still uses the existing `planCode()` payload; this cleanup does not expand backend permissions or add data fields.
 
@@ -85,13 +91,14 @@ Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/reco
 
 ## Database structure
 
-All eight public tables had RLS enabled. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
+The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
 
 | Table | Key/data | Purpose |
 | --- | --- | --- |
 | `profiles` | `id` -> Auth user; email/name, last_seen, approved_at, invited_by, disabled_at | Profile/approval/disable status |
-| `app_state` | `user_id`; JSONB state; bigint updated_at, saved_at | Latest whole state |
+| `app_state` | `user_id`; JSONB state; updated_at, saved_at, server revision | Latest whole state |
 | `workout_logs` | Composite `(user_id,id)`; date, JSONB data | Completed sessions |
+| `workout_log_deletions` | `(user_id,id)`; deleted_at | Prevent stale workout resurrection |
 | `plan_updates` | Identity id; user_id, created_by, JSONB update, created_at, applied_at | Coach update queue |
 | `coaches` | `user_id` -> Auth user | Coach membership |
 | `app_owners` | `user_id` -> Auth user | Owner membership |
@@ -104,11 +111,11 @@ Auth-user deletion cascades through core account records. Feedback's profile ref
 
 ### Authorization to preserve
 
-- Members read/write their own state/workouts; coaches read across accounts. Members alone update their state. Workflow-table restrictive policies also require `is_approved()`.
+- Members read their own state/workouts; coaches read across accounts. Members save through the guarded revision-checked RPC; direct state/log writes are revoked. Workflow-table restrictive policies also require `is_approved()`.
 - Profile reads allow self/coach/owner. Client inserts allow id/email/name/last_seen; updates allow email/name/last_seen. Approval/inviter/disable columns are excluded. RLS-only review misses this protection.
 - Feedback reads allow self or the appropriate inbox role. Inserts are limited to message/context columns; `user_id` defaults to `auth.uid()`. Inbox updates are limited to `read_at`/`done_at`.
 - Invites are created by the coach-only RPC. Coaches read their own and update only `cancelled_at` on eligible unused rows.
-- Coaches insert plan updates as themselves. Recipients update their own rows to mark application. This table still has broad column update grants; see the review.
+- Coaches insert plan updates as themselves using only user_id/created_by/update columns. Clients cannot prefill applied_at or update acknowledgements directly. The atomic save function acknowledges only the authenticated recipient’s updates after applying them. Deletion records are readable only by their approved owner.
 - `coaches`/`app_owners` have no client row policies. Small `SECURITY DEFINER` functions read them with an empty search path. No-policy notices do not justify making role tables public.
 - Coach and owner are separate memberships. Owner membership alone does not grant coach access or beta approval: `is_approved()` explicitly exempts coaches, and the UI loads the people list through the coach path. Do not assume the roles are interchangeable.
 - Reviewed definer functions check callers where needed. They are not all interchangeable with invoker functions. `coach_people()` is security invoker and relies on caller RLS.
@@ -152,4 +159,4 @@ Read-only `pg_policies`, `information_schema.column_privileges`, and `pg_get_fun
 
 ## Regression checks added November 11, 2026
 
-Run `node scripts/test-persistence.mjs` for synthetic VM checks covering unit migration/conversion, partial completion/resume, upload draining/failures, sign-out, local-storage failure, and coach guards. `--fixture` writes an ignored local-only browser fixture under `test-results/fixture/`; it strips the SDK only in that fixture and must never be deployed. Run `node scripts/build-dev.mjs` separately for syntax/environment isolation. No database migration is needed for these JSON metadata changes. Full offline startup and multi-device conflict/deletion tombstones remain separate work.
+Run `node scripts/test-persistence.mjs` for synthetic VM checks covering unit migration/conversion, partial completion/resume, upload draining/failures, sign-out, local-storage failure, and coach guards. `--fixture` writes an ignored local-only browser fixture under `test-results/fixture/`; it strips the SDK only in that fixture and must never be deployed. Run `node scripts/build-dev.mjs` separately for syntax/environment isolation. No database migration is needed for these JSON metadata changes. Full offline startup remains separate work. See [the sync verification record](SYNC-REVIEW-2026-11-11.md) for development-only cross-device and coach-save changes, database tests, and release requirements.

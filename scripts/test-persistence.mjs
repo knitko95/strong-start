@@ -89,15 +89,34 @@ await test('empty session is not logged',()=>{
   const {run}=harness();run('startWorkout(weekKeys()[0]);finishWorkout();');assert.equal(run('logs.length'),0);assert.ok(run('state.draft'));assert.match(run('lastToast'),/at least one set/);
 });
 
-function backend(h){
-  const writes=[], holds=[];let fail=false, hold=false, signedOut=false;
-  h.context.fakeBackend={from(table){return {
-    upsert(row){writes.push({table,row:structuredClone(row)});return hold?new Promise(resolve=>holds.push(resolve)):Promise.resolve({error:fail?Error('Simulated upload failure'):null});},
-    update(){return {eq:async()=>({error:fail?Error('Simulated profile failure'):null})};},
-    delete(){return {eq(){return {in:async()=>({error:fail?Error('Simulated delete failure'):null})};}};}
-  };},auth:{async signOut(){signedOut=true;return {error:null};}}};
-  h.run(`sb=fakeBackend;AUTH.user={id:'synthetic'};CLOUD.ok=true;CLOUD.stateJson=null;CLOUD.written={};`);
-  return {writes,holds,set fail(v){fail=v;},set hold(v){hold=v;},get signedOut(){return signedOut;}};
+function backend(h, shared){
+  const server=shared||{snapshot:{revision:'0',state:null,logs:[],deleted:[]},updates:[]};
+  const writes=[], holds=[];let fail=false,hold=false,signedOut=false,loseResponse=false;
+  const clone=x=>JSON.parse(JSON.stringify(x));
+  h.context.fakeBackend={async rpc(name,p){
+    if(name==='read_account_snapshot')return {data:clone(server.snapshot),error:fail?Error('Simulated read failure'):null};
+    if(name!=='commit_account_snapshot')return {data:false,error:null};
+    if(hold)await new Promise(resolve=>holds.push(resolve));
+    if(fail)return {error:Error('Simulated upload failure')};
+    if(p.p_revision!==server.snapshot.revision)return {data:{ok:false,snapshot:clone(server.snapshot)}};
+    const next=clone(p.p_state);let applied=0;
+    if(p.p_apply_coach&&next.block&&!next.draft){
+      for(const u of server.updates.filter(u=>!u.applied)){
+        next.block.plan={...next.block.plan,...u.plan};next.coach={note:u.note||''};next.adj=u.adj||{};
+        if(u.level)next.settings.level=u.level;u.applied=true;applied++;
+      }
+    }
+    for(const l of server.snapshot.logs)if(!p.p_logs.some(x=>x.id===l.id))server.snapshot.deleted.push(l.id);
+    if(p.p_logs.some(l=>server.snapshot.deleted.includes(l.id)))throw Error('Deleted ID reused');
+    if(JSON.stringify(next)!==JSON.stringify(server.snapshot.state)||JSON.stringify(p.p_logs)!==JSON.stringify(server.snapshot.logs)||applied){
+      writes.push({table:'app_state',row:{state:clone(next)}});
+      server.snapshot={...server.snapshot,revision:String(+server.snapshot.revision+1),state:next,logs:clone(p.p_logs)};
+    }
+    if(loseResponse){loseResponse=false;return {error:Error('Response lost after commit')};}
+    return {data:{ok:true,applied,snapshot:clone(server.snapshot)},error:null};
+  },auth:{async signOut(){signedOut=true;return {error:null};}}};
+  h.run(`sb=fakeBackend;AUTH.user={id:'synthetic'};CLOUD.ok=true;SYNC.owner='synthetic';`);
+  return {writes,holds,server,set fail(v){fail=v;},set hold(v){hold=v;},set loseResponse(v){loseResponse=v;},get signedOut(){return signedOut;}};
 }
 await test('queued changes immediately show pending and flush on sign-out',async()=>{
   const h=harness(),b=backend(h);h.run(`state.settings.name='Synthetic';save();`);
@@ -109,7 +128,7 @@ await test('edits during an upload are drained before synced or sign-out',async(
   h.run(`state.settings.name='First';save();`);const saving=h.run('pushCloud()');
   await new Promise(setImmediate);
   assert.equal(h.run('saveStatus()[1]'),'Syncing…');h.run(`state.settings.name='Second';save();`);
-  const exiting=h.run('signOut()');assert.equal(b.signedOut,false);assert.equal(b.writes[0].row.state.settings.name,'First');
+  const exiting=h.run('signOut()');assert.equal(b.signedOut,false);assert.equal(b.writes.length,0);
   b.hold=false;b.holds.shift()({error:null});await saving;await exiting;
   assert.equal(b.writes.at(-1).row.state.settings.name,'Second');assert.equal(b.signedOut,true);
 });
@@ -191,6 +210,122 @@ await test('setup rejects invalid body weight without losing the existing profil
   h.click('sulater');assert.notEqual(h.run('state.setup.paused'),true);
   h.run(`state.setup.a.bw='45';`);h.click('sunext');assert.notEqual(h.run('state.setup.step'),'about');
   h.run(`applySetup(state.setup.a);`);assert.equal(h.run('state.settings.bw'),45);
+});
+
+async function paired(){
+  const a=harness(),ba=backend(a);await a.run('pushCloud()');
+  const b=harness(),bb=backend(b,ba.server);
+  b.context.initial=structuredClone(ba.server.snapshot);
+  b.run('state=copySync(initial.state);logs=copySync(initial.logs);SYNC.base=copySync(initial);');
+  await b.run('pushCloud()');return {a,b,ba,bb};
+}
+await test('two devices preserve conflicting plans and require an explicit choice',async()=>{
+  const {a,b,ba}=await paired();
+  a.run("state.settings.name='Device A';save();");b.run("state.settings.name='Device B';save();");
+  await a.run('pushCloud()');assert.equal(await b.run('pushCloud()'),false);
+  assert.equal(ba.server.snapshot.state.settings.name,'Device A');assert.equal(b.run('state.settings.name'),'Device B');
+  assert.equal(b.run('saveStatus()[1]'),'Review sync conflict');assert.equal(await b.run('flushCloud()'),false);
+  assert.ok(JSON.parse(b.storage.get('dev_strongstart_state_v3')).sync.conflict);
+  await b.run("resolveSyncConflict('device')");assert.equal(ba.server.snapshot.state.settings.name,'Device B');
+  assert.equal(b.run('SYNC.recovery.account.state.settings.name'),'Device A');
+  assert.equal(b.run('SYNC.conflict'),null);
+});
+await test('independent new workouts merge while a stale device cannot revive a deletion',async()=>{
+  const {a,b,ba}=await paired();
+  a.run("logs.push({id:'A',date:'2026-11-11T10:00:00Z',units:'lb',status:'complete',entries:[]});save();");
+  b.run("logs.push({id:'B',date:'2026-11-11T11:00:00Z',units:'lb',status:'complete',entries:[]});save();");
+  await a.run('pushCloud()');await b.run('pushCloud()');assert.deepEqual(ba.server.snapshot.logs.map(l=>l.id).sort(),['A','B']);
+  await a.run('pushCloud()');a.run("logs=logs.filter(l=>l.id!=='A');save();");await a.run('pushCloud()');
+  b.run("state.settings.name='Offline edit';save();");await b.run('pushCloud()');
+  assert.deepEqual(ba.server.snapshot.logs.map(l=>l.id),['B']);assert.ok(ba.server.snapshot.deleted.includes('A'));
+});
+await test('same-workout edits conflict without replacing either completed set list',async()=>{
+  const {a,b,ba}=await paired();a.run("logs=[{id:'same',date:'2026-11-11T10:00:00Z',units:'lb',status:'partial',entries:[]}];save();");
+  await a.run('pushCloud()');await b.run('pushCloud()');
+  a.run("logs[0].entries=[{sets:[{w:20,r:8}]}];save();");b.run("logs[0].entries=[{sets:[{w:25,r:9}]}];save();");
+  await a.run('pushCloud()');assert.equal(await b.run('pushCloud()'),false);
+  assert.equal(b.run('logs[0].entries[0].sets[0].w'),25);assert.equal(ba.server.snapshot.logs[0].entries[0].sets[0].w,20);
+  await b.run("resolveSyncConflict('account')");assert.equal(b.run('logs[0].entries[0].sets[0].w'),20);
+});
+await test('a revision race retries and detects conflict instead of overwriting',async()=>{
+  const {a,b,ba,bb}=await paired();ba.hold=true;bb.hold=true;
+  a.run("state.settings.name='Race A';save();");b.run("state.settings.name='Race B';save();");
+  const pa=a.run('pushCloud()'),pb=b.run('pushCloud()');await new Promise(setImmediate);
+  ba.hold=false;ba.holds.shift()();await pa;bb.hold=false;bb.holds.shift()();await pb;
+  assert.equal(ba.server.snapshot.state.settings.name,'Race A');assert.ok(b.run('SYNC.conflict'));
+});
+await test('coach delivery waits for paused drafts and applies exactly once after they clear',async()=>{
+  const h=harness(),be=backend(h);await h.run('pushCloud()');
+  be.server.updates.push({plan:{upper:[]},note:'Synthetic coach',level:'up'});
+  h.run('startWorkout(weekKeys()[0]);state.draft.paused=true;save();');await h.run('pushCloud()');
+  assert.equal(be.server.updates[0].applied,undefined);
+  h.run('state.draft=null;save();');await h.run('pushCloud()');
+  assert.equal(be.server.updates[0].applied,true);assert.equal(h.run('state.coach.note'),'Synthetic coach');
+  h.run("state.coach.note='Member note after update';save();");await h.run('pushCloud()');
+  assert.equal(h.run('state.coach.note'),'Member note after update');
+});
+await test('lost response after coach commit recovers without consuming or replaying work',async()=>{
+  const h=harness(),be=backend(h);await h.run('pushCloud()');
+  be.server.updates.push({plan:{upper:[]},note:'Committed despite disconnect'});be.loseResponse=true;
+  assert.equal(await h.run('pushCloud()'),false);assert.equal(be.server.updates[0].applied,true);
+  assert.notEqual(h.run('state.coach.note'),'Committed despite disconnect');
+  assert.equal(await h.run('pushCloud()'),true);assert.equal(h.run('state.coach.note'),'Committed despite disconnect');
+  assert.equal(h.run('SYNC.conflict'),null);
+});
+await test('local save failure prevents sending or acknowledging a coach update',async()=>{
+  const h=harness(),be=backend(h);await h.run('pushCloud()');be.server.updates.push({plan:{upper:[]},note:'Pending'});
+  h.run("localStorage.setItem=()=>{throw Error('Quota');};");assert.equal(await h.run('pushCloud()'),false);
+  assert.equal(be.server.updates[0].applied,undefined);assert.equal(h.run('saveStatus()[1]'),'Device save failed');
+});
+await test('edits during coach delivery are preserved as a recoverable conflict',async()=>{
+  const h=harness(),be=backend(h);await h.run('pushCloud()');be.server.updates.push({plan:{upper:[]},note:'Coach edit'});be.hold=true;
+  const pending=h.run('pushCloud()');await new Promise(setImmediate);h.run("state.settings.name='New edit during delivery';save();");
+  be.hold=false;be.holds.shift()();assert.equal(await pending,false);
+  assert.equal(h.run('state.settings.name'),'New edit during delivery');assert.equal(h.run('SYNC.conflict.state.coach.note'),'Coach edit');
+});
+await test('reload preserves the baseline and detects an offline plan conflict',async()=>{
+  const {a,b,ba}=await paired();a.run("state.settings.name='Remote new';save();");await a.run('pushCloud()');
+  b.run("state.settings.name='Offline local';save();");const cached=b.storage.get('dev_strongstart_state_v3');
+  const c=harness();backend(c,ba.server);c.context.cached=JSON.parse(cached);c.run('state=migrate(cached.state);logs=cached.logs;SYNC=cached.sync;');
+  assert.equal(await c.run('pushCloud()'),false);assert.equal(c.run('state.settings.name'),'Offline local');
+});
+await test('first upgrade preserves differing legacy local and cloud plans for review',async()=>{
+  const {a,b,ba}=await paired();b.run("SYNC.base=null;state.settings.name='Legacy unsynced';save();");
+  assert.equal(await b.run('pushCloud()'),false);assert.equal(b.run('state.settings.name'),'Legacy unsynced');
+  assert.notEqual(ba.server.snapshot.state.settings.name,'Legacy unsynced');
+});
+await test('account switch while a request is pending never adopts the old response',async()=>{
+  const h=harness(),be=backend(h);await h.run('pushCloud()');be.hold=true;
+  h.run("state.settings.name='Old account edit';save();");const flight=h.run('pushCloud()');await new Promise(setImmediate);
+  h.run("AUTH.user={id:'other'};state=defaults();state.settings.name='Other account';SYNC={owner:'other',base:null};");
+  be.hold=false;be.holds.shift()();assert.equal(await flight,false);assert.equal(h.run('state.settings.name'),'Other account');
+});
+await test('remote-only changes load even when client clocks disagree',async()=>{
+  const {a,b}=await paired();a.run("state.settings.name='Server revision wins';state.updatedAt=1;");await a.run('pushCloud()');
+  b.run('state.updatedAt=9999999999999;');await b.run('pushCloud()');assert.equal(b.run('state.settings.name'),'Server revision wins');
+});
+
+await test('deleted partial history retains unfinished sets under a fresh session identity',async()=>{
+  const h=harness(),be=backend(h);h.run('startWorkout(weekKeys()[0]);const pk=dSlots()[0].pk;state.draft.sets[pk][0]={w:20,r:8,done:true};finishWorkout();');
+  await h.run('pushCloud()');const id=h.run('state.draft.logId');
+  be.server.snapshot.logs=[];be.server.snapshot.deleted.push(id);be.server.snapshot.revision=String(+be.server.snapshot.revision+1);
+  await h.run('pushCloud()');assert.equal(h.run('logs.length'),0);assert.equal(h.run('state.draft.logId'),undefined);
+  assert.equal(h.run('state.draft.sets[pk][0].done'),true);
+  h.run('resumePartial();finishWorkout();');await h.run('pushCloud()');
+  assert.equal(be.server.snapshot.logs.length,1);assert.notEqual(be.server.snapshot.logs[0].id,id);
+});
+await test('explicit backup restore can intentionally restore a deleted session with new IDs',async()=>{
+  const h=harness(),be=backend(h);h.run('startWorkout(weekKeys()[0]);const pk=dSlots()[0].pk;state.draft.sets[pk][0]={w:20,r:8,done:true};finishWorkout();');
+  await h.run('pushCloud()');h.run('const backup=deviceSnapshot();const oldId=logs[0].id;logs=[];save();');await h.run('pushCloud()');
+  h.run('restoreSnapshot(backup);save();');await h.run('pushCloud()');
+  assert.equal(h.run('logs.length'),1);assert.notEqual(h.run('logs[0].id'),h.run('oldId'));
+  assert.equal(h.run('state.draft.logId'),h.run('logs[0].id'));
+});
+await test('conflict resolution stops if the recovery copy cannot be saved',async()=>{
+  const {a,b}=await paired();a.run("state.settings.name='Cloud';save();");await a.run('pushCloud()');
+  b.run("state.settings.name='Device';save();");await b.run('pushCloud()');
+  b.run("localStorage.setItem=()=>{throw Error('Quota');};");await b.run("resolveSyncConflict('account')");
+  assert.equal(b.run('state.settings.name'),'Device');assert.ok(b.run('SYNC.conflict'));
 });
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){
