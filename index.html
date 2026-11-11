@@ -2624,7 +2624,11 @@ function cmInbox(){
 }
 function cmKeepDraft(){const t=CM.thread,box=$('#cm-text');if(t&&box){t.draft.text=box.value;CM.drafts[t.member]=t.draft;}}
 function cmClose(){
+  if(!CM.thread&&!CM.viewportLock)return;
   cmKeepDraft();CM.thread=null;
+  if(CM.viewportFrame&&window.cancelAnimationFrame)window.cancelAnimationFrame(CM.viewportFrame);CM.viewportFrame=null;
+  clearTimeout(CM.viewportSettleTimer);CM.viewportSettleTimer=null;
+  document.documentElement.style.removeProperty('--cm-sheet-top');document.documentElement.style.removeProperty('--cm-sheet-height');
   const input=$('#cm-text');if(input&&document.activeElement===input)input.blur();
   document.body.classList.remove('coach-messaging-open','cm-keyboard-open');
   const lock=CM.viewportLock;if(!lock)return;CM.viewportLock=null;
@@ -2660,6 +2664,7 @@ function cmDraw(bottom=false){
   const t=CM.thread;if(!t)return;const old=$('#cm-conversation'),scroll=old&&old.scrollTop,box=$('#cm-text'),selection=box&&[box.selectionStart,box.selectionEnd];
   const needs=t.coach&&(t.needsReply??t.messages.some(m=>m.sender_id!==CM.owner&&!m.resolved_at));
   const messages=cmMessageMarkup(t);
+  cmLockPage();
   modal(`<header class="cm-head"><div class="row" style="flex-wrap:nowrap">${cmAvatar(t.name)}<div class="grow"><div class="eyebrow">${t.coach?'Messages':'Your coach'}</div><h2 class="cm-name">${esc(t.name)}</h2></div><button class="btn sm ghost" data-action="closemodal">${ui.tab==='workout'?'Back to workout':t.coach?'Back':'Done'}</button></div></header>
     <div id="cm-conversation" class="cm-conversation"><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':''}<span id="cm-live-status" class="tiny muted" role="status" style="flex:1"></span><button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div><div id="cm-messages" class="cm-messages">${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}</div>${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
     <div id="cm-new-host" class="cm-new-host"></div><footer class="cm-composer"><div class="cm-tools">${t.coach?`<span id="cm-reply-status" class="tiny muted">${needs?'Needs reply':'Done'}</span>`:`<button class="cm-tag-toggle" data-action="cmtags" aria-expanded="${!!t.draft.tagsOpen}">${t.draft.tag?'Tag: '+esc(fbTagName(t.draft.tag))+' ×':'+ Add tag'}</button>`}</div>
@@ -2667,7 +2672,7 @@ function cmDraw(bottom=false){
       <div class="cm-compose-row"><textarea id="cm-text" aria-label="${t.coach?'Reply to '+esc(t.name):'Message '+esc(t.name)}" placeholder="${t.coach?'Reply to':'Message'} ${esc(t.name)}…" rows="1" maxlength="4000" ${t.busy?'disabled':''}>${esc(t.draft.text)}</textarea><button class="btn primary" data-action="cmsend" ${t.busy||t.loading?'disabled':''}>${t.busy?'Sending…':'Send'}</button></div>
       ${t.draft.workout&&t.draft.workout.name?`<div class="tiny muted cm-workout-ref">With: ${esc(t.draft.workout.name)} · ${esc(t.draft.workout.status||'')}</div>`:''}
       <div id="cm-done-host">${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</div></footer>`);
-  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmLockPage();cmViewport();cmGrow();cmLiveStart();cmLiveStatus();cmNewButton();
+  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmSettleViewport();cmGrow();cmLiveStart();cmLiveStatus();cmNewButton();
   const conversation=$('#cm-conversation');conversation.scrollTop=bottom?conversation.scrollHeight:scroll||0;
   if(selection&&document.activeElement===$('#cm-text'))$('#cm-text').setSelectionRange(...selection);
 }
@@ -2677,6 +2682,16 @@ function cmLockPage(){
   CM.viewportLock={x:window.scrollX,y:window.scrollY,width:window.innerWidth,height:Math.max(window.innerHeight,document.documentElement.clientHeight),styles:properties.map(p=>[p,document.body.style.getPropertyValue(p),document.body.style.getPropertyPriority(p)])};
   document.body.style.position='fixed';document.body.style.top=-CM.viewportLock.y+'px';document.body.style.left=-CM.viewportLock.x+'px';document.body.style.width='100%';document.body.style.overflow='hidden';
   document.documentElement.classList.add('cm-scroll-lock');
+}
+function cmSettleViewport(){
+  if(!CM.thread)return;
+  cmViewport();
+  if(CM.viewportFrame&&window.cancelAnimationFrame)window.cancelAnimationFrame(CM.viewportFrame);
+  if(window.requestAnimationFrame)CM.viewportFrame=window.requestAnimationFrame(()=>{
+    cmViewport();CM.viewportFrame=window.requestAnimationFrame(()=>{CM.viewportFrame=null;cmViewport();});
+  });
+  // Home Screen viewport movement can complete after the first painted frame.
+  clearTimeout(CM.viewportSettleTimer);CM.viewportSettleTimer=setTimeout(()=>{CM.viewportSettleTimer=null;cmViewport();},120);
 }
 function cmViewport(){
   if(!CM.thread)return;
@@ -2720,9 +2735,9 @@ function cmAction(a,b){
   return false;
 }
 document.addEventListener('input',e=>{if(e.target.id==='cm-text'&&CM.thread){CM.thread.draft.text=e.target.value;CM.thread.draft.clientId=null;cmGrow();}});
-window.addEventListener('resize',cmViewport);if(window.visualViewport){window.visualViewport.addEventListener('resize',cmViewport);window.visualViewport.addEventListener('scroll',cmViewport);}
-document.addEventListener('focusin',e=>{if(e.target.id==='cm-text')cmViewport();});
-document.addEventListener('focusout',e=>{if(e.target.id==='cm-text')cmViewport();});
+window.addEventListener('resize',cmSettleViewport);if(window.visualViewport){window.visualViewport.addEventListener('resize',cmSettleViewport);window.visualViewport.addEventListener('scroll',cmSettleViewport);}
+document.addEventListener('focusin',e=>{if(e.target.id==='cm-text')cmSettleViewport();});
+document.addEventListener('focusout',e=>{if(e.target.id==='cm-text')cmSettleViewport();});
 
 
 /* Realtime is an invalidation signal; authorized RPCs remain the source of truth. */

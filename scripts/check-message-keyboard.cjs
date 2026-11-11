@@ -3,6 +3,16 @@ const assert=require('node:assert/strict');
 // This verifies our geometry; it is not a physical iOS keyboard test.
 module.exports=async function checkMessageKeyboard(page,width){
  const before=await page.locator('#cm-text').inputValue();
+ // Model a Home Screen fixed backdrop moving after the initial measurement,
+ // with no resize event and no tap/focus on the input to trigger a correction.
+ await page.evaluate(async()=>{
+  closeModal();
+  const transient=document.createElement('style');transient.textContent='.coach-thread-scrim{transform:translateY(-140px)}';document.head.append(transient);
+  await cmOpen();transient.remove();
+ });
+ await page.waitForFunction(()=>Math.abs(document.querySelector('.coach-thread-sheet').getBoundingClientRect().top-64)<2);
+ assert.equal(await page.locator('#cm-text').evaluate(el=>el===document.activeElement),false);
+ assert.equal(await page.locator('.cm-composer').evaluate(el=>Math.round(el.getBoundingClientRect().bottom)),844);
  await page.evaluate(()=>{
   window.messageViewportDescriptor=Object.getOwnPropertyDescriptor(window,'visualViewport');
   window.messageSafeBottom=document.documentElement.style.getPropertyValue('--safe-bottom');
@@ -32,5 +42,5 @@ module.exports=async function checkMessageKeyboard(page,width){
   await cmOpen();return {y,locked,after,position,rootLocked};
  });
  assert.equal(restored.locked,restored.y);assert.equal(restored.after,restored.y);assert.notEqual(restored.position,'fixed');assert.equal(restored.rootLocked,false);
- console.log(JSON.stringify({width,keyboardViewportGeometry:true,pannedFixedBackdrop:true,keyboardSafeArea:true,menuRemoved:true}));
+ console.log(JSON.stringify({width,initialPositionWithoutTyping:true,keyboardViewportGeometry:true,pannedFixedBackdrop:true,keyboardSafeArea:true,menuRemoved:true}));
 };
