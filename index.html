@@ -504,6 +504,30 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .inboxrow .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
 .fbitem.isnew{box-shadow:inset 3px 0 0 var(--accent),var(--shadow)}
 .pstart{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3;background:linear-gradient(transparent,var(--bg) 22%);padding-top:18px;margin-top:-8px}
+/* Add to Home Screen (#20) */
+.hs-why{display:flex;gap:8px;flex-wrap:wrap}
+.hs-why span{background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:12.5px;border-radius:999px;padding:6px 11px}
+.hs-steps{display:flex;flex-direction:column;gap:10px}
+.hs-step{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.hs-n{flex:none;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-weight:800;display:grid;place-items:center;font-size:14px}
+.hs-t{flex:1;font-size:15px;line-height:1.3}.hs-t b{font-weight:800}
+.hs-ic{flex:none;width:44px;height:44px;border-radius:12px;background:var(--sunk);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink)}
+.hs-ic svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hs-tog{width:38px;height:23px;border-radius:999px;background:#34c759;position:relative;display:inline-block}
+.hs-tog:after{content:"";position:absolute;right:2px;top:2px;width:19px;height:19px;border-radius:50%;background:#fff}
+.hs-note{background:var(--warn-soft);border-radius:14px;padding:11px 13px;font-size:13.5px;line-height:1.4;color:var(--ink)}
+.hs-arrow{position:fixed;bottom:calc(6px + env(safe-area-inset-bottom));z-index:8;display:flex;flex-direction:column;align-items:flex-end;gap:2px;pointer-events:none;animation:hsbob 1.4s ease-in-out infinite}
+.hs-arrow.r{right:14px}.hs-arrow.c{left:50%;align-items:center;transform:translateX(-50%);animation-name:hsbobc}
+.hs-arrow span{background:var(--accent);color:var(--on-accent);font-weight:800;font-size:13px;border-radius:999px;padding:6px 12px;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.hs-arrow svg{width:28px;height:28px;margin-right:10px;fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.hs-arrow.c svg{margin-right:0}
+@keyframes hsbob{50%{transform:translateY(5px)}} @keyframes hsbobc{0%,100%{transform:translateX(-50%)}50%{transform:translate(-50%,5px)}}
+@media (prefers-reduced-motion: reduce){ .hs-arrow{animation:none} }
+.hsban{display:flex;gap:12px;align-items:center;background:var(--surface);border:1.5px solid var(--rose);border-radius:var(--r);padding:12px 12px 12px 14px;margin-bottom:14px;box-shadow:var(--shadow)}
+.hsban img{width:42px;height:42px;border-radius:11px;flex:none}
+.hsban .tx{flex:1;min-width:0}.hsban .tx b{display:block;font-size:15px}.hsban .tx span{font-size:13px;color:var(--muted)}
+.hsban .x{border:0;background:none;color:var(--muted);font-size:22px;line-height:1;padding:4px 6px;align-self:flex-start;margin:-4px -4px 0 0}
+.hsban .btn{min-height:38px;padding:7px 14px;font-size:14px;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -1625,7 +1649,7 @@ async function onSignedIn(u){
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
   const prevOwner=(rememberedAcct()||{}).owner || lsGet('strongstart_owner');
   if(prevOwner && prevOwner!==u.id){ state=defaults(); state.updatedAt=0; logs=[]; }   // this phone held someone else's data
-  lsSet(ACCT_KEY, JSON.stringify({id:u.id, email:u.email})); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
+  lsSet(ACCT_KEY, JSON.stringify({id:u.id, email:u.email})); if(hsStandalone()) lsSet(HS_WELCOMED,'1'); lsSet('strongstart_owner',u.id); lsSet(LOCAL_ONLY_KEY,null);
   AUTH.mode='signin'; AUTH.pw=''; AUTH.err=''; AUTH.msg='';
   render();
   try{
@@ -1697,6 +1721,80 @@ async function applyPlanUpdates(){
   save(); render(); toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
 }
 
+/* Add to Home Screen (#20): a screen before setup, a card on Today, and a one-time "sign in once more" in the iPhone Home Screen app */
+const HS_SKIP='strongstart_hs_skip', HS_HIDE='strongstart_hs_hide_until', HS_DONE='strongstart_hs_done', HS_WELCOMED='strongstart_hs_welcomed';
+const HS={prompt:null};
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); HS.prompt=e; try{ if(hsCan()) render(); }catch(err){} });
+window.addEventListener('appinstalled', ()=>{ HS.prompt=null; lsSet(HS_DONE,'1'); closeModal(); render(); toast('Strong Start is on your Home Screen'); });
+function hsEnv(){
+  const ua=navigator.userAgent||'';
+  const ipad=/iPad/.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1), ios=/iPhone|iPod/.test(ua)||ipad, android=/Android/.test(ua);
+  let browser='other';
+  if(ios) browser=/CriOS|FxiOS|EdgiOS|OPiOS/.test(ua)?'otherios':(/FBAN|FBAV|Instagram|GSA\/|Line\/|Snapchat|musical_ly|LinkedInApp|Twitter/.test(ua)||!/Safari\//.test(ua))?'inapp':'safari';
+  const sv=+((ua.match(/Version\/(\d+)/)||[])[1]||0);
+  return {ios, ipad, android, browser, newSafari:sv>=26};
+}
+function hsStandalone(){ try{ return matchMedia('(display-mode: standalone)').matches||navigator.standalone===true; }catch(e){ return false; } }
+function hsCan(){ const e=hsEnv(); return (e.ios||e.android) && !hsStandalone() && !lsGet(HS_DONE); }
+function hsScreenDue(){ return hsCan() && AUTH.user && !coachMode && state.setup && !state.setup.paused && !lsGet(HS_SKIP); }
+function hsCardDue(){ return hsCan() && AUTH.user && !coachMode && Date.now() > (+lsGet(HS_HIDE)||0); }
+const HS_IC={
+  dots:'<svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/></svg>',
+  vdots:'<svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="19" r="1.6" fill="currentColor"/></svg>',
+  share:'<svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M6 11H5v10h14V11h-1"/></svg>',
+  plus:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/></svg>',
+  safari:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>',
+  tog:'<span class="hs-tog"></span>'
+};
+function hsStepsList(rows){ return `<div class="hs-steps">${rows.map((r,i)=>`<div class="hs-step"><div class="hs-n">${i+1}</div><div class="hs-t">${r[0]}</div><div class="hs-ic">${HS_IC[r[1]]}</div></div>`).join('')}</div>`; }
+// The steps (and Install button on Android) for this phone. full = the screen before setup (shows the arrow at Safari's button)
+function hsBody(full){
+  const e=hsEnv(), add=['Scroll down and tap <b>Add to Home Screen</b>','plus'];
+  if(e.android){
+    if(HS.prompt) return `<button class="cta" data-action="hsinstall">Install Strong Start</button><p class="tiny muted" style="margin:-4px 0 0;text-align:center">Your phone will ask you to confirm. It’s free and doesn’t use the Play Store.</p>`;
+    return hsStepsList([['Tap <b>⋮</b> at the top right','vdots'],['Tap <b>Add to Home screen</b> or <b>Install app</b>','plus'],['Tap <b>Install</b>','tog']]);
+  }
+  if(e.browser==='inapp') return hsStepsList([['This page is open inside another app. Tap <b>•••</b> or the compass and choose <b>Open in Safari</b>','safari'],['In Safari, tap <b>Share</b>, then <b>Add to Home Screen</b>','plus'],['Tap <b>Add</b>','tog']]);
+  const last=e.newSafari?['Leave <b>Open as Web App</b> on, then tap <b>Add</b>','tog']:['Tap <b>Add</b> at the top right','tog'];
+  let first;
+  if(e.browser==='otherios') first=['Tap the <b>Share</b> button (in Chrome it’s at the top right)','share'];
+  else if(e.ipad) first=['Tap the <b>Share</b> button at the top of the screen','share'];
+  else if(e.newSafari) first=['Tap <b>•••</b> at the bottom right, then <b>Share</b>','dots'];
+  else first=['Tap the <b>Share</b> button at the bottom of the screen','share'];
+  const arrow = full && e.browser==='safari' && !e.ipad ? `<div class="hs-arrow ${e.newSafari?'r':'c'}" aria-hidden="true"><span>Start here</span><svg viewBox="0 0 24 24"><path d="M12 3v17M6 14l6 6 6-6"/></svg></div>` : '';
+  return hsStepsList([first,add,last])+`<div class="hs-note"><b>Then:</b> open Strong Start from your Home Screen and sign in once more. Your Home Screen app keeps its own sign-in, separate from Safari.</div>`+arrow;
+}
+const HS_WHY='<div class="hs-why"><span>Opens full screen</span><span>One tap at the gym</span><span>Timer stays on screen</span></div>';
+function renderHomeScreen(){
+  const e=hsEnv(), br=e.android?'Chrome':e.browser==='safari'?'Safari':'the browser';
+  return `<div class="ob"><div><div class="eyebrow">One quick thing before setup</div><h1>Put Strong Start on your Home Screen</h1></div>
+    <p class="lead">It works like a real app: its own icon, no browser bars, and it’s right there when you get to the gym.${e.ios?' Takes 20 seconds.':''}</p>
+    ${HS_WHY}${hsBody(true)}
+    ${e.android?'<div class="spacer"></div>':''}
+    <button class="later" data-action="hsskip" style="margin-top:0">${e.android?`Skip for now and keep going in ${br}`:'Skip for now'}</button>
+    ${e.ios?'<div style="height:64px"></div>':''}</div>`;
+}
+function hsCard(){
+  if(!hsCardDue()) return '';
+  return `<div class="hsban"><img src="icons/icon-192.png" alt=""><div class="tx"><b>Add to Home Screen</b><span>One tap away at the gym</span></div><button class="btn primary" data-action="hsshow">Show me</button><button class="x" data-action="hshide" aria-label="Not now">×</button></div>`;
+}
+function hsSheet(){
+  modal(`<div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h2 style="margin:0">Put Strong Start on your Home Screen</h2><button class="btn sm" data-action="closemodal" aria-label="Close">✕</button></div>
+    ${HS_WHY}${hsBody(false)}`);
+}
+function hsAction(a){
+  if(a==='hsskip'){ lsSet(HS_SKIP,'1'); render(); window.scrollTo(0,0); return true; }
+  if(a==='hsshow'){ hsSheet(); return true; }
+  if(a==='hshide'){ lsSet(HS_HIDE, String(Date.now()+7*864e5)); render(); toast('Okay! We’ll remind you in a week.'); return true; }
+  if(a==='hsinstall'){
+    if(!HS.prompt){ render(); return true; }
+    const p=HS.prompt; HS.prompt=null;
+    p.prompt(); (p.userChoice||Promise.resolve({})).then(c=>{ if(c && c.outcome==='accepted'){ lsSet(HS_DONE,'1'); closeModal(); render(); } else render(); });
+    return true;
+  }
+  return false;
+}
+
 /* Sign in / create account screens */
 function authMsg(){ return AUTH.err?`<p class="small" role="alert" style="margin:0;color:var(--warn,#b3261e)">${esc(AUTH.err)}</p>`:AUTH.msg?`<p class="small" role="status" style="margin:0">${esc(AUTH.msg)}</p>`:''; }
 function renderAuth(){
@@ -1719,6 +1817,11 @@ function renderAuth(){
     <form class="stack" novalidate data-authform="recovery">${pw('New password <span class="tiny muted">(8 or more characters)</span>','new-password')}${authMsg()}<button class="cta" type="submit" ${busy}>Save password</button></form>`;
   else if(m==='check') b=`<div><div class="eyebrow">Almost there</div><h1>Check your email</h1></div><p class="lead">We sent a link to ${esc(AUTH.email)}. Tap it to confirm your account, then come back here and sign in.</p>${authMsg()}
     <button class="cta" data-action="authmode" data-v="signin">Sign in</button>`;
+  else if(hsStandalone() && hsEnv().ios && !lsGet(HS_WELCOMED) && !inv) b=`<div><div class="eyebrow">You did it</div><h1>Sign in one last time</h1></div><p class="lead">This is your Home Screen app. It keeps its own sign-in, separate from Safari, so sign in once here and it’ll remember you.</p>
+    <form class="stack" novalidate data-authform="signin">${email}${pw('Password','current-password')}${authMsg()}
+    <button class="cta" type="submit" ${busy}>${AUTH.busy?'Signing in…':'Sign in'}</button></form>
+    <p class="tiny muted" style="margin:-4px 0 0;text-align:center">Use the same account you just made. Everything is saved to it.</p>
+    <button class="later" data-action="authmode" data-v="forgot">Forgot your password?</button>`;
   else b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>Sign in</h1></div><p class="lead">Your plan, weights and workouts are saved to your account.</p>
     <form class="stack" novalidate data-authform="signin">${email}${pw('Password','current-password')}${authMsg()}
     <button class="cta" type="submit" ${busy}>${AUTH.busy?'Signing in…':'Sign in'}</button></form>
@@ -2093,6 +2196,7 @@ function render(){
   const fbb=document.getElementById('fbbtn'); if(fbb) fbb.hidden=!(AUTH.user && !AUTH.recovery && !gateNeeded());
   if(!AUTH.recovery && gateNeeded()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderGate(); renderTimer(); return; }
   if(AUTH.recovery || needsAuth()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderAuth(); renderTimer(); return; }
+  if(hsScreenDue()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderHomeScreen(); renderTimer(); return; }
   const inSetup = state.setup && !state.setup.paused;
   document.body.classList.toggle('in-setup', !!inSetup);
   document.body.classList.toggle('in-focus', !inSetup && ((ui.tab==='workout' && !!state.draft) || ui.tab==='preview'));
@@ -3572,7 +3676,7 @@ function renderToday(){
   const doneKeys=new Set(wl.map(l=>l.key)), nextKey=keys.find(k=>!doneKeys.has(k));
   const over=w>L, total=logs.filter(l=>l.block===state.block.n).length, nm=state.settings.name?`, ${esc(state.settings.name)}`:'';
   const todayDow=new Date().getDay(), isTrain=isFlex() || ds.includes(todayDow);
-  let h=ringsCard(w,keys,wl,{L,over,total});
+  let h=hsCard()+ringsCard(w,keys,wl,{L,over,total});
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
   if(state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
   if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row"><button class="btn primary sm" data-action="newblock">Start the next program</button><button class="btn ghost sm" data-action="copyreport">Send progress</button></div></div>`;
@@ -3967,6 +4071,7 @@ document.addEventListener('click', e=>{
   const a=b.dataset.action;
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
+  if(a.startsWith('hs') && hsAction(a)) return;
   if(a.startsWith('msg') && fbAction(a,b)) return;
   if(a==='people'){ ui.tab='people'; if(AUTH.coach) loadPeople(); else { refreshUnread(); render(); } window.scrollTo(0,0); return; }
   if(a==='peoplereload'){ loadPeople(); return; }
