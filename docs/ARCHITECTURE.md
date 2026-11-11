@@ -115,6 +115,14 @@ Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/reco
 
 Paused setup records an additive `setup.savedSettings` snapshot. `save()` and Continue reconcile later Settings changes into the wizard answers while retaining unfinished wizard-only answers. Older checkpoints compare against the default profile on their first reconciliation. When saved Settings supply goals, places, level/comfort and a valid schedule for an existing plan, the changed checkpoint is retired and `onboarded` becomes true; plan, progression, logs and draft are retained. Equipment editing defers this until outside the equipment screen. An early quick-setup checkpoint still requires its equipment/experience/limitations flow before a plan exists. No schema version or database migration is required.
 
+## Workout presentation follow-up — November 11, 2026
+
+The remaining workout views share `.acard`, `.asection`, `aTop()` and `aFoot()` with the existing exercise/timer design. Preview, lists, exercise completion, cardio questions and completion retain their existing entry points and actions. The workout list and saved summary remain accessible dialogs using `modal(..., {sheetClass:'workout-sheet'})`, so background inertness, Escape, focus trapping, account guards and message actions stay in the existing modal system. Long previews use normal document flow instead of covering exercise rows with a sticky footer.
+
+Superset introductions are a presentation of the existing `ex` step, not a new scheduler phase. The additive `draft.pairSeen` map is keyed by the pair's ordered slot IDs; **Start A** acknowledges it without logging any sets. A pair with already-logged sets bypasses the introduction, including older drafts with no map. Pair membership still comes from `dSlots()` and locked `draft.shape`. `fPairAction()` describes the scheduler's next destination, including unequal counts, skipped partners and disabled automatic rest; `fdone` still owns actual logging and timers.
+
+The cardio check-in stores a pending `draft.guide.feelChoice`; **Continue** calls the existing feedback and advancement functions once. A selection can survive reload without prematurely changing cardio targets. These additive draft fields require no saved-state version/key change or database migration. The existing whole-document sync and coach save guards remain in force. See [the screen update verification](WORKOUT-SCREENS-2026-11-11.md).
+
 ## Database structure
 
 The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.

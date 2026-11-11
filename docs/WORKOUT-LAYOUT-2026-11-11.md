@@ -14,6 +14,8 @@ This applies to workout preview and all existing `.focus` workout screens, inclu
 
 ## Screen coverage
 
+This table records the initial spacing review. The owner subsequently approved updating all remaining screens, including the superset explanation, on the test app. See [the follow-up implementation and verification](WORKOUT-SCREENS-2026-11-11.md) for their updated status.
+
 All of these existing paths are present. The gaps are in adopting the new design, not absent routes or workout steps.
 
 | Screen | Current presentation |

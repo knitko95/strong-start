@@ -228,6 +228,52 @@ await test('skipping or finishing one move of a pair continues with its partner 
   assert.equal(h.run('state.draft.step.pk'),h.run('A'));h.click('fdone',{pk:h.run('A'),i:'0'});
   assert.equal(h.run('state.draft.step.ph'),'rest');assert.ok(h.run('ui.timer.total')>0);
 });
+await test('superset introduction preserves every set and stays acknowledged after reload',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.step={ph:'ex',pk:A};state.draft.rampDone=99;`);
+  const before=h.run('JSON.stringify(state.draft.sets)');
+  assert.match(h.run('renderFocus()'),/Two moves, then rest/);
+  h.click('fpairbegin',{pk:h.run('A')});
+  assert.equal(h.run('JSON.stringify(state.draft.sets)'),before);
+  h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);
+  assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
+  assert.match(h.run('renderFocus()'),/Paired exercises/);
+  assert.match(h.run('renderFocus()'),/Done · go to B/);
+  assert.equal(h.run('logs.length'),0);
+});
+await test('superset action descriptions match actual logging with unequal sets and manual rest',()=>{
+  for(const autoRest of [true,false]){
+    const h=pairedWorkout();h.run(`startWorkout(K);state.settings.autoRest=${autoRest};state.settings.betweenTimer=false;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:A};
+      state.draft.sets[B].push({w:'20',r:'8',done:false});updateDraftSetCount(B);`);
+    h.click('fpairbegin',{pk:h.run('A')});
+    let iterations=0;
+    while(h.run("state.draft.step.ph!=='exdone'")&&iterations++<30){
+      if(h.run("state.draft.step.ph==='rest'"))h.click('fready');
+      h.run(`var sl=dSlots(),current=sl.find(x=>x.pk===state.draft.step.pk),k=state.draft.sets[current.pk].findIndex(x=>!x.done),description=fPairAction(state.draft,sl,current,k,fPair(state.draft,sl,current.pk));`);
+      const label=h.run('description.label');h.click('fdone',{pk:h.run('current.pk'),i:String(h.run('k'))});
+      if(label==='Done · finish pair')assert.equal(h.run('state.draft.step.ph'),'exdone');
+      else if(label==='Done · start rest')assert.equal(h.run('state.draft.step.ph'),'rest');
+      else{const letter=label.endsWith('A')?'A':'B';assert.equal(h.run('state.draft.step.pk'),h.run(letter));assert.equal(h.run('state.draft.step.ph'),'ex');}
+    }
+    assert(iterations<30,'paired session reaches completion');
+    assert(h.run('state.draft.sets[A].every(x=>x.done)&&state.draft.sets[B].every(x=>x.done)'));
+  }
+});
+await test('existing paired drafts and a skipped partner do not repeat the introduction',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.step={ph:'ex',pk:A};state.draft.sets[A][0]={w:'20',r:'8',done:true};`);
+  assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
+  h.click('fskipyes',{pk:h.run('B')});assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
+  h.run(`var sl=dSlots(),move=sl.find(x=>x.pk===A),k=state.draft.sets[A].findIndex(x=>!x.done);`);
+  assert.equal(h.run('fPairAction(state.draft,sl,move,k,fPair(state.draft,sl,A)).label'),'Done · start rest');
+});
+await test('cardio check-in selection survives reload and applies feedback only on Continue',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);state.draft.step={ph:'warm'};state.draft._x=sessionExtras(state.draft,dSlots());gStart('warm');state.draft.guide.mode='cfeel';`);
+  const before=h.run('JSON.stringify(state.settings.cardio)');
+  h.click('gcfeelpick',{v:'hard'});assert.equal(h.run('JSON.stringify(state.settings.cardio)'),before);
+  h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);
+  assert.equal(h.run('state.draft.guide.feelChoice'),'hard');
+  h.click('gcfeelconfirm');assert.equal(h.run('(state.settings.cardio||{}).checks'),1);
+  h.click('gcfeelconfirm');assert.equal(h.run('(state.settings.cardio||{}).checks'),1);
+});
 await test('week order and exercise order resets are independent',()=>{
   const h=harness();h.run(`const original=weekKeys().join();const key=weekKeys()[0];const originalExercises=sessionSlots(key).map(s=>s.pk).join();`);
   h.click('ordmove',{i:'0',d:'1'});const changed=h.run('weekKeys().join()');assert.notEqual(changed,h.run('original'));

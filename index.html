@@ -546,6 +546,33 @@ button.atile.d{cursor:pointer}
 .acard .anote{border-top:1px solid var(--line);padding-top:12px;font-size:14px;display:flex;flex-direction:column;gap:8px}
 .acard .anote .gchips{justify-content:flex-start}
 .acard .phase{align-self:center}
+/* The remaining workout screens use the same card, section and action rhythm. */
+.asection{display:flex;flex-direction:column;gap:8px;min-width:0}
+.asection+.asection{border-top:1px solid var(--line);padding-top:14px}
+.asection .prow{padding:10px 0}.asection .prow:last-child{padding-bottom:0}
+.asection .prow .pmain{overflow-wrap:anywhere}
+.apair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+.apair>div{min-width:0;padding:10px;border-radius:14px;background:var(--sunk);border:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+.apair>div[aria-current="step"]{background:var(--accent-soft);border-color:var(--accent)}
+.apair .pair-label{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}
+.apair b{font-size:14px;line-height:1.3;overflow-wrap:anywhere}.apair small{font-size:12px;color:var(--muted)}
+.apair-pattern{font-size:12px;font-weight:800;text-align:center;color:var(--accent)}
+.apair-move{display:flex;flex-direction:row;gap:12px;align-items:flex-start}
+.apair-move .howbtn{padding:0 10px;font-size:13px}
+.apair-letter{flex:none;width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800}
+.apair-move>div{min-width:0;flex:1}
+.astats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.astats b{display:block;font-family:var(--display);font-size:28px;line-height:1.2}.astats span{font-size:12px;color:var(--muted)}
+.achoices{display:flex;flex-direction:column;gap:8px}.achoices .opt{min-width:0;width:100%;min-height:52px;box-shadow:none;background:var(--sunk);border:1px solid var(--line);border-radius:14px}
+.achoices .opt[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.workout-sheet.sheet{background:var(--bg);max-height:calc(100dvh - env(safe-area-inset-top,0px) - 16px);padding:16px 16px calc(24px + var(--safe-bottom));border-radius:24px 24px 0 0}
+.workout-sheet .focus{min-height:0}.workout-sheet .ftop{padding-top:0}
+.workout-sheet .ahead h1{font-size:30px}
+.aresult-next{display:flex;flex-direction:column;gap:4px}.aresult-next b{overflow-wrap:anywhere}
+.acard .fclockcard{background:none;padding:0;border-radius:0}
+.acard .fnote{box-shadow:none;padding:10px;border-radius:12px;width:100%}
+.aworkout-list{display:flex;flex-direction:column}
+@media(max-width:359px){.apair{gap:6px}.apair>div{padding:8px}.apair b{font-size:13px}.astats b{font-size:25px}.apair-move{gap:8px}}
 
 .gplan{display:flex;flex-direction:column;gap:4px;padding:12px 14px}.gph{display:flex;gap:12px;align-items:flex-start;text-align:left;background:none;border:0;border-radius:12px;padding:8px 8px;margin:0 -8px;color:inherit;font:inherit;cursor:pointer}.gph .gpt{min-width:44px;font-weight:800;color:var(--muted)}.gph b{font-size:15px}.gph .d{display:block;font-size:12.5px;color:var(--muted)}.gph.on{background:var(--sunk)}.gph.on .gpt,.gph.on b{color:var(--accent)}.gph.done{opacity:.5}
 .focus .linkbtn{text-decoration:none}
@@ -603,7 +630,6 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .inboxrow .ic{flex:none;width:40px;height:40px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center}
 .inboxrow .ic svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
 .fbitem.isnew{box-shadow:inset 3px 0 0 var(--accent),var(--shadow)}
-.pstart{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3;background:linear-gradient(transparent,var(--bg) 22%);padding-top:18px;margin-top:-8px}
 /* Add to Home Screen (#20) */
 .hs-why{display:flex;gap:8px;flex-wrap:wrap}
 .hs-why span{background:var(--accent-soft);color:var(--accent);font-weight:700;font-size:12.5px;border-radius:999px;padding:6px 11px}
@@ -3580,7 +3606,7 @@ function fTop(d,slots,label){
   if(label==null){
     label = st.ph==='warm'?'Warm-up':st.ph==='cool'?'Cool-down':'Workout';
     if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
-      if(gi>=0) label = gs[gi].length>1 ? `Superset ${slots[i].label}` : `Exercise ${gi+1} of ${gs.length}`; }
+      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`; }
   }
   // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
   const m=saveStatus();
@@ -3589,17 +3615,55 @@ function fTop(d,slots,label){
     ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div>${m[0]==='warn'?`<button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(m[1])}</button>`:''}`;
 }
 function fSaveRow(){ const m=saveStatus(); return `<button class="sync" data-action="syncdetails" style="align-self:center;min-height:44px"><span class="dot ${m[0]}"></span><b style="font-weight:inherit">${esc(m[1])}</b></button>`; }
+function aTop(label,backAction='tab',backAttrs='data-tab="today"'){
+  return `<div class="ftop"><button class="ficon" data-action="${backAction}" ${backAttrs} aria-label="Back">‹</button><div class="fprog"><div class="flabel">${esc(label)}</div></div><span style="width:44px" aria-hidden="true"></span></div>`;
+}
+function aFoot(button,next='',more=''){
+  return `<div class="ffoot"><div class="afoot">${more}${button}</div>${next?`<div class="anext">${next}</div>`:''}</div>`;
+}
+function fPair(d,slots,pk){
+  const idx=slots.findIndex(s=>s.pk===pk), group=fGroups(slots).find(g=>g.includes(idx));
+  if(!group||group.length<2) return null;
+  const moves=group.map(i=>slots[i]); return {moves,key:moves.map(s=>s.pk).join('|')};
+}
+function fPairStrip(d,pair,pk,rest=false){
+  return `<div class="apair" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>`<div ${s.pk===pk?'aria-current="step"':''}><span class="pair-label">${String.fromCharCode(65+i)} · ${!openN(d,s.pk)?'Complete':s.pk===pk?(rest?'Next':'Now'):'Partner'}</span><b>${esc(EX[s.id].n)}</b><small>${doneN(d,s.pk)} of ${(d.sets[s.pk]||[]).length} sets done</small></div>`).join('')}</div><div class="apair-pattern">A → B → Rest · Repeat each round</div>`;
+}
+function fPairIntro(d,slots,pair){
+  return `<div class="focus">${fTop(d,slots,'Meet your superset')}
+    <div class="ahead"><h1>Two moves, then rest.</h1><div class="small muted">A superset means doing these exercises back to back.</div></div>
+    <section class="card acard"><div class="ach"><b>Your pair</b><span class="goal">A → B → Rest</span></div>
+      ${pair.moves.map((s,i)=>{const tg=target(s);return `<div class="asection apair-move"><span class="apair-letter">${String.fromCharCode(65+i)}</span><div><b>${esc(EX[s.id].n)}</b><div class="small muted">${(d.sets[s.pk]||[]).length} sets × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}${tg.ex.uni?' per side':''}</div></div><button class="howbtn" data-action="exinfo" data-id="${s.id}" data-pk="${s.pk}">How to</button></div>`;}).join('')}
+      <div class="anote">Do one set of A, then one set of B. Rest after both, then repeat. If one move has extra sets, finish those with rest between sets.</div></section>
+    <p class="atip">The buttons will tell you which move comes next.</p>
+    ${aFoot(`<button class="btn primary fbig" data-action="fpairbegin" data-pk="${pair.moves[0].pk}">Start A · ${esc(EX[pair.moves[0].id].n)}</button>`)}</div>`;
+}
+// Describe the existing scheduler's destination without changing any logged sets.
+function fPairAction(d,slots,s,k,pair){
+  const candidates=pair.moves.map(move=>{const rows=d.sets[move.pk]||[], extra=move.pk===s.pk&&rows[k]&&!rows[k].done?1:0;return {move,done:doneN(d,move.pk)+extra,open:openN(d,move.pk)-extra};}).filter(x=>x.open>0);
+  candidates.sort((a,b)=>a.done-b.done);const next=candidates[0]?.move;
+  if(!next) return {label:'Done · finish pair',next:'Next: review your pair'};
+  const rest=!(target(s).ssFirst&&next.pk!==s.pk)&&s.cfg.rest&&state.settings.autoRest!==false;
+  const letter=String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===next.pk));
+  return {label:rest?'Done · start rest':`Done · go to ${letter}`,next:`${rest?'After rest':'Up next'}: <b>${esc(EX[next.id].n)}</b>`};
+}
 // More sheet: the less-used actions for the current workout screen
 function fMoreSheet(pk){
   const d=state.draft; if(!d) return; const st=d.step||{};
   const opt=(act,title,sub,extra='')=>`<button class="opt2" data-action="fmoredo" data-do="${act}" ${extra}><b>${title}</b><span class="tiny muted">${sub}</span></button>`;
   const sound=opt('gmute', state.settings.sound===false?'Turn sound on':'Turn sound off', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
   let h='';
-  if((st.ph==='warm'||st.ph==='cool') && d.guide){
+  if((st.ph==='warm'||st.ph==='cool') && d.listView){
+    h+=opt('gguide','Guide me with timers','Return to the guided workout.');
+    if(st.ph==='warm') h+=opt('fstart','Skip warm-up','Go to your first exercise.');
+    h+=sound;
+  } else if((st.ph==='warm'||st.ph==='cool') && d.guide){
     const G=d.guide, it=gItems(G.ph)[G.i], pm=G.mode==='paused'?G.pmode:G.mode;
     if(it&&it.alts&&it.alts.length) h+=opt('xswap','Swap this move','Pick something similar.',`data-g="${it.g}" data-k="${it.k}"`);
     if(it&&it.phases&&pm!=='ready') h+=opt('gskipall','Skip the rest of this','Go straight to the next move.');
     h+=sound+opt('glist','Show as a list','See every move and tick them off yourself.');
+    if(G.mode==='finq') h+=opt('gfin','Skip to the cool-down','', 'data-v="no"');
+    if(G.mode==='end') h+=opt('gback','Back to the cool-down','Revisit the last move.');
   } else {
     const s=dSlots().find(x=>x.pk===pk);
     if(s){ const arr=d.sets[pk]||[];
@@ -3633,25 +3697,25 @@ function renderFocus(){
   if((st.ph==='warm'||st.ph==='cool') && !d.listView){ if(!d.guide || d.guide.ph!==st.ph) gStart(st.ph); return renderGuide(); }
   if(st.ph==='warm'){
     return `<div class="focus">${fTop(d,slots)}
-      <div><div class="eyebrow">Warm-up · ${X.min} min</div><h1>Get warm</h1><div class="small muted" style="margin-top:4px">Tap each one as you finish it.</div></div>
-      <section class="card fl-list">${X.warm.filter(it=>!it.ramp).map(it=>xRow('warm',it,d)).join('')}</section>
-      <button class="linkbtn" data-action="gguide" style="align-self:flex-start">Guide me with timers</button>
-      <div class="fclockcard"><span aria-hidden="true">⏱</span><span><b id="fwclock">${mmss(Math.floor((Date.now()-(d.warmStart||d.startedAt))/1000))}</b> <span class="muted">on the warm-up clock</span></span></div>
-      <div class="ffoot"><button class="btn primary block fbig" data-action="fstart">Start first exercise</button><button class="btn ghost block" data-action="fstart">Skip warm-up</button></div></div>`;
+      <div class="ahead"><h1>Get warm.</h1><div class="small muted">Tap each move as you finish it.</div></div>
+      <section class="card acard fl-list"><div class="ach"><b>Your warm-up</b><span class="goal">${X.min} min</span></div><div>${X.warm.filter(it=>!it.ramp).map(it=>xRow('warm',it,d)).join('')}</div>
+        <div class="anote"><div class="fclockcard"><span><b id="fwclock">${mmss(Math.floor((Date.now()-(d.warmStart||d.startedAt))/1000))}</b> <span class="muted">on the warm-up clock</span></span></div><button class="linkbtn" data-action="gguide">Guide me with timers</button></div></section>
+      ${aFoot('<button class="btn primary fbig" data-action="fstart">Start first exercise</button>','',`<button class="amore" data-action="fmore" aria-label="More warm-up options">${ICON.more}</button>`)}</div>`;
   }
   if(st.ph==='cool'){
     const left=slots.filter(s=>openN(d,s.pk)).length;
     return `<div class="focus">${fTop(d,slots)}
-      <div><div class="eyebrow">Last part</div><h1>Cool down</h1><div class="small muted">Stretches are picked for the muscles you just trained.</div></div>
-      ${left?`<button class="card fnote" data-action="flist">${left} exercise${left>1?'s':''} not finished yet. <b>See the list</b></button>`:''}
-      ${X.finisher?`<section class="card fl-list"><div class="row between"><h3>Cardio after lifting</h3><span class="chip">Optional</span></div>${xRow('cool',X.finisher,d)}
-        <p class="tiny muted" style="margin:4px 0 0">${{easy:'Easy, steady cardio. ',mid:'Steady cardio with a few harder pushes. ',hard:'Hard intervals for your conditioning. '}[TIER()]}${hasGoal('lose')?'Burns a little extra after lifting.':'Good for your heart.'} Skip it any day.</p></section>`:''}
-      <section class="card fl-list"><h3>Cool-down</h3>${X.cool.map(it=>xRow('cool',it,d)).join('')}</section>
-      <button class="linkbtn" data-action="gguide" style="align-self:flex-start">Guide me with timers</button>
-      <div class="ffoot"><button class="btn primary block fbig" data-action="finish">Finish workout</button></div></div>`;
+      <div class="ahead"><h1>Cool down.</h1><div class="small muted">Stretches picked for the muscles you just trained.</div></div>
+      <section class="card acard fl-list"><div class="ach"><b>Your cool-down</b><span class="goal">Last part</span></div>
+        ${left?`<button class="fnote" data-action="flist">${left} exercise${left>1?'s':''} not finished yet. <b>See the list</b></button>`:''}
+        ${X.finisher?`<div class="asection"><div class="row between"><b>Cardio after lifting</b><span class="chip">Optional</span></div>${xRow('cool',X.finisher,d)}<p class="tiny muted">Skip it any day.</p></div>`:''}
+        <div class="asection">${X.cool.map(it=>xRow('cool',it,d)).join('')}</div><div class="anote"><button class="linkbtn" data-action="gguide">Guide me with timers</button></div></section>
+      ${aFoot('<button class="btn primary fbig" data-action="finish">Finish workout</button>','',`<button class="amore" data-action="fmore" aria-label="More cool-down options">${ICON.more}</button>`)}</div>`;
   }
   const idx=slots.findIndex(s=>s.pk===st.pk), s=slots[idx], tg=target(s), ex=tg.ex, load=usesLoad(ex);
   const gs=fGroups(slots), gi=gs.findIndex(g=>g.includes(idx)), grp=gs[gi];
+  const pair=fPair(d,slots,s.pk);
+  if(st.ph==='ex'&&pair&&!d.pairSeen?.[pair.key]&&pair.moves.every(move=>!doneN(d,move.pk)&&openN(d,move.pk))) return fPairIntro(d,slots,pair);
   const each = load && (primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   const per = ex.uni?' per side':'';
   const upNext=()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
@@ -3663,8 +3727,9 @@ function renderFocus(){
     const strip=sets.map((x,i)=>x.done?`<div class="atile d"><span class="tl">Set ${i+1} ✓</span><span class="tv">${esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r)}</span></div>`
       :`<div class="atile ${i===k?'n':''}"><span class="tl">Set ${i+1}${i===k?' next':''}</span><span class="tv">${esc(nextTv)}</span></div>`).join('');
     return `<div class="focus">${fTop(d,slots)}
-      <div class="ahead"><h1>${T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${esc(ex.n)} · ${dn} of ${sets.length} sets done</div></div>
+      <div class="ahead"><h1>${T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${pair?`Next: ${esc(ex.n)} · round ${k+1} of ${sets.length}`:`${esc(ex.n)} · ${dn} of ${sets.length} sets done`}</div></div>
       <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
+        ${pair?fPairStrip(d,pair,s.pk,true):''}
         <div class="atimer"><button class="aside" data-action="tadd" data-sec="-15" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>
           <svg class="fring" viewBox="0 0 260 260" role="timer" aria-label="Rest time left"><circle cx="130" cy="130" r="${R}" fill="none" stroke="var(--line)" stroke-width="16"/>
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
@@ -3672,7 +3737,7 @@ function renderFocus(){
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
         <div class="astrip">${strip}</div></section>
       <p class="atip">${state.settings.sound===false?'Your phone buzzes':'Your phone beeps and buzzes'} when rest is up.</p>
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fready">I’m ready${k>=0?` for set ${k+1}`:''}</button></div>${upNext()}</div></div>`;
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fready">${pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3681,18 +3746,16 @@ function renderFocus(){
       const e1=EX[gs1.id], ld=usesLoad(e1), w=Math.max(0,...done.map(x=>+x.w||0)), fl=(d.feel||{})[gs1.pk], ask=needFeel(gs1), open=ask||(ui.feelOpen||{})[gs1.pk];
       const msg=previewProg(gs1,done);
       const btns=`<div class="fpair ffeel" style="margin-top:8px">${[['easy','Too easy'],['good','Just right'],['hard','Too heavy']].map(([k,l])=>`<button class="btn ${fl===k?'primary':''}" data-action="ffeel" data-pk="${gs1.pk}" data-f="${k}" aria-pressed="${fl===k}">${l}</button>`).join('')}</div>`;
-      return `<section class="card">${gSlots.length>1?`<b>${esc(e1.n)}</b><div class="tiny muted">${done.map(x=>(ld&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ')}</div>`:''}
+      return `<div class="asection"><b>${esc(e1.n)}</b><div class="tiny muted">${done.map(x=>(ld&&x.w?`${weightNumber(x.w)} × `:'')+x.r).join(', ')}</div>
         ${ld && e1.mode!=='P' ? (open?`<b>${ask?`How did ${fmtW(w)} feel?`:'How did the weight feel?'}</b>${btns}`:'') : ''}
         <div class="small ${open||gSlots.length>1?'':''}" style="margin-top:${open?8:0}px"><span class="muted">Next time:</span> ${esc(msg)}</div>
-        ${ld && e1.mode!=='P' && !open?`<button class="linkbtn tiny" data-action="ffeelopen" data-pk="${gs1.pk}" style="margin-top:4px">Weight felt off?</button>`:''}</section>`; }).join('');
-    const first=gSlots[gSlots.length===1?0:0], done1=(d.sets[first.pk]||[]).filter(x=>x.done&&+x.r>0);
+        ${ld && e1.mode!=='P' && !open?`<button class="linkbtn tiny" data-action="ffeelopen" data-pk="${gs1.pk}" style="margin-top:4px">Weight felt off?</button>`:''}</div>`; }).join('');
     return `<div class="focus">${fTop(d,slots)}
-      <div style="text-align:center"><div class="fdone">✓</div><h1>${gSlots.length>1?'Superset done':esc(EX[first.id].n)+' done'}</h1>${gSlots.length===1?`<div class="small muted">${done1.map(x=>(usesLoad(EX[first.id])&&x.w?`${weightNumber(x.w)} × `:'')+x.r).join(', ')}</div>`:''}</div>
-      ${blocks}
-      ${T&&ns?`<section class="card frec"><div><div class="eyebrow" style="color:inherit;opacity:.85">Move to the next station</div><div id="fclock" class="num">${mmss(Math.max(0,Math.ceil((T.end-Date.now())/1000)))}</div></div><div class="small" style="text-align:right;font-weight:700;opacity:.92">${esc(T.tip||'')}</div></section>`:''}
-      ${ns?`<section class="card row" style="flex-wrap:nowrap">${musThumb(ns.id)}<div style="flex:1"><div class="eyebrow">Up next · ${gs.findIndex(g=>g.includes(nxt))+1} of ${gs.length}</div><b>${esc(EX[ns.id].n)}</b><div class="tiny muted">${ntg.sets} × ${usesLoad(ntg.ex)?`${ntg.lo}–${ntg.hi}`:ntg.r} ${ntg.unit}${EX[ns.id].uni?' per side':''}${usesLoad(ntg.ex)&&(ntg.w??ntg.sug)!=null?' · '+fmtW(ntg.w??ntg.sug):''}</div></div></section>`
-        :`<section class="card"><b>That was the last exercise.</b><div class="small muted">Nice work. Time to cool down.</div></section>`}
-      <div class="ffoot"><button class="btn primary block fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button></div></div>`;
+      <div class="ahead"><h1>${gSlots.length>1?'Superset complete.':'Exercise complete.'}</h1><div class="small muted">Review your sets and what comes next.</div></div>
+      <section class="card acard"><div class="ach"><b>${gSlots.length>1?'Your pair':'Your sets'}</b><span class="goal">✓ Logged</span></div>${blocks}
+        ${T&&ns?`<div class="asection"><div class="row between"><b>Move to the next station</b><span id="fclock" class="num">${mmss(Math.max(0,Math.ceil((T.end-Date.now())/1000)))}</span></div><div class="small muted">${esc(T.tip||'')}</div></div>`:''}
+        <div class="asection aresult-next"><div class="eyebrow">${ns?'Up next':'Lifting done'}</div>${ns?`<b>${esc(EX[ns.id].n)}</b><div class="small muted">${ntg.sets} × ${usesLoad(ntg.ex)?`${ntg.lo}–${ntg.hi}`:ntg.r} ${ntg.unit}${EX[ns.id].uni?' per side':''}${usesLoad(ntg.ex)&&(ntg.w??ntg.sug)!=null?' · '+fmtW(ntg.w??ntg.sug):''}</div>`:'<b>Time to cool down.</b>'}</div></section>
+      ${aFoot(`<button class="btn primary fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button>`)}</div>`;
   }
   // lighter warm-up sets before the first lift
   if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp).length) return renderRamp(d,s,X);
@@ -3700,8 +3763,8 @@ function renderFocus(){
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
-  const isB = gs[gi].length>1, label = isB ? `Superset ${s.label}` : `Exercise ${gi+1} of ${gs.length}`;
-  const partner = isB ? grp.map(i=>slots[i]).find(x=>x.pk!==s.pk) : null;
+  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`;
+  const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   const wPlan = load ? (cur.w!==''&&cur.w!=null ? weightNumber(cur.w) : wShow!=null ? fmtW(wShow).replace(/ (lb|kg)$/,'') : '') : '';
   const planTv = (wPlan!==''?wPlan+' × ':'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(secs?' s':''));
@@ -3711,26 +3774,24 @@ function renderFocus(){
   return `<div class="focus">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div>
       ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
-    <section class="card acard"><div class="ach"><b>Set ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
+    <section class="card acard">${pair?fPairStrip(d,pair,s.pk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
       <div class="astrip">${strip}</div></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
-    ${isB&&partner?`<div class="tiny muted" style="text-align:center">Then ${esc(EX[partner.id].n)}</div>`:''}
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':`Done with set ${kk+1}`}</button></div>${upNext()}</div></div>`;
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':pairAction?pairAction.label:`Done with set ${kk+1}`}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};
   const mins=Math.round((Date.now()-d.startedAt)/60000);
   const row=(to,name,sub,state1)=>`<button class="fli" data-action="fjump" data-to="${to}"><span class="fmark ${state1}">${state1==='d'?'✓':state1==='c'?'▶':''}</span><span style="flex:1;text-align:left"><b>${esc(name)}</b><br><span class="tiny muted">${esc(sub)}</span></span>${state1==='c'?'<span class="chip acc">Now</span>':''}</button>`;
-  let h=`<div class="row between"><h2>Today’s workout</h2><span class="small muted">${mins} min in</span></div><div class="small muted">Tap any exercise to jump to it, like when a machine is taken.</div><div class="fl-sheet">`;
+  let h=`<div class="focus">${aTop('Workout list','closemodal','')}<div class="ahead"><h1>Today’s workout</h1><div class="small muted">Tap any exercise to jump to it, like when a machine is taken.</div></div><section class="card acard"><div class="ach"><b>Session order</b><span class="goal">${mins} min in</span></div><div class="aworkout-list">`;
   h+=row('warm','Warm-up',`${d._x?d._x.min:5} min`, st.ph==='warm'?'c':'d');
   gs.forEach(g=>g.forEach(i=>{ const s=slots[i], tg=target(s), dn=doneN(d,s.pk), n=d.sets[s.pk].length, cur=['ex','rest','exdone'].includes(st.ph)&&st.pk===s.pk;
     row; h+=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':''); }));
   h+=row('cool','Cardio and cool-down','Optional cardio, walk and stretches', st.ph==='cool'?'c':'');
-  h+=`</div><div class="fpair"><button class="btn block" data-action="fpause">Take a break</button><button class="btn block" data-action="fexit">End workout</button></div>${fSaveRow()}
-`;
-  modal(h);
+  h+=`</div><div class="anote">${fSaveRow()}</div></section>${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to workout</button>','',`<button class="amore" data-action="fexit" aria-label="Pause or end workout">${ICON.more}</button>`)}</div>`;
+  modal(h,{sheetClass:'workout-sheet'});
 }
 function reorderSheet(key){
   const slots=sessionSlots(key), mine=!!(state.order&&state.order[key]);
@@ -3747,15 +3808,15 @@ function renderPreview(){
   const inProg = state.draft && state.draft.key===key;
   const wu=X.warm.filter(x=>!x.ramp).map(x=>x.t.toLowerCase()).slice(0,2).join(', ')+(X.warm.some(x=>x.ramp)?', lighter sets':'');
   return `<div class="focus">
-    <div class="ftop"><button class="ficon" data-action="tab" data-tab="today" aria-label="Back to the week">‹</button><span class="small muted" style="font-weight:700">Week</span></div>
-    <div><div class="eyebrow">${j>=0?esc(dayLabel(j,true))+' · ':''}${esc(t.focus)}</div><h1>${esc(t.name)}</h1><div class="small muted" style="margin-top:4px">${lenText(key)} · ${slots.length} exercises · ${esc(curPlace().n)}</div></div>
+    ${aTop('Workout preview')}
+    <div class="ahead"><div class="eyebrow">${j>=0?esc(dayLabel(j,true))+' · ':''}${esc(t.focus)}</div><h1>${esc(t.name)}</h1><div class="small muted">${lenText(key)} · ${slots.length} exercises · ${esc(curPlace().n)}</div></div>
     ${placeSwitch()}
-    <section class="card row between" style="flex-wrap:nowrap"><div><b>Warm-up</b><div class="tiny muted">${X.min} min · ${esc(wu)}</div></div><span class="chip">${X.min} min</span></section>
-    <div class="row between" style="margin:2px 2px -6px"><span class="eyebrow">Exercises</span>${coachMode||inProg&&Object.values(state.draft.sets||{}).flat().some(x=>x.done)?'':`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`}</div>
-    <section class="card" style="padding:4px 16px">${slots.map((s,i)=>{ const tg=target(s), ex=EX[s.id], w=tg.w??tg.sug;
-      return `<div class="prow"><span class="pnum">${i+1}</span><button class="pmain" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}"><b>${esc(ex.n)}</b>${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}<div class="tiny muted">${tg.sets} × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r}${tg.unit==='sec'?' sec':''}${ex.uni?' per side':''} · ${usesLoad(ex)?(w!=null?fmtW(w):'start light'):'Body weight'}${tg.ss?' · superset':''}</div><span class="pinfo">How to do it ›</span></button>${s.placeFrom?'':`<button class="linkbtn small" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`; }).join('')}</section>
-    <section class="card row between" style="flex-wrap:nowrap"><div><b>${X.finisher?'Cardio &amp; cool-down':'Cool-down'}</b><div class="tiny muted">${X.finisher?'Optional '+esc(X.finisher.t.toLowerCase())+' · ':''}${esc(X.cool[0].t.toLowerCase())} + ${X.cool.filter(x=>x.stretch).length} stretches</div>${coachMode||X.finisher?'':`<button class="linkbtn small" data-action="addcardio" style="margin-top:4px;padding:0">+ Add 10 min of cardio</button>`}</div><span class="chip">${X.coolMin} min</span></section>
-    <div class="ffoot pstart">${coachMode?'<p class="small muted">Plan preview. The member records workouts in their own app.</p>':`<button class="btn primary block fbig" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button><div class="tiny muted" style="text-align:center">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</div>`}</div></div>`;
+    <section class="card acard"><div class="ach"><b>Your session</b><span class="goal">${slots.length} exercises</span></div>
+      <div class="asection"><b>Warm-up · ${X.min} min</b><div class="small muted">${esc(wu)}</div></div>
+      <div class="asection"><div class="row between"><b>Exercises</b>${coachMode||inProg&&Object.values(state.draft.sets||{}).flat().some(x=>x.done)?'':`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`}</div><div>${slots.map((s,i)=>{ const tg=target(s), ex=EX[s.id], w=tg.w??tg.sug,pair=fPair(null,slots,s.pk),letter=pair?String.fromCharCode(65+pair.moves.findIndex(x=>x.pk===s.pk)):'';
+      return `<div class="prow"><span class="pnum">${i+1}</span><button class="pmain" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}"><b>${esc(ex.n)}</b>${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}<div class="tiny muted">${tg.sets} × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r}${tg.unit==='sec'?' sec':''}${ex.uni?' per side':''} · ${usesLoad(ex)?(w!=null?fmtW(w):'start light'):'Body weight'}${pair?` · Superset ${letter}`:''}</div><span class="pinfo">How to do it ›</span></button>${s.placeFrom?'':`<button class="linkbtn small" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`; }).join('')}</div>${fGroups(slots).some(g=>g.length>1)?'<p class="tiny muted">Paired moves go A → B → rest. You’ll meet each pair before it starts.</p>':''}</div>
+      <div class="asection"><b>${X.finisher?'Cardio &amp; cool-down':'Cool-down'} · ${X.coolMin} min</b><div class="small muted">${X.finisher?'Optional '+esc(X.finisher.t.toLowerCase())+' · ':''}${esc(X.cool[0].t.toLowerCase())} + ${X.cool.filter(x=>x.stretch).length} stretches</div>${coachMode||X.finisher?'':`<button class="linkbtn small" data-action="addcardio">+ Add 10 min of cardio</button>`}</div></section>
+    <div class="ffoot">${coachMode?'<p class="small muted">Plan preview. The member records workouts in their own app.</p>':`<div class="afoot"><button class="btn primary fbig" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button></div><div class="anext">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</div>`}</div></div>`;
 }
 // Exercise photos: img/<id>-a.jpg (start) and img/<id>-b.jpg (finish), shipped as the artifact's own files.
 const EX_PHOTOS = new Set([]);   // e.g. 'dumbbell-bench-press' once its photos are in img/
@@ -3811,6 +3872,10 @@ function fClearTimer(){ ui.timer=null; clearInterval(timerInt); if(state.draft&&
 function fAction(a,b){
   const d=state.draft;
   switch(a){
+    case 'fpairbegin': { if(!d) return true; const slots=dSlots(),pair=fPair(d,slots,b.dataset.pk);if(!pair) return true;
+      d.pairSeen=d.pairSeen||{};d.pairSeen[pair.key]=true;
+      const first=pair.moves.find(s=>openN(d,s.pk));if(first)d.step={ph:'ex',pk:first.pk};
+      save();render();window.scrollTo(0,0);return true; }
     case 'fbegin': { const key=b.dataset.key;
       const go=()=>{ if(!state.draft || state.draft.key!==key){ startWorkout(key); state.draft.step={ph:'warm'}; state.draft.warmStart=Date.now(); } else resumePartial(); ui.tab='workout'; save(); render(); window.scrollTo(0,0); };
       if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ state.draft=null; fClearTimer(); go(); }); return true; }
@@ -3958,13 +4023,12 @@ function cAfterItem(key,eq,D){
 }
 function needCardioFeel(){ const c=cSet()||{}; return (c.checks||0)<2 || !!c.ask; }
 function cardioFeelSheet(){
-  return `<div class="focus fcenter">${fTop(state.draft,dSlots())}
-    <div style="margin-top:16px"><div class="eyebrow">Quick check</div><h1>How did that cardio feel?</h1><div class="small muted" style="margin-top:6px">Warm-up cardio should feel easy to moderate: you can talk, but not sing.</div></div>
-    <div class="stack" style="width:100%;gap:10px;margin-top:10px">
-      <button class="opt" data-action="gcfeel" data-v="easy"><span style="flex:1;text-align:left"><b>Too easy</b><span class="d">Barely warm, could go much harder</span></span></button>
-      <button class="opt" data-action="gcfeel" data-v="good"><span style="flex:1;text-align:left"><b>Just right</b><span class="d">Warm and a little breathless</span></span></button>
-      <button class="opt" data-action="gcfeel" data-v="hard"><span style="flex:1;text-align:left"><b>Too hard</b><span class="d">Couldn’t talk, or felt drained</span></span></button></div>
-    <div class="tiny muted">We only ask the first couple of times, so your cardio fits you.</div></div>`;
+  const picked=state.draft.guide.feelChoice;
+  return `<div class="focus">${fTop(state.draft,dSlots(),'Cardio check-in')}
+    <div class="ahead"><h1>How did that cardio feel?</h1><div class="small muted">Warm-up cardio should feel easy to moderate: you can talk, but not sing.</div></div>
+    <section class="card acard"><div class="ach"><b>Your effort</b><span class="goal">Quick check</span></div><div class="achoices" role="group" aria-label="Cardio effort">
+      ${[['easy','Too easy','Barely warm, could go much harder'],['good','Just right','Warm and a little breathless'],['hard','Too hard','Couldn’t talk, or felt drained']].map(([v,title,desc])=>`<button class="opt" data-action="gcfeelpick" data-v="${v}" aria-pressed="${picked===v}"><span style="flex:1;text-align:left"><b>${title}</b><span class="d">${desc}</span></span></button>`).join('')}</div><div class="anote tiny muted">We only ask the first couple of times, so your cardio fits you.</div></section>
+    ${aFoot(`<button class="btn primary fbig" data-action="gcfeelconfirm" ${picked?'':'disabled'}>Continue</button>`)}</div>`;
 }
 function cardioFeel(v){
   const c=state.settings.cardio=state.settings.cardio||{style:'walk',jog:'none',adj:0};
@@ -4304,17 +4368,21 @@ function renderGuide(){
   if(G.mode==='finq'){
     const f=X.finisher;
     return `<div class="focus">${top}
-      <div><div class="eyebrow">Cardio after lifting · optional</div><h1>${esc(f.t)}</h1><div class="small muted" style="margin-top:4px">${esc(f.d)}</div></div>
-      <div class="stack" style="gap:6px"><b class="small">How long?</b><div class="seg" role="group" aria-label="Cardio length">${[10,15,20].map(v=>`<button data-action="gcmin" data-v="${v}" aria-pressed="${f.min===v}">${v} min</button>`).join('')}</div></div>
-      <section class="card"><div class="small">${f.ctype==='intervals'?'Short hard bursts with easy recovery. You’re capped at 2 interval days a week so it doesn’t wear you down.':f.ctype==='pushes'?'Mostly steady, with a 1-minute push every few minutes.':f.ctype==='walkjog'?'Easy jogging with walk breaks, a great way to build up your running.':'Steady and comfortable. '+TALK} ${cWhy()} The timer beeps at every change.</div></section>
-      ${f.alts&&f.alts.length?`<button class="linkbtn" data-action="xswap" data-g="cool" data-k="${f.k}" style="align-self:flex-start">Swap for something similar</button>`:''}
-      <div class="ffoot"><button class="btn primary block fbig" data-action="gfin" data-v="yes">Start cardio</button><button class="btn ghost block" data-action="gfin" data-v="no">Skip to the cool-down</button></div></div>`;
+      <div class="ahead"><h1>${esc(f.t)}</h1><div class="small muted">${esc(f.d)}</div></div>
+      <section class="card acard"><div class="ach"><b>Cardio after lifting</b><span class="goal">Optional</span></div>
+        <div class="asection"><b class="small">How long?</b><div class="seg" role="group" aria-label="Cardio length">${[10,15,20].map(v=>`<button data-action="gcmin" data-v="${v}" aria-pressed="${f.min===v}">${v} min</button>`).join('')}</div></div>
+        <div class="asection small">${f.ctype==='intervals'?'Short hard bursts with easy recovery. You’re capped at 2 interval days a week so it doesn’t wear you down.':f.ctype==='pushes'?'Mostly steady, with a 1-minute push every few minutes.':f.ctype==='walkjog'?'Easy jogging with walk breaks, a great way to build up your running.':'Steady and comfortable. '+TALK} ${cWhy()} The timer beeps at every change.</div>
+        <div class="anote">${f.alts&&f.alts.length?`<button class="linkbtn" data-action="xswap" data-g="cool" data-k="${f.k}">Swap for something similar</button>`:''}<button class="linkbtn" data-action="gfin" data-v="no">Skip to the cool-down</button></div></section>
+      ${aFoot('<button class="btn primary fbig" data-action="gfin" data-v="yes">Start cardio</button>','',`<button class="amore" data-action="fmore" aria-label="More cardio options">${ICON.more}</button>`)}</div>`;
   }
   if(G.mode==='cfeel') return cardioFeelSheet();
   if(G.mode==='end'){
-    return `<div class="focus fcenter">${top}
-      <div style="margin-top:20px"><div class="fdone">✓</div><h1 style="margin-top:10px">All done</h1><div class="small muted">Great work today. Finish to save your workout.</div></div>
-      <div class="ffoot"><button class="btn primary block fbig" data-action="finish">Finish workout</button><button class="btn ghost block" data-action="gback">Back to the cool-down</button></div></div>`;
+    const completion=workoutCompletion(d);
+    return `<div class="focus">${fTop(d,slots,'Cool-down complete')}
+      <div class="ahead"><h1>All done.</h1><div class="small muted">Great work today. Finish to save your workout.</div></div>
+      <section class="card acard"><div class="ach"><b>Your session</b><span class="goal">Ready to save</span></div><div class="astats"><div><b>${completion.completed} / ${completion.planned}</b><span>Working sets</span></div><div><b>${Math.round(((d.elapsedMs||0)+Math.max(0,Date.now()-d.startedAt))/60000)} min</b><span>Workout time</span></div></div>
+        <div class="small muted">${completion.status==='partial'?'Unfinished sets stay available to resume from Today.':'Your next targets will appear after you finish.'}</div><div class="anote"><button class="linkbtn" data-action="gback">Back to the cool-down</button></div></section>
+      ${aFoot('<button class="btn primary fbig" data-action="finish">Finish workout</button>','',`<button class="amore" data-action="fmore" aria-label="More workout options">${ICON.more}</button>`)}</div>`;
   }
   const it=items[G.i]; if(!it){ gFinishPhase(); return renderFocus(); }
   const S=segsFor(it), next=items[G.i+1], nextS=next?segsFor(next):null;
@@ -4370,6 +4438,8 @@ function gAction(a,b){
   const d=state.draft, G=d&&d.guide; if(!d) return false;
   unlockAudio();
   switch(a){
+    case 'gcfeelpick': if(G?.mode==='cfeel'&&['easy','good','hard'].includes(b.dataset.v)){G.feelChoice=b.dataset.v;save();render();}return true;
+    case 'gcfeelconfirm': if(G?.mode==='cfeel'&&['easy','good','hard'].includes(G.feelChoice)){cardioFeel(G.feelChoice);delete G.feelChoice;gNextItem(false);save();render();window.scrollTo(0,0);}return true;
     case 'gcfeel': cardioFeel(b.dataset.v); gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
     case 'gcmin': d.cmin=+b.dataset.v; d._x=null; save(); render(); return true;
     case 'gfin': G.fin=b.dataset.v; G.mode='ready'; G.i=0; G.end=Date.now()+READY*1000; save(); render(); return true;
@@ -4921,11 +4991,15 @@ function finishWorkout(){
   else state.draft=null;
   fClearTimer(); ui.timer=null; clearInterval(timerInt); save(); pushLog(l);
   ui.tab='today'; render(); window.scrollTo(0,0);
-  modal(`<div class="eyebrow">${l.status==='partial'?'Partial workout saved':'Workout saved'}</div><h2>${esc(l.name)} ${l.status==='partial'?'partly finished':'done'}</h2><p class="small muted" style="margin:0">${l.completed} of ${l.planned} sets · ${l.dur} min logged.${l.status==='partial'?' Resume the remaining sets from Today. This does not count as a completed workout.':''} Next targets:</p>
-    <div>${entries.map(e=>`<div class="slotrow" style="grid-template-columns:1fr"><div><b>${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div></div>`).join('')}</div>
-    <p class="small" style="margin:0">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
-    ${AUTH.user && !AUTH.coach && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">${esc(saveStatus()[2])} Your coach can see this workout after it syncs.</div>
-    <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="row"><button class="btn primary" data-action="closemodal">Done</button></div>`}`);
+  modal(`<div class="focus">${aTop(l.status==='partial'?'Partial workout saved':'Workout saved','closemodal','')}
+    <div class="ahead"><h1>${l.status==='partial'?'Your work is saved.':'A strong finish.'}</h1><div class="small muted">${esc(l.name)} ${l.status==='partial'?'partly finished':'complete'}</div></div>
+    <section class="card acard"><div class="ach"><b>Your workout</b><span class="goal">${l.status==='partial'?'Partial':'Complete'}</span></div><div class="astats"><div><b>${l.completed} / ${l.planned}</b><span>Working sets</span></div><div><b>${l.dur} min</b><span>Workout time</span></div></div>
+      ${l.status==='partial'?'<div class="small muted">Resume the remaining sets from Today. This does not count as a completed workout.</div>':''}
+      <div class="asection"><b>Next targets</b>${entries.map(e=>`<div class="asection"><b class="small">${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div>`).join('')}</div>
+      <div class="anote small">${esc(saveStatus()[2])}${AUTH.user&&!AUTH.coach&&!coachMode?' Your coach can see this workout after it syncs.':''}</div></section>
+    <p class="atip">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
+    ${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to Today</button>')}
+    ${AUTH.user&&!AUTH.coach&&!coachMode?`<button class="btn ghost block" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button>`:''}</div>`,{sheetClass:'workout-sheet'});
 }
 
 // Coach preview edits only fields carried by planCode(). This is a UI guard;

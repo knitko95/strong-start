@@ -78,6 +78,12 @@ On dev, the exercise, rest, lighter-set, and guided warm-up/cool-down timer scre
 
 Changing the set count with **Adjust** or **Add a set / Remove a set** (in **More**; **+ Set / − Set** on the live app) updates the current workout’s completion requirement. Completed sets are preserved when reducing the target. Skipping an exercise still leaves its unfinished sets available to resume. Resetting an adjustment restores the default set requirement.
 
+On dev, the shared one-card design also covers workout preview, exercise completion and the next station, warm-up/cool-down checklists, cardio choices, the end of cool-down, the workout list, and saved-workout summaries. Long previews scroll to the Start/Resume button without a sticky button covering exercises. The saved summary still opens as a dialog; it shows completed/planned sets, time, next targets and save information. A partial workout keeps its Resume option. Member accounts retain the optional coach-message action.
+
+Before a new superset, **Two moves, then rest** names exercise A and exercise B and explains the sequence. Tap **Start A** to continue. Each exercise shows both moves with the current one highlighted and a **Round** count. The Done button says **go to B**, **start rest**, or **finish pair**, according to the next actual step. During rest, the screen names the move and round that come next. Extra sets on one move continue with rest between them. Acknowledged introductions stay dismissed after reload; an older workout with logged sets continues without interruption. Swaps, skips, set edits and progression retain their existing behavior.
+
+The cardio effort check-in now lets you select **Too easy**, **Just right**, or **Too hard**, then tap **Continue**. Choosing an answer alone does not apply the feedback; an unfinished selection is kept with the workout draft. These updates are on the test app only.
+
 Persistent swaps change the plan from then on. A **today only** substitution or a change caused by another training place is different. Read the sheet before confirming. **Adjust** changes the slot's sets, range, rest, recovery, or working weight. **Reset adjustments** restores the app's default set/rep/rest/recovery targets for that exercise; it does not restore an earlier coach version or change the working weight.
 
 ## Progress and programs
