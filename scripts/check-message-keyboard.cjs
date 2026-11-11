@@ -10,16 +10,18 @@ module.exports=async function checkMessageKeyboard(page,width){
   const transient=document.createElement('style');transient.textContent='.coach-thread-scrim{transform:translateY(-140px)}';document.head.append(transient);
   await cmOpen();transient.remove();
  });
- await page.waitForFunction(()=>Math.abs(document.querySelector('.coach-thread-sheet').getBoundingClientRect().top-64)<2);
+ await page.waitForFunction(()=>Math.abs(document.querySelector('.coach-thread-sheet').getBoundingClientRect().top-(innerWidth<=600?0:64))<2);
  assert.equal(await page.locator('#cm-text').evaluate(el=>el===document.activeElement),false);
  assert.equal(await page.locator('.cm-composer').evaluate(el=>Math.round(el.getBoundingClientRect().bottom)),844);
  await page.evaluate(()=>{
   window.messageViewportDescriptor=Object.getOwnPropertyDescriptor(window,'visualViewport');
   window.messageSafeBottom=document.documentElement.style.getPropertyValue('--safe-bottom');
+  window.messageSafeTop=document.documentElement.style.getPropertyValue('--cm-safe-top');
   window.messageKeyboard={height:innerHeight,offsetTop:0};
   Object.defineProperty(window,'visualViewport',{configurable:true,value:messageKeyboard});
-  document.documentElement.style.setProperty('--safe-bottom','34px');cmViewport();
+  document.documentElement.style.setProperty('--safe-bottom','34px');document.documentElement.style.setProperty('--cm-safe-top','47px');cmViewport();
  });
+ assert.equal(await page.locator('.cm-head').evaluate(el=>getComputedStyle(el).paddingTop),width<=600?'47px':'12px');
  for(const [height,offset,shift] of [[500,0,0],[444,100,0],[410,80,-72],[300,130,-40]]){
   await page.locator('#cm-text').focus();
   await page.evaluate(([height,offset,shift])=>{messageKeyboard.height=height;messageKeyboard.offsetTop=offset;document.querySelector('.coach-thread-scrim').style.transform=`translateY(${shift}px)`;window.dispatchEvent(new Event('resize'));},[height,offset,shift]);
@@ -35,7 +37,7 @@ module.exports=async function checkMessageKeyboard(page,width){
  assert.equal(await page.locator('.cm-composer').evaluate(el=>getComputedStyle(el).paddingBottom),'34px');
  assert.equal(await page.locator('.coach-thread-sheet').evaluate(el=>Math.round(el.getBoundingClientRect().bottom)),844);
  await page.locator('#cm-text').fill(before);
- await page.evaluate(()=>{if(messageViewportDescriptor)Object.defineProperty(window,'visualViewport',messageViewportDescriptor);else delete window.visualViewport;if(messageSafeBottom)document.documentElement.style.setProperty('--safe-bottom',messageSafeBottom);else document.documentElement.style.removeProperty('--safe-bottom');cmViewport();});
+ await page.evaluate(()=>{if(messageViewportDescriptor)Object.defineProperty(window,'visualViewport',messageViewportDescriptor);else delete window.visualViewport;if(messageSafeBottom)document.documentElement.style.setProperty('--safe-bottom',messageSafeBottom);else document.documentElement.style.removeProperty('--safe-bottom');if(messageSafeTop)document.documentElement.style.setProperty('--cm-safe-top',messageSafeTop);else document.documentElement.style.removeProperty('--cm-safe-top');cmViewport();});
  const restored=await page.evaluate(async()=>{
   closeModal();ui.tab='today';render();window.scrollTo(0,120);const y=window.scrollY;
   await cmOpen();const locked=CM.viewportLock.y;closeModal();const after=window.scrollY,position=document.body.style.position,rootLocked=document.documentElement.classList.contains('cm-scroll-lock');
