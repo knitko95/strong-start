@@ -2547,18 +2547,18 @@ async function cmOpen(member=null,name='',logId=null){
   cmKeepDraft();
   const draft=CM.drafts[mid]||{text:'',tag:'',tagsOpen:false,clientId:null,workout:coach?null:fbWorkout('coach',logId)};
   if(logId&&!coach)draft.workout=fbWorkout('coach',logId);
-  const t={member:mid,coach,name:coach?name:CM.summary&&CM.summary.coach&&CM.summary.coach.name||'Your coach',messages:[],loading:true,err:'',draft,hasMore:false,busy:false};
+  const t={member:mid,coach,name:coach?name:CM.summary&&CM.summary.coach&&CM.summary.coach.name||'Your coach',messages:[],loading:true,err:'',draft,hasMore:false,busy:!!draft.sending};
   CM.thread=t;cmDraw();await cmLoad(t);
 }
 async function cmLoad(t,older=false){
-  const owner=CM.owner,generation=CM.generation;
+  const owner=CM.owner,generation=CM.generation,request=t.readVersion=(t.readVersion||0)+1;
   t.loading=true;t.err='';cmDraw();
   try{const data=await cmRpc('read',t.member,older?{before:t.messages[0].id}:{});
-    if(!cmCurrent(owner,generation)||CM.thread!==t)return;
+    if(!cmCurrent(owner,generation)||CM.thread!==t||t.readVersion!==request)return;
     t.name=t.coach?data.member_name:data.coach_name;
     const merged=new Map((older?t.messages:[]).map(m=>[m.id,m]));data.messages.forEach(m=>merged.set(m.id,m));
     t.messages=[...merged.values()].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||(BigInt(a.id)<BigInt(b.id)?-1:1));t.hasMore=data.has_more;t.through=data.through;t.needsReply=data.needs_reply;t.loading=false;cmDraw(!older);cmRefresh();
-  }catch(e){if(cmCurrent(owner,generation)&&CM.thread===t){t.loading=false;t.err='Couldn’t load this conversation. Check your connection and try again.';cmDraw();}}
+  }catch(e){if(cmCurrent(owner,generation)&&CM.thread===t&&t.readVersion===request){t.loading=false;t.err='Couldn’t load this conversation. Check your connection and try again.';cmDraw();}}
 }
 function cmDraw(bottom=false){
   const t=CM.thread;if(!t)return;const old=$('#cm-conversation'),scroll=old&&old.scrollTop,box=$('#cm-text'),selection=box&&[box.selectionStart,box.selectionEnd];
@@ -2578,14 +2578,15 @@ function cmDraw(bottom=false){
 }
 function cmViewport(){const viewport=window.visualViewport;document.documentElement.style.setProperty('--cm-height',(viewport?viewport.height:window.innerHeight)+'px');document.documentElement.style.setProperty('--cm-top',(viewport?viewport.offsetTop:0)+'px');}
 async function cmSend(){
-  const t=CM.thread;if(!t||t.busy)return;cmKeepDraft();const message=t.draft.text.trim();if(!message){$('#cm-text').focus();return;}
+  const t=CM.thread;if(!t||t.busy||t.draft.sending)return;cmKeepDraft();const message=t.draft.text.trim();if(!message){$('#cm-text').focus();return;}
   const owner=CM.owner,generation=CM.generation;
   t.draft.clientId=t.draft.clientId||crypto.randomUUID();const id=t.draft.clientId;
-  const body={message,tag:t.draft.tag||null,client_id:id,through:cmThrough(t),workout:t.draft.workout};t.busy=true;t.err='';cmDraw();
+  const body={message,tag:t.draft.tag||null,client_id:id,through:cmThrough(t),workout:t.draft.workout};t.busy=true;t.draft.sending=true;t.err='';cmDraw();
   try{await cmRpc('send',t.member,body);if(!cmCurrent(owner,generation))return;
     if(t.draft.clientId===id){t.draft.text='';t.draft.tag='';t.draft.tagsOpen=false;t.draft.clientId=null;}
-    CM.drafts[t.member]=t.draft;t.busy=false;if(CM.thread===t)await cmLoad(t);cmRefresh();
-  }catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.err='Couldn’t confirm send. Your message is kept here. Retry to send it once.';if(CM.thread===t)cmDraw();}}
+    CM.drafts[t.member]=t.draft;t.busy=false;t.draft.sending=false;
+    const active=CM.thread;if(active&&active.member===t.member&&active.draft===t.draft){active.busy=false;await cmLoad(active);}cmRefresh();
+  }catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.draft.sending=false;const active=CM.thread;if(active&&active.member===t.member&&active.draft===t.draft){active.busy=false;active.err='Couldn’t confirm send. Your message is kept here. Retry to send it once.';cmDraw();}}}
 }
 async function cmDone(){const t=CM.thread;if(!t||!t.coach||t.busy)return;const owner=CM.owner,generation=CM.generation;t.busy=true;const through=cmThrough(t);try{await cmRpc('done',t.member,{through});if(!cmCurrent(owner,generation))return;t.busy=false;if(CM.thread===t)await cmLoad(t);cmRefresh();}catch(e){if(cmCurrent(owner,generation)){t.busy=false;t.err='Couldn’t mark done. Try again.';if(CM.thread===t)cmDraw();}}}
 async function cmDismiss(){const c=CM.summary&&CM.summary.coach;if(!c||!c.unread)return;const owner=CM.owner,generation=CM.generation;try{await cmRpc('dismiss',null,{through:c.through});if(cmCurrent(owner,generation))await cmRefresh();}catch(e){if(cmCurrent(owner,generation))toast('Couldn’t dismiss the message. Check your connection and try again.');}}
