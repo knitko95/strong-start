@@ -59,6 +59,8 @@ Deliberate set edits update `draft.planCounts` to the retained rows, including a
 
 ## Local state and sync
 
+The development muscle map shares curved SVG geometry with exercise thumbnails and how-to diagrams. `musclePicker()` uses the existing accessible modal host; its grouped buttons and diagram taps both call `selectMuscle()`. Selection stays in `ui.musSel` and does not call save or cloud functions. The chooser actions are allowed in read-only coach preview. Weekly set calculations and primary/secondary exercise mappings are unchanged; no saved-data or database migration is needed.
+
 ### Assigned-coach messaging on dev
 
 `CM` owns account-scoped in-memory message summaries and unsent drafts, separate from `state` and workout drafts. `cmOpen`/`cmDraw` use the existing accessible modal host, inert background and focus restoration. The thread keeps the current tab/scroll/workout state and hides bottom navigation; visual-viewport sizing keeps the compact composer inside the visible overlay. Input grows to 120 pixels. A failed send retains its draft and request ID; unchanged retries are idempotent. Closing retains unsent text for that page session, while sign-out/deletion/account switching clears it and invalidates pending responses. Message drafts are not part of local backups or account sync.

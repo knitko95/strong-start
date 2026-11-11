@@ -77,6 +77,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | 25 | Open exercise instructions by tapping the whole library row | On the test app | Whole-row mockup approved November 11 for implementation and dev testing. A subtle right arrow replaces the separate button and expansion; tapping the row opens the existing how-to card directly. Repeated form tip and expanded tags are removed from the list; names, muscle summaries, and equipment remain. No database migration or production configuration change. Live publication requires separate approval. |
 
+| 26 | Refine the muscle map and add an easier way to choose muscles | On the test app | Owner approved the new illustration and grouped “Choose a muscle” list mockups, then requested dev implementation November 11. Curved front/back figures, view labels, selected-muscle panel, matching exercise thumbnails, and a scrollable list of all 21 muscles with targets at least 44 px high. Diagram tapping remains available. Existing weekly-set calculations, plans, and progress are unchanged. Development build and local headless Chrome checks passed at desktop, 390 px and 320 px, including every muscle, keyboard/focus handling, coach preview, and light/dark layouts. No database migration or production configuration change. Live publication requires separate approval. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.
