@@ -2363,7 +2363,7 @@ let FBS={side:'app', tag:'', text:'', busy:false};
 const FB_TAGS={app:[['bug','Bug'],['idea','Idea'],['confusing','Confusing'],['exercise','Exercise']], coach:[['too_hard','Too hard'],['too_easy','Too easy'],['hurt','Something hurt'],['question','Question']]};
 const fbTagName=t=>{ for(const k in FB_TAGS){ const f=FB_TAGS[k].find(x=>x[0]===t); if(f) return f[1]; } return ''; };
 const BUBBLE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>';
-function fbUnreadTotal(){ return (AUTH.coach?(CM.summary&&CM.summary.inbox||[]).reduce((n,p)=>n+p.unread,0):0)+(FB.owner?FB.unread.app:0)+(CM.summary&&CM.summary.coach&&CM.summary.coach.unread||0); }
+function fbUnreadTotal(){ return (AUTH.coach?(CM.summary&&CM.summary.inbox||[]).reduce((n,p)=>n+p.unread,0):0)+(FB.owner?FB.unread.app:0)+(!AUTH.coach&&CM.summary&&CM.summary.coach&&CM.summary.coach.unread||0); }
 async function refreshUnread(){
   if(!sb || !AUTH.user) return;
   cmRefresh();
@@ -2409,15 +2409,17 @@ function fbWorkout(side,logId){
 }
 function fbOpen(side,logId){
   if(!AUTH.user){ toast('Sign in to send feedback.'); return; }
+  if(AUTH.coach)side='app';
   if(side==='coach'){ cmOpen(null,'',logId);return; }
   FBS={side:side==='coach'?'coach':'app', tag:'', text:FBS.text||'', busy:false, screen:fbScreen(), device:fbDevice(), logId:logId||null};
   fbRender();
 }
 function fbRender(){
+  if(AUTH.coach)FBS.side='app';
   if(FBS.side==='coach'){cmOpen(null,'',FBS.logId);return;}
   const S=FBS, app=S.side==='app', w=fbWorkout(S.side,S.logId);
   const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
-  modal(`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>
+  modal(`${AUTH.coach?'<h2>About the app</h2>':`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>`}
     <p class="small muted" style="margin:0">Something broken, confusing or missing? Tell us. This goes to the people who make the app.</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
     <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
@@ -2444,7 +2446,7 @@ async function fbSend(){
 function fbAction(a,b){
   if(cmAction(a,b))return true;
   if(a==='msgopen'){ fbOpen(b.dataset.side,b.dataset.log); return true; }
-  if(a==='msgside'){ fbKeepText(); if(b.dataset.side==='coach'){cmOpen(null,'',FBS.logId);return true;} FBS.side='app'; FBS.tag=''; fbRender(); return true; }
+  if(a==='msgside'){ fbKeepText(); if(b.dataset.side==='coach'&&!AUTH.coach){cmOpen(null,'',FBS.logId);return true;} FBS.side='app'; FBS.tag=''; fbRender(); return true; }
   if(a==='msgtag'){ fbKeepText(); FBS.tag=FBS.tag===b.dataset.v?'':b.dataset.v; fbRender(); return true; }
   if(a==='msgsend'){ fbSend(); return true; }
   if(a==='msgcancel'){ fbKeepText(); closeModal(); return true; }
@@ -2522,7 +2524,7 @@ async function cmRefresh(){
 }
 function cmAvatar(name){return `<span class="prof-av cm-avatar" aria-hidden="true">${esc((name||'?').trim()[0].toUpperCase())}</span>`;}
 function cmCoachCard(today=false){
-  if(coachMode||!AUTH.user||CM.owner!==AUTH.user.id)return '';
+  if(coachMode||AUTH.coach||!AUTH.user||CM.owner!==AUTH.user.id)return '';
   const c=CM.summary&&CM.summary.coach;
   if(!c){return today?'':`<section class="card row between"><div><b>Your coach</b><div class="small muted">${CM.err?esc(CM.err):CM.summary?'No coach is linked to this account yet.':'Loading your coach…'}</div></div>${CM.err?'<button class="btn sm" data-action="cmrefresh">Retry</button>':''}</section>`;}
   if(today&&!c.unread)return '';
@@ -2543,6 +2545,7 @@ async function cmOpen(member=null,name='',logId=null){
   if(!AUTH.user||coachMode||!sb)return;
   if(CM.owner!==AUTH.user.id)cmReset(AUTH.user.id);
   const mid=member||AUTH.user.id,coach=mid!==AUTH.user.id;
+  if(AUTH.coach&&!coach)return;
   if(coach&&!AUTH.coach)return;
   cmKeepDraft();
   const draft=CM.drafts[mid]||{text:'',tag:'',tagsOpen:false,clientId:null,workout:coach?null:fbWorkout('coach',logId)};
@@ -4580,7 +4583,7 @@ function finishWorkout(){
   modal(`<div class="eyebrow">${l.status==='partial'?'Partial workout saved':'Workout saved'}</div><h2>${esc(l.name)} ${l.status==='partial'?'partly finished':'done'}</h2><p class="small muted" style="margin:0">${l.completed} of ${l.planned} sets · ${l.dur} min logged.${l.status==='partial'?' Resume the remaining sets from Today. This does not count as a completed workout.':''} Next targets:</p>
     <div>${entries.map(e=>`<div class="slotrow" style="grid-template-columns:1fr"><div><b>${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div></div>`).join('')}</div>
     <p class="small" style="margin:0">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
-    ${AUTH.user && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">${esc(saveStatus()[2])} Your coach can see this workout after it syncs.</div>
+    ${AUTH.user && !AUTH.coach && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">${esc(saveStatus()[2])} Your coach can see this workout after it syncs.</div>
     <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="row"><button class="btn primary" data-action="closemodal">Done</button></div>`}`);
 }
 
