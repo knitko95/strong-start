@@ -12,6 +12,8 @@ Focus mode now gives the document a viewport minimum height and lets its banner,
 
 This applies to workout preview and all existing `.focus` workout screens, including older layouts. Normal pages keep their existing layout. No workout, timer, persistence, database, or access behavior changes.
 
+Follow-up correction: the initial flex rule targeted every direct `.wrap` child, including `#offline-notice`. It overrode that notice's browser-provided hidden display while online and could allocate spare space to the notice. The rule now targets only the explicit `#app-shell` content wrapper. Browser checks reproduce the original false notice, require it hidden on all 228 online layouts, and verify it appears offline without growing as a flex item, then hides on reconnect. Offline caching and sync logic did not change.
+
 ## Screen coverage
 
 This table records the initial spacing review. The owner subsequently approved updating all remaining screens, including the superset explanation, on the test app. See [the follow-up implementation and verification](WORKOUT-SCREENS-2026-11-11.md) for their updated status.

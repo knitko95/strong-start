@@ -68,6 +68,8 @@ async function seed(page,screen,theme='light'){
     await page.evaluate(safe=>{document.documentElement.style.setProperty('--safe-bottom',safe+'px');document.body.style.paddingTop=safe?'47px':'0px';},safe);
     for(const screen of ['exercise','rest','ramp','ready','warm','reps','cool','end','exdone','finq','cfeel','warm-list','cool-list','preview','pair-intro','pair-a','pair-b','pair-rest','pair-done']){
      await seed(page,screen,theme);
+     assert.equal(await page.evaluate(()=>navigator.onLine),true);
+     assert.equal(await page.locator('#offline-notice').isVisible(),false,'online notice stays hidden on '+screen);
      assert.equal(await page.locator('#app>.focus>section.card.acard').count(),1,'one main card on '+screen);
      const measure=await page.evaluate(()=>{
       const focus=document.querySelector('.focus'),footer=focus.querySelector('.ffoot'),main=document.getElementById('app'),wrap=main.parentElement;
@@ -92,6 +94,14 @@ async function seed(page,screen,theme='light'){
    }
    // Banner can wrap, resize or disappear; the layout must use its real height.
    await seed(page,'rest');
+   // The notice must appear only when offline, without inheriting the app shell's flex sizing.
+   await page.context().setOffline(true);
+   await page.waitForFunction(()=>document.getElementById('offline-notice').hidden===false);
+   assert(await page.locator('#offline-notice').isVisible());
+   assert.equal(await page.locator('#offline-notice').evaluate(el=>getComputedStyle(el).flexGrow),'0');
+   await page.context().setOffline(false);
+   await page.waitForFunction(()=>document.getElementById('offline-notice').hidden===true);
+   assert.equal(await page.locator('#offline-notice').isVisible(),false);
    for(const banner of ['TESTING · Separate accounts and data · This banner wraps on a small phone','']){
     await page.evaluate(text=>{const b=document.getElementById('environment-banner');b.textContent=text;b.hidden=!text;},banner);
     if(!process.env.WORKOUT_LAYOUT_AUDIT){

@@ -429,7 +429,7 @@ body.in-focus nav.tabs, body.in-focus header.top{display:none}
 /* Let the banner and safe-area padding take their share of the viewport before
    the workout expands. A viewport-sized child adds those offsets a second time. */
 body.in-focus{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
-body.in-focus>.wrap{flex:1;display:flex;flex-direction:column;padding-bottom:calc(24px + var(--safe-bottom))}
+body.in-focus>#app-shell{flex:1;display:flex;flex-direction:column;padding-bottom:calc(24px + var(--safe-bottom))}
 body.in-focus #app{flex:1}
 .focus{display:flex;flex:1;flex-direction:column;gap:14px;min-height:0}
 .focus h1{font-size:30px;line-height:1.1;margin:2px 0 0}
@@ -669,7 +669,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 </head>
 <body>
 <header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><button class="sync" id="sync" data-action="syncdetails" title="View save details"><span class="dot"></span><span>Checking saves…</span></button><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header>
-<div class="wrap"><main id="app"></main></div>
+<div class="wrap" id="app-shell"><main id="app"></main></div>
 <div id="timer"></div>
 <nav class="tabs" aria-label="Sections"><div class="in" id="tabs"></div></nav>
 <div id="modal"></div>
