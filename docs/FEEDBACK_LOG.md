@@ -31,7 +31,7 @@ On `dev` only as of November 11, 2026 (through commit `c85b17c`). The owner conf
 | `7bf59e0` | Keeps coach activity times correct during account sync. |
 | `c85b17c` | Reopening the app with no signal, more accessible pop-ups, shorter setup. |
 | `9dab2b1` | Timer beeps (#6): any tap now gets the sound ready, and sound the phone paused (reload, screen lock, call, headphone change) is woken before a beep. Requested November 11. |
-| `7b1e8e5` | Supersets (#4, tracking part): a started workout keeps its exercises and pairings when Adjust is used, so logged sets are not lost; skipping one move of a pair goes to its partner; rest timer kept when the partner is finished. |
+| `4a3b558` | Supersets (#4, tracking part): a started workout keeps its exercises and pairings when Adjust is used, so logged sets are not lost; skipping one move of a pair goes to its partner; rest timer kept when the partner is finished. |
 
 ## Built earlier, never published (needs recovering)
 
@@ -49,7 +49,7 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 |---|---|---|---|
 | 2 | Assisted pull-up machine: offer it as a swap for pull-up movements and as the go-to for beginners | To discuss | Already in the library and picked for Just starting. It is logged as reps only (no assistance weight), and there is no plain Pull-Up exercise. |
 | 3 | Review full body, legs and upper splits so every muscle gets hit as well as the time allows | To discuss | |
-| 4 | Supersets weren't obvious (last two moves), and the Bayesian Cable Curl couldn't be tracked correctly | Tracking fix: On the test app. Making supersets obvious: To discuss | Fix requested November 11, commit `7b1e8e5`. Found: using Adjust during a workout could remove a paired exercise and leave its logged sets out of the saved workout; skipping one move of a pair jumped past its partner; a paired move lost its rest timer once its partner was finished. The ordinary pair flow (set of the first, set of the second, rest) recorded every set correctly in testing, so it is not confirmed that this is what the tester hit: owner to confirm. No screen wording or layout was changed. |
+| 4 | Supersets weren't obvious (last two moves), and the Bayesian Cable Curl couldn't be tracked correctly | Tracking fix: On the test app. Making supersets obvious: To discuss | Fix requested November 11, commit `4a3b558`. Found: using Adjust during a workout could remove a paired exercise and leave its logged sets out of the saved workout; skipping one move of a pair jumped past its partner; a paired move lost its rest timer once its partner was finished. The ordinary pair flow (set of the first, set of the second, rest) recorded every set correctly in testing, so it is not confirmed that this is what the tester hit: owner to confirm. No screen wording or layout was changed. |
 | 5 | Cool-down: after the walk, tap Ready before stretch timers start, and list everything needed (bands, foam roller, mat) | To discuss | Mockup required before building. |
 | 6 | No beeps during a workout (app open, volume up, headphones in, sound on in the app) | On the test app | Bug. Fix in commit `9dab2b1` (Nov 11), checked in a desktop browser with simulated phone pauses, then reported working on a real phone on the test app (Nov 11). Not covered: iPhones mute web-app sounds while the ring/silent switch is on silent, and timers cannot beep while the app is in the background (see Later). |
 | 7 | Stretch timer: no restart. Drag the timer circle to add or remove time | To discuss | |
