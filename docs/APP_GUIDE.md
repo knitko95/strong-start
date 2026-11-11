@@ -56,7 +56,7 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 5. Use the pause/end control to **Take a break**, **End workout**, or **Discard**. Pausing preserves the draft and adds Resume on Today. Reloading can reopen the draft automatically. End saves completed work. An unfinished session is labeled **Partial**, shows completed/planned sets, and stays available through **Resume remaining sets** on Today, including after a reload. Finishing the remaining sets updates the same history entry. Discard throws away unsaved work after confirmation; an already-saved partial history entry remains.
 6. Complete the cool-down and choose **Finish workout**. At least one checked set with a positive rep/seconds value is required. The summary explains next targets and history receives the session. Only a session with all planned working sets finished counts toward weekly completion; repeating the same workout does not inflate that count. Warm-up/cardio/cool-down are not counted as working sets. Older logs without completion metadata retain their existing completed status. Signed-in users can send a separate coach message from the summary.
 
-Persistent swaps change the plan from then on. A **today only** substitution or a change caused by another training place is different. Read the sheet before confirming. **Adjust** changes the slot's sets, range, rest, recovery, or working weight; reset returns to the plan defaults.
+Persistent swaps change the plan from then on. A **today only** substitution or a change caused by another training place is different. Read the sheet before confirming. **Adjust** changes the slot's sets, range, rest, recovery, or working weight. **Reset adjustments** restores the app's default set/rep/rest/recovery targets for that exercise; it does not restore an earlier coach version or change the working weight.
 
 ## Progress and programs
 
@@ -72,7 +72,7 @@ The app saves a browser copy and, when signed in/connected, syncs to Supabase. T
 
 Sign in to the same account on another device to retrieve its data. Avoid editing the same account on multiple devices at once: state reconciliation chooses a whole document by timestamps, rather than merging each changed field. Cached workout logs merge by ID.
 
-Use **Settings > Backup > Copy backup** to keep a personal copy. **Restore my backup** replaces state/logs after confirmation; in a signed-in app, the restored contents may upload and remove cloud logs missing from the backup. Back up first and use only the intended person's data. Do not paste a real backup into a public issue or repository.
+Use **Settings > Backup > Copy backup** to keep a personal copy. **Restore my backup** replaces state/logs after confirmation. The signed-in warning explains that the replacement syncs to the account and other devices and may remove account workouts missing from the backup. Back up first and use only the intended person's data. Do not paste a real backup into a public issue or repository.
 
 Changing lb/kg converts working weights, previous sets, historical set/planned weights, body weight, weigh-ins, and active/saved drafts. Display values are rounded to two decimals; stored conversion values retain more precision. Version 6 records units explicitly. Legacy values are assumed to use their saved profile unit: incorrect unit switches made before this fix cannot be reconstructed automatically. Historical free-text progression notes retain their original explicitly written units.
 
@@ -80,7 +80,7 @@ Sign-out flushes queued and in-flight changes before clearing the local cache. I
 
 ## Feedback and coach tools
 
-Signed-in users can choose **About the app** (owner inbox) or **To my coach** (coach inbox) in Feedback. App feedback includes screen/device context; a coach message can include a small workout reference. This is an inbox workflow, not a live conversation or automatic plan edit.
+Signed-in users can choose **About the app** (owner inbox) or **To my coach** (shared coach inbox) in Feedback. Authorized coaches can read the coach inbox; messages are not private to one assigned coach. App feedback includes screen/device context; a coach message can include a small workout reference. This is an inbox workflow, not a live conversation or automatic plan edit.
 
 On dev, the old copy-and-text progress report flow has been removed from History, program completion, and workout instructions. Once a signed-in person's workouts have synced, their coach can review them through **Your people**; no separate report is needed. Personal backups remain under Settings. This cleanup is awaiting approval for the live app.
 
@@ -88,7 +88,7 @@ For a coach, **Settings > Your people > Open** shows approved people's activity,
 
 - **Invite someone** creates a one-use link. Copy/share it deliberately with its intended recipient. A waiting invite can be cancelled.
 - **Open their app** loads a person's plan/history into a temporary coach view. The banner identifies whose app is being viewed. Edits are not saved automatically.
-- Change supported exercises/targets, then **Send changes** with an optional note. Only the plan payload and level are sent; profile/days/equipment edits in preview are not a general remote-settings editor.
+- Change exercise choices, set/rep/rest/recovery targets, or level, then **Send changes** with an optional note. Profile, schedule, equipment, and working weights are view-only. Coach view does not offer workout recording, history deletion, backup restore, or program restarts. **Preview at** changes the displayed location only; it is not sent to the member.
 - The recipient applies pending updates after opening/syncing when a plan exists and no draft is active. A paused draft also postpones application. **Back to my app** restores the coach's view and discards unsent preview edits.
 - Inboxes support marking items done. Loading an inbox marks loaded unread entries read. Only the owner sees app feedback; coaches see coach messages according to their roles.
 

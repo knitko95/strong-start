@@ -39,7 +39,7 @@ Navigate by section/function names rather than depending on these approximate li
 | Compatibility | `migrate` (~3841) |
 | Finish/events/boot | `finishWorkout` (~4042), event listeners, `boot` (~4266) |
 
-Older workout rendering/event code remains alongside the focus/guide flow. `render()` routes the workout tab to `renderFocus`, not `renderWorkout`. Trace the active dispatcher before editing similarly named functions.
+`render()` routes the workout tab to `renderFocus`. The obsolete `renderWorkout` renderer and unreachable first-workout tour were removed during the dev UI cleanup. Some legacy event handlers remain; trace the active dispatcher before editing similarly named functions.
 
 ## Plan engine
 
@@ -74,6 +74,8 @@ The keys above describe production. Development prefixes the app keys with `dev_
 On sign-in, access is checked, a different account's cache is discarded, and state/logs/roles are fetched. Logs merge by ID; an explicitly newer log `updatedAt` wins (legacy ties still prefer remote). This allows resumed partial sessions to update one log instead of creating duplicates. The whole remote state wins when substantive and at least as new as local (or local is not substantive). `pushCloud()` reconciles logs against known remote IDs, including deletes.
 
 Foreground visibility and `online` events trigger `pullCloud()`. A newer state can reload when no draft is active. Pending coach updates wait for a block and no draft, apply in ID order, get marked applied, then save. A paused draft still blocks them. This is event-driven/polling reconciliation, not Realtime subscriptions or field-level conflict resolution.
+
+Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/recovery overrides, level, and note). `renderCoachSettings()` shows personal settings as read-only context; working-weight edits, workout recording, history deletion, program resets, and backups are unavailable in coach view. `coachActionAllowed()` and input/change guards prevent unsupported UI actions, while database RLS remains the authorization boundary. Previewing a different place changes only the temporary view. Sending still uses the existing `planCode()` payload; this cleanup does not expand backend permissions or add data fields.
 
 `migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. Version 6 adds `weightUnits`; `normalizeLogs()` tags legacy logs with their source profile unit and preserves their existing completion status. All numeric weight fields are converted by `changeUnits()`; log units are normalized before cloud/local merging, restoring backups, and coach viewing. Free-text historical notes retain their explicitly written units. Earlier incorrect switches cannot be inferred.
 

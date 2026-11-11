@@ -1394,7 +1394,7 @@ function persistLocal(){
 }
 
 /* ---------------- Plan ---------------- */
-// Block length and coach name. Per-person coach notes and plan changes arrive as a "plan update" code (Settings > Coach).
+// Program length and coach label. Coach notes and supported plan edits arrive through the account update queue.
 const PROGRAM = { blockLen: 6, coach: '' };
 // Supersets only when you never have to leave your spot at a busy gym
 const FIXED = new Set(['mc','cb','bb','lm','pu','dp','trx','rp','bx']);
@@ -1983,7 +1983,7 @@ function authAction(a,b){
   else if(a==='authgateout'){ try{ sb.auth.signOut(); }catch(e){} lsSet(ACCT_KEY,null); AUTH.user=null; AUTH.access=null; AUTH.invErr=''; AUTH.netErr=false; AUTH.mode='signin'; render(); window.scrollTo(0,0); }
   else if(a==='authlocal'){ lsSet(LOCAL_ONLY_KEY,'1'); render(); setSync('local'); }
   else if(a==='authstart'){ lsSet(LOCAL_ONLY_KEY,null); AUTH.mode=b.dataset.v||'signup'; render(); window.scrollTo(0,0); }
-  else if(a==='authout') confirmBox('Sign out?','Everything is saved to your account. This phone forgets it until you sign in again.','Sign out',signOut);
+  else if(a==='authout') confirmBox('Sign out?','Sign out after your changes have synced. Signing out clears this device’s saved copy; your account data stays.','Sign out',signOut);
 }
 async function signOut(){
   if(!await flushCloud()){ toast('Some changes haven’t synced. Keep this page open, retry sync, then sign out.'); return; }
@@ -1997,7 +1997,7 @@ async function signOut(){
 function accountCard(){
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
-    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts save to your account, and this phone keeps a copy so the app works without signal.</p>
+    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Open the app while online before using it without a signal; offline startup is not guaranteed.</p>
     <div class="row"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a></div>`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
@@ -2136,7 +2136,7 @@ async function openPerson(id,name){
 }
 function coachSendSheet(){
   modal(`<h2>Send changes to ${esc(coachMode.name)}</h2>
-    <p class="small muted" style="margin:0">Sends the exercises, swaps and tweaks you see here, plus your note. Their app updates the next time they open it (never in the middle of a workout). Their history and weights stay.</p>
+    <p class="small muted" style="margin:0">Sends exercise choices, sets, rep ranges, rest and recovery times, level, and your note. Working weights and personal settings stay with the member. The update applies when their app connects and no workout is in progress. A paused or unfinished workout must be finished or discarded first.</p>
     <label class="field2" for="sendnote"><span class="flabel">Note to them <span class="tiny muted">(shows on their home screen)</span></span><textarea id="sendnote" style="font-family:var(--body);font-size:14px;min-height:80px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
     <div class="row"><button class="btn primary" data-action="coachsend">Send plan update</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
 }
@@ -2144,7 +2144,7 @@ async function coachSend(){
   const n=$('#sendnote'); state.coach={note:n?n.value.trim():''};
   const {error}=await sb.from('plan_updates').insert({user_id:coachMode.uid, update:JSON.parse(planCode())});
   if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
-  closeModal(); toast(`Sent. ${coachMode.name}’s app updates next time they open it.`);
+  closeModal(); toast(`Plan update sent. It will apply when ${coachMode.name} connects with no workout in progress.`);
 }
 
 /* Feedback: "About the app" goes only to the app owner; "To my coach" goes to coaches */
@@ -2202,7 +2202,7 @@ function fbRender(){
   const S=FBS, app=S.side==='app', w=fbWorkout(S.side,S.logId);
   const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
   modal(`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>
-    <p class="small muted" style="margin:0">${app?'Something broken, confusing or missing? Tell us. This goes to the people who make the app.':`Only ${esc(coachName())} sees this.`}</p>
+    <p class="small muted" style="margin:0">${app?'Something broken, confusing or missing? Tell us. This goes to the people who make the app.':`This goes to the shared coach inbox. Coaches with access to Strong Start can read it.`}</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
     <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
     <div class="tiny muted">Sent with: ${sentWith}</div>
@@ -2303,7 +2303,7 @@ const GENDERS=[['f','Woman'],['m','Man'],['x','Rather not say']];
 function genderSeg(cur, action){ return `<div class="seg" role="group" aria-label="Gender" style="flex-wrap:wrap">${GENDERS.map(([k,l])=>`<button data-action="${action}" data-g="${k}" aria-pressed="${cur===k}">${l}</button>`).join('')}</div>`; }
 function render(){
   applyColor();
-  const fbb=document.getElementById('fbbtn'); if(fbb) fbb.hidden=!(AUTH.user && !AUTH.recovery && !gateNeeded());
+  const fbb=document.getElementById('fbbtn'); if(fbb) fbb.hidden=!(AUTH.user && !coachMode && !AUTH.recovery && !gateNeeded());
   if(!AUTH.recovery && gateNeeded()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderGate(); renderTimer(); return; }
   if(AUTH.recovery || needsAuth()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderAuth(); renderTimer(); return; }
   if(hsScreenDue()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderHomeScreen(); renderTimer(); return; }
@@ -2318,7 +2318,7 @@ function render(){
   renderTimer(); setSync(); syncWake(); warmClock();
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
-function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Nothing here touches your own app. Changes you make stay until you exit.</div></div>
+function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Edit exercise choices, sets, reps, rest, recovery, and level, then Send changes. Other settings and working weights are view-only. Unsent edits are discarded when you leave.</div></div>
   <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="coachsendopen">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
 
 function ringStats(w, keys, wl, o){
@@ -2374,66 +2374,10 @@ function startWorkout(key){
   save();
 }
 
-function renderWorkout(){
-  const d=state.draft; if(!d){ ui.tab='today'; return renderToday(); }
-  const t=tplOf(d.key), kind=t.kind, slots=dSlots(), X=sessionExtras(d,slots); d.wsub=d.wsub||{}; d.wskip=d.wskip||{};
-  const warm = WARM[kind]||WARM.legs, cool = STRETCH[kind]||STRETCH.legs;
-  const doneSets = Object.values(d.sets).flat().filter(s=>s.done).length, allSets=Object.values(d.sets).flat().length;
-  let h = `<section class="stack">
-    <div class="row between"><button class="btn ghost sm" data-action="tab" data-tab="today">‹ Week</button></div>
-    <div><div class="eyebrow">Block ${d.block} · Week ${d.week}</div><h1>${esc(t.name)}</h1><div class="small muted">${esc(t.focus)} · <span class="num">${doneSets}/${allSets}</span> sets done</div></div>
-  </section>
-  <section class="card stack phase">
-    <div class="row between"><h3>Warm-up</h3><span class="small muted">${X.min} min</span></div>
-    <div>${X.warm.map(it=>xRow('warm',it,d)).join('')}</div>
-    <p class="tiny muted" style="margin:0">Matched to ${esc(t.name.toLowerCase())} day and your level. Tap Swap for something similar, or Skip anything you don’t need.</p>
-  </section>`;
-  slots.forEach((s,idx)=>{
-    const tg=target(s), ex=tg.ex, sets=d.sets[s.pk]||[];
-    const load = usesLoad(ex), per = ex.uni?' per side':'', each = primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n))?' each':'';
-    const wLabel = ex.mode==='B' ? `+${state.settings.units}` : state.settings.units;
-    const wShow = tg.w ?? tg.sug;
-    const targetTxt = load ? `<b class="num">${wShow!=null?fmtW(wShow):'Pick a light weight'}</b>${wShow!=null?each:''} × ${tg.lo}–${tg.hi} ${tg.unit}${per}` : `<b class="num">${tg.r} ${tg.unit}</b>${per}`;
-    const lastTxt = tg.last ? 'Last: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : (load&&tg.sug!=null?(tg.coachW?`Starting weight from ${coachName()}. Too easy or hard? Tell the app below.`:'Suggested start. Too easy or hard? Tell the app below.'):load?'First time: start light, then tell the app how it felt':startTip(ex));
-    const ramp = idx===0 && load ? `<div class="tiny muted">Practice set first: about half this weight, 8 easy reps.</div>` : '';
-    const fl = (d.feel||{})[s.pk], anyDone = sets.some(x=>x.done);
-    const feelRow = load && anyDone ? `<div class="exfoot" style="padding-bottom:8px;align-items:center"><span class="small muted" style="flex-basis:100%">How did that weight feel?</span>${[['easy','Too easy'],['good','Just right'],['hard','Too heavy']].map(([k,l])=>`<button class="btn sm ${fl===k?'primary':''}" data-action="feel" data-pk="${s.pk}" data-f="${k}" aria-pressed="${fl===k}">${l}</button>`).join('')}</div>` : '';
-    h += `<section class="card ex">
-      <div class="head">
-        <div class="row between" style="align-items:flex-start;flex-wrap:nowrap"><div class="row" style="flex-wrap:nowrap;gap:10px;align-items:center">${musThumb(ex.id)}<div class="name"><span class="n">${s.label}</span>${esc(ex.n)}</div></div><button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button></div>
-        <div class="row">${planeChip(ex.pl)}${eqChips(ex)}<span class="chip">${tg.sets} sets</span>${s.sub?`<span class="chip warn">Today only</span>`:''}${s.placeFrom?`<span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tg.ss?`<span class="chip acc">Superset · same spot</span>`:''}${s.cfg.ssSplit?`<span class="chip" title="Different stations, so these are done as straight sets">Straight sets</span>`:''}<span class="chip">${tg.ssFirst?`No rest, go to ${s.g+1}b`:`Rest ${tg.rest>=120?(tg.rest/60)+' min':tg.rest+' s'}`}</span></div>
-        ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}${musLine(ex.id)}<div class="cue">${esc(ex.cue)}</div>${ramp}
-      </div>
-      <div class="target"><span>${targetTxt}</span><span class="muted tiny">${esc(lastTxt)}</span></div>
-      <div class="sets">${sets.map((st,i)=>`<div class="set ${st.done?'isdone':''}">
-        <span class="sn">${i+1}</span>
-        ${load?`<div class="field"><input id="w-${s.pk}-${i}" inputmode="decimal" aria-label="Set ${i+1} weight" data-pk="${s.pk}" data-i="${i}" data-f="w" value="${esc(weightNumber(st.w))}" placeholder="${wShow??'—'}"><span>${wLabel}</span></div>`:`<div class="small muted">${ex.mode==='T'||tg.unit==='sec'?'Hold':'Reps only'}</div>`}
-        <div class="field"><input id="r-${s.pk}-${i}" inputmode="numeric" aria-label="Set ${i+1} ${tg.unit}" data-pk="${s.pk}" data-i="${i}" data-f="r" value="${esc(st.r)}" placeholder="${load?tg.lo+'–'+tg.hi:tg.r}"><span>${tg.unit}</span></div>
-        <button class="tick" data-action="done" data-pk="${s.pk}" data-i="${i}" aria-label="Mark set ${i+1} done">✓</button>
-      </div>`).join('')}</div>
-      ${feelRow}
-      <div class="exfoot"><button class="btn sm" data-action="addset" data-pk="${s.pk}">+ Set</button>${sets.length>1?`<button class="btn sm ghost" data-action="rmset" data-pk="${s.pk}">− Set</button>`:''}<button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${tg.rest?`<button class="btn sm ghost" data-action="rest" data-sec="${tg.rest}">Start rest</button>`:''}</div>
-    </section>`;
-  });
-  h += `${X.finisher?`<section class="card stack phase">
-    <div class="row between"><h3>Cardio after lifting</h3><span class="chip">Optional</span></div>
-    <div>${xRow('cool',X.finisher,d)}</div>
-    <p class="tiny muted" style="margin:0">${{easy:'Easy, steady cardio. ',mid:'Steady cardio with a few harder pushes. ',hard:'Hard intervals to push your conditioning. '}[TIER()]}${hasGoal('lose')?'Burns a little extra after lifting.':'Good for your heart and recovery.'} Skip it any day.</p>
-  </section>`:''}
-  <section class="card stack phase">
-    <div class="row between"><h3>Cool-down</h3><span class="small muted">8–10 min</span></div>
-    <div>${X.cool.map(it=>xRow('cool',it,d)).join('')}</div>
-    <p class="tiny muted" style="margin:0">Stretches are picked for the muscles you just trained.</p>
-  </section>
-  <div class="stack"><button class="btn primary block" data-action="finish">Finish workout</button><button class="btn ghost block" data-action="discard">Discard this workout</button></div>`;
-  return h;
-}
-function checkRow(group,k,label,val){ const id=`${group}-${k}`; return `<div class="check"><input type="checkbox" id="${id}" data-check="${group}" data-k="${k}" ${val?'checked':''}><label for="${id}">${label}</label></div>`; }
-
 function renderPlan(){
   const keys=weekKeys(), ds=trainDays();
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
-    <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':''} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. Adjust changes sets, reps, rest or weight.</p></div>
+    <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':''} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p></div>
     ${placeSwitch()}</section>
     ${renderMuscleMap()}`;
   keys.forEach((k,j)=>{
@@ -2505,7 +2449,7 @@ function renderHistory(){
     <div class="row between"><b>${esc(l.name)}</b><span class="small muted num">${new Date(l.date).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}</span></div>
     <div class="tiny muted">Block ${l.block} · Week ${l.week} · ${l.entries.length} exercises · ${l.dur??'?'} min${l.status==='partial'?` · Partial · ${l.completed} of ${l.planned} sets`:''}</div></button>
     ${ui.histOpen===l.id?`<div class="stack" style="gap:6px;margin-top:8px">${l.entries.map(e=>`<div class="small"><b>${esc(e.name)}</b> <span class="muted num">${e.sets.map(s=>(s.w?`${fmtW(s.w)} × `:'')+s.r).join(', ')}</span>${e.plan?`<span class="tiny muted"> · plan ${esc(e.plan)}${e.planned!=null?' @ '+fmtW(e.planned):''}</span>`:''}${e.msg?`<div class="tiny muted">→ ${esc(e.msg)}</div>`:''}</div>`).join('')}
-      <button class="btn sm ghost" data-action="dellog" data-id="${l.id}" style="align-self:flex-start">Delete session</button></div>`:''}
+      ${coachMode?'':`<button class="btn sm ghost" data-action="dellog" data-id="${l.id}" style="align-self:flex-start">Delete session</button>`}</div>`:''}
   </div>`).join('')||'<p class="muted small" style="margin:0">No sessions yet.</p>'}</div></section>`;
 }
 function sparkChart(pts,label){
@@ -3090,11 +3034,11 @@ function renderPreview(){
     <div><div class="eyebrow">${j>=0?esc(dayLabel(j,true))+' · ':''}${esc(t.focus)}</div><h1>${esc(t.name)}</h1><div class="small muted" style="margin-top:4px">${lenText(key)} · ${slots.length} exercises · ${esc(curPlace().n)}</div></div>
     ${placeSwitch()}
     <section class="card row between" style="flex-wrap:nowrap"><div><b>Warm-up</b><div class="tiny muted">${X.min} min · ${esc(wu)}</div></div><span class="chip">${X.min} min</span></section>
-    <div class="row between" style="margin:2px 2px -6px"><span class="eyebrow">Exercises</span>${inProg&&Object.values(state.draft.sets||{}).flat().some(x=>x.done)?'':`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`}</div>
+    <div class="row between" style="margin:2px 2px -6px"><span class="eyebrow">Exercises</span>${coachMode||inProg&&Object.values(state.draft.sets||{}).flat().some(x=>x.done)?'':`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`}</div>
     <section class="card" style="padding:4px 16px">${slots.map((s,i)=>{ const tg=target(s), ex=EX[s.id], w=tg.w??tg.sug;
       return `<div class="prow"><span class="pnum">${i+1}</span><button class="pmain" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}"><b>${esc(ex.n)}</b>${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}<div class="tiny muted">${tg.sets} × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r}${tg.unit==='sec'?' sec':''}${ex.uni?' per side':''} · ${usesLoad(ex)?(w!=null?fmtW(w):'start light'):'Body weight'}${tg.ss?' · superset':''}</div><span class="pinfo">How to do it ›</span></button>${s.placeFrom?'':`<button class="linkbtn small" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`; }).join('')}</section>
-    <section class="card row between" style="flex-wrap:nowrap"><div><b>${X.finisher?'Cardio &amp; cool-down':'Cool-down'}</b><div class="tiny muted">${X.finisher?'Optional '+esc(X.finisher.t.toLowerCase())+' · ':''}${esc(X.cool[0].t.toLowerCase())} + ${X.cool.filter(x=>x.stretch).length} stretches</div>${X.finisher?'':`<button class="linkbtn small" data-action="addcardio" style="margin-top:4px;padding:0">+ Add 10 min of cardio</button>`}</div><span class="chip">${X.coolMin} min</span></section>
-    <div class="ffoot pstart"><button class="btn primary block fbig" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button><div class="tiny muted" style="text-align:center">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</div></div></div>`;
+    <section class="card row between" style="flex-wrap:nowrap"><div><b>${X.finisher?'Cardio &amp; cool-down':'Cool-down'}</b><div class="tiny muted">${X.finisher?'Optional '+esc(X.finisher.t.toLowerCase())+' · ':''}${esc(X.cool[0].t.toLowerCase())} + ${X.cool.filter(x=>x.stretch).length} stretches</div>${coachMode||X.finisher?'':`<button class="linkbtn small" data-action="addcardio" style="margin-top:4px;padding:0">+ Add 10 min of cardio</button>`}</div><span class="chip">${X.coolMin} min</span></section>
+    <div class="ffoot pstart">${coachMode?'<p class="small muted">Plan preview. The member records workouts in their own app.</p>':`<button class="btn primary block fbig" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button><div class="tiny muted" style="text-align:center">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</div>`}</div></div>`;
 }
 // Exercise photos: img/<id>-a.jpg (start) and img/<id>-b.jpg (finish), shipped as the artifact's own files.
 const EX_PHOTOS = new Set([]);   // e.g. 'dumbbell-bench-press' once its photos are in img/
@@ -3776,7 +3720,7 @@ function placeSwitch(){
   const ps=state.places||[]; if(ps.length<2) return '';
   const cur=curPlace().k;
   const ic={gym:'mcgen',full:'rack',home:'db',apt:'adjb',any:'bd'};
-  return `<div class="where"><span class="lbl">Today at</span><span class="row" style="gap:6px;flex:1">${ps.map(p=>`<button class="wchip ${p.k===cur?'on':''}" data-action="setplace" data-v="${p.k}" aria-pressed="${p.k===cur}">${(EQ_ICON[ic[p.k]]||'').replace('stroke-width="2.2"','stroke-width="3"')}${esc(p.n)}</button>`).join('')}</span></div>`;
+  return `<div class="where"><span class="lbl">${coachMode?'Preview at':'Today at'}</span><span class="row" style="gap:6px;flex:1">${ps.map(p=>`<button class="wchip ${p.k===cur?'on':''}" data-action="setplace" data-v="${p.k}" aria-pressed="${p.k===cur}">${(EQ_ICON[ic[p.k]]||'').replace('stroke-width="2.2"','stroke-width="3"')}${esc(p.n)}</button>`).join('')}</span></div>`;
 }
 function placeNote(keys){
   if(curPlace().k===homeBase()) return '';
@@ -3790,14 +3734,14 @@ function weighDue(){
   return today.getDay()===W.day || (last && (dayStart(today)-dayStart(new Date(last.d)))/864e5 >= 7);
 }
 function checkinCard(w){
-  if(state.checkin || w<3 || !state.block) return '';
+  if(coachMode || state.checkin || w<3 || !state.block) return '';
   if(!logs.some(l=>l.block===state.block.n)) return '';
   return `<section class="card stack"><div><div class="eyebrow">Two weeks in</div><h3>How’s it feeling so far?</h3></div>
     <div class="row">${[['easy','Too easy'],['right','About right'],['much','Too much']].map(([k,l])=>`<button class="btn sm ${k==='right'?'primary':''}" data-action="checkin" data-v="${k}">${l}</button>`).join('')}</div>
     <p class="tiny muted" style="margin:0">We’ll adjust your weights (and your sets, if it’s too much) based on your answer.</p></section>`;
 }
 function addDayBanner(w){
-  const n=nDays(); if(n>=5 || w<3) return '';
+  const n=nDays(); if(coachMode || n>=5 || w<3) return '';
   if(state.levelDismiss===`${state.block.n}-${w}`) return '';
   const full=k=>weekLogs(k).length>=weekKeys().length;
   if(!(full(w-1) && full(w-2))) return '';
@@ -3811,12 +3755,12 @@ function renderToday(){
   const todayDow=new Date().getDay(), isTrain=isFlex() || ds.includes(todayDow);
   let h=hsCard()+ringsCard(w,keys,wl,{L,over,total});
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
-  if(state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
-  if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row"><button class="btn primary sm" data-action="newblock">Start the next program</button></div></div>`;
+  if(!coachMode && state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
+  if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row">${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</div></div>`;
   if(state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
-  if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div><button class="btn primary sm" data-action="resume">${state.draft.partialSaved?'Resume remaining sets':'Resume'}</button></div>`;
+  if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div>${coachMode?'<span class="small">Plan updates wait until this workout is finished or discarded.</span>':`<button class="btn primary sm" data-action="resume">${state.draft.partialSaved?'Resume remaining sets':'Resume'}</button>`}</div>`;
   h+=checkinCard(w)+addDayBanner(w);
-  if(weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
+  if(!coachMode && weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
   h+=placeSwitch();
   h+=`<section class="stack"><div><h2>${nextKey ? (isFlex()?`Next up: ${esc(tplOf(nextKey).name)}`:isTrain?`Today: ${esc(tplOf(nextKey).name)}`:'Rest day') : 'Week complete'}</h2>
     <div class="small muted">${nextKey ? (isFlex()?`${wl.length} of ${keys.length} done this week. Do them in order, whenever you can, with a rest day between when possible.`:isTrain?'Tap a workout to see it, then Start when you’re ready.':`Next up: ${esc(tplOf(nextKey).name)}. You can still train today if you want.`) : 'Every workout this week is done. Enjoy the rest.'}</div></div>
@@ -3828,7 +3772,7 @@ function renderToday(){
         <span class="small muted num" style="text-align:right">${d?new Date(log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}<br>${nx?'<span class="chip acc">Up next</span>':''}</span>
       </button>`; }).join('')}
     <button class="btn" data-action="openmap">See which muscles this week trains</button>
-    <p class="tiny muted" style="margin:0">Times include the 5 min warm-up and 10 min cool-down. Change your days or workout length in Settings.</p>
+    <p class="tiny muted" style="margin:0">Times include the warm-up and cool-down shown in each workout preview. Optional cardio after lifting adds extra time. ${coachMode?'':'Change your days or workout length in Settings.'}</p>
   </section>` + whyCard();
   return h;
 }
@@ -3902,7 +3846,22 @@ function sec(id,title,summary,body){
     <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span style="flex:1;min-width:0;text-align:left"><b class="sec-t">${title}</b><br><span class="tiny muted">${esc(summary||'')}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     ${open?`<div class="stack sec-body">${body}</div>`:''}</section>`;
 }
+function renderCoachSettings(){
+  const s=state.settings;
+  const row=(label,value)=>`<div><b>${label}</b><div class="small muted">${esc(value)}</div></div>`;
+  return `<section><div class="eyebrow">Coach view</div><h1>Member settings</h1><p class="small muted">These details help you review the plan. The member changes their own profile, schedule, equipment, and working weights.</p></section>
+    <section class="card stack"><div class="row between"><div><h3>Training level</h3><div class="small muted">${esc(LEVELS[lvl()].n)}</div></div><button class="btn sm" data-action="pickLevel">Change</button></div><p class="tiny muted" style="margin:0">Level changes are included when you Send changes.</p></section>
+    <section class="card stack"><h3>Profile and schedule · view only</h3>
+      ${row('Name',s.name||'Not entered')}${row('Age',s.age||'Not entered')}${row('Body weight',s.bw?fmtW(s.bw):'Not entered')}
+      ${row('Goals',goals().map(g=>GOALS[g].n).join(', '))}
+      ${row('Schedule',`${nDays()} days a week${isFlex()?' · flexible':' · '+trainDays().map(d=>DAYL[d]).join(', ')} · ${splitLabel()} · ${s.mins||45} minutes`)}
+      ${row('Limitations',(s.pain||[]).map(k=>PAIN[k].n).join(', ')||'None selected')}
+    </section><section class="card stack"><h3>Places and equipment · view only</h3>
+      ${(state.places||[]).map((p,i)=>row(p.n+(i===0?' (main)':''),p.eq.map(k=>EQ_NAME[k]||k).join(', '))).join('')}
+    </section>`;
+}
 function renderSettings(){
+  if(coachMode) return renderCoachSettings();
   const s=state.settings, ds=trainDays();
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
   ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
@@ -3945,7 +3904,7 @@ function renderSettings(){
     <div>${[['autoRest','Start rest timer after each set'],['betweenTimer','Recovery timer between exercises','Length and tip match the exercise you just finished; change it with Adjust'],['sound','Beep when a timer ends']].map(([k,l,h])=>`<label class="toggle" for="set-${k}"><span>${l}${h?`<br><span class="tiny muted">${h}</span>`:''}</span><input type="checkbox" id="set-${k}" data-set="${k}" ${s[k]!==false?'checked':''}></label>`).join('')}</div>
   `)}
   ${sec('block','Your 6-week program',`Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · next program, restart`,`
-    <p class="small muted" style="margin:0">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen}. When it ends, a new 6-week program starts. Your weights carry over, and how much your exercises change follows your Exercise variety setting.</p>
+    <p class="small muted" style="margin:0">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen}. When it ends, tap Start the next program on Today, or start it here when you’re ready. Your weights carry over, and how much your exercises change follows your Exercise variety setting.</p>
     ${state.prevBlock?`<button class="btn sm block" data-action="prevblock" style="width:100%">Go back to my previous program</button>`:''}
     <div class="row"><button class="btn sm" data-action="newblock">Start the next program now</button><button class="btn sm ghost" data-action="restartblock">Restart at week 1</button></div>
   `)}
@@ -3954,7 +3913,7 @@ function renderSettings(){
     <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
     <button class="btn sm" data-action="restore">Restore my backup</button>
-    <p class="tiny muted" style="margin:0">Restoring replaces everything in your app with the backup.</p>
+    <p class="tiny muted" style="margin:0">${AUTH.user?'Restoring replaces your plan and workout history here, then syncs that replacement to your account. Other devices will receive it too. Workouts missing from the backup may be removed from your account.':'Restoring replaces the plan and workout history saved in this browser.'}</p>
   `)}`;
 }
 function renderEquipEdit(){
@@ -4116,31 +4075,18 @@ function adjustSheet(pk){
   const slot=(inWorkout?dSlots():Object.values(SPLITS).flatMap(o=>o.keys).flatMap(sessionSlots)).find(x=>x.pk===pk);
   const tg=target(slot), ex=tg.ex, r=recovery(slot), unit=tg.unit==='sec'?'seconds':'reps';
   const f=(id,label,val,hint='')=>`<label class="adj" for="${id}"><span>${label}${hint?`<br><span class="tiny muted">${hint}</span>`:''}</span><input id="${id}" inputmode="decimal" value="${val??''}"></label>`;
-  modal(`<div><div class="eyebrow">Adjust</div><h2>${esc(ex.n)}</h2><p class="tiny muted" style="margin:4px 0 0">Your own tweak to ${esc(coachName())}'s plan. It stays until you reset it.</p></div>
+  modal(`<div><div class="eyebrow">Adjust</div><h2>${esc(ex.n)}</h2><p class="tiny muted" style="margin:4px 0 0">${coachMode?'Set the targets to include in this plan update.':'Adjustments stay until you reset them.'} Reset adjustments restores the app’s default sets, rep range, rest, and recovery for this exercise; it does not restore an earlier coach version or change your working weight.</p></div>
     <div class="stack" style="gap:8px">
       ${f('adj-sets','Sets',tg.sets)}
       ${f('adj-lo',`Low end (${unit})`,tg.lo)}
       ${f('adj-hi',`High end (${unit})`,tg.hi)}
       ${f('adj-rest','Rest between sets (sec)',slot.cfg.rest, tg.ssFirst?'Supersets: rest happens after the paired exercise':'')}
       ${f('adj-after','Recovery after exercise (sec)',r.sec,'Starts when every set is checked off')}
-      ${usesLoad(ex)?f('adj-w',`Working weight (${state.settings.units})`,weightNumber(tg.w),'Next targets build from this'):''}
+      ${usesLoad(ex)?(coachMode?`<div class="small muted">Working weight: ${fmtW(tg.w)} · view only. The member controls their working weights.</div>`:f('adj-w',`Working weight (${state.settings.units})`,weightNumber(tg.w),'Next targets build from this')):''}
     </div>
-    <div class="row"><button class="btn primary" data-action="adjsave" data-pk="${pk}" data-id="${slot.id}">Save</button><button class="btn" data-action="adjreset" data-pk="${pk}">Back to ${esc(PROGRAM.coach||'coach')}'s plan</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
+    <div class="row"><button class="btn primary" data-action="adjsave" data-pk="${pk}" data-id="${slot.id}">Save</button><button class="btn" data-action="adjreset" data-pk="${pk}">Reset adjustments</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
 }
 
-function workoutTips(){
-  modal(`<div><div class="eyebrow">Your first workout</div><h2>Quick tour</h2></div>
-    <div class="stack" style="gap:8px">
-      <div class="small"><b>1. Warm up.</b> Check off the walk and the moves at the top.</div>
-      <div class="small"><b>2. Each exercise</b> shows the weight and reps to aim for. The weight is already filled in; change it if you used something else.</div>
-      <div class="small"><b>3. Type the reps you actually did</b>, then tap ✓. A rest timer starts on its own.</div>
-      <div class="small"><b>4. Rate the weight</b> after your first set: Too easy, Just right or Too heavy. The app fixes the next sets for you.</div>
-      <div class="small"><b>5. Machine taken?</b> Tap <b>Swap</b> for a similar exercise. Not sure what a move works? Tap the body circle.</div>
-      <div class="small"><b>6. Tap Finish workout</b> when you're done to save it in History.</div>
-    </div>
-    <p class="tiny muted" style="margin:0">Start light. It's fine if the first week feels easy; the app moves you up quickly.</p>
-    <button class="btn primary" data-action="closemodal">Got it</button>`);
-}
 /* ---------------- Actions ---------------- */
 function finishWorkout(){
   const d=state.draft, slots=dSlots(), entries=[], completion=workoutCompletion(d);
@@ -4179,9 +4125,16 @@ function finishWorkout(){
     <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="row"><button class="btn primary" data-action="closemodal">Done</button></div>`}`);
 }
 
+// Coach preview edits only fields carried by planCode(). This is a UI guard;
+// database permissions remain the authorization boundary.
+function coachActionAllowed(a,b){
+  if(a==='tab') return TABS.some(([k])=>k===b.dataset.tab);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','openmap','muscle','musinfo','exinfo','libshowall','libopen','histopen','swap','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+}
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   const a=b.dataset.action;
+  if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
   if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
@@ -4213,12 +4166,9 @@ document.addEventListener('click', e=>{
   switch(a){
     case 'tab': ui.tab=b.dataset.tab; if(ui.tab==='today'&&state.draft&&false){} render(); window.scrollTo(0,0); break;
     case 'open': { const key=b.dataset.key;
-      if(state.draft && state.draft.key===key){ resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break; }
+      if(!coachMode && state.draft && state.draft.key===key){ resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break; }
       ui.preview=key; ui.tab='preview'; render(); window.scrollTo(0,0); break;
-      if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ startWorkout(key); ui.tab='workout'; render(); window.scrollTo(0,0); }); return; }
-      if(!state.draft) startWorkout(key);
-      ui.tab='workout'; render(); window.scrollTo(0,0);
-      state.tips=state.tips||{}; if(!state.tips.workout){ state.tips.workout=true; save(); workoutTips(); } break; }
+    }
     case 'resume': resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break;
     case 'done': { const s=state.draft.sets[b.dataset.pk][+b.dataset.i];
       s.done=!s.done;
@@ -4280,7 +4230,7 @@ document.addEventListener('click', e=>{
       if(lo!=null&&hi!=null){ a.lo=Math.round(Math.min(lo,hi)); a.hi=Math.round(Math.max(lo,hi)); }
       if(rest!=null) a.rest=Math.round(rest); if(after!=null) a.after=Math.round(after);
       a.ex=b.dataset.id; state.adj[pk]=a;
-      if(w!=null){ const id=b.dataset.id; state.ex[id]={...(state.ex[id]||{}), w}; }
+      if(w!=null && !coachMode){ const id=b.dataset.id; state.ex[id]={...(state.ex[id]||{}), w}; }
       const d=state.draft;
       if(d && d.sets[pk]){ const slot=dSlots().find(x=>x.pk===pk), tg=target(slot), arr=d.sets[pk];
         while(arr.length<tg.sets) arr.push({w:defW(tg),r:'',done:false});
@@ -4291,7 +4241,7 @@ document.addEventListener('click', e=>{
       if(d && d.sets[pk]){ const tg=target(dSlots().find(x=>x.pk===pk)), arr=d.sets[pk];
         while(arr.length<tg.sets) arr.push({w:defW(tg),r:'',done:false});
         while(arr.length>tg.sets && !arr[arr.length-1].done) arr.pop(); }
-      save(); closeModal(); render(); toast(`Back to ${coachName()}'s plan`); break; }
+      save(); closeModal(); render(); toast('Adjustments reset to app defaults'); break; }
     case 'doswap': { const pk=b.dataset.pk; state.block.plan[pk]=b.dataset.id;
       if(state.draft && state.draft.sets[pk]){ if(state.draft.subs) delete state.draft.subs[pk]; resetRows(pk); }
       save(); closeModal(); render(); toast(b.dataset.id===origId(pk)?'Back to the original pick':'Swapped from now on'); break; }
@@ -4340,7 +4290,7 @@ document.addEventListener('click', e=>{
     case 'setunits': changeUnits(b.dataset.u); save(); render(); toast('Weights converted to '+state.settings.units+'.'); break;
     case 'copybackup': { const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
     case 'restore': { try{ const o=JSON.parse($('#restore').value); if(!o.state||!o.state.block) throw 0;
-      confirmBox('Load this data?',`It replaces everything on this device with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} plan, weights and history.`,'Load',()=>{ state=migrate(o.state); logs=normalizeLogs(o.logs||[],state.settings.units); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
+      confirmBox('Load this data?',`This replaces the plan, weights and history in this browser with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} backup. ${AUTH.user?'The replacement also syncs to your account and other devices. Account workouts absent from the backup may be deleted.':'It affects this browser’s saved data.'} Copy a current backup first.`,'Load',()=>{ state=migrate(o.state); logs=normalizeLogs(o.logs||[],state.settings.units); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
     case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
@@ -4348,12 +4298,14 @@ document.addEventListener('click', e=>{
 document.addEventListener('submit', e=>{ const f=e.target.closest('[data-authform]'); if(!f) return; e.preventDefault(); authSubmit(f.dataset.authform); });
 document.addEventListener('input', e=>{
   const t=e.target;
+  if(coachMode && !['libq','lpq'].includes(t.id)) return;
   if(t.id==='au-email'){ AUTH.email=t.value; return; } if(t.id==='au-pw'){ AUTH.pw=t.value; return; }
   if(t.dataset.f && state.draft){ const s=state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
   if(t.id==='libq'){ ui.libQ=t.value; const pos=t.selectionStart; render(); const n=$('#libq'); n.focus(); n.setSelectionRange(pos,pos); }
 });
 document.addEventListener('change', e=>{
   const t=e.target;
+  if(coachMode && !['libeasy','libeq','libbody','libmove','lpq','lpeq','lpbody','lpmove','histex'].includes(t.id)) return;
   if(t.dataset.check && state.draft){ state.draft[t.dataset.check][t.dataset.k]=t.checked; save(); return; }
   if(t.dataset.set){ state.settings[t.dataset.set]=t.checked; save(); return; }
   if(t.id==='set-age'){ const v=parseInt(t.value,10); state.settings.age=isFinite(v)&&v>10&&v<110?v:null; save(); render(); return; }

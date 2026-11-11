@@ -21,7 +21,7 @@
 <main>
   <a class="brand" href="./"><img src="icons/icon-180.png" alt="">Strong Start</a>
   <h1>Privacy policy</h1>
-  <p class="muted">Last updated November 10, 2026</p>
+  <p class="muted">Last updated November 11, 2026</p>
 
   <p>Strong Start is a small, personal workout app shared with friends. It builds workout plans and tracks your workouts. This page explains what it saves and who can see it.</p>
 
@@ -30,8 +30,10 @@
     <li><b>Your account:</b> your email address and, if you sign in with Google, the name on your Google account. If you use a password, it is stored securely by our sign-in provider and we can't see it.</li>
     <li><b>What you tell the app in setup:</b> first name, and optionally age, body weight and gender; your goals, where you work out and what equipment you have; your schedule; and anything you mark as painful or limiting.</li>
     <li><b>Your workouts:</b> your plan, the weights and reps you log, how sessions felt, and any notes between you and your coach.</li>
+    <li><b>Messages and feedback:</b> messages you send to coaches or the app owner. App feedback includes the screen and browser/device information shown in the feedback form. A message can also include the workout reference shown there.</li>
+    <li><b>Invites and account access:</b> invite names, codes, expiry and use records, and account approval or disabled status.</li>
   </ul>
-  <p>If you use the app without an account, everything stays on your device and nothing is sent to us.</p>
+  <p>Existing local-only sessions save plans and workouts in that browser. New accounts require an invite during beta.</p>
 
   <h2>Why we save it</h2>
   <p>Only to run the app: to build and adjust your plan, keep your progress, let you use it on any device, and let your coach help you. We don't use it for advertising, we don't sell it, and we don't share it with anyone else.</p>
@@ -39,18 +41,21 @@
   <h2>Who can see it</h2>
   <ul>
     <li>You.</li>
-    <li>Your coach (the person who runs Strong Start), who can see your setup, plan and workout history and send you plan changes.</li>
-    <li>No one else. Other people using the app can't see your information.</li>
+    <li>Authorized coaches, who can see members’ setup, plans and workout history and send plan changes. Messages sent “To my coach” go to a shared coach inbox, not a private inbox for one assigned coach.</li>
+    <li>App owners, who can read app feedback and account profile/access information and manage account disabling or deletion. Coach access is a separate role.</li>
+    <li>Other members do not have access to your information.</li>
   </ul>
 
   <h2>Where it's stored</h2>
-  <p>Account and workout data is stored with <a href="https://supabase.com" rel="noopener">Supabase</a> on servers in the United States. The app itself is hosted on GitHub Pages. Your phone also keeps a copy so the app works without a signal.</p>
+  <p>Account and workout data is stored with <a href="https://supabase.com" rel="noopener">Supabase</a> on servers in the United States. The live app is hosted on GitHub Pages; the development app is hosted on Cloudflare Pages and uses a separate test database. Test accounts and data do not transfer to the live app.</p>
+  <p>Your browser keeps a local copy of your plan and workouts. Account changes sync when connected. Open the app while online before using it without a signal; opening it from scratch offline is not guaranteed. Restoring a backup while signed in can replace account data and sync that replacement to other devices.</p>
 
   <h2>Google sign-in</h2>
   <p>If you choose “Continue with Google,” we receive only your name, email address and Google account ID, which we use to sign you in. We don't access anything else in your Google account.</p>
 
   <h2>Deleting your data</h2>
-  <p>You can sign out at any time in Settings. To have your account and everything in it permanently deleted, ask your coach (the person who invited you to Strong Start), and it will be removed.</p>
+  <p>Check the save status before signing out in Settings. Signing out clears the app’s local saved copy; it does not delete your account. To request account deletion, contact your coach or the app owner. An app owner can delete the account, its plan/settings, workout history, and coach messages.</p>
+  <p>App feedback is retained after account deletion, with its profile link and workout reference removed. The message text and screen/device context remain, and text you entered may still identify you. You can ask the app owner about retained feedback.</p>
 
   <h2>Changes</h2>
   <p>If this policy changes, the new version will be posted on this page with a new date.</p>
