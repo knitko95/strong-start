@@ -71,6 +71,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | 23 | Finish setting up remains after completing information in Settings | On the test app | Settings changes now carry into paused answers. An existing plan with the required saved settings clears the reminder without rebuilding the plan or resetting progress; incomplete setup retains its answers on Continue and reload. Checked in headless Chrome at desktop and 390/320 px phone widths with synthetic data. No database migration. Awaiting live release approval. |
 
+| 24 | Full “How to do it” instructions in the Exercise library | On the test app | Requested November 11. Expand an exercise to open the existing workout instruction view, including steps, equipment, and muscle diagrams. Library filters and the expanded exercise are kept when closing. Dev build and 50 regression scenarios passed; headless Chrome checks passed at desktop, 390 px and 320 px with synthetic data. Hosted verification follows deployment. No database migration. Live publication requires separate approval. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.
