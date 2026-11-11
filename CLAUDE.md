@@ -1,24 +1,16 @@
-# Strong Start: rules for working on this app
+# Strong Start: Claude instructions
 
-This repository IS the live app. Every push to `main` goes live at https://knitko95.github.io/strong-start/ within a minute or two.
+@AGENTS.md
 
-## Never
-- Never use or update the old claude.ai artifact (https://claude.ai/artifact/YSGbuUHKJSAgWMpr3QiXa1). It is retired.
-- Never replace `index.html` with a copy from another chat, an artifact, an attachment or an older commit. Older copies are missing accounts, Google sign-in, the coach view and the privacy link. Bring changes in by merging only the parts that changed.
-- Never put secrets in this repo (it is public). The Supabase URL and publishable key in `index.html` are meant to be public; the Google client secret, Supabase service-role key and database password are not.
-- Never add an exercise feature, wording change or design change the owner hasn't approved. Items are discussed one at a time in the project's feedback log (`claude/strong-start-feedback-log.md`) and built only after she says so.
-- Never make anyone a coach (the `coaches` table) without the owner confirming in chat, and only for a Google sign-in (email confirmation is off, so email/password addresses are unverified).
+`AGENTS.md` is the shared source of project rules. Read and follow it before working on this app. It retains the original owner decisions about approved changes, production publishing, private data, coach access, testing, and preserving existing users' data.
 
-## Always
-- Start from the latest `main` (`git pull`). Work on a copy, test, then push.
-- Test before pushing: syntax-check the main script, load the page in a headless browser with no console errors, and click through what changed. After pushing, open the live site and check it there.
-- Keep everything in one `index.html` (plus `privacy.html`, `manifest.webmanifest`, `icons/`).
-- Commit messages say in plain words what changed for the person using the app.
-- After shipping, update the feedback log (status → Live) and, for bigger changes, `claude/strong-start-planned-updates.md`.
+All changes must be made and tested on `dev` first. Deploy and verify the test version, then obtain the user's explicit approval of the tested release before merging/pushing to `main` or changing production Supabase/Auth/configuration. A request to implement a change is not approval to release it. Follow the full approval scope and verification rules in `AGENTS.md`.
 
-## How the app saves data
-- Accounts: Supabase project `strong-start` (id `aybtxqsneywuqxzjwoek`). Tables: `profiles`, `app_state` (whole app state as JSON), `workout_logs` (one row per workout), `plan_updates` (coach → person), `coaches`. Row-level security: people see only their own data; coaches read everyone and send plan updates.
-- Sign-in: email + password, or Google. "Use without an account" keeps data on the device only.
-- The phone keeps a copy in localStorage (`strongstart_state_v3`) so the app works offline; it syncs on reopen or when back online.
-- If you change the shape of the saved state, add the upgrade step in `migrate()` so existing people's data is carried forward, never wiped.
-- Database changes: use migrations, then run the Supabase security advisor. Test rules with a rolled-back transaction, not on real people's data.
+For task-specific context, read:
+
+- [App guide](docs/APP_GUIDE.md): member, coach, and owner workflows.
+- [Architecture and operations](docs/ARCHITECTURE.md): code map, saving, permissions, testing, deployment, and recovery.
+- [Environments and releases](docs/ENVIRONMENTS.md): dev hosting/database, validation, and the explicit production approval step.
+- [Review dated 2026-11-11](docs/REVIEW-2026-11-11.md): findings, evidence, and checks still open.
+
+Keep shared rules in `AGENTS.md` so Claude and other agents stay aligned. The retired Claude artifact is not the source of this app.
