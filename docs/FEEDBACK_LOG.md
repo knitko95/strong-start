@@ -73,6 +73,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | 24 | Full “How to do it” instructions in the Exercise library | On the test app | Requested November 11. Expand an exercise to open the existing workout instruction view, including steps, equipment, and muscle diagrams. Library filters and the expanded exercise are kept when closing. Dev build and 50 regression scenarios passed; local and hosted headless Chrome checks passed at desktop, 390 px and 320 px with synthetic data for the initial version. Follow-up approved November 11: keep the “How to do it” label and remove the redundant “Show muscle diagram” button; diagrams remain within the instructions. No database migration. Live publication requires separate approval. |
 
+| 25 | Open exercise instructions by tapping the whole library row | On the test app | Whole-row mockup approved November 11 for implementation and dev testing. A subtle right arrow replaces the separate button and expansion; tapping the row opens the existing how-to card directly. Repeated form tip and expanded tags are removed from the list; names, muscle summaries, and equipment remain. No database migration or production configuration change. Live publication requires separate approval. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.

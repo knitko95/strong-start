@@ -141,6 +141,8 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 .lib-item{border-top:1px solid var(--line);padding:10px 0}
 .lib-item:first-child{border-top:0}
 .lib-item button.lt{all:unset;cursor:pointer;display:block;width:100%}
+.lib-item button.lt:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.lib-arrow{flex-shrink:0;color:var(--muted);opacity:.65;font-size:24px;font-weight:400;padding:0 4px}
 .lib-item .ln{font-weight:600}
 .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .filters select,.search{width:100%;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px}
@@ -2629,12 +2631,9 @@ function renderLibrary(){
     </div>
     <label class="toggle" for="libeasy" style="border:0;padding:0"><span class="small"><b>Only moves that fit your level</b></span><input type="checkbox" id="libeasy" ${ui.libEasy?'checked':''}></label></section>
     <section class="card"><div class="small muted" style="margin-bottom:6px"><span class="num">${list.length}</span> shown${hidden?` · <button class="linkbtn" data-action="libshowall">${ui.libShowAll?'Hide':'Show'} ${hidden} for equipment you don't have</button>`:''}</div>
-    <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="libopen" data-id="${e.id}" aria-expanded="${ui.libOpen===e.id}">
-      <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="row between" style="flex-wrap:nowrap"><span class="ln">${esc(e.n)}</span></div>
-      ${musLine(e.id)}<div class="tiny muted">${e.eq.map(x=>EQ_SHORT[x]).join(', ')}</div></div></div></button>
-      ${ui.libOpen===e.id?`<div class="stack" style="gap:6px;margin-top:8px"><div class="small">${esc(e.cue)}</div><button class="btn sm" style="align-self:flex-start" data-action="exinfo" data-id="${e.id}">How to do it</button>
-        <div class="row">${e.slots.map(s=>`<span class="chip">${SLOT_NAMES[s]}</span>`).join('')}${planeChip(e.pl)}${e.uni?'<span class="chip">Unilateral</span>':''}</div>
-        ${state.ex[e.id]&&state.ex[e.id].w!=null?`<div class="tiny muted">Working weight: ${fmtW(state.ex[e.id].w)}</div>`:''}</div>`:''}
+    <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}" aria-haspopup="dialog">
+      <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="ln">${esc(e.n)}</div>
+      ${musLine(e.id)}<div class="tiny muted">${e.eq.map(x=>EQ_SHORT[x]).join(', ')}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div></button>
     </div>`).join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}</div></section>`;
 }
 
