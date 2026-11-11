@@ -2632,7 +2632,7 @@ function renderLibrary(){
     <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="libopen" data-id="${e.id}" aria-expanded="${ui.libOpen===e.id}">
       <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="row between" style="flex-wrap:nowrap"><span class="ln">${esc(e.n)}</span></div>
       ${musLine(e.id)}<div class="tiny muted">${e.eq.map(x=>EQ_SHORT[x]).join(', ')}</div></div></div></button>
-      ${ui.libOpen===e.id?`<div class="stack" style="gap:6px;margin-top:8px"><div class="small">${esc(e.cue)}</div><button class="btn sm" style="align-self:flex-start" data-action="exinfo" data-id="${e.id}">How to do it</button><button class="btn sm" style="align-self:flex-start" data-action="musinfo" data-id="${e.id}">Show muscle diagram</button>
+      ${ui.libOpen===e.id?`<div class="stack" style="gap:6px;margin-top:8px"><div class="small">${esc(e.cue)}</div><button class="btn sm" style="align-self:flex-start" data-action="exinfo" data-id="${e.id}">How to do it</button>
         <div class="row">${e.slots.map(s=>`<span class="chip">${SLOT_NAMES[s]}</span>`).join('')}${planeChip(e.pl)}${e.uni?'<span class="chip">Unilateral</span>':''}</div>
         ${state.ex[e.id]&&state.ex[e.id].w!=null?`<div class="tiny muted">Working weight: ${fmtW(state.ex[e.id].w)}</div>`:''}</div>`:''}
     </div>`).join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}</div></section>`;
