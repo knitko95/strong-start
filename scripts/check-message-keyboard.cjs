@@ -31,6 +31,24 @@ module.exports=async function checkMessageKeyboard(page,width){
   });
   assert.ok(Math.abs(geometry.top-offset)<2,JSON.stringify(geometry));assert.ok(Math.abs(geometry.bottom-offset-height)<2,JSON.stringify(geometry));assert.ok(Math.abs(geometry.composerBottom-offset-height)<2,JSON.stringify(geometry));assert.ok(geometry.rowBottom<=offset+height);assert.equal(geometry.padding,'10px');assert.equal(geometry.nav,'none');assert.equal(geometry.locked,'fixed');assert.equal(geometry.focused,'cm-text');
  }
+ // The reported Home Screen failure: a large keyboard pan must not be added
+ // again to a fixed overlay that is already in visible-screen coordinates.
+ const ios=await page.evaluate(()=>{
+  const ua=Object.getOwnPropertyDescriptor(navigator,'userAgent'),standalone=Object.getOwnPropertyDescriptor(navigator,'standalone');
+  Object.defineProperty(navigator,'userAgent',{configurable:true,value:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15'});
+  Object.defineProperty(navigator,'standalone',{configurable:true,value:true});
+  const originalFocus=HTMLElement.prototype.focus,focused=[];
+  HTMLElement.prototype.focus=function(...args){if(this.id==='cm-text'){const sheet=document.querySelector('.coach-thread-sheet');focused.push({styled:!!sheet,top:sheet?.getBoundingClientRect().top,bottom:sheet?.getBoundingClientRect().bottom});}return originalFocus.apply(this,args);};
+  messageKeyboard.height=418;messageKeyboard.offsetTop=365;document.querySelector('.coach-thread-scrim').style.transform='';
+  document.querySelector('#cm-text').focus();focused.length=0;cmDraw();
+  const sheet=document.querySelector('.coach-thread-sheet').getBoundingClientRect(),composer=document.querySelector('.cm-composer').getBoundingClientRect();
+  HTMLElement.prototype.focus=originalFocus;
+  if(ua)Object.defineProperty(navigator,'userAgent',ua);else delete navigator.userAgent;
+  if(standalone)Object.defineProperty(navigator,'standalone',standalone);else delete navigator.standalone;
+  return {top:sheet.top,bottom:sheet.bottom,composerBottom:composer.bottom,focused};
+ });
+ assert.ok(Math.abs(ios.top)<2,JSON.stringify(ios));assert.ok(Math.abs(ios.bottom-418)<2,JSON.stringify(ios));assert.ok(Math.abs(ios.composerBottom-418)<2,JSON.stringify(ios));
+ assert.ok(ios.focused.length>0,'Reply input was not refocused in the test');assert.ok(ios.focused.every(f=>f.styled&&Math.abs(f.top)<2&&f.bottom<=420),'Input received focus before message geometry was applied');
  // Multiline composition and a normal viewport after keyboard dismissal.
  await page.locator('#cm-text').fill('Line one\nLine two\nLine three');
  await page.evaluate(()=>{messageKeyboard.height=innerHeight;messageKeyboard.offsetTop=0;document.querySelector('.coach-thread-scrim').style.transform='';window.dispatchEvent(new Event('resize'));});
@@ -44,5 +62,5 @@ module.exports=async function checkMessageKeyboard(page,width){
   await cmOpen();return {y,locked,after,position,rootLocked};
  });
  assert.equal(restored.locked,restored.y);assert.equal(restored.after,restored.y);assert.notEqual(restored.position,'fixed');assert.equal(restored.rootLocked,false);
- console.log(JSON.stringify({width,initialPositionWithoutTyping:true,keyboardViewportGeometry:true,pannedFixedBackdrop:true,keyboardSafeArea:true,menuRemoved:true}));
+ console.log(JSON.stringify({width,initialPositionWithoutTyping:true,keyboardViewportGeometry:true,pannedFixedBackdrop:true,keyboardSafeArea:true,menuRemoved:true,iosStandalonePan:true,layoutBeforeFocus:true}));
 };

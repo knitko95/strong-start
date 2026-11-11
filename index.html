@@ -2743,8 +2743,8 @@ function cmDraw(bottom=false){
       ${!t.coach&&t.draft.tagsOpen?`<div class="cm-tags">${FB_TAGS.coach.map(([k,l])=>`<button class="btn sm" data-action="cmtag" data-v="${k}" aria-pressed="${t.draft.tag===k}">${l}</button>`).join('')}</div>`:''}
       <div class="cm-compose-row"><textarea id="cm-text" aria-label="${t.coach?'Reply to '+esc(t.name):'Message '+esc(t.name)}" placeholder="${t.coach?'Reply to':'Message'} ${esc(t.name)}…" rows="1" maxlength="4000" ${t.busy?'disabled':''}>${esc(t.draft.text)}</textarea><button class="btn primary" data-action="cmsend" ${t.busy||t.loading?'disabled':''}>${t.busy?'Sending…':'Send'}</button></div>
       ${t.draft.workout&&t.draft.workout.name?`<div class="tiny muted cm-workout-ref">With: ${esc(t.draft.workout.name)} · ${esc(t.draft.workout.status||'')}</div>`:''}
-      <div id="cm-done-host">${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</div></footer>`);
-  $('#modal .sheet').classList.add('coach-thread-sheet');$('#modal .scrim').classList.add('coach-thread-scrim');document.body.classList.add('coach-messaging-open');cmSettleViewport();cmGrow();cmLiveStart();cmLiveStatus();cmNewButton();
+      <div id="cm-done-host">${t.coach&&needs?'<div class="cm-done"><button class="btn sm ghost" data-action="cmdone">Mark done without replying</button></div>':''}</div></footer>`,{sheetClass:'coach-thread-sheet',scrimClass:'coach-thread-scrim',beforeFocus:()=>{document.body.classList.add('coach-messaging-open');cmViewport();cmGrow();}});
+  cmSettleViewport();cmLiveStart();cmLiveStatus();cmNewButton();
   const conversation=$('#cm-conversation');conversation.scrollTop=bottom?conversation.scrollHeight:scroll||0;
   if(selection&&document.activeElement===$('#cm-text'))$('#cm-text').setSelectionRange(...selection);
 }
@@ -2768,7 +2768,10 @@ function cmSettleViewport(){
 function cmViewport(){
   if(!CM.thread)return;
   const scrim=$('#modal .coach-thread-scrim');if(!scrim)return;
-  const viewport=window.visualViewport,height=viewport?viewport.height:window.innerHeight,top=viewport?viewport.offsetTop:0;
+  const viewport=window.visualViewport,height=viewport?viewport.height:window.innerHeight;
+  // In the iOS Home Screen app the fixed overlay is already in the visible
+  // coordinate space. Adding its keyboard pan again pushes the form underneath it.
+  const top=hsStandalone()&&hsEnv().ios?0:viewport?viewport.offsetTop:0;
   // Keep the backdrop full-size. Position only the sheet inside it, accounting
   // for WebKit moving the fixed backdrop when the Home Screen keyboard pans.
   const layoutHeight=Math.max(document.documentElement.clientHeight,window.innerHeight),lock=CM.viewportLock;
@@ -4770,7 +4773,7 @@ function modalFocusables(sheet){
   return [...sheet.querySelectorAll('a[href],button,input,select,textarea,summary,[tabindex]')]
     .filter(el=>!el.disabled && el.tabIndex>=0 && !el.closest('[hidden],[inert]') && el.getClientRects().length);
 }
-function modal(html){
+function modal(html,layout={}){
   const host=$('#modal'), previous=host.querySelector('.sheet'), active=document.activeElement;
   const keep=previous&&previous.contains(active)?focusKey(active):null;
   if(!previous){
@@ -4780,6 +4783,9 @@ function modal(html){
   }
   host.innerHTML=`<div class="scrim" data-action="closemodal"><div class="sheet" role="dialog" aria-modal="true" tabindex="-1">${html}</div></div>`;
   const sheet=host.querySelector('.sheet'), title=sheet.querySelector('h1,h2,h3');
+  if(layout.sheetClass)sheet.classList.add(layout.sheetClass);
+  if(layout.scrimClass)host.querySelector('.scrim').classList.add(layout.scrimClass);
+  if(layout.beforeFocus)layout.beforeFocus();
   if(title){ title.id=title.id||'modal-title'; title.tabIndex=-1; sheet.setAttribute('aria-labelledby',title.id); }
   else sheet.setAttribute('aria-label','Strong Start dialog');
   const retained=keep&&sheet.querySelector(keep);
