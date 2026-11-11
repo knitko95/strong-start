@@ -492,6 +492,7 @@ body.in-focus .wrap{padding-bottom:24px}
 .fbbtn svg{color:var(--accent)}
 .ficon.fbq svg{width:19px;height:19px}
 .fbbtn[hidden]{display:none}
+.btn.danger{background:#b3261e;border-color:#b3261e;color:#fff} .btn.danger[disabled]{opacity:.4}
 @media (max-width:389px){ .top .wrap{gap:8px} .brand{font-size:20px} .bmark{width:28px;height:28px} .hright{gap:7px} .fbbtn{padding:6px 10px 6px 8px;gap:5px} }
 @media (max-width:339px){ .brand .bword{font-size:18px} .sync span:last-child{display:none} }
 nav.tabs .ticon{position:relative;display:inline-flex}
@@ -1581,7 +1582,9 @@ function checkAccess(u){ return AUTH.chk || (AUTH.chk=checkAccess1(u).finally(()
 async function checkAccess1(u){
   const known=(rememberedAcct()||{}).id===u.id;
   AUTH.netErr=false;
-  try{ const {data,error}=await withTimeout(sb.rpc('is_approved'),8000); if(error) throw error; if(data===true){ AUTH.access='ok'; return true; } }
+  try{ const {data,error}=await withTimeout(sb.rpc('account_status'),8000); if(error) throw error;
+    if(data==='ok'){ AUTH.access='ok'; return true; }
+    if(data==='disabled'){ AUTH.access='disabled'; render(); return false; } }
   catch(e){ if(known){ AUTH.access='ok'; return true; } AUTH.netErr=true; AUTH.access='blocked'; render(); return false; }
   const code=inviteCode();
   if(code && await redeemInvite(code)) return true;
@@ -1594,7 +1597,7 @@ async function redeemInvite(code){
     lsSet(INVITE_KEY,null); AUTH.invErr=(INVITE_MSG[data]||INVITE_MSG.invalid)+' Ask your coach for a new one.'; return false;
   }catch(e){ AUTH.invErr='Couldn’t check that invite. Check your connection and try again.'; return false; }
 }
-function gateNeeded(){ return !!(sb && AUTH.user && AUTH.access!=='ok' && (rememberedAcct()||{}).id!==AUTH.user.id && !coachMode); }
+function gateNeeded(){ return !!(sb && AUTH.user && !coachMode && (AUTH.access==='blocked' || AUTH.access==='disabled' || (AUTH.access!=='ok' && (rememberedAcct()||{}).id!==AUTH.user.id))); }
 function inviteCodeForm(){
   return `<div class="card stack" style="gap:8px"><b>Have an invite link or code?</b>
     <label class="field2" for="au-code"><span class="flabel">Paste it here</span><input class="in" id="au-code" autocapitalize="characters" autocomplete="off" spellcheck="false"></label>
@@ -1602,6 +1605,12 @@ function inviteCodeForm(){
     <button class="btn primary block" data-action="authcode" ${AUTH.busy?'disabled':''}>${AUTH.busy?'Checking…':'Use invite'}</button></div>`;
 }
 function renderGate(){
+  if(AUTH.access==='disabled') return `<div class="ob"><div><div class="eyebrow">Strong Start</div><h1>This account is paused</h1></div>
+    <p class="lead">Your coach has paused this account. Your plan and workouts are still saved. Ask your coach if you’d like to start again.</p>
+    <button class="btn block" data-action="authrecheck">Check again</button>
+    <p class="tiny muted" style="margin:0">Signed in as ${esc(AUTH.user.email||'')}.</p>
+    <div class="spacer"></div><button class="later" data-action="authgateout">Sign out</button>
+    <a class="tiny muted" href="privacy.html" style="text-align:center;margin-top:-6px">Privacy policy</a></div>`;
   if(AUTH.access!=='blocked') return `<div class="ob"><div><div class="eyebrow">Strong Start</div><h1>One moment…</h1></div><p class="lead">Checking your account.</p></div>`;
   const net=AUTH.netErr?`<p class="small" role="alert" style="margin:0;color:var(--warn,#b3261e)">Can’t reach the internet. Check your connection.</p><button class="btn block" data-action="authrecheck">Try again</button>`:'';
   return `<div class="ob"><div><div class="eyebrow">Strong Start beta</div><h1>You need an invite</h1></div>
@@ -1758,7 +1767,7 @@ function authAction(a,b){
     if(AUTH.user){ AUTH.busy=true; render(); redeemInvite(c).then(ok=>{ AUTH.busy=false; if(ok) onSignedIn(AUTH.user); else render(); }); }
     else { lsSet(INVITE_KEY,c); AUTH.mode='signup'; AUTH.err=''; render(); window.scrollTo(0,0); } }
   else if(a==='authrecheck'){ AUTH.access=null; render(); onSignedIn(AUTH.user); }
-  else if(a==='authgateout'){ try{ sb.auth.signOut(); }catch(e){} AUTH.user=null; AUTH.access=null; AUTH.invErr=''; AUTH.netErr=false; AUTH.mode='signin'; render(); window.scrollTo(0,0); }
+  else if(a==='authgateout'){ try{ sb.auth.signOut(); }catch(e){} lsSet(ACCT_KEY,null); AUTH.user=null; AUTH.access=null; AUTH.invErr=''; AUTH.netErr=false; AUTH.mode='signin'; render(); window.scrollTo(0,0); }
   else if(a==='authlocal'){ lsSet(LOCAL_ONLY_KEY,'1'); render(); setSync('local'); }
   else if(a==='authstart'){ lsSet(LOCAL_ONLY_KEY,null); AUTH.mode=b.dataset.v||'signup'; render(); window.scrollTo(0,0); }
   else if(a==='authout') confirmBox('Sign out?','Everything is saved to your account. This phone forgets it until you sign in again.','Sign out',signOut);
@@ -1848,20 +1857,60 @@ function inviteCancel(id){
     if(error) toast('Couldn’t cancel. Check your connection and try again.'); else { toast('Invite cancelled'); loadInvites(); } });
 }
 function renderPeople(){
-  const P=ui.people||{list:[]}, me=AUTH.user&&AUTH.user.id;
+  const P=ui.people||{list:[]}, me=AUTH.user&&AUTH.user.id, active=P.list.filter(p=>!p.disabled_at), off=P.list.filter(p=>p.disabled_at);
   return `<section><div class="eyebrow">Coach</div><h1>Your people</h1></section>
   <div class="row"><button class="btn sm" data-action="tab" data-tab="settings">‹ Settings</button><button class="btn sm ghost" data-action="peoplereload">${P.loading?'Loading…':'Refresh'}</button></div>
   ${inboxCards()}
   ${invitesCard()}
   ${P.err?`<p class="small" role="alert">${esc(P.err)}</p>`:''}
-  ${!P.loading && !P.list.length?`<section class="card"><p class="small muted" style="margin:0">No one has joined yet. Tap Invite someone to send a link, and they’ll show up here once they create an account.</p></section>`:''}
-  ${P.list.map(p=>`<section class="card stack" style="gap:6px">
+  ${!P.loading && !active.length?`<section class="card"><p class="small muted" style="margin:0">No one has joined yet. Tap Invite someone to send a link, and they’ll show up here once they create an account.</p></section>`:''}
+  ${active.map(p=>`<section class="card stack" style="gap:6px">
     <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div style="min-width:0"><b>${esc(p.name||p.email||'New person')}</b>${p.id===me?' <span class="tiny muted">(you)</span>':''}<div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')}</div></div>
       ${p.pending_update?'<span class="chip">Update waiting</span>':''}</div>
     <div class="small">${esc(agoText(p.last_workout))}</div>
     <div class="tiny muted">${p.workouts_7d} this week · ${p.workouts_28d} in 4 weeks · ${p.workouts_total} total</div>
-    ${p.id===me?'':`<button class="btn sm primary" style="align-self:flex-start" data-action="personopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'their')}">Open their app</button>`}
-  </section>`).join('')}`;
+    ${p.id===me?'':`<div class="row" style="gap:8px"><button class="btn sm primary" data-action="personopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'their')}">Open their app</button>${FB.owner&&!p.staff?`<button class="btn sm ghost" data-action="acctmanage" data-id="${esc(p.id)}">Manage account</button>`:''}</div>`}
+  </section>`).join('')}
+  ${FB.owner&&off.length?`<section class="card stack" style="gap:10px">
+    <button class="row" data-action="acctoffshow" style="justify-content:space-between;flex-wrap:nowrap;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%" aria-expanded="${ui.showOff?'true':'false'}"><div><b>Disabled (${off.length})</b><div class="tiny muted">Hidden and can’t use the app. Everything is kept.</div></div><span aria-hidden="true">${ui.showOff?'▾':'▸'}</span></button>
+    ${ui.showOff?off.map(p=>`<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:10px"><div style="min-width:0"><b class="small">${esc(p.name||p.email||'Person')}</b><div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')} · disabled ${shortDate(p.disabled_at)} · ${p.workouts_total} workouts</div></div>
+      <div class="row" style="gap:8px"><button class="btn sm" data-action="acctenable" data-id="${esc(p.id)}">Turn back on</button><button class="btn sm ghost" data-action="acctdelete" data-id="${esc(p.id)}">Delete…</button></div></div>`).join(''):''}
+  </section>`:''}`;
+}
+/* App owner: disable (hide + lock out, everything kept) or permanently delete an account */
+const acctPerson=id=>((ui.people&&ui.people.list)||[]).find(p=>p.id===id);
+const acctName=p=>p.name||p.email||'this person';
+function acctManage(id){
+  const p=acctPerson(id); if(!p) return; const n=esc(acctName(p));
+  modal(`<h2>${n}’s account</h2>
+    <div class="stack" style="gap:6px"><b>Disable</b><p class="small muted" style="margin:0">Hides ${n} from Your people and stops them using the app. Their plan, workouts and messages are kept, and you can turn them back on anytime from the Disabled list.</p>
+      <button class="btn" style="align-self:flex-start" data-action="acctdisable" data-id="${esc(id)}">Disable account</button></div>
+    <div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:12px"><b>Delete</b><p class="small muted" style="margin:0">Erases ${n}’s account for good. You’ll be asked to confirm.</p>
+      <button class="btn ghost" style="align-self:flex-start" data-action="acctdelete" data-id="${esc(id)}">Delete account…</button></div>
+    <div class="row"><button class="btn" data-action="closemodal">Close</button></div>`);
+}
+async function acctSetDisabled(id,on){
+  const p=acctPerson(id); if(!p) return;
+  const {error}=await sb.rpc('admin_set_disabled',{p_user:id,p_disabled:on});
+  if(error){ toast('Couldn’t change that. Check your connection and try again.'); return; }
+  closeModal(); toast(on?`${acctName(p)} is disabled`:`${acctName(p)} is back on`); loadPeople();
+}
+function acctDeleteSheet(id){
+  const p=acctPerson(id); if(!p) return; const n=acctName(p), key=(p.name||p.email||'').trim();
+  ui.delKey=key.toLowerCase();
+  modal(`<h2>Delete ${esc(n)}’s account forever?</h2>
+    <p class="small" style="margin:0">This erases their login, plan and settings, all ${p.workouts_total} workout${p.workouts_total===1?'':'s'}, and messages they sent you as their coach. App feedback they sent stays in your App feedback inbox without their name.</p>
+    <p class="small" style="margin:0"><b>This can’t be undone.</b> To keep everything instead, disable the account.</p>
+    <label class="field2" for="delconfirm"><span class="flabel">Type <b>${esc(key)}</b> to confirm</span><input class="in" id="delconfirm" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+    <div class="row"><button class="btn danger" id="delbtn" data-action="acctdeletego" data-id="${esc(id)}" disabled>Delete forever</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
+}
+async function acctDelete(id,b){
+  const p=acctPerson(id), v=(($('#delconfirm')||{}).value||'').trim().toLowerCase();
+  if(!p || !ui.delKey || v!==ui.delKey) return;
+  b.disabled=true; b.textContent='Deleting…';
+  const {error}=await sb.rpc('admin_delete_account',{p_user:id});
+  if(error){ b.disabled=false; b.textContent='Delete forever'; toast('Couldn’t delete. Check your connection and try again.'); return; }
+  closeModal(); toast(`${acctName(p)}’s account was deleted`); loadPeople();
 }
 async function openPerson(id,name){
   toast('Opening…');
@@ -1946,7 +1995,8 @@ function fbRender(){
     <div class="tiny muted">Sent with: ${sentWith}</div>
     <div class="row"><button class="btn primary" data-action="msgsend" ${S.busy?'disabled':''}>${S.busy?'Sending…':app?'Send':'Send to my coach'}</button><button class="btn" data-action="msgcancel">Cancel</button></div>`);
 }
-document.addEventListener('input',e=>{ if(e.target&&e.target.id==='fbtext') FBS.text=e.target.value; });
+document.addEventListener('input',e=>{ if(e.target&&e.target.id==='fbtext') FBS.text=e.target.value;
+  if(e.target&&e.target.id==='delconfirm'){ const d=$('#delbtn'); if(d) d.disabled=e.target.value.trim().toLowerCase()!==ui.delKey; } });
 function fbKeepText(){ const t=$('#fbtext'); if(t) FBS.text=t.value; }
 async function fbSend(){
   fbKeepText(); const msg=(FBS.text||'').trim();
@@ -2007,7 +2057,7 @@ function renderInbox(){
   <div class="tabs2"><button class="${B.filter!=='all'?'on':''}" data-action="msgfilter" data-v="new">New (${open.length})</button><button class="${B.filter==='all'?'on':''}" data-action="msgfilter" data-v="all">All (${B.list.length})</button></div>
   ${B.err?`<p class="small" role="alert">${esc(B.err)}</p>`:''}
   ${!B.loading && !shown.length?`<section class="card"><p class="small muted" style="margin:0">${B.filter==='all'?'Nothing here yet.':'All caught up.'}</p></section>`:''}
-  ${shown.map(r=>{ const p=r.profiles||{}, nm=p.name||p.email||'Someone', w=r.workout;
+  ${shown.map(r=>{ const p=r.profiles||{}, nm=r.user_id?(p.name||p.email||'Someone'):'Deleted account', w=r.workout;
     return `<section class="card stack fbitem ${r.isNew?'isnew':''}" style="gap:6px">
     <div class="row" style="justify-content:space-between;flex-wrap:nowrap;gap:8px"><div style="min-width:0"><b>${esc(nm)}</b>${r.user_id===me?' <span class="tiny muted">(you)</span>':''} <span class="tiny muted">· ${esc(fbAgo(r.created_at))}</span></div>${r.tag?`<span class="chip acc">${esc(fbTagName(r.tag))}</span>`:''}</div>
     <div class="small" style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(r.message)}</div>
@@ -2015,7 +2065,7 @@ function renderInbox(){
     ${w&&w.name?`<div class="tiny muted">Workout: ${esc(w.name)}${w.status?` (${esc(w.status)})`:''}</div>`:''}
     ${app&&r.device?`<div class="tiny muted">Device: ${esc(r.device)}</div>`:''}
     <div class="row" style="gap:8px">${r.done_at?`<span class="chip good">Done</span><button class="btn sm ghost" data-action="msgdone" data-id="${r.id}" data-v="0">Undo</button>`:`<button class="btn sm" data-action="msgdone" data-id="${r.id}" data-v="1">Mark done</button>`}
-      ${r.user_id!==me&&AUTH.coach?`<button class="btn sm primary" data-action="msgperson" data-id="${esc(r.user_id)}" data-n="${esc(nm)}">Open their app</button>`:''}</div>
+      ${r.user_id&&r.user_id!==me&&AUTH.coach?`<button class="btn sm primary" data-action="msgperson" data-id="${esc(r.user_id)}" data-n="${esc(nm)}">Open their app</button>`:''}</div>
   </section>`; }).join('')}`;
 }
 /* ---------------- Rendering ---------------- */
@@ -3934,6 +3984,12 @@ document.addEventListener('click', e=>{
   if(a==='people'){ ui.tab='people'; if(AUTH.coach) loadPeople(); else { refreshUnread(); render(); } window.scrollTo(0,0); return; }
   if(a==='peoplereload'){ loadPeople(); return; }
   if(a==='invitenew'){ inviteSheet(); return; }
+  if(a==='acctmanage'){ acctManage(b.dataset.id); return; }
+  if(a==='acctdisable'){ acctSetDisabled(b.dataset.id,true); return; }
+  if(a==='acctenable'){ acctSetDisabled(b.dataset.id,false); return; }
+  if(a==='acctdelete'){ acctDeleteSheet(b.dataset.id); return; }
+  if(a==='acctdeletego'){ acctDelete(b.dataset.id,b); return; }
+  if(a==='acctoffshow'){ ui.showOff=!ui.showOff; render(); return; }
   if(a==='invitecreate'){ inviteCreate(b); return; }
   if(a==='invshare'){ inviteShare(b.dataset.code,b.dataset.n); return; }
   if(a==='invcopy'){ inviteCopy(b.dataset.code,b.dataset.n); return; }
