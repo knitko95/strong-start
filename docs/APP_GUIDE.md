@@ -90,6 +90,10 @@ Changing lb/kg converts working weights, previous sets, historical set/planned w
 
 Sign-out flushes queued and in-flight changes before clearing the local cache. If syncing fails, sign-out stops and the device copy is retained; retry sync and keep a backup if problems remain. Signing out clears the cached plan/history from that browser. It does not delete the account.
 
+On dev, **Settings > Account > Delete my account** permanently removes the login, plan/settings, workouts, and coach messages. Copy a backup first if wanted, then type **DELETE** and confirm. Cancel is focused initially. A sign-in within the last ten minutes is required; if asked, cancel, sign out, sign in again, and return to the deletion screen. Paused and not-yet-invited accounts can also delete from their account screen. Coach and owner accounts must arrange deletion with the app owner. Joining again requires a new beta invite.
+
+App feedback remains to help improve the app, with its profile link and workout reference removed. Its text and screen/device context remain and may identify the sender; contact the app owner to request removal of retained feedback. Successful deletion clears this browser's account copy. Other devices can retain offline copies until they reconnect; a connected current dev client removes its copy when account sync confirms the account is gone. Backups copied elsewhere are not erased.
+
 ## Feedback and coach tools
 
 Signed-in users can choose **About the app** (owner inbox) or **To my coach** (shared coach inbox) in Feedback. Authorized coaches can read the coach inbox; messages are not private to one assigned coach. App feedback includes screen/device context; a coach message can include a small workout reference. This is an inbox workflow, not a live conversation or automatic plan edit.

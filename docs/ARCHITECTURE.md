@@ -142,6 +142,14 @@ These seven SQL migrations are now checked into `supabase/migrations/` with thei
 
 ## Verification and troubleshooting
 
+### Self-service deletion (dev, November 11, 2026)
+
+Migration `20261111195538_self_service_account_deletion.sql` adds `delete_my_account(p_confirmation text)`. It derives the target exclusively from `auth.uid()`, requires the exact confirmation `DELETE`, rejects staff via the trusted role tables, and checks the JWT session ID against a live `auth.sessions` row owned by the caller and created within ten minutes. Refreshing a token does not count as signing in again. Anonymous/public execution is revoked. No new table or column grants are added. This guarded definer RPC needs elevated privileges to delete the caller's Auth row; its search path is empty.
+
+The function takes the profile lock used by account commits, removes coach feedback, clears app-feedback workout context, then deletes the Auth user in one transaction. Existing foreign keys remove profile/state/logs/tombstones/plan updates/sessions and null retained app-feedback profile links. Used invites retain `used_at` and cannot be reused. Existing tokens can remain cryptographically valid, but absent approval/profile rows deny snapshot commits and restricted data access. The frontend suspends persistence/sync during deletion, waits for in-flight sync, and clears account storage after success, even when local Auth sign-out reports an already-deleted user. A failed or ambiguous deletion response preserves the device copy; reconnect checks reconcile deletion. A current connected dev client with an established account sync clears its copy when no snapshot and `account_status()='none'` confirm removal. Offline devices cannot be remotely erased; external backups remain outside app control.
+
+Run `node scripts/test-account-deletion.cjs` after building (optional hosted URL argument) for synthetic browser RPC checks, and `scripts/test-account-deletion.sql` against development only for rolled-back database fixtures. See [the deletion verification record](ACCOUNT-DELETION-2026-11-11.md) for checks and release scope.
+
 See [AGENTS.md](../AGENTS.md) for build/local-server commands. Serve `dist/` to test the isolated development build; the current source also routes localhost to development. Use synthetic fixtures in the test database and verify hosted dev before requesting release approval. An offline fixture can disable the SDK in its served test copy, but label those checks as local-only. Do not commit fixture bypasses into the application or use production data for tests.
 
 | Change | Relevant checks |

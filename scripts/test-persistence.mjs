@@ -408,6 +408,24 @@ await test('quick setup retains experience and limitations and produces a valid 
   h.click('sufinish');assert.equal(h.run('state.setup'),null);assert.equal(h.run('pendingQs().length'),0);
   assert.match(h.run('renderToday()'),/Your first workout/);
 });
+await test('deletion discards late sync responses and waits before deleting the authenticated account',async()=>{
+  const h=harness();
+  h.run(`AUTH.user={id:'delete-test',email:'delete@example.invalid'}; AUTH.access='ok'; ui.selfDeleteUser=AUTH.user.id; CLOUD.ok=true;
+    lsSet(ACCT_KEY,JSON.stringify(AUTH.user));persistLocal();
+    globalThis.deleteCalls=0;globalThis.releaseRead=null;
+    sb={rpc:async name=>{if(name==='read_account_snapshot')return await new Promise(resolve=>releaseRead=resolve);if(name==='delete_my_account'){deleteCalls++;return {error:{code:'network'}};}return {data:false};}};
+    globalThis.syncFlight=pushCloud();`);
+  await new Promise(setImmediate);
+  h.elements.set('#self-delete-confirm',{value:'DELETE'});
+  h.run(`globalThis.deletionFlight=selfDeleteAccount({disabled:false,textContent:''});`);
+  assert.equal(h.run('AUTH.deleting'),true);assert.equal(h.run('deleteCalls'),0);
+  h.run(`releaseRead({data:{state:{settings:{name:'Late response'}},logs:[],revision:'1',deleted:[]}});`);
+  await h.run('deletionFlight');
+  assert.equal(h.run('deleteCalls'),1);assert.notEqual(h.run('state.settings.name'),'Late response');
+  assert.equal(h.run('AUTH.deleting'),false);assert.equal(h.run('AUTH.user.id'),'delete-test');
+  assert.ok(h.storage.get(h.run('LS')));
+});
+
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){
   const h=harness();

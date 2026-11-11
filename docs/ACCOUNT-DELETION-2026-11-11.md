@@ -1,0 +1,23 @@
+# Account deletion verification — November 11, 2026
+
+Development-only candidate for feedback item #22. No production release or production database/Auth changes are authorized by this record.
+
+## Scope
+
+Self-service **Delete my account** in Settings > Account and the paused/invite gate. Exact DELETE confirmation, Cancel focused first, optional backup copy with selectable-text fallback, clear app-feedback retention explanation, and online deletion. A trusted live session created within ten minutes is required; an older session must sign out and sign in again. Coach and owner accounts remain protected. Joining again needs a fresh beta invite.
+
+Migration `20261111195538_self_service_account_deletion.sql` is applied only to `strong-start-dev` (`gvyfgqhgqnfmtoytqpeo`). The local filename matches the version assigned by the connected migration tool. The migration adds one guarded function and authenticated execute permission; existing table/column privileges and policies are unchanged. It derives the deletion target from the caller and deletes account data transactionally. App feedback retains text/screen/device context and loses the account/workout links. Removal of retained feedback can be requested from the app owner.
+
+## Checks
+
+- `node scripts/build-dev.mjs`: syntax/environment isolation, 45 persistence/workout scenarios (including deletion during an in-flight sync), and five offline-shell scenarios.
+- `node scripts/test-account-deletion.cjs`: headless Chrome at 1280, 390, and 320 pixels; confirmation, Cancel/Escape, backup fallback, recent-sign-in rejection, failed-response retry, local cleanup despite Auth sign-out failure, connected-device cleanup, and staff UI guard. RPCs in this suite are synthetic; the SQL and end-to-end tests below exercise development services.
+- `scripts/test-account-deletion.sql`: synthetic fixtures rolled back in development; denies anonymous, wrong confirmation, targeted owner RPC misuse, wrong-account session, old session, and staff self-deletion. Confirms Auth/session/profile/state/workout/tombstone/plan-update removal, coach-feedback removal, app-feedback retention, unrelated-account isolation, and denial of stale-token sync/feedback/profile recreation.
+- Real development Auth/API test using one disposable synthetic email/password account in two isolated browser contexts: sign-in, save a synthetic plan/workout, delete through the UI, deny a stale-token commit, and clear the second connected browser's cached account copy. No registration or recovery email sent. Database checks confirmed the Auth account and coach feedback gone and app feedback retained with null account/workout links. Synthetic retained feedback is removed after verification.
+- Security advisor reviewed before/after: existing restricted-role-table and password-protection notices remain. The additional authenticated SECURITY DEFINER notice is expected for this intentionally callable self-deletion RPC; reviewed caller, session, staff, confirmation, search-path and execute-grant checks. See [advisor explanation](https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable).
+
+## Limits and release
+
+Headless desktop Chrome with phone-sized viewports does not establish physical iPhone/Android behavior. Fresh Google sign-in during this test was not exercised; the backend freshness check uses the live session independently of provider. Offline device copies and separately copied backups cannot be remotely erased. Older deployed app clients may keep their local copy until updated; the database still denies writes after deletion. A failed network response can leave deletion uncertain, so the UI preserves its local copy until retry/reconnect confirms removal.
+
+Production publication needs separate approval of this feature's tested commit. Promote only the new deletion migration with the approved compatible frontend. Dev already contains other unreleased changes and the separate atomic-sync migration; do not release all dev changes implicitly. A production candidate must account for those dependencies and be tested for its defined scope. No new Auth configuration is required for this feature.

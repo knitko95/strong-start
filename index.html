@@ -1403,6 +1403,7 @@ function loadLocal(){
 }
 let storageOk=true;
 function persistLocal(){
+  if(typeof AUTH!=='undefined' && AUTH.deleting) return;
   if(typeof coachMode!=='undefined' && coachMode) return;
   try{ localStorage.setItem(LS, JSON.stringify({state, logs, sync:SYNC})); storageOk=true; }catch(e){ storageOk=false; }
   setSync();
@@ -1716,6 +1717,7 @@ const substantive = (st,lg) => !!(st && (st.onboarded || st.block)) || (lg && lg
 async function initRemote(){
   if(!sb){ setSync('local'); return; }
   sb.auth.onAuthStateChange((ev,session)=>{
+    if(AUTH.deleting) return;
     if(ev==='PASSWORD_RECOVERY'){ AUTH.recovery=true; AUTH.err=''; AUTH.msg=''; render(); }
     const u=session&&session.user||null;
     if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
@@ -1765,6 +1767,7 @@ function renderGate(){
     <p class="lead">Your coach has paused this account. Your plan and workouts are still saved. Ask your coach if you’d like to start again.</p>
     <button class="btn block" data-action="authrecheck">Check again</button>
     <p class="tiny muted" style="margin:0">Signed in as ${esc(AUTH.user.email||'')}.</p>
+    <button class="btn danger" data-action="selfdelete">Delete my account</button>
     <div class="spacer"></div><button class="later" data-action="authgateout">Sign out</button>
     <a class="tiny muted" href="privacy.html" style="text-align:center;margin-top:-6px">Privacy policy</a></div>`;
   if(AUTH.access!=='blocked') return `<div class="ob"><div><div class="eyebrow">Strong Start</div><h1>One moment…</h1></div><p class="lead">Checking your account.</p></div>`;
@@ -1773,6 +1776,7 @@ function renderGate(){
     <p class="lead">Strong Start is invite-only while it’s in beta. Ask your coach for an invite link, then open it on this phone.</p>${net}
     ${inviteCodeForm()}
     <p class="tiny muted" style="margin:0">Signed in as ${esc(AUTH.user.email||'')}.</p>
+    <button class="btn danger" data-action="selfdelete">Delete my account</button>
     <div class="spacer"></div><button class="later" data-action="authgateout">Sign out</button>
     <a class="tiny muted" href="privacy.html" style="text-align:center;margin-top:-6px">Privacy policy</a></div>`;
 }
@@ -1874,6 +1878,7 @@ function restoreSnapshot(o){
 }
 
 async function onSignedIn(u){
+  if(AUTH.deleting) return;
   AUTH.user=u; AUTH.busy=false;
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
   if(!AUTH.user || AUTH.user.id!==u.id) return;
@@ -1898,7 +1903,7 @@ async function onSignedIn(u){
   }catch(e){ CLOUD.failed=true; setSync(); }
 }
 function queueCloud(){
-  if(coachMode) return;
+  if(coachMode || AUTH.deleting) return;
   if(AUTH.user||rememberedAcct()) CLOUD.pending=true;
   if(CLOUD.busy) CLOUD.again=true;
   clearTimeout(CLOUD.t);
@@ -1906,11 +1911,11 @@ function queueCloud(){
   setSync();
 }
 function pushCloud(){
-  if(!CLOUD.ok || !AUTH.user || !sb || coachMode) return Promise.resolve(false);
+  if(!CLOUD.ok || !AUTH.user || !sb || coachMode || AUTH.deleting) return Promise.resolve(false);
   clearTimeout(CLOUD.t); CLOUD.t=null;
   if(CLOUD.flight){ CLOUD.again=true; return CLOUD.flight; }
   CLOUD.busy=true; CLOUD.failed=false; setSync();
-  const uid=AUTH.user.id, current=()=>AUTH.user&&AUTH.user.id===uid&&!coachMode;
+  const uid=AUTH.user.id, current=()=>AUTH.user&&AUTH.user.id===uid&&!coachMode&&!AUTH.deleting;
   CLOUD.flight=(async()=>{
     await Promise.resolve();
     try{
@@ -1918,6 +1923,12 @@ function pushCloud(){
         CLOUD.again=false;
         const {data,error}=await sb.rpc('read_account_snapshot');
         if(!current()) return false;
+        if(!error && !data){
+          const status=await sb.rpc('account_status');
+          if(current() && !status.error && status.data==='none'){
+            await clearDeletedAccount(); toast('This account is no longer available. Its saved copy was removed from this device.'); return false;
+          }
+        }
         if(error || !data) throw error||Error('Account unavailable');
         const account=normalizeSnapshot(data), local=deviceSnapshot();
         const merged=mergeSnapshots(SYNC.base,local,account);
@@ -2137,10 +2148,62 @@ function accountCard(){
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
     <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
-    <div class="row"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a></div>`);
+    <div class="row"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a></div>
+    ${AUTH.coach||FB.owner?'<p class="tiny muted" style="margin:0">Coach and owner account deletion must be arranged with the app owner.</p>':'<button class="btn sm danger" data-action="selfdelete">Delete my account</button>'}`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
     <div class="row"><button class="btn sm primary" data-action="authstart" data-v="signup">Create account</button><button class="btn sm" data-action="authstart" data-v="signin">Sign in</button></div>`);
+}
+
+// No target ID is sent: the database always uses the authenticated caller.
+function selfDeleteSheet(){
+  if(!AUTH.user || coachMode || AUTH.deleting) return;
+  if(AUTH.coach || FB.owner){ toast('Arrange coach or owner account deletion with the app owner.'); return; }
+  ui.selfDeleteUser=AUTH.user.id;
+  modal(`<h2>Delete your account forever?</h2>
+    <p class="small" style="margin:0">This permanently deletes your login, plan, settings, workout history, and coach messages, including any unfinished workout. This can’t be undone. Joining again requires a new beta invite.</p>
+    <p class="small" style="margin:0">Your app feedback stays to help improve Strong Start. Its account link and workout reference are removed, but the message text and screen/device context remain. Anything you wrote may still identify you. Contact the app owner if you want retained feedback removed.</p>
+    <p class="small" style="margin:0">You must have signed in within the last 10 minutes. If needed, cancel, sign out, and sign in again before returning here. Other devices may retain an offline copy until they reconnect.</p>
+    <button class="btn sm" data-action="selfdeletebackup">Copy backup first</button><textarea id="delete-backup" aria-label="Backup to copy" hidden readonly></textarea>
+    <label class="field2" for="self-delete-confirm"><span class="flabel">Type DELETE to confirm</span><input class="in" id="self-delete-confirm" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
+    <p id="self-delete-error" class="small" role="alert" style="margin:0"></p>
+    <div class="row"><button class="btn" data-action="closemodal" data-modal-initial>Cancel</button><button class="btn danger" id="self-delete-button" data-action="selfdeletego" disabled>Delete my account forever</button></div>`);
+}
+async function selfDeleteBackup(){
+  const txt=JSON.stringify({state,logs});
+  try{ await navigator.clipboard.writeText(txt); toast('Backup copied. Keep it somewhere private.'); }
+  catch(e){ const box=$('#delete-backup'); if(box){box.hidden=false;box.value=txt;box.focus();box.select();} }
+}
+async function clearDeletedAccount(){
+  AUTH.deleting=true; CLOUD.ok=false; clearTimeout(CLOUD.t); CLOUD.t=null;
+  try{ await sb.auth.signOut({scope:'local'}); }catch(e){}
+  // Also clear locally if an already-deleted Auth user makes signOut fail.
+  try{ const k='sb-'+new URL(SB_URL).hostname.split('.')[0]+'-auth-token'; localStorage.removeItem(k); localStorage.removeItem(k+'-code-verifier'); localStorage.removeItem(k+'-user'); localStorage.removeItem(LS); }catch(e){}
+  for(const k of [ACCT_KEY,'strongstart_owner',LOCAL_ONLY_KEY,INVITE_KEY]) lsSet(k,null);
+  AUTH.user=null; AUTH.access=null; AUTH.coach=false; AUTH.recovery=false; AUTH.busy=false; AUTH.pw=''; AUTH.email=''; AUTH.err=''; AUTH.msg=''; AUTH.mode='signin';
+  FB.owner=false; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false};
+  coachMode=null; ui.people=null; ui.invites=null; ui.selfDeleteUser=null;
+  SYNC={owner:null,base:null,conflict:null,recovery:null}; CLOUD.pending=false; CLOUD.failed=false; CLOUD.again=false;
+  fClearTimer(); state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today';
+  AUTH.deleting=false; closeModal(); render(); window.scrollTo(0,0); setSync();
+}
+async function selfDeleteAccount(b){
+  if(!AUTH.user || AUTH.user.id!==ui.selfDeleteUser || coachMode || AUTH.deleting || AUTH.coach || FB.owner) return;
+  if((($('#self-delete-confirm')||{}).value||'').trim()!=='DELETE') return;
+  if(navigator.onLine===false){ $('#self-delete-error').textContent='Connect to the internet to delete your account.'; return; }
+  AUTH.deleting=true; clearTimeout(CLOUD.t); CLOUD.t=null; b.disabled=true; b.textContent='Deleting…';
+  try{
+    // Stop adopting in-flight sync results before deleting. No flush is needed
+    // because the user is explicitly discarding all account data.
+    if(CLOUD.flight) await CLOUD.flight;
+    const {error}=await sb.rpc('delete_my_account',{p_confirmation:'DELETE'});
+    if(error) throw error;
+  }catch(e){
+    AUTH.deleting=false; b.disabled=false; b.textContent='Delete my account forever';
+    const el=$('#self-delete-error'); if(el) el.textContent=e.code==='P0001'?'For safety, cancel, sign out, and sign in again. Then return here within 10 minutes.':'Couldn’t confirm deletion. Your device copy has been kept. Check your connection and retry; if the request completed, reconnecting will remove the saved copy.';
+    return;
+  }
+  await clearDeletedAccount(); toast('Your account was deleted. App feedback was retained as described.');
 }
 
 /* Coach: your people */
@@ -2348,6 +2411,7 @@ function fbRender(){
     <div class="row"><button class="btn primary" data-action="msgsend" ${S.busy?'disabled':''}>${S.busy?'Sending…':app?'Send':'Send to my coach'}</button><button class="btn" data-action="msgcancel">Cancel</button></div>`);
 }
 document.addEventListener('input',e=>{ if(e.target&&e.target.id==='fbtext') FBS.text=e.target.value;
+  if(e.target&&e.target.id==='self-delete-confirm'){ const d=$('#self-delete-button'); if(d) d.disabled=AUTH.deleting||e.target.value.trim()!=='DELETE'; }
   if(e.target&&e.target.id==='delconfirm'){ const d=$('#delbtn'); if(d) d.disabled=e.target.value.trim().toLowerCase()!==ui.delKey; } });
 function fbKeepText(){ const t=$('#fbtext'); if(t) FBS.text=t.value; }
 async function fbSend(){
@@ -4389,6 +4453,7 @@ function coachActionAllowed(a,b){
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   const a=b.dataset.action;
+  if(AUTH.deleting) return;
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
   if(a==='firstworkoutdismiss'){ state.tips.firstWorkout=false; save(); render(); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
@@ -4407,6 +4472,9 @@ document.addEventListener('click', e=>{
   if(a==='acctenable'){ acctSetDisabled(b.dataset.id,false); return; }
   if(a==='acctdelete'){ acctDeleteSheet(b.dataset.id); return; }
   if(a==='acctdeletego'){ acctDelete(b.dataset.id,b); return; }
+  if(a==='selfdelete'){ selfDeleteSheet(); return; }
+  if(a==='selfdeletego'){ selfDeleteAccount(b); return; }
+  if(a==='selfdeletebackup'){ selfDeleteBackup(); return; }
   if(a==='acctoffshow'){ ui.showOff=!ui.showOff; render(); return; }
   if(a==='invitecreate'){ inviteCreate(b); return; }
   if(a==='invshare'){ inviteShare(b.dataset.code,b.dataset.n); return; }
