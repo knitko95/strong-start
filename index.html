@@ -191,12 +191,15 @@ button.mthumb:active{transform:scale(.96)}
 #musclemap .legend span{gap:4px;white-space:nowrap}
 #musclemap .legend i{width:8px;height:8px}
 .map-detail.is-selected{background:var(--accent-soft);border:1px solid var(--line);border-radius:12px;padding:12px}
-.map-detail h3{font-size:22px}
+.map-select-header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-bottom:6px}
+.map-select-header .selector-count{font-family:var(--body);font-size:12px;font-weight:800;color:var(--accent);flex:none;white-space:nowrap}
 .map-detail .mrow{grid-template-columns:36px 1fr;padding:8px 0}
 .map-detail .mthumb{width:36px;height:36px}
 .map-detail .eyebrow{font-size:11px}
 .muscle-chooser-btn{width:100%;display:flex;justify-content:space-between;align-items:center;border-color:var(--accent);color:var(--accent);background:var(--surface);margin-top:4px;min-height:48px}
-.muscle-chooser-btn span:last-child{font-size:20px;line-height:1}
+.muscle-chooser-btn .selector-caret{display:block;width:18px;height:18px;flex:none;color:var(--accent)}
+.map-detail.is-selected .muscle-chooser-btn{width:auto;max-width:100%;display:inline-flex;gap:14px;text-align:left;border:1.5px solid var(--accent);border-radius:12px;padding:9px 14px;color:var(--ink);margin-top:0}
+.map-detail.is-selected .selector-name{font-family:var(--display);font-size:22px;font-weight:700;line-height:1.2;min-width:0}
 .sheet.muscle-picker{padding:0;gap:0;overflow:hidden;max-height:85dvh}
 .picker-head{padding:20px 16px 12px;flex:none;border-bottom:1px solid var(--line)}
 .picker-head h2{font-size:26px}
@@ -1141,11 +1144,12 @@ function selectMuscle(m,fromPicker=false){
 }
 function renderMuscleMap(split){
   const W=weekMuscles(split), c=m=>heat(W[m].score), sel=ui.musSel;
-  let panel='<p class="small muted" style="margin:0">Tap the diagram or choose a muscle to see its exercises.</p>';
+  const chooser=`<button type="button" class="btn muscle-chooser-btn" data-action="choosemuscle" aria-haspopup="dialog" aria-label="${sel?'Choose a muscle, '+MUSCLES[sel]+' selected':'Choose a muscle'}"><span class="selector-name">${sel?MUSCLES[sel]:'Choose a muscle'}</span><svg class="selector-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9 L12 15 L18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
+  let panel=chooser+'<p class="small muted" style="margin:0">Tap the diagram or choose a muscle to see its exercises.</p>';
   if(sel){ const d=W[sel], prim=d.items.filter(x=>x.role==='Primary'), sec=d.items.filter(x=>x.role==='Secondary');
     const li=x=>`<div class="mrow"><span>${musThumb(x.id,false)}</span><div><div style="font-weight:700">${esc(EX[x.id].n)}</div><div class="tiny muted">${esc(tplOf(x.k).name)} · ${x.sets} sets</div></div></div>`;
     const sugg = d.score? '' : LIB.filter(e=>EXM[e.id].p.includes(sel)&&available(e)).slice(0,3).map(e=>e.n).join(', ');
-    panel=`<div class="row between"><h3>${MUSCLES[sel]}</h3><span class="chip acc num">~${Math.round(d.score)} weekly sets</span></div>
+    panel=`<div class="map-select-header">${chooser}<span class="selector-count num">~${Math.round(d.score)} weekly sets</span></div>
       ${prim.length?`<div><div class="eyebrow">Primary target</div>${prim.map(li).join('')}</div>`:''}
       ${sec.length?`<div><div class="eyebrow">Also works it</div>${sec.map(li).join('')}</div>`:''}
       ${!d.items.length?`<p class="small muted" style="margin:0">Nothing this week trains it directly.${sugg?` To add it, use Change on a related slot. Options: ${esc(sugg)}.`:''}</p>`:''}`; }
@@ -1153,7 +1157,6 @@ function renderMuscleMap(split){
     <div><div class="eyebrow">This week's muscles</div><h2>Muscle map</h2><div class="small muted">${esc(splitLabel())}</div></div>
     <div class="bodypair">${['f','b'].map(v=>`<div class="map-figure">${bodySVG(v,c,{interactive:true,sel,cls:'bodybig'})}<div class="map-view-label">${v==='f'?'Front':'Back'}</div></div>`).join('')}</div>
     <div class="row legend"><span><i style="background:var(--mbase)"></i>Not trained</span><span><i style="background:var(--h1)"></i>Light</span><span><i style="background:var(--h2)"></i>Moderate</span><span><i style="background:var(--h3)"></i>High</span></div>
-    <button type="button" class="btn muscle-chooser-btn" data-action="choosemuscle" aria-haspopup="dialog"><span>Choose a muscle</span><span aria-hidden="true">⌄</span></button>
     <div class="stack map-detail ${sel?'is-selected':''}" style="gap:8px">${panel}</div>
   </section>`;
 }

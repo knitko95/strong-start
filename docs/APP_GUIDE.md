@@ -61,6 +61,8 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 On dev, **Plan > Muscle map** shows the week's planned training on front and back diagrams. Tap a muscle, or use **Choose a muscle** to open the large-button list grouped into Upper body, Core, and Lower body. Choosing a name closes the list, highlights the muscle, and shows its primary and secondary exercises and estimated weekly sets. The list scrolls on shorter screens. Browsing the map does not change your plan or workout progress.
 
+After selection, the muscle's name becomes the outlined selector button (for example, **Quads ⌄**), with estimated weekly sets beside it. Tap that button to choose another muscle; there is no separate repeated muscle heading.
+
 ## Doing a workout
 
 1. Tap a workout on Today. The preview shows exercises, estimated time, warm-up, and cool-down. Browsing this screen does not start a workout. Use **Reorder**, **Swap**, or an exercise's **How to do it** when needed.

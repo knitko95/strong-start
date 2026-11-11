@@ -16,7 +16,7 @@ const server=http.createServer((req,res)=>{
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(url).origin?r.continue():r.fulfill({status:200,body:''}));
   const response=await page.goto(url);
-  assert.equal((await response.text()).replace(/\r\n/g,'\n'),html.replace(/\r\n/g,'\n'),'tested page must match the exact development build');
+  assert((await response.text()).replace(/\r\n/g,'\n')===html.replace(/\r\n/g,'\n'),'tested page must match the exact development build');
   await page.evaluate(()=>{
    sb=null;AUTH.ready=true;ui.qsLater=true;state=defaults();logs=[];
    state.setup=null;state.onboarded=true;state.settings.goals=['muscle'];state.settings.days=[1,4];state.settings.split='ul2';state.settings.theme='light';
@@ -51,7 +51,14 @@ const server=http.createServer((req,res)=>{
    assert.equal(await page.locator('#modal .sheet').count(),0);
    assert.equal(await page.evaluate(()=>ui.musSel),id);
    assert(await page.locator(`#musclemap [data-m="${id}"].selected-region`).count()>0);
-   assert.equal(await page.locator('#musclemap .map-detail h3').innerText(),await page.evaluate(id=>MUSCLES[id],id));
+   assert.equal(await chooser().count(),1,'one selector replaces the repeated heading and button');
+   assert.equal(await chooser().locator('.selector-name').innerText(),await page.evaluate(id=>MUSCLES[id],id));
+   assert.equal(await page.locator('#musclemap .map-detail h3').count(),0,'no repeated muscle heading');
+   assert.equal(await chooser().locator('.selector-count').count(),0,'weekly sets sit outside the button');
+   assert.match(await page.locator('.map-select-header .selector-count').innerText(),/^~\d+ weekly sets$/);
+   const alignment=await chooser().evaluate(button=>{const b=button.getBoundingClientRect(),a=button.querySelector('.selector-caret').getBoundingClientRect();return {height:b.height,delta:Math.abs(b.y+b.height/2-a.y-a.height/2)};});
+   assert(alignment.height>=44&&alignment.delta<=.5,'selector stays large enough and chevron is vertically centered for every muscle name');
+   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'long muscle names fit the phone');
    assert.equal(await page.evaluate(()=>JSON.stringify({state,logs,SYNC})),before,'browsing must not change saved workout or account data');
   }
   // Re-selecting from the list retains selection; tapping the picture toggles it.
@@ -63,6 +70,10 @@ const server=http.createServer((req,res)=>{
   await page.evaluate(()=>{coachMode={own:{state,logs},name:'Synthetic preview'};render();});
   await chooser().click();assert.equal(await page.locator('[data-action="pickmuscle"]').count(),21);
   await page.locator('[data-action="pickmuscle"][data-m="quads"]').click();assert.equal(await page.evaluate(()=>ui.musSel),'quads');
+  if(process.env.MUSCLE_MAP_SCREENSHOTS){
+   await page.evaluate(()=>window.scrollTo(0,document.getElementById('musclemap').offsetTop-75));
+   await page.screenshot({path:path.join(process.env.MUSCLE_MAP_SCREENSHOTS,`outlined-selector-${width}.png`)});
+  }
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs,SYNC})),before);
   await page.evaluate(()=>{coachMode=null;render();});
   // Shared geometry still renders thumbnails and the existing exercise how-to.
