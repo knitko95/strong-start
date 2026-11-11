@@ -2385,8 +2385,7 @@ function renderHistory(){
       return {d:new Date(l.date), v}; }).filter(Boolean);
     chart = sparkChart(pts, usesLoad(ex)?`Est. 1-rep max (${state.settings.units})`:(ex.mode==='T'?'Best hold (sec)':'Best set (reps)'));
   }
-  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?"":"s"} logged</div><h1>History</h1></div>
-    <button class="btn primary" data-action="copyreport">Send my progress to ${PROGRAM.coach?esc(PROGRAM.coach):'my coach'}</button></section>
+  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?"":"s"} logged</div><h1>History</h1></div></section>
   <section class="card stack"><h3>Progress by exercise</h3>
     ${exIds.length?`<select id="histex" aria-label="Exercise" style="height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px">${exIds.map(id=>`<option value="${id}" ${id===ui.histEx?'selected':''}>${esc(EX[id].n)}</option>`).join('')}</select>${chart}`:'<p class="muted small" style="margin:0">Finish your first workout to see progress charts here.</p>'}
   </section>
@@ -3698,7 +3697,7 @@ function renderToday(){
   let h=hsCard()+ringsCard(w,keys,wl,{L,over,total});
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
   if(state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
-  if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row"><button class="btn primary sm" data-action="newblock">Start the next program</button><button class="btn ghost sm" data-action="copyreport">Send progress</button></div></div>`;
+  if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row"><button class="btn primary sm" data-action="newblock">Start the next program</button></div></div>`;
   if(state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
   if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} in progress</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div><button class="btn primary sm" data-action="resume">Resume</button></div>`;
   h+=checkinCard(w)+addDayBanner(w);
@@ -3999,7 +3998,7 @@ function adjustSheet(pk){
   const slot=(inWorkout?dSlots():Object.values(SPLITS).flatMap(o=>o.keys).flatMap(sessionSlots)).find(x=>x.pk===pk);
   const tg=target(slot), ex=tg.ex, r=recovery(slot), unit=tg.unit==='sec'?'seconds':'reps';
   const f=(id,label,val,hint='')=>`<label class="adj" for="${id}"><span>${label}${hint?`<br><span class="tiny muted">${hint}</span>`:''}</span><input id="${id}" inputmode="decimal" value="${val??''}"></label>`;
-  modal(`<div><div class="eyebrow">Adjust</div><h2>${esc(ex.n)}</h2><p class="tiny muted" style="margin:4px 0 0">Your own tweak to ${esc(coachName())}'s plan. It stays until you reset it, and shows in your progress report.</p></div>
+  modal(`<div><div class="eyebrow">Adjust</div><h2>${esc(ex.n)}</h2><p class="tiny muted" style="margin:4px 0 0">Your own tweak to ${esc(coachName())}'s plan. It stays until you reset it.</p></div>
     <div class="stack" style="gap:8px">
       ${f('adj-sets','Sets',tg.sets)}
       ${f('adj-lo',`Low end (${unit})`,tg.lo)}
@@ -4011,39 +4010,6 @@ function adjustSheet(pk){
     <div class="row"><button class="btn primary" data-action="adjsave" data-pk="${pk}" data-id="${slot.id}">Save</button><button class="btn" data-action="adjreset" data-pk="${pk}">Back to ${esc(PROGRAM.coach||'coach')}'s plan</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
 }
 
-function reportText(){
-  const u=state.settings.units, since=logs.slice(0,12).reverse();
-  const nm=state.settings.name||'Strong Start';
-  const feelTxt={easy:'felt too easy',good:'felt just right',hard:'felt too heavy'};
-  let t=`${nm}: progress report (${new Date().toLocaleDateString([], {month:'short',day:'numeric',year:'numeric'})})\n`;
-  t+=`Block ${state.block.n}, week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${nDays()} days${isFlex()?' (flexible)':''} (${splitLabel()}) · ${(n=>n+' workout'+(n===1?'':'s'))(logs.filter(l=>l.block===state.block.n).length)} this block, ${logs.length} total\n`;
-  if(state.settings.bw) t+=`Body weight entered: ${state.settings.bw} ${u}\n`;
-  t+=`Level: ${LEVELS[lvl()].n} · Goals: ${goals().map(g=>GOALS[g].n).join(', ')} · ${state.settings.mins||45} min · Places: ${(state.places||[]).map(p=>p.n).join(', ')}${(state.settings.pain||[]).length?` · Avoiding: ${state.settings.pain.map(k=>PAIN[k].n).join(', ')}`:''}\n`;
-  const subs=Object.keys(state.block.plan).filter(pk=>origId(pk) && state.block.plan[pk]!==origId(pk) && EX[origId(pk)] && EX[state.block.plan[pk]]);
-  if(subs.length) t+=`My standing swaps: ${subs.map(pk=>`${EX[origId(pk)].n} → ${EX[state.block.plan[pk]].n}`).join('; ')}\n`;
-  const adj=Object.entries(state.adj||{}).filter(([pk,a])=>a.ex===planId(pk)).map(([pk,a])=>{ const [k,i]=pk.split('.'), c=TPL[k].slots[+i];
-    const parts=[a.sets!=null&&a.sets!==c.sets&&!(easeIn()&&a.sets===2)?a.sets+' sets':'', a.lo!=null&&(a.lo!==c.lo||a.hi!==c.hi)?a.lo+'–'+a.hi+' reps':'', a.rest!=null&&a.rest!==c.rest?'rest '+a.rest+' s':''].filter(Boolean);
-    return parts.length?`${EX[planId(pk)].n} (${parts.join(', ')})`:null; }).filter(Boolean);
-  if(adj.length) t+=`My tweaks: ${adj.join('; ')}\n`;
-  for(const l of since){
-    t+=`\n${new Date(l.date).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}: ${l.name} (wk ${l.week}, ${l.dur} min)\n`;
-    for(const e of l.entries){
-      const sets=e.sets.map(x=>(x.w!=null?`${x.w}×`:'')+x.r).join(', ');
-      t+=`- ${e.name}${e.swap?` (swapped from ${e.swap}${e.place?`, at ${e.place}`:e.today?', today only':''})`:''}: did ${sets}${e.of&&e.of>e.sets.length?` (${e.sets.length} of ${e.of} sets)`:''}${e.plan?` · plan ${e.plan}${e.planned!=null?' @ '+e.planned+' '+u:''}`:''}${e.feel?` · ${feelTxt[e.feel]}`:''}\n`;
-    }
-  }
-  if(!since.length) t+='\nNo workouts logged yet.\n';
-  return t;
-}
-function copyReport(){
-  const txt=reportText();
-  modal(`<div><div class="eyebrow">Progress report</div><h2>Send to ${esc(coachName())}</h2><p class="tiny muted" style="margin:4px 0 0">Your last ${Math.min(12,logs.length)} workouts: what you did, how it felt, and any swaps. Copy it and text or email it.</p></div>
-    <textarea id="reporttxt" readonly style="min-height:220px">${esc(txt)}</textarea>
-    <div class="row"><button class="btn primary" data-action="docopyreport">Copy</button><button class="btn ghost" data-action="closemodal">Close</button></div>
-    <div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:12px"><b class="small">Want ${esc(coachName())} to see your app exactly as you do?</b>
-      <div class="tiny muted">Copy your full app data and send that too. It's a long block of text; it opens your plan, weights and history on their phone. Nothing on yours changes.</div>
-      <button class="btn sm" style="align-self:flex-start" data-action="copyfull">Copy full app data</button></div>`);
-}
 function workoutTips(){
   modal(`<div><div class="eyebrow">Your first workout</div><h2>Quick tour</h2></div>
     <div class="stack" style="gap:8px">
@@ -4052,7 +4018,7 @@ function workoutTips(){
       <div class="small"><b>3. Type the reps you actually did</b>, then tap ✓. A rest timer starts on its own.</div>
       <div class="small"><b>4. Rate the weight</b> after your first set: Too easy, Just right or Too heavy. The app fixes the next sets for you.</div>
       <div class="small"><b>5. Machine taken?</b> Tap <b>Swap</b> for a similar exercise. Not sure what a move works? Tap the body circle.</div>
-      <div class="small"><b>6. Tap Finish workout</b> at the bottom when you're done, then send your progress to ${esc(coachName())}.</div>
+      <div class="small"><b>6. Tap Finish workout</b> when you're done to save it in History.</div>
     </div>
     <p class="tiny muted" style="margin:0">Start light. It's fine if the first week feels easy; the app moves you up quickly.</p>
     <button class="btn primary" data-action="closemodal">Got it</button>`);
@@ -4078,11 +4044,7 @@ function finishWorkout(){
     <div>${entries.map(e=>`<div class="slotrow" style="grid-template-columns:1fr"><div><b>${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div></div>`).join('')}</div>
     <p class="small" style="margin:0">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
     ${AUTH.user && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">Your coach can see this workout. It’s saved to your account, so there’s nothing to copy or send.</div>
-    <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="stack" style="gap:6px;background:var(--accent-soft);border-radius:14px;padding:12px">
-      <b>Send this to ${esc(coachName())}</b>
-      <div class="small">Tap <b>Send progress</b>, copy the report and text it to ${esc(coachName())}. That's how your plan gets updated: what you lifted, how it felt and any swaps you made.</div>
-    </div>
-    <div class="row"><button class="btn primary" data-action="copyreport">Send progress</button><button class="btn ghost" data-action="closemodal">Later</button></div>`}`);
+    <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="row"><button class="btn primary" data-action="closemodal">Done</button></div>`}`);
 }
 
 document.addEventListener('click', e=>{
@@ -4236,10 +4198,6 @@ document.addEventListener('click', e=>{
     case 'redosetup': confirmBox('Redo setup?','You’ll answer the setup questions again and get a fresh plan. Your history and weights stay.','Redo setup',()=>{ startSetup(true); save(); render(); window.scrollTo(0,0); }); break;
     case 'newblock': newBlock(); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Your next program started. Changed your mind? Go back anytime in Settings.'); break;
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
-    case 'copyreport': copyReport(); break;
-    case 'copyfull': { const txt=JSON.stringify({state,logs}); const ta=$('#reporttxt');
-      try{ navigator.clipboard.writeText(txt).then(()=>toast('Full data copied. Paste it into a text or email.'),()=>{ ta.value=txt; ta.select(); toast('Select all and copy'); }); }catch(err){ ta.value=txt; ta.select(); toast('Select all and copy'); } break; }
-    case 'docopyreport': { const ta=$('#reporttxt'); try{ navigator.clipboard.writeText(ta.value).then(()=>toast('Copied. Paste it into a text or email.'),()=>{ ta.select(); toast('Select all and copy'); }); }catch(err){ ta.select(); toast('Select all and copy'); } break; }
     case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;

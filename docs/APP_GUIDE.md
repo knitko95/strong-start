@@ -44,7 +44,7 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 | Today | See weekly/program progress, next workout, active-workout Resume, coach notes, check-ins, and weigh-in reminders. |
 | Plan | Review the week, muscles trained, exercise targets, and persistent swaps/adjustments. |
 | Library | Search names/muscles and filter by equipment, body part, or movement. Equipment/level filters affect what is shown. |
-| History | Review saved sessions and exercise progress; expand a session for details. Progress reports remain available where shown. |
+| History | Review saved sessions and exercise progress; expand a session for details. |
 | Settings | Change profile, goals, schedule/split/order, places/equipment, level/limitations, exercise choices, cardio, weigh-ins, timers, program, account, and backup. |
 
 ## Doing a workout
@@ -81,6 +81,8 @@ Before signing out, wait for account saving to finish and retain a backup if syn
 ## Feedback and coach tools
 
 Signed-in users can choose **About the app** (owner inbox) or **To my coach** (coach inbox) in Feedback. App feedback includes screen/device context; a coach message can include a small workout reference. This is an inbox workflow, not a live conversation or automatic plan edit.
+
+On dev, the old copy-and-text progress report flow has been removed from History, program completion, and workout instructions. Once a signed-in person's workouts have synced, their coach can review them through **Your people**; no separate report is needed. Personal backups remain under Settings. This cleanup is awaiting approval for the live app.
 
 For a coach, **Settings > Your people > Open** shows approved people's activity, pending updates, messages, and invites.
 
