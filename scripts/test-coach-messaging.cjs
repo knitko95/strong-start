@@ -1,6 +1,7 @@
 // Real frontend, synthetic sessions/RPCs. SQL suite separately verifies dev permissions.
 const {chromium}=require('playwright'),fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
+const checkMessageKeyboard=require('./check-message-keyboard.cjs');
 const server=http.createServer((req,res)=>{try{const p=new URL(req.url,'http://localhost').pathname;const f=path.join(root,'dist',p==='/'?'index.html':p);res.setHeader('Content-Type',f.endsWith('.html')?'text/html':f.endsWith('.js')?'text/javascript':f.endsWith('.png')?'image/png':'text/plain');res.end(fs.readFileSync(f));}catch{res.writeHead(404);res.end();}});
 (async()=>{await new Promise(r=>server.listen(0,'127.0.0.1',r));const url=process.argv[2]||`http://127.0.0.1:${server.address().port}`,browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
 try{for(const width of [1280,390,320]){const page=await browser.newPage({viewport:{width,height:844}}),errors=[];
@@ -48,6 +49,7 @@ await page.waitForFunction(()=>CM.thread&&!CM.thread.liveLoading&&!CM.live.runni
 await page.evaluate(()=>{window.oldMessageChannel=fakeChannels.at(-1);Object.defineProperty(document,'visibilityState',{configurable:true,get:()=>window.testVisibility||'visible'});window.testVisibility='hidden';document.dispatchEvent(new Event('visibilitychange'));});assert.equal(await page.evaluate(()=>CM.live),null);assert.equal(await page.evaluate(()=>oldMessageChannel.removed),true);
 await page.evaluate(()=>{const b=messageBackend;b.messages.push({id:String(b.messages.length+1),sender_id:'coach',message:'Arrived while hidden',created_at:new Date().toISOString(),kind:'message',read_at:null});oldMessageChannel.handlers[0].callback({eventType:'INSERT'});});await page.waitForTimeout(250);assert.equal(await page.getByText('Arrived while hidden',{exact:true}).count(),0);
 await page.evaluate(()=>{window.testVisibility='visible';document.dispatchEvent(new Event('visibilitychange'));});await page.getByText('Arrived while hidden',{exact:true}).waitFor();
+await checkMessageKeyboard(page,width);
 if(width===1280){
  // A missed event is recovered by the real foreground fallback interval.
  await page.waitForFunction(()=>CM.live&&!CM.live.running&&!CM.live.timer&&!CM.live.pending&&!CM.thread.liveLoading);
