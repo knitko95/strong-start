@@ -25,7 +25,7 @@ After sign-in, supported phone browsers show Home Screen instructions before set
 
 The iPhone Home Screen app may require signing in again because its sign-in storage is separate from Safari. A skipped installation screen can be revisited from the reminder on Today; dismissing that reminder hides it for a week. Desktop and standalone sessions do not show the same prompts.
 
-After an online visit, open **Settings > Offline access** and wait for **Ready to reopen offline on this browser**. Sign in and load your plan first. The cached app can then reopen, log sets, and resume a saved workout without the app server. Account sync, sign-in, messages, and coach updates still need a connection. Reconnect and check **Synced** before relying on another device. Clearing browser data or browser storage eviction removes offline files and local data; check readiness again afterward. A Home Screen installation may need its own first online visit. Background/locked-screen timer accuracy still depends on the phone.
+Offline files download automatically during an online visit; there is no Offline access card in Settings. Sign in and load your plan first, and allow the download to finish before going offline. Once cached, the app can reopen, log sets, and resume a saved workout without the app server. Account sync, sign-in, messages, and coach updates still need a connection. Reconnect and check **Synced** before relying on another device. Clearing browser data or browser storage eviction removes offline files and local data, so another online visit is needed afterward. A Home Screen installation may need its own first online visit. Background/locked-screen timer accuracy still depends on the phone.
 
 ## Setup
 

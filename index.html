@@ -2136,7 +2136,7 @@ async function signOut(){
 function accountCard(){
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
-    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Before going offline, check Offline access below. Sign-in and messages need a connection.</p>
+    <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
     <div class="row"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a></div>`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
@@ -4047,7 +4047,6 @@ function renderSettings(){
   return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
   ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
   ${coachMode?'':accountCard()}
-  <section class="card stack"><h2>Offline access</h2><p class="small" data-offline-status role="status">Checking offline readiness…</p><button class="btn" data-offline-help>Check offline access</button></section>
   ${profileCard(s)}
   ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
     <div class="chips">${Object.entries(GOALS).map(([k,g])=>`<button class="painchip ${goals().includes(k)&&s.goals.includes(k)?'on':''}" data-action="setgoal" data-v="${k}">${g.n}</button>`).join('')}</div>`)}
