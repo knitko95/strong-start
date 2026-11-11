@@ -539,6 +539,24 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 <div id="toast"></div>
 
 <script>
+/* Environment: only the existing production URL may use the live database. */
+const IS_PRODUCTION = location.origin === 'https://knitko95.github.io' &&
+  /^\/strong-start\/(?:index\.html)?$/.test(location.pathname);
+const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
+const storageKey = key => IS_PRODUCTION ? key : 'dev_' + key;
+if (!IS_PRODUCTION) {
+  document.title = 'Strong Start · Testing';
+  const banner = document.createElement('div');
+  banner.id = 'environment-banner';
+  banner.textContent = 'TESTING · Separate test accounts and data';
+  banner.setAttribute('role', 'status');
+  banner.style.cssText = 'background:#704000;color:#fff;text-align:center;padding:7px 12px;font:700 12px system-ui;';
+  document.body.insertBefore(banner, document.body.firstChild);
+  const manifest = document.querySelector('link[rel="manifest"]');
+  manifest.href = 'manifest.dev.webmanifest';
+  document.querySelector('meta[name="apple-mobile-web-app-title"]').content = 'Strong Start Dev';
+  document.querySelector('meta[name="application-name"]').content = 'Strong Start Dev';
+}
 /* ---------------- Exercise library ----------------
    name | equipment | slots | plane (S sagittal, F frontal, T transverse) | muscles | tier (1 = main lift) | mode (L load, B bodyweight + added load, R reps only, T timed) | unilateral | cue */
 const LIB_RAW = `
@@ -1353,7 +1371,7 @@ const STRETCH = {
 };
 
 /* ---------------- State ---------------- */
-const LS = 'strongstart_state_v3';   // bumped to give everyone a fresh start (Nov 8: themes + gender)
+const LS = storageKey('strongstart_state_v3');
 let state = null, logs = [];
 let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histEx:'', histOpen:null, planMode:'ppl3', timer:null, musSel:null};
 
@@ -1557,7 +1575,8 @@ function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
    so they follow them to any device. The phone keeps a copy too, so the app works with no signal at the gym.
    Coaches (listed in the coaches table, added from the Supabase dashboard) can see everyone and send plan updates. */
-const SB_URL='https://aybtxqsneywuqxzjwoek.supabase.co', SB_KEY='sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl';
+const SB_URL = IS_PRODUCTION ? 'https://aybtxqsneywuqxzjwoek.supabase.co' : 'https://gvyfgqhgqnfmtoytqpeo.supabase.co';
+const SB_KEY = IS_PRODUCTION ? 'sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl' : 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49';
 const SITE_URL=location.origin+location.pathname;
 let sb=null; try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}); }catch(e){ sb=null; }
 /* Beta: new accounts need a one-time invite link from a coach (?invite=CODE). The code is kept on the phone until it's used. */
@@ -1568,8 +1587,8 @@ function parseInvite(v){ v=String(v||'').trim(); const m=v.match(/invite=([A-Za-
 const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
 const CLOUD={ok:false, busy:false, again:false, t:null, written:{}, stateJson:null, name:undefined};
-function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-function lsSet(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v); }catch(e){} }
+function lsGet(k){ try{ return localStorage.getItem(storageKey(k)); }catch(e){ return null; } }
+function lsSet(k,v){ try{ const key=storageKey(k); v==null?localStorage.removeItem(key):localStorage.setItem(key,v); }catch(e){} }
 function rememberedAcct(){ try{ return JSON.parse(lsGet(ACCT_KEY)||'null'); }catch(e){ return null; } }
 function localOnly(){ return lsGet(LOCAL_ONLY_KEY)==='1'; }
 function needsAuth(){ return !!sb && !AUTH.user && !rememberedAcct() && !localOnly() && !coachMode; }
