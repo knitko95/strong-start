@@ -2105,7 +2105,7 @@ function render(){
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
 function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Nothing here touches your own app. Changes you make stay until you exit.</div></div>
-  <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="${coachMode.uid?'coachsendopen':'opencoach'}">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
+  <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="coachsendopen">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
 
 function ringStats(w, keys, wl, o){
   const L=o.L, wk=Math.min(w,L), perWeek=keys.length;
@@ -3712,25 +3712,12 @@ function renderSettings(){
     ${state.prevBlock?`<button class="btn sm block" data-action="prevblock" style="width:100%">Go back to my previous program</button>`:''}
     <div class="row"><button class="btn sm" data-action="newblock">Start the next program now</button><button class="btn sm ghost" data-action="restartblock">Restart at week 1</button></div>
   `)}
-  ${sec('coach','Coach',state.coach&&state.coach.note?'Note from your coach on your home screen':'Load a plan update from your coach',`
-    <p class="small muted" style="margin:0">Your coach can send you a plan update code. Paste it here to load their changes. Your workout history stays.</p>
-    <textarea id="plancode" placeholder="Paste a plan update code"></textarea>
-    <div class="row"><button class="btn sm" data-action="loadplan">Load plan update</button></div>
-    <details><summary class="small" style="cursor:pointer;font-weight:700">For coaches</summary>
-      <div class="stack" style="gap:8px;margin-top:8px">
-      ${coachMode?'':`<p class="tiny muted" style="margin:0">Paste the full app data someone sent you to see their app exactly as they do. Your own app and everything you’ve logged stay safe; nothing is saved while you’re in their app.</p>
-      <textarea id="coachcode" placeholder="Paste their full app data" aria-label="Their full app data"></textarea>
-      <button class="btn sm primary" style="align-self:flex-start" data-action="coachview">View their app</button>`}
-      <p class="tiny muted" style="margin:0">${coachMode?'Make changes with Swap and Adjust, write a note, then copy the plan update and send it back.':'While viewing, make changes with Swap and Adjust, write a note, then copy the plan update and send it back.'}</p>
-      <label class="field2" for="coachnote"><span class="flabel">Note to them</span><textarea id="coachnote" style="font-family:var(--body);font-size:14px;min-height:70px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
-      <button class="btn sm" style="align-self:flex-start" data-action="copyplan">Copy plan update</button></div></details>
-  `)}
   ${sec('backup','Backup',AUTH.user?'Saved to your account · copy or restore':'Saved on this device · copy or restore',`
     <p class="small muted" style="margin:0">${AUTH.user?'Your workouts are saved to your account and on this device. You can still copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
     <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
     <button class="btn sm" data-action="restore">Restore my backup</button>
-    <p class="tiny muted" style="margin:0">Restoring replaces everything in your app with the backup. To look at someone else’s app, use Coach › For coaches › View their app instead.</p>
+    <p class="tiny muted" style="margin:0">Restoring replaces everything in your app with the backup.</p>
   `)}`;
 }
 function renderEquipEdit(){
@@ -4125,9 +4112,6 @@ document.addEventListener('click', e=>{
     case 'redosetup': confirmBox('Redo setup?','You’ll answer the setup questions again and get a fresh plan. Your history and weights stay.','Redo setup',()=>{ startSetup(true); save(); render(); window.scrollTo(0,0); }); break;
     case 'newblock': newBlock(); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Your next program started. Changed your mind? Go back anytime in Settings.'); break;
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
-    case 'copyplan': { const n=$('#coachnote'); if(n){ state.coach.note=n.value.trim(); save(); } const txt=planCode(); try{ navigator.clipboard.writeText(txt).then(()=>toast('Plan update copied. Send it to them.'),()=>{ $('#plancode').value=txt; toast('Copy blocked. Code placed in the box above.'); }); }catch(err){ $('#plancode').value=txt; } break; }
-    case 'loadplan': { try{ const o=JSON.parse($('#plancode').value); if(o.t!=='ssplan'||!o.plan) throw 0;
-      confirmBox('Load this plan update?','Your exercises, tweaks and coach note are replaced with your coach’s version. Your history and weights stay.','Load',()=>{ applyPlanCode(o); save(); ui.tab='today'; render(); toast('Plan updated'); }); }catch(err){ toast('That code could not be read. Paste the whole thing.'); } break; }
     case 'copyreport': copyReport(); break;
     case 'copyfull': { const txt=JSON.stringify({state,logs}); const ta=$('#reporttxt');
       try{ navigator.clipboard.writeText(txt).then(()=>toast('Full data copied. Paste it into a text or email.'),()=>{ ta.value=txt; ta.select(); toast('Select all and copy'); }); }catch(err){ ta.value=txt; ta.select(); toast('Select all and copy'); } break; }
@@ -4141,12 +4125,7 @@ document.addEventListener('click', e=>{
     case 'copybackup': { const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
     case 'restore': { try{ const o=JSON.parse($('#restore').value); if(!o.state||!o.state.block) throw 0;
       confirmBox('Load this data?',`It replaces everything on this device with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} plan, weights and history.`,'Load',()=>{ state=migrate(o.state); logs=o.logs||[]; save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
-    case 'coachview': { let o=null; try{ o=JSON.parse($('#coachcode').value); }catch(err){}
-      if(!o||!o.state||!o.state.block){ toast('That could not be read. Paste the full text they sent.'); break; }
-      coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name:(o.state.settings&&o.state.settings.name)||'their'};
-      fClearTimer && fClearTimer(); state=migrate(o.state); logs=o.logs||[]; ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${coachMode.name}’s app`); break; }
     case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
-    case 'opencoach': ui.tab='settings'; ui.open=ui.open||{}; ui.open.coach=true; render(); setTimeout(()=>{ const d=document.querySelector('#coachnote'); if(d){ d.closest('details').open=true; d.scrollIntoView({block:'center'}); } },50); break;
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
 });
@@ -4167,7 +4146,6 @@ document.addEventListener('change', e=>{
   if(t.id==='wi-on'){ state.weigh.on=t.checked; state.weigh.touched=true; save(); render(); return; }
   if(t.id==='wi-day'){ state.weigh.day=+t.value; save(); render(); return; }
   if(t.id==='wi-hide'){ state.weigh.hide=t.checked; save(); render(); return; }
-  if(t.id==='coachnote'){ state.coach.note=t.value.trim(); save(); return; }
   if(t.id==='libeasy'){ ui.libEasy=t.checked; render(); return; }
   if(t.id==='set-name'){ state.settings.name=t.value.trim().slice(0,30); save(); render(); return; }
   if(t.id==='set-bw'){ const v=parseFloat(t.value); state.settings.bw = isFinite(v)&&v>50&&v<700 ? v : null; save(); render(); toast(state.settings.bw?'Saved. New exercises use this for starting weights.':'Cleared'); return; }
