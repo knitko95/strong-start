@@ -491,6 +491,57 @@ body.in-focus .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .fsetdone{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
 .fsetchip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font:inherit;font-size:13px;color:var(--ink);cursor:pointer}
 .fsetchip b{color:var(--accent);font-weight:800;margin-left:4px}
+/* Workout screens, one-card layout: labelled progress, one card, one button row */
+.ftop .fprog{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
+.ftop .fprog .fsegs{flex:none}
+.ftop .ficon{width:44px;height:44px}
+.acard .gchip{min-height:44px}
+.ftop .flabel{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ahead{display:flex;flex-direction:column;gap:8px;width:100%;text-align:left}
+.ahead .asub{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px}
+.ahead .asub>:first-child{min-width:0;flex:1}
+.howbtn{flex:none;min-height:44px;padding:0 14px;border-radius:999px;border:1.5px solid var(--accent);background:transparent;color:var(--accent);font:inherit;font-size:14px;font-weight:800;display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.howbtn svg{width:14px;height:14px}
+.acard{width:100%;border-radius:24px;padding:18px 16px 16px;display:flex;flex-direction:column;gap:14px;text-align:left}
+.acard .ach{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.acard .ach>b{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.15}
+.acard .ach>b span{color:var(--muted);font-weight:500}
+.acard .ach .goal{font-size:14px;font-weight:700;color:var(--accent);text-align:right}
+.asteps{display:flex;gap:10px}
+.asteps .fstep{border:0;padding:12px 8px 10px;display:flex;flex-direction:column;align-items:center;gap:6px}
+.asteps .fstep .fl{font-size:11px;letter-spacing:.14em}
+.asteps .fval{flex:none;max-width:100%}
+.asteps .fval input{font-family:var(--display);font-size:46px;line-height:1;height:52px;max-width:118px;min-width:34px}
+.asteps .fval small{font-size:15px;font-weight:700;margin-left:3px;white-space:nowrap}
+.asteps .abtns{display:flex;gap:10px}
+.abtn{width:48px;height:44px;border-radius:14px;border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:24px;font-weight:700;line-height:1;box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 16%,transparent);cursor:pointer}
+.astrip{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.atile{flex:1 1 64px;min-width:0;min-height:48px;border-radius:14px;border:1.5px dashed color-mix(in srgb,var(--muted) 45%,var(--line));background:transparent;color:var(--muted);font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 6px;box-sizing:border-box;text-align:center}
+.atile .tl{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.atile .tv{font-size:15px;font-weight:700;white-space:nowrap}
+.atile.d{border:0;background:var(--good-soft);color:var(--ink)}.atile.d .tl{color:var(--good)}
+button.atile.d{cursor:pointer}
+.atile.c{border:0;background:var(--accent);color:var(--on-accent)}
+.atile.n{border:1.5px solid var(--accent);color:var(--accent)}.atile.n .tv{color:var(--ink)}
+.atip{margin:0;font-size:14px;color:var(--muted);padding:0 4px;width:100%;text-align:left}.atip b{color:var(--ink)}
+.afoot{display:flex;gap:10px;width:100%}
+.afoot .fbig{flex:1;min-width:0;height:60px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;gap:10px}
+.afoot .fbig svg{width:20px;height:20px}
+.amore{flex:none;width:60px;height:60px;border-radius:20px;border:0;background:var(--surface);color:var(--ink);box-shadow:var(--shadow);display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+.amore svg{width:24px;height:24px}
+.anext{text-align:center;font-size:13px;color:var(--muted)}.anext b{color:var(--ink)}
+.atimer{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.atimer .aside{flex:none;width:52px;min-height:52px;border-radius:16px;border:0;background:var(--sunk);color:var(--ink);font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;line-height:1;cursor:pointer;padding:6px 0}
+.atimer .aside b{font-size:22px;font-weight:700}.atimer .aside span{font-size:11px;font-weight:800;color:var(--muted)}
+.atimer .aside svg{width:22px;height:22px}
+.atimer .gringw,.atimer .fring{width:min(190px,calc(100vw - 184px));height:min(190px,calc(100vw - 184px));margin:0}
+.atimer .gclock{font-size:clamp(34px,12.5vw,50px)}
+.atimer .fclock{font-size:72px}
+.atimer .anum{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:18px 0}
+.atimer .anum .num{font-family:var(--display);font-size:64px;font-weight:600;line-height:1}
+.acard .anote{border-top:1px solid var(--line);padding-top:12px;font-size:14px;display:flex;flex-direction:column;gap:8px}
+.acard .anote .gchips{justify-content:flex-start}
+.acard .phase{align-self:center}
 
 .gplan{display:flex;flex-direction:column;gap:4px;padding:12px 14px}.gph{display:flex;gap:12px;align-items:flex-start;text-align:left;background:none;border:0;border-radius:12px;padding:8px 8px;margin:0 -8px;color:inherit;font:inherit;cursor:pointer}.gph .gpt{min-width:44px;font-weight:800;color:var(--muted)}.gph b{font-size:15px}.gph .d{display:block;font-size:12.5px;color:var(--muted)}.gph.on{background:var(--sunk)}.gph.on .gpt,.gph.on b{color:var(--accent)}.gph.done{opacity:.5}
 .focus .linkbtn{text-decoration:none}
@@ -3512,23 +3563,56 @@ function fStep(d,slots){
   return d.step;
 }
 const mmss=s=>`${Math.floor(s/60)}:${String(Math.max(0,s)%60).padStart(2,'0')}`;
-function fTop(d,slots){
+function fTop(d,slots,label){
   const gs=fGroups(slots), st=d.step, X=d._x;
   const warmDone = st.ph!=='warm';
   const segs=[warmDone?'d':'c'];
   gs.forEach(g=>{ const all=g.every(i=>!openN(d,slots[i].pk)), cur=['ex','rest','exdone'].includes(st.ph) && g.some(i=>slots[i].pk===st.pk);
     segs.push(all?'d':cur?'c':(g.some(i=>doneN(d,slots[i].pk))?'c':'')); });
   segs.push(st.ph==='cool'?'c':'');
+  if(label==null){
+    label = st.ph==='warm'?'Warm-up':st.ph==='cool'?'Cool-down':'Workout';
+    if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
+      if(gi>=0) label = gs[gi].length>1 ? `Superset ${slots[i].label}` : `Exercise ${gi+1} of ${gs.length}`; }
+  }
+  // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
+  const m=saveStatus();
   return `<div class="ftop"><button class="ficon" data-action="fexit" aria-label="Pause or end workout">✕</button>
-    <div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
-    ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div><button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(saveStatus()[1])}</button>`;
+    <div class="fprog"><div class="flabel">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div></div>
+    ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div>${m[0]==='warn'?`<button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(m[1])}</button>`:''}`;
+}
+function fSaveRow(){ const m=saveStatus(); return `<button class="sync" data-action="syncdetails" style="align-self:center;min-height:44px"><span class="dot ${m[0]}"></span><b style="font-weight:inherit">${esc(m[1])}</b></button>`; }
+// More sheet: the less-used actions for the current workout screen
+function fMoreSheet(pk){
+  const d=state.draft; if(!d) return; const st=d.step||{};
+  const opt=(act,title,sub,extra='')=>`<button class="opt2" data-action="fmoredo" data-do="${act}" ${extra}><b>${title}</b><span class="tiny muted">${sub}</span></button>`;
+  const sound=opt('gmute', state.settings.sound===false?'Turn sound on':'Turn sound off', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
+  let h='';
+  if((st.ph==='warm'||st.ph==='cool') && d.guide){
+    const G=d.guide, it=gItems(G.ph)[G.i], pm=G.mode==='paused'?G.pmode:G.mode;
+    if(it&&it.alts&&it.alts.length) h+=opt('xswap','Swap this move','Pick something similar.',`data-g="${it.g}" data-k="${it.k}"`);
+    if(it&&it.phases&&pm!=='ready') h+=opt('gskipall','Skip the rest of this','Go straight to the next move.');
+    h+=sound+opt('glist','Show as a list','See every move and tick them off yourself.');
+  } else {
+    const s=dSlots().find(x=>x.pk===pk);
+    if(s){ const arr=d.sets[pk]||[];
+      h+=opt('swap','Swap this exercise','Machine taken, or it doesn’t feel right.',`data-pk="${pk}"`);
+      h+=opt('adjust','Adjust','Change the sets, reps or rest for this exercise.',`data-pk="${pk}"`);
+      h+=opt('addset','Add a set','',`data-pk="${pk}"`);
+      if(arr.length>1 && !arr[arr.length-1].done) h+=opt('rmset','Remove a set','',`data-pk="${pk}"`);
+      h+=opt('fskipex','Skip this exercise','It won’t count against your progress.',`data-pk="${pk}"`);
+    }
+    h+=sound;
+  }
+  modal(`<div class="endsheet stack" style="gap:10px"><h2>More</h2>${h}${fSaveRow()}<button class="btn ghost block" data-action="closemodal">Close</button></div>`);
 }
 function stepper(pk,i,f,val,unit,label){
   if(f==='w') val=weightNumber(val);
-  return `<div class="fstep"><div class="fl">${label}</div><div class="frow">
-    <button class="ficon sm" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="-1" aria-label="Less ${label.toLowerCase()}">−</button>
-    <span class="fval"><input class="num" inputmode="decimal" aria-label="${label}" data-pk="${pk}" data-i="${i}" data-f="${f}" value="${esc(val)}"><small>${unit}</small></span>
-    <button class="ficon sm" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="1" aria-label="More ${label.toLowerCase()}">+</button></div></div>`;
+  const what=label.toLowerCase().replace(/ \(.*\)$/,''), n=Math.max(1.6,String(val??'').length+.6);
+  return `<div class="fstep"><div class="fl">${label}</div>
+    <span class="fval"><input class="num" inputmode="decimal" aria-label="${label}" data-pk="${pk}" data-i="${i}" data-f="${f}" value="${esc(val)}" style="width:calc(${n}ch + 6px)">${unit?`<small>${unit}</small>`:''}</span>
+    <div class="abtns"><button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="-1" aria-label="Less ${what}">−</button>
+    <button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="1" aria-label="More ${what}">+</button></div></div>`;
 }
 function setDefaults(d,s,tg,k){
   const st=d.sets[s.pk][k]; if(!st) return;
@@ -3563,17 +3647,25 @@ function renderFocus(){
   const gs=fGroups(slots), gi=gs.findIndex(g=>g.includes(idx)), grp=gs[gi];
   const each = load && (primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   const per = ex.uni?' per side':'';
+  const upNext=()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
+  const moreBtn=`<button class="amore" data-action="fmore" data-pk="${s.pk}" aria-label="More: swap, adjust, skip or sound">${ICON.more}</button>`;
   if(st.ph==='rest'){
     const T=ui.timer, left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):0, tot=T?T.total:1, R=110, C=2*Math.PI*R;
-    const k=(d.sets[s.pk]||[]).findIndex(x=>!x.done);
-    return `<div class="focus fcenter">${fTop(d,slots)}
-      <div><div class="eyebrow">Rest</div><h2>${T?'Nice set. Breathe.':'Rest is up'}</h2></div>
-      <svg class="fring" viewBox="0 0 260 260" role="timer" aria-label="Rest time left"><circle cx="130" cy="130" r="${R}" fill="none" stroke="var(--line)" stroke-width="16"/>
-        <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
-        <text id="fclock" x="130" y="146" text-anchor="middle" class="fclock">${mmss(left)}</text><text x="130" y="178" text-anchor="middle" class="fsub">of ${mmss(tot)}</text></svg>
-      <div class="fpair"><button class="btn" data-action="tadd" data-sec="-15">−15 s</button><button class="btn" data-action="tadd" data-sec="15">+15 s</button></div>
-      <section class="card" style="width:100%;text-align:left"><div class="eyebrow">Next</div><div class="row between" style="flex-wrap:nowrap"><b>${esc(ex.n)} · Set ${k+1} of ${d.sets[s.pk].length}</b><span class="num" style="font-size:18px;white-space:nowrap">${load?`${fmtW(d.sets[s.pk][k]&&d.sets[s.pk][k].w||tg.w||tg.sug).replace(/ (lb|kg)$/,'')} × `:''}${load?`${tg.lo}–${tg.hi}`:tg.r}</span></div></section>
-      <div class="ffoot"><button class="btn primary block fbig" data-action="fready">I’m ready</button><div class="tiny muted" style="text-align:center">${state.settings.sound===false?'Your phone buzzes':'Your phone beeps and buzzes'} when rest is up</div></div></div>`;
+    const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
+    const nextTv=(load?`${fmtW(sets[k]&&sets[k].w||tg.w||tg.sug).replace(/ (lb|kg)$/,'')} × `:'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(tg.unit==='sec'?' s':''));
+    const strip=sets.map((x,i)=>x.done?`<div class="atile d"><span class="tl">Set ${i+1} ✓</span><span class="tv">${esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r)}</span></div>`
+      :`<div class="atile ${i===k?'n':''}"><span class="tl">Set ${i+1}${i===k?' next':''}</span><span class="tv">${esc(nextTv)}</span></div>`).join('');
+    return `<div class="focus">${fTop(d,slots)}
+      <div class="ahead"><h1>${T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${esc(ex.n)} · ${dn} of ${sets.length} sets done</div></div>
+      <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
+        <div class="atimer"><button class="aside" data-action="tadd" data-sec="-15" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>
+          <svg class="fring" viewBox="0 0 260 260" role="timer" aria-label="Rest time left"><circle cx="130" cy="130" r="${R}" fill="none" stroke="var(--line)" stroke-width="16"/>
+            <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
+            <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
+          <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
+        <div class="astrip">${strip}</div></section>
+      <p class="atip">${state.settings.sound===false?'Your phone buzzes':'Your phone beeps and buzzes'} when rest is up.</p>
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fready">I’m ready${k>=0?` for set ${k+1}`:''}</button></div>${upNext()}</div></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3603,22 +3695,22 @@ function renderFocus(){
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
   const isB = gs[gi].length>1, label = isB ? `Superset ${s.label}` : `Exercise ${gi+1} of ${gs.length}`;
   const partner = isB ? grp.map(i=>slots[i]).find(x=>x.pk!==s.pk) : null;
-  return `<div class="focus">${fTop(d,slots)}
-    <div class="row between"><div class="eyebrow">${label}</div><span class="chip acc">Set ${kk+1} of ${sets.length}</span></div>
-    <div class="row" style="align-items:flex-start;flex-wrap:nowrap"><div style="flex:1"><h1>${esc(ex.n)}</h1>${musLine(ex.id)}</div>${musThumb(ex.id)}</div>
-    ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}
-    <section class="card" style="text-align:center"><div class="eyebrow">Today’s target</div>
-      <div class="ftarget">${load?`<span class="num big">${wShow!=null?fmtW(wShow).replace(/ (lb|kg)$/,''):'Light'}</span> <span class="muted">${wShow!=null?state.settings.units+each:''}</span> <span class="num mid">× ${tg.lo}–${tg.hi}</span>`:`<span class="num big">${tg.r}</span> <span class="muted">${tg.unit}</span>`}${per?`<span class="muted small">${per}</span>`:''}</div>
-      <div class="tiny muted">${esc(lastTxt)}</div></section>
-    <div class="row" style="gap:10px;flex-wrap:nowrap">${load?stepper(s.pk,kk,'w',cur.w,ex.mode==='B'?'+'+state.settings.units:state.settings.units,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,tg.unit==='sec'?'sec':'','Reps'.replace('Reps',tg.unit==='sec'?'Seconds':'Reps'))}</div>
-    <div class="setnav">${sets.length>1&&!sets[sets.length-1].done?`<button class="linkbtn" data-action="rmset" data-pk="${s.pk}">− Set</button>`:'<span style="width:44px"></span>'}
-      <div class="fdots">${sets.map((x,i)=>`<span class="fdot ${x.done?'d':''} ${i===kk?'c':''}"></span>`).join('')}</div>
-      <button class="linkbtn" data-action="addset" data-pk="${s.pk}">+ Set</button></div>
-    ${sets.some(x=>x.done)?`<div class="fsetdone">${sets.map((x,i)=>x.done?`<button class="fsetchip" data-action="fundo" data-pk="${s.pk}" data-i="${i}" aria-label="Edit set ${i+1}">Set ${i+1} · ${(load&&x.w?weightNumber(x.w)+' × ':'')+x.r} ✓<b>Edit</b></button>`:'').join('')}</div>`:(isB&&partner?`<div class="tiny muted" style="text-align:center">Then ${esc(EX[partner.id].n)}</div>`:'')}
-    <section class="card fcue"><div class="eyebrow">Form tip</div><div class="small">${esc(ex.cue)}</div></section>
-    <div class="flinks"><button class="linkbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">How to do it</button><button class="linkbtn" data-action="swap" data-pk="${s.pk}">Swap</button><button class="linkbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button><button class="linkbtn" data-action="fskipex" data-pk="${s.pk}">Skip</button></div>
-    <div class="ffoot"><button class="btn primary block fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':`Done with set ${kk+1}`}</button>
-      ${(()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&!isB?`<div class="tiny muted" style="text-align:center">Up next: ${esc(EX[slots[n].id].n)}</div>`:''; })()}</div></div>`;
+  const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
+  const wPlan = load ? (cur.w!==''&&cur.w!=null ? weightNumber(cur.w) : wShow!=null ? fmtW(wShow).replace(/ (lb|kg)$/,'') : '') : '';
+  const planTv = (wPlan!==''?wPlan+' × ':'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(secs?' s':''));
+  const strip = sets.map((x,i)=> x.done ? `<button class="atile d" data-action="fundo" data-pk="${s.pk}" data-i="${i}" aria-label="Edit set ${i+1}"><span class="tl">Set ${i+1} ✓</span><span class="tv">${esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r+(secs?' s':''))}</span></button>`
+    : i===kk ? `<div class="atile c"><span class="tl">Set ${i+1}</span><span class="tv">Now</span></div>`
+    : `<div class="atile"><span class="tl">Set ${i+1}</span><span class="tv">${esc(planTv)}</span></div>`).join('');
+  return `<div class="focus">${fTop(d,slots,label)}
+    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div>
+      ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
+    <section class="card acard"><div class="ach"><b>Set ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
+      <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
+      <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
+      <div class="astrip">${strip}</div></section>
+    <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
+    ${isB&&partner?`<div class="tiny muted" style="text-align:center">Then ${esc(EX[partner.id].n)}</div>`:''}
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':`Done with set ${kk+1}`}</button></div>${upNext()}</div></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};
@@ -3629,7 +3721,7 @@ function flistSheet(){
   gs.forEach(g=>g.forEach(i=>{ const s=slots[i], tg=target(s), dn=doneN(d,s.pk), n=d.sets[s.pk].length, cur=['ex','rest','exdone'].includes(st.ph)&&st.pk===s.pk;
     row; h+=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':''); }));
   h+=row('cool','Cardio and cool-down','Optional cardio, walk and stretches', st.ph==='cool'?'c':'');
-  h+=`</div><div class="fpair"><button class="btn block" data-action="fpause">Take a break</button><button class="btn block" data-action="fexit">End workout</button></div>
+  h+=`</div><div class="fpair"><button class="btn block" data-action="fpause">Take a break</button><button class="btn block" data-action="fexit">End workout</button></div>${fSaveRow()}
 `;
   modal(h);
 }
@@ -3719,6 +3811,7 @@ function fAction(a,b){
     case 'fstart': { const slots=dSlots(), i=nextGroupStart(d,slots,-1); d.step = i>=0?{ph:'ex',pk:slots[i].pk}:{ph:'cool'}; save(); render(); window.scrollTo(0,0); return true; }
     case 'fpause': closeModal(); ui.tab='today'; save(); render(); window.scrollTo(0,0); toast('Paused. Tap Resume on Today to pick up where you left off.'); return true;
     case 'flist': flistSheet(); return true;
+    case 'fmore': fMoreSheet(b.dataset.pk); return true;
     case 'fexit': endSheet(); return true;
     case 'fend': { closeModal(); fClearTimer(); const done=Object.values(d.sets).flat().some(x=>x.done&&+x.r>0);
       if(!done){ confirmBox('End without saving?','No sets were finished, so nothing will be saved.','End workout',()=>{ state.draft=null; save(); ui.tab='today'; render(); }); return true; }
@@ -4060,6 +4153,7 @@ function phasePlan(S,cur,tap){
       return `<button class="gph ${on?'on':''} ${done?'done':''}" data-action="gseg" data-n="${r.i}"><span class="gpt num">${r.rounds?'×'+r.rounds:mmss(r.sec)}</span><span style="flex:1"><b>${esc(cap1(r.label))}</b><span class="d">${esc(r.hint)}</span></span></button>`; }).join('')}</section>`;
 }
 const ICON={
+  more:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="2.2" fill="currentColor"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><circle cx="19" cy="12" r="2.2" fill="currentColor"/></svg>',
   play:'<svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M8.5 5.2v13.6a1 1 0 0 0 1.52.85l10.3-6.8a1 1 0 0 0 0-1.7L10.02 4.35A1 1 0 0 0 8.5 5.2z" fill="currentColor"/></svg>',
   pause:'<svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><rect x="6" y="4.5" width="4.5" height="15" rx="1.6" fill="currentColor"/><rect x="13.5" y="4.5" width="4.5" height="15" rx="1.6" fill="currentColor"/></svg>',
   back15:'<svg viewBox="0 0 32 32" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.2 11.5A12 12 0 1 1 5 17"/><path d="M5.2 5.5v6.3h6.3"/><text x="16.6" y="20.6" font-size="8.6" font-weight="800" text-anchor="middle" fill="currentColor" stroke="none" font-family="system-ui,sans-serif">15</text></svg>',
@@ -4221,48 +4315,49 @@ function renderGuide(){
     :`<section class="card" style="width:100%;text-align:left"><div class="eyebrow">Up next</div><b>${G.ph==='warm'?'Your first exercise':'All done'}</b></section>`;
   const left=G.end?Math.max(0,Math.ceil((G.end-Date.now())/1000)):0;
   const ph=!!it.phases, pm = G.mode==='paused' ? G.pmode : G.mode;
-  const tools=`<div class="gtools"><button class="gtool" data-action="gmute" aria-label="${state.settings.sound===false?'Sound off. Turn on':'Sound on. Turn off'}">${state.settings.sound===false?ICON.mute:ICON.sound}</button><button class="gtool" data-action="glist" aria-label="Show as a list">${ICON.list}</button></div>`;
   const eb=it.fin?'Cardio after lifting':name+' · '+(G.i+1-(items[0]&&items[0].fin?1:0))+' of '+(items.length-(items[0]&&items[0].fin?1:0));
   const seg0=S.segs&&(S.segs[G.s]||S.segs[0]);
-  const head=`<div class="row between" style="width:100%;flex-wrap:nowrap;gap:8px"><div class="eyebrow" style="text-align:left">${eb}</div><div class="row" style="gap:8px;flex-wrap:nowrap">${tools}<span class="chip" style="white-space:nowrap">${seg0&&seg0.round&&pm!=='ready'?`Round ${seg0.round} of ${seg0.of}`:mmss(gLeftTotal(items,G))+' left'}</span></div></div>`;
-  const links=`<div class="row" style="gap:18px;justify-content:center"><button class="linkbtn" data-action="ghowto">How to</button>${it.alts&&it.alts.length?`<button class="linkbtn" data-action="xswap" data-g="${it.g}" data-k="${it.k}">Swap</button>`:''}${ph&&pm!=='ready'?`<button class="linkbtn" data-action="gskipall">Skip the rest</button>`:''}</div>`;
-  const ctrls=(paused)=>`<div class="gctrl"><div><button class="ficon gc" data-action="gprev" aria-label="${ph?'Back 15 seconds':'Back'}">${ph?ICON.back15:ICON.prev}</button><div class="cbl">${ph?'Back 15 s':'Back'}</div></div>
-    <div><button class="ficon gc big" data-action="${paused?'gresume':'gpause'}" aria-label="${paused?'Resume':'Pause'}">${paused?ICON.play:ICON.pause}</button><div class="cbl">${paused?'Resume':'Pause'}</div></div>
-    <div><button class="ficon gc" data-action="gskip" aria-label="${ph?'Ahead 15 seconds':'Skip'}">${ph?ICON.fwd15:ICON.next}</button><div class="cbl">${ph?'Ahead 15 s':'Skip'}</div></div></div>`;
+  const paused=G.mode==='paused';
+  const chip=seg0&&seg0.round&&pm!=='ready'?`Round ${seg0.round} of ${seg0.of}`:mmss(gLeftTotal(items,G))+' left';
+  const gtop=fTop(d,slots,eb);
+  const headRow=`<div class="ahead"><h1>${esc(it.t)}</h1><div class="asub"><div class="small muted">${esc(chip)}</div><button class="howbtn" data-action="ghowto">${ICON.play}How to</button></div></div>`;
+  // Same two side buttons on every timer: 15 seconds either way inside a long cardio block, otherwise the previous or next move
+  const fine=ph&&pm==='run';
+  const side=(act,inner,txt,aria)=>`<button class="aside" data-action="${act}" aria-label="${aria}">${inner}<span>${txt}</span></button>`;
+  const back=fine?side('gprev','<b>−</b>','15 s','Back 15 seconds'):side('gprev',ICON.prev,'Back','Back');
+  const fwd=fine?side('gskip','<b>+</b>','15 s','Ahead 15 seconds'):side('gskip',ICON.next,'Skip','Skip');
+  const upTxt=`Up next: <b>${next?esc(next.t):(G.ph==='warm'?'Your first exercise':'All done')}</b>`;
+  const foot=(btn,under)=>`<div class="ffoot"><div class="afoot"><button class="amore" data-action="fmore" aria-label="More: sound, swap, list or skip">${ICON.more}</button>${btn}</div><div class="anext">${under}</div></div>`;
   if(pm==='ready'){
-    const sl = G.mode==='paused' ? Math.ceil(G.left/1000) : left;
+    const sl = paused ? Math.ceil(G.left/1000) : left;
     const setup = (it.k==='foam' ? 'Grab a foam roller. About 30 seconds each spot.' : S.timer ? (S.segs.length>1 && S.gap && /side/i.test(S.gapLabel||'') ? `${it.d}. A beep tells you when to switch sides.` : it.d) : `${it.d}. No timer: tap Done when you finish.`) ;
-    return `<div class="focus fcenter gcompact">${top}${head}
-      <div><div class="eyebrow">Get ready</div><h1>${esc(it.t)}</h1></div>
-      ${gRing(sl,READY,G.mode==='paused'?'paused':'starts in',true,true)}
-      ${ph ? `<div class="tiny muted">The plan. Tap a part to start there.</div>${phaseChips(S,-1)}` : `<section class="card fcue" style="width:100%;text-align:left;padding:12px 14px"><div class="eyebrow">Set up</div><div class="small">${esc(setup)}</div>${it.why?`<div class="small" style="margin-top:6px;color:var(--accent);font-weight:700">Gets you ready for ${esc(it.why)}</div>`:''}</section>`}
-      ${links}
-      <div class="ffoot"><button class="btn primary block fbig" data-action="${G.mode==='paused'?'gresume':'gnow'}">${G.mode==='paused'?'Resume':'Start now'}</button>
-        <div class="tiny muted" style="text-align:center">3 short beeps, then it starts</div></div></div>`;
+    return `<div class="focus">${gtop}${headRow}
+      <section class="card acard"><div class="ach"><b>${paused?'Paused':'Get ready'}</b><span class="goal">${paused?'':'starts in'}</span></div>
+        <div class="atimer">${back}${gRing(sl,READY,'',true)}${fwd}</div>
+        ${ph ? `<div class="anote"><div class="tiny muted">The plan. Tap a part to start there.</div>${phaseChips(S,-1)}</div>` : `<div class="anote"><div>${esc(setup)}</div>${it.why?`<div style="color:var(--accent);font-weight:700">Gets you ready for ${esc(it.why)}</div>`:''}</div>`}</section>
+      ${foot(`<button class="btn primary fbig" data-action="${paused?'gresume':'gnow'}">${paused?'Resume':'Start now'}</button>`,'3 short beeps, then it starts')}</div>`;
   }
   if(pm==='reps'){
     const n=(it.d.match(/^(\d+(?:–\d+)?)\s*(.*)$/)||[]);
-    return `<div class="focus fcenter gcompact">${top}${head}
-      <div><h1>${esc(it.t)}</h1></div>
-      <div class="grep"><span class="num">${esc(n[1]||'')}</span><span class="eyebrow">${esc(n[1]?(n[2]||'reps'):it.d)}</span></div>
-      ${links}${nextTxt}
-      <div class="ffoot"><button class="btn primary block fbig" data-action="gdone">Done</button>
-        <div class="row" style="justify-content:center;gap:16px"><button class="linkbtn tiny" data-action="gprev">Back</button><button class="linkbtn tiny" data-action="gskip">Skip</button></div></div></div>`;
+    return `<div class="focus">${gtop}${headRow}
+      <section class="card acard"><div class="ach"><b>Your pace</b><span class="goal">No timer</span></div>
+        <div class="atimer">${back}<div class="anum">${n[1]?`<span class="num">${esc(n[1])}</span>`:''}<span class="eyebrow">${esc(n[1]?(n[2]||'reps'):it.d)}</span></div>${fwd}</div></section>
+      ${foot(`<button class="btn primary fbig" data-action="gdone">Done</button>`,upTxt)}</div>`;
   }
   // run or gap (or paused during either)
   const seg=S.segs[G.s]||S.segs[0], inGap = pm==='gap';
-  const sl = G.mode==='paused' ? Math.ceil(G.left/1000) : left, tot = Math.max(G.tot || (inGap ? S.gap : seg.sec), sl, 1);
-  const sub = G.mode==='paused' ? 'Paused' : inGap ? (S.gapLabel||'Get ready') : (seg.label||'');
+  const sl = paused ? Math.ceil(G.left/1000) : left, tot = Math.max(G.tot || (inGap ? S.gap : seg.sec), sl, 1);
+  const sub = paused ? 'Paused' : inGap ? (S.gapLabel||'Get ready') : (seg.label||'Go');
   const phase = seg.round ? `<span class="phase ${seg.hard?'hard':''}">${esc(seg.hard?(seg.label.toUpperCase()==='ON'?'GO':'GO HARD'):'EASY')}</span>` : '';
   const after = inGap ? `Next: ${esc(seg.label)}` : (S.segs[G.s+1] ? (S.gap?`Then a beep and ${S.gap} s: ${esc((S.gapLabel||'').toLowerCase())}`:`Next: ${esc(S.segs[G.s+1].label)} · ${mmss(S.segs[G.s+1].sec)}`) : '');
-  const nextLine = next ? `<div class="tiny muted">Up next: <b>${esc(next.t)}</b></div>` : '';
-  return `<div class="focus fcenter gcompact">${top}${head}
-    <div><h1>${esc(it.t)}</h1>${it.d&&!seg.round&&!ph?`<div class="small muted">${esc(it.d)}</div>`:''}</div>
-    ${phase}
-    ${gRing(sl,tot,sub,inGap)}
-    ${ph ? `<div class="ghint">${esc(effortHint(seg.label))}</div>${phaseChips(S,G.s)}` : (after?`<div class="ghint">${after}</div>`:'')}
-    ${ctrls(G.mode==='paused')}
-    ${links}${ph?'':nextLine}</div>`;
+  const tip = ph ? effortHint(seg.label) : (it.d&&!seg.round ? it.d : '');
+  return `<div class="focus">${gtop}${headRow}
+    <section class="card acard"><div class="ach"><b>${esc(cap1(sub))}</b><span class="goal">of ${mmss(tot)}</span></div>
+      ${phase}
+      <div class="atimer">${back}${gRing(sl,tot,'',inGap)}${fwd}</div>
+      ${ph ? `<div class="anote">${phaseChips(S,G.s)}</div>` : (after?`<div class="anote"><div>${after}</div></div>`:'')}</section>
+    ${tip?`<p class="atip"><b>Tip:</b> ${esc(tip)}</p>`:''}
+    ${foot(paused?`<button class="btn primary fbig" data-action="gresume">${ICON.play}Resume</button>`:`<button class="btn primary fbig" data-action="gpause">${ICON.pause}Pause</button>`,upTxt)}</div>`;
 }
 function gAction(a,b){
   const d=state.draft, G=d&&d.guide; if(!d) return false;
@@ -4295,14 +4390,13 @@ function gAction(a,b){
 function renderRamp(d,s,X){
   const ramps=X.warm.filter(x=>x.ramp), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
   const m=(r.d||'').match(/^(.*?) × (\d+)$/);
-  return `<div class="focus">${fTop(d,dSlots())}
-    <div class="row between"><div class="eyebrow">Warm-up set ${k+1} of ${ramps.length}</div><span class="chip">Not logged</span></div>
-    <div class="row" style="align-items:flex-start;flex-wrap:nowrap"><div style="flex:1"><h1>${esc(ex.n)}</h1>${musLine(ex.id)}</div>${musThumb(ex.id)}</div>
-    <section class="card" style="text-align:center"><div class="eyebrow">Lighter set to get ready</div>
-      <div class="ftarget"><span class="num big">${esc(m?m[1]:r.d)}</span>${m?` <span class="num mid">× ${m[2]}</span>`:''}</div>
-      <div class="tiny muted">Easy and smooth. These prepare you for your working sets.</div></section>
-    <section class="card fcue"><div class="eyebrow">Form tip</div><div class="small">${esc(ex.cue)}</div></section>
-    <div class="ffoot"><button class="btn primary block fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button>
+  return `<div class="focus">${fTop(d,dSlots(),`Warm-up set ${k+1} of ${ramps.length}`)}
+    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div></div>
+    <section class="card acard"><div class="ach"><b>Lighter set</b><span class="goal">Not logged</span></div>
+      <div class="ftarget" style="text-align:center"><span class="num big">${esc(m?m[1]:r.d)}</span>${m?` <span class="num mid">× ${m[2]}</span>`:''}</div>
+      <div class="tiny muted" style="text-align:center">Easy and smooth. These prepare you for your working sets.</div></section>
+    <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
+    <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button></div>
       <button class="btn ghost block" data-action="frampskip">Skip warm-up sets</button></div></div>`;
 }
 
@@ -4832,8 +4926,9 @@ function coachActionAllowed(a,b){
 }
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
-  const a=b.dataset.action;
+  let a=b.dataset.action;
   if(AUTH.deleting) return;
+  if(a==='fmoredo'){ closeModal(); a=b.dataset.do; }  // More sheet: close it, then run the chosen action
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
   if(a==='firstworkoutdismiss'){ state.tips.firstWorkout=false; save(); render(); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
