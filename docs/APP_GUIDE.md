@@ -37,6 +37,8 @@ The wizard collects a name, optional age/body weight, gender choice, colors, up 
 - Schedule: two to five fixed weekdays or a flexible number of workouts per week. Session lengths are 30, 45, 60, or 75 minutes; optional cardio after lifting is additional.
 - The first selected place is the main place used to build the plan. Switching places on Today adapts unavailable exercises where a suitable alternative exists; slots may be absent where there is no candidate.
 
+Body-weight entry uses the same range in setup, Settings, and weigh-ins: 40–900 lb (18.14–408.23 kg at display precision). Setup and Settings allow a blank value; weigh-ins require a value. Invalid entries show an error and leave the saved weight intact.
+
 Review the proposed first week, then choose **Looks good, let's go**. **Save and finish later** saves partial setup and provides Continue on Today. New questions can appear later as one-time prompts without a complete setup restart.
 
 ## The five main tabs
@@ -57,6 +59,8 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 4. Rest timers can start after sets; recovery timers can appear between exercises. **Too easy** / **Too heavy** feedback and completed sets influence future targets. Skipped/unchecked sets do not count as completed work for progression.
 5. Use the pause/end control to **Take a break**, **End workout**, or **Discard**. Pausing preserves the draft and adds Resume on Today. Reloading can reopen the draft automatically. End saves completed work. An unfinished session is labeled **Partial**, shows completed/planned sets, and stays available through **Resume remaining sets** on Today, including after a reload. Finishing the remaining sets updates the same history entry. Discard throws away unsaved work after confirmation; an already-saved partial history entry remains.
 6. Complete the cool-down and choose **Finish workout**. At least one checked set with a positive rep/seconds value is required. The summary explains next targets and history receives the session. Only a session with all planned working sets finished counts toward weekly completion; repeating the same workout does not inflate that count. Warm-up/cardio/cool-down are not counted as working sets. Older logs without completion metadata retain their existing completed status. Signed-in users can send a separate coach message from the summary.
+
+Changing the set count with **Adjust** or **+ Set / − Set** updates the current workout’s completion requirement. Completed sets are preserved when reducing the target. Skipping an exercise still leaves its unfinished sets available to resume. Resetting an adjustment restores the default set requirement.
 
 Persistent swaps change the plan from then on. A **today only** substitution or a change caused by another training place is different. Read the sheet before confirming. **Adjust** changes the slot's sets, range, rest, recovery, or working weight. **Reset adjustments** restores the app's default set/rep/rest/recovery targets for that exercise; it does not restore an earlier coach version or change the working weight.
 

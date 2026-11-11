@@ -7,12 +7,12 @@ import { readFileSync, writeFileSync, mkdirSync, cpSync } from 'node:fs';
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(m=>m[1]).find(s=>s.includes('function defaults()')).split('/* ---------------- Boot ---------------- */')[0];
 function harness(){
-  const storage=new Map(), elements=new Map(), timers=new Map(); let nextTimer=0;
+  const storage=new Map(), elements=new Map(), timers=new Map(), handlers=new Map(); let nextTimer=0;
   const element=()=>({style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},innerHTML:'',focus(){}});
   const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,
     location:new URL('http://localhost:8731/'),history:{replaceState(){}},
     navigator:{onLine:true,userAgent:'Test'},matchMedia:()=>({matches:false,addEventListener(){}}),
-    document:{body:{...element(),insertBefore(){}},documentElement:element(),visibilityState:'visible',addEventListener(){},createElement:element,
+    document:{body:{...element(),insertBefore(){}},documentElement:element(),visibilityState:'visible',addEventListener(type,fn){ if(!handlers.has(type)) handlers.set(type,[]); handlers.get(type).push(fn); },createElement:element,
       querySelector(k){if(!elements.has(k))elements.set(k,element());return elements.get(k);},getElementById(k){return this.querySelector('#'+k);}},
     localStorage:{getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v),removeItem:k=>storage.delete(k)},
     window:{addEventListener(){},scrollTo(){},scrollBy(){}},
@@ -24,7 +24,9 @@ function harness(){
   run(`render=()=>{}; modal=html=>{globalThis.lastModal=html;}; toast=text=>{globalThis.lastToast=text;};
     function seed(){state=defaults(); state.setup=null; state.onboarded=true; state.settings.goals=['muscle']; state.settings.days=[1,4]; state.settings.split='ul2'; state.settings.comfort='machines'; state.settings.tstyle='machines'; state.settings.cardio={style:'walk',jog:'none',after:0}; state.places=[{k:'gym',n:'Gym',eq:PLACE_TYPES.gym.eq.split(' ')}]; state.curPlace='gym'; logs=[];newBlock();}
     seed();`);
-  return {run,context,storage,elements,timers};
+  const dispatch=(type,target)=>{ for(const fn of handlers.get(type)||[]) fn({target}); };
+  const click=(action,data={})=>{ const b={dataset:{action,...data}}; b.closest=()=>b; dispatch('click',b); };
+  return {run,context,storage,elements,timers,click,dispatch};
 }
 let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
@@ -133,6 +135,62 @@ await test('no-op sync does not leave a stale in-flight promise',async()=>{
 await test('converted workout and history render without exposing long decimals',()=>{
   const h=harness();h.run(`const ex=sessionSlots(weekKeys()[0])[0].id;state.ex[ex]={w:100,last:[{w:100,r:6}]};changeUnits('kg');startWorkout(weekKeys()[0]);state.draft.rampDone=99;state.draft.step={ph:'ex',pk:dSlots()[0].pk};`);
   assert.match(h.run('renderFocus()'),/45.36/);assert.doesNotMatch(h.run('renderFocus()'),/45.359237/);
+});
+await test('reducing sets with Adjust completes the visible workout after reload',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);const pk=dSlots()[0].pk;const id=dSlots()[0].id;`);
+  h.run(`document.getElementById('adj-sets').value='1';`);h.click('adjsave',{pk:h.run('pk'),id:h.run('id')});
+  assert.equal(h.run('state.draft.planCounts[pk]'),1);
+  h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);
+    for(const rows of Object.values(state.draft.sets))for(const r of rows){r.w='20';r.r='8';r.done=true;}finishWorkout();`);
+  assert.equal(h.run('logs[0].status'),'complete');assert.equal(h.run('state.draft'),null);assert.equal(h.run('weekLogs(weekNum()).length'),1);
+});
+await test('set removal, addition and reset keep completion requirements aligned',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);const pk=dSlots()[0].pk;const id=dSlots()[0].id;const initial=state.draft.sets[pk].length;`);
+  const data={pk:h.run('pk'),id:h.run('id')};h.click('rmset',data);
+  assert.equal(h.run('state.draft.planCounts[pk]'),h.run('initial-1'));
+  h.click('addset',data);assert.equal(h.run('state.draft.planCounts[pk]'),h.run('initial'));
+  h.run(`document.getElementById('adj-sets').value='1';`);h.click('adjsave',data);h.click('adjreset',data);
+  assert.equal(h.run('state.draft.planCounts[pk]'),h.run('initial'));
+  assert.equal(h.run('state.draft.sets[pk].length'),h.run('initial'));
+});
+await test('reducing sets preserves completed rows and skipping still leaves partial work',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);const pk=dSlots()[0].pk;const id=dSlots()[0].id;const initial=state.draft.sets[pk].length;
+    state.draft.sets[pk].forEach(r=>Object.assign(r,{w:'20',r:'8',done:true}));document.getElementById('adj-sets').value='1';`);
+  const data={pk:h.run('pk'),id:h.run('id')};h.click('adjsave',data);h.click('rmset',data);
+  assert.equal(h.run('state.draft.sets[pk].length'),h.run('initial'));
+  assert.equal(h.run('state.draft.planCounts[pk]'),h.run('initial'));
+  h.run(`const skip=dSlots()[1].pk;`);h.click('fskipyes',{pk:h.run('skip')});
+  assert.ok(h.run('state.draft.planCounts[skip]')>0);h.run('finishWorkout()');assert.equal(h.run('logs[0].status'),'partial');
+  h.run('resumePartial()');assert.equal(h.run('state.draft.sets[skip].length'),h.run('state.draft.planCounts[skip]'));
+});
+await test('week order and exercise order resets are independent',()=>{
+  const h=harness();h.run(`const original=weekKeys().join();const key=weekKeys()[0];const originalExercises=sessionSlots(key).map(s=>s.pk).join();`);
+  h.click('ordmove',{i:'0',d:'1'});const changed=h.run('weekKeys().join()');assert.notEqual(changed,h.run('original'));
+  h.click('ordmv',{key:h.run('key'),pk:h.run('sessionSlots(key)[0].pk'),dir:'1'});
+  assert.notEqual(h.run('sessionSlots(key).map(s=>s.pk).join()'),h.run('originalExercises'));
+  h.click('weekordreset');assert.equal(h.run('weekKeys().join()'),h.run('original'));assert.ok(h.run('state.order[key]'));
+  h.click('ordreset',{key:h.run('key')});assert.equal(h.run('sessionSlots(key).map(s=>s.pk).join()'),h.run('originalExercises'));
+});
+await test('body weight has the same unit-aware limits and optional blank behavior',()=>{
+  const h=harness();
+  for(const unit of ['lb','kg'])for(const pounds of [40,99,180,900]){
+    const value=h.run(`weightNumber(convertWeight(${pounds},'lb','${unit}'))`);
+    assert.equal(h.run(`readBodyWeight('${value}','${unit}').ok`),true);
+  }
+  for(const value of ['', 'no', '-45', '45kg', '0', '9999', 'NaN'])assert.equal(h.run(`readBodyWeight(${JSON.stringify(value)},'kg').ok`),false);
+  assert.equal(h.run("readBodyWeight('','kg',true).value"),null);
+  h.run(`changeUnits('kg');state.settings.bw=60;document.getElementById('set-bw').value='45';`);
+  h.dispatch('change',{id:'set-bw',value:'45',dataset:{}});assert.equal(h.run('state.settings.bw'),45);
+  h.dispatch('change',{id:'set-bw',value:'900',dataset:{}});assert.equal(h.run('state.settings.bw'),45);assert.match(h.run('lastToast'),/Enter a body weight/);
+  h.run(`document.getElementById('wi-w').value='45';`);h.click('weighsave');assert.equal(h.run('state.weigh.list[0].w'),45);
+  h.run(`document.getElementById('wi-w').value='900';`);h.click('weighsave');assert.equal(h.run('state.weigh.list.length'),1);
+});
+await test('setup rejects invalid body weight without losing the existing profile',()=>{
+  const h=harness();h.run(`state.settings.bw=180;startSetup(true);state.setup.a.units='kg';state.setup.a.bw='900';`);
+  h.click('sunext');assert.equal(h.run('state.setup.step'),'about');assert.equal(h.run('state.settings.bw'),180);
+  h.click('sulater');assert.notEqual(h.run('state.setup.paused'),true);
+  h.run(`state.setup.a.bw='45';`);h.click('sunext');assert.notEqual(h.run('state.setup.step'),'about');
+  h.run(`applySetup(state.setup.a);`);assert.equal(h.run('state.settings.bw'),45);
 });
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){

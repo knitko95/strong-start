@@ -53,6 +53,8 @@ Thirteen splits support two to five workouts weekly. Base `push`, `pull`, `legsA
 
 Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targets use prior sets, rep ranges, experience, and easy/hard feedback. Equipment uses different load ladders/increments. Introductory weeks reduce sets, with an age-dependent extension for beginners. `finishWorkout()` counts checked positive-rep/seconds sets against per-slot `draft.planCounts` (plus any extra sets). Logs record `status`, `completed`, `planned`, `units`, and `updatedAt`. Partial sessions retain a paused draft and log ID; resume restores skipped/unfinished rows. Finishing replaces the same log. Per-exercise `progressBefore` snapshots and comparison with prior entries prevent double-applying progression on repeated saves. Complete sessions clear the draft. Weekly completion excludes partials and deduplicates workout keys; legacy logs remain complete because their original whole-session counts are unavailable. Coach activity totals count logged sessions, including partial effort.
 
+Deliberate set edits update `draft.planCounts` to the retained rows, including any completed sets that cannot be removed. Skips preserve the requirement so resume restores unfinished work. Week-order reset uses a distinct action from exercise-order reset. Body-weight validation shares one parser and converted bounds across setup, profile edits, and weigh-ins; an invalid entry never clears the saved profile weight. These changes retain the existing JSON schema and need no database migration.
+
 ## Local state and sync
 
 | Item | Meaning |

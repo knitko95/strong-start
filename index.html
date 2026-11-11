@@ -1604,6 +1604,21 @@ function changeUnits(unit){
   state.weightUnits=unit; state.settings.units=unit;
 }
 function weightNumber(w){ return w==null||w===''?w:+(+w).toFixed(2); }
+// Use the existing weigh-in range consistently, converted to the selected unit.
+function bodyWeightRange(unit){ return [40,900].map(w=>weightNumber(convertWeight(w,'lb',unit))); }
+function readBodyWeight(value,unit,optional=false){
+  const text=String(value??'').trim(), [min,max]=bodyWeightRange(unit), n=Number(text);
+  if(!text && optional) return {ok:true,value:null};
+  if(!text || !/^\d+(?:\.\d+)?$/.test(text) || !Number.isFinite(n) || weightNumber(n)<min || weightNumber(n)>max)
+    return {ok:false,error:`Enter a body weight from ${min} to ${max} ${unit}.${optional?' You can also leave it blank.':''}`};
+  return {ok:true,value:n};
+}
+function checkBodyWeight(value,unit,id,optional=false){
+  const result=readBodyWeight(value,unit,optional), el=document.getElementById(id);
+  if(el) el.setAttribute('aria-invalid',String(!result.ok));
+  if(!result.ok){ toast(result.error); if(el) el.focus(); }
+  return result;
+}
 function fmtW(w){ return w==null||w===''?'—':`${+(+w).toFixed(2)} ${state.settings.units}`; }
 
 /* ---------------- Week helpers ---------------- */
@@ -2356,6 +2371,11 @@ function ringsCard(w, keys, wl, o){
     </div>
   </section>`;
 }
+// Deliberate set edits change the requirement; skipping keeps unfinished work.
+function updateDraftSetCount(pk){
+  const d=state.draft; if(!d || !d.sets[pk]) return;
+  d.planCounts=d.planCounts||{}; d.planCounts[pk]=d.sets[pk].length;
+}
 function workoutCompletion(d){
   let completed=0, planned=0;
   const keys=new Set([...Object.keys(d.planCounts||{}),...Object.keys(d.sets||{})]);
@@ -2666,10 +2686,11 @@ function renderSetup(){
 }
 function suReadInputs(){
   const a=state.setup.a, g=id=>{ const el=document.getElementById(id); return el?el.value:null; };
-  if(g('su-name')!=null) a.name=g('su-name'); if(g('su-age')!=null) a.age=g('su-age').replace(/[^0-9]/g,''); if(g('su-bw')!=null) a.bw=g('su-bw').replace(/[^0-9.]/g,'');
+  if(g('su-name')!=null) a.name=g('su-name'); if(g('su-age')!=null) a.age=g('su-age').replace(/[^0-9]/g,''); if(g('su-bw')!=null) a.bw=g('su-bw').trim();
 }
 function setupAction(act, b){
   const su=state.setup, a=su.a; suReadInputs();
+  if(['sunext','sulater','supickdone'].includes(act) && !checkBodyWeight(a.bw,a.units||'lb','su-bw',true).ok) return;
   const steps=setupSteps(a), i=steps.indexOf(su.step);
   const go=k=>{ su.step=k; su.pick=false; save(); render(); window.scrollTo(0,0); };
   switch(act){
@@ -3850,7 +3871,7 @@ function weekOrderCard(){
     <div class="stack" style="gap:6px">${keys.map((k,i)=>`<div class="ordrow"><span class="ordday">${isFlex()?i+1:DAYN[trainDays()[i%trainDays().length]]}</span><span style="flex:1"><b>${esc(tplOf(k).name)}</b><br><span class="tiny muted">${esc(tplOf(k).focus)}</span></span>
       <button class="ordbtn" data-action="ordmove" data-i="${i}" data-d="-1" aria-label="Move ${esc(tplOf(k).name)} earlier" ${i===0?'disabled':''}>▲</button><button class="ordbtn" data-action="ordmove" data-i="${i}" data-d="1" aria-label="Move ${esc(tplOf(k).name)} later" ${i===keys.length-1?'disabled':''}>▼</button></div>`).join('')}</div>
     ${cl.length?`<div class="health" style="font-size:13px"><b>Heads up:</b> ${cl.map(([a,b])=>`${esc(tplOf(a).name)} and ${esc(tplOf(b).name)}`).join('; ')} work the same muscles on back-to-back days. That’s OK, but those muscles get less rest.</div>`:''}
-    ${custom?`<button class="link" style="align-self:flex-start" data-action="ordreset">Back to the recommended order</button>`:''}`;
+    ${custom?`<button class="link" style="align-self:flex-start" data-action="weekordreset">Back to the recommended order</button>`:''}`;
 }
 // Collapsible Settings section: tap the header to open or close it
 function sec(id,title,summary,body){
@@ -4081,6 +4102,7 @@ function resetRows(pk){
   const d=state.draft; if(!d||!d.sets[pk]) return;
   const slot=dSlots().find(x=>x.pk===pk); if(!slot) return; const tg=target(slot);
   d.sets[pk]=Array.from({length:tg.sets},()=>({w:defW(tg),r:'',done:false}));
+  updateDraftSetCount(pk);
   d.planned=d.planned||{}; d.planned[pk]=usesLoad(tg.ex)?(tg.w ?? tg.sug ?? null):null; if(d.feel) d.feel[pk]=null;
 }
 function adjustSheet(pk){
@@ -4209,8 +4231,8 @@ document.addEventListener('click', e=>{
           toast(ch?`Next sets: ${fmtW(nw)}. Rate it again after your next set.`:`Noted. Next time: ${fmtW(nw)}`); } }
       save(); render(); break; }
     case 'leveldismiss': state.levelDismiss=`${state.block.n}-${weekNum()}`; save(); render(); break;
-    case 'addset': { const arr=state.draft.sets[b.dataset.pk]; const last=arr[arr.length-1]||{w:''}; arr.push({w:last.w,r:'',done:false}); save(); render(); break; }
-    case 'rmset': { const arr=state.draft.sets[b.dataset.pk]; if(arr.length>1) arr.pop(); save(); render(); break; }
+    case 'addset': { const arr=state.draft.sets[b.dataset.pk]; const last=arr[arr.length-1]||{w:''}; arr.push({w:last.w,r:'',done:false}); updateDraftSetCount(b.dataset.pk); save(); render(); break; }
+    case 'rmset': { const arr=state.draft.sets[b.dataset.pk]; if(arr.length>1 && !arr[arr.length-1].done){ arr.pop(); updateDraftSetCount(b.dataset.pk); } save(); render(); break; }
     case 'rest': startRest(+b.dataset.sec,{label:'Rest'}); break;
     case 'tadd': if(ui.timer){ ui.timer.end+= +b.dataset.sec*1000; if(state.draft&&state.draft.step&&state.draft.step.tEnd) state.draft.step.tEnd=ui.timer.end; ui.timer.total=Math.max(ui.timer.total,Math.ceil((ui.timer.end-Date.now())/1000)); tick(); } break;
     case 'tskip': ui.timer=null; clearInterval(timerInt); renderTimer(); break;
@@ -4248,12 +4270,14 @@ document.addEventListener('click', e=>{
       if(d && d.sets[pk]){ const slot=dSlots().find(x=>x.pk===pk), tg=target(slot), arr=d.sets[pk];
         while(arr.length<tg.sets) arr.push({w:defW(tg),r:'',done:false});
         while(arr.length>tg.sets && !arr[arr.length-1].done) arr.pop();
+        updateDraftSetCount(pk);
         if(w!=null) arr.forEach(x=>{ if(!x.done) x.w=String(w); }); }
       save(); closeModal(); render(); toast('Adjusted'); break; }
     case 'adjreset': { const pk=b.dataset.pk; delete state.adj[pk]; const d=state.draft;
       if(d && d.sets[pk]){ const tg=target(dSlots().find(x=>x.pk===pk)), arr=d.sets[pk];
         while(arr.length<tg.sets) arr.push({w:defW(tg),r:'',done:false});
-        while(arr.length>tg.sets && !arr[arr.length-1].done) arr.pop(); }
+        while(arr.length>tg.sets && !arr[arr.length-1].done) arr.pop();
+        updateDraftSetCount(pk); }
       save(); closeModal(); render(); toast('Adjustments reset to app defaults'); break; }
     case 'doswap': { const pk=b.dataset.pk; state.block.plan[pk]=b.dataset.id;
       if(state.draft && state.draft.sets[pk]){ if(state.draft.subs) delete state.draft.subs[pk]; resetRows(pk); }
@@ -4266,7 +4290,7 @@ document.addEventListener('click', e=>{
     case 'opensched': ui.tab='settings'; ui.open=ui.open||{}; ui.open.schedule=true; render(); setTimeout(()=>{ const el=document.querySelector('.days'); el&&el.scrollIntoView({block:'center'}); },30); break;
     case 'ordmove': { const id=splitId(), keys=weekKeys().slice(), i=+b.dataset.i, j=i+(+b.dataset.d); if(j<0||j>=keys.length) return;
       [keys[i],keys[j]]=[keys[j],keys[i]]; state.settings.order=state.settings.order||{}; state.settings.order[id]=keys; save(); render(); break; }
-    case 'ordreset': { if(state.settings.order) delete state.settings.order[splitId()]; save(); render(); toast('Back to the recommended order'); break; }
+    case 'weekordreset': { if(state.settings.order) delete state.settings.order[splitId()]; save(); render(); toast('Back to the recommended order'); break; }
     case 'setsplit': { if(state.draft){ toast('Finish or discard your current workout first'); return; } state.settings.split=b.dataset.v; save(); render(); toast(`Split: ${SPLITS[b.dataset.v].label}`); break; }
     case 'setflex': state.settings.flex = b.dataset.v==='1'; if(state.settings.flex && !state.settings.nDays) state.settings.nDays=Math.max(2,Math.min(5,(state.settings.days||[]).length||3)); save(); render(); break;
     case 'setndays': state.settings.nDays=+b.dataset.v; save(); render(); break;
@@ -4287,7 +4311,7 @@ document.addEventListener('click', e=>{
       else if(v==='much'){ for(const id of Object.keys(state.ex)){ const st=state.ex[id]; if(st.w!=null && EX[id]) st.w=prevLoad(EX[id],+st.w); } state.easeUntil=weekNum(); toast('Weights eased back a step, and 2 sets each this week.'); }
       else toast('Great. Keep it up!');
       save(); render(); break; }
-    case 'weighsave': { const v=parseFloat(($('#wi-w')||{}).value); if(!isFinite(v)||v<40||v>900){ toast('Enter your weight'); return; }
+    case 'weighsave': { const result=checkBodyWeight(($('#wi-w')||{}).value,state.settings.units,'wi-w'); if(!result.ok) return; const v=result.value;
       const today=dayStart(new Date()).toISOString(); state.weigh.list=state.weigh.list.filter(x=>x.d!==today); state.weigh.list.push({d:today,w:v}); state.weigh.list.sort((x,y)=>x.d<y.d?-1:1);
       state.settings.bw=v; save(); render(); toast('Saved'); break; }
     case 'weighdel': state.weigh.list=state.weigh.list.filter(x=>x.d!==b.dataset.d); save(); render(); break;
@@ -4329,7 +4353,7 @@ document.addEventListener('change', e=>{
   if(t.id==='wi-hide'){ state.weigh.hide=t.checked; save(); render(); return; }
   if(t.id==='libeasy'){ ui.libEasy=t.checked; render(); return; }
   if(t.id==='set-name'){ state.settings.name=t.value.trim().slice(0,30); save(); render(); return; }
-  if(t.id==='set-bw'){ const v=parseFloat(t.value); state.settings.bw = isFinite(v)&&v>50&&v<700 ? v : null; save(); render(); toast(state.settings.bw?'Saved. New exercises use this for starting weights.':'Cleared'); return; }
+  if(t.id==='set-bw'){ const result=checkBodyWeight(t.value,state.settings.units,'set-bw',true); if(!result.ok) return; state.settings.bw=result.value; save(); render(); toast(state.settings.bw?'Saved. New exercises use this for starting weights.':'Cleared'); return; }
   if(t.id==='libeq'){ ui.libEq=t.value; render(); }
   if(t.id==='libbody'){ ui.libBody=t.value; render(); }
   if(t.id==='libmove'){ ui.libMove=t.value; render(); }
