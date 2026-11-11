@@ -3522,7 +3522,7 @@ function gStart(ph){
   d.guide={ph, i:0, s:0, mode:'ready', end:Date.now()+READY*1000, fin: ph==='cool' && X.finisher ? null : 'no'};
   if(ph==='cool' && X.finisher) d.guide.mode='finq';
 }
-function beepShort(){ try{ if(!audioCtx || state.settings.sound===false) return; const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.frequency.value=660; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(.18,audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.15); o.start(); o.stop(audioCtx.currentTime+.16);}catch(e){} }
+function beepShort(){ tone(660,.18,.15); }
 function buzz(p){ try{ navigator.vibrate&&navigator.vibrate(p); }catch(e){} }
 function gNextItem(markDone){
   const d=state.draft, G=d.guide, items=gItems(G.ph), it=items[G.i];
@@ -3803,7 +3803,7 @@ function renderGuide(){
 }
 function gAction(a,b){
   const d=state.draft, G=d&&d.guide; if(!d) return false;
-  try{ audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){}
+  unlockAudio();
   switch(a){
     case 'gcfeel': cardioFeel(b.dataset.v); gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
     case 'gcmin': d.cmin=+b.dataset.v; d._x=null; save(); render(); return true;
@@ -4113,6 +4113,29 @@ function migrate(st){
 
 /* ---------------- Timer ---------------- */
 let timerInt=null, audioCtx=null;
+// Phones only let sound start from a tap, and pause it again after a lock, call, headphone change or app switch.
+// Every tap re-arms the sound, so a timer that ends later (or was restored after a reload) can still beep.
+function unlockAudio(){
+  try{
+    const AC=window.AudioContext||window.webkitAudioContext; if(!AC) return;
+    if(audioCtx && audioCtx.state==='closed') audioCtx=null;
+    const fresh=!audioCtx; if(fresh) audioCtx=new AC();
+    const asleep=audioCtx.state!=='running';
+    if(asleep){ const p=audioCtx.resume(); if(p&&p.catch) p.catch(()=>{}); }
+    if(fresh||asleep){ const s=audioCtx.createBufferSource(); s.buffer=audioCtx.createBuffer(1,1,22050); s.connect(audioCtx.destination); s.start(0); }
+  }catch(e){}
+}
+['pointerdown','touchend','click','keydown'].forEach(t=>document.addEventListener(t,unlockAudio,{capture:true,passive:true}));
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && audioCtx) unlockAudio(); });
+function tone(freq,vol,dur){
+  try{
+    if(!audioCtx || state.settings.sound===false) return;
+    const play=()=>{ try{ const o=audioCtx.createOscillator(), g=audioCtx.createGain(), t=audioCtx.currentTime; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur); o.start(t); o.stop(t+dur+.01); }catch(e){} };
+    if(audioCtx.state==='running') return play();
+    // Paused by the phone: try to wake it, but drop the beep if that takes too long to still be useful.
+    const asked=Date.now(), p=audioCtx.resume(); if(p&&p.then) p.then(()=>{ if(Date.now()-asked<1500) play(); }).catch(()=>{});
+  }catch(e){}
+}
 const RECOVER_TIPS = {
   jump:'Walk slowly and breathe through your nose. Stay loose and springy.',
   squat:'Walk a lap and shake out your legs. Easy standing quad pull, 20 s per side.',
@@ -4147,12 +4170,12 @@ function recovery(slot){
   return {sec, tip:RECOVER_TIPS[c.s]||'Walk and breathe.'};
 }
 function startRest(sec, info={}){
-  try{ audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)(); }catch(e){}
+  unlockAudio();
   if(!sec) return;
   ui.timer={end:Date.now()+sec*1000,total:sec,label:info.label||'Rest',tip:info.tip||'',next:info.next||''};
   clearInterval(timerInt); timerInt=setInterval(tick,500); renderTimer();
 }
-function beep(){ try{ if(!audioCtx || state.settings.sound===false) return; const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.frequency.value=880; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(.2,audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+.6); o.start(); o.stop(audioCtx.currentTime+.6);}catch(e){} }
+function beep(){ tone(880,.2,.6); }
 function tick(){
   if(!ui.timer) return;
   const left=Math.ceil((ui.timer.end-Date.now())/1000);
