@@ -24,3 +24,4 @@ writeFileSync(path.join(out, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow
 writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');
+await import('./test-persistence.mjs');

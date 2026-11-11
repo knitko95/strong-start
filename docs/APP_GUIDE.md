@@ -53,8 +53,8 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 2. Choose **Start workout**. Follow the timed warm-up, then the exercise flow. A list view and workout-list menu let you navigate between session parts.
 3. Enter actual weights and reps (or seconds), then mark a set done. Weight defaults are suggestions. Per-side and added-weight labels matter; follow the displayed instructions.
 4. Rest timers can start after sets; recovery timers can appear between exercises. **Too easy** / **Too heavy** feedback and completed sets influence future targets. Skipped/unchecked sets do not count as completed work for progression.
-5. Use the pause/end control to **Take a break**, **End workout**, or **Discard**. Pausing preserves the draft and adds Resume on Today. Reloading can reopen the draft automatically. End can save completed work; Discard throws away the session after confirmation.
-6. Complete the cool-down and choose **Finish workout**. At least one checked set with a positive rep/seconds value is required. The summary explains next targets and history receives the session. Signed-in users can send a separate coach message from the summary.
+5. Use the pause/end control to **Take a break**, **End workout**, or **Discard**. Pausing preserves the draft and adds Resume on Today. Reloading can reopen the draft automatically. End saves completed work. An unfinished session is labeled **Partial**, shows completed/planned sets, and stays available through **Resume remaining sets** on Today, including after a reload. Finishing the remaining sets updates the same history entry. Discard throws away unsaved work after confirmation; an already-saved partial history entry remains.
+6. Complete the cool-down and choose **Finish workout**. At least one checked set with a positive rep/seconds value is required. The summary explains next targets and history receives the session. Only a session with all planned working sets finished counts toward weekly completion; repeating the same workout does not inflate that count. Warm-up/cardio/cool-down are not counted as working sets. Older logs without completion metadata retain their existing completed status. Signed-in users can send a separate coach message from the summary.
 
 Persistent swaps change the plan from then on. A **today only** substitution or a change caused by another training place is different. Read the sheet before confirming. **Adjust** changes the slot's sets, range, rest, recovery, or working weight; reset returns to the plan defaults.
 
@@ -68,15 +68,15 @@ Weekly weigh-ins are optional and can show a trend while hiding the number. A sa
 
 ## Saving, changing devices, and backups
 
-The app saves a browser copy and, when signed in/connected, syncs to Supabase. The status indicator distinguishes account-saved, saving, offline, and local-device states; its hover/title text is more specific than the word **Saved** alone. Coach messages, invites, and other network actions are not a durable offline outbox.
+The app saves a browser copy and, when signed in/connected, syncs to Supabase. The tappable indicator appears in the app header and during workouts: **Saved on device**, **Sync pending**, **Syncing…**, **Synced**, **Sync failed**, or **Device save failed**. Tap for an explanation and **Retry sync** when signed in. A device save is separate from account sync; a storage failure requires keeping the page open and copying a backup. Coach messages, invites, and other network actions are not a durable offline outbox.
 
 Sign in to the same account on another device to retrieve its data. Avoid editing the same account on multiple devices at once: state reconciliation chooses a whole document by timestamps, rather than merging each changed field. Cached workout logs merge by ID.
 
 Use **Settings > Backup > Copy backup** to keep a personal copy. **Restore my backup** replaces state/logs after confirmation; in a signed-in app, the restored contents may upload and remove cloud logs missing from the backup. Back up first and use only the intended person's data. Do not paste a real backup into a public issue or repository.
 
-Changing lb/kg currently changes labels/future calculations without converting stored weights. The app asks the person to re-enter weights in the new unit. Choose the intended unit at setup; switching later requires care when interpreting old history.
+Changing lb/kg converts working weights, previous sets, historical set/planned weights, body weight, weigh-ins, and active/saved drafts. Display values are rounded to two decimals; stored conversion values retain more precision. Version 6 records units explicitly. Legacy values are assumed to use their saved profile unit: incorrect unit switches made before this fix cannot be reconstructed automatically. Historical free-text progression notes retain their original explicitly written units.
 
-Before signing out, wait for account saving to finish and retain a backup if sync problems remain. Signing out clears the cached plan/history from that browser. It does not delete the account.
+Sign-out flushes queued and in-flight changes before clearing the local cache. If syncing fails, sign-out stops and the device copy is retained; retry sync and keep a backup if problems remain. Signing out clears the cached plan/history from that browser. It does not delete the account.
 
 ## Feedback and coach tools
 

@@ -57,7 +57,7 @@ h1{font-size:30px} h2{font-size:24px} h3{font-size:20px}
 .top .wrap{padding-bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
 .brand{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
 .brand b{color:var(--accent)}
-.sync{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.sync{font:inherit;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;background:none;border:0;padding:8px 0;cursor:pointer;text-align:left}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
 .dot.ok{background:var(--good)} .dot.warn{background:var(--warn)}
 main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
@@ -531,7 +531,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><div class="sync" id="sync" title="Saved on this device"><span class="dot ok"></span><span>Saved</span></div><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header>
+<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><button class="sync" id="sync" data-action="syncdetails" title="View save details"><span class="dot"></span><span>Checking saves…</span></button><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header>
 <div class="wrap"><main id="app"></main></div>
 <div id="timer"></div>
 <nav class="tabs" aria-label="Sections"><div class="in" id="tabs"></div></nav>
@@ -1378,7 +1378,7 @@ let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', li
 
 function dayStart(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
 function defaults(){
-  return {v:5, settings:{units:'lb', days:[1,3,5], mins:45, bw:null, name:'', age:null, gender:'', color:'blush', goals:[], level:'start', comfort:'machines', pain:[]},
+  return {v:6, weightUnits:'lb', settings:{units:'lb', days:[1,3,5], mins:45, bw:null, name:'', age:null, gender:'', color:'blush', goals:[], level:'start', comfort:'machines', pain:[]},
     places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, weekModes:{}, draft:null, levelDismiss:null,
     weigh:{on:false, day:1, hide:false, list:[]}, coach:{note:''}, checkin:null, easeExtra:0, updatedAt:0};
 }
@@ -1390,6 +1390,7 @@ let storageOk=true;
 function persistLocal(){
   if(typeof coachMode!=='undefined' && coachMode) return;
   try{ localStorage.setItem(LS, JSON.stringify({state, logs})); storageOk=true; }catch(e){ storageOk=false; }
+  setSync();
 }
 
 /* ---------------- Plan ---------------- */
@@ -1551,13 +1552,55 @@ function applyProgression(slot, done, feel){
   state.ex[slot.id]=st;
   return msg;
 }
+// Numeric weights carry an explicit unit at state/log boundaries. Legacy values use
+// the saved profile unit; switches made before v6 cannot be reconstructed reliably.
+function convertWeight(value, from, to){
+  if(value==null || value==='' || from===to || !Number.isFinite(+value)) return value;
+  const n=+(+value*(from==='lb'?0.45359237:1/0.45359237)).toFixed(8);
+  return typeof value==='string'?String(n):n;
+}
+function convertRows(rows,from,to){ (rows||[]).forEach(r=>{ r.w=convertWeight(r.w,from,to); }); }
+function convertProgress(ex,from,to){ Object.values(ex||{}).forEach(e=>{ if(!e) return; e.w=convertWeight(e.w,from,to); convertRows(e.last,from,to); }); }
+function convertDraft(d,from,to){
+  if(!d) return;
+  Object.values(d.sets||{}).forEach(rows=>convertRows(rows,from,to));
+  Object.keys(d.planned||{}).forEach(k=>{ d.planned[k]=convertWeight(d.planned[k],from,to); });
+  convertProgress(d.progressBefore,from,to);
+}
+function normalizeLogs(items,unit,legacyUnit=unit){
+  for(const l of items){
+    if(!l.id) l.id='log-'+(Date.parse(l.date)||Date.now());
+    const from=l.units||legacyUnit;
+    for(const e of l.entries||[]){ convertRows(e.sets,from,unit); e.planned=convertWeight(e.planned,from,unit); }
+    l.units=unit;
+    // Old logs don't contain the original whole-session set count. Preserve them.
+    if(!l.status) l.status='complete';
+  }
+  return items;
+}
+function changeUnits(unit){
+  if(!['lb','kg'].includes(unit)) return;
+  const from=state.weightUnits||state.settings.units||'lb';
+  normalizeLogs(logs,unit,from);
+  state.settings.bw=convertWeight(state.settings.bw,from,unit);
+  convertProgress(state.ex,from,unit);
+  convertRows(state.weigh&&state.weigh.list,from,unit);
+  convertDraft(state.draft,from,unit);
+  convertDraft(state.prevBlock&&state.prevBlock.draft,from,unit);
+  if(state.setup&&state.setup.a){ const a=state.setup.a; a.bw=convertWeight(a.bw,a.units||from,unit); a.units=unit; }
+  state.weightUnits=unit; state.settings.units=unit;
+}
+function weightNumber(w){ return w==null||w===''?w:+(+w).toFixed(2); }
 function fmtW(w){ return w==null||w===''?'—':`${+(+w).toFixed(2)} ${state.settings.units}`; }
 
 /* ---------------- Week helpers ---------------- */
 function weekNum(){ if(!state.block) return 1; const s=new Date(state.block.start); return Math.floor(Math.round((dayStart(new Date())-dayStart(s))/864e5)/7)+1; }
 function weekMode(){ return splitN(); }
 function rirFor(w){ const L=RIR[PROGRAM.blockLen]||RIR[5]; return L[Math.min(w,L.length)-1]; }
-function weekLogs(w){ return logs.filter(l=>l.block===state.block.n && l.week===w); }
+function weekLogs(w){
+  const done=logs.filter(l=>l.block===state.block.n && l.week===w && l.status!=='partial');
+  return done.filter((l,i)=>done.findIndex(x=>x.key===l.key)===i);
+}
 function estMinutes(key){ return Math.round(liftSec(sessionSlots(key))/60); }
 // Real start-to-finish: warm-up + lifting + cool-down (optional cardio after is shown separately)
 function coolFit(slots){ const B=budget(), short=(B.lift*60-liftSec(slots))/60; const ew=short>=3?Math.min(2,Math.floor(short/3)):0, es=short>=4?Math.min(3,Math.floor((short-ew)/1.5)):0;
@@ -1569,7 +1612,7 @@ function lenText(key){ const a=afterMin(); return `~${totalMinutes(key)} min${a>
 /* ---------------- Saving (this browser only) ---------------- */
 let remote={status:'local'};   // replaced by the cloud block below
 let coachMode=null;   // {own:{state,logs}, name} while viewing someone else's app; nothing is saved then
-function save(){ state.updatedAt = Date.now(); if(coachMode) return; persistLocal(); queueCloud(); }
+function save(){ state.updatedAt = Math.max(Date.now(),(state.updatedAt||0)+1); if(coachMode) return; persistLocal(); queueCloud(); }
 function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
 /* ---------------- Accounts (Supabase) ----------------
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
@@ -1586,17 +1629,37 @@ function parseInvite(v){ v=String(v||'').trim(); const m=v.match(/invite=([A-Za-
 (function(){ try{ const q=new URLSearchParams(location.search), c=parseInvite(q.get('invite')); if(q.has('invite')){ if(c) lsSet(INVITE_KEY,c); q.delete('invite'); const qs=q.toString(); history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash); } }catch(e){} })();
 const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
-const CLOUD={ok:false, busy:false, again:false, t:null, written:{}, stateJson:null, name:undefined};
+const CLOUD={ok:false, busy:false, again:false, pending:false, failed:false, t:null, flight:null, written:{}, stateJson:null, name:undefined};
 function lsGet(k){ try{ return localStorage.getItem(storageKey(k)); }catch(e){ return null; } }
 function lsSet(k,v){ try{ const key=storageKey(k); v==null?localStorage.removeItem(key):localStorage.setItem(key,v); }catch(e){} }
 function rememberedAcct(){ try{ return JSON.parse(lsGet(ACCT_KEY)||'null'); }catch(e){ return null; } }
 function localOnly(){ return lsGet(LOCAL_ONLY_KEY)==='1'; }
 function needsAuth(){ return !!sb && !AUTH.user && !rememberedAcct() && !localOnly() && !coachMode; }
 function withTimeout(p,ms){ return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),ms))]); }
-function setSync(kind){
-  const el=document.getElementById('sync'); if(!el) return;
-  const m={ cloud:['ok','Saved','Saved to your account'], saving:['','Saving…','Saving'], local:['ok','Saved','Saved on this device'], off:['warn','Offline','Saved on this phone · syncs when online'], coach:['warn','Their app','Their app · not saved'] }[kind]||['ok','Saved','Saved on this device'];
-  el.title=m[2]; el.innerHTML=`<span class="dot ${m[0]}"></span><span>${m[1]}</span>`;
+function saveStatus(){
+  if(coachMode) return ['warn','Coach preview','Changes here are not saved until you send a plan update.'];
+  if(!storageOk) return ['warn','Device save failed','This browser could not save your latest changes. Keep this page open and copy a backup from Settings.'];
+  const account=AUTH.user||rememberedAcct();
+  if(!account) return ['ok','Saved on device','Saved in this browser only. It is not synced to an account.'];
+  if(!sb || !AUTH.user) return ['warn','Sync unavailable','Saved on this device. Reconnect or sign in to sync your account.'];
+  if(CLOUD.busy) return ['','Syncing…','Saved on this device. Sending changes to your account.'];
+  if(navigator.onLine===false) return ['warn','Sync pending','Saved on this device. Account sync will retry when you are online.'];
+  if(CLOUD.failed) return ['warn','Sync failed','Saved on this device. Account sync failed. Tap Retry sync to try again.'];
+  if(CLOUD.pending) return ['warn','Sync pending','Saved on this device. Waiting to send your latest changes.'];
+  if(!CLOUD.ok) return ['','Checking sync…','Saved on this device. Checking your account before syncing.'];
+  return ['ok','Synced','Your latest changes are saved on this device and to your account.'];
+}
+function setSync(){
+  const m=saveStatus();
+  for(const id of ['sync','workout-sync']){
+    const el=document.getElementById(id); if(!el) continue;
+    el.title=m[2]; el.setAttribute('aria-label',m[1]+'. View save details');
+    el.innerHTML=`<span class="dot ${m[0]}"></span><span aria-live="polite">${m[1]}</span>`;
+  }
+}
+function syncDetails(){
+  const m=saveStatus();
+  modal(`<h2>${esc(m[1])}</h2><p class="small" style="margin:0">${esc(m[2])}</p><div class="row">${AUTH.user&&!coachMode?'<button class="btn primary" data-action="syncretry">Retry sync</button>':''}<button class="btn" data-action="closemodal">Close</button></div>`);
 }
 const substantive = (st,lg) => !!(st && (st.onboarded || st.block)) || (lg && lg.length>0);
 
@@ -1680,46 +1743,73 @@ async function onSignedIn(u){
     ]);
     if(st.error) throw st.error; if(lg.error) throw lg.error;
     AUTH.coach=!co.error && co.data===true; FB.owner=!ow.error && ow.data===true;
-    const rs=st.data&&st.data.state, rl=(lg.data||[]).map(r=>r.data);
+    const rs=st.data&&st.data.state, rsJson=JSON.stringify(rs), rl=(lg.data||[]).map(r=>r.data);
     CLOUD.written={}; rl.forEach(l=>CLOUD.written[l.id]=JSON.stringify(l));
     // Workouts: keep every one from both places. Setup and plan: keep the newer copy.
-    const byId=new Map(); rl.concat(logs).forEach(l=>{ if(l&&l.id&&!byId.has(l.id)) byId.set(l.id,l); });
+    normalizeLogs(rl, state.settings.units, (rs&&rs.settings&&rs.settings.units)||state.settings.units);
+    const byId=new Map(); rl.concat(logs).forEach(l=>{ if(l&&l.id){ const old=byId.get(l.id); if(!old || (+l.updatedAt||0)>(+old.updatedAt||0)) byId.set(l.id,l); } });
     const merged=[...byId.values()].sort((a,b)=>new Date(b.date)-new Date(a.date));
     const remoteNewer = rs && substantive(rs,rl) && (!substantive(state,[]) || (+st.data.updated_at||0) >= (state.updatedAt||0));
-    if(remoteNewer && !coachMode){ state=migrate(rs); CLOUD.stateJson=JSON.stringify(state); if(state.block && state.places && state.places.length) ensurePlan(); }
-    if(!coachMode){ logs=merged; persistLocal(); }
+    if(remoteNewer && !coachMode){ state=migrate(rs); CLOUD.stateJson=rsJson; if(state.block && state.places && state.places.length) ensurePlan(); }
+    if(!coachMode){ logs=normalizeLogs(merged,state.settings.units); persistLocal(); }
     CLOUD.ok=true; CLOUD.name=undefined;
     sb.from('profiles').update({last_seen:new Date().toISOString()}).eq('id',u.id).then(()=>{},()=>{});
     if(!coachMode){
-      if(state.draft && !state.setup && ui.tab!=='workout') ui.tab='workout';
+      if(state.draft && !state.setup && !state.draft.partialSaved && ui.tab!=='workout') ui.tab='workout';
       render(); await pushCloud(); await applyPlanUpdates();
     } else render();
     setSync('cloud'); refreshUnread();
-  }catch(e){ CLOUD.ok=!!AUTH.user; setSync('off'); }
+  }catch(e){ CLOUD.ok=false; CLOUD.failed=true; setSync(); }
 }
 
-function queueCloud(){ if(!CLOUD.ok || !AUTH.user) return; clearTimeout(CLOUD.t); CLOUD.t=setTimeout(pushCloud,1200); }
-async function pushCloud(){
-  if(!CLOUD.ok || !AUTH.user || coachMode) return; if(CLOUD.busy){ CLOUD.again=true; return; }
-  CLOUD.busy=true; CLOUD.failed=false; setSync('saving');
-  try{
-    const uid=AUTH.user.id, sj=JSON.stringify(state);
-    if(sj!==CLOUD.stateJson){ const {error}=await sb.from('app_state').upsert({user_id:uid, state, updated_at:state.updatedAt||Date.now(), saved_at:new Date().toISOString()}); if(error) throw error; CLOUD.stateJson=sj; }
-    const ids=new Set(), rows=[];
-    for(const l of logs){ if(!l.id) l.id='log-'+(Date.parse(l.date)||Date.now()); ids.add(l.id); const j=JSON.stringify(l); if(CLOUD.written[l.id]!==j) rows.push({user_id:uid, id:l.id, date:l.date||new Date().toISOString(), data:l}); }
-    if(rows.length){ const {error}=await sb.from('workout_logs').upsert(rows); if(error) throw error; rows.forEach(r=>CLOUD.written[r.id]=JSON.stringify(r.data)); }
-    const gone=Object.keys(CLOUD.written).filter(id=>!ids.has(id));
-    if(gone.length){ const {error}=await sb.from('workout_logs').delete().eq('user_id',uid).in('id',gone); if(error) throw error; gone.forEach(id=>delete CLOUD.written[id]); }
-    const nm=(state.settings&&state.settings.name)||null;
-    if(nm!==CLOUD.name){ const {error}=await sb.from('profiles').update({name:nm}).eq('id',uid); if(!error) CLOUD.name=nm; }
-    setSync('cloud');
-  }catch(e){ CLOUD.failed=true; setSync('off'); }
-  CLOUD.busy=false; if(CLOUD.again){ CLOUD.again=false; pushCloud(); }
+function queueCloud(){
+  if(coachMode) return;
+  if(AUTH.user||rememberedAcct()) CLOUD.pending=true;
+  if(CLOUD.busy) CLOUD.again=true;
+  clearTimeout(CLOUD.t);
+  if(CLOUD.ok && AUTH.user) CLOUD.t=setTimeout(()=>{ CLOUD.t=null; pushCloud(); },1200);
+  setSync();
+}
+function pushCloud(){
+  if(!CLOUD.ok || !AUTH.user || !sb || coachMode) return Promise.resolve(false);
+  clearTimeout(CLOUD.t); CLOUD.t=null;
+  if(CLOUD.flight){ CLOUD.again=true; return CLOUD.flight; }
+  CLOUD.busy=true; CLOUD.failed=false; setSync();
+  const uid=AUTH.user.id;
+  CLOUD.flight=(async()=>{
+    // Assign flight before a no-op pass or synchronous SDK error can finish.
+    await Promise.resolve();
+    try{
+      do{
+        CLOUD.again=false;
+        // Freeze one upload generation so edits during requests cannot be marked saved.
+        const sj=JSON.stringify(state), snapshot=JSON.parse(sj), savedLogs=JSON.parse(JSON.stringify(logs));
+        if(sj!==CLOUD.stateJson){ const {error}=await sb.from('app_state').upsert({user_id:uid, state:snapshot, updated_at:snapshot.updatedAt||Date.now(), saved_at:new Date().toISOString()}); if(error) throw error; CLOUD.stateJson=sj; }
+        const ids=new Set(), rows=[];
+        for(const l of savedLogs){ ids.add(l.id); const j=JSON.stringify(l); if(CLOUD.written[l.id]!==j) rows.push({user_id:uid,id:l.id,date:l.date||new Date().toISOString(),data:l}); }
+        if(rows.length){ const {error}=await sb.from('workout_logs').upsert(rows); if(error) throw error; rows.forEach(r=>CLOUD.written[r.id]=JSON.stringify(r.data)); }
+        const gone=Object.keys(CLOUD.written).filter(id=>!ids.has(id));
+        if(gone.length){ const {error}=await sb.from('workout_logs').delete().eq('user_id',uid).in('id',gone); if(error) throw error; gone.forEach(id=>delete CLOUD.written[id]); }
+        const nm=(snapshot.settings&&snapshot.settings.name)||null;
+        if(nm!==CLOUD.name){ const {error}=await sb.from('profiles').update({name:nm}).eq('id',uid); if(error) throw error; CLOUD.name=nm; }
+        CLOUD.again=CLOUD.again || sj!==JSON.stringify(state) || JSON.stringify(savedLogs)!==JSON.stringify(logs);
+      }while(CLOUD.again && AUTH.user&&AUTH.user.id===uid && !coachMode);
+      CLOUD.pending=false;
+      return true;
+    }catch(e){ CLOUD.failed=true; CLOUD.pending=true; return false; }
+    finally{ CLOUD.busy=false; CLOUD.flight=null; setSync(); }
+  })();
+  return CLOUD.flight;
+}
+async function flushCloud(){
+  clearTimeout(CLOUD.t); CLOUD.t=null;
+  if(!CLOUD.ok || !AUTH.user || !sb || coachMode) return false;
+  return await pushCloud();
 }
 // Coming back to the app: send anything that didn't go through, and pick up changes from another device or the coach
 async function pullCloud(){
   if(!CLOUD.ok || !AUTH.user || coachMode || CLOUD.busy) return;
-  if(CLOUD.failed){ await pushCloud(); if(CLOUD.failed) return; }
+  if(CLOUD.failed||CLOUD.pending){ if(!await pushCloud()) return; }
   try{
     const {data,error}=await sb.from('app_state').select('updated_at').eq('user_id',AUTH.user.id).maybeSingle();
     if(!error && data && (+data.updated_at||0) > (state.updatedAt||0) && !state.draft){ AUTH.user && onSignedIn(AUTH.user); return; }
@@ -1727,7 +1817,8 @@ async function pullCloud(){
   }catch(e){}
 }
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') pullCloud(); });
-window.addEventListener('online',()=>{ if(AUTH.user) pullCloud(); });
+window.addEventListener('online',()=>{ setSync(); if(AUTH.user){ if(CLOUD.ok) pullCloud(); else onSignedIn(AUTH.user); } });
+window.addEventListener('offline',()=>setSync());
 
 function applyPlanCode(o){ state.block.plan={...state.block.plan,...o.plan}; if(o.orig) state.block.orig=o.orig; state.adj=o.adj||{}; state.coach={note:o.note||''}; if(o.level&&LEVELS[o.level]) state.settings.level=o.level; }
 async function applyPlanUpdates(){
@@ -1895,13 +1986,13 @@ function authAction(a,b){
   else if(a==='authout') confirmBox('Sign out?','Everything is saved to your account. This phone forgets it until you sign in again.','Sign out',signOut);
 }
 async function signOut(){
-  if(CLOUD.failed||CLOUD.busy) await pushCloud();
-  if(CLOUD.failed){ toast('Some changes haven’t saved yet. Get online, then sign out.'); return; }
-  try{ await sb.auth.signOut(); }catch(e){}
+  if(!await flushCloud()){ toast('Some changes haven’t synced. Keep this page open, retry sync, then sign out.'); return; }
+  try{ const {error}=await sb.auth.signOut(); if(error) throw error; }catch(e){ toast('Couldn’t sign out. Your data is still on this device.'); return; }
   try{ localStorage.removeItem(LS); }catch(e){}
   lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
   AUTH.user=null; AUTH.access=null; AUTH.coach=false; FB.owner=false; ui.invites=null; FB.unread={app:0,coach:0}; FB.box=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; CLOUD.written={}; CLOUD.stateJson=null; coachMode=null;
-  state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync('local');
+  CLOUD.pending=false; CLOUD.failed=false; clearTimeout(CLOUD.t); CLOUD.t=null;
+  state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync();
 }
 function accountCard(){
   if(!sb) return '';
@@ -2041,7 +2132,7 @@ async function openPerson(id,name){
   if(!st.data || !st.data.state || !st.data.state.block){ toast(`${name} hasn’t finished setup yet`); return; }
   try{ fClearTimer(); }catch(e){}
   coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
-  state=migrate(st.data.state); logs=(lg.data||[]).map(r=>r.data); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
+  state=migrate(st.data.state); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
 }
 function coachSendSheet(){
   modal(`<h2>Send changes to ${esc(coachMode.name)}</h2>
@@ -2224,7 +2315,7 @@ function render(){
   $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people'||ui.tab==='inbox')&&k==='settings')?'aria-current="page"':''} ${k==='settings'&&nUnread?`aria-label="Settings, ${nUnread} unread"`:''}><span class="ticon">${ICONS[k]}${k==='settings'&&nUnread?`<span class="tbadge" aria-hidden="true">${nUnread>99?'99+':nUnread}</span>`:''}</span><span>${l}</span></button>`).join('');
   const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, inbox:renderInbox, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
   $('#app').innerHTML = (coachMode && ui.tab!=='workout' && ui.tab!=='preview' ? coachBanner() : '') + v;
-  renderTimer(); syncWake(); warmClock();
+  renderTimer(); setSync(); syncWake(); warmClock();
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
 function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Nothing here touches your own app. Changes you make stay until you exit.</div></div>
@@ -2252,13 +2343,33 @@ function ringsCard(w, keys, wl, o){
     </div>
   </section>`;
 }
+function workoutCompletion(d){
+  let completed=0, planned=0;
+  const keys=new Set([...Object.keys(d.planCounts||{}),...Object.keys(d.sets||{})]);
+  for(const pk of keys){ const rows=d.sets[pk]||[], n=Math.max((d.planCounts||{})[pk]||0,rows.length); planned+=n; completed+=Math.min(n,rows.filter(s=>s.done&&+s.r>0).length); }
+  return {completed,planned,status:planned>0&&completed>=planned?'complete':'partial'};
+}
+function resumePartial(){
+  const d=state.draft; if(!d||!d.partialSaved) return;
+  const slots=dSlots();
+  for(const s of slots){
+    const rows=d.sets[s.pk]||(d.sets[s.pk]=[]), want=Math.max((d.planCounts||{})[s.pk]||0,rows.length);
+    while(rows.length<want) rows.push({w:defW(target(s)),r:'',done:false});
+  }
+  d.skipped={}; delete d.guide; delete d.listView;
+  const next=slots.find(s=>(d.sets[s.pk]||[]).some(r=>!r.done||!(+r.r>0)));
+  d.step=next?{ph:'ex',pk:next.pk}:{ph:'cool'};
+  d.startedAt=Date.now(); d.partialSaved=false;
+  save();
+}
 function startWorkout(key){
   const w=weekNum();
-  state.draft = {key, week:Math.min(w,PROGRAM.blockLen), block:state.block.n, mode:splitN(), place:curPlace().k, startedAt:Date.now(), warm:{}, cool:{}, sets:{}, subs:{}, feel:{}};
+  state.draft = {key, week:Math.min(w,PROGRAM.blockLen), block:state.block.n, mode:splitN(), place:curPlace().k, startedAt:Date.now(), warm:{}, cool:{}, sets:{}, planCounts:{}, subs:{}, feel:{}};
   for(const s of sessionSlots(key)){
     const t=target(s);
     state.draft.planned=state.draft.planned||{}; state.draft.planned[s.pk]=usesLoad(t.ex)?(t.w ?? t.sug ?? null):null;
     state.draft.sets[s.pk] = Array.from({length:t.sets},(_,i)=>({w: usesLoad(t.ex) ? String(t.w ?? (t.last&&t.last[i]?t.last[i].w:null) ?? t.sug ?? '') : '', r:'', done:false}));
+    state.draft.planCounts[s.pk]=t.sets;
   }
   save();
 }
@@ -2283,7 +2394,7 @@ function renderWorkout(){
     const wLabel = ex.mode==='B' ? `+${state.settings.units}` : state.settings.units;
     const wShow = tg.w ?? tg.sug;
     const targetTxt = load ? `<b class="num">${wShow!=null?fmtW(wShow):'Pick a light weight'}</b>${wShow!=null?each:''} × ${tg.lo}–${tg.hi} ${tg.unit}${per}` : `<b class="num">${tg.r} ${tg.unit}</b>${per}`;
-    const lastTxt = tg.last ? 'Last: '+tg.last.map(x=>(load&&x.w?`${+x.w}×`:'')+x.r).join(', ') : (load&&tg.sug!=null?(tg.coachW?`Starting weight from ${coachName()}. Too easy or hard? Tell the app below.`:'Suggested start. Too easy or hard? Tell the app below.'):load?'First time: start light, then tell the app how it felt':startTip(ex));
+    const lastTxt = tg.last ? 'Last: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : (load&&tg.sug!=null?(tg.coachW?`Starting weight from ${coachName()}. Too easy or hard? Tell the app below.`:'Suggested start. Too easy or hard? Tell the app below.'):load?'First time: start light, then tell the app how it felt':startTip(ex));
     const ramp = idx===0 && load ? `<div class="tiny muted">Practice set first: about half this weight, 8 easy reps.</div>` : '';
     const fl = (d.feel||{})[s.pk], anyDone = sets.some(x=>x.done);
     const feelRow = load && anyDone ? `<div class="exfoot" style="padding-bottom:8px;align-items:center"><span class="small muted" style="flex-basis:100%">How did that weight feel?</span>${[['easy','Too easy'],['good','Just right'],['hard','Too heavy']].map(([k,l])=>`<button class="btn sm ${fl===k?'primary':''}" data-action="feel" data-pk="${s.pk}" data-f="${k}" aria-pressed="${fl===k}">${l}</button>`).join('')}</div>` : '';
@@ -2296,7 +2407,7 @@ function renderWorkout(){
       <div class="target"><span>${targetTxt}</span><span class="muted tiny">${esc(lastTxt)}</span></div>
       <div class="sets">${sets.map((st,i)=>`<div class="set ${st.done?'isdone':''}">
         <span class="sn">${i+1}</span>
-        ${load?`<div class="field"><input id="w-${s.pk}-${i}" inputmode="decimal" aria-label="Set ${i+1} weight" data-pk="${s.pk}" data-i="${i}" data-f="w" value="${esc(st.w)}" placeholder="${wShow??'—'}"><span>${wLabel}</span></div>`:`<div class="small muted">${ex.mode==='T'||tg.unit==='sec'?'Hold':'Reps only'}</div>`}
+        ${load?`<div class="field"><input id="w-${s.pk}-${i}" inputmode="decimal" aria-label="Set ${i+1} weight" data-pk="${s.pk}" data-i="${i}" data-f="w" value="${esc(weightNumber(st.w))}" placeholder="${wShow??'—'}"><span>${wLabel}</span></div>`:`<div class="small muted">${ex.mode==='T'||tg.unit==='sec'?'Hold':'Reps only'}</div>`}
         <div class="field"><input id="r-${s.pk}-${i}" inputmode="numeric" aria-label="Set ${i+1} ${tg.unit}" data-pk="${s.pk}" data-i="${i}" data-f="r" value="${esc(st.r)}" placeholder="${load?tg.lo+'–'+tg.hi:tg.r}"><span>${tg.unit}</span></div>
         <button class="tick" data-action="done" data-pk="${s.pk}" data-i="${i}" aria-label="Mark set ${i+1} done">✓</button>
       </div>`).join('')}</div>
@@ -2392,8 +2503,8 @@ function renderHistory(){
   <section class="card"><h3 style="margin-bottom:6px">Sessions</h3>
   <div>${logs.map(l=>`<div class="hist"><button class="lt" style="all:unset;cursor:pointer;display:block;width:100%" data-action="histopen" data-id="${l.id}" aria-expanded="${ui.histOpen===l.id}">
     <div class="row between"><b>${esc(l.name)}</b><span class="small muted num">${new Date(l.date).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}</span></div>
-    <div class="tiny muted">Block ${l.block} · Week ${l.week} · ${l.entries.length} exercises · ${l.dur||'?'} min</div></button>
-    ${ui.histOpen===l.id?`<div class="stack" style="gap:6px;margin-top:8px">${l.entries.map(e=>`<div class="small"><b>${esc(e.name)}</b> <span class="muted num">${e.sets.map(s=>(s.w?`${s.w}×`:'')+s.r).join(', ')}</span>${e.plan?`<span class="tiny muted"> · plan ${esc(e.plan)}${e.planned!=null?' @ '+fmtW(e.planned):''}</span>`:''}${e.msg?`<div class="tiny muted">→ ${esc(e.msg)}</div>`:''}</div>`).join('')}
+    <div class="tiny muted">Block ${l.block} · Week ${l.week} · ${l.entries.length} exercises · ${l.dur??'?'} min${l.status==='partial'?` · Partial · ${l.completed} of ${l.planned} sets`:''}</div></button>
+    ${ui.histOpen===l.id?`<div class="stack" style="gap:6px;margin-top:8px">${l.entries.map(e=>`<div class="small"><b>${esc(e.name)}</b> <span class="muted num">${e.sets.map(s=>(s.w?`${fmtW(s.w)} × `:'')+s.r).join(', ')}</span>${e.plan?`<span class="tiny muted"> · plan ${esc(e.plan)}${e.planned!=null?' @ '+fmtW(e.planned):''}</span>`:''}${e.msg?`<div class="tiny muted">→ ${esc(e.msg)}</div>`:''}</div>`).join('')}
       <button class="btn sm ghost" data-action="dellog" data-id="${l.id}" style="align-self:flex-start">Delete session</button></div>`:''}
   </div>`).join('')||'<p class="muted small" style="margin:0">No sessions yet.</p>'}</div></section>`;
 }
@@ -2477,6 +2588,9 @@ const LEVEL_BLURB = {
 };
 function applySetup(a){
   const s=state.settings;
+  // Keep the pending form values independent while converting the existing history.
+  const bodyWeight=a.bw, unit=a.units||'lb';
+  changeUnits(unit); a.bw=bodyWeight;
   Object.assign(s,{name:(a.name||'').trim().slice(0,30), age:+a.age||null, bw:+a.bw||null, units:a.units||'lb', gender:a.gender||'', color:a.color||'blush',
     goals:a.goals.slice(0,2), comfort:a.comfort||'machines', pain:(a.pain||[]).slice(), days:a.days.length>=2?a.days.slice():[1,3,5], mins:a.mins||45, flex:!!a.flex, nDays:a.nDays||3, level:a.level||computeLevel(a)});
   state.places=a.places.map(p=>({k:p.k, n:PLACE_TYPES[p.k].n, eq:p.eq.slice()}));
@@ -2514,7 +2628,7 @@ function renderSetup(){
     b=`<div><div class="eyebrow">Welcome to Strong Start</div><h1>First, a little about you</h1></div><p class="lead">Used to suggest starting weights. You can change any of this later in Settings.</p>
       <label class="field2" for="su-name"><span class="flabel">First name</span><input class="in" id="su-name" value="${esc(a.name||'')}" autocomplete="given-name"></label>
       <div class="two"><label class="field2" for="su-age"><span class="flabel">Age <span class="tiny muted">(optional)</span></span><input class="in" id="su-age" inputmode="numeric" value="${esc(a.age||'')}"></label>
-        <label class="field2" for="su-bw"><span class="flabel">Body weight <span class="tiny muted">(optional)</span></span><span class="inwrap"><input class="in" id="su-bw" inputmode="decimal" value="${esc(a.bw||'')}"><span class="seg mini">${['lb','kg'].map(u=>`<button data-action="suunits" data-v="${u}" aria-pressed="${a.units===u}">${u}</button>`).join('')}</span></span></label></div>
+        <label class="field2" for="su-bw"><span class="flabel">Body weight <span class="tiny muted">(optional)</span></span><span class="inwrap"><input class="in" id="su-bw" inputmode="decimal" value="${esc(weightNumber(a.bw)||'')}"><span class="seg mini">${['lb','kg'].map(u=>`<button data-action="suunits" data-v="${u}" aria-pressed="${a.units===u}">${u}</button>`).join('')}</span></span></label></div>
       <div class="field2"><span class="flabel">Gender</span><div class="seg wide">${GENDERS.map(([k,l])=>`<button data-action="sugender" data-v="${k}" aria-pressed="${a.gender===k}">${l}</button>`).join('')}</div></div>
       <div class="field2"><span class="flabel">Pick your colors</span>${swatches(a.color||'blush','sucolor')}</div>`+next();
   } else if(step==='goal'){
@@ -2612,7 +2726,7 @@ function setupAction(act, b){
     case 'sulater': {
       if(!state.block){ applySetup(a); buildPlanFromSetup(); } su.paused=true; save(); ui.tab='today'; render(); window.scrollTo(0,0);
       toast('Saved. Tap “Finish setting up” whenever you’re ready.'); return; }
-    case 'suunits': a.units=b.dataset.v; break;
+    case 'suunits': a.bw=convertWeight(a.bw,a.units||'lb',b.dataset.v); a.units=b.dataset.v; break;
     case 'sugender': a.gender=b.dataset.v; break;
     case 'sucolor': a.color=b.dataset.c; state.settings.color=a.color; break;
     case 'sugoal': { const v=b.dataset.v, ix=a.goals.indexOf(v); if(ix>=0) a.goals.splice(ix,1); else { if(a.goals.length>=2){ toast('Pick up to two'); return; } a.goals.push(v); } break; }
@@ -2845,9 +2959,10 @@ function fTop(d,slots){
   segs.push(st.ph==='cool'?'c':'');
   return `<div class="ftop"><button class="ficon" data-action="fexit" aria-label="Pause or end workout">✕</button>
     <div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
-    ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div>`;
+    ${AUTH.user?`<button class="ficon fbq" data-action="msgopen" data-side="app" aria-label="Feedback"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></button>`:''}<button class="ficon" data-action="flist" aria-label="Workout list">☰</button></div><button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(saveStatus()[1])}</button>`;
 }
 function stepper(pk,i,f,val,unit,label){
+  if(f==='w') val=weightNumber(val);
   return `<div class="fstep"><div class="fl">${label}</div><div class="frow">
     <button class="ficon sm" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="-1" aria-label="Less ${label.toLowerCase()}">−</button>
     <span class="fval"><input class="num" inputmode="decimal" aria-label="${label}" data-pk="${pk}" data-i="${i}" data-f="${f}" value="${esc(val)}"><small>${unit}</small></span>
@@ -2905,13 +3020,13 @@ function renderFocus(){
       const e1=EX[gs1.id], ld=usesLoad(e1), w=Math.max(0,...done.map(x=>+x.w||0)), fl=(d.feel||{})[gs1.pk], ask=needFeel(gs1), open=ask||(ui.feelOpen||{})[gs1.pk];
       const msg=previewProg(gs1,done);
       const btns=`<div class="fpair ffeel" style="margin-top:8px">${[['easy','Too easy'],['good','Just right'],['hard','Too heavy']].map(([k,l])=>`<button class="btn ${fl===k?'primary':''}" data-action="ffeel" data-pk="${gs1.pk}" data-f="${k}" aria-pressed="${fl===k}">${l}</button>`).join('')}</div>`;
-      return `<section class="card">${gSlots.length>1?`<b>${esc(e1.n)}</b><div class="tiny muted">${done.map(x=>(ld&&x.w?`${+x.w}×`:'')+x.r).join(', ')}</div>`:''}
+      return `<section class="card">${gSlots.length>1?`<b>${esc(e1.n)}</b><div class="tiny muted">${done.map(x=>(ld&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ')}</div>`:''}
         ${ld && e1.mode!=='P' ? (open?`<b>${ask?`How did ${fmtW(w)} feel?`:'How did the weight feel?'}</b>${btns}`:'') : ''}
         <div class="small ${open||gSlots.length>1?'':''}" style="margin-top:${open?8:0}px"><span class="muted">Next time:</span> ${esc(msg)}</div>
         ${ld && e1.mode!=='P' && !open?`<button class="linkbtn tiny" data-action="ffeelopen" data-pk="${gs1.pk}" style="margin-top:4px">Weight felt off?</button>`:''}</section>`; }).join('');
     const first=gSlots[gSlots.length===1?0:0], done1=(d.sets[first.pk]||[]).filter(x=>x.done&&+x.r>0);
     return `<div class="focus">${fTop(d,slots)}
-      <div style="text-align:center"><div class="fdone">✓</div><h1>${gSlots.length>1?'Superset done':esc(EX[first.id].n)+' done'}</h1>${gSlots.length===1?`<div class="small muted">${done1.map(x=>(usesLoad(EX[first.id])&&x.w?`${+x.w} × `:'')+x.r).join(', ')}</div>`:''}</div>
+      <div style="text-align:center"><div class="fdone">✓</div><h1>${gSlots.length>1?'Superset done':esc(EX[first.id].n)+' done'}</h1>${gSlots.length===1?`<div class="small muted">${done1.map(x=>(usesLoad(EX[first.id])&&x.w?`${weightNumber(x.w)} × `:'')+x.r).join(', ')}</div>`:''}</div>
       ${blocks}
       ${T&&ns?`<section class="card frec"><div><div class="eyebrow" style="color:inherit;opacity:.85">Move to the next station</div><div id="fclock" class="num">${mmss(Math.max(0,Math.ceil((T.end-Date.now())/1000)))}</div></div><div class="small" style="text-align:right;font-weight:700;opacity:.92">${esc(T.tip||'')}</div></section>`:''}
       ${ns?`<section class="card row" style="flex-wrap:nowrap">${musThumb(ns.id)}<div style="flex:1"><div class="eyebrow">Up next · ${gs.findIndex(g=>g.includes(nxt))+1} of ${gs.length}</div><b>${esc(EX[ns.id].n)}</b><div class="tiny muted">${ntg.sets} × ${usesLoad(ntg.ex)?`${ntg.lo}–${ntg.hi}`:ntg.r} ${ntg.unit}${EX[ns.id].uni?' per side':''}${usesLoad(ntg.ex)&&(ntg.w??ntg.sug)!=null?' · '+fmtW(ntg.w??ntg.sug):''}</div></div></section>`
@@ -2923,7 +3038,7 @@ function renderFocus(){
   // exercise screen
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
-  const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${+x.w}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
+  const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
   const isB = gs[gi].length>1, label = isB ? `Superset ${s.label}` : `Exercise ${gi+1} of ${gs.length}`;
   const partner = isB ? grp.map(i=>slots[i]).find(x=>x.pk!==s.pk) : null;
   return `<div class="focus">${fTop(d,slots)}
@@ -2937,7 +3052,7 @@ function renderFocus(){
     <div class="setnav">${sets.length>1&&!sets[sets.length-1].done?`<button class="linkbtn" data-action="rmset" data-pk="${s.pk}">− Set</button>`:'<span style="width:44px"></span>'}
       <div class="fdots">${sets.map((x,i)=>`<span class="fdot ${x.done?'d':''} ${i===kk?'c':''}"></span>`).join('')}</div>
       <button class="linkbtn" data-action="addset" data-pk="${s.pk}">+ Set</button></div>
-    ${sets.some(x=>x.done)?`<div class="fsetdone">${sets.map((x,i)=>x.done?`<button class="fsetchip" data-action="fundo" data-pk="${s.pk}" data-i="${i}" aria-label="Edit set ${i+1}">Set ${i+1} · ${(load&&x.w?+x.w+' × ':'')+x.r} ✓<b>Edit</b></button>`:'').join('')}</div>`:(isB&&partner?`<div class="tiny muted" style="text-align:center">Then ${esc(EX[partner.id].n)}</div>`:'')}
+    ${sets.some(x=>x.done)?`<div class="fsetdone">${sets.map((x,i)=>x.done?`<button class="fsetchip" data-action="fundo" data-pk="${s.pk}" data-i="${i}" aria-label="Edit set ${i+1}">Set ${i+1} · ${(load&&x.w?weightNumber(x.w)+' × ':'')+x.r} ✓<b>Edit</b></button>`:'').join('')}</div>`:(isB&&partner?`<div class="tiny muted" style="text-align:center">Then ${esc(EX[partner.id].n)}</div>`:'')}
     <section class="card fcue"><div class="eyebrow">Form tip</div><div class="small">${esc(ex.cue)}</div></section>
     <div class="flinks"><button class="linkbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">How to do it</button><button class="linkbtn" data-action="swap" data-pk="${s.pk}">Swap</button><button class="linkbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button><button class="linkbtn" data-action="fskipex" data-pk="${s.pk}">Skip</button></div>
     <div class="ffoot"><button class="btn primary block fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':`Done with set ${kk+1}`}</button>
@@ -3013,8 +3128,8 @@ function endSheet(){
   const d=state.draft, done=Object.values(d.sets).flat().filter(x=>x.done).length;
   modal(`<div class="endsheet stack" style="gap:10px"><h2>Leave this workout?</h2>
     <button class="opt2" data-action="fpause"><b>Take a break</b><span class="tiny muted">Pick up where you left off from Today.</span></button>
-    <button class="opt2" data-action="fend"><b>End workout</b><span class="tiny muted">${done?`Saves the ${done} set${done>1?'s':''} you did. Anything left over is skipped.`:'You haven’t finished any sets yet, so there’s nothing to save.'}</span></button>
-    <button class="opt2 danger" data-action="discard"><b>Discard</b><span class="tiny muted">Throw this workout away. Nothing is saved.</span></button>
+    <button class="opt2" data-action="fend"><b>End workout</b><span class="tiny muted">${done?`Saves the ${done} set${done>1?'s':''} you did. Remaining sets stay available to resume from Today.`:'You haven’t finished any sets yet, so there’s nothing to save.'}</span></button>
+    <button class="opt2 danger" data-action="discard"><b>Discard</b><span class="tiny muted">${d.logId?'Keep the saved partial session, discard unsaved changes.':'Throw this workout away. Nothing is saved.'}</span></button>
     <button class="btn ghost block" data-action="closemodal">Keep going</button></div>`);
 }
 let warmInt=null;
@@ -3035,8 +3150,8 @@ function fAction(a,b){
   const d=state.draft;
   switch(a){
     case 'fbegin': { const key=b.dataset.key;
-      const go=()=>{ if(!state.draft || state.draft.key!==key){ startWorkout(key); state.draft.step={ph:'warm'}; state.draft.warmStart=Date.now(); } ui.tab='workout'; save(); render(); window.scrollTo(0,0); };
-      if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} in progress. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ state.draft=null; fClearTimer(); go(); }); return true; }
+      const go=()=>{ if(!state.draft || state.draft.key!==key){ startWorkout(key); state.draft.step={ph:'warm'}; state.draft.warmStart=Date.now(); } else resumePartial(); ui.tab='workout'; save(); render(); window.scrollTo(0,0); };
+      if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ state.draft=null; fClearTimer(); go(); }); return true; }
       go(); return true; }
     case 'fstart': { const slots=dSlots(), i=nextGroupStart(d,slots,-1); d.step = i>=0?{ph:'ex',pk:slots[i].pk}:{ph:'cool'}; save(); render(); window.scrollTo(0,0); return true; }
     case 'fpause': closeModal(); ui.tab='today'; save(); render(); window.scrollTo(0,0); toast('Paused. Tap Resume on Today to pick up where you left off.'); return true;
@@ -3699,17 +3814,17 @@ function renderToday(){
   if(state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
   if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row"><button class="btn primary sm" data-action="newblock">Start the next program</button></div></div>`;
   if(state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
-  if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} in progress</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div><button class="btn primary sm" data-action="resume">Resume</button></div>`;
+  if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div><button class="btn primary sm" data-action="resume">${state.draft.partialSaved?'Resume remaining sets':'Resume'}</button></div>`;
   h+=checkinCard(w)+addDayBanner(w);
   if(weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
   h+=placeSwitch();
   h+=`<section class="stack"><div><h2>${nextKey ? (isFlex()?`Next up: ${esc(tplOf(nextKey).name)}`:isTrain?`Today: ${esc(tplOf(nextKey).name)}`:'Rest day') : 'Week complete'}</h2>
     <div class="small muted">${nextKey ? (isFlex()?`${wl.length} of ${keys.length} done this week. Do them in order, whenever you can, with a rest day between when possible.`:isTrain?'Tap a workout to see it, then Start when you’re ready.':`Next up: ${esc(tplOf(nextKey).name)}. You can still train today if you want.`) : 'Every workout this week is done. Enjoy the rest.'}</div></div>
     ${placeNote(keys)}
-    ${keys.map((k,i)=>{ const t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k);
+    ${keys.map((k,i)=>{ const t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
       return `<button class="day ${d?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}">
         <span class="idx">${d?'✓':dayLabel(i)}</span>
-        <span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}</span></span>
+        <span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span>
         <span class="small muted num" style="text-align:right">${d?new Date(log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}<br>${nx?'<span class="chip acc">Up next</span>':''}</span>
       </button>`; }).join('')}
     <button class="btn" data-action="openmap">See which muscles this week trains</button>
@@ -3733,10 +3848,10 @@ function renderWeigh(){
   return `<section class="stack"><button class="btn ghost sm" style="align-self:flex-start" data-action="tab" data-tab="today">‹ Home</button>
     <div><div class="eyebrow">Weekly weigh-in</div><h1>How’s the trend?</h1></div></section>
     <section class="card stack" style="gap:10px">
-      ${last?`<div class="row between" style="align-items:flex-end"><div><div class="tiny muted">Latest · ${new Date(last.d).toLocaleDateString([], {month:'short',day:'numeric'})}</div><div class="big">${W.hide?'•••':last.w} <span class="small muted">${u}</span></div></div>
+      ${last?`<div class="row between" style="align-items:flex-end"><div><div class="tiny muted">Latest · ${new Date(last.d).toLocaleDateString([], {month:'short',day:'numeric'})}</div><div class="big">${W.hide?'•••':weightNumber(last.w)} <span class="small muted">${u}</span></div></div>
         ${diff!=null?`<span class="chip ${diff<=0?'good':'acc'}">${W.hide?'Trend shown below':`${diff>0?'+':''}${diff} ${u} in ${weeks} week${weeks===1?'':'s'}`}</span>`:''}</div>`:'<p class="small muted" style="margin:0">Log your first weigh-in to start your trend.</p>'}
       ${pts.length>1?(W.hide?sparkChart(pts.map((p,i)=>({d:p.d,v:p.v-pts[0].v})),'Change since you started').replace(/>-?\d+(\.\d+)?</g,m=>m):sparkChart(pts,`Body weight (${u})`)):''}
-      <label class="field2" for="wi-w"><span class="flabel">Today’s weight</span><span class="inwrap"><input class="in" id="wi-w" inputmode="decimal" placeholder="${last&&!W.hide?last.w:''}"><span class="u">${u}</span></span></label>
+      <label class="field2" for="wi-w"><span class="flabel">Today’s weight</span><span class="inwrap"><input class="in" id="wi-w" inputmode="decimal" placeholder="${last&&!W.hide?weightNumber(last.w):''}"><span class="u">${u}</span></span></label>
       <button class="btn primary block" data-action="weighsave">Save</button>
     </section>
     <section class="guide"><b>How to weigh in so the number means something</b><ol>
@@ -3747,13 +3862,13 @@ function renderWeigh(){
       <li><b>Watch the trend, not one number.</b> Weight can swing 1–4 lb day to day from water, salt, carbs, sleep and your cycle. Judge progress over 3–4 weeks.</li>
       <li><b>Aim for slow and steady:</b> ${rateText()}. Faster usually means losing muscle too.</li></ol>
       <p class="tiny muted" style="margin:8px 0 0">Private to you. You can hide the number and just see the trend, or turn weigh-ins off in Settings.</p></section>
-    ${L.length?`<section class="card"><h3 style="margin-bottom:6px">Entries</h3>${L.slice().reverse().map(x=>`<div class="hist row between"><span class="small">${new Date(x.d).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}</span><span class="row"><b class="num">${W.hide?'•••':x.w+' '+u}</b><button class="btn sm ghost" data-action="weighdel" data-d="${x.d}">Delete</button></span></div>`).join('')}</section>`:''}`;
+    ${L.length?`<section class="card"><h3 style="margin-bottom:6px">Entries</h3>${L.slice().reverse().map(x=>`<div class="hist row between"><span class="small">${new Date(x.d).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'})}</span><span class="row"><b class="num">${W.hide?'•••':weightNumber(x.w)+' '+u}</b><button class="btn sm ghost" data-action="weighdel" data-d="${x.d}">Delete</button></span></div>`).join('')}</section>`:''}`;
 }
 
 /* ---------------- Settings ---------------- */
 function profileCard(s){
   const open=ui.profOpen, g=(GENDERS.find(x=>x[0]===s.gender)||[])[1];
-  const sum=[g, s.age?`${s.age}`:'', s.bw?`${s.bw} ${s.units}`:'', (COLORS[s.color||'blush']||COLORS.blush).n].filter(Boolean).join(' · ');
+  const sum=[g, s.age?`${s.age}`:'', s.bw?`${weightNumber(s.bw)} ${s.units}`:'', (COLORS[s.color||'blush']||COLORS.blush).n].filter(Boolean).join(' · ');
   const init=(s.name||'').trim()[0];
   return `<section class="card stack" style="gap:0;padding:0;overflow:hidden">
     <button class="prof-head" data-action="proftoggle" aria-expanded="${!!open}">
@@ -3766,7 +3881,7 @@ function profileCard(s){
       <label class="adj" for="set-age" style="grid-template-columns:1fr 150px"><span>Age</span><input id="set-age" inputmode="numeric" value="${s.age??''}"></label>
       <div class="stack" style="gap:6px"><span>Gender<br><span class="tiny muted">Used with body weight to suggest starting weights.</span></span>${genderSeg(s.gender||'','setgender')}</div>
       <div class="row between"><span>Units</span><div class="seg" role="group" aria-label="Units">${['lb','kg'].map(u=>`<button data-action="setunits" data-u="${u}" aria-pressed="${s.units===u}">${u}</button>`).join('')}</div></div>
-      <label class="adj" for="set-bw" style="grid-template-columns:1fr 150px"><span>Body weight (${s.units})<br><span class="tiny muted">Only used to suggest starting weights.</span></span><input id="set-bw" inputmode="decimal" value="${s.bw??''}"></label>
+      <label class="adj" for="set-bw" style="grid-template-columns:1fr 150px"><span>Body weight (${s.units})<br><span class="tiny muted">Only used to suggest starting weights.</span></span><input id="set-bw" inputmode="decimal" value="${weightNumber(s.bw)??''}"></label>
       <div class="stack" style="gap:6px"><span>App colors</span>${swatches(s.color||'blush','setcolor')}</div>
       ${s.color==='noir'?'':`<div class="stack" style="gap:6px"><span>Light or dark</span><div class="seg" role="group" aria-label="Light or dark">${[['auto','Match my phone'],['light','Always light'],['dark','Always dark']].map(([k,l])=>`<button data-action="settheme" data-t="${k}" aria-pressed="${(s.theme||'auto')===k}">${l}</button>`).join('')}</div></div>`}
     </div>`:''}
@@ -3834,8 +3949,8 @@ function renderSettings(){
     ${state.prevBlock?`<button class="btn sm block" data-action="prevblock" style="width:100%">Go back to my previous program</button>`:''}
     <div class="row"><button class="btn sm" data-action="newblock">Start the next program now</button><button class="btn sm ghost" data-action="restartblock">Restart at week 1</button></div>
   `)}
-  ${sec('backup','Backup',AUTH.user?'Saved to your account · copy or restore':'Saved on this device · copy or restore',`
-    <p class="small muted" style="margin:0">${AUTH.user?'Your workouts are saved to your account and on this device. You can still copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
+  ${sec('backup','Backup',saveStatus()[1]+' · copy or restore',`
+    <p class="small muted" style="margin:0">${AUTH.user?'Your workouts sync to your account when connected. Check the save indicator for the latest status. You can also copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
     <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
     <button class="btn sm" data-action="restore">Restore my backup</button>
@@ -3870,6 +3985,9 @@ function migrate(st){
   }
   st.weigh=st.weigh||{on:false, day:1, hide:false, list:[]}; st.coach=st.coach||{note:''}; st.adj=st.adj||{}; st.ex=st.ex||{};
   if((st.v||4)<5){ st.v=5; if(st.onboarded && st.settings && !st.settings.split){ const n=st.settings.flex?(+st.settings.nDays||3):(st.settings.days||[1,3,5]).length; st.settings.split={2:'ul2',3:'ppl3',4:'ul4',5:'pplul5'}[Math.max(2,Math.min(5,n))]; } }
+  if((st.v||5)<6){ st.v=6; st.weightUnits=st.settings.units||'lb'; }
+  st.weightUnits=st.weightUnits||st.settings.units||'lb';
+  if(st.draft && !st.draft.planCounts) st.draft.planCounts=Object.fromEntries(Object.entries(st.draft.sets||{}).map(([k,v])=>[k,v.length]));
   return st;
 }
 
@@ -4005,7 +4123,7 @@ function adjustSheet(pk){
       ${f('adj-hi',`High end (${unit})`,tg.hi)}
       ${f('adj-rest','Rest between sets (sec)',slot.cfg.rest, tg.ssFirst?'Supersets: rest happens after the paired exercise':'')}
       ${f('adj-after','Recovery after exercise (sec)',r.sec,'Starts when every set is checked off')}
-      ${usesLoad(ex)?f('adj-w',`Working weight (${state.settings.units})`,tg.w,'Next targets build from this'):''}
+      ${usesLoad(ex)?f('adj-w',`Working weight (${state.settings.units})`,weightNumber(tg.w),'Next targets build from this'):''}
     </div>
     <div class="row"><button class="btn primary" data-action="adjsave" data-pk="${pk}" data-id="${slot.id}">Save</button><button class="btn" data-action="adjreset" data-pk="${pk}">Back to ${esc(PROGRAM.coach||'coach')}'s plan</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
 }
@@ -4025,31 +4143,47 @@ function workoutTips(){
 }
 /* ---------------- Actions ---------------- */
 function finishWorkout(){
-  const d=state.draft, slots=dSlots(), entries=[];
+  const d=state.draft, slots=dSlots(), entries=[], completion=workoutCompletion(d);
+  const previous=logs.find(l=>l.id===d.logId);
+  d.progressBefore=d.progressBefore||{};
   for(const s of slots){
     const done=(d.sets[s.pk]||[]).filter(x=>x.done && (+x.r>0));
     if(!done.length) continue;
-    const msg=applyProgression(s,done,(d.feel||{})[s.pk]);
+    const old=previous&&previous.entries.find(e=>e.pk===s.pk&&e.ex===s.id);
+    const rows=done.map(x=>({w:x.w===''?null:+x.w,r:+x.r})), feel=(d.feel||{})[s.pk]||null;
+    let msg;
+    if(old && JSON.stringify(old.sets)===JSON.stringify(rows) && old.feel===feel) msg=old.msg;
+    else {
+      if(!Object.prototype.hasOwnProperty.call(d.progressBefore,s.id)) d.progressBefore[s.id]=JSON.parse(JSON.stringify(state.ex[s.id]||{}));
+      state.ex[s.id]=JSON.parse(JSON.stringify(d.progressBefore[s.id]));
+      msg=applyProgression(s,done,feel);
+    }
     const tg0=target(s);
     entries.push({pk:s.pk, ex:s.id, name:EX[s.id].n, sets:done.map(x=>({w:x.w===''?null:+x.w, r:+x.r})), msg,
       plan:`${tg0.sets}×${usesLoad(tg0.ex)?tg0.lo+'–'+tg0.hi:tg0.r} ${tg0.unit}`, feel:(d.feel||{})[s.pk]||null, planned:(d.planned||{})[s.pk]||null,
       swap: s.placeFrom ? EX[s.placeFrom].n : (origId(s.pk) && s.id!==origId(s.pk) && EX[origId(s.pk)]) ? EX[origId(s.pk)].n : null, today:!!s.sub||!!s.placeFrom, place:s.placeFrom?curPlace().n:null, of:(d.sets[s.pk]||[]).length});
   }
   if(!entries.length){ toast('Mark at least one set done first.'); return; }
-  const l={id:'log-'+Date.now(), date:new Date().toISOString(), key:d.key, name:tplOf(d.key).name, block:d.block, week:d.week, mode:d.mode, dur:Math.round((Date.now()-d.startedAt)/60000), entries};
+  const elapsed=(d.elapsedMs||0)+(d.partialSaved?0:Math.max(0,Date.now()-d.startedAt));
+  const l={id:d.logId||'log-'+Date.now(), date:previous?previous.date:new Date().toISOString(), updatedAt:Math.max(Date.now(),(previous&&previous.updatedAt||0)+1), units:state.settings.units, key:d.key, name:tplOf(d.key).name, block:d.block, week:d.week, mode:d.mode, dur:Math.round(elapsed/60000), entries, ...completion};
   if(d.cardioDone) l.cardio=d.cardioDone;
-  logs.unshift(l); state.draft=null; ui.timer=null; clearInterval(timerInt); save(); pushLog(l);
+  logs=logs.filter(x=>x.id!==l.id); logs.unshift(l);
+  if(l.status==='partial'){ d.logId=l.id; d.elapsedMs=elapsed; d.partialSaved=true; }
+  else state.draft=null;
+  fClearTimer(); ui.timer=null; clearInterval(timerInt); save(); pushLog(l);
   ui.tab='today'; render(); window.scrollTo(0,0);
-  modal(`<div class="eyebrow">Workout saved</div><h2>${esc(l.name)} done</h2><p class="small muted" style="margin:0">${l.dur} min logged. Next time:</p>
+  modal(`<div class="eyebrow">${l.status==='partial'?'Partial workout saved':'Workout saved'}</div><h2>${esc(l.name)} ${l.status==='partial'?'partly finished':'done'}</h2><p class="small muted" style="margin:0">${l.completed} of ${l.planned} sets · ${l.dur} min logged.${l.status==='partial'?' Resume the remaining sets from Today. This does not count as a completed workout.':''} Next targets:</p>
     <div>${entries.map(e=>`<div class="slotrow" style="grid-template-columns:1fr"><div><b>${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div></div>`).join('')}</div>
     <p class="small" style="margin:0">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
-    ${AUTH.user && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">Your coach can see this workout. It’s saved to your account, so there’s nothing to copy or send.</div>
+    ${AUTH.user && !coachMode ? `<div class="small" style="background:var(--accent-soft);border-radius:14px;padding:12px">${esc(saveStatus()[2])} Your coach can see this workout after it syncs.</div>
     <div class="row"><button class="btn primary" data-action="closemodal">Done</button><button class="btn" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button></div>` : `<div class="row"><button class="btn primary" data-action="closemodal">Done</button></div>`}`);
 }
 
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   const a=b.dataset.action;
+  if(a==='syncdetails'){ syncDetails(); return; }
+  if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
   if(a.startsWith('hs') && hsAction(a)) return;
@@ -4079,13 +4213,13 @@ document.addEventListener('click', e=>{
   switch(a){
     case 'tab': ui.tab=b.dataset.tab; if(ui.tab==='today'&&state.draft&&false){} render(); window.scrollTo(0,0); break;
     case 'open': { const key=b.dataset.key;
-      if(state.draft && state.draft.key===key){ ui.tab='workout'; render(); window.scrollTo(0,0); break; }
+      if(state.draft && state.draft.key===key){ resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break; }
       ui.preview=key; ui.tab='preview'; render(); window.scrollTo(0,0); break;
-      if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} in progress. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ startWorkout(key); ui.tab='workout'; render(); window.scrollTo(0,0); }); return; }
+      if(state.draft && state.draft.key!==key){ confirmBox('Switch workouts?',`You have ${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}. Starting ${esc(tplOf(key).name)} discards it.`,'Discard and start',()=>{ startWorkout(key); ui.tab='workout'; render(); window.scrollTo(0,0); }); return; }
       if(!state.draft) startWorkout(key);
       ui.tab='workout'; render(); window.scrollTo(0,0);
       state.tips=state.tips||{}; if(!state.tips.workout){ state.tips.workout=true; save(); workoutTips(); } break; }
-    case 'resume': ui.tab='workout'; render(); window.scrollTo(0,0); break;
+    case 'resume': resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break;
     case 'done': { const s=state.draft.sets[b.dataset.pk][+b.dataset.i];
       s.done=!s.done;
       if(s.done){ const all=dSlots(), slot=all.find(x=>x.pk===b.dataset.pk), tg=target(slot);
@@ -4119,7 +4253,7 @@ document.addEventListener('click', e=>{
     case 'tskip': ui.timer=null; clearInterval(timerInt); renderTimer(); break;
     case 'finish': { const d=state.draft, all=Object.values(d.sets).flat(), open=all.filter(s=>!s.done).length;
       if(open) confirmBox('Finish workout?',`${open} set${open>1?'s are':' is'} not checked off. Unchecked sets aren't counted toward progression.`,'Finish',finishWorkout); else finishWorkout(); break; }
-    case 'discard': confirmBox('Discard this workout?','Nothing from this session will be saved.','Discard',()=>{ state.draft=null; ui.timer=null; clearInterval(timerInt); save(); ui.tab='today'; render(); }); break;
+    case 'discard': confirmBox('Discard this workout?',state.draft.logId?'Your saved partial session stays in History. Unsaved changes and the remaining sets are discarded.':'Nothing from this session will be saved.','Discard',()=>{ state.draft=null; ui.timer=null; clearInterval(timerInt); save(); ui.tab='today'; render(); }); break;
     case 'swap': swapSheet(b.dataset.pk); break;
     case 'libpick': libPickSheet(b.dataset.pk); break;
     case 'musinfo': musInfo(b.dataset.id); break;
@@ -4203,10 +4337,10 @@ document.addEventListener('click', e=>{
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'histopen': ui.histOpen = ui.histOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'dellog': { const id=b.dataset.id; confirmBox('Delete this session?','It is removed from history. Working weights are not rolled back.','Delete',()=>{ logs=logs.filter(l=>l.id!==id); save(); deleteRemoteLog(id); render(); }); break; }
-    case 'setunits': state.settings.units=b.dataset.u; save(); render(); toast('Units changed. Re-enter weights in the new unit.'); break;
+    case 'setunits': changeUnits(b.dataset.u); save(); render(); toast('Weights converted to '+state.settings.units+'.'); break;
     case 'copybackup': { const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
     case 'restore': { try{ const o=JSON.parse($('#restore').value); if(!o.state||!o.state.block) throw 0;
-      confirmBox('Load this data?',`It replaces everything on this device with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} plan, weights and history.`,'Load',()=>{ state=migrate(o.state); logs=o.logs||[]; save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
+      confirmBox('Load this data?',`It replaces everything on this device with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} plan, weights and history.`,'Load',()=>{ state=migrate(o.state); logs=normalizeLogs(o.logs||[],state.settings.units); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
     case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
@@ -4242,11 +4376,11 @@ document.addEventListener('change', e=>{
 /* ---------------- Boot ---------------- */
 (function boot(){
   const saved=loadLocal();
-  if(saved && saved.state){ state=migrate(saved.state); logs=saved.logs||[]; }
+  if(saved && saved.state){ state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
   if(state.block && state.places && state.places.length){ const rep=ensurePlan(); if(rep.length) save(); }
   persistLocal();
-  if(state.draft && !state.setup){ ui.tab='workout'; const st=state.draft.step;
+  if(state.draft && !state.setup && !state.draft.partialSaved){ ui.tab='workout'; const st=state.draft.step;
     if(st && st.tEnd && st.tEnd>Date.now()){ ui.timer={end:st.tEnd,total:st.tTot||Math.ceil((st.tEnd-Date.now())/1000),label:st.ph==='rest'?'Rest':'Recover',tip:st.tTip||'',next:''}; timerInt=setInterval(tick,500); } }
   render();
   initRemote();

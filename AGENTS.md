@@ -33,7 +33,7 @@ Read this file first. It is the shared guidance for coding agents; `CLAUDE.md` i
 ## Code and data invariants
 
 - `index.html` contains CSS, exercise catalog, state, rendering, events, and backend integration. Navigate by section comments/functions; line numbers drift.
-- Production local key: `strongstart_state_v3`, value `{state, logs}`; development uses `dev_strongstart_state_v3` and prefixes the other app storage keys too. State schema is currently `v:5`; the key suffix is not the schema version. Preserve environment routing and isolation checks. Cloud state is a whole JSON document; completed logs are separate rows.
+- Production local key: `strongstart_state_v3`, value `{state, logs}`; development uses `dev_strongstart_state_v3` and prefixes the other app storage keys too. State schema is currently `v:6`; the key suffix is not the schema version. Preserve environment routing and isolation checks. Cloud state is a whole JSON document; completed logs are separate rows.
 - Add compatible upgrades to `migrate()` when saved data changes. Keep users' plans, weights, history, and drafts. Do not bump the storage key to reset everyone.
 - Exercise IDs come from names via `slugify()`. Renaming can orphan plan slots, progression, substitutions, and history; provide an explicit ID migration for an approved rename.
 - Preserve `save()` / `persistLocal()` / `queueCloud()`, account ownership isolation, and `coachMode` save guards. Coach preview must not write another person's state directly or overwrite the coach's cached state.

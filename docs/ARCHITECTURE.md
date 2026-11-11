@@ -49,13 +49,13 @@ Equipment requirements are groups of alternatives: every group needs an availabl
 
 Thirteen splits support two to five workouts weekly. Base `push`, `pull`, `legsA`, `legsB`, and `jump` slots combine into derived days. `fitSlots()` trims sets, pairs compatible supersets, reduces rests, and may remove smaller exercises to fit a time estimate. `finalize()` enforces shared-station rules. Optional post-lift cardio is outside the selected session length.
 
-Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targets use prior sets, rep ranges, experience, and easy/hard feedback. Equipment uses different load ladders/increments. Introductory weeks reduce sets, with an age-dependent extension for beginners. `finishWorkout()` counts checked positive-rep/seconds sets, updates progression, appends a log, clears the draft, and queues saving.
+Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targets use prior sets, rep ranges, experience, and easy/hard feedback. Equipment uses different load ladders/increments. Introductory weeks reduce sets, with an age-dependent extension for beginners. `finishWorkout()` counts checked positive-rep/seconds sets against per-slot `draft.planCounts` (plus any extra sets). Logs record `status`, `completed`, `planned`, `units`, and `updatedAt`. Partial sessions retain a paused draft and log ID; resume restores skipped/unfinished rows. Finishing replaces the same log. Per-exercise `progressBefore` snapshots and comparison with prior entries prevent double-applying progression on repeated saves. Complete sessions clear the draft. Weekly completion excludes partials and deduplicates workout keys; legacy logs remain complete because their original whole-session counts are unavailable. Coach activity totals count logged sessions, including partial effort.
 
 ## Local state and sync
 
 | Item | Meaning |
 | --- | --- |
-| `strongstart_state_v3` | Local JSON `{state, logs}`; current `state.v` is 5 |
+| `strongstart_state_v3` | Local JSON `{state, logs}`; current `state.v` is 6 |
 | `state.settings` | Profile, units, goals, schedule, experience/comfort, pain flags, display/cardio preferences |
 | `state.places`, `curPlace` | Per-place equipment/current selection |
 | `state.block` | Program number/start, base plan slots, original picks, introductory easing |
@@ -69,13 +69,13 @@ Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targ
 
 The keys above describe production. Development prefixes the app keys with `dev_`. Supabase manages its own project-specific Auth session storage. Do not copy/inspect tokens to establish documentation facts.
 
-`save()` timestamps state, persists locally, and schedules upload after 1.2 seconds. `CLOUD.busy/again` serializes uploads; `written` and `stateJson` avoid resending unchanged records. State upsert, workout upserts/deletes, and name updates are separate operations, not one transaction.
+`save()` timestamps state, persists locally, and schedules upload after 1.2 seconds. `CLOUD.flight/busy/again` serializes and drains uploads, including edits made while a request is pending. Each pass freezes state/log payloads; `flushCloud()` awaits all passes before sign-out clears the cache. Failures preserve local data and keep a retryable status. `CLOUD.pending` marks the debounce period immediately; `written` and `stateJson` avoid resending unchanged records. State upsert, workout upserts/deletes, and name updates are separate operations, not one transaction.
 
-On sign-in, access is checked, a different account's cache is discarded, and state/logs/roles are fetched. Logs merge by ID, remote winning duplicate IDs. The whole remote state wins when substantive and at least as new as local (or local is not substantive). `pushCloud()` reconciles logs against known remote IDs, including deletes.
+On sign-in, access is checked, a different account's cache is discarded, and state/logs/roles are fetched. Logs merge by ID; an explicitly newer log `updatedAt` wins (legacy ties still prefer remote). This allows resumed partial sessions to update one log instead of creating duplicates. The whole remote state wins when substantive and at least as new as local (or local is not substantive). `pushCloud()` reconciles logs against known remote IDs, including deletes.
 
 Foreground visibility and `online` events trigger `pullCloud()`. A newer state can reload when no draft is active. Pending coach updates wait for a block and no draft, apply in ID order, get marked applied, then save. A paused draft still blocks them. This is event-driven/polling reconciliation, not Realtime subscriptions or field-level conflict resolution.
 
-`migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. The lb/kg action does not convert saved numbers.
+`migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. Version 6 adds `weightUnits`; `normalizeLogs()` tags legacy logs with their source profile unit and preserves their existing completion status. All numeric weight fields are converted by `changeUnits()`; log units are normalized before cloud/local merging, restoring backups, and coach viewing. Free-text historical notes retain their explicitly written units. Earlier incorrect switches cannot be inferred.
 
 ## Database structure
 
@@ -143,3 +143,7 @@ See [AGENTS.md](../AGENTS.md) for build/local-server commands. Serve `dist/` to 
 For sync problems, identify account/cache owner, draft, local/cloud timestamps, queue, and errors without exporting private payloads. Do not start by clearing storage. For access issues, check status/approval/provider, RLS, and grants before changing code. For backend defects, inspect relevant logs/advisors before schema changes; do not copy personal logs into this public repository.
 
 Read-only `pg_policies`, `information_schema.column_privileges`, and `pg_get_functiondef()` queries help structural review. Privileged connector access does not prove client RLS behavior; role tests need a controlled isolated setup. Advisor findings/open work are in [the review](REVIEW-2026-11-11.md).
+
+## Regression checks added November 11, 2026
+
+Run `node scripts/test-persistence.mjs` for synthetic VM checks covering unit migration/conversion, partial completion/resume, upload draining/failures, sign-out, local-storage failure, and coach guards. `--fixture` writes an ignored local-only browser fixture under `test-results/fixture/`; it strips the SDK only in that fixture and must never be deployed. Run `node scripts/build-dev.mjs` separately for syntax/environment isolation. No database migration is needed for these JSON metadata changes. Full offline startup and multi-device conflict/deletion tombstones remain separate work.
