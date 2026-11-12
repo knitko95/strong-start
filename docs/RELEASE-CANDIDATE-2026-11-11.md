@@ -1,6 +1,29 @@
 # Full development release candidate — November 11, 2026
 
-Prepared at the owner's request to get all current development changes ready for publication, including the database changes. **Awaiting explicit release approval.** Production has not been changed.
+Prepared at the owner's request to get all current development changes ready for publication, including the database changes. **Approved and published November 11, 2026.** The preparation record below describes the pre-release state; the publication results follow.
+
+## Publication result
+
+The owner explicitly approved candidate `4f9bd960966a8f02d92557f7aac5cbed066d0708` and its six production migrations. All six exact SQL files were applied in order to production `aybtxqsneywuqxzjwoek`. [PR #1](https://github.com/knitko95/strong-start/pull/1) merged as `d9b8ff309205e4fbfccf23e1029f05c7dca3e47b`; [GitHub Pages succeeded for that SHA](https://github.com/knitko95/strong-start/actions/runs/43128415693). Live HTML, privacy page, offline scripts and manifest matched the release commit, allowing only newline normalization. Runtime source files were unchanged from the approved candidate.
+
+Production and development now match in table RLS flags, columns, constraints, triggers, policies, table/column grants, function definitions/execute grants and message-table publication. Function definitions were compared after normalizing line endings. Production aggregate checks confirmed no eligible legacy messages or plan notes were missing from the migration import. Security advisors match the tested development candidate: the restricted-role-table notices, twelve reviewed authenticated definer RPCs and existing disabled leaked-password-protection warning remain.
+
+All six browser suites passed against the live page using synthetic account/RPC/Realtime interception, including 228 workout layouts. Only the temporary test copies were adapted for production routing and the absent Testing banner; no app changes were needed. Real unauthenticated sign-in checks passed at 1280/390/320 px with Google entry, production backend/storage keys, no Testing banner, no horizontal overflow and no captured errors. No real account was signed in, messaged or deleted as a production test. Physical-device, real two-device and authenticated production-flow limits remain as described below. Existing sessions should reload without clearing browser data.
+
+Automatic approval review initially rejected the messaging migration's SELECT policy. Fresh development role tests and catalog inspection demonstrated the nested thread RLS participant restriction; the unchanged migration then passed review and applied. A separate migration-history ID repair was rejected as outside the approved six schema migrations. It was not executed. The connected tool assigned the following production history IDs; SQL hashes match the corresponding approved repository files after line-ending normalization:
+
+| Repository migration version | Production history version | Name |
+|---|---|---|
+| `20261111184231` | `20261112003240` | `atomic_account_sync` |
+| `20261111195538` | `20261112003321` | `self_service_account_deletion` |
+| `20261111201943` | `20261112003522` | `coach_messaging_threads` |
+| `20261111202328` | `20261112003526` | `coach_message_read_cursors` |
+| `20261111202645` | `20261112003529` | `coach_message_thread_status` |
+| `20261111212921` | `20261112003533` | `live_coach_messages_and_receipts` |
+
+All thirteen migrations are applied; do not infer pending schema work from this version-ID difference or replay the six files. Aligning only those six history version fields with the repository IDs remains pending separate authorization. Any repair must assert the current version, name and exact SQL hash and preserve the statements and seven baseline entries. This bookkeeping difference does not prevent the running app from using the completed schema.
+
+## Pre-release preparation record
 
 ## Defined candidate
 
