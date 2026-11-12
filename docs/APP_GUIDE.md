@@ -4,7 +4,7 @@ Reviewed against source commit `149f807bd8e67c7c95204157e07e33e1202763a7` on Nov
 
 ## Trying changes before release
 
-Use [the testing app](https://strong-start-dev.pages.dev/) to review changes from `dev`. Its Testing banner identifies the separate environment. Sign in separately; test accounts, plans, workouts, messages, and invites do not transfer to the [live app](https://knitko95.github.io/strong-start/). Do not restore a real member's backup into testing.
+Use [the testing app](https://strong-start-dev.pages.dev/) to review changes from `dev`. Its Testing banner identifies the separate environment. Sign in separately; test accounts, plans, workouts, messages, and invites do not transfer to the [live app](https://strongstart.app/). Do not restore a real member's backup into testing.
 
 Changes are built and tested on dev first. The agent will provide the tested changes, results, and any database changes for your review. The live app is updated only after you explicitly approve that release. Asking for a feature or fix, or approving a previous release, does not approve a new live release. See [the release process](ENVIRONMENTS.md).
 
@@ -19,7 +19,7 @@ The ordinary guest button is hidden during beta. Local-only handlers/storage rem
 
 ## Putting it on a phone
 
-The new `strongstart.app` address is being prepared on dev and is not yet the published app. When the switch is approved, use your existing account there after checking that the old app says **Synced**. An unfinished workout saved only in the old browser/app does not move automatically. The new address needs its own Home Screen installation; keep the old one until your account data is verified. See [transition details](DOMAIN-TRANSITION-2026-11-11.md).
+The live app is now [strongstart.app](https://strongstart.app/). Use your existing account there after checking that the old GitHub Pages app says **Synced**. An unfinished workout saved only in the old browser/app does not move automatically. The new address needs its own Home Screen installation; keep the old one until your account data is verified. See [transition details](DOMAIN-TRANSITION-2026-11-11.md).
 
 The app fits the phone's width and scrolls vertically. The bottom menu stays fixed, with extra clearance for rounded edges and the home indicator; it remains hidden during setup and the focused workout flow. Touch zoom is restricted where the browser allows it, though browser accessibility settings may override this. Form fields use at least 16px text on phones to avoid focus zoom.
 

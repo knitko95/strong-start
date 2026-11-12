@@ -95,7 +95,7 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | # | Item | Status | Decision / notes |
 |---|---|---|---|
-| 33 | Prepare strongstart.app and Cloudflare production hosting | On the test app; awaiting cutover approval | Owner requested development preparation and testing only, November 11. Exact-domain production routing, a separate public-file production package and pinned Cloudflare Workers Static Assets configuration; test Pages hosting remains isolated. Local domain/browser, offline and hosting checks pass. No database migration, DNS, domain attachment, production Auth change or live deployment by this task. See [scope, checks, user transition and pending cutover actions](DOMAIN-TRANSITION-2026-11-11.md). |
+| 33 | Publish strongstart.app with Cloudflare production hosting | Live (Nov 11) | Owner approved the tested cutover, restricted build token and PR #3 offline routing correction. GitHub main release `c135c7e` deployed successfully through Cloudflare Workers Builds. Managed DNS/TLS, production Auth URLs, Google sign-in handoff, public assets, narrow layouts and real offline reopening/reconnect verified. No database migration or real account mutation. Old GitHub Pages app remains available; physical-phone installation, authenticated sign-in and reset email delivery remain unverified. See [publication record and transition guidance](DOMAIN-TRANSITION-2026-11-11.md). |
 
 ## Standing decisions
 

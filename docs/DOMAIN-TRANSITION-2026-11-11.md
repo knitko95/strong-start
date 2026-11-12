@@ -1,6 +1,6 @@
-# strongstart.app transition candidate — November 11, 2026
+# strongstart.app publication record — November 11, 2026
 
-Prepared for development testing and owner review. **Owner approved the tested transition and production Auth changes November 11.** The initial source release was merged through PR #2 as `5304707e996aafb21a0587e4d4b148899de523a9`; publication verification is being completed below. No database migration is part of this transition.
+Prepared for development testing and owner review. **Owner approved the tested transition and production Auth changes November 11.** The initial source release was merged through PR #2 as `5304707e996aafb21a0587e4d4b148899de523a9`; the separately approved offline correction was merged through PR #3 as `c135c7e17354c6fb55285de28c963a1903839f45` and verified live. No database migration is part of this transition.
 
 ## Production publication and hosting verification
 
@@ -10,7 +10,7 @@ The Worker custom domain is `strongstart.app`, with managed DNS/TLS and public W
 
 Cloudflare's default browser analytics injection was disabled for this zone and the public HTML cache refreshed. Real browser responses then matched the approved source exactly. Real signed-out startup and synthetic sync/setup suites passed at desktop, 390 px and 320 px, with no captured errors. These synthetic account/RPC checks do not establish authenticated production writes.
 
-The live offline check identified a hosting incompatibility: default HTML canonicalization redirects `/index.html` to `/`, so precaching records a redirected response that Chrome rejects for an offline navigation. The hosting-only correction sets `assets.htmlHandling` to `none` and internally rewrites `/` to `/index.html` with status 200. Existing root, index, privacy, invite and Auth URLs stay usable; no runtime HTML, service-worker logic, plans or database data change. Local Workers routing checks and a real Chrome offline/reconnect test pass, including a non-redirected cached index. An online refresh replaces any earlier redirected shell cache.
+The live offline check identified a hosting incompatibility: default HTML canonicalization redirects `/index.html` to `/`, so precaching records a redirected response that Chrome rejects for an offline navigation. The hosting-only correction sets `assets.htmlHandling` to `none` and internally rewrites `/` to `/index.html` with status 200. Existing root, index, privacy, invite and Auth URLs stay usable; no runtime HTML, service-worker logic, plans or database data change. Local Workers routing checks and a real Chrome offline/reconnect test pass, including a non-redirected cached index. An online refresh replaces any earlier redirected shell cache. Owner explicitly approved PR #3; automatic Git push build `46f7df50-5ce6-4dd6-bf97-6c1309bb3618` succeeded for `c135c7e`, deploying version `5ea58735-7b9d-4991-a45a-bcc9163b5d35` at 100%. A real live Chrome check at 390 px confirmed non-redirected cached index, offline reopening and reconnecting with no page errors. Normal DNS and valid HTTPS work; all 11 public runtime assets matched the approved package.
 
 ## Changes
 
@@ -31,21 +31,21 @@ The app recognizes exactly `https://strongstart.app/` and `/index.html` as produ
 
 The delivery message identifies the exact hosted dev commit and verification. `scripts/test-hosted-environment.cjs` checks matching HTML, real signed-out startup/Google entry, isolation and all three widths without signing in or sending email.
 
-## Cutover after approval
+## Cutover procedure and retained safeguards
 
 1. Recheck branch heads and approve the exact domain-release delta from main. Do not include unrelated later dev work. This change introduces **no database migration**. During this task, read-only production inspection showed the previously prepared six feature migrations had been applied separately under production version IDs; do not replay them by filename. Recheck before release.
-2. Inspect production Auth URL configuration. Set Site URL to `https://strongstart.app/`; allow exact return URLs `https://strongstart.app/` and `https://strongstart.app/index.html`. Preserve old GitHub Pages redirects during transition. Keep development URLs in the separate test project. Verify email templates honor the requested redirect. The connected Supabase tools do not expose Auth configuration; these settings have not been inspected or changed here.
+2. Inspect production Auth URL configuration. Set Site URL to `https://strongstart.app/`; allow exact return URLs `https://strongstart.app/` and `https://strongstart.app/index.html`. Preserve old GitHub Pages redirects during transition. Keep development URLs in the separate test project. Verify email templates honor the requested redirect. The connected Supabase tools do not expose Auth configuration; the production settings were saved and reloaded in the dashboard during the approved cutover.
 3. Keep the production Google callback at `https://aybtxqsneywuqxzjwoek.supabase.co/auth/v1/callback` because the backend is unchanged. Review Google consent/homepage/authorized-origin settings for the new address. Do not rotate credentials or reuse the test OAuth client.
 4. Publish only the approved source to main. In `hosting/cloudflare`, use supported Node, `npm ci`, then `npm run build`. Inspect `.cloudflare/output/v0/` and deploy that exact output with `npx cf deploy --prebuilt`. This is a production upload/deployment requiring approval even before domain attachment.
 5. Attach `strongstart.app` using Worker Custom Domains; verify managed DNS/TLS. Test real new-domain sign-in/reset, sync, invites, installation and offline reopening with a deliberate session. Leave the test Pages project intact. Optionally configure `www` as a query-preserving redirect to the apex; no `www` route is installed by this candidate.
 6. Keep the old GitHub app usable until users sync/export local-only work and verify their new-domain account. No automatic old-site redirect is included. A redirect-only retirement needs a separately approved, tested change handling old drafts, invites, Auth query/hash and installed Home Screen apps.
-7. Future Workers Builds can connect to **main only**, previews disabled, build root `hosting/cloudflare`, build `npm ci && npm run build`, deploy `npx cf deploy --prebuilt`. Configure only as part of approved cutover; no automatic release is enabled here. Main pushes still require explicit release approval.
+7. Future Workers Builds can connect to **main only**, previews disabled, build root `hosting/cloudflare`, build `npm ci && npm run build`, deploy `npx cf deploy --prebuilt`. Configure only as part of approved cutover; the main-only connection is now enabled for approved future releases. Main pushes still require explicit release approval.
 
 ## User transition and limits
 
 Existing users sign in with the same account to retrieve successfully synced plans/history. Browsers isolate localStorage, sessions, service workers and installations by origin; unsynced old-origin drafts do not transfer automatically. Finish/sync or deliberately export a personal backup before moving. Avoid simultaneous old/new account editing. Install the new address separately after verifying account data; retain the old app until recovery is no longer needed.
 
-Simulated-origin tests establish client routing and redirect arguments, not production provider configuration or OAuth/reset delivery. Managed DNS/TLS, real production authentication, old-origin data recovery and physical-phone installation/background behavior require verification during approved cutover. A hosting rollback does not undo previously released database migrations.
+Simulated-origin tests establish client routing and redirect arguments, not production provider configuration or OAuth/reset delivery. Managed DNS/TLS and the real Google sign-in handoff to the unchanged production callback were verified. Credential submission, authenticated production writes, reset email delivery, old-origin data recovery and physical-phone installation/background behavior remain unverified. No real account or workout data was changed by these checks. A hosting rollback does not undo previously released database migrations.
 
 ## Reproduce
 
@@ -72,4 +72,4 @@ While the local runtime runs, from repository root:
 node scripts/test-domain-transition.cjs http://127.0.0.1:8787
 ```
 
-These build/dev commands do not publish. Do not deploy, attach the domain, change production Auth settings, push main or retire GitHub Pages before approval.
+These build/dev commands do not publish. Future production changes and retirement of GitHub Pages still require their own tested release approval.
