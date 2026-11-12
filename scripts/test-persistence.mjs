@@ -528,6 +528,52 @@ await test('deletion discards late sync responses and waits before deleting the 
   assert.ok(h.storage.get(h.run('LS')));
 });
 
+await test('warm-up weights support typing and equipment increments without changing working sets',()=>{
+  const h=harness();
+  h.run(`state.settings.level='regular';startWorkout(weekKeys()[0]);const d=state.draft;d._x=sessionExtras(d,dSlots());
+    const slot=dSlots().find(s=>s.pk===d._x.rampPk);const pk=slot.pk;d.step={ph:'ex',pk};
+    const before=JSON.stringify({sets:d.sets,ex:state.ex,planned:d.planned});
+    const card=renderRamp(d,slot,d._x);`);
+  assert.match(h.run('card'),/aria-label="Weight"[^>]*data-ramp="true"/);
+  assert.match(h.run('card'),/aria-label="More weight"/);
+  const data={pk:h.run('pk'),i:'0',f:'w',ramp:'true'};
+  h.dispatch('input',{id:'',dataset:data,value:'12.5'});
+  assert.equal(h.run('rampSet(d,slot,0).w'),'12.5');
+  const next=h.run('nextLoad(EX[slot.id],12.5)');
+  h.click('fbump',{...data,dir:'1'});
+  assert.equal(+h.run('rampSet(d,slot,0).w'),next);
+  h.dispatch('input',{id:'',dataset:data,value:'0'});
+  h.click('fbump',{...data,dir:'-1'});
+  assert.equal(h.run('rampSet(d,slot,0).w'),'0');
+  assert.equal(h.run('JSON.stringify({sets:d.sets,ex:state.ex,planned:d.planned})'),h.run('before'));
+  assert.equal(h.run('logs.length'),0);
+  h.click('framp');assert.equal(h.run('d.rampDone'),1);
+  assert.equal(h.run('Object.values(d.sets).flat().filter(s=>s.done).length'),0);
+});
+await test('warm-up load edits survive reload, stay separate per set and convert units',()=>{
+  const h=harness();
+  h.run(`state.settings.level='regular';startWorkout(weekKeys()[0]);state.draft._x=sessionExtras(state.draft,dSlots());
+    const slot=dSlots().find(s=>s.pk===state.draft._x.rampPk);const pk=slot.pk;
+    rampSet(state.draft,slot,0).w='100';rampSet(state.draft,slot,1).w='120';save();
+    const snapshot=JSON.parse(localStorage.getItem(LS));state=migrate(snapshot.state);logs=snapshot.logs;`);
+  assert.equal(h.run('rampSet(state.draft,slot,0).w'),'100');
+  assert.equal(h.run('rampSet(state.draft,slot,1).w'),'120');
+  h.run("changeUnits('kg')");
+  near(+h.run('rampSet(state.draft,slot,0).w'),45.359237);
+  near(+h.run('rampSet(state.draft,slot,1).w'),54.4310844);
+  h.run(`coachMode={};`);
+  h.dispatch('input',{id:'',dataset:{pk:h.run('pk'),i:'0',f:'w',ramp:'true'},value:'999'});
+  near(+h.run('rampSet(state.draft,slot,0).w'),45.359237);
+});
+await test('legacy warm-up drafts retain suggestions and accept an unknown starting weight',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);const d=state.draft;d._x=sessionExtras(d,dSlots());
+    const slot=dSlots().find(s=>s.pk===d._x.rampPk);d.step={ph:'ex',pk:slot.pk};d._x.warm.filter(x=>x.ramp)[0].d='15 kg × 6';`);
+  assert.equal(h.run('rampSet(d,slot,0).w'),'15');
+  h.run(`delete d.rampSets;d._x.warm.filter(x=>x.ramp)[0].d='60% of your working weight × 6';`);
+  assert.equal(h.run('rampSet(d,slot,0).w'),'');
+  assert.match(h.run('renderRamp(d,slot,d._x)'),/60% of your working weight/);
+});
+
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){
   const h=harness();

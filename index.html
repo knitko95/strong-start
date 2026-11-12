@@ -1816,6 +1816,7 @@ function convertProgress(ex,from,to){ Object.values(ex||{}).forEach(e=>{ if(!e) 
 function convertDraft(d,from,to){
   if(!d) return;
   Object.values(d.sets||{}).forEach(rows=>convertRows(rows,from,to));
+  Object.values(d.rampSets||{}).forEach(rows=>convertRows(rows,from,to));
   Object.keys(d.planned||{}).forEach(k=>{ d.planned[k]=convertWeight(d.planned[k],from,to); });
   convertProgress(d.progressBefore,from,to);
 }
@@ -3738,13 +3739,14 @@ function fMoreSheet(pk){
   }
   modal(`<div class="endsheet stack" style="gap:10px"><h2>More</h2>${h}${fSaveRow()}<button class="btn ghost block" data-action="closemodal">Close</button></div>`);
 }
-function stepper(pk,i,f,val,unit,label){
+function stepper(pk,i,f,val,unit,label,ramp=false){
+  const scope=ramp?' data-ramp="true"':'';
   if(f==='w') val=weightNumber(val);
   const what=label.toLowerCase().replace(/ \(.*\)$/,''), n=Math.max(1.6,String(val??'').length+.6);
   return `<div class="fstep"><div class="fl">${label}</div>
-    <span class="fval"><input class="num" inputmode="decimal" aria-label="${label}" data-pk="${pk}" data-i="${i}" data-f="${f}" value="${esc(val)}" style="width:calc(${n}ch + 6px)">${unit?`<small>${unit}</small>`:''}</span>
-    <div class="abtns"><button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="-1" aria-label="Less ${what}">−</button>
-    <button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}" data-dir="1" aria-label="More ${what}">+</button></div></div>`;
+    <span class="fval"><input class="num" inputmode="decimal" aria-label="${label}" data-pk="${pk}" data-i="${i}" data-f="${f}"${scope} value="${esc(val)}" style="width:calc(${n}ch + 6px)">${unit?`<small>${unit}</small>`:''}</span>
+    <div class="abtns"><button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}"${scope} data-dir="-1" aria-label="Less ${what}">−</button>
+    <button class="abtn" data-action="fbump" data-pk="${pk}" data-i="${i}" data-f="${f}"${scope} data-dir="1" aria-label="More ${what}">+</button></div></div>`;
 }
 function setDefaults(d,s,tg,k){
   const st=d.sets[s.pk][k]; if(!st) return;
@@ -3967,7 +3969,8 @@ function fAction(a,b){
       if(d.skipped&&d.skipped[to]){ delete d.skipped[to]; const sl=dSlots().find(x=>x.pk===to); const arr=d.sets[to]=d.sets[to]||[]; const want=sl?sl.cfg.sets:3; while(arr.length<want) arr.push({w:(arr[arr.length-1]||{w:''}).w,r:'',done:false}); }
       if(to==='warm'||to==='cool') d.step={ph:to}; else d.step={ph:'ex',pk:to};
       save(); render(); window.scrollTo(0,0); return true; }
-    case 'fbump': { const s=d.sets[b.dataset.pk][+b.dataset.i], f=b.dataset.f, dir=+b.dataset.dir, slot=dSlots().find(x=>x.pk===b.dataset.pk), ex=EX[slot.id], tg=target(slot);
+    case 'fbump': { const slot=dSlots().find(x=>x.pk===b.dataset.pk); if(!slot) return true;
+      const s=b.dataset.ramp?rampSet(d,slot,+b.dataset.i):d.sets[slot.pk][+b.dataset.i], f=b.dataset.f, dir=+b.dataset.dir, ex=EX[slot.id], tg=target(slot);
       if(f==='w'){ const v=parseFloat(s.w)||0; if(dir>0) s.w=String(nextLoad(ex,v)); else { const pv=prevLoad(ex,v); s.w=String(pv<v?pv:Math.max(0,+(v-inc(ex)).toFixed(2))); } }
       else { const step=tg.unit==='sec'?5:1; s.r=String(Math.max(0,(parseInt(s.r,10)||0)+dir*step)); }
       save(); render(); return true; }
@@ -4539,13 +4542,26 @@ function gAction(a,b){
   }
   return false;
 }
+// Draft-only warm-up loads stay separate from working sets and progression.
+function rampSet(d,s,k){
+  const key=s.pk+':'+s.id;
+  d.rampSets=d.rampSets||{};
+  const rows=d.rampSets[key]=d.rampSets[key]||[];
+  if(!rows[k]){
+    const r=d._x.warm.filter(x=>x.ramp)[k], m=(r?.d||'').match(/^([\d.]+) (?:lb|kg) × \d+$/);
+    rows[k]={w:m?m[1]:''};
+  }
+  return rows[k];
+}
 function renderRamp(d,s,X){
   const ramps=X.warm.filter(x=>x.ramp), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
-  const m=(r.d||'').match(/^(.*?) × (\d+)$/);
+  const m=(r.d||'').match(/^(.*?) × (\d+)$/), row=rampSet(d,s,k);
+  const each=(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   return `<div class="focus">${fTop(d,dSlots(),`Warm-up set ${k+1} of ${ramps.length}`)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div></div>
     <section class="card acard"><div class="ach"><b>Lighter set</b><span class="goal">Not logged</span></div>
-      <div class="ftarget" style="text-align:center"><span class="num big">${esc(m?m[1]:r.d)}</span>${m?` <span class="num mid">× ${m[2]}</span>`:''}</div>
+      <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
+      ${row.w===''?`<div class="tiny muted" style="text-align:center">${esc(m?m[1]:r.d)}</div>`:''}
       <div class="tiny muted" style="text-align:center">Easy and smooth. These prepare you for your working sets.</div></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
     <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button></div>
@@ -5283,7 +5299,7 @@ document.addEventListener('input', e=>{
   const t=e.target;
   if(coachMode && !['libq','lpq'].includes(t.id)) return;
   if(t.id==='au-email'){ AUTH.email=t.value; return; } if(t.id==='au-pw'){ AUTH.pw=t.value; return; }
-  if(t.dataset.f && state.draft){ const s=state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
+  if(t.dataset.f && state.draft){ const slot=dSlots().find(x=>x.pk===t.dataset.pk); if(!slot) return; const s=t.dataset.ramp?rampSet(state.draft,slot,+t.dataset.i):state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
   if(t.id==='libq'){ ui.libQ=t.value; const pos=t.selectionStart; render(); const n=$('#libq'); n.focus(); n.setSelectionRange(pos,pos); }
 });
 document.addEventListener('change', e=>{
