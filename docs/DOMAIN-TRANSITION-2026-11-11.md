@@ -1,6 +1,16 @@
 # strongstart.app transition candidate — November 11, 2026
 
-Prepared for development testing and owner review. **Awaiting explicit cutover approval.** This task has not changed DNS, production Auth settings, Workers/custom domains, GitHub Pages settings or database contents.
+Prepared for development testing and owner review. **Owner approved the tested transition and production Auth changes November 11.** The initial source release was merged through PR #2 as `5304707e996aafb21a0587e4d4b148899de523a9`; publication verification is being completed below. No database migration is part of this transition.
+
+## Production publication and hosting verification
+
+Cloudflare Workers Builds is connected directly to `knitko95/strong-start`, watching only `main`, with previews disabled. Build root is `hosting/cloudflare`, build command `npm ci && npm run build`, deploy command `npx cf deploy --prebuilt`, and Node `22.23.0`. The owner separately approved creating the restricted build token: Workers Scripts edit and Account Settings read for this account only. Its value is not committed. The initial Git build `4288be47-0943-4689-8a9d-cd2ee90f1ec6` succeeded and deployed version `908c031e-39a6-4b73-a6b3-6bd4eb6e6ed3` at 100%.
+
+The Worker custom domain is `strongstart.app`, with managed DNS/TLS and public Worker/preview URLs disabled. Production Auth Site URL is `https://strongstart.app/`; exact root/index return URLs for the new and old GitHub addresses are saved. The default reset template uses `{{ .ConfirmationURL }}`. Custom SMTP is not configured; no password-reset email or credential submission is part of these checks. The Google backend callback remains unchanged.
+
+Cloudflare's default browser analytics injection was disabled for this zone and the public HTML cache refreshed. Real browser responses then matched the approved source exactly. Real signed-out startup and synthetic sync/setup suites passed at desktop, 390 px and 320 px, with no captured errors. These synthetic account/RPC checks do not establish authenticated production writes.
+
+The live offline check identified a hosting incompatibility: default HTML canonicalization redirects `/index.html` to `/`, so precaching records a redirected response that Chrome rejects for an offline navigation. The hosting-only correction sets `assets.htmlHandling` to `none` and internally rewrites `/` to `/index.html` with status 200. Existing root, index, privacy, invite and Auth URLs stay usable; no runtime HTML, service-worker logic, plans or database data change. Local Workers routing checks and a real Chrome offline/reconnect test pass, including a non-redirected cached index. An online refresh replaces any earlier redirected shell cache.
 
 ## Changes
 

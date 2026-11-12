@@ -9,6 +9,9 @@ export default defineConfig({
     compatibilityDate: '2026-11-11',
     workersDev: false,
     previewUrls: false,
+    // Keep index.html directly fetchable: redirected precache responses cannot
+    // be returned to offline navigation requests by the existing service worker.
+    assets: {htmlHandling:'none'},
     observability: {enabled:true, traces:{enabled:true}}
   }
 });
