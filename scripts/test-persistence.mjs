@@ -105,6 +105,11 @@ await test('workout pause and list navigation preserve the current guide timer',
 await test('returning from cool-down completion restores a skipped timer checkpoint',()=>{
   const h=guidedWorkout('cool');h.click('gmove',{i:'2'});h.click('gnow');h.run('state.draft.guide.end=Date.now()+12000;');h.click('gskipall');assert.equal(h.run('state.draft.guide.mode'),'end');h.click('gback');assert.equal(h.run('state.draft.guide.mode'),'paused');assert(h.run('state.draft.guide.left')>11000);assert.equal(h.run('state.draft.cool.nav3'),undefined);
 });
+await test('guided Next is always visible for preparation, timers, reps, pause and phase endings',()=>{
+  const h=guidedWorkout();const next=()=>h.run('renderFocus()');assert.match(next(),/class="guide-next">Next: <span>Cat-cow/);h.click('gnow');assert.match(next(),/Next: <span>Cat-cow/);h.click('gpause');assert.match(next(),/Next: <span>Cat-cow/);h.click('gresume');h.click('gdone');assert.match(next(),/Next: <span>Standing quad stretch/);h.click('gnow');assert.equal(h.run('state.draft.guide.mode'),'reps');assert.match(next(),/Next: <span>Standing quad stretch/);h.click('gdone');
+  const expected=h.run('esc(EX[dSlots()[nextGroupStart(state.draft,dSlots(),-1)].id].n)');assert(next().includes('Next: <span>'+expected));h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'gap');assert(next().includes('Next: <span>'+expected));
+  const c=guidedWorkout('cool');c.click('gmove',{i:'2'});assert.match(c.run('renderFocus()'),/Next: <span>Finish workout/);
+});
 await test('guide completion reaches working sets and coach preview cannot mutate guide navigation',()=>{
   const h=guidedWorkout();h.click('gmove',{i:'2'});h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'gap');h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide'),null);assert.equal(h.run('state.draft.step.ph'),'ex');
   const c=guidedWorkout();const before=c.run('JSON.stringify(state.draft)');c.run("coachMode={uid:'preview'}");for(const action of ['gmove','gnow','gdone','glist'])c.click(action,{i:'1'});assert.equal(c.run('JSON.stringify(state.draft)'),before);

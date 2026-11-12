@@ -768,7 +768,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .guide-focus .ach{align-items:center;min-height:44px}.guide-pause{width:44px;height:44px;display:grid;place-items:center;background:var(--sunk);border:0;border-radius:50%;color:var(--ink);cursor:pointer}.guide-pause svg{width:18px;height:18px}
 .guide-timer{display:flex;justify-content:center;align-items:center;min-height:150px}.guide-timer .gringw{width:150px;height:150px}.guide-timer .gclock{font-size:42px}.guide-hint{margin:0;text-align:center;font-size:13px;color:var(--muted)}
 .guide-reps{min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:14px}.guide-reps .num{font:600 48px var(--display);color:var(--ink)}
-.guide-parts summary{min-height:44px;padding:10px 0;font-size:13px;color:var(--muted);cursor:pointer}.guide-parts .gchips{padding:8px 0}.guide-focus .ffoot{margin-top:4px;padding-top:0}.guide-path .path-stop{margin:0 3px}
+.guide-parts summary{min-height:44px;padding:10px 0;font-size:13px;color:var(--muted);cursor:pointer}.guide-parts .gchips{padding:8px 0}.guide-focus .ffoot{margin-top:4px;padding-top:0}.guide-next{min-height:19px;margin-top:2px;text-align:center;font-size:13px;line-height:19px;color:var(--muted)}.guide-next span{color:var(--ink)}.guide-path .path-stop{margin:0 3px}
 
 .workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
 .workout-menu-sheet.sheet,.workout-info-sheet.sheet{border-radius:26px;padding:24px 22px calc(24px + var(--safe-bottom));max-width:520px;max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px));gap:18px;box-shadow:none}
@@ -4724,11 +4724,13 @@ function renderGuide(){
   const timer=fine?`<div class="atimer"><button class="aside" data-action="gprev" aria-label="Back 15 seconds"><b>−</b><span>15 s</span></button>${ring}<button class="aside" data-action="gskip" aria-label="Ahead 15 seconds"><b>+</b><span>15 s</span></button></div>`:`<div class="guide-timer">${ring}</div>`;
   const hint=it.k==='foam'?'Grab a foam roller. About 30 seconds each spot.':it.phases&&seg?effortHint(seg.label):'';
   const act=paused?'gresume':ready||inGap?'gnow':'gdone',label=paused?'Resume':ready||inGap?'Ready':'Done';
+  const next=items[G.i+1],first=G.ph==='warm'?nextGroupStart(d,slots,-1):-1;
+  const nextLabel=next?next.t:G.ph==='warm'?(first>=0?EX[slots[first].id].n:'Cool-down'):'Finish workout';
   return `<div class="focus guide-focus">${header}<div class="ahead"><h1>${esc(it.t)}</h1><div class="guide-meta"><span class="small muted">${esc(goal)}</span><button class="howbtn" data-action="ghowto">${ICON.play}How to</button></div></div>
     <section class="card acard"><div class="ach"><b>${esc(title)}</b>${pause}</div>${timer}
       ${hint?`<p class="guide-hint">${esc(hint)}</p>`:''}
       ${it.phases?`<details class="guide-parts"><summary>Cardio parts</summary>${phaseChips(S,G.s)}</details>`:''}
-      ${guidePath(d,G,items)}<div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${label}</button></div></div></section></div>`;
+      ${guidePath(d,G,items)}<div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${label}</button></div><div class="guide-next">Next: <span>${esc(nextLabel)}</span></div></div></section></div>`;
 
 }
 function gAction(a,b){
