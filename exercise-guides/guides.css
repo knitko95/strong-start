@@ -23,3 +23,5 @@
 @media(max-width:360px){.eg-inline .eg-view model-viewer{height:285px}.eg-inline .eg-controls button{padding:8px 10px}}
 /* A retained inline model follows width changes without restarting its animation. */
 .eg-inline .eg-view{min-width:0}
+.eg-inline:not([data-guide-status]){min-height:310px}
+@media(max-width:360px){.eg-inline:not([data-guide-status]){min-height:285px}}
