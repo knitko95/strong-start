@@ -137,6 +137,12 @@ Superset introductions are a presentation of the existing `ex` step, not a new s
 
 The cardio check-in stores a pending `draft.guide.feelChoice`; **Continue** calls the existing feedback and advancement functions once. A selection can survive reload without prematurely changing cardio targets. These additive draft fields require no saved-state version/key change or database migration. The existing whole-document sync and coach save guards remain in force. See [the screen update verification](WORKOUT-SCREENS-2026-11-11.md).
 
+## Guided navigation — November 12, 2026
+
+`renderGuide()` uses the shared compact header/card/path components; `fTop()` accepts an optional phase segment array so header counts match `gItems()`. `guidePath()` renders move buttons that call `gChooseMove()`. `guide.positions` is an additive map keyed by group, stable move key and selected title. It stores only the selected part, mode, paused remaining milliseconds and total; it never changes working sets or progression. `gStoreMove()` pauses and checkpoints before changing moves, using the checklist, pausing the workout or leaving through the workout list. Checkpoint selection preserves paused work; completed entries are cleared when returning from a checked-off list.
+
+Preparation uses `mode:ready,end:null`. `gTick()` advances only running/gap timers and stops when a new move reaches Ready. Side gaps and cardio parts retain their durations. `gCompleteMove()` preserves the cardio effort prompt for both automatic and manual completion. Done advances one timed part or completes a rep move; duplicate Ready/Done actions in other modes are ignored. Cardio-part selection also waits for Ready, and paused seeking remains paused. `migrate()` initializes old checkpoint maps and converts only legacy preparation countdowns (including paused preparation) to manual Ready, retaining active/paused work and all completion maps. The state remains v6 with the same keys; no database migration is needed.
+
 ## Database structure
 
 The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
