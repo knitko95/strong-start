@@ -28,4 +28,5 @@ writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');
 await import('./test-persistence.mjs');
+await import('./test-workout-demos.mjs');
 await import('./test-offline.mjs');

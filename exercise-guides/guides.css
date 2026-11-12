@@ -10,3 +10,16 @@
 .eg-demo model-viewer:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 @media(max-width:360px){.eg-view model-viewer{height:290px}.eg-controls{gap:8px}.eg-controls label{gap:6px}}
 .exercise-guide-mount:empty{display:none}
+/* The character sits directly on the app surface; lighting has no visible skybox or floor. */
+.eg-view model-viewer{background:transparent;--poster-color:transparent}
+.eg-inline{background:transparent;border:0;border-radius:0;position:relative;overflow:visible}
+.eg-inline .eg-view model-viewer{height:310px}
+.eg-inline .eg-status{position:absolute;top:10px;left:0;right:0;text-align:center;pointer-events:none}
+.eg-inline[data-guide-status=ready]>.eg-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.eg-inline .eg-controls{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:space-between;padding:0;pointer-events:none}
+.eg-inline .eg-controls button{pointer-events:auto;min-height:44px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--ink);font:700 12px var(--body);padding:8px 12px}
+.eg-inline.expanded .eg-view model-viewer{height:460px}
+.eg-inline[data-guide-status=error] .eg-status{position:static;display:block;padding:8px 0}
+@media(max-width:360px){.eg-inline .eg-view model-viewer{height:285px}.eg-inline .eg-controls button{padding:8px 10px}}
+/* A retained inline model follows width changes without restarting its animation. */
+.eg-inline .eg-view{min-width:0}

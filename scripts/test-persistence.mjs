@@ -32,6 +32,54 @@ let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 
+await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);
+  const out=h.run('renderFocus()');assert.match(out,/focus demo-first/);assert(out.indexOf('workout-demo')<out.indexOf('class="asteps"'));
+  assert.match(out,/aria-label="Workout settings"/);assert.match(out,/data-action="flist"/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
+  h.run('fMoreSheet(demoPk)');for(const action of ['swap','adjust','fskipex','fpause','fexit','flist','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
+});
+await test('swap recommendations fit equipment/preferences while search reaches the whole library',()=>{
+  const h=harness();h.run(`var swapPk=weekKeys().flatMap(sessionSlots)[0].pk;swapSheet(swapPk);var G=swapGroups(ui.swap);`);
+  assert(h.run('G.similar.every(e=>available(e)&&allowed(e))'));assert(h.run('G.same.every(e=>available(e)&&allowed(e))'));
+  assert(h.run('G.same.every(e=>!G.similar.some(x=>x.id===e.id))'));
+  assert.match(h.run('lastModal'),/Suggested swaps/);assert.match(h.run('lastModal'),/Same muscles/);assert.match(h.run('lastModal'),/Browse all exercises/);
+  h.run(`state.places[0].eq=['bw'];Object.assign(ui.swap,{q:'',eq:'',body:''});`);assert.equal(h.run('swapLibraryResults(ui.swap).length'),h.run('LIB.length-1'));
+  h.run(`ui.swap.q='dumbbell bench press';ui.swap.browse=true;renderSwapPicker();`);assert.match(h.run('lastModal'),/Dumbbell Bench Press/);assert.match(h.run('lastModal'),/Other equipment/);
+  h.run(`ui.swap.eq='bw';renderSwapPicker();`);assert.match(h.run('lastModal'),/No exercises found/);
+  h.run(`ui.swap.eq='';swapExerciseDetail('dumbbell-bench-press')`);assert.match(h.run('lastModal'),/Use this exercise/);assert.match(h.run('lastModal'),/Needs equipment/);
+});
+await test('mid-exercise swaps preserve completed sets with their original exercise through reload and finish',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);ui.tab='workout';var swapPk=dSlots()[0].pk,oldId=dSlots()[0].id;state.draft.rampDone=99;
+    state.draft.sets[swapPk]=[{w:'30',r:'10',done:true},{w:'30',r:'',done:false},{w:'30',r:'',done:false}];state.draft.planCounts[swapPk]=3;
+    var beforeTotal=workoutCompletion(state.draft).planned;applyExerciseSwap(swapPk,'plank',false);var archivedPk=state.draft.completedSwaps[0].pk;`);
+  assert.equal(h.run('dSlots().find(s=>s.pk===swapPk).id'),'plank');assert.equal(h.run('state.draft.sets[swapPk].length'),2);
+  assert.equal(h.run('state.draft.completedSwaps[0].id'),h.run('oldId'));assert.equal(h.run('state.draft.sets[archivedPk][0].w'),'30');
+  assert.equal(h.run('workoutCompletion(state.draft).planned'),h.run('beforeTotal'));assert.equal(h.run('workoutCompletion(state.draft).completed'),1);
+  h.run(`state=migrate(JSON.parse(localStorage.getItem(LS)).state);convertDraft(state.draft,'lb','kg');`);near(+h.run('state.draft.sets[archivedPk][0].w'),30*.45359237);
+  h.run(`state.draft.sets[swapPk][0]={w:'',r:'20',done:true};finishWorkout();`);
+  assert(h.run('logs[0].entries.some(e=>e.ex===oldId&&e.pk===archivedPk)'));assert(h.run(`logs[0].entries.some(e=>e.ex==='plank')`));
+  assert.equal(h.run('logs[0].completed'),2);
+});
+await test('persistent and repeated swaps retain frozen slot order and completed work',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);ui.tab='workout';var swapPk=dSlots()[0].pk,originalPlan=planId(swapPk),slotOrder=JSON.stringify(dSlots().map(s=>s.pk));
+    applyExerciseSwap(swapPk,'dumbbell-bench-press',true);`);
+  assert.equal(h.run('planId(swapPk)'),'dumbbell-bench-press');assert.equal(h.run('dSlots().find(s=>s.pk===swapPk).id'),'dumbbell-bench-press');assert.equal(h.run('JSON.stringify(dSlots().map(s=>s.pk))'),h.run('slotOrder'));
+  h.run(`state.draft.sets[swapPk][0]={w:'20',r:'10',done:true};applyExerciseSwap(swapPk,'hammer-curl',false);state.draft.sets[swapPk][0]={w:'15',r:'12',done:true};applyExerciseSwap(swapPk,'plank',false);`);
+  assert.equal(h.run('state.draft.completedSwaps.length'),2);assert.equal(h.run('state.draft.completedSwaps[0].id'),'dumbbell-bench-press');assert.equal(h.run('state.draft.completedSwaps[1].id'),'hammer-curl');
+  assert.equal(h.run('planId(swapPk)'),'dumbbell-bench-press');assert.equal(h.run('workoutCompletion(state.draft).completed'),2);
+  assert.equal(h.run(`target(swapTargetSlot({id:'dumbbell-bench-press',cfg:{s:'carry',unit:'sec',lo:30,hi:45,sets:3,rest:60}})).unit`),'reps');
+});
+await test('inline demo is retained during rerenders and a different exercise attaches its own asset',()=>{
+  const h=harness();h.run(`var replacedWith,attached,disposed;
+    var keepDemo={dataset:{exerciseId:'goblet-squat'},querySelector(){return {}}};
+    var nextDemo={dataset:{exerciseId:'goblet-squat'},parentElement:{classList:{add(){}}},replaceWith(x){replacedWith=x}};
+    document.querySelector=()=>nextDemo;window.StrongStartExerciseGuides={attach(x){attached=x},dispose(s){disposed=s}};
+    setupWorkoutDemo(keepDemo);`);
+  assert.equal(h.run('replacedWith===keepDemo'),true);assert.equal(h.run('attached'),undefined);
+  h.run(`nextDemo.dataset.exerciseId='hammer-curl';setupWorkoutDemo(keepDemo);`);assert.equal(h.run('attached.exerciseId'),'hammer-curl');assert.equal(h.run('attached.mode'),'workout');
+  h.run(`document.querySelector=()=>null;setupWorkoutDemo();`);assert.equal(h.run('disposed'),'workout');
+});
+
 await test('six-set path alternates sets and rests, preserves current while browsing and returns on Save',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var pathPk=dSlots()[0].pk;state.draft.rampDone=99;
     state.draft.sets[pathPk]=Array.from({length:6},(_,i)=>({w:'40',r:'10',done:i<3}));state.draft.step={ph:'ex',pk:pathPk,i:3};`);
@@ -85,14 +133,14 @@ await test('set tiles navigate without reopening completed sets and preserve edi
   assert.match(h.run('renderFocus()'),/Save changes/);
   assert.equal((h.run('renderFocus()').match(/data-action="fset"/g)||[]).length,3);
   h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.click('fset',{pk,i:'1'});
-  assert.match(h.run('renderFocus()'),/Done with set 2/);
+  assert.match(h.run('renderFocus()'),/Log set/);
   assert.equal(h.run('state.draft.sets[navPk][0].r'),'9');assert.equal(h.run('doneN(state.draft,navPk)'),1);
   h.run(`state=JSON.parse(localStorage.getItem(LS)).state;`);
   assert.equal(h.run('state.draft.step.i'),1);assert.equal(h.run('state.draft.sets[navPk][0].r'),'9');
-  h.click('fset',{pk,i:'2'});assert.match(h.run('renderFocus()'),/Done with set 3/);
+  h.click('fset',{pk,i:'2'});assert.match(h.run('renderFocus()'),/Log set/);
   h.click('fdone',{pk,i:'2'});assert.equal(h.run('state.draft.sets[navPk][1].done'),false);
   assert.equal(h.run('state.draft.sets[navPk][2].done'),true);
-  h.click('fready');assert.match(h.run('renderFocus()'),/Done with set 2/);
+  h.click('fready');assert.match(h.run('renderFocus()'),/Log set/);
 });
 await test('saving an edited completed set returns to unfinished work without new rest or weight carry',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var navPk=dSlots().find(s=>usesLoad(EX[s.id])).pk;
@@ -100,7 +148,7 @@ await test('saving an edited completed set returns to unfinished work without ne
   const pk=h.run('navPk');h.click('fset',{pk,i:'0'});h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.click('fdone',{pk,i:'0'});
   assert.equal(h.run('state.draft.step.ph'),'ex');assert.equal(h.run('ui.timer'),null);
   assert.equal(h.run('state.draft.sets[navPk][1].w'),'30');assert.equal(h.run('doneN(state.draft,navPk)'),1);
-  assert.match(h.run('renderFocus()'),/Done with set 2/);
+  assert.match(h.run('renderFocus()'),/Log set/);
   const before=h.run('JSON.stringify(state.draft)');h.click('fset',{pk,i:'99'});h.click('fset',{pk:'missing',i:'0'});
   assert.equal(h.run('JSON.stringify(state.draft)'),before);
 });
