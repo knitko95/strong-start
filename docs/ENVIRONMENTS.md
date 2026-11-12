@@ -54,3 +54,7 @@ There is deliberately no automatic production database migration or production r
 - Production HTML SHA-256 matched the unchanged `main` commit `149f807bd8e67c7c95204157e07e33e1202763a7`.
 - Security advisor notices match the deliberately restricted role tables and the existing authenticated security-definer RPC design. Functional permission checks passed; this is not a full security audit.
 - The browser viewport override did not apply, so a phone-width visual check remains unverified.
+
+## Pending atomic-sync release
+
+Development has migration `20261111184231_atomic_account_sync.sql` and the matching frontend; production does not. See [sync verification and release limits](SYNC-REVIEW-2026-11-11.md). This migration deliberately denies legacy direct writes. An approved release must apply the migration and publish the matching frontend in a coordinated window, then ask existing open tabs/Home Screen sessions to reload. Cached old clients preserve their local copy but cannot sync until refreshed. A frontend-only rollback to the old save protocol is incompatible; prepare and test any rollback separately. Do not restore old broad write grants as an automatic workaround.

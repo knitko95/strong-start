@@ -6,7 +6,7 @@ Baseline review: November 11, 2026, production frontend commit `149f807bd8e67c7c
 
 The browser runs one HTML page with inline CSS/JavaScript. Rendering builds HTML strings and assigns them to `#app`, `#tabs`, and modal/timer containers. Delegated document click/input/change listeners dispatch using `data-action`. There is no bundler, dependency installation, application server, or router package. Development has a small Node build and checked-in syntax/environment checks; these do not replace application-flow tests.
 
-`index.html` loads Supabase JS v2 from jsDelivr's UMD path and fonts from Google Fonts. The SDK follows the v2 major rather than an exact patch. The manifest/mobile metadata provides standalone/Home Screen presentation; there is no service worker or asset-cache strategy. Exercise media registries (`EX_PHOTOS`, `EX_MEDIA`) are empty: instructions are text and inline SVG muscle maps, not a shipped video/photo collection.
+`index.html` loads Supabase JS v2 from jsDelivr's UMD path and fonts from Google Fonts. The SDK follows the v2 major rather than an exact patch. The manifest/mobile metadata provides standalone/Home Screen presentation. Development now includes the public-file service worker described below; it is separate from account sync. Exercise media registries (`EX_PHOTOS`, `EX_MEDIA`) are empty: instructions are text and inline SVG muscle maps, not a shipped video/photo collection.
 
 The public repository includes `.nojekyll`; no local `.github/workflows` directory exists. GitHub reports a successful generated **pages build and deployment** workflow (`dynamic/pages/pages-build-deployment`) for the reviewed `main` SHA: [run 42969162454](https://github.com/knitko95/strong-start/actions/runs/42969162454). This verifies the deployment route; the exact Pages settings screen was not inspected. Local/remote `main` matched during review.
 
@@ -17,6 +17,8 @@ All implementation and testing happens on dev first. Present the verified candid
 The current source uses production only at the exact live origin/path. Other origins/paths, including localhost, select development, with prefixed localStorage keys and a test manifest/banner. The Cloudflare build forces development mode and removes production backend credentials from its output. `SITE_URL` uses the current origin/path for Google OAuth, email redirects, and invites. The test Google provider has its own OAuth client and hosted redirect; localhost redirects need their own test-project allow-list entries.
 
 ## Source map
+
+Mobile layout uses a device-width viewport with `viewport-fit=cover`, viewport zoom restrictions, and `touch-action:pan-y` on the document and scrolling sheets. Browser accessibility overrides can still permit zoom. Safe-area insets protect all four edges; `--nav-height` shares the fixed tab bar's height and bottom clearance with document padding and the floating timer. Setup/focus views retain bottom safe-area padding while hiding navigation. Phone form fields have a 16px minimum font size to prevent focus auto zoom. Validate both narrow portrait and landscape layouts; browser emulation does not establish native iOS/Android safe-area or keyboard behavior.
 
 Navigate by section/function names rather than depending on these approximate line anchors.
 
@@ -39,7 +41,7 @@ Navigate by section/function names rather than depending on these approximate li
 | Compatibility | `migrate` (~3841) |
 | Finish/events/boot | `finishWorkout` (~4042), event listeners, `boot` (~4266) |
 
-Older workout rendering/event code remains alongside the focus/guide flow. `render()` routes the workout tab to `renderFocus`, not `renderWorkout`. Trace the active dispatcher before editing similarly named functions.
+`render()` routes the workout tab to `renderFocus`. The obsolete `renderWorkout` renderer and unreachable first-workout tour were removed during the dev UI cleanup. Some legacy event handlers remain; trace the active dispatcher before editing similarly named functions.
 
 ## Plan engine
 
@@ -49,13 +51,39 @@ Equipment requirements are groups of alternatives: every group needs an availabl
 
 Thirteen splits support two to five workouts weekly. Base `push`, `pull`, `legsA`, `legsB`, and `jump` slots combine into derived days. `fitSlots()` trims sets, pairs compatible supersets, reduces rests, and may remove smaller exercises to fit a time estimate. `finalize()` enforces shared-station rules. Optional post-lift cardio is outside the selected session length.
 
-Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targets use prior sets, rep ranges, experience, and easy/hard feedback. Equipment uses different load ladders/increments. Introductory weeks reduce sets, with an age-dependent extension for beginners. `finishWorkout()` counts checked positive-rep/seconds sets, updates progression, appends a log, clears the draft, and queues saving.
+A started workout records its exercises, order, and pairings in `draft.shape` (`lockShape()`), and `dSlots()` rebuilds from that list. Sets, reps, and rest still follow Adjust, but a later re-fit cannot drop, add, or re-pair an exercise mid-workout; previously that could hide an exercise and leave its logged sets out of the saved workout. Reordering before the first set re-locks the new order. Drafts created before this change lock on their next logged set. The field is additive: no schema version change or migration.
+
+Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targets use prior sets, rep ranges, experience, and easy/hard feedback. Equipment uses different load ladders/increments. Introductory weeks reduce sets, with an age-dependent extension for beginners. `finishWorkout()` counts checked positive-rep/seconds sets against per-slot `draft.planCounts` (plus any extra sets). Logs record `status`, `completed`, `planned`, `units`, and `updatedAt`. Partial sessions retain a paused draft and log ID; resume restores skipped/unfinished rows. Finishing replaces the same log. Per-exercise `progressBefore` snapshots and comparison with prior entries prevent double-applying progression on repeated saves. Complete sessions clear the draft. Weekly completion excludes partials and deduplicates workout keys; legacy logs remain complete because their original whole-session counts are unavailable. Coach activity totals count logged sessions, including partial effort.
+
+Deliberate set edits update `draft.planCounts` to the retained rows, including any completed sets that cannot be removed. Skips preserve the requirement so resume restores unfinished work. Week-order reset uses a distinct action from exercise-order reset. Body-weight validation shares one parser and converted bounds across setup, profile edits, and weigh-ins; an invalid entry never clears the saved profile weight. These changes retain the existing JSON schema and need no database migration.
 
 ## Local state and sync
 
+The development muscle map shares curved SVG geometry with exercise thumbnails and how-to diagrams. `musclePicker()` uses the existing accessible modal host; its grouped buttons and diagram taps both call `selectMuscle()`. Selection stays in `ui.musSel` and does not call save or cloud functions. The chooser actions are allowed in read-only coach preview. Weekly set calculations and primary/secondary exercise mappings are unchanged; no saved-data or database migration is needed.
+
+### Assigned-coach messaging on dev
+
+`CM` owns account-scoped in-memory message summaries and unsent drafts, separate from `state` and workout drafts. `cmOpen`/`cmDraw` use the existing accessible modal host, inert background and focus restoration. The thread keeps the current tab/scroll/workout state and hides bottom navigation; visual-viewport sizing keeps the compact composer inside the visible overlay. Input grows to 120 pixels. A failed send retains its draft and request ID; unchanged retries are idempotent. Closing retains unsent text for that page session, while sign-out/deletion/account switching clears it and invalidates pending responses. Message drafts are not part of local backups or account sync.
+
+For the iOS Home Screen keyboard, `cmLockPage` freezes only the background page and retains its scroll position and existing inline styles. The backdrop remains full-size; `cmViewport` positions the sheet inside it using the visual viewport and the backdrop's measured top, so a WebKit viewport pan is not applied twice. Keyboard-open layout uses the full available height and a small composer inset rather than the Home indicator safe-area padding. The bottom tabs use display:none while messaging. `cmClose` restores the prior body styles and scroll position. Keyboard geometry is covered by simulated viewport tests, not a physical iOS keyboard claim.
+
+The page lock is applied before the dialog receives focus. `cmSettleViewport` positions it immediately, again over two animation frames, and after a short settling delay so opening does not depend on an input focus/keyboard event. Closing cancels those callbacks and clears the previous sheet offsets. The initial-position regression test moves the backdrop after its first measurement without a resize or input event and checks that the sheet realigns itself.
+
+After the owner clarified that the whole phone card was visible but lower than expected, the deliberate 64 px opening gap was removed at widths up to 600 px. Phone conversations now fill the visual viewport before and during typing. Their header respects the top safe area before the keyboard opens; desktop retains the original inset. Tests distinguish these intended layouts and cover a simulated iPhone status area.
+
+The later screenshot showed the header down near the keyboard with the reply area obscured. The message dialog now passes layout classes and a before-focus callback to `modal()`, so its geometry is applied before any retained textarea focus can trigger native scrolling. The iOS Home Screen path pins the sheet to the visible top and uses the visual viewport height without adding its keyboard-pan offset again. Non-standalone viewport positioning is retained. Tests simulate a large standalone keyboard offset and inspect sheet bounds at the exact moment the textarea receives focus; this still needs physical-device confirmation.
+
+Member-facing coach cards, coach feedback routing and post-workout coach actions are hidden for `AUTH.coach` accounts. `cmOpen` also guards against opening the coach's own member thread through a stale control; opening/replying to a client's thread is unchanged. This is a presentation rule, with no database permission or assignment changes.
+
+The `coach_messaging` RPC supports summary/read/send/done/dismiss. It derives recipients from existing invite assignment, verifies both profiles and coach membership, serializes thread mutations and exposes no general client write grants. Reading and resolving are separate states. A read returns a bounded chronological page and full-thread reply status; seen-message cursors protect against a reply/dismiss consuming a newer message. `coach_plan_message` copies new assigned-coach plan notes without modifying atomic plan application. Existing assigned legacy feedback is retained in threads; unassigned history stays in the original tables. See [the messaging verification and migration record](COACH-MESSAGING-2026-11-11.md) for migration order, compatibility and verification limits.
+
+The live-update extension publishes `coach_messages` to `supabase_realtime` without changing participant RLS or client grants. Each foreground account subscribes to INSERT and UPDATE only; payloads invalidate a debounced authorized RPC refresh rather than being trusted as conversation state. Subscription handles/timers are removed on hidden/pagehide/sign-out/account reset and re-created on return; failed channels retry with a 15-second foreground polling fallback. Account generation and read-request guards discard stale callbacks. Unchanged summaries do not redraw the app, and summary refreshes avoid redrawing active workout/preview or form inputs.
+
+`peek` retrieves conversation history and receipt timestamps without marking it read. Quiet updates use `read` only when following the latest messages, and `peek` when reading older history. They replace the message-list content while preserving the actual composer node, focus/caret and scroll; New messages provides a deliberate return to the bottom. Gap pages are fetched after reconnect. The RPC only updates null read timestamps, preventing a read/Realtime feedback loop. The latest outgoing message renders Sent/Read; dismiss still marks read, by owner decision. See [live update checks](LIVE-MESSAGING-2026-11-11.md).
+
 | Item | Meaning |
 | --- | --- |
-| `strongstart_state_v3` | Local JSON `{state, logs}`; current `state.v` is 5 |
+| `strongstart_state_v3` | Local JSON `{state, logs, sync}`; current `state.v` is 6 |
 | `state.settings` | Profile, units, goals, schedule, experience/comfort, pain flags, display/cardio preferences |
 | `state.places`, `curPlace` | Per-place equipment/current selection |
 | `state.block` | Program number/start, base plan slots, original picks, introductory easing |
@@ -69,23 +97,42 @@ Plans use six-week blocks. Progression lives per exercise ID in `state.ex`; targ
 
 The keys above describe production. Development prefixes the app keys with `dev_`. Supabase manages its own project-specific Auth session storage. Do not copy/inspect tokens to establish documentation facts.
 
-`save()` timestamps state, persists locally, and schedules upload after 1.2 seconds. `CLOUD.busy/again` serializes uploads; `written` and `stateJson` avoid resending unchanged records. State upsert, workout upserts/deletes, and name updates are separate operations, not one transaction.
+`save()` preserves the local `{state, logs, sync}` envelope and queues a save after 1.2 seconds. The optional `sync` metadata records the account owner, last shared snapshot, unresolved conflict, and latest conflict recovery copy. Existing `{state, logs}` saves and personal backups remain readable; state stays at v6 and the storage key is unchanged. No baseline is assumed for legacy copies: differing substantive device/account data is retained for review.
 
-On sign-in, access is checked, a different account's cache is discarded, and state/logs/roles are fetched. Logs merge by ID, remote winning duplicate IDs. The whole remote state wins when substantive and at least as new as local (or local is not substantive). `pushCloud()` reconciles logs against known remote IDs, including deletes.
+`read_account_snapshot()` reads state, logs, server revision, and deleted workout IDs in one database snapshot. `commit_account_snapshot()` locks the caller's profile, checks approval and the expected revision, then commits state, logs, deletions, profile name, and eligible coach acknowledgements in one transaction. Revisions, not client clocks, determine whether a write can proceed. Old direct table writes are denied, including column-level grants, so stale application versions cannot bypass this boundary.
 
-Foreground visibility and `online` events trigger `pullCloud()`. A newer state can reload when no draft is active. Pending coach updates wait for a block and no draft, apply in ID order, get marked applied, then save. A paused draft still blocks them. This is event-driven/polling reconciliation, not Realtime subscriptions or field-level conflict resolution.
+Reconciliation compares the shared baseline, current device copy, and account snapshot. Plans/settings/progression/units/drafts are treated as one interdependent document. One-sided changes are adopted; divergent changes stop with **Review sync conflict** instead of guessing. Logs merge independently by ID; conflicting edits to the same log require a choice. The dialog preserves both versions, offers a copy/export, and stores the last recovery pair before replacing local data. Recovery is retained until the next resolved conflict, account switch, or sign-out. Sign-out remains blocked by failed or unresolved syncing.
 
-`migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. The lb/kg action does not convert saved numbers.
+`workout_log_deletions` remembers removed IDs; stale clients cannot restore them. An unfinished draft referencing a deleted partial log keeps its sets but receives a new history identity when finished. Explicit backup restore imports workouts with new IDs (and remaps draft references), allowing intentional restoration without weakening ordinary deletion protection.
+
+Uploads are serialized and check account identity after every network await. Edits made during a request are reconciled against the submitted snapshot; they are never marked synced merely because an earlier request finished. The baseline and current data are persisted together. Device-storage failures stop further writes and preserve the warning; lost responses are recovered by reading the committed snapshot on retry.
+
+Foreground visibility and online events retry syncing. Coach application occurs only on a clean shared snapshot with a plan and no active or paused draft. The server applies pending updates in ID order and marks them applied in the same transaction. A failed transaction leaves updates pending; a lost response does not apply them twice. New user edits during delivery are retained, with explicit conflict review if necessary. This is event-driven reconciliation, not continuous Realtime or field-by-field plan merging.
+
+Coach preview exposes only supported plan edits (exercise IDs, set/rep/rest/recovery overrides, level, and note). `renderCoachSettings()` shows personal settings as read-only context; working-weight edits, workout recording, history deletion, program resets, and backups are unavailable in coach view. `coachActionAllowed()` and input/change guards prevent unsupported UI actions, while database RLS remains the authorization boundary. Previewing a different place changes only the temporary view. Sending still uses the existing `planCode()` payload; this cleanup does not expand backend permissions or add data fields.
+
+`migrate()` upgrades older state; v4 requests renewed setup for older states while retaining some records, and v5 preserves legacy split preferences. New migrations should be compatible and tested. Version 6 adds `weightUnits`; `normalizeLogs()` tags legacy logs with their source profile unit and preserves their existing completion status. All numeric weight fields are converted by `changeUnits()`; log units are normalized before cloud/local merging, restoring backups, and coach viewing. Free-text historical notes retain their explicitly written units. Earlier incorrect switches cannot be inferred.
+
+Paused setup records an additive `setup.savedSettings` snapshot. `save()` and Continue reconcile later Settings changes into the wizard answers while retaining unfinished wizard-only answers. Older checkpoints compare against the default profile on their first reconciliation. When saved Settings supply goals, places, level/comfort and a valid schedule for an existing plan, the changed checkpoint is retired and `onboarded` becomes true; plan, progression, logs and draft are retained. Equipment editing defers this until outside the equipment screen. An early quick-setup checkpoint still requires its equipment/experience/limitations flow before a plan exists. No schema version or database migration is required.
+
+## Workout presentation follow-up — November 11, 2026
+
+The remaining workout views share `.acard`, `.asection`, `aTop()` and `aFoot()` with the existing exercise/timer design. Preview, lists, exercise completion, cardio questions and completion retain their existing entry points and actions. The workout list and saved summary remain accessible dialogs using `modal(..., {sheetClass:'workout-sheet'})`, so background inertness, Escape, focus trapping, account guards and message actions stay in the existing modal system. Long previews use normal document flow instead of covering exercise rows with a sticky footer.
+
+Superset introductions are a presentation of the existing `ex` step, not a new scheduler phase. The additive `draft.pairSeen` map is keyed by the pair's ordered slot IDs; **Start A** acknowledges it without logging any sets. A pair with already-logged sets bypasses the introduction, including older drafts with no map. Pair membership still comes from `dSlots()` and locked `draft.shape`. `fPairAction()` describes the scheduler's next destination, including unequal counts, skipped partners and disabled automatic rest; `fdone` still owns actual logging and timers.
+
+The cardio check-in stores a pending `draft.guide.feelChoice`; **Continue** calls the existing feedback and advancement functions once. A selection can survive reload without prematurely changing cardio targets. These additive draft fields require no saved-state version/key change or database migration. The existing whole-document sync and coach save guards remain in force. See [the screen update verification](WORKOUT-SCREENS-2026-11-11.md).
 
 ## Database structure
 
-All eight public tables had RLS enabled. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
+The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
 
 | Table | Key/data | Purpose |
 | --- | --- | --- |
 | `profiles` | `id` -> Auth user; email/name, last_seen, approved_at, invited_by, disabled_at | Profile/approval/disable status |
-| `app_state` | `user_id`; JSONB state; bigint updated_at, saved_at | Latest whole state |
+| `app_state` | `user_id`; JSONB state; updated_at, saved_at, server revision | Latest whole state |
 | `workout_logs` | Composite `(user_id,id)`; date, JSONB data | Completed sessions |
+| `workout_log_deletions` | `(user_id,id)`; deleted_at | Prevent stale workout resurrection |
 | `plan_updates` | Identity id; user_id, created_by, JSONB update, created_at, applied_at | Coach update queue |
 | `coaches` | `user_id` -> Auth user | Coach membership |
 | `app_owners` | `user_id` -> Auth user | Owner membership |
@@ -98,11 +145,11 @@ Auth-user deletion cascades through core account records. Feedback's profile ref
 
 ### Authorization to preserve
 
-- Members read/write their own state/workouts; coaches read across accounts. Members alone update their state. Workflow-table restrictive policies also require `is_approved()`.
+- Members read their own state/workouts; coaches read across accounts. Members save through the guarded revision-checked RPC; direct state/log writes are revoked. Workflow-table restrictive policies also require `is_approved()`.
 - Profile reads allow self/coach/owner. Client inserts allow id/email/name/last_seen; updates allow email/name/last_seen. Approval/inviter/disable columns are excluded. RLS-only review misses this protection.
 - Feedback reads allow self or the appropriate inbox role. Inserts are limited to message/context columns; `user_id` defaults to `auth.uid()`. Inbox updates are limited to `read_at`/`done_at`.
 - Invites are created by the coach-only RPC. Coaches read their own and update only `cancelled_at` on eligible unused rows.
-- Coaches insert plan updates as themselves. Recipients update their own rows to mark application. This table still has broad column update grants; see the review.
+- Coaches insert plan updates as themselves using only user_id/created_by/update columns. Clients cannot prefill applied_at or update acknowledgements directly. The atomic save function acknowledges only the authenticated recipient’s updates after applying them. Deletion records are readable only by their approved owner.
 - `coaches`/`app_owners` have no client row policies. Small `SECURITY DEFINER` functions read them with an empty search path. No-policy notices do not justify making role tables public.
 - Coach and owner are separate memberships. Owner membership alone does not grant coach access or beta approval: `is_approved()` explicitly exempts coaches, and the UI loads the people list through the coach path. Do not assume the roles are interchangeable.
 - Reviewed definer functions check callers where needed. They are not all interchangeable with invoker functions. `coach_people()` is security invoker and relies on caller RLS.
@@ -127,6 +174,14 @@ These seven SQL migrations are now checked into `supabase/migrations/` with thei
 
 ## Verification and troubleshooting
 
+### Self-service deletion (dev, November 11, 2026)
+
+Migration `20261111195538_self_service_account_deletion.sql` adds `delete_my_account(p_confirmation text)`. It derives the target exclusively from `auth.uid()`, requires the exact confirmation `DELETE`, rejects staff via the trusted role tables, and checks the JWT session ID against a live `auth.sessions` row owned by the caller and created within ten minutes. Refreshing a token does not count as signing in again. Anonymous/public execution is revoked. No new table or column grants are added. This guarded definer RPC needs elevated privileges to delete the caller's Auth row; its search path is empty.
+
+The function takes the profile lock used by account commits, removes coach feedback, clears app-feedback workout context, then deletes the Auth user in one transaction. Existing foreign keys remove profile/state/logs/tombstones/plan updates/sessions and null retained app-feedback profile links. Used invites retain `used_at` and cannot be reused. Existing tokens can remain cryptographically valid, but absent approval/profile rows deny snapshot commits and restricted data access. The frontend suspends persistence/sync during deletion, waits for in-flight sync, and clears account storage after success, even when local Auth sign-out reports an already-deleted user. A failed or ambiguous deletion response preserves the device copy; reconnect checks reconcile deletion. A current connected dev client with an established account sync clears its copy when no snapshot and `account_status()='none'` confirm removal. Offline devices cannot be remotely erased; external backups remain outside app control.
+
+Run `node scripts/test-account-deletion.cjs` after building (optional hosted URL argument) for synthetic browser RPC checks, and `scripts/test-account-deletion.sql` against development only for rolled-back database fixtures. See [the deletion verification record](ACCOUNT-DELETION-2026-11-11.md) for checks and release scope.
+
 See [AGENTS.md](../AGENTS.md) for build/local-server commands. Serve `dist/` to test the isolated development build; the current source also routes localhost to development. Use synthetic fixtures in the test database and verify hosted dev before requesting release approval. An offline fixture can disable the SDK in its served test copy, but label those checks as local-only. Do not commit fixture bypasses into the application or use production data for tests.
 
 | Change | Relevant checks |
@@ -143,3 +198,19 @@ See [AGENTS.md](../AGENTS.md) for build/local-server commands. Serve `dist/` to 
 For sync problems, identify account/cache owner, draft, local/cloud timestamps, queue, and errors without exporting private payloads. Do not start by clearing storage. For access issues, check status/approval/provider, RLS, and grants before changing code. For backend defects, inspect relevant logs/advisors before schema changes; do not copy personal logs into this public repository.
 
 Read-only `pg_policies`, `information_schema.column_privileges`, and `pg_get_functiondef()` queries help structural review. Privileged connector access does not prove client RLS behavior; role tests need a controlled isolated setup. Advisor findings/open work are in [the review](REVIEW-2026-11-11.md).
+
+## Regression checks added November 11, 2026
+
+Run `node scripts/test-persistence.mjs` for synthetic VM checks covering unit migration/conversion, partial completion/resume, upload draining/failures, sign-out, local-storage failure, and coach guards. `--fixture` writes an ignored local-only browser fixture under `test-results/fixture/`; it strips the SDK only in that fixture and must never be deployed. Run `node scripts/build-dev.mjs` separately for syntax/environment isolation. No database migration is needed for these JSON metadata changes. Offline app-shell reopening is covered by the new worker tests and browser checks described below. See [the sync verification record](SYNC-REVIEW-2026-11-11.md) for development-only cross-device and coach-save changes, database tests, and release requirements.
+
+## Offline shell, dialogs, and shorter setup — November 11, 2026
+
+`sw.js` caches an explicit allowlist of public HTML, `offline.js`, manifests, icons, and the existing Supabase SDK. Installation requires all required files, including the SDK. Navigation and listed static files are network-first with a four-second fallback to the cached copy. Auth/API responses, non-GET requests, and unrelated paths are never cached; navigation with query parameters is not stored. Cache names include the full app scope, and activation removes only that scope's old shell versions. Updates do not call skipWaiting or reload active workouts. Increment the shell VERSION when changing its cache contract. `scripts/build-dev.mjs` copies both scripts.
+
+`offline.js` checks readiness through worker messages, exposes it in Settings, repairs missing public files on request/reconnect, and displays an offline notice. This is distinct from account sync; local account ownership and all server authorization remain in the existing app. A previously signed-in account can use its device copy during an outage. A first-time browser still needs its online sign-in/plan load. Cache eviction, separate Home Screen storage, and real-device background behavior remain platform constraints.
+
+`modal()` provides a named dialog, initial focus, inert background, and retained focus through dialog redraws. Global Escape/Tab handlers close/trap focus; `closeModal()` restores the original or equivalent opener after callers rerender. Confirmation dialogs focus Cancel initially. No zoom settings were changed.
+
+New setup drafts carry `a.quickSetup:true`; existing drafts have no marker and retain their full flow. Quick setup has eight screens, requires confirmation of each place's equipment and explicit experience/comfort/limitations answers, and defers display and detailed cardio preferences. Early pause keeps a checkpoint with no generated block. Plan generation occurs after the schedule screen. New-user defaults use a walking warm-up and no extra cardio; first-workout guidance appears on Today. This is additive JSON metadata, with no new database migration.
+
+Run `node scripts/build-dev.mjs` for the combined persistence/onboarding and offline worker checks. Browser verification covers phone-width onboarding, saved setup resume, dialog keyboard behavior, and reopening/logging/reloading with the app server stopped. Worker tests cover total network failure including SDK fallback and cache exclusion. These do not establish physical iPhone/Android or assistive-technology compatibility.
