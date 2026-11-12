@@ -77,6 +77,10 @@ After selection, the muscle's name becomes the outlined selector button (for exa
 
 On dev, workout screens account for the Testing banner and phone safe areas before positioning the bottom buttons. Longer screens scroll normally, with space below the controls. See the [spacing and screen coverage review](WORKOUT-LAYOUT-2026-11-11.md) for the remaining differences between the older screens and the new design.
 
+On the test app, workouts are numbered independently of weekdays. **Up next** follows your completed workouts across program weeks, then loops back to Workout 1. For a Monday/Wednesday/Friday schedule started on Wednesday, you can do Workout 1 Wednesday, Workout 2 Friday, and Workout 3 Monday. Missing Friday leaves Workout 2 ready for your next visit. The selected weekdays appear separately as your planned schedule; you can train on another day.
+
+Only completing the recommended workout advances that order. You can still preview or do another workout, but an extra/repeated workout does not skip the one that was next. A partial workout remains resumable and does not advance the order. Weekly progress remains separate, counting distinct completed workouts in each seven-day program week. A partial finished in a later week counts in the week it is completed. Starting a new program or explicitly restarting week 1 begins at Workout 1; history and working weights remain.
+
 1. Tap a workout on Today. The preview shows exercises, estimated time, warm-up, and cool-down. Browsing this screen does not start a workout. Use **Reorder**, **Swap**, or an exercise's **How to do it** when needed.
 2. Choose **Start workout**. Follow the timed warm-up, then the exercise flow. A list view and workout-list menu let you navigate between session parts.
 3. Enter actual weights and reps (or seconds), then mark a set done. Weight defaults are suggestions. Per-side and added-weight labels matter; follow the displayed instructions.

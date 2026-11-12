@@ -85,6 +85,62 @@ await test('repeated complete sessions do not inflate weekly completion',()=>{
   const {run}=harness();run(`logs=[{key:weekKeys()[0],block:state.block.n,week:weekNum()},{key:weekKeys()[0],block:state.block.n,week:weekNum()}];`);
   assert.equal(run('weekLogs(weekNum()).length'),1);
 });
+await test('workout sequence crosses program weeks without resetting and wraps after the last workout',()=>{
+  const h=harness();h.run(`state.settings.split='fb3';state.settings.days=[1,3,5];logs=[];
+    const seq=weekKeys(); const add=(key,days,status='complete')=>logs.unshift({id:'seq-'+logs.length,key,block:state.block.n,week:1,status,date:new Date(Date.now()+days*864e5).toISOString()});`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+  h.run('add(seq[0],-15);state.block.start=new Date(Date.now()-21*864e5).toISOString();');
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+  h.run('add(seq[1],-5);');assert.equal(h.run('nextWorkoutKey()'),h.run('seq[2]'));
+  h.run('add(seq[2],-1);');assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+  assert.equal(h.run('weekLogs(weekNum()).length'),0,'weekly counter remains separate');
+});
+await test('partials, repeat workouts, out-of-order sessions and other programs do not skip the next workout',()=>{
+  const h=harness();h.run(`const seq=weekKeys();logs=[{key:seq[1],block:state.block.n,date:'2026-01-03',orderAdvanced:false},
+    {key:seq[0],block:state.block.n,date:'2026-01-02',status:'partial'},
+    {key:seq[0],block:state.block.n-1,date:'2026-01-01'}];`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+  h.run(`logs.unshift({key:seq[0],block:state.block.n,date:'2026-01-04'});logs.unshift({key:seq[0],block:state.block.n,date:'2026-01-05',orderAdvanced:false});`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+});
+await test('completion order uses the finish timestamp, including a resumed partial, and survives storage',()=>{
+  const h=harness();h.run(`const seq=weekKeys();logs=[{id:'b',key:seq[1],block:state.block.n,date:'2026-01-01',completedAt:'2026-01-04'},
+    {id:'a',key:seq[0],block:state.block.n,date:'2026-01-02',completedAt:'2026-01-03'}];save();
+    const saved=JSON.parse(localStorage.getItem(LS));state=migrate(saved.state);logs=normalizeLogs(saved.logs,state.settings.units);`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+  h.run(`logs=logs.filter(l=>l.id!=='b');`);assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+});
+await test('restart resets the sequence without deleting history or weights; new programs start at workout one',()=>{
+  const h=harness();h.run(`const seq=weekKeys();state.ex.keep={w:100};logs=[{key:seq[0],block:state.block.n,date:'2026-01-01',entries:[]}];`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+  h.click('restartblock');h.run('confirmCb();');
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));assert.equal(h.run('logs.length'),1);assert.equal(h.run('state.ex.keep.w'),100);
+  h.run('newBlock();');assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+});
+await test('all thirteen splits and flexible schedules retain their repeating order',()=>{
+  const h=harness();
+  for(const id of h.run('Object.keys(SPLITS)')){
+    h.run(`state.settings.flex=true;state.settings.nDays=SPLITS[${JSON.stringify(id)}].days;state.settings.split=${JSON.stringify(id)};logs=[];`);
+    const keys=h.run('weekKeys().slice()');
+    for(let i=0;i<keys.length*2;i++){
+      assert.equal(h.run('nextWorkoutKey()'),keys[i%keys.length]);
+      h.run(`logs.unshift({key:nextWorkoutKey(),block:state.block.n,date:new Date(2026,0,1,0,0,${i}).toISOString()});`);
+    }
+    assert.equal(h.run('nextWorkoutKey()'),keys[0]);
+  }
+});
+
+await test('changing the workout order follows the latest advancing completion in the new order',()=>{
+  const h=harness();h.run(`state.settings.split='fb3';state.settings.days=[1,3,5];const seq=weekKeys();logs=[{key:seq[2],block:state.block.n,date:'2026-01-03'},{key:seq[1],block:state.block.n,date:'2026-01-02'},{key:seq[0],block:state.block.n,date:'2026-01-01'}];state.settings.order={fb3:[seq[1],seq[0],seq[2]]};`);
+  assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+});
+await test('finishing an extra workout records effort without advancing past the expected workout',()=>{
+  const h=harness();h.run(`const seq=weekKeys();startWorkout(seq[1]);for(const list of Object.values(state.draft.sets))for(const r of list){r.w='20';r.r='8';r.done=true;}finishWorkout();`);
+  assert.equal(h.run('logs[0].orderAdvanced'),false);assert.equal(h.run('nextWorkoutKey()'),h.run('seq[0]'));
+  h.run(`startWorkout(seq[0]);for(const list of Object.values(state.draft.sets))for(const r of list){r.w='20';r.r='8';r.done=true;}finishWorkout();`);
+  assert.equal(h.run('logs[0].orderAdvanced'),true);assert.equal(h.run('nextWorkoutKey()'),h.run('seq[1]'));
+});
+
 await test('empty session is not logged',()=>{
   const {run}=harness();run('startWorkout(weekKeys()[0]);finishWorkout();');assert.equal(run('logs.length'),0);assert.ok(run('state.draft'));assert.match(run('lastToast'),/at least one set/);
 });

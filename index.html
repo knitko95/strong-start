@@ -1311,8 +1311,8 @@ function trainDays(){ const d=(state.settings.days||[1,3,5]).slice().sort((a,b)=
 function isFlex(){ return !!state.settings.flex; }
 function nDays(){ return isFlex() ? Math.max(2,Math.min(5,+state.settings.nDays||3)) : trainDays().length; }
 function splitN(){ return Math.max(2,Math.min(5,nDays())); }
-// Label for the i-th workout of the week: the weekday, or just its number when the schedule is flexible
-function dayLabel(i,long){ if(isFlex()) return long?`Workout ${i+1}`:String(i+1); const d=trainDays(); return DAYN[d[i%d.length]]; }
+// Workout numbers describe the repeating order, independently of planned weekdays.
+function dayLabel(i,long){ return long?`Workout ${i+1}`:String(i+1); }
 function splitId(){ const c=state.settings.split, n=splitN(); return (c && SPLITS[c] && SPLITS[c].days===n) ? c : SPLIT_DEFAULT[n]; }
 function splitLabel(){ return SPLITS[splitId()].label; }
 function baseKeys(){ return SPLITS[splitId()].keys; }
@@ -1845,6 +1845,34 @@ function rirFor(w){ const L=RIR[PROGRAM.blockLen]||RIR[5]; return L[Math.min(w,L
 function weekLogs(w){
   const done=logs.filter(l=>l.block===state.block.n && l.week===w && l.status!=='partial');
   return done.filter((l,i)=>done.findIndex(x=>x.key===l.key)===i);
+}
+// Follow completed history across weeks. Older logs count as completions;
+// new optional orderAdvanced metadata keeps repeats/out-of-order sessions from
+// moving the recommendation. Reordering uses the successor in the current order.
+function nextWorkoutKey(){
+  const keys=weekKeys(); if(!state.block || !keys.length) return keys[0];
+  const finished=logs.filter(l=>l.block===state.block.n && l.status!=='partial'
+    && l.orderAdvanced!==false && keys.includes(l.key)
+    && (!state.block.sequenceResetAt || new Date(l.completedAt||l.date).getTime()>state.block.sequenceResetAt))
+    .slice().sort((a,b)=>new Date(b.completedAt||b.date)-new Date(a.completedAt||a.date));
+  return finished.length ? keys[(keys.indexOf(finished[0].key)+1)%keys.length] : keys[0];
+}
+function nextTrainingDate(){
+  const today=dayStart(new Date()), ds=trainDays();
+  // After finishing today, suggest the next selected day. Training early stays optional.
+  const doneToday=logs.some(l=>l.block===state.block.n && l.status!=='partial'
+    && dayStart(new Date(l.completedAt||l.date)).getTime()===today.getTime());
+  for(let offset=doneToday?1:0;offset<=7;offset++){
+    const date=new Date(today); date.setDate(date.getDate()+offset);
+    if(ds.includes(date.getDay())) return date;
+  }
+  return today;
+}
+function scheduleNote(){
+  if(isFlex()) return 'Train whenever you can. Your next workout stays ready if you miss a day.';
+  const date=nextTrainingDate(), today=dayStart(new Date());
+  const label=date.getTime()===today.getTime()?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
+  return `Next planned day: ${label}. You can train on a different day; workouts stay in order.`;
 }
 function estMinutes(key){ return Math.round(liftSec(sessionSlots(key))/60); }
 // Real start-to-finish: warm-up + lifting + cool-down (optional cardio after is shown separately)
@@ -2594,7 +2622,7 @@ function fbWorkout(side,logId){
     if(side==='coach'){
       const today=new Date().toDateString(), l=logs.find(x=>new Date(x.date).toDateString()===today);
       if(l) return {id:l.id, name:l.name, date:l.date, status:'finished'};
-      if(state.block){ const done=new Set(weekLogs(weekNum()).map(x=>x.key)), k=weekKeys().find(x=>!done.has(x)); if(k) return {name:tplOf(k).name, status:'up next'}; }
+      if(state.block){ const k=nextWorkoutKey(); if(k) return {name:tplOf(k).name, status:'up next'}; }
     }
   }catch(e){}
   return null;
@@ -3044,8 +3072,8 @@ function startWorkout(key){
 function renderPlan(){
   const keys=weekKeys(), ds=trainDays();
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
-    <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':''} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p></div>
-    ${placeSwitch()}</section>
+    <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':', planned '+trainDays().map(d=>DAYN[d]).join(' / ')} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p></div>
+    <p class="small muted">Workouts repeat in order, even when you start midweek or miss a day.</p>${placeSwitch()}</section>
     ${renderMuscleMap()}`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k);
@@ -4567,10 +4595,9 @@ function addDayBanner(w){
 }
 function renderToday(){
   if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off. Your plan will be ready after you check your equipment, experience, and limitations.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
-  const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w), ds=trainDays();
-  const doneKeys=new Set(wl.map(l=>l.key)), nextKey=keys.find(k=>!doneKeys.has(k));
+  const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w);
+  const doneKeys=new Set(wl.map(l=>l.key)), nextKey=nextWorkoutKey();
   const over=w>L, total=logs.filter(l=>l.block===state.block.n).length, nm=state.settings.name?`, ${esc(state.settings.name)}`:'';
-  const todayDow=new Date().getDay(), isTrain=isFlex() || ds.includes(todayDow);
   let h=hsCard()+ringsCard(w,keys,wl,{L,over,total})+cmCoachCard(true);
   if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) h+=`<section class="card stack"><h2>Your first workout</h2><ol class="small"><li>Tap a workout below to preview it, then choose Start workout.</li><li>Enter the weight and reps you actually do, then mark the set done. Suggested weights are starting points.</li><li>Follow the rest timer. Use Take a break to pause and resume later.</li></ol><button class="btn ghost" data-action="firstworkoutdismiss">Got it</button></section>`;
   if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
@@ -4581,14 +4608,15 @@ function renderToday(){
   h+=checkinCard(w)+addDayBanner(w);
   if(!coachMode && weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
   h+=placeSwitch();
-  h+=`<section class="stack"><div><h2>${nextKey ? (isFlex()?`Next up: ${esc(tplOf(nextKey).name)}`:isTrain?`Today: ${esc(tplOf(nextKey).name)}`:'Rest day') : 'Week complete'}</h2>
-    <div class="small muted">${nextKey ? (isFlex()?`${wl.length} of ${keys.length} done this week. Do them in order, whenever you can, with a rest day between when possible.`:isTrain?'Tap a workout to see it, then Start when you’re ready.':`Next up: ${esc(tplOf(nextKey).name)}. You can still train today if you want.`) : 'Every workout this week is done. Enjoy the rest.'}</div></div>
+  h+=`<section class="stack"><div><h2>Next up: ${esc(tplOf(nextKey).name)}</h2>
+    <div class="small muted">${esc(scheduleNote())}</div>
+    <div class="tiny muted">Completing the next workout moves you forward. Missed days don’t reset the order.</div></div>
     ${placeNote(keys)}
     ${keys.map((k,i)=>{ const t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
-      return `<button class="day ${d?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}">
-        <span class="idx">${d?'✓':dayLabel(i)}</span>
+      return `<button class="day ${d&&!nx?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}">
+        <span class="idx">${dayLabel(i)}</span>
         <span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span>
-        <span class="small muted num" style="text-align:right">${d?new Date(log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}<br>${nx?'<span class="chip acc">Up next</span>':''}</span>
+        <span class="small muted num" style="text-align:right">${d?'Done '+new Date(log.completedAt||log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}<br>${nx?'<span class="chip acc">Up next</span>':''}</span>
       </button>`; }).join('')}
     <button class="btn" data-action="openmap">See which muscles this week trains</button>
     <p class="tiny muted" style="margin:0">Times include the warm-up and cool-down shown in each workout preview. Optional cardio after lifting adds extra time. ${coachMode?'':'Change your days or workout length in Settings.'}</p>
@@ -4651,11 +4679,10 @@ function profileCard(s){
   </section>`;
 }
 function weekOrderCard(){
-  const keys=weekKeys(), custom=keys.join()!==baseKeys().join(), cl=clashes(keys);
-  return `<div><b>Week order</b><div class="tiny muted">Move workouts to the days you want them.${isFlex()?' They’re done in this order.':''}</div></div>
-    <div class="stack" style="gap:6px">${keys.map((k,i)=>`<div class="ordrow"><span class="ordday">${isFlex()?i+1:DAYN[trainDays()[i%trainDays().length]]}</span><span style="flex:1"><b>${esc(tplOf(k).name)}</b><br><span class="tiny muted">${esc(tplOf(k).focus)}</span></span>
+  const keys=weekKeys(), custom=keys.join()!==baseKeys().join();
+  return `<div><b>Workout order</b><div class="tiny muted">Workouts repeat in this order. Your selected days are reminders; starting late or missing a day doesn’t skip a workout.</div></div>
+    <div class="stack" style="gap:6px">${keys.map((k,i)=>`<div class="ordrow"><span class="ordday">${i+1}</span><span style="flex:1"><b>${esc(tplOf(k).name)}</b><br><span class="tiny muted">${esc(tplOf(k).focus)}</span></span>
       <button class="ordbtn" data-action="ordmove" data-i="${i}" data-d="-1" aria-label="Move ${esc(tplOf(k).name)} earlier" ${i===0?'disabled':''}>▲</button><button class="ordbtn" data-action="ordmove" data-i="${i}" data-d="1" aria-label="Move ${esc(tplOf(k).name)} later" ${i===keys.length-1?'disabled':''}>▼</button></div>`).join('')}</div>
-    ${cl.length?`<div class="health" style="font-size:13px"><b>Heads up:</b> ${cl.map(([a,b])=>`${esc(tplOf(a).name)} and ${esc(tplOf(b).name)}`).join('; ')} work the same muscles on back-to-back days. That’s OK, but those muscles get less rest.</div>`:''}
     ${custom?`<button class="link" style="align-self:flex-start" data-action="weekordreset">Back to the recommended order</button>`:''}`;
 }
 // Collapsible Settings section: tap the header to open or close it
@@ -4990,7 +5017,7 @@ function adjustSheet(pk){
 /* ---------------- Actions ---------------- */
 function finishWorkout(){
   const d=state.draft, slots=dSlots(), entries=[], completion=workoutCompletion(d);
-  const previous=logs.find(l=>l.id===d.logId);
+  const previous=logs.find(l=>l.id===d.logId), orderAdvanced=d.key===nextWorkoutKey();
   d.progressBefore=d.progressBefore||{};
   for(const s of slots){
     const done=(d.sets[s.pk]||[]).filter(x=>x.done && (+x.r>0));
@@ -5012,6 +5039,7 @@ function finishWorkout(){
   if(!entries.length){ toast('Mark at least one set done first.'); return; }
   const elapsed=(d.elapsedMs||0)+(d.partialSaved?0:Math.max(0,Date.now()-d.startedAt));
   const l={id:d.logId||newLogId(), date:previous?previous.date:new Date().toISOString(), updatedAt:Math.max(Date.now(),(previous&&previous.updatedAt||0)+1), units:state.settings.units, key:d.key, name:tplOf(d.key).name, block:d.block, week:d.week, mode:d.mode, dur:Math.round(elapsed/60000), entries, ...completion};
+  if(completion.status==='complete'){ l.orderAdvanced=orderAdvanced; l.completedAt=new Date().toISOString(); if(d.block===state.block.n) l.week=weekNum(); }
   if(d.cardioDone) l.cardio=d.cardioDone;
   logs=logs.filter(x=>x.id!==l.id); logs.unshift(l);
   if(l.status==='partial'){ d.logId=l.id; d.elapsedMs=elapsed; d.partialSaved=true; }
@@ -5198,7 +5226,7 @@ document.addEventListener('click', e=>{
     case 'redosetup': confirmBox('Redo setup?','You’ll answer the setup questions again and get a fresh plan. Your history and weights stay.','Redo setup',()=>{ startSetup(true); save(); render(); window.scrollTo(0,0); }); break;
     case 'newblock': newBlock(); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Your next program started. Changed your mind? Go back anytime in Settings.'); break;
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
-    case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
+    case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.block.sequenceResetAt=Date.now(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'histopen': ui.histOpen = ui.histOpen===b.dataset.id?null:b.dataset.id; render(); break;
