@@ -729,11 +729,11 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 
 /* Refined workout presentation, scoped to the workout flow and its sheets. */
 .focus{gap:18px}.focus h1{font-size:32px;font-weight:600;font-style:normal;line-height:1.15}
-.workout-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:12px 8px;padding:0 2px}
-.workout-brand{font:italic 600 22px var(--display);white-space:nowrap;letter-spacing:-.6px}
-.workout-top .fprog{display:contents}.workout-top .flabel{grid-column:2;grid-row:1;font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);text-align:center}
-.workout-top .ficon{grid-column:3;grid-row:1;background:transparent;border-radius:12px;box-shadow:none}.workout-top .ficon svg{width:21px;height:21px}
-.workout-top .fsegs{grid-column:1/-1;grid-row:2;gap:0;overflow:hidden;border-radius:4px;margin-bottom:4px}.workout-top .fsegs i{height:4px;border-radius:0}
+.workout-top{display:grid;grid-template-columns:max-content minmax(24px,1fr) 44px;gap:12px;align-items:center;padding:0 2px;min-height:44px}
+.workout-top .flabel{max-width:min(44vw,180px);font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.workout-top .ficon{background:transparent;border-radius:12px;box-shadow:none}.workout-top .ficon svg{width:21px;height:21px}
+.workout-top .fsegs{min-width:0;gap:4px}.workout-top .fsegs i{height:4px;border-radius:4px;background:var(--line)}
+.workout-top .fsegs i.d{background:color-mix(in srgb,var(--accent) 45%,var(--line))}.workout-top .fsegs i.c{background:var(--accent)}.workout-top .fsegs i.p{background:var(--accent-soft)}
 .focus .ahead{gap:6px}.exercise-muscles{font-size:13px;color:var(--muted)}.exercise-muscles:empty{display:none}
 .focus .acard{border:0;box-shadow:none;border-radius:26px;padding:22px 20px;gap:18px}
 .focus .acard .ach>b{font-size:25px;letter-spacing:-.5px}.focus .acard .ach>b span{font-size:17px;color:var(--muted)}.focus .acard .ach .goal{font-size:14px;font-weight:400;color:var(--ink)}
@@ -761,7 +761,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .workout-menu-group+.workout-menu-group{margin-top:12px}.endsheet .menu-row{display:flex;flex-direction:row;align-items:center;gap:12px;padding:9px 6px;min-height:48px;background:transparent;border:0;border-radius:10px;color:var(--ink);font:inherit;cursor:pointer}.endsheet .menu-row:hover{background:var(--sunk)}.endsheet .menu-row b{font-size:15px;font-weight:600}.menu-row svg{width:20px;height:20px;flex:none}.menu-value{margin-left:auto;font-size:13px;color:var(--muted)}
 .endsheet .menu-end{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);border-radius:0;color:var(--accent)}.menu-save{display:flex;justify-content:center}.menu-save .sync{font-size:12px;font-weight:400}
 .workout-disclosure{border-top:1px solid var(--line);padding-top:4px}.workout-disclosure summary{padding:12px 0;min-height:44px;cursor:pointer;font-size:14px;font-weight:700}.workout-disclosure .howto{margin:0;padding-left:20px;font-size:14px;color:var(--muted)}.workout-info-sheet .btn{min-height:56px;border-radius:16px;box-shadow:none}
-@media(max-width:359px){.workout-brand{font-size:19px}.focus h1{font-size:29px}.focus .acard{padding:20px 16px}.demo-first .acard{padding:16px 14px}.focus .asteps{gap:10px}.focus .asteps .fval input{font-size:28px}.focus .acard .ach>b{font-size:23px}.focus .acard .ach .goal{font-size:12px}.workout-menu-sheet.sheet,.workout-info-sheet.sheet{padding-left:18px;padding-right:18px}.workout-sheet-head h2{font-size:25px}}
+@media(max-width:359px){.workout-top{gap:8px}.focus h1{font-size:29px}.focus .acard{padding:20px 16px}.demo-first .acard{padding:16px 14px}.focus .asteps{gap:10px}.focus .asteps .fval input{font-size:28px}.focus .acard .ach>b{font-size:23px}.focus .acard .ach .goal{font-size:12px}.workout-menu-sheet.sheet,.workout-info-sheet.sheet{padding-left:18px;padding-right:18px}.workout-sheet-head h2{font-size:25px}}
 </style>
 </head>
 <body>
@@ -3734,21 +3734,18 @@ function fStep(d,slots){
 }
 const mmss=s=>`${Math.floor(s/60)}:${String(Math.max(0,s)%60).padStart(2,'0')}`;
 function fTop(d,slots,label){
-  const gs=fGroups(slots), st=d.step, X=d._x;
-  const warmDone = st.ph!=='warm';
-  const segs=[warmDone?'d':'c'];
-  gs.forEach(g=>{ const all=g.every(i=>!openN(d,slots[i].pk)), cur=['ex','rest','exdone'].includes(st.ph) && g.some(i=>slots[i].pk===st.pk);
-    segs.push(all?'d':cur?'c':(g.some(i=>doneN(d,slots[i].pk))?'c':'')); });
-  segs.push(st.ph==='cool'?'c':'');
+  const gs=fGroups(slots), st=d.step;
+  const segs=gs.map(g=>{const all=g.every(i=>!openN(d,slots[i].pk)),cur=['ex','rest','exdone'].includes(st.ph)&&g.some(i=>slots[i].pk===st.pk);
+    return all?'d':cur?'c':g.some(i=>doneN(d,slots[i].pk))?'p':'';});
   if(label==null){
     label = st.ph==='warm'?'Warm-up':st.ph==='cool'?'Cool-down':'Workout';
     if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
-      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1}` : `${gi+1} of ${gs.length}`; }
+      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1} of ${gs.length}` : `Exercise ${gi+1} of ${gs.length}`; }
   }
   // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
   const m=saveStatus();
-  return `<div class="ftop workout-top"><span class="workout-brand">Strong Start</span>
-    <div class="fprog"><div class="flabel">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div></div>
+  return `<div class="ftop workout-top">
+    <div class="flabel" title="${esc(label)}">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
     <button class="ficon" data-action="fmore" ${st.pk?`data-pk="${esc(st.pk)}"`:''} aria-label="Workout menu" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div>${m[0]==='warn'?`<button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(m[1])}</button>`:''}`;
 }
 function fSaveRow(){ const m=saveStatus(); return `<button class="sync" data-action="syncdetails" style="align-self:center;min-height:44px"><span class="dot ${m[0]}"></span><b style="font-weight:inherit">${esc(m[1])}</b></button>`; }
@@ -3921,7 +3918,7 @@ function renderFocus(){
   if(st.ph==='ex'&&pair&&!d.pairSeen?.[pair.key]&&pair.moves.every(move=>!doneN(d,move.pk)&&openN(d,move.pk))) return fPairIntro(d,slots,pair);
   const each = load && (primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   const per = ex.uni?' per side':'';
-  const upNext=()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
+  const upNext=(i)=>{ if(i!==(d.sets[s.pk]||[]).length-1)return '';const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
   const moreBtn=``;
   if(st.ph==='rest'){
     const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
@@ -3965,7 +3962,7 @@ function renderFocus(){
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'':'First time: start light.') : startTip(ex);
-  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `${gi+1} of ${gs.length}`;
+  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1} of ${gs.length}` : `Exercise ${gi+1} of ${gs.length}`;
   const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
@@ -3975,7 +3972,7 @@ function renderFocus(){
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
       ${workoutPath(d,slots,s)}
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:'Log set'}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></section></div>`;
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:'Log set'}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext(kk)}</div></section></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};

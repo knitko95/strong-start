@@ -39,6 +39,21 @@ await test('demo-first exercise view keeps the live path and moves secondary act
   h.run('fMoreSheet(demoPk)');for(const action of ['swap','adjust','fskipex','fpause','fexit','flist','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
   h.run('var savedTarget=target;target=s=>({...savedTarget(s),w:null,sug:null,last:null});');assert.match(h.run('renderFocus()'),/First time: start light\./);
 });
+await test('compact progress counts exercise groups and regular Up next appears only on the last set',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);state.draft.rampDone=99;var single=dSlots().find(s=>!fPair(state.draft,dSlots(),s.pk)&&nextGroupStart(state.draft,dSlots(),dSlots().indexOf(s))>=0);if(!single)throw Error('No ordinary exercise');state.draft.sets[single.pk]=Array.from({length:3},()=>({w:'25',r:'10',done:false}));state.draft.step={ph:'ex',pk:single.pk,i:0};`);
+  for(const i of [0,1,2]){h.run(`state.draft.step.i=${i}`);const out=h.run('renderFocus()');assert.equal(out.includes('Up next:'),i===2);assert.doesNotMatch(out,/workout-brand|Strong Start/);assert.match(out,/Exercise \d+ of \d+/);}
+  const header=h.run('fTop(state.draft,dSlots())'),segments=header.match(/class="fsegs"[^>]*>(.*?)<\/div>/)[1];assert.equal((segments.match(/<i /g)||[]).length,h.run('fGroups(dSlots()).length'));
+  h.run(`state.draft.sets[single.pk]=[{w:'25',r:'10',done:false}];state.draft.step.i=0;`);assert.match(h.run('renderFocus()'),/Up next:/);
+  h.run(`state.draft.step={ph:'rest',pk:single.pk,restPreview:true,restSec:60};`);assert.doesNotMatch(h.run('renderFocus()'),/Up next:/);
+});
+await test('superset next-move guidance remains on every round and its rest',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));`);
+  for(const round of [0,1,2])for(const move of ['A','B']){
+    h.run(`for(const pk of [A,B])state.draft.sets[pk].forEach((x,i)=>x.done=i<${round}||(pk===A&&${move}===B&&i===${round}));state.draft.step={ph:'ex',pk:${move},i:${round}};`);
+    const out=h.run('renderFocus()');assert.match(out,/<div class="anext">(?:Up next|After rest|Next):/);assert.match(out,/Superset \d+ of \d+/);
+  }
+  h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);assert.match(h.run('renderFocus()'),/<div class="anext">Up next:/);
+});
 await test('swap recommendations fit equipment/preferences while search reaches the whole library',()=>{
   const h=harness();h.run(`var swapPk=weekKeys().flatMap(sessionSlots)[0].pk;swapSheet(swapPk);var G=swapGroups(ui.swap);`);
   assert(h.run('G.similar.every(e=>available(e)&&allowed(e))'));assert(h.run('G.same.every(e=>available(e)&&allowed(e))'));
