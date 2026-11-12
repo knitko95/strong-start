@@ -59,7 +59,7 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 | Tab | What to do there |
 | --- | --- |
-| Today | Compact week/workout progress, one main View workout or Resume card, a collapsed Other workouts list, then compact reminders. View workout opens the preview before starting; a paused/partial workout takes priority. Coach messages appear only when unread, with read/dismiss actions retained. |
+| Today | Compact visual rings for weekly workouts and program progress, one main View workout or Resume card, a collapsed Other workouts list, then compact reminders. View workout opens the preview before starting; a paused/partial workout takes priority. Coach messages appear only when unread, with read/dismiss actions retained. |
 | Plan | Review the week, muscles trained, exercise targets, and persistent swaps/adjustments. |
 | Library | Search names/muscles and filter by equipment, body part, or movement. Equipment/level filters affect what is shown. Tap anywhere on an exercise row (marked with ›) to open **How to do it**, with the same steps, equipment list, and muscle diagrams available in workout previews. Closing the instructions returns to the library with your filters kept. On dev, exercises matching pain areas selected in Settings have an amber warning bubble to the left of the name. Their how-to cards identify the affected areas in a warning above the steps. These use the same matches as plan exclusions; turn off **Only moves that fit your level** to browse excluded exercises. Unmarked exercises are not a guarantee of pain-free movement. |
 | History | Review saved sessions and exercise progress; expand a session for details. |
