@@ -97,6 +97,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 |---|---|---|---|
 | 33 | Publish strongstart.app with Cloudflare production hosting | Live (Nov 11) | Owner approved the tested cutover, restricted build token and PR #3 offline routing correction. GitHub main release `c135c7e` deployed successfully through Cloudflare Workers Builds. Managed DNS/TLS, production Auth URLs, Google sign-in handoff, public assets, narrow layouts and real offline reopening/reconnect verified. No database migration or real account mutation. Old GitHub Pages app remains available; physical-phone installation, authenticated sign-in and reset email delivery remain unverified. See [publication record and transition guidance](DOMAIN-TRANSITION-2026-11-11.md). |
 
+| 36 | Move the test app to Workers Static Assets at dev.strongstart.app | On the test app; new Worker verification pending | Owner explicitly requested migration of development hosting, matching production Workers settings, preserving test database isolation, and verification before retiring Pages. Shared routing/cache settings, a separate dev-only Worker/Git build, and exact development Auth return URLs are prepared. Local routing/assets, isolated backend, real offline/reconnect and synthetic sync/setup checks pass at 1280/390/320 px. No production deployment or database migration. See [migration record and retirement status](DEV-WORKERS-2026-11-11.md). |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.

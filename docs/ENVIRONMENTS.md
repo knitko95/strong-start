@@ -17,13 +17,17 @@ While waiting, leave the work on `dev` or in a draft/unmerged release PR. Never 
 | Environment | Source | Host | Supabase ref |
 | --- | --- | --- | --- |
 | Production | `main` | `https://strongstart.app/` | `aybtxqsneywuqxzjwoek` |
-| Development | `dev` | `https://strong-start-dev.pages.dev/` | `gvyfgqhgqnfmtoytqpeo` |
+| Development | `dev` | `https://dev.strongstart.app/` | `gvyfgqhgqnfmtoytqpeo` |
 
-Cloudflare build command: `node scripts/build-dev.mjs`. Output directory: `dist`. The build runs syntax and environment-isolation checks before deployment. The Cloudflare project's production branch is `dev`; this means its stable testing URL, not the live app. Preview branch deployments are disabled. Production Workers Builds watches `main` only, previews disabled, root `hosting/cloudflare`, Node `22.23.0`, build `npm ci && npm run build`, deploy `npx cf deploy --prebuilt`. Its restricted account-scoped token has Workers Scripts edit and Account Settings read permissions; never commit its value. GitHub Pages remains on `main` at the old address.
+Both sites use Workers Static Assets with shared routing/runtime settings in `hosting/shared-worker.ts` and shared cache/security rules in `scripts/hosting-assets.mjs`. Development adds noindex headers and robots.txt. The dev build forces test mode and removes production backend credentials even if served at the production hostname.
 
-The source page uses the production backend only at the exact strongstart.app root/index paths and retained GitHub Pages app paths. Other URLs, including localhost, use the test backend. The Cloudflare build additionally removes production credentials and forces development mode. Development localStorage keys have a `dev_` prefix; Supabase sessions are scoped to their project. The testing banner and Home Screen manifest distinguish this installation.
+Workers Builds connects to the same GitHub repository with previews disabled. Development watches **dev only**, root `hosting/cloudflare-dev`; production watches **main only**, root `hosting/cloudflare`. Both use Node `22.23.0`, build `npm ci && npm run build`, deploy `npx cf deploy --prebuilt`, and the same pinned cf/static-adapter versions. The existing restricted account-scoped build token is reused without expanding permissions or publishing its value. The main production deployment is unchanged by this dev migration.
 
-No production accounts, workouts, messages, invites, or staff assignments are copied into development. Test accounts are separate. A separate Google OAuth client is configured for the test project, with callback `https://gvyfgqhgqnfmtoytqpeo.supabase.co/auth/v1/callback` and site/allowed redirect `https://strong-start-dev.pages.dev/`. Credentials stay in the provider dashboards. Database migrations do not copy Auth configuration. Preserve the invite-only beta and explicitly approve staff provisioning.
+The old Pages test site remains available until new-domain checks pass, then its automatic deployment connection is retired. See [migration checks and retirement status](DEV-WORKERS-2026-11-11.md). GitHub Pages still serves the old production address from main.
+
+The source page uses the production backend only at the exact strongstart.app root/index paths and retained GitHub Pages app paths. Other URLs, including localhost, use the test backend. The development build additionally removes production credentials and forces development mode. Development localStorage keys have a `dev_` prefix; Supabase sessions are scoped to their project. The testing banner and Home Screen manifest distinguish this installation.
+
+No production accounts, workouts, messages, invites, or staff assignments are copied into development. Test accounts are separate. A separate Google OAuth client is configured for the test project, with callback `https://gvyfgqhgqnfmtoytqpeo.supabase.co/auth/v1/callback` and site/allowed redirect `https://dev.strongstart.app/`. Credentials stay in the provider dashboards. Database migrations do not copy Auth configuration. Preserve the invite-only beta and explicitly approve staff provisioning.
 
 ## Checks
 

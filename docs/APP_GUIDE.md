@@ -4,7 +4,7 @@ Reviewed against source commit `149f807bd8e67c7c95204157e07e33e1202763a7` on Nov
 
 ## Trying changes before release
 
-Use [the testing app](https://strong-start-dev.pages.dev/) to review changes from `dev`. Its Testing banner identifies the separate environment. Sign in separately; test accounts, plans, workouts, messages, and invites do not transfer to the [live app](https://strongstart.app/). Do not restore a real member's backup into testing.
+Use [the testing app](https://dev.strongstart.app/) to review changes from `dev`. Its Testing banner identifies the separate environment. Sign in separately; test accounts, plans, workouts, messages, and invites do not transfer to the [live app](https://strongstart.app/). Do not restore a real member's backup into testing.
 
 Changes are built and tested on dev first. The agent will provide the tested changes, results, and any database changes for your review. The live app is updated only after you explicitly approve that release. Asking for a feature or fix, or approving a previous release, does not approve a new live release. See [the release process](ENVIRONMENTS.md).
 

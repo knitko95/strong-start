@@ -16,7 +16,8 @@ const sdk=`window.supabase={createClient(url){window.testBackend=url;return {aut
    ['https://strongstart.app','dist-production',true],
    ['https://knitko95.github.io/strong-start','dist-production',true],
    ['https://strongstart.app','dist',false],
-   ['https://strong-start-dev.pages.dev','dist',false]
+   ['https://strong-start-dev.pages.dev','dist',false],
+   ['https://dev.strongstart.app','dist',false]
   ]) for(const width of [1280,390,320]) {
    const context=await browser.newContext({viewport:{width,height:844},serviceWorkers:'block'});
    const page=await context.newPage(),errors=[],unexpected=[];

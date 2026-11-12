@@ -1,6 +1,7 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import {assetHeaders, assetRedirects} from './hosting-assets.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = path.join(root, 'dist');
@@ -20,7 +21,8 @@ if (!html.includes('const IS_PRODUCTION = false;') || html.includes('aybtxqsneyw
   throw new Error('Development database isolation check failed.');
 }
 writeFileSync(path.join(out, 'index.html'), html);
-writeFileSync(path.join(out, '_headers'), '/*\n  X-Robots-Tag: noindex, nofollow\n  Cache-Control: no-store\n');
+writeFileSync(path.join(out, '_headers'), assetHeaders.replace('/*\n', '/*\n  X-Robots-Tag: noindex, nofollow\n'));
+writeFileSync(path.join(out, '_redirects'), assetRedirects);
 writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');

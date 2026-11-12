@@ -1,7 +1,7 @@
 // Read-only real hosted entry-page checks. No credentials or invite are used.
 const {chromium}=require('playwright'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 (async()=>{
- const url=process.argv[2]||'https://strong-start-dev.pages.dev/';
+ const url=process.argv[2]||'https://dev.strongstart.app/';
  const expected=fs.readFileSync(path.join(__dirname,'../dist/index.html'),'utf8').replace(/\r\n/g,'\n');
  const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
  const results=[];
