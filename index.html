@@ -393,9 +393,11 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .why{background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r);padding:14px 16px}
 .why summary{cursor:pointer;font-weight:600;min-height:44px;align-content:center}
 .why-body{display:flex;flex-direction:column;gap:8px;padding-top:8px}
-.today-progress .rings{grid-template-columns:96px minmax(0,1fr);gap:16px;padding:0}
-.today-progress .rings svg{width:96px;height:96px}
+.today-progress>.eyebrow{text-align:center}
+.today-progress .rings{grid-template-columns:132px minmax(0,1fr);gap:20px;padding:0;width:min(100%,296px);margin:0 auto;text-align:center}
+.today-progress .rings svg{width:132px;height:132px}
 .today-progress .rings .mv{font-size:24px}
+.today-progress .rings .mv small{display:block;margin:4px 0 0}
 .today-progress .rings .ml{font-size:10px;letter-spacing:.1em}
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
