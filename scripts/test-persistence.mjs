@@ -44,7 +44,7 @@ await test('compact progress counts exercise groups and regular Up next appears 
   for(const i of [0,1,2]){h.run(`state.draft.step.i=${i}`);const out=h.run('renderFocus()');assert.equal(out.includes('Up next:'),i===2);assert.doesNotMatch(out,/workout-brand|Strong Start/);assert.match(out,/Exercise \d+ of \d+/);}
   const header=h.run('fTop(state.draft,dSlots())'),segments=header.match(/class="fsegs"[^>]*>(.*?)<\/div>/)[1];assert.equal((segments.match(/<i /g)||[]).length,h.run('fGroups(dSlots()).length'));
   h.run(`state.draft.sets[single.pk]=[{w:'25',r:'10',done:false}];state.draft.step.i=0;`);assert.match(h.run('renderFocus()'),/Up next:/);
-  h.run(`state.draft.step={ph:'rest',pk:single.pk,restPreview:true,restSec:60};`);assert.doesNotMatch(h.run('renderFocus()'),/Up next:/);
+  h.run(`state.draft.step={ph:'rest',pk:single.pk,restPreview:true,restSec:60};`);assert.doesNotMatch(h.run('renderFocus()'),/Up next:|View \/ edit sets|data-action="fviewsets"|<span class="goal">of /);
 });
 await test('superset next-move guidance remains on every round and its rest',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));`);
@@ -52,7 +52,7 @@ await test('superset next-move guidance remains on every round and its rest',()=
     h.run(`for(const pk of [A,B])state.draft.sets[pk].forEach((x,i)=>x.done=i<${round}||(pk===A&&${move}===B&&i===${round}));state.draft.step={ph:'ex',pk:${move},i:${round}};`);
     const out=h.run('renderFocus()');assert.match(out,/<div class="anext">(?:Up next|After rest|Next):/);assert.match(out,/Superset \d+ of \d+/);
   }
-  h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);assert.match(h.run('renderFocus()'),/<div class="anext">Up next:/);
+  h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);const rest=h.run('renderFocus()');assert.match(rest,/<div class="anext">Up next:/);assert.doesNotMatch(rest,/Paired exercises|pair-link|apair-pattern|View \/ edit sets|data-action="fviewsets"|<span class="goal">of |>Superset /);
 });
 await test('swap recommendations fit equipment/preferences while search reaches the whole library',()=>{
   const h=harness();h.run(`var swapPk=weekKeys().flatMap(sessionSlots)[0].pk;swapSheet(swapPk);var G=swapGroups(ui.swap);`);

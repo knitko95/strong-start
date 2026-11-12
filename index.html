@@ -753,6 +753,13 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .demo-first .acard{padding:18px 18px 14px;gap:12px}.demo-first .acard>.ffoot{margin-top:4px;padding-top:0;gap:8px}
 .exercise-hero .hero-how{font-weight:600;box-shadow:none;color:var(--ink);border:0;background:var(--surface)}.exercise-hero.has-demo .hero-how{left:52px;transform:none;bottom:8px}
 .focus .apair>button{background:var(--sunk);border:0;border-radius:14px}.focus .apair>button[aria-pressed="true"]{background:var(--accent-soft)}
+.pair-link{display:flex;align-items:center;gap:4px;min-width:0;background:var(--sunk);padding:3px;border-radius:14px}
+.pair-link button{flex:1;min-width:0;min-height:44px;display:flex;align-items:center;gap:7px;border:0;border-radius:11px;padding:8px 9px;background:transparent;color:var(--muted);font:600 12px var(--body);cursor:pointer}
+.pair-link button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}.pair-link button.done:not([aria-pressed="true"]){color:var(--muted)}.pair-link button:disabled{opacity:.45;cursor:default}
+.pair-letter{flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--line);font-size:11px}.pair-link button[aria-pressed="true"] .pair-letter{background:var(--accent);color:var(--on-accent)}
+.pair-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}.pair-connector{flex:none;font-size:15px;color:var(--muted)}
+.rest-focus .atimer .fring{width:128px;height:128px}
+
 .workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
 .workout-menu-sheet.sheet,.workout-info-sheet.sheet{border-radius:26px;padding:24px 22px calc(24px + var(--safe-bottom));max-width:520px;max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px));gap:18px;box-shadow:none}
 .workout-menu-sheet.sheet{align-self:flex-start;margin-top:max(60px,env(safe-area-inset-top,0px)) ;max-height:calc(100dvh - 88px - env(safe-area-inset-top,0px))}
@@ -3763,7 +3770,7 @@ function fPair(d,slots,pk){
 function fPairStrip(d,pair,pk,rest=false,round){
   round=round??d.step.afterRound??d.sets[pk]?.findIndex(x=>!x.done)??0;round=Math.max(0,round);
   const cur=fPathCurrent(d,dSlots());
-  return `<div class="apair" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>{const row=d.sets[s.pk]?.[round],now=cur.ph==='ex'&&cur.pk===s.pk&&fSetIndex(d,cur)===round;return `<button data-action="fset" data-pk="${s.pk}" data-i="${round}" aria-pressed="${!rest&&s.pk===pk}" ${!row?'disabled':''}><span class="pair-label">${String.fromCharCode(65+i)} · ${!row?'No set':row.done?'Done':now?'Now':s.pk===pk&&!rest?'Selected':'Next'}</span><b>${esc(EX[s.id].n)}</b></button>`;}).join('')}</div><div class="apair-pattern">A → B → Rest · Repeat each round</div>`;
+  return `<div class="pair-link" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>{const row=d.sets[s.pk]?.[round],now=cur.ph==='ex'&&cur.pk===s.pk&&fSetIndex(d,cur)===round,letter=String.fromCharCode(65+i),status=!row?'No set':row.done?'Completed':now?'Current':'Next';return `${i?'<span class="pair-connector" aria-hidden="true">→</span>':''}<button class="${row?.done?'done':''}" data-action="fset" data-pk="${s.pk}" data-i="${round}" aria-pressed="${!rest&&s.pk===pk}" ${now?'aria-current="step"':''} title="${esc(EX[s.id].n)}" aria-label="${letter}: ${esc(EX[s.id].n)}, ${status.toLowerCase()}, round ${round+1}" ${!row?'disabled':''}><span class="pair-letter">${letter}</span><span class="pair-name">${esc(EX[s.id].n)}</span></button>`;}).join('')}</div>`;
 }
 function fSetIndex(d,step){const rows=d.sets[step.pk]||[],n=rows.findIndex(x=>!x.done);return Number.isInteger(step.i)&&rows[step.i]?step.i:n<0?Math.max(0,rows.length-1):n;}
 function fKeepPosition(d){
@@ -3923,18 +3930,16 @@ function renderFocus(){
   if(st.ph==='rest'){
     const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
     const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
-    return `<div class="focus demo-first">${fTop(d,slots)}
+    return `<div class="focus demo-first rest-focus">${fTop(d,slots,pair?`${gi+1} of ${gs.length}`:undefined)}
       <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div></div>
       ${workoutHero(ex,s.pk)}
-      <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
-        ${pair?fPairStrip(d,pair,s.pk,true):''}
+      <section class="card acard"><div class="ach"><b>Rest</b></div>
         <div class="atimer"><button class="aside" data-action="tadd" data-sec="-15" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>
           <svg class="fring" viewBox="0 0 260 260" role="timer" aria-label="Rest time left"><circle cx="130" cy="130" r="${R}" fill="none" stroke="var(--line)" stroke-width="16"/>
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
         ${workoutPath(d,slots,s)}
-      <button class="linkbtn" style="align-self:center;min-height:44px" data-action="fviewsets">View / edit sets</button>
 
       <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></section></div>`;
   }
