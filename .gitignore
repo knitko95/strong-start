@@ -1,4 +1,6 @@
 dist/
+dist-production/
+.cloudflare/
 node_modules/
 .env
 .env.*

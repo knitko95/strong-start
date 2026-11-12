@@ -19,6 +19,8 @@ The ordinary guest button is hidden during beta. Local-only handlers/storage rem
 
 ## Putting it on a phone
 
+The new `strongstart.app` address is being prepared on dev and is not yet the published app. When the switch is approved, use your existing account there after checking that the old app says **Synced**. An unfinished workout saved only in the old browser/app does not move automatically. The new address needs its own Home Screen installation; keep the old one until your account data is verified. See [transition details](DOMAIN-TRANSITION-2026-11-11.md).
+
 The app fits the phone's width and scrolls vertically. The bottom menu stays fixed, with extra clearance for rounded edges and the home indicator; it remains hidden during setup and the focused workout flow. Touch zoom is restricted where the browser allows it, though browser accessibility settings may override this. Form fields use at least 16px text on phones to avoid focus zoom.
 
 After sign-in, supported phone browsers show Home Screen instructions before setup. On iPhone/iPad, use the browser's Share menu and **Add to Home Screen**. On Android, use **Install Strong Start** if available or the browser's install/Home Screen menu. Browser versions can change the exact controls.

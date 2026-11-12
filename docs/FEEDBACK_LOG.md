@@ -93,6 +93,10 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 |---|---|---|---|
 | 32 | Publish all approved dev changes and database migrations | Live (Nov 11) | Owner explicitly approved candidate `4f9bd96` and all six production migrations. Published through PR #1 as `d9b8ff3`; exact-SHA Pages deployment, live assets/routing, all six synthetic live browser suites and production schema/grant/function/import checks passed. No authenticated production account mutation was tested; physical-phone and real two-device limits remain. Migration SQL is fully applied. Automatic review separately rejected aligning tool-generated migration-history IDs with the repository filenames; that bookkeeping change was not executed and awaits authorization. See [release results, ID mapping and limits](RELEASE-CANDIDATE-2026-11-11.md). |
 
+| # | Item | Status | Decision / notes |
+|---|---|---|---|
+| 33 | Prepare strongstart.app and Cloudflare production hosting | On the test app; awaiting cutover approval | Owner requested development preparation and testing only, November 11. Exact-domain production routing, a separate public-file production package and pinned Cloudflare Workers Static Assets configuration; test Pages hosting remains isolated. Local domain/browser, offline and hosting checks pass. No database migration, DNS, domain attachment, production Auth change or live deployment by this task. See [scope, checks, user transition and pending cutover actions](DOMAIN-TRANSITION-2026-11-11.md). |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.

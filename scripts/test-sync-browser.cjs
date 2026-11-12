@@ -4,7 +4,7 @@ const {chromium}=require('playwright');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
 const clone=x=>JSON.parse(JSON.stringify(x));
-const server=http.createServer((req,res)=>{const file=path.join(root,'dist',req.url.split('?')[0]==='/'?'index.html':req.url.split('?')[0]);try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.png')?'image/png':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
+const server=http.createServer((req,res)=>{const file=path.join(root,'dist',req.url.split('?')[0]==='/'?'index.html':req.url.split('?')[0]);try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.js')?'application/javascript':file.endsWith('.png')?'image/png':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
 (async()=>{
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const url=process.argv[2]||`http://127.0.0.1:${server.address().port}`;

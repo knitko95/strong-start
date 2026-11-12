@@ -1,5 +1,9 @@
 # Development and production
 
+## Domain transition awaiting review
+
+Dev now supports the exact `https://strongstart.app/` production address and has a separate public-file production build and prepared Cloudflare Workers Static Assets configuration. Hosting and the live address have not been switched. Testing output stays isolated even at the production hostname. See [the domain transition candidate, checks and cutover steps](DOMAIN-TRANSITION-2026-11-11.md). Production Auth settings, domain attachment and deployment await explicit approval; existing Pages dev hosting is retained.
+
 ## Release policy
 
 All changes are developed and tested on `dev` before release. A request to implement or fix something authorizes development and the Cloudflare test deployment, not publication to the live app. Only the user's explicit approval of the tested release authorizes a merge/push to `main`, a live deployment, or its production database/Auth/configuration changes. This includes documentation-only pushes to `main`, hotfixes, and rollbacks.
