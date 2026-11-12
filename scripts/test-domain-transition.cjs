@@ -65,8 +65,9 @@ const sdk=`window.supabase={createClient(url){window.testBackend=url;return {aut
   }
   if(process.argv[2]) {
    const base=process.argv[2];
-   for(const file of ['','privacy.html','manifest.webmanifest','sw.js','offline.js','icons/icon-192.png']) {
+   for(const file of ['','index.html','privacy.html','manifest.webmanifest','sw.js','offline.js','icons/icon-192.png']) {
     const response=await fetch(base+'/'+file);assert.equal(response.status,200,file);
+    assert.equal(response.redirected,false,`${file} must stay directly fetchable for offline precaching`);
     if(file==='')assert.equal((await response.text()).replace(/\r\n/g,'\n'),fs.readFileSync(path.join(root,'dist-production/index.html'),'utf8').replace(/\r\n/g,'\n'));
     assert.match(response.headers.get('cache-control'),/no-cache/);
    }
