@@ -758,6 +758,11 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .focus .apair>button{background:var(--sunk);border:0;border-radius:14px}.focus .apair>button[aria-pressed="true"]{background:var(--accent-soft)}
 .workout-path[data-paired="true"] .path-stop:not(.rest){margin:0 3px}
 .rest-focus .atimer .fring{width:128px;height:128px}
+.rest-entry-slot{position:relative;display:flex;flex-direction:column;gap:12px}
+.rest-entry-base{display:grid;grid-template-rows:auto 56px;row-gap:6px;visibility:hidden;pointer-events:none}
+.rest-entry-label{font:400 14px var(--body)}.rest-entry-hint{visibility:hidden;pointer-events:none;text-align:center}
+.demo-first .rest-entry-slot .atimer{position:absolute;left:0;right:0;bottom:0;height:128px;margin:0}
+
 
 .workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
 .workout-menu-sheet.sheet,.workout-info-sheet.sheet{border-radius:26px;padding:24px 22px calc(24px + var(--safe-bottom));max-width:520px;max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px));gap:18px;box-shadow:none}
@@ -3899,6 +3904,11 @@ function setupWorkoutDemo(previous){
   guides?.attach({exerciseId:mount.dataset.exerciseId,mount,environment:APP_ENV,mode:'workout'});
 }
 document.addEventListener('exercise-guides-ready',()=>setupWorkoutDemo());
+// Match rest layout to the same exercise's entry fields and optional history hint.
+function workoutSetHint(tg){
+  const ex=tg.ex,load=usesLoad(ex),w=tg.w??tg.sug;
+  return tg.last?'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', '):load?(w!=null?'':'First time: start light.'):startTip(ex);
+}
 function renderFocus(){
   const d=state.draft, slots=dSlots(), X=sessionExtras(d,slots); d._x=X; d.wsub=d.wsub||{}; d.wskip=d.wskip||{};
   const st=fStep(d,slots), t=tplOf(d.key);
@@ -3930,16 +3940,17 @@ function renderFocus(){
   const moreBtn=``;
   if(st.ph==='rest'){
     const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
-    const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
+    const restHint=workoutSetHint(tg);
     return `<div class="focus demo-first rest-focus">${fTop(d,slots,pair?`${gi+1} of ${gs.length}`:undefined)}
       <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div></div>
       ${workoutHero(ex,s.pk)}
       <section class="card acard"><div class="ach"><b>Rest</b></div>
+        <div class="rest-entry-slot"><div class="rest-entry-base" aria-hidden="true"><span class="rest-entry-label">Weight</span></div>${restHint?`<div class="tiny muted rest-entry-hint" aria-hidden="true">${esc(restHint)}</div>`:''}
         <div class="atimer"><button class="aside" data-action="tadd" data-sec="-15" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>
           <svg class="fring" viewBox="0 0 260 260" role="timer" aria-label="Rest time left"><circle cx="130" cy="130" r="${R}" fill="none" stroke="var(--line)" stroke-width="16"/>
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
-          <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
+          <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div></div>
         ${workoutPath(d,slots,s)}
 
       <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':'Ready'}</button></div></div></section></div>`;
@@ -3966,8 +3977,7 @@ function renderFocus(){
   if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp).length) return renderRamp(d,s,X);
   // exercise screen
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
-  const cur=sets[kk], wShow=tg.w??tg.sug;
-  const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'':'First time: start light.') : startTip(ex);
+  const cur=sets[kk],lastTxt=workoutSetHint(tg);
   const label = `Exercise ${gi+1} of ${gs.length}`;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
