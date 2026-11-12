@@ -3787,8 +3787,7 @@ function renderFocus(){
     const T=ui.timer, left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):0, tot=T?T.total:1, R=110, C=2*Math.PI*R;
     const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
     const nextTv=(load?`${fmtW(sets[k]&&sets[k].w||tg.w||tg.sug).replace(/ (lb|kg)$/,'')} × `:'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(tg.unit==='sec'?' s':''));
-    const strip=sets.map((x,i)=>x.done?`<div class="atile d"><span class="tl">Set ${i+1} ✓</span><span class="tv">${esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r)}</span></div>`
-      :`<div class="atile ${i===k?'n':''}"><span class="tl">Set ${i+1}${i===k?' next':''}</span><span class="tv">${esc(nextTv)}</span></div>`).join('');
+    const strip=sets.map((x,i)=>`<button class="atile ${x.done?'d':i===k?'n':''}" data-action="fset" data-pk="${s.pk}" data-i="${i}" aria-label="${x.done?'Edit':'Go to'} set ${i+1}"><span class="tl">Set ${i+1}${x.done?' ✓':i===k?' next':''}</span><span class="tv">${x.done?esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r):esc(nextTv)}</span></button>`).join('');
     return `<div class="focus">${fTop(d,slots)}
       <div class="ahead"><h1>${T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${pair?`Next: ${esc(ex.n)} · round ${k+1} of ${sets.length}`:`${esc(ex.n)} · ${dn} of ${sets.length} sets done`}</div></div>
       <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
@@ -3823,7 +3822,7 @@ function renderFocus(){
   // lighter warm-up sets before the first lift
   if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp).length) return renderRamp(d,s,X);
   // exercise screen
-  const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
+  const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
   const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`;
@@ -3831,9 +3830,7 @@ function renderFocus(){
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   const wPlan = load ? (cur.w!==''&&cur.w!=null ? weightNumber(cur.w) : wShow!=null ? fmtW(wShow).replace(/ (lb|kg)$/,'') : '') : '';
   const planTv = (wPlan!==''?wPlan+' × ':'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(secs?' s':''));
-  const strip = sets.map((x,i)=> x.done ? `<button class="atile d" data-action="fundo" data-pk="${s.pk}" data-i="${i}" aria-label="Edit set ${i+1}"><span class="tl">Set ${i+1} ✓</span><span class="tv">${esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r+(secs?' s':''))}</span></button>`
-    : i===kk ? `<div class="atile c"><span class="tl">Set ${i+1}</span><span class="tv">Now</span></div>`
-    : `<div class="atile"><span class="tl">Set ${i+1}</span><span class="tv">${esc(planTv)}</span></div>`).join('');
+  const strip = sets.map((x,i)=>`<button class="atile ${i===kk?'c':x.done?'d':''}" data-action="fset" data-pk="${s.pk}" data-i="${i}" aria-label="${x.done?'Edit':'Go to'} set ${i+1}" aria-pressed="${i===kk}"><span class="tl">Set ${i+1}${x.done?' ✓':''}</span><span class="tv">${i===kk?(x.done?'Editing':'Now'):x.done?esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r+(secs?' s':'')):esc(planTv)}</span></button>`).join('');
   return `<div class="focus">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div>
       ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
@@ -3842,7 +3839,7 @@ function renderFocus(){
       <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
       <div class="astrip">${strip}</div></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${k<0?'All sets done':pairAction?pairAction.label:`Done with set ${kk+1}`}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:`Done with set ${kk+1}`}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};
@@ -3981,8 +3978,17 @@ function fAction(a,b){
       d.sets[pk]=(d.sets[pk]||[]).filter(x=>x.done); d.skipped=d.skipped||{}; d.skipped[pk]=true; fClearTimer();
       // Skipping one move of a pair continues with its partner before moving on
       const inG=pickInGroup(d,slots,fGroups(slots).find(g=>g.includes(idx))||[]), n=inG>=0?inG:nextGroupStart(d,slots,idx); d.step = n>=0 ? {ph:'ex',pk:slots[n].pk} : {ph:'cool'}; save(); render(); window.scrollTo(0,0); toast('Skipped'); return true; }
-    case 'fundo': { const s=d.sets[b.dataset.pk][+b.dataset.i]; s.done=false; fClearTimer(); d.step={ph:'ex',pk:b.dataset.pk}; save(); render(); toast(`Set ${+b.dataset.i+1} reopened. Fix it and tap Done.`); return true; }
+    case 'fundo':
+    case 'fset': { const pk=b.dataset.pk, i=+b.dataset.i;
+      if(!Number.isInteger(i)||!d.sets[pk]?.[i]||!dSlots().some(s=>s.pk===pk)) return true;
+      fClearTimer(); d.step={ph:'ex',pk,i}; save(); render(); return true; }
     case 'fdone': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===b.dataset.pk), s=slots[idx], tg=target(s), arr=d.sets[s.pk], i=+b.dataset.i;
+      if(arr[i]?.done){
+        if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; }
+        const grp=fGroups(slots).find(g=>g.includes(idx)), n=pickInGroup(d,slots,grp);
+        d.step=n>=0?{ph:'ex',pk:slots[n].pk}:{ph:'exdone',pk:s.pk};
+        save(); render(); window.scrollTo(0,0); return true;
+      }
       if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } lockShape(d); arr[i].done=true;
         // carry weight forward to the next open set if they changed it
         const nx=arr.find(x=>!x.done); if(nx && usesLoad(tg.ex) && nx.w!==arr[i].w) nx.w=arr[i].w; }

@@ -228,3 +228,7 @@ Run `node scripts/build-dev.mjs` for the combined persistence/onboarding and off
 ## Editable warm-up loads — November 12, 2026
 
 The additive `draft.rampSets` map stores separate `{w}` rows by slot/exercise ID and warm-up index. Older drafts initialize from their existing warm-up suggestion when shown. The warm-up card reuses the working-set weight control with a ramp scope; input/increment handlers write only to that map. `convertDraft()` converts these loads on unit changes, including saved previous-program drafts. The normal save/sync and coach guards remain in place. Ramp completion still advances only `rampDone`; it does not log working sets or influence progression. No schema/key change or database migration is required.
+
+### Set selection on dev
+
+Working-set tiles select an optional zero-based `draft.step.i` instead of clearing `set.done`. Absent or out-of-range selections fall back to the first unfinished set (or last set when all are complete), preserving older drafts and set-count edits. Navigation retains entered values and completed counts; selecting a tile during rest clears that timer, matching the previous edit behavior. Saving a completed set returns to unfinished work in its group without logging it again, carrying weight forward or starting a fresh rest. Logging an unfinished selected set retains normal pairing, rest and completion rules. The index is an additive draft field; no schema or storage-key change is needed.

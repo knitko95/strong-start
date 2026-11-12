@@ -32,6 +32,43 @@ let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 
+await test('set tiles navigate without reopening completed sets and preserve edits after reload',()=>{
+  const h=harness();
+  h.run(`startWorkout(weekKeys()[0]);var navPk=dSlots().find(s=>usesLoad(EX[s.id])).pk;
+    state.draft.rampDone=99;state.draft.sets[navPk]=[{w:'20',r:'8',done:true},{w:'20',r:'',done:false},{w:'20',r:'',done:false}];state.draft.step={ph:'ex',pk:navPk};`);
+  const pk=h.run('navPk');h.click('fset',{pk,i:'0'});
+  assert.equal(h.run('state.draft.step.i'),0);assert.equal(h.run('doneN(state.draft,navPk)'),1);
+  assert.match(h.run('renderFocus()'),/Save changes/);
+  assert.equal((h.run('renderFocus()').match(/data-action="fset"/g)||[]).length,3);
+  h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.click('fset',{pk,i:'1'});
+  assert.match(h.run('renderFocus()'),/Done with set 2/);
+  assert.equal(h.run('state.draft.sets[navPk][0].r'),'9');assert.equal(h.run('doneN(state.draft,navPk)'),1);
+  h.run(`state=JSON.parse(localStorage.getItem(LS)).state;`);
+  assert.equal(h.run('state.draft.step.i'),1);assert.equal(h.run('state.draft.sets[navPk][0].r'),'9');
+  h.click('fset',{pk,i:'2'});assert.match(h.run('renderFocus()'),/Done with set 3/);
+  h.click('fdone',{pk,i:'2'});assert.equal(h.run('state.draft.sets[navPk][1].done'),false);
+  assert.equal(h.run('state.draft.sets[navPk][2].done'),true);
+  h.click('fready');assert.match(h.run('renderFocus()'),/Done with set 2/);
+});
+await test('saving an edited completed set returns to unfinished work without new rest or weight carry',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);var navPk=dSlots().find(s=>usesLoad(EX[s.id])).pk;
+    state.draft.rampDone=99;state.draft.sets[navPk]=[{w:'20',r:'8',done:true},{w:'30',r:'8',done:false}];state.draft.step={ph:'ex',pk:navPk};`);
+  const pk=h.run('navPk');h.click('fset',{pk,i:'0'});h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.click('fdone',{pk,i:'0'});
+  assert.equal(h.run('state.draft.step.ph'),'ex');assert.equal(h.run('ui.timer'),null);
+  assert.equal(h.run('state.draft.sets[navPk][1].w'),'30');assert.equal(h.run('doneN(state.draft,navPk)'),1);
+  assert.match(h.run('renderFocus()'),/Done with set 2/);
+  const before=h.run('JSON.stringify(state.draft)');h.click('fset',{pk,i:'99'});h.click('fset',{pk:'missing',i:'0'});
+  assert.equal(h.run('JSON.stringify(state.draft)'),before);
+});
+await test('set navigation from rest and paired edit saving preserve completed rounds',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};
+    state.draft.sets[A][0]={w:'20',r:'8',done:true};state.draft.step={ph:'rest',pk:A};fRest(60,{label:'Rest'});`);
+  const pk=h.run('A');assert.match(h.run('renderFocus()'),/data-action="fset"/);
+  h.click('fset',{pk,i:'0'});assert.equal(h.run('ui.timer'),null);h.click('fdone',{pk,i:'0'});
+  assert.equal(h.run('state.draft.step.pk'),h.run('B'));assert.equal(h.run('state.draft.step.ph'),'ex');
+  assert.equal(h.run('state.draft.sets[A][0].done'),true);assert.equal(h.run('state.draft.sets[B][0].done'),false);
+});
+
 await test('unit conversion preserves physical weights across all persisted fields',()=>{
   const {run}=harness();
   run(`state.settings.bw=180;state.ex.test={w:100,last:[{w:95,r:8},{w:null,r:10}]};state.weigh.list=[{d:'2026-11-01',w:180}];
