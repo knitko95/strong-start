@@ -5383,7 +5383,7 @@ function finishWorkout(){
       <div class="anote small">${esc(saveStatus()[2])}${AUTH.user&&!AUTH.coach&&!coachMode?' Your coach can see this workout after it syncs.':''}</div></section>
     <p class="atip">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
     ${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to Today</button>')}
-    ${AUTH.user&&!AUTH.coach&&!coachMode?`<button class="btn ghost block" data-action="msgopen" data-side="coach" data-log="${esc(l.id)}">Tell your coach how it went</button>`:''}</div>`,{sheetClass:'workout-sheet'});
+    </div>`,{sheetClass:'workout-sheet'});
 }
 
 // Coach preview edits only fields carried by planCode(). This is a UI guard;
