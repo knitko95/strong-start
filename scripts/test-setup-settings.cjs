@@ -19,7 +19,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.locator('[data-action="sulater"]').click();
   assert.equal(await page.getByText('Finish setting up',{exact:true}).count(),1);
   await page.locator('[data-action="tab"][data-tab="settings"]').click();
-  await page.evaluate(()=>{ui.profOpen=true;ui.open={profile:true};render();});
+  await page.evaluate(()=>{ui.settingsGroup='profile';ui.profOpen=true;ui.open={profile:true};render();});
   // Open the profile using its actual toggle if needed.
   if(!await page.locator('#set-name').count()) await page.locator('[data-action="proftoggle"]').click();
   await page.locator('#set-name').fill('Synthetic profile');await page.locator('#set-name').dispatchEvent('change');
@@ -32,7 +32,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.locator('[data-action="sulater"]').click();
   const before=await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft}));
   await page.locator('[data-action="tab"][data-tab="settings"]').click();
-  await page.evaluate(()=>{ui.open={goals:true};render();});
+  await page.evaluate(()=>{ui.settingsGroup='training';ui.open={goals:true};render();});
   await page.locator('[data-action="setgoal"][data-v="muscle"]').click();
   assert.equal(await page.evaluate(()=>state.setup),null);
   assert.equal(await page.evaluate(()=>state.onboarded),true);
@@ -57,7 +57,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
    state.settings.goals=['muscle'];state.places=[{k:'gym',n:'Gym',eq:PLACE_TYPES.gym.eq.split(' ')}];state.curPlace='gym';newBlock();
    state.setup={paused:true,step:'week1',a:{...prefillSetup(),quickSetup:true},savedSettings:prefillSetup()};
    state.draft={synthetic:'keep'};state.ex={synthetic:{w:25}};logs=[{id:'synthetic-history',entries:[]}];
-   ui.tab='settings';ui.profOpen=true;ui.open={profile:true};render();
+   ui.tab='settings';ui.settingsGroup='profile';ui.profOpen=true;ui.open={profile:true};render();
   });
   const progress=await page.evaluate(()=>JSON.stringify({block:state.block,draft:state.draft,ex:state.ex,logs}));
   await page.locator('#set-name').fill('Quick saved profile');await page.locator('#set-name').dispatchEvent('change');

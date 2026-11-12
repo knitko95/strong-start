@@ -412,6 +412,15 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .ordbtn{flex:none;width:38px;height:38px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font-size:14px}
 .ordbtn:disabled{opacity:.3}
 /* Settings sections */
+.settings-menu{display:grid;gap:12px}
+.settings-link{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;text-align:left;color:var(--ink);cursor:pointer;font-family:var(--body)}
+.settings-link>span:first-child{min-width:0;display:grid;gap:5px}
+.settings-link b{font-family:var(--display);font-size:23px;font-weight:600}
+.settings-link>span:last-child{font-size:28px;color:var(--accent)}
+.sec-head .tiny{overflow-wrap:anywhere}
+.sec-body .row{flex-wrap:wrap}
+.sec-body select{max-width:100%}
+
 .sec-head{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;padding:16px}
 .sec-t{font-family:var(--display);font-size:21px;font-weight:600}
 .sec-body{padding:2px 16px 16px;border-top:1px solid var(--line);padding-top:12px}
@@ -4659,7 +4668,7 @@ function renderWeigh(){
 /* ---------------- Settings ---------------- */
 function profileCard(s){
   const open=ui.profOpen, g=(GENDERS.find(x=>x[0]===s.gender)||[])[1];
-  const sum=[g, s.age?`${s.age}`:'', s.bw?`${weightNumber(s.bw)} ${s.units}`:'', (COLORS[s.color||'blush']||COLORS.blush).n].filter(Boolean).join(' · ');
+  const sum=[g, s.age?`${s.age}`:'', s.bw?`${weightNumber(s.bw)} ${s.units}`:''].filter(Boolean).join(' · ');
   const init=(s.name||'').trim()[0];
   return `<section class="card stack" style="gap:0;padding:0;overflow:hidden">
     <button class="prof-head" data-action="proftoggle" aria-expanded="${!!open}">
@@ -4673,8 +4682,7 @@ function profileCard(s){
       <div class="stack" style="gap:6px"><span>Gender<br><span class="tiny muted">Used with body weight to suggest starting weights.</span></span>${genderSeg(s.gender||'','setgender')}</div>
       <div class="row between"><span>Units</span><div class="seg" role="group" aria-label="Units">${['lb','kg'].map(u=>`<button data-action="setunits" data-u="${u}" aria-pressed="${s.units===u}">${u}</button>`).join('')}</div></div>
       <label class="adj" for="set-bw" style="grid-template-columns:1fr 150px"><span>Body weight (${s.units})<br><span class="tiny muted">Only used to suggest starting weights.</span></span><input id="set-bw" inputmode="decimal" value="${weightNumber(s.bw)??''}"></label>
-      <div class="stack" style="gap:6px"><span>App colors</span>${swatches(s.color||'blush','setcolor')}</div>
-      ${s.color==='noir'?'':`<div class="stack" style="gap:6px"><span>Light or dark</span><div class="seg" role="group" aria-label="Light or dark">${[['auto','Match my phone'],['light','Always light'],['dark','Always dark']].map(([k,l])=>`<button data-action="settheme" data-t="${k}" aria-pressed="${(s.theme||'auto')===k}">${l}</button>`).join('')}</div></div>`}
+
     </div>`:''}
   </section>`;
 }
@@ -4708,15 +4716,31 @@ function renderCoachSettings(){
 }
 function renderSettings(){
   if(coachMode) return renderCoachSettings();
-  const s=state.settings, ds=trainDays();
-  return `<section><div class="eyebrow">Settings</div><h1>Setup</h1></section>
-  ${(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
-  ${cmCoachCard()}
-  ${coachMode?'':accountCard()}
-  ${profileCard(s)}
-  ${sec('goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
+  const s=state.settings;
+  const groups=[
+    ['training','Your training','Goals, schedule, equipment, level and your 6-week program'],
+    ['workout','Workout preferences','Exercise choices, cardio and timers'],
+    ['profile','Profile & appearance','Personal details, units, app colors and weigh-ins'],
+    ['account','Account & backups','Sign-in, privacy and copying or restoring your data']
+  ];
+  const active=groups.find(g=>g[0]===ui.settingsGroup);
+  const setting=(group,...args)=>active&&active[0]===group?sec(...args):'';
+  const appearance=`<div class="stack" style="gap:6px"><span>App colors</span>${swatches(s.color||'blush','setcolor')}</div>
+      ${s.color==='noir'?'':`<div class="stack" style="gap:6px"><span>Light or dark</span><div class="seg" role="group" aria-label="Light or dark">${[['auto','Match my phone'],['light','Always light'],['dark','Always dark']].map(([k,l])=>`<button data-action="settheme" data-t="${k}" aria-pressed="${(s.theme||'auto')===k}">${l}</button>`).join('')}</div></div>`}`;
+  return `<section class="stack" style="gap:8px">
+    ${active?'<button class="btn ghost sm" style="align-self:flex-start" data-action="settingshome">‹ All settings</button>':''}
+    <div><div class="eyebrow">${active?'Settings':'Make it yours'}</div><h1 tabindex="-1" id="settings-title">${active?active[1]:'Settings'}</h1></div>
+    <p class="small muted" style="margin:0">${active?active[2]+'.':'Choose what you’d like to change.'}</p>
+  </section>
+  ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
+  ${!active&&(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
+  ${!active?cmCoachCard():''}
+  ${active&&active[0]==='account'?accountCard():''}
+  ${active&&active[0]==='profile'?profileCard(s):''}
+  ${setting('profile','appearance','Appearance',(COLORS[s.color||'blush']||COLORS.blush).n+' · '+(s.color==='noir'?'Always dark':({auto:'Match my phone',light:'Always light',dark:'Always dark'}[s.theme||'auto'])),appearance)}
+  ${setting('training','goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
     <div class="chips">${Object.entries(GOALS).map(([k,g])=>`<button class="painchip ${goals().includes(k)&&s.goals.includes(k)?'on':''}" data-action="setgoal" data-v="${k}">${g.n}</button>`).join('')}</div>`)}
-  ${sec('schedule','Schedule',`${nDays()} days${isFlex()?' (flexible)':''} · ${splitLabel()} · ${s.mins||45} min`,`
+  ${setting('training','schedule','Schedule',`${nDays()} days${isFlex()?' (flexible)':''} · ${splitLabel()} · ${s.mins||45} min`,`
     <div class="seg wide" role="group" aria-label="Schedule type"><button data-action="setflex" data-v="0" aria-pressed="${!isFlex()}">Set days</button><button data-action="setflex" data-v="1" aria-pressed="${isFlex()}">My days change</button></div>
     ${isFlex()?`<div class="mins">${[2,3,4,5].map(n=>`<button class="min ${nDays()===n?'on':''}" data-action="setndays" data-v="${n}"><b>${n}</b><span>days</span></button>`).join('')}</div>`
       :`<div class="days">${[1,2,3,4,5,6,0].map(d=>`<button class="day7 ${(s.days||[]).includes(d)?'on':''}" data-action="setday" data-v="${d}" aria-pressed="${(s.days||[]).includes(d)}">${DAYN[d][0]}<small>${DAYN[d]}</small></button>`).join('')}</div>`}
@@ -4726,36 +4750,36 @@ function renderSettings(){
     ${weekOrderCard()}
     <div><b>Workout length</b></div>
     <div class="mins">${[30,45,60,75].map(m=>`<button class="min ${(s.mins||45)===m?'on':''}" data-action="setmins" data-v="${m}"><b>${m}</b><span>${MINS[m]} exercises</span></button>`).join('')}</div>`)}
-  ${sec('places','Places and equipment',(state.places||[]).map((p,i)=>p.n+(i===0?' (main)':'')).join(', '),`
+  ${setting('training','places','Places and equipment',(state.places||[]).map((p,i)=>p.n+(i===0?' (main)':'')).join(', '),`
     ${(state.places||[]).map((p,i)=>`<div class="row between" style="border-top:${i?'1px solid var(--line)':'0'};padding-top:${i?'8px':'0'}"><div><b>${esc(p.n)}</b>${i===0?' <span class="chip acc">Main</span>':''}<div class="tiny muted">${p.eq.length} items checked</div></div>
       <div class="row"><button class="btn sm" data-action="editeq" data-v="${p.k}">Edit</button>${state.places.length>1?`<button class="btn sm ghost" data-action="rmplace" data-v="${p.k}">Remove</button>`:''}</div></div>`).join('')}
     ${Object.keys(PLACE_TYPES).filter(k=>!(state.places||[]).some(p=>p.k===k)).length?`<div class="row">${Object.entries(PLACE_TYPES).filter(([k])=>!(state.places||[]).some(p=>p.k===k)).map(([k,p])=>`<button class="btn sm ghost" data-action="addplace" data-v="${k}">+ ${p.n}</button>`).join('')}</div>`:''}
     <p class="tiny muted" style="margin:0">Your plan is built for your main place. On other days, switch places on the home screen and the app swaps in exercises that work there.</p>`)}
-  ${sec('level','Your level',`${LEVELS[lvl()].n}${(s.pain||[]).length?` · avoiding ${s.pain.length} area${s.pain.length>1?'s':''}`:''}`,`
+  ${setting('training','level','Your level',`${LEVELS[lvl()].n}${(s.pain||[]).length?` · avoiding ${s.pain.length} area${s.pain.length>1?'s':''}`:''}`,`
     <div class="row between"><div><b>${LEVELS[lvl()].n}</b><div class="tiny muted">${LEVELS[lvl()].d}</div></div><button class="btn sm" data-action="pickLevel">Change</button></div>
     <div class="row between"><span>Comfort with equipment</span><select id="set-comfort" class="select" style="width:auto;height:40px;box-shadow:none">${[['learning','Still learning'],['machines','Machines and dumbbells'],['barbell','Barbell lifts too']].map(([k,l])=>`<option value="${k}" ${s.comfort===k?'selected':''}>${l}</option>`).join('')}</select></div>
     <div><span>Anything that hurts?</span><div class="chips" style="margin-top:6px">${Object.entries(PAIN).map(([k,p])=>`<button class="painchip ${(s.pain||[]).includes(k)?'on':''}" data-action="setpain" data-v="${k}">${p.n}</button>`).join('')}</div></div>`)}
-  ${sec('exch','Exercise choices',`${(T_STYLES.find(x=>x[0]===(s.tstyle||'mix'))||[])[2]||'A mix'} · ${VARIETY.find(v=>v[0]===varietyOf())[1]} variety${noJumps()?' · no jumps':''}`,`
+  ${setting('workout','exch','Exercise choices',`${(T_STYLES.find(x=>x[0]===(s.tstyle||'mix'))||[])[2]||'A mix'} · ${VARIETY.find(v=>v[0]===varietyOf())[1]} variety${noJumps()?' · no jumps':''}`,`
     <div class="stack" style="gap:6px"><b>What you like to train with</b>${needStyle(state.places)?`<div class="seg" role="group" aria-label="Train with">${T_STYLES.map(([v,,t])=>`<button data-action="settstyle" data-v="${v}" aria-pressed="${(s.tstyle||'mix')===v}">${t.replace('Mostly m','M').replace('Mostly f','F')}</button>`).join('')}</div><div class="tiny muted">${esc((T_STYLES.find(x=>x[0]===(s.tstyle||'mix'))||[])[3]||'')}</div>`:`<div class="tiny muted">Set by your equipment. If you add machines and free weights, we’ll ask.</div>`}</div>
     <div class="stack" style="gap:6px"><b>Exercise variety</b><div class="small muted" style="margin-top:-2px">How much your exercises change when a new 6-week program starts.</div>
       ${VARIETY.map(([v,t,d])=>`<button class="opt ${varietyOf()===v?'sel':''}" data-action="setvariety" data-v="${v}" aria-pressed="${varietyOf()===v}"><span style="flex:1;text-align:left"><b>${t}${v==='some'?' <span class="chip acc">Recommended</span>':''}</b><span class="d">${d}</span></span></button>`).join('')}</div>
     <label class="toggle" for="set-jumps"><span>Jumps and explosive moves<span class="tiny muted" style="display:block;font-weight:500">${jumpFits()?'Recommended for your level and goals. Turn off to leave them out.':'Not added at your level or with your goals.'}</span></span><input type="checkbox" id="set-jumps" ${jumpFits()&&!noJumps()?'checked':''} ${jumpFits()?'':'disabled'}></label>
   `)}
-  ${sec('cardio','Cardio',(()=>{ const c=cSet(); return c?`${esc(cStyleLabel(c.style))} · after lifting: ${(c.after==null?cAfterDefault():c.after)?((c.after==null?cAfterDefault():c.after)+' min'):'off'}`:'Tell us how you like to do cardio'; })(),cardioSettings())}
-  ${sec('weigh','Weekly weigh-in',state.weigh.on?`On · ${DAYL[state.weigh.day]}s`:'Off',`
+  ${setting('workout','cardio','Cardio',(()=>{ const c=cSet(); return c?`${esc(cStyleLabel(c.style))} · after lifting: ${(c.after==null?cAfterDefault():c.after)?((c.after==null?cAfterDefault():c.after)+' min'):'off'}`:'Tell us how you like to do cardio'; })(),cardioSettings())}
+  ${setting('profile','weigh','Weekly weigh-in',state.weigh.on?`On · ${DAYL[state.weigh.day]}s`:'Off',`
     <label class="toggle" for="wi-on"><span>Weekly weigh-in reminder</span><input type="checkbox" id="wi-on" ${state.weigh.on?'checked':''}></label>
     ${state.weigh.on?`<div class="toggle"><span>Weigh-in day</span><select id="wi-day" class="select" style="width:auto;height:40px;box-shadow:none">${DAYL.map((d,i)=>`<option value="${i}" ${state.weigh.day===i?'selected':''}>${d}</option>`).join('')}</select></div>
     <label class="toggle" for="wi-hide"><span>Hide the number, just show the trend</span><input type="checkbox" id="wi-hide" ${state.weigh.hide?'checked':''}></label>
     <button class="btn sm" style="margin-top:8px" data-action="tab" data-tab="weigh">Open weigh-ins</button>`:''}`)}
-  ${sec('timers','Timers',`${['autoRest','betweenTimer','sound'].filter(k=>s[k]!==false).length} of 3 on`,`
+  ${setting('workout','timers','Timers',`${['autoRest','betweenTimer','sound'].filter(k=>s[k]!==false).length} of 3 on`,`
     <div>${[['autoRest','Start rest timer after each set'],['betweenTimer','Recovery timer between exercises','Length and tip match the exercise you just finished; change it with Adjust'],['sound','Beep when a timer ends']].map(([k,l,h])=>`<label class="toggle" for="set-${k}"><span>${l}${h?`<br><span class="tiny muted">${h}</span>`:''}</span><input type="checkbox" id="set-${k}" data-set="${k}" ${s[k]!==false?'checked':''}></label>`).join('')}</div>
   `)}
-  ${sec('block','Your 6-week program',`Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · next program, restart`,`
+  ${setting('training','block','Your 6-week program',`Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · next program, restart`,`
     <p class="small muted" style="margin:0">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen}. When it ends, tap Start the next program on Today, or start it here when you’re ready. Your weights carry over, and how much your exercises change follows your Exercise variety setting.</p>
     ${state.prevBlock?`<button class="btn sm block" data-action="prevblock" style="width:100%">Go back to my previous program</button>`:''}
     <div class="row"><button class="btn sm" data-action="newblock">Start the next program now</button><button class="btn sm ghost" data-action="restartblock">Restart at week 1</button></div>
   `)}
-  ${sec('backup','Backup',saveStatus()[1]+' · copy or restore',`
+  ${setting('account','backup','Backup',saveStatus()[1]+' · copy or restore',`
     <p class="small muted" style="margin:0">${AUTH.user?'Your workouts sync to your account when connected. Check the save indicator for the latest status. You can also copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
     <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
@@ -5122,6 +5146,8 @@ document.addEventListener('click', e=>{
           startRest(r.sec,{label:'Recover', tip:r.tip, next:nxt?EX[nxt.id].n:'Cool-down'}); }
         else if(state.settings.autoRest!==false && tg.rest) startRest(tg.rest,{label:'Rest'}); }
       save(); render(); break; }
+    case 'settingsgroup': ui.settingsGroup=b.dataset.v; render(); window.scrollTo(0,0); $('#settings-title').focus({preventScroll:true}); break;
+    case 'settingshome': { const group=ui.settingsGroup; ui.settingsGroup=null; render(); window.scrollTo(0,0); const target=[...document.querySelectorAll('[data-action="settingsgroup"]')].find(el=>el.dataset.v===group); if(target) target.focus({preventScroll:true}); break; }
     case 'proftoggle': ui.profOpen=!ui.profOpen; render(); break;
     case 'sectoggle': ui.open=ui.open||{}; ui.open[b.dataset.v]=!ui.open[b.dataset.v]; render(); break;
     case 'setgender': state.settings.gender=b.dataset.g; save(); render(); toast('Saved. New exercises use this for starting weights.'); break;

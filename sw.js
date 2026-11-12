@@ -1,5 +1,5 @@
 /* Only public application files belong here. Never cache Auth/API responses. */
-const VERSION = '2026-11-11-workout-order-1';
+const VERSION = '2026-11-11-settings-1';
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'strong-start-shell-' + encodeURIComponent(BASE.href) + '-';
 const CACHE = PREFIX + VERSION;
