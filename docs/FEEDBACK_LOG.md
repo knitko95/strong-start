@@ -153,6 +153,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 - **Beta access:** invite-only, one-time links, 14-day expiry.
 - **Release (Nov 11):** build and test on `dev`, the owner approves each tested release before it goes live.
 
+| 59 | One workout menu in the top right | On the test app | Requested November 12 with visual references. Replaces the separate left workout-list button and right settings gear with one three-line Workout menu on the right. Existing list, exercise options, timer sound, feedback and pause/end actions remain in that menu throughout exercises, rests and guided warm-up/cool-down. Development build, all 75 synthetic workout/persistence checks and media lifecycle checks pass. Headless Chrome checks pass in 42 layouts across 320/390 px phone and desktop widths, light/dark themes, exercise/rest/lighter-set/guided/list/superset screens: one right-side 44 px menu, retained actions and list navigation, unchanged draft on open/close, restored focus, no overflow or page errors. Physical phones and authenticated account flows remain unverified. No database or configuration change; production release requires separate approval. |
+
 ## Later (needs a bigger decision)
 
 Rest timer alerts while in other apps, exercise photos and videos, a quick-workout option, a custom domain, a real email sender for password resets, a fold-down rig step as equipment.

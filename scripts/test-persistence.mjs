@@ -35,7 +35,7 @@ const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);
   const out=h.run('renderFocus()');assert.match(out,/focus demo-first/);assert(out.indexOf('workout-demo')<out.indexOf('class="asteps"'));
-  assert.match(out,/aria-label="Workout settings"/);assert.match(out,/data-action="flist"/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
+  assert.match(out,/aria-label="Workout menu"/);assert.doesNotMatch(out,/data-action="flist"/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
   h.run('fMoreSheet(demoPk)');for(const action of ['swap','adjust','fskipex','fpause','fexit','flist','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
 });
 await test('swap recommendations fit equipment/preferences while search reaches the whole library',()=>{
