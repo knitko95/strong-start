@@ -10,7 +10,7 @@ Changes are built and tested on dev first. The agent will provide the tested cha
 
 ## Joining and signing in
 
-The public sign-in page describes workout planning, exercise instructions, tracking and coach messages before sign-in. **Privacy policy** and **Terms of Service** stay visible in a footer at the bottom of the screen while the sign-in content scrolls; the account card in Settings also links to both. These pages were approved and published November 11; Google branding verification is still pending. This update adds no age gate, consent checkbox or change to account access.
+The public sign-in page describes workout planning, exercise instructions, tracking and coach messages before sign-in. **Privacy policy** and **Terms of Service** stay visible in a footer at the bottom of the screen while the sign-in content scrolls; the account card in Settings also links to both. These pages were approved and published November 11; Google branding is verified; publishing the approved branding is pending. This update adds no age gate, consent checkbox or change to account access.
 
 1. Open the coach's invite link in the browser where you intend to create your account. Each invite works once and normally expires after 14 days. The app also accepts a pasted invite link or code through **I have an invite**.
 2. Create an account with Google or an email address and password of at least eight characters. Google is offered when enabled in the Supabase project's public Auth settings. Returning users sign in to their existing account; already-approved users do not need a fresh invite.
