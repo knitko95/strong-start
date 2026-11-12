@@ -550,7 +550,21 @@ body.in-focus #app{flex:1}
 .asteps .abtns{display:flex;gap:10px}
 .abtn{width:48px;height:44px;border-radius:14px;border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:24px;font-weight:700;line-height:1;box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 16%,transparent);cursor:pointer}
 .astrip{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
-.arest-link{align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:160px;min-height:44px;padding:6px 16px;border:0;background:transparent;color:var(--accent);font:700 14px var(--body);cursor:pointer}
+.workout-path{width:100%;min-width:0;border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:36px minmax(0,1fr) 36px}
+.path-scroll{overflow-x:auto;overflow-y:hidden;min-width:0;padding:6px 5px 8px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;overscroll-behavior-x:contain;mask-image:linear-gradient(to right,transparent,#000 8px,#000 calc(100% - 8px),transparent)}
+.path-track{position:relative;isolation:isolate;display:flex;gap:6px;width:max-content;min-width:100%;align-items:start}
+.path-track:before{content:'';position:absolute;left:20px;right:20px;top:28px;height:2px;background:var(--line);z-index:-1}
+.path-stop{width:72px;flex:none;display:flex;flex-direction:column;align-items:center;gap:5px}.path-stop.rest{width:44px}
+.path-stop button{font:700 12px var(--body);color:var(--ink);cursor:pointer}
+.path-set{width:100%;min-height:56px;padding:5px 1px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.path-set.done{background:var(--good-soft);border-color:transparent}.path-set.current{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.path-stop small{font-size:11px;white-space:nowrap}.path-stop .path-status{height:16px;font:800 11px var(--body);color:var(--accent)}
+.path-set[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
+.path-rest{width:44px;min-height:56px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0 0;border:0;background:transparent}
+.path-clock{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);font-size:19px;font-weight:400;color:var(--muted)}
+.path-rest.current .path-clock{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}.path-rest[aria-pressed="true"] .path-clock{outline:2px solid var(--accent);outline-offset:2px}
+.path-arrow{width:36px;min-height:72px;padding:0;border:0;background:transparent;color:var(--accent);font:400 30px var(--body);cursor:pointer}.path-arrow:disabled{visibility:hidden}
+.apair>button{min-width:0;min-height:62px;text-align:left;font:inherit;cursor:pointer}.apair>button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
 .atile{flex:1 1 64px;min-width:0;min-height:48px;border-radius:14px;border:1.5px dashed color-mix(in srgb,var(--muted) 45%,var(--line));background:transparent;color:var(--muted);font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 6px;box-sizing:border-box;text-align:center}
 .atile .tl{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .atile .tv{font-size:15px;font-weight:700;white-space:nowrap}
@@ -583,8 +597,8 @@ button.atile.d{cursor:pointer}
 .asection .prow{padding:10px 0}.asection .prow:last-child{padding-bottom:0}
 .asection .prow .pmain{overflow-wrap:anywhere}
 .apair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
-.apair>div{min-width:0;padding:10px;border-radius:14px;background:var(--sunk);border:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
-.apair>div[aria-current="step"]{background:var(--accent-soft);border-color:var(--accent)}
+.apair>button{min-width:0;padding:10px;border-radius:14px;background:var(--sunk);border:1px solid var(--line);display:flex;flex-direction:column;gap:3px}
+.apair>button[aria-current="step"]{background:var(--accent-soft);border-color:var(--accent)}
 .apair .pair-label{font-size:11px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.04em}
 .apair b{font-size:14px;line-height:1.3;overflow-wrap:anywhere}.apair small{font-size:12px;color:var(--muted)}
 .apair-pattern{font-size:12px;font-weight:800;text-align:center;color:var(--accent)}
@@ -603,7 +617,7 @@ button.atile.d{cursor:pointer}
 .acard .fclockcard{background:none;padding:0;border-radius:0}
 .acard .fnote{box-shadow:none;padding:10px;border-radius:12px;width:100%}
 .aworkout-list{display:flex;flex-direction:column}
-@media(max-width:359px){.apair{gap:6px}.apair>div{padding:8px}.apair b{font-size:13px}.astats b{font-size:25px}.apair-move{gap:8px}}
+@media(max-width:359px){.apair{gap:6px}.apair>button{padding:8px}.apair b{font-size:13px}.astats b{font-size:25px}.apair-move{gap:8px}}
 
 .gplan{display:flex;flex-direction:column;gap:4px;padding:12px 14px}.gph{display:flex;gap:12px;align-items:flex-start;text-align:left;background:none;border:0;border-radius:12px;padding:8px 8px;margin:0 -8px;color:inherit;font:inherit;cursor:pointer}.gph .gpt{min-width:44px;font-weight:800;color:var(--muted)}.gph b{font-size:15px}.gph .d{display:block;font-size:12.5px;color:var(--muted)}.gph.on{background:var(--sunk)}.gph.on .gpt,.gph.on b{color:var(--accent)}.gph.done{opacity:.5}
 .focus .linkbtn{text-decoration:none}
@@ -3028,7 +3042,7 @@ function render(){
   $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people'||ui.tab==='inbox')&&k==='settings')?'aria-current="page"':''} ${k==='settings'&&nUnread?`aria-label="Settings, ${nUnread} unread"`:''}><span class="ticon">${ICONS[k]}${k==='settings'&&nUnread?`<span class="tbadge" aria-hidden="true">${nUnread>99?'99+':nUnread}</span>`:''}</span><span>${l}</span></button>`).join('');
   const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, inbox:renderInbox, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
   $('#app').innerHTML = (coachMode && ui.tab!=='workout' && ui.tab!=='preview' ? coachBanner() : '') + v;
-  renderTimer(); setSync(); syncWake(); warmClock();
+  renderTimer(); setSync(); syncWake(); warmClock(); setupWorkoutPath();
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
 function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Edit exercise choices, sets, reps, rest, recovery, and level, then Send changes. Other settings and working weights are view-only. Unsent edits are discarded when you leave.</div></div>
@@ -3689,8 +3703,56 @@ function fPair(d,slots,pk){
   if(!group||group.length<2) return null;
   const moves=group.map(i=>slots[i]); return {moves,key:moves.map(s=>s.pk).join('|')};
 }
-function fPairStrip(d,pair,pk,rest=false){
-  return `<div class="apair" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>`<div ${s.pk===pk?'aria-current="step"':''}><span class="pair-label">${String.fromCharCode(65+i)} · ${!openN(d,s.pk)?'Complete':s.pk===pk?(rest?'Next':'Now'):'Partner'}</span><b>${esc(EX[s.id].n)}</b><small>${doneN(d,s.pk)} of ${(d.sets[s.pk]||[]).length} sets done</small></div>`).join('')}</div><div class="apair-pattern">A → B → Rest · Repeat each round</div>`;
+function fPairStrip(d,pair,pk,rest=false,round){
+  round=round??d.step.afterRound??d.sets[pk]?.findIndex(x=>!x.done)??0;round=Math.max(0,round);
+  const cur=fPathCurrent(d,dSlots());
+  return `<div class="apair" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>{const row=d.sets[s.pk]?.[round],now=cur.ph==='ex'&&cur.pk===s.pk&&fSetIndex(d,cur)===round;return `<button data-action="fset" data-pk="${s.pk}" data-i="${round}" aria-pressed="${!rest&&s.pk===pk}" ${!row?'disabled':''}><span class="pair-label">${String.fromCharCode(65+i)} · ${!row?'No set':row.done?'Done':now?'Now':s.pk===pk&&!rest?'Selected':'Next'}</span><b>${esc(EX[s.id].n)}</b></button>`;}).join('')}</div><div class="apair-pattern">A → B → Rest · Repeat each round</div>`;
+}
+function fSetIndex(d,step){const rows=d.sets[step.pk]||[],n=rows.findIndex(x=>!x.done);return Number.isInteger(step.i)&&rows[step.i]?step.i:n<0?Math.max(0,rows.length-1):n;}
+function fKeepPosition(d){
+  if(d.pathCurrent||!['ex','rest','exdone'].includes(d.step.ph)||d.step.restPreview)return;
+  d.pathCurrent={...d.step,...(d.step.ph==='ex'?{i:fSetIndex(d,d.step)}:{})};
+  const slots=dSlots(),moves=fPair(d,slots,d.step.pk)?.moves||slots.filter(s=>s.pk===d.step.pk);
+  if(d.step.ph==='ex'&&moves.length&&moves.every(s=>!openN(d,s.pk))){d.pathCurrent.ph='exdone';delete d.pathCurrent.i;}
+}
+function fPathCurrent(d,slots){
+  let st=d.pathCurrent||d.step;
+  if(!slots.some(s=>s.pk===st.pk))st=d.step;
+  return st;
+}
+function workoutPath(d,slots,s){
+  const pair=fPair(d,slots,s.pk),moves=pair?.moves||[s],count=Math.max(...moves.map(m=>(d.sets[m.pk]||[]).length));
+  if(!count)return '';
+  const st=d.step,cur=fPathCurrent(d,slots),same=moves.some(m=>m.pk===cur.pk),round=fSetIndex(d,cur),restRound=cur.afterRound??d.rest?.afterRound??Math.max(0,round-1);
+  const selected=st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:`s${fSetIndex(d,st)}`;
+  const active=same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?`s${round}`:''):'';
+  const nodes=[];
+  for(let i=0;i<count;i++){
+    const available=moves.filter(m=>d.sets[m.pk]?.[i]),complete=available.every(m=>d.sets[m.pk][i].done),id=`s${i}`;
+    const dest=available.find(m=>!d.sets[m.pk][i].done)||available[0];
+    const row=d.sets[dest.pk][i],tg=target(dest),value=pair?available.map(m=>String.fromCharCode(65+moves.indexOf(m))).join(' → '):complete?`${usesLoad(tg.ex)&&row.w?weightNumber(row.w)+' × ':''}${row.r}${tg.unit==='sec'?' s':''}`:`${usesLoad(tg.ex)?tg.lo+'–'+tg.hi:tg.r} ${tg.unit}`;
+    nodes.push(`<div class="path-stop"><button class="path-set ${complete?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${dest.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${complete?'Edit':'Go to'} ${pair?'round':'set'} ${i+1}${complete?', completed':''}"><span>${pair?'Round':'Set'} ${i+1}</span><small>${esc(value)}</small></button><span class="path-status">${active===id?'Current':''}</span></div>`);
+    if(i<count-1){const rid=`r${i}`,sec=Number(available[available.length-1].cfg.rest)||0,running=d.rest&&ui.timer?.label==='Rest'&&moves.some(m=>m.pk===d.rest.pk)&&(d.rest.afterRound??restRound)===i;
+      nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after ${pair?'round':'set'} ${i+1}, ${sec} seconds"><span class="path-clock" aria-hidden="true">◷</span><small ${running?'data-path-countdown':''} class="num">${mmss(running?Math.max(0,Math.ceil((ui.timer.end-Date.now())/1000)):sec)}</small></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
+    }
+  }
+  return `<div class="workout-path" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier ${pair?'rounds':'sets'}">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Superset rounds':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later ${pair?'rounds':'sets'}">›</button></div>`;
+}
+let workoutPathObserver=null;
+function setupWorkoutPath(){
+  workoutPathObserver?.disconnect();workoutPathObserver=null;
+  const host=document.querySelector('.workout-path');if(!host)return;
+  const rail=host.querySelector('.path-scroll'),arrows=host.querySelectorAll('.path-arrow');if(!rail||arrows.length!==2)return;
+  const update=()=>{arrows[0].disabled=rail.scrollLeft<=2;arrows[1].disabled=rail.scrollLeft>=rail.scrollWidth-rail.clientWidth-2;};
+  rail.addEventListener('scroll',update,{passive:true});
+  const center=()=>{const selected=rail.querySelector('[aria-pressed="true"]');if(selected){const a=rail.getBoundingClientRect(),b=selected.getBoundingClientRect();rail.scrollLeft+=b.left-a.left-(a.width-b.width)/2;}update();};
+  requestAnimationFrame(center);
+  if(typeof ResizeObserver!=='undefined'){workoutPathObserver=new ResizeObserver(update);workoutPathObserver.observe(rail);}
+}
+function refreshPathPosition(){
+  const host=document.querySelector('.workout-path'),d=state.draft;if(!host?.querySelectorAll||!d)return;
+  const cur=fPathCurrent(d,dSlots()),same=(host.dataset.pks||'').split('|').includes(cur.pk),id=same&&cur.ph==='ex'?`s${fSetIndex(d,cur)}`:'';
+  host.querySelectorAll('[data-path-id]').forEach(b=>{const active=b.dataset.pathId===id;b.classList.toggle('current',active);if(active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');b.parentElement.querySelector('.path-status').textContent=active?'Current':'';});
 }
 function fPairIntro(d,slots,pair){
   return `<div class="focus">${fTop(d,slots,'Meet your superset')}
@@ -3785,10 +3847,8 @@ function renderFocus(){
   const upNext=()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
   const moreBtn=`<button class="amore" data-action="fmore" data-pk="${s.pk}" aria-label="More: swap, adjust, skip or sound">${ICON.more}</button>`;
   if(st.ph==='rest'){
-    const T=ui.timer, preview=!!st.restPreview&&!T, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
+    const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
     const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
-    const nextTv=(load?`${fmtW(sets[k]&&sets[k].w||tg.w||tg.sug).replace(/ (lb|kg)$/,'')} × `:'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(tg.unit==='sec'?' s':''));
-    const strip=sets.map((x,i)=>`<button class="atile ${x.done?'d':i===k?'n':''}" data-action="fset" data-pk="${s.pk}" data-i="${i}" aria-label="${x.done?'Edit':'Go to'} set ${i+1}"><span class="tl">Set ${i+1}${x.done?' ✓':i===k?' next':''}</span><span class="tv">${x.done?esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r):esc(nextTv)}</span></button>`).join('');
     return `<div class="focus">${fTop(d,slots)}
       <div class="ahead"><h1>${preview?(pair?'Rest after both':'Rest between sets'):T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${pair?`Next: ${esc(ex.n)} · round ${k+1} of ${sets.length}`:`${esc(ex.n)} · ${dn} of ${sets.length} sets done`}</div></div>
       <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
@@ -3798,7 +3858,7 @@ function renderFocus(){
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
-        <div class="astrip">${strip}</div></section>
+        ${workoutPath(d,slots,s)}</section>
       <button class="linkbtn" style="align-self:center;min-height:44px" data-action="fviewsets">View / edit sets</button>
       <p class="atip">${state.settings.sound===false?'Your phone buzzes':'Your phone beeps and buzzes'} when rest is up.</p>
       <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></div>`;
@@ -3830,17 +3890,13 @@ function renderFocus(){
   const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`;
   const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
-  const wPlan = load ? (cur.w!==''&&cur.w!=null ? weightNumber(cur.w) : wShow!=null ? fmtW(wShow).replace(/ (lb|kg)$/,'') : '') : '';
-  const planTv = (wPlan!==''?wPlan+' × ':'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(secs?' s':''));
-  const strip = sets.map((x,i)=>`<button class="atile ${i===kk?'c':x.done?'d':''}" data-action="fset" data-pk="${s.pk}" data-i="${i}" aria-label="${x.done?'Edit':'Go to'} set ${i+1}" aria-pressed="${i===kk}"><span class="tl">Set ${i+1}${x.done?' ✓':''}</span><span class="tv">${i===kk?(x.done?'Editing':'Now'):x.done?esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r+(secs?' s':'')):esc(planTv)}</span></button>`).join('');
   return `<div class="focus">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div>
       ${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
-    <section class="card acard">${pair?fPairStrip(d,pair,s.pk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
+    <section class="card acard">${pair?fPairStrip(d,pair,s.pk,false,kk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
-      <div class="astrip">${strip}</div>
-      <button class="arest-link" data-action="frest" data-pk="${s.pk}" aria-label="${pair?'Rest after the paired exercises':'Rest between sets'}"><span>Rest ·</span><span id="frestleft" class="num">${mmss(fRestLeft(d,s,slots))}</span><span aria-hidden="true">›</span></button></section>
+      ${workoutPath(d,slots,s)}</section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
     <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:`Done with set ${kk+1}`}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
 }
@@ -3948,10 +4004,9 @@ function fRestSeconds(s,slots){
   const pair=fPair(state.draft,slots,s.pk), moves=pair?.moves.filter(move=>openN(state.draft,move.pk))||[];
   return Math.max(0,Number((moves.length>1?moves[moves.length-1]:s).cfg.rest)||0);
 }
-function fRestLeft(d,s,slots){ return d.rest&&ui.timer?.label==='Rest'?Math.max(0,Math.ceil((ui.timer.end-Date.now())/1000)):fRestSeconds(s,slots); }
 function fRest(sec, info){ startRest(sec, info); if(state.draft && state.draft.step){
   const d=state.draft; d.step.tEnd=ui.timer?ui.timer.end:null; d.step.tTot=sec; d.step.tTip=info.tip||'';
-  if(info.label==='Rest'&&ui.timer) d.rest={pk:d.step.pk,end:ui.timer.end,total:sec};
+  if(info.label==='Rest'&&ui.timer) d.rest={pk:d.step.pk,end:ui.timer.end,total:sec,...(Number.isInteger(d.step.afterRound)?{afterRound:d.step.afterRound}:{})};
 } }
 function fClearTimer(){ ui.timer=null; clearInterval(timerInt); if(state.draft){ delete state.draft.rest; if(state.draft.step) delete state.draft.step.tEnd; } }
 function fRestoreTimer(){
@@ -3961,6 +4016,7 @@ function fRestoreTimer(){
       ui.timer={end:d.rest.end,total:d.rest.total,label:'Rest',tip:'',next:''};timerInt=setInterval(tick,500);return;
     }
     delete d.rest;
+    if(d.pathCurrent?.ph==='rest'){d.pathCurrent.ph='ex';delete d.pathCurrent.i;delete d.pathCurrent.tEnd;}
   }
   if(st?.tEnd>Date.now()){
     ui.timer={end:st.tEnd,total:st.tTot||Math.ceil((st.tEnd-Date.now())/1000),label:st.ph==='rest'?'Rest':'Recover',tip:st.tTip||'',next:''};
@@ -3971,6 +4027,8 @@ function fRestoreTimer(){
 function fAction(a,b){
   const d=state.draft;
   switch(a){
+    case 'fpathscroll': { const rail=b.closest('.workout-path')?.querySelector('.path-scroll');
+      if(rail)rail.scrollBy({left:(+b.dataset.dir||1)*128,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});return true; }
     case 'fpairbegin': { if(!d) return true; const slots=dSlots(),pair=fPair(d,slots,b.dataset.pk);if(!pair) return true;
       d.pairSeen=d.pairSeen||{};d.pairSeen[pair.key]=true;
       const first=pair.moves.find(s=>openN(d,s.pk));if(first)d.step={ph:'ex',pk:first.pk};
@@ -3988,6 +4046,7 @@ function fAction(a,b){
       if(!done){ confirmBox('End without saving?','No sets were finished, so nothing will be saved.','End workout',()=>{ state.draft=null; save(); ui.tab='today'; render(); }); return true; }
       finishWorkout(); return true; }
     case 'fjump': { const to=b.dataset.to; closeModal(); fClearTimer();
+      delete d.pathCurrent;
       if(d.skipped&&d.skipped[to]){ delete d.skipped[to]; const sl=dSlots().find(x=>x.pk===to); const arr=d.sets[to]=d.sets[to]||[]; const want=sl?sl.cfg.sets:3; while(arr.length<want) arr.push({w:(arr[arr.length-1]||{w:''}).w,r:'',done:false}); }
       if(to==='warm'||to==='cool') d.step={ph:to}; else d.step={ph:'ex',pk:to};
       save(); render(); window.scrollTo(0,0); return true; }
@@ -4000,39 +4059,51 @@ function fAction(a,b){
       modal(`<div><div class="eyebrow">Skip</div><h2>Skip ${esc(EX[s.id].n)} today?</h2><div class="small muted">It won’t count against your progress. Machine taken? You can also come back to it later from the ☰ list.</div></div>
         <button class="btn primary block" data-action="fskipyes" data-pk="${s.pk}">Skip it</button><button class="btn ghost block" data-action="closemodal">Keep it</button>`); return true; }
     case 'fskipyes': { closeModal(); const pk=b.dataset.pk, slots=dSlots(), idx=slots.findIndex(x=>x.pk===pk);
+      delete d.pathCurrent;
       d.sets[pk]=(d.sets[pk]||[]).filter(x=>x.done); d.skipped=d.skipped||{}; d.skipped[pk]=true; fClearTimer();
       // Skipping one move of a pair continues with its partner before moving on
       const inG=pickInGroup(d,slots,fGroups(slots).find(g=>g.includes(idx))||[]), n=inG>=0?inG:nextGroupStart(d,slots,idx); d.step = n>=0 ? {ph:'ex',pk:slots[n].pk} : {ph:'cool'}; save(); render(); window.scrollTo(0,0); toast('Skipped'); return true; }
     case 'fundo':
     case 'fset': { const pk=b.dataset.pk, i=+b.dataset.i;
       if(!Number.isInteger(i)||!d.sets[pk]?.[i]||!dSlots().some(s=>s.pk===pk)) return true;
+      fKeepPosition(d);
       if(!d.rest||ui.timer?.label!=='Rest') fClearTimer();
       d.step={ph:'ex',pk,i}; save(); render(); return true; }
-    case 'frest': { const slots=dSlots(), active=d.rest&&ui.timer?.label==='Rest', pk=active?d.rest.pk:b.dataset.pk;
+    case 'frest': { const slots=dSlots(), explicit=b.dataset.round!=null, r=+b.dataset.round, running=d.rest&&ui.timer?.label==='Rest';
+      if(explicit&&(!Number.isInteger(r)||r<0))return true;
+      const group=fPair(d,slots,b.dataset.pk)?.moves||slots.filter(s=>s.pk===b.dataset.pk),count=Math.max(0,...group.map(s=>(d.sets[s.pk]||[]).length));
+      if(explicit&&r>=count-1)return true;
+      const active=running&&(!explicit||(group.some(s=>s.pk===d.rest.pk)&&(d.rest.afterRound??Math.max(0,fSetIndex(d,{pk:d.rest.pk})-1))===r)),pk=active?d.rest.pk:b.dataset.pk;
       if(!slots.some(s=>s.pk===pk)) return true;
+      fKeepPosition(d);
       const i=d.step.pk===pk?d.step.i:undefined;
-      if(!active)fClearTimer();
-      d.step={ph:'rest',pk,...(Number.isInteger(i)?{i}:{}),...(!active?{restPreview:true}:{})};
+      if(!running)fClearTimer();
+      d.step={ph:'rest',pk,...(Number.isInteger(i)?{i}:{}),...(explicit?{afterRound:r}:d.rest?.afterRound!=null?{afterRound:d.rest.afterRound}:{}),...(!active?{restPreview:true,...(explicit?{restSec:Math.max(0,+b.dataset.sec||0)}:{})}:{})};
       save();render();return true; }
     case 'freststart': { const slots=dSlots(), s=slots.find(s=>s.pk===d.step.pk);
       if(!s||!d.step.restPreview) return true;
       const sec=d.step.restSec??fRestSeconds(s,slots);if(!(sec>0))return true;
-      delete d.step.restPreview;fRest(sec,{label:'Rest'});save();render();return true; }
-    case 'fviewsets': { const {pk,i}=d.step;d.step={ph:'ex',pk,...(Number.isInteger(i)?{i}:{})};save();render();return true; }
+      delete d.pathCurrent;delete d.step.restPreview;fRest(sec,{label:'Rest'});save();render();return true; }
+    case 'fviewsets': { fKeepPosition(d);const {pk,i}=d.step;d.step={ph:'ex',pk,...(Number.isInteger(i)?{i}:{})};save();render();return true; }
     case 'fdone': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===b.dataset.pk), s=slots[idx], tg=target(s), arr=d.sets[s.pk], i=+b.dataset.i;
       if(arr[i]?.done){
         if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; }
+        if(d.pathCurrent&&slots.some(s=>s.pk===d.pathCurrent.pk)){
+          d.step={...d.pathCurrent};delete d.pathCurrent;
+          if(d.step.ph==='rest'&&!d.rest){d.step.ph='ex';delete d.step.i;}
+          save();render();return true;
+        }
         const grp=fGroups(slots).find(g=>g.includes(idx)), n=pickInGroup(d,slots,grp);
         d.step=n>=0?{ph:'ex',pk:slots[n].pk}:{ph:'exdone',pk:s.pk};
         save(); render(); window.scrollTo(0,0); return true;
       }
-      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } fClearTimer();lockShape(d); arr[i].done=true;
+      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } delete d.pathCurrent;fClearTimer();lockShape(d); arr[i].done=true;
         // carry weight forward to the next open set if they changed it
         const nx=arr.find(x=>!x.done); if(nx && usesLoad(tg.ex) && nx.w!==arr[i].w) nx.w=arr[i].w; }
       const grp=fGroups(slots).find(g=>g.includes(idx)), nIn=pickInGroup(d,slots,grp);
       // In a pair, the first move goes straight to its partner; if the partner has no sets left, it rests like any other move
       if(nIn>=0){ const rest = tg.ssFirst && slots[nIn].pk!==s.pk ? 0 : s.cfg.rest;
-        d.step={ph: rest && state.settings.autoRest!==false ? 'rest':'ex', pk:slots[nIn].pk};
+        d.step={ph: rest && state.settings.autoRest!==false ? 'rest':'ex', pk:slots[nIn].pk,...(rest&&state.settings.autoRest!==false?{afterRound:i}:{})};
         if(d.step.ph==='rest') fRest(rest,{label:'Rest'}); else if(slots[nIn].pk!==s.pk) toast(`Now: ${EX[slots[nIn].id].n}`);
       } else {
         d.step={ph:'exdone', pk:s.pk}; fClearTimer();
@@ -4040,8 +4111,9 @@ function fAction(a,b){
         if(n>=0 && state.settings.betweenTimer!==false){ const r=recovery(s); fRest(r.sec,{label:'Recover', tip:r.tip, next:EX[slots[n].id].n}); }
       }
       save(); render(); window.scrollTo(0,0); return true; }
-    case 'fready': fClearTimer(); d.step.ph='ex'; delete d.step.tEnd; delete d.step.i; save(); render(); window.scrollTo(0,0); return true;
+    case 'fready': fClearTimer(); delete d.pathCurrent;d.step.ph='ex'; delete d.step.tEnd; delete d.step.i; save(); render(); window.scrollTo(0,0); return true;
     case 'fnext': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===d.step.pk), n=nextGroupStart(d,slots,idx); fClearTimer();
+      delete d.pathCurrent;
       d.step = n>=0?{ph:'ex',pk:slots[n].pk}:{ph:'cool'}; save(); render(); window.scrollTo(0,0); return true; }
     case 'ffeel': { d.feel=d.feel||{}; const pk=b.dataset.pk, f=b.dataset.f; d.feel[pk]= d.feel[pk]===f?null:f; save(); render(); return true; }
     case 'ffeelopen': ui.feelOpen=ui.feelOpen||{}; ui.feelOpen[b.dataset.pk]=true; render(); return true;
@@ -4962,13 +5034,12 @@ function tick(){
   const left=Math.ceil((ui.timer.end-Date.now())/1000);
   if(left<=0){ const t=ui.timer; ui.timer=null; clearInterval(timerInt); beep(); try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
     const d=state.draft; if(d&&d.step) delete d.step.tEnd;
-    if(d?.rest){delete d.rest;save();}
-    const restLeft=document.getElementById('frestleft');
-    if(restLeft&&d){const slots=dSlots(),s=slots.find(s=>s.pk===d.step?.pk);if(s)restLeft.textContent=mmss(fRestSeconds(s,slots));}
-    if(d && d.step && ui.tab==='workout' && !$('#modal').innerHTML){ if(d.step.ph==='rest'){ d.step.ph='ex'; delete d.step.i; save(); render(); toast('Rest is up. Next set.'); return; } if(d.step.ph==='exdone'){ render(); toast(`Ready: ${t.next}`); return; } }
+    if(d?.rest){delete d.rest;if(d.pathCurrent?.ph==='rest'){d.pathCurrent.ph='ex';delete d.pathCurrent.i;delete d.pathCurrent.tEnd;}save();refreshPathPosition();}
+    document.querySelectorAll?.('[data-path-countdown]').forEach(el=>{const sec=+el.closest('[data-sec]').dataset.sec||0;el.textContent=mmss(sec);el.removeAttribute('data-path-countdown');});
+    if(d && d.step && ui.tab==='workout' && !$('#modal').innerHTML){ if(d.step.ph==='rest'&&!d.step.restPreview){ d.step.ph='ex'; delete d.step.i; save(); render(); toast('Rest is up. Next set.'); return; } if(d.step.ph==='exdone'){ render(); toast(`Ready: ${t.next}`); return; } }
     renderTimer(); toast(t.label==='Recover'?`Ready: ${t.next}`:'Rest done. Next set.'); return; }
-  const restLeft=document.getElementById('frestleft');if(restLeft&&state.draft?.rest&&ui.timer.label==='Rest')restLeft.textContent=mmss(Math.max(0,left));
-  const fc=document.getElementById('fclock'); if(fc){ fc.textContent=mmss(left); const fr=document.getElementById('fring'); if(fr){ const C=2*Math.PI*110; fr.setAttribute('stroke-dasharray',`${(C*left/ui.timer.total).toFixed(1)} ${C.toFixed(1)}`); } }
+  document.querySelectorAll?.('[data-path-countdown]').forEach(el=>el.textContent=mmss(Math.max(0,left)));
+  const fc=document.getElementById('fclock'); if(fc&&!state.draft?.step?.restPreview){ fc.textContent=mmss(left); const fr=document.getElementById('fring'); if(fr){ const C=2*Math.PI*110; fr.setAttribute('stroke-dasharray',`${(C*left/ui.timer.total).toFixed(1)} ${C.toFixed(1)}`); } }
   const c=document.querySelector('.timer .clock'), b=document.querySelector('.timer .bar i');
   if(c){ c.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; b.style.width=`${100*left/ui.timer.total}%`; } else renderTimer();
 }
@@ -5241,8 +5312,8 @@ document.addEventListener('click', e=>{
     case 'addset': { const arr=state.draft.sets[b.dataset.pk]; const last=arr[arr.length-1]||{w:''}; arr.push({w:last.w,r:'',done:false}); updateDraftSetCount(b.dataset.pk); save(); render(); break; }
     case 'rmset': { const arr=state.draft.sets[b.dataset.pk]; if(arr.length>1 && !arr[arr.length-1].done){ arr.pop(); updateDraftSetCount(b.dataset.pk); } save(); render(); break; }
     case 'rest': startRest(+b.dataset.sec,{label:'Rest'}); break;
-    case 'tadd': if(ui.timer){ ui.timer.end+= +b.dataset.sec*1000; if(state.draft&&state.draft.step&&state.draft.step.tEnd) state.draft.step.tEnd=ui.timer.end; ui.timer.total=Math.max(ui.timer.total,Math.ceil((ui.timer.end-Date.now())/1000)); if(state.draft?.rest){state.draft.rest.end=ui.timer.end;state.draft.rest.total=ui.timer.total;save();} tick(); }
-      else if(state.draft?.step?.restPreview){const d=state.draft,slots=dSlots(),s=slots.find(s=>s.pk===d.step.pk);if(s){d.step.restSec=Math.max(0,(d.step.restSec??fRestSeconds(s,slots))+(+b.dataset.sec||0));save();render();}} break;
+    case 'tadd': if(state.draft?.step?.restPreview){const d=state.draft,slots=dSlots(),s=slots.find(s=>s.pk===d.step.pk);if(s){d.step.restSec=Math.max(0,(d.step.restSec??fRestSeconds(s,slots))+(+b.dataset.sec||0));save();render();}}
+      else if(ui.timer){ ui.timer.end+= +b.dataset.sec*1000; if(state.draft&&state.draft.step&&state.draft.step.tEnd) state.draft.step.tEnd=ui.timer.end; ui.timer.total=Math.max(ui.timer.total,Math.ceil((ui.timer.end-Date.now())/1000)); if(state.draft?.rest){state.draft.rest.end=ui.timer.end;state.draft.rest.total=ui.timer.total;save();} tick(); } break;
     case 'tskip': ui.timer=null; clearInterval(timerInt); renderTimer(); break;
     case 'finish': { const d=state.draft, all=Object.values(d.sets).flat(), open=all.filter(s=>!s.done).length;
       if(open) confirmBox('Finish workout?',`${open} set${open>1?'s are':' is'} not checked off. Unchecked sets aren't counted toward progression.`,'Finish',finishWorkout); else finishWorkout(); break; }
