@@ -11,7 +11,7 @@ assert.equal(path.resolve(out), path.resolve(root, 'dist-production'));
 assert.equal(path.dirname(out), path.resolve(root));
 rmSync(out, {recursive:true, force:true});
 mkdirSync(out, {recursive:true});
-for (const file of ['index.html', 'privacy.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
+for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
   'icons', 'offline.js', 'sw.js', '.nojekyll']) {
   cpSync(path.join(root,file), path.join(out,file), {recursive:true});
 }

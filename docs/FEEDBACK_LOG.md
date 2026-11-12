@@ -97,6 +97,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 |---|---|---|---|
 | 33 | Prepare strongstart.app and Cloudflare production hosting | On the test app; awaiting cutover approval | Owner requested development preparation and testing only, November 11. Exact-domain production routing, a separate public-file production package and pinned Cloudflare Workers Static Assets configuration; test Pages hosting remains isolated. Local domain/browser, offline and hosting checks pass. No database migration, DNS, domain attachment, production Auth change or live deployment by this task. See [scope, checks, user transition and pending cutover actions](DOMAIN-TRANSITION-2026-11-11.md). |
 
+| 38 | Public app description and Terms of Service for Google branding | On the test app | Requested November 11. Added a short public description on sign-in, a plain-language terms page, policy links on auth screens and the signed-in Account card, offline terms availability, and current hosting details in the privacy policy. Local checks passed: syntax/environment isolation, 49 persistence/workout and 6 offline scenarios, and browser checks at 1280/390/320 px for policy navigation, auth/invite screens, synthetic Account rendering and offline terms. Terms remain subject to owner review; no age gate, consent capture, database/Auth change, live release or Google verification submission. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.

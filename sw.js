@@ -1,10 +1,10 @@
 /* Only public application files belong here. Never cache Auth/API responses. */
-const VERSION = '2026-11-11-offline-1';
+const VERSION = '2026-11-11-policies-1';
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'strong-start-shell-' + encodeURIComponent(BASE.href) + '-';
 const CACHE = PREFIX + VERSION;
 const SDK = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
-const FILES = ['index.html', 'offline.js', 'privacy.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
+const FILES = ['index.html', 'offline.js', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
   'icons/favicon-64.png', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 const URLS = FILES.map(p => new URL(p, BASE).href).concat(SDK);
 async function prepare() {
