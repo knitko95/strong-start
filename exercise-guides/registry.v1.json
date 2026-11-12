@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-11-11-reviewed-1",
+  "characters": {
+    "instructor-rose-v1": {
+      "label": "Rose-top instructor",
+      "rigId": "makehuman-game-engine-v1",
+      "assetLicense": "CC0-1.0"
+    }
+  },
+  "animations": {
+    "dumbbell-romanian-deadlift": {
+      "version": 1,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/dumbbell-romanian-deadlift.rose.v1.44938872844a.glb",
+          "bytes": 5729384,
+          "sha256": "44938872844afb303afeb322b0e26e3a287f03d9befced1080eaeb9b3373c990",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-11"
+          }
+        }
+      }
+    },
+    "hammer-curl": {
+      "version": 2,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/hammer-curl.rose.v2.657ffe4da6a0.glb",
+          "bytes": 5714564,
+          "sha256": "657ffe4da6a072a2d04a9fb12740626c21c7f6a707d08b9fb7fdd1450fc95d74",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-11"
+          }
+        }
+      }
+    },
+    "standing-dumbbell-shoulder-press": {
+      "version": 2,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/standing-dumbbell-shoulder-press.rose.v2.913b5ca49276.glb",
+          "bytes": 5722356,
+          "sha256": "913b5ca49276b311275214f264d072cc27ad07a9ef926eb82a30f3052bac3f5c",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-11"
+          }
+        }
+      }
+    },
+    "dumbbell-bench-press": {
+      "version": 2,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/dumbbell-bench-press.rose.v2.ffa2e9a2751c.glb",
+          "bytes": 5773032,
+          "sha256": "ffa2e9a2751cc7072876796edf335bd590b96642c642b911dd0642b36782420b",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-11"
+          }
+        }
+      }
+    },
+    "plank": {
+      "version": 1,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/plank.rose.v1.6c1c9cb73481.glb",
+          "bytes": 5673452,
+          "sha256": "6c1c9cb73481cbe6cc97189d2a59a08f51ba418731356660da8bda960781fbf1",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-11"
+          }
+        }
+      }
+    }
+  },
+  "guides": {
+    "dumbbell-romanian-deadlift": {
+      "exerciseId": "dumbbell-romanian-deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "contentSource": "catalogue",
+      "animationId": "dumbbell-romanian-deadlift",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.2m",
+        "cameraTarget": "0m 0.74m 0m",
+        "radiusMetres": 3.2,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "hammer-curl": {
+      "exerciseId": "hammer-curl",
+      "name": "Hammer Curl",
+      "contentSource": "catalogue",
+      "animationId": "hammer-curl",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.2m",
+        "cameraTarget": "0m 0.74m 0m",
+        "radiusMetres": 3.2,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "standing-dumbbell-shoulder-press": {
+      "exerciseId": "standing-dumbbell-shoulder-press",
+      "name": "Standing Dumbbell Shoulder Press",
+      "contentSource": "catalogue",
+      "animationId": "standing-dumbbell-shoulder-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.5m",
+        "cameraTarget": "0m 0.80m 0m",
+        "radiusMetres": 3.5,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "dumbbell-bench-press": {
+      "exerciseId": "dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "contentSource": "catalogue",
+      "animationId": "dumbbell-bench-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "floor",
+        "cameraOrbit": "-45deg 65deg 2.9m",
+        "cameraTarget": "0m 0.48m -0.18m",
+        "radiusMetres": 2.9,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "plank": {
+      "exerciseId": "plank",
+      "name": "Plank",
+      "contentSource": "catalogue",
+      "animationId": "plank",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "floor",
+        "cameraOrbit": "-65deg 72deg 2.8m",
+        "cameraTarget": "0m 0.20m 0m",
+        "radiusMetres": 2.8,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    }
+  }
+}

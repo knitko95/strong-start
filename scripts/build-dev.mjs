@@ -9,7 +9,8 @@ if (process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== 'dev') {
   throw new Error('This Cloudflare project deploys only the dev branch.');
 }
 mkdirSync(out, { recursive: true });
-for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'offline.js', 'sw.js']) {
+await import('./check-exercise-guides.mjs');
+for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'offline.js', 'sw.js', 'exercise-guides']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
 }
 // A test deployment cannot connect to production even if served at another URL.

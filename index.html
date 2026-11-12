@@ -13,6 +13,8 @@
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="exercise-guides/guides.css">
+<script defer src="exercise-guides/guides.js"></script>
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3848,6 +3850,7 @@ function exInfo(id, pk){
   modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(ex.n)}</h2>
       <div class="row" style="margin-top:6px">${planeChip(ex.pl)}${ex.uni?'<span class="chip">One side at a time</span>':''}</div>${eqLabelList(ex).length?`<div class="small muted" style="margin-top:6px">You’ll need: ${esc(eqLabelList(ex).join(', '))}</div>`:''}</div>
     ${painWarningCard(ex)}
+    <div class="exercise-guide-mount"></div>
     ${med&&med.video?`<div class="exmedia"><video src="${med.video}" controls playsinline muted loop></video></div>`:''}
     ${EX_PHOTOS.has(id)?`<div class="expics">${[['a','Start'],['b','Finish']].map(([k,l])=>`<figure class="expic"><img src="img/${id}-${k}.jpg" alt="${esc(ex.n)}, ${l.toLowerCase()} position" loading="lazy"><figcaption>${l}</figcaption></figure>`).join('')}</div>`:''}
     ${tg?`<div class="card" style="box-shadow:none;background:var(--accent-soft);padding:10px 14px"><span class="small"><b>Today:</b> ${tg.sets} sets × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}${ex.uni?' per side':''}${usesLoad(ex)?` at ${w!=null?fmtW(w):'a light weight'}`:''}</span></div>`:''}
@@ -3855,6 +3858,7 @@ function exInfo(id, pk){
     ${m?`<div><div class="eyebrow">Muscles worked</div><div class="bodypair">${bodySVG('f',c,{cls:'bodybig'})}${bodySVG('b',c,{cls:'bodybig'})}</div>
       <div class="row">${m.p.map(x=>`<span class="chip pchip">${MUSCLES[x]}</span>`).join('')}${m.s.map(x=>`<span class="chip schip">${MUSCLES[x]}</span>`).join('')}</div></div>`:''}
     <div class="fpair">${pk&&ui.tab==='preview'?`<button class="btn" data-action="swap" data-pk="${pk}">Swap</button>`:''}<button class="btn primary" data-action="closemodal">Got it</button></div>`);
+  window.StrongStartExerciseGuides?.attach({exerciseId:id,mount:$('#modal .exercise-guide-mount'),environment:APP_ENV});
 }
 function endSheet(){
   const d=state.draft, done=Object.values(d.sets).flat().filter(x=>x.done).length;
@@ -4857,6 +4861,7 @@ function modalFocusables(sheet){
     .filter(el=>!el.disabled && el.tabIndex>=0 && !el.closest('[hidden],[inert]') && el.getClientRects().length);
 }
 function modal(html,layout={}){
+  window.StrongStartExerciseGuides?.dispose();
   const host=$('#modal'), previous=host.querySelector('.sheet'), active=document.activeElement;
   const keep=previous&&previous.contains(active)?focusKey(active):null;
   if(!previous){
@@ -4875,6 +4880,7 @@ function modal(html,layout={}){
   (retained || sheet.querySelector('[data-modal-initial]') || title || sheet).focus({preventScroll:true});
 }
 function closeModal(){
+  window.StrongStartExerciseGuides?.dispose();
   cmClose();
   const host=$('#modal'); if(!host.querySelector('.sheet')) return;
   host.innerHTML=''; confirmCb=null;
