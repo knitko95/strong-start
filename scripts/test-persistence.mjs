@@ -60,13 +60,54 @@ await test('saving an edited completed set returns to unfinished work without ne
   const before=h.run('JSON.stringify(state.draft)');h.click('fset',{pk,i:'99'});h.click('fset',{pk:'missing',i:'0'});
   assert.equal(h.run('JSON.stringify(state.draft)'),before);
 });
-await test('set navigation from rest and paired edit saving preserve completed rounds',()=>{
+await test('set navigation from rest and paired edit saving preserve completed rounds and the running rest',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};
     state.draft.sets[A][0]={w:'20',r:'8',done:true};state.draft.step={ph:'rest',pk:A};fRest(60,{label:'Rest'});`);
   const pk=h.run('A');assert.match(h.run('renderFocus()'),/data-action="fset"/);
-  h.click('fset',{pk,i:'0'});assert.equal(h.run('ui.timer'),null);h.click('fdone',{pk,i:'0'});
+  const end=h.run('ui.timer.end');h.click('fset',{pk,i:'0'});assert.equal(h.run('ui.timer.end'),end);h.click('fdone',{pk,i:'0'});
   assert.equal(h.run('state.draft.step.pk'),h.run('B'));assert.equal(h.run('state.draft.step.ph'),'ex');
   assert.equal(h.run('state.draft.sets[A][0].done'),true);assert.equal(h.run('state.draft.sets[B][0].done'),false);
+});
+
+await test('rest link previews the planned duration without logging or starting a timer',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);var restPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:restPk};`);
+  const pk=h.run('restPk');
+  const out=h.run('renderFocus()'),sets=h.run('JSON.stringify(state.draft.sets)');assert.match(out,/class="arest-link"/);assert(out.indexOf('class="arest-link"')>out.indexOf('class="astrip"'));
+  const planned=h.run('fRestSeconds(dSlots()[0],dSlots())');h.click('frest',{pk});
+  assert.equal(h.run('ui.timer'),null);assert.equal(h.run('state.draft.step.restPreview'),true);
+  assert.match(h.run('renderFocus()'),/Start rest/);assert.match(h.run('renderFocus()'),new RegExp(h.run('mmss('+planned+')')));
+  h.click('tadd',{sec:'15'});assert.equal(h.run('state.draft.step.restSec'),planned+15);
+  assert.equal(h.run('JSON.stringify(state.draft.sets)'),sets);h.click('fviewsets');assert.equal(h.run('state.draft.step.ph'),'ex');assert.equal(h.run('ui.timer'),null);
+});
+await test('manual rest continues through editing, return, adjustment and reload without resetting its deadline',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);var restPk=dSlots()[0].pk;state.settings.sound=false;state.settings.autoRest=false;state.draft.rampDone=99;
+    state.draft.sets[restPk][0]={w:'20',r:'8',done:true};state.draft.step={ph:'ex',pk:restPk};`);
+  const pk=h.run('restPk');h.click('frest',{pk});h.click('freststart');const end=h.run('ui.timer.end');
+  assert(end>0);assert.equal(h.run('state.draft.rest.pk'),pk);
+  h.click('fviewsets');h.click('fset',{pk,i:'0'});h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.click('fdone',{pk,i:'0'});
+  assert.equal(h.run('ui.timer.end'),end);assert.equal(h.run('state.draft.sets[restPk][0].done'),true);
+  h.click('frest',{pk});assert.equal(h.run('state.draft.step.ph'),'rest');assert.equal(h.run('ui.timer.end'),end);
+  h.click('tadd',{sec:'15'});assert.equal(h.run('state.draft.rest.end'),end+15000);
+  h.click('fviewsets');h.run(`state=JSON.parse(localStorage.getItem(LS)).state;ui.timer=null;fRestoreTimer();`);
+  assert.equal(h.run('ui.timer.end'),end+15000);assert.equal(h.run('ui.timer.label'),'Rest');
+  h.click('frest',{pk});h.click('fready');assert.equal(h.run('ui.timer'),null);assert.equal(h.run('state.draft.rest'),undefined);
+});
+await test('rest expires while editing without changing the selected set and legacy timers restore',()=>{
+  const h=harness();h.run(`startWorkout(weekKeys()[0]);var restPk=dSlots()[0].pk;state.settings.sound=false;state.draft.rampDone=99;state.draft.step={ph:'rest',pk:restPk};fRest(60,{label:'Rest'});`);
+  const pk=h.run('restPk');h.click('fset',{pk,i:'0'});
+  h.run(`ui.timer.end=Date.now()-1;state.draft.rest.end=ui.timer.end;tick();`);
+  assert.equal(h.run('state.draft.step.ph'),'ex');assert.equal(h.run('state.draft.step.i'),0);assert.equal(h.run('state.draft.rest'),undefined);
+  h.run(`state.draft.step={ph:'rest',pk:restPk,tEnd:Date.now()+60000,tTot:60};ui.timer=null;fRestoreTimer();`);
+  assert.equal(h.run('ui.timer.label'),'Rest');assert.equal(h.run('state.draft.rest.pk'),pk);
+  const before=h.run('JSON.stringify(state.draft)');h.run(`coachMode={uid:'read-only'};`);h.click('frest',{pk});h.click('freststart');h.click('fviewsets');
+  assert.equal(h.run('JSON.stringify(state.draft)'),before);
+});
+await test('superset rest preview uses the after-pair duration while automatic A to B stays immediate',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.settings.sound=false;state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};state.draft.step={ph:'ex',pk:A};`);
+  const pk=h.run('A');h.click('frest',{pk});assert.equal(h.run('ui.timer'),null);
+  assert.equal(h.run('fRestSeconds(dSlots().find(s=>s.pk===A),dSlots())'),h.run('dSlots().find(s=>s.pk===B).cfg.rest'));
+  h.click('fviewsets');h.click('fdone',{pk,i:'0'});assert.equal(h.run('state.draft.step.pk'),h.run('B'));assert.equal(h.run('ui.timer'),null);
+  h.click('fdone',{pk:h.run('B'),i:'0'});assert.equal(h.run('ui.timer.label'),'Rest');assert.equal(h.run('state.draft.rest.pk'),h.run('state.draft.step.pk'));
 });
 
 await test('unit conversion preserves physical weights across all persisted fields',()=>{

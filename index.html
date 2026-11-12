@@ -550,6 +550,7 @@ body.in-focus #app{flex:1}
 .asteps .abtns{display:flex;gap:10px}
 .abtn{width:48px;height:44px;border-radius:14px;border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:24px;font-weight:700;line-height:1;box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 16%,transparent);cursor:pointer}
 .astrip{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
+.arest-link{align-self:center;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-width:160px;min-height:44px;padding:6px 16px;border:0;background:transparent;color:var(--accent);font:700 14px var(--body);cursor:pointer}
 .atile{flex:1 1 64px;min-width:0;min-height:48px;border-radius:14px;border:1.5px dashed color-mix(in srgb,var(--muted) 45%,var(--line));background:transparent;color:var(--muted);font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 6px;box-sizing:border-box;text-align:center}
 .atile .tl{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
 .atile .tv{font-size:15px;font-weight:700;white-space:nowrap}
@@ -3784,12 +3785,12 @@ function renderFocus(){
   const upNext=()=>{ const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
   const moreBtn=`<button class="amore" data-action="fmore" data-pk="${s.pk}" aria-label="More: swap, adjust, skip or sound">${ICON.more}</button>`;
   if(st.ph==='rest'){
-    const T=ui.timer, left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):0, tot=T?T.total:1, R=110, C=2*Math.PI*R;
+    const T=ui.timer, preview=!!st.restPreview&&!T, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
     const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
     const nextTv=(load?`${fmtW(sets[k]&&sets[k].w||tg.w||tg.sug).replace(/ (lb|kg)$/,'')} × `:'')+(load?`${tg.lo}–${tg.hi}`:tg.r+(tg.unit==='sec'?' s':''));
     const strip=sets.map((x,i)=>`<button class="atile ${x.done?'d':i===k?'n':''}" data-action="fset" data-pk="${s.pk}" data-i="${i}" aria-label="${x.done?'Edit':'Go to'} set ${i+1}"><span class="tl">Set ${i+1}${x.done?' ✓':i===k?' next':''}</span><span class="tv">${x.done?esc((load&&x.w?weightNumber(x.w)+' × ':'')+x.r):esc(nextTv)}</span></button>`).join('');
     return `<div class="focus">${fTop(d,slots)}
-      <div class="ahead"><h1>${T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${pair?`Next: ${esc(ex.n)} · round ${k+1} of ${sets.length}`:`${esc(ex.n)} · ${dn} of ${sets.length} sets done`}</div></div>
+      <div class="ahead"><h1>${preview?(pair?'Rest after both':'Rest between sets'):T?'Nice set. Breathe.':'Rest is up'}</h1><div class="small muted">${pair?`Next: ${esc(ex.n)} · round ${k+1} of ${sets.length}`:`${esc(ex.n)} · ${dn} of ${sets.length} sets done`}</div></div>
       <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
         ${pair?fPairStrip(d,pair,s.pk,true):''}
         <div class="atimer"><button class="aside" data-action="tadd" data-sec="-15" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>
@@ -3798,8 +3799,9 @@ function renderFocus(){
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
         <div class="astrip">${strip}</div></section>
+      <button class="linkbtn" style="align-self:center;min-height:44px" data-action="fviewsets">View / edit sets</button>
       <p class="atip">${state.settings.sound===false?'Your phone buzzes':'Your phone beeps and buzzes'} when rest is up.</p>
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fready">${pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></div>`;
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3837,7 +3839,8 @@ function renderFocus(){
     <section class="card acard">${pair?fPairStrip(d,pair,s.pk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
-      <div class="astrip">${strip}</div></section>
+      <div class="astrip">${strip}</div>
+      <button class="arest-link" data-action="frest" data-pk="${s.pk}" aria-label="${pair?'Rest after the paired exercises':'Rest between sets'}"><span>Rest ·</span><span id="frestleft" class="num">${mmss(fRestLeft(d,s,slots))}</span><span aria-hidden="true">›</span></button></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
     <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:`Done with set ${kk+1}`}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
 }
@@ -3941,8 +3944,30 @@ function syncWake(){
   }catch(e){ wakeLock=null; }
 }
 document.addEventListener('visibilitychange', syncWake);
-function fRest(sec, info){ startRest(sec, info); if(state.draft && state.draft.step){ state.draft.step.tEnd=ui.timer?ui.timer.end:null; state.draft.step.tTot=sec; state.draft.step.tTip=info.tip||''; } }
-function fClearTimer(){ ui.timer=null; clearInterval(timerInt); if(state.draft&&state.draft.step){ delete state.draft.step.tEnd; } }
+function fRestSeconds(s,slots){
+  const pair=fPair(state.draft,slots,s.pk), moves=pair?.moves.filter(move=>openN(state.draft,move.pk))||[];
+  return Math.max(0,Number((moves.length>1?moves[moves.length-1]:s).cfg.rest)||0);
+}
+function fRestLeft(d,s,slots){ return d.rest&&ui.timer?.label==='Rest'?Math.max(0,Math.ceil((ui.timer.end-Date.now())/1000)):fRestSeconds(s,slots); }
+function fRest(sec, info){ startRest(sec, info); if(state.draft && state.draft.step){
+  const d=state.draft; d.step.tEnd=ui.timer?ui.timer.end:null; d.step.tTot=sec; d.step.tTip=info.tip||'';
+  if(info.label==='Rest'&&ui.timer) d.rest={pk:d.step.pk,end:ui.timer.end,total:sec};
+} }
+function fClearTimer(){ ui.timer=null; clearInterval(timerInt); if(state.draft){ delete state.draft.rest; if(state.draft.step) delete state.draft.step.tEnd; } }
+function fRestoreTimer(){
+  const d=state.draft, st=d?.step; if(!d) return;
+  if(d.rest){
+    if(d.rest.end>Date.now()&&dSlots().some(s=>s.pk===d.rest.pk)){
+      ui.timer={end:d.rest.end,total:d.rest.total,label:'Rest',tip:'',next:''};timerInt=setInterval(tick,500);return;
+    }
+    delete d.rest;
+  }
+  if(st?.tEnd>Date.now()){
+    ui.timer={end:st.tEnd,total:st.tTot||Math.ceil((st.tEnd-Date.now())/1000),label:st.ph==='rest'?'Rest':'Recover',tip:st.tTip||'',next:''};
+    if(st.ph==='rest')d.rest={pk:st.pk,end:ui.timer.end,total:ui.timer.total};
+    timerInt=setInterval(tick,500);
+  }
+}
 function fAction(a,b){
   const d=state.draft;
   switch(a){
@@ -3981,7 +4006,19 @@ function fAction(a,b){
     case 'fundo':
     case 'fset': { const pk=b.dataset.pk, i=+b.dataset.i;
       if(!Number.isInteger(i)||!d.sets[pk]?.[i]||!dSlots().some(s=>s.pk===pk)) return true;
-      fClearTimer(); d.step={ph:'ex',pk,i}; save(); render(); return true; }
+      if(!d.rest||ui.timer?.label!=='Rest') fClearTimer();
+      d.step={ph:'ex',pk,i}; save(); render(); return true; }
+    case 'frest': { const slots=dSlots(), active=d.rest&&ui.timer?.label==='Rest', pk=active?d.rest.pk:b.dataset.pk;
+      if(!slots.some(s=>s.pk===pk)) return true;
+      const i=d.step.pk===pk?d.step.i:undefined;
+      if(!active)fClearTimer();
+      d.step={ph:'rest',pk,...(Number.isInteger(i)?{i}:{}),...(!active?{restPreview:true}:{})};
+      save();render();return true; }
+    case 'freststart': { const slots=dSlots(), s=slots.find(s=>s.pk===d.step.pk);
+      if(!s||!d.step.restPreview) return true;
+      const sec=d.step.restSec??fRestSeconds(s,slots);if(!(sec>0))return true;
+      delete d.step.restPreview;fRest(sec,{label:'Rest'});save();render();return true; }
+    case 'fviewsets': { const {pk,i}=d.step;d.step={ph:'ex',pk,...(Number.isInteger(i)?{i}:{})};save();render();return true; }
     case 'fdone': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===b.dataset.pk), s=slots[idx], tg=target(s), arr=d.sets[s.pk], i=+b.dataset.i;
       if(arr[i]?.done){
         if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; }
@@ -3989,7 +4026,7 @@ function fAction(a,b){
         d.step=n>=0?{ph:'ex',pk:slots[n].pk}:{ph:'exdone',pk:s.pk};
         save(); render(); window.scrollTo(0,0); return true;
       }
-      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } lockShape(d); arr[i].done=true;
+      if(arr[i] && !arr[i].done){ setDefaults(d,s,tg,i); if(!(+arr[i].r>0)){ toast('Enter how many reps you did'); return true; } fClearTimer();lockShape(d); arr[i].done=true;
         // carry weight forward to the next open set if they changed it
         const nx=arr.find(x=>!x.done); if(nx && usesLoad(tg.ex) && nx.w!==arr[i].w) nx.w=arr[i].w; }
       const grp=fGroups(slots).find(g=>g.includes(idx)), nIn=pickInGroup(d,slots,grp);
@@ -4003,7 +4040,7 @@ function fAction(a,b){
         if(n>=0 && state.settings.betweenTimer!==false){ const r=recovery(s); fRest(r.sec,{label:'Recover', tip:r.tip, next:EX[slots[n].id].n}); }
       }
       save(); render(); window.scrollTo(0,0); return true; }
-    case 'fready': fClearTimer(); d.step.ph='ex'; delete d.step.tEnd; save(); render(); window.scrollTo(0,0); return true;
+    case 'fready': fClearTimer(); d.step.ph='ex'; delete d.step.tEnd; delete d.step.i; save(); render(); window.scrollTo(0,0); return true;
     case 'fnext': { const slots=dSlots(), idx=slots.findIndex(x=>x.pk===d.step.pk), n=nextGroupStart(d,slots,idx); fClearTimer();
       d.step = n>=0?{ph:'ex',pk:slots[n].pk}:{ph:'cool'}; save(); render(); window.scrollTo(0,0); return true; }
     case 'ffeel': { d.feel=d.feel||{}; const pk=b.dataset.pk, f=b.dataset.f; d.feel[pk]= d.feel[pk]===f?null:f; save(); render(); return true; }
@@ -4925,8 +4962,12 @@ function tick(){
   const left=Math.ceil((ui.timer.end-Date.now())/1000);
   if(left<=0){ const t=ui.timer; ui.timer=null; clearInterval(timerInt); beep(); try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
     const d=state.draft; if(d&&d.step) delete d.step.tEnd;
-    if(d && d.step && ui.tab==='workout' && !$('#modal').innerHTML){ if(d.step.ph==='rest'){ d.step.ph='ex'; save(); render(); toast('Rest is up. Next set.'); return; } if(d.step.ph==='exdone'){ render(); toast(`Ready: ${t.next}`); return; } }
+    if(d?.rest){delete d.rest;save();}
+    const restLeft=document.getElementById('frestleft');
+    if(restLeft&&d){const slots=dSlots(),s=slots.find(s=>s.pk===d.step?.pk);if(s)restLeft.textContent=mmss(fRestSeconds(s,slots));}
+    if(d && d.step && ui.tab==='workout' && !$('#modal').innerHTML){ if(d.step.ph==='rest'){ d.step.ph='ex'; delete d.step.i; save(); render(); toast('Rest is up. Next set.'); return; } if(d.step.ph==='exdone'){ render(); toast(`Ready: ${t.next}`); return; } }
     renderTimer(); toast(t.label==='Recover'?`Ready: ${t.next}`:'Rest done. Next set.'); return; }
+  const restLeft=document.getElementById('frestleft');if(restLeft&&state.draft?.rest&&ui.timer.label==='Rest')restLeft.textContent=mmss(Math.max(0,left));
   const fc=document.getElementById('fclock'); if(fc){ fc.textContent=mmss(left); const fr=document.getElementById('fring'); if(fr){ const C=2*Math.PI*110; fr.setAttribute('stroke-dasharray',`${(C*left/ui.timer.total).toFixed(1)} ${C.toFixed(1)}`); } }
   const c=document.querySelector('.timer .clock'), b=document.querySelector('.timer .bar i');
   if(c){ c.textContent=`${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}`; b.style.width=`${100*left/ui.timer.total}%`; } else renderTimer();
@@ -5200,7 +5241,8 @@ document.addEventListener('click', e=>{
     case 'addset': { const arr=state.draft.sets[b.dataset.pk]; const last=arr[arr.length-1]||{w:''}; arr.push({w:last.w,r:'',done:false}); updateDraftSetCount(b.dataset.pk); save(); render(); break; }
     case 'rmset': { const arr=state.draft.sets[b.dataset.pk]; if(arr.length>1 && !arr[arr.length-1].done){ arr.pop(); updateDraftSetCount(b.dataset.pk); } save(); render(); break; }
     case 'rest': startRest(+b.dataset.sec,{label:'Rest'}); break;
-    case 'tadd': if(ui.timer){ ui.timer.end+= +b.dataset.sec*1000; if(state.draft&&state.draft.step&&state.draft.step.tEnd) state.draft.step.tEnd=ui.timer.end; ui.timer.total=Math.max(ui.timer.total,Math.ceil((ui.timer.end-Date.now())/1000)); tick(); } break;
+    case 'tadd': if(ui.timer){ ui.timer.end+= +b.dataset.sec*1000; if(state.draft&&state.draft.step&&state.draft.step.tEnd) state.draft.step.tEnd=ui.timer.end; ui.timer.total=Math.max(ui.timer.total,Math.ceil((ui.timer.end-Date.now())/1000)); if(state.draft?.rest){state.draft.rest.end=ui.timer.end;state.draft.rest.total=ui.timer.total;save();} tick(); }
+      else if(state.draft?.step?.restPreview){const d=state.draft,slots=dSlots(),s=slots.find(s=>s.pk===d.step.pk);if(s){d.step.restSec=Math.max(0,(d.step.restSec??fRestSeconds(s,slots))+(+b.dataset.sec||0));save();render();}} break;
     case 'tskip': ui.timer=null; clearInterval(timerInt); renderTimer(); break;
     case 'finish': { const d=state.draft, all=Object.values(d.sets).flat(), open=all.filter(s=>!s.done).length;
       if(open) confirmBox('Finish workout?',`${open} set${open>1?'s are':' is'} not checked off. Unchecked sets aren't counted toward progression.`,'Finish',finishWorkout); else finishWorkout(); break; }
@@ -5337,8 +5379,7 @@ document.addEventListener('change', e=>{
   else { state=defaults(); state.updatedAt=0; }
   if(state.block && state.places && state.places.length){ const rep=ensurePlan(); if(rep.length) save(); }
   persistLocal();
-  if(state.draft && !state.setup && !state.draft.partialSaved){ ui.tab='workout'; const st=state.draft.step;
-    if(st && st.tEnd && st.tEnd>Date.now()){ ui.timer={end:st.tEnd,total:st.tTot||Math.ceil((st.tEnd-Date.now())/1000),label:st.ph==='rest'?'Rest':'Recover',tip:st.tTip||'',next:''}; timerInt=setInterval(tick,500); } }
+  if(state.draft && !state.setup && !state.draft.partialSaved){ ui.tab='workout'; fRestoreTimer(); }
   render();
   initRemote();
   setTimeout(()=>{ if(pendingQs().length && !ui.qsLater && !state.draft && !$('#modal').innerHTML) newQsPopup(); },900);
