@@ -390,7 +390,9 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .wex{display:flex;justify-content:space-between;gap:8px;font-size:13.5px;padding:5px 0;border-top:1px solid var(--line)}
 .wex:first-of-type{border-top:0}
 .wex span:last-child{color:var(--muted);white-space:nowrap}
-.why{background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r);padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.why{background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r);padding:14px 16px}
+.why summary{cursor:pointer;font-weight:600;min-height:44px;align-content:center}
+.why-body{display:flex;flex-direction:column;gap:8px;padding-top:8px}
 .why ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
 .wcard{display:flex;align-items:center;gap:12px;background:var(--surface);box-shadow:var(--shadow);border:0;border-radius:18px;padding:12px 14px;width:100%;color:var(--ink)}
 .wcard .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700}
@@ -3095,7 +3097,7 @@ function renderPlan(){
         <div class="tiny muted">${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}</div></div>
         <div class="row" style="flex-wrap:nowrap"><button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div></section>`;
   });
-  return h;
+  return h + whyCard();
 }
 
 // Simple library filters: equipment type, body part, movement
@@ -4566,9 +4568,9 @@ function whyCard(){
   if(useJump()) bullets.push(`<b>Jumps first</b> on lower days, while you’re fresh, to build power.`);
   bullets.push(`<b>Weights go up</b> as you get stronger. ${L==='start'?'You’ll add reps first, then weight.':'That’s what keeps you improving.'}`);
   const foot = hasGoal('lose') ? 'Most of the scale change comes from what you eat. Lifting makes sure it’s fat you lose.' : hasGoal('muscle') ? 'Eat enough protein and sleep well: that’s when muscle is built.' : 'Showing up consistently matters more than any single workout.';
-  return `<section class="why"><div class="eyebrow">Why your plan looks like this</div>
+  return `<details class="why"><summary>Why your plan looks like this</summary><div class="why-body">
     <p class="small" style="margin:0">${lead}${intro[g[0]]}${g[1]?' '+intro[g[1]]:''}</p>
-    <ul>${bullets.map(x=>`<li>${x}</li>`).join('')}</ul><p class="tiny muted" style="margin:0">${foot}</p></section>`;
+    <ul>${bullets.map(x=>`<li>${x}</li>`).join('')}</ul><p class="tiny muted" style="margin:0">${foot}</p></div></details>`;
 }
 function placeSwitch(){
   const ps=state.places||[]; if(ps.length<2) return '';
@@ -4629,7 +4631,7 @@ function renderToday(){
       </button>`; }).join('')}
     <button class="btn" data-action="openmap">See which muscles this week trains</button>
     <p class="tiny muted" style="margin:0">Times include the warm-up and cool-down shown in each workout preview. Optional cardio after lifting adds extra time. ${coachMode?'':'Change your days or workout length in Settings.'}</p>
-  </section>` + whyCard();
+  </section>`;
   return h;
 }
 

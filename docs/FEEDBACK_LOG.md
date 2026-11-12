@@ -123,6 +123,10 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 ## Standing decisions
 
+| # | Item | Status | Decision / notes |
+|---|---|---|---|
+| 46 | Move the plan explanation out of Today | Built, not published | Requested November 12. Moves “Why your plan looks like this” to the bottom of Plan as a collapsed native disclosure. Existing explanation retained. Build, 56 persistence/workout and six offline scenarios pass. Synthetic render checks cover absence on Today, bottom placement on Plan, collapsed native disclosure markup and saved-data preservation. Browser interaction/phone layout checks are blocked: Chromium cannot create its process-singleton socket in this environment (Operation not permitted). No database or configuration changes. Physical phones unverified; no production release approval. |
+
 - **Exercise audit references:** retain NASM and other credible sources in [the documentation source register](EXERCISE-SOURCES.md), associated with exercise IDs and dated findings. Keep them outside the app, preserve earlier evidence and distinguish direct comparisons from related guidance and unresolved gaps. Requested November 11.
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.
