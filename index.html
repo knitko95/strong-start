@@ -3888,8 +3888,8 @@ function fPairIntro(d,slots,pair){
 // More sheet: the less-used actions for the current workout screen
 function fMoreSheet(pk){
   const d=state.draft; if(!d) return; const st=d.step||{};
-  const icons={swap:'M4 7h14m-3-3 3 3-3 3M20 17H6m3-3-3 3 3 3',adjust:'M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6',fskipex:'m5 5 11 7-11 7V5Zm14 0v14',gmute:'M4 9h4l4-4v14l-4-4H4V9Zm12-2a7 7 0 0 1 0 10m2-13a11 11 0 0 1 0 16',fpause:'M8 5v14m8-14v14',flist:'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',fexit:'M5 5h14v14H5z',addset:'M5 12h14m-7-7v14',rmset:'M5 12h14',msgopen:'M4 4h16v13H9l-5 4V4Z'};
-  const opt=(act,title,sub,extra='')=>`<button class="opt2 menu-row ${act==='fexit'?'menu-end':''}" data-action="fmoredo" data-do="${act}" ${extra}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[act]||'M5 12h14m-6-6 6 6-6 6'}"/></svg><b>${title}</b>${act==='gmute'?`<span class="menu-value">${state.settings.sound===false?'Off':'On'}</span>`:['swap','adjust','flist','xswap'].includes(act)?'<span class="menu-value" aria-hidden="true">›</span>':''}<span class="workout-sr">${sub}</span></button>`;
+  const icons={flast:'M12 8v4l3 2M3 12a9 9 0 1 0 3-6M3 3v6h6',swap:'M4 7h14m-3-3 3 3-3 3M20 17H6m3-3-3 3 3 3',adjust:'M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6',fskipex:'m5 5 11 7-11 7V5Zm14 0v14',gmute:'M4 9h4l4-4v14l-4-4H4V9Zm12-2a7 7 0 0 1 0 10m2-13a11 11 0 0 1 0 16',fpause:'M8 5v14m8-14v14',flist:'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',fexit:'M5 5h14v14H5z',addset:'M5 12h14m-7-7v14',rmset:'M5 12h14',msgopen:'M4 4h16v13H9l-5 4V4Z'};
+  const opt=(act,title,sub,extra='')=>`<button class="opt2 menu-row ${act==='fexit'?'menu-end':''}" data-action="fmoredo" data-do="${act}" ${extra}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[act]||'M5 12h14m-6-6 6 6-6 6'}"/></svg><b>${title}</b>${act==='gmute'?`<span class="menu-value">${state.settings.sound===false?'Off':'On'}</span>`:['flast','swap','adjust','flist','xswap'].includes(act)?'<span class="menu-value" aria-hidden="true">›</span>':''}<span class="workout-sr">${sub}</span></button>`;
   const sound=opt('gmute', 'Timer sound', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
   let h='';
   if((st.ph==='warm'||st.ph==='cool') && d.listView){
@@ -3906,6 +3906,7 @@ function fMoreSheet(pk){
   } else {
     const s=dSlots().find(x=>x.pk===pk);
     if(s){ const arr=d.sets[pk]||[];
+      h+=opt('flast','Last time','See your previous sets for this exercise.',`data-pk="${esc(pk)}"`);
       h+=opt('swap','Swap this exercise','Machine taken, or it doesn’t feel right.',`data-pk="${pk}"`);
       h+=opt('adjust','Adjust','Change the sets, reps or rest for this exercise.',`data-pk="${pk}"`);
       h+=opt('addset','Add a set','',`data-pk="${pk}"`);
@@ -3947,10 +3948,19 @@ function setupWorkoutDemo(previous){
   guides?.attach({exerciseId:mount.dataset.exerciseId,mount,environment:APP_ENV,mode:'workout'});
 }
 document.addEventListener('exercise-guides-ready',()=>setupWorkoutDemo());
-// Match rest layout to the same exercise's entry fields and optional history hint.
+function fLastSheet(pk){
+  if(!state.draft) return;
+  const s=dSlots().find(x=>x.pk===pk); if(!s) return;
+  const tg=target(s),ex=tg.ex,load=usesLoad(ex),last=tg.last||[];
+  const each=load&&(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
+  modal(`<div class="workout-sheet-head"><h2>Last time</h2><button class="ficon" data-action="closemodal" aria-label="Close Last time">×</button></div>
+    <section class="card acard"><h3>${esc(ex.n)}</h3>${last.length?last.map((set,i)=>`<div class="row between hist"><b>Set ${i+1}</b><span>${load&&set.w!=null&&set.w!==''?esc((ex.mode==='B'?'+':'')+fmtW(set.w)+each)+' · ':''}${esc(set.r)} ${tg.unit}${ex.uni?' per side':''}</span></div>`).join(''):'<p class="small muted">No previous sets recorded for this exercise yet.</p>'}</section>
+    <button class="btn primary block" data-action="closemodal">Back to workout</button>`,{sheetClass:'workout-menu-sheet',scrimClass:'workout-overlay'});
+}
+// Match rest layout to the same exercise's entry fields and optional first-time hint.
 function workoutSetHint(tg){
   const ex=tg.ex,load=usesLoad(ex),w=tg.w??tg.sug;
-  return tg.last?'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', '):load?(w!=null?'':'First time: start light.'):startTip(ex);
+  return tg.last?.length?'':load?(w!=null?'':'First time: start light.'):startTip(ex);
 }
 function renderFocus(){
   const d=state.draft, slots=dSlots(), X=sessionExtras(d,slots); d._x=X; d.wsub=d.wsub||{}; d.wskip=d.wskip||{};
@@ -4184,6 +4194,7 @@ function fAction(a,b){
     case 'fpause': closeModal();if(d?.guide&&['warm','cool'].includes(d.step?.ph))gStoreMove();ui.tab='today'; save(); render(); window.scrollTo(0,0); toast('Paused. Tap Resume on Today to pick up where you left off.'); return true;
     case 'flist': flistSheet(); return true;
     case 'fmore': fMoreSheet(b.dataset.pk); return true;
+    case 'flast': fLastSheet(b.dataset.pk); return true;
     case 'fexit': endSheet(); return true;
     case 'fend': { closeModal(); fClearTimer(); const done=Object.values(d.sets).flat().some(x=>x.done&&+x.r>0);
       if(!done){ confirmBox('End without saving?','No sets were finished, so nothing will be saved.','End workout',()=>{ state.draft=null; save(); ui.tab='today'; render(); }); return true; }
