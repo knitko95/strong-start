@@ -563,6 +563,9 @@ body.in-focus #app{flex:1}
 .path-rest{width:36px;min-height:44px;display:grid;place-items:center;padding:0;border:0;background:var(--surface)}
 .path-clock{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--muted)}.path-clock svg{width:21px;height:21px}
 .path-rest.current .path-clock{background:var(--accent);color:var(--on-accent)}.path-rest[aria-pressed="true"]:not(.current) .path-clock{outline:1.5px solid var(--accent);outline-offset:2px}
+@keyframes path-arrive{from{box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 35%,transparent)}to{box-shadow:0 0 0 0 transparent}}
+.path-set.path-arrive,.path-rest.path-arrive .path-clock{animation:path-arrive .5s ease-out}
+@media(prefers-reduced-motion:reduce){.path-arrive,.path-arrive .path-clock{animation:none!important}}
 .path-arrow{width:16px;min-height:44px;padding:0;border:0;background:transparent;color:var(--ink);font:400 24px var(--body);cursor:pointer}.path-arrow:disabled{visibility:hidden}
 @media(max-width:359px){.path-stop{width:56px}.path-stop.rest,.path-rest{width:28px}.path-stop button{font-size:12px}.path-clock{width:26px;height:26px}}
 .apair>button{min-width:0;min-height:62px;text-align:left;font:inherit;cursor:pointer}.apair>button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
@@ -3092,6 +3095,7 @@ function genderSeg(cur, action){ return `<div class="seg" role="group" aria-labe
 function render(){
   applyColor();
   const previousDemo=document.querySelector('#app .workout-demo');
+  const previousPath=document.querySelector('#app .workout-path'),previousPathView=previousPath?{scope:previousPath.dataset.workout+'|'+previousPath.dataset.pks,left:previousPath.querySelector('.path-scroll')?.scrollLeft||0}:null;
   const fbb=document.getElementById('fbbtn'); if(fbb) fbb.hidden=!(AUTH.user && !coachMode && !AUTH.recovery && !gateNeeded());
   if(!AUTH.recovery && gateNeeded()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderGate(); renderTimer(); return; }
   if(AUTH.recovery || needsAuth()){ document.body.classList.add('in-setup'); document.body.classList.remove('in-focus'); $('#tabs').innerHTML=''; $('#app').innerHTML=renderAuth(); renderTimer(); return; }
@@ -3105,7 +3109,7 @@ function render(){
   $('#tabs').innerHTML = TABS.map(([k,l])=>`<button data-action="tab" data-tab="${k}" ${ui.tab===k||((ui.tab==='workout'||ui.tab==='weigh'||ui.tab==='preview')&&k==='today')||((ui.tab==='equip'||ui.tab==='people'||ui.tab==='inbox')&&k==='settings')?'aria-current="page"':''} ${k==='settings'&&nUnread?`aria-label="Settings, ${nUnread} unread"`:''}><span class="ticon">${ICONS[k]}${k==='settings'&&nUnread?`<span class="tbadge" aria-hidden="true">${nUnread>99?'99+':nUnread}</span>`:''}</span><span>${l}</span></button>`).join('');
   const v = ({today:renderToday, workout:renderFocus, preview:renderPreview, plan:renderPlan, library:renderLibrary, history:renderHistory, settings:renderSettings, people:renderPeople, inbox:renderInbox, weigh:renderWeigh, equip:renderEquipEdit}[ui.tab]||renderToday)();
   $('#app').innerHTML = (coachMode && ui.tab!=='workout' && ui.tab!=='preview' ? coachBanner() : '') + v;
-  renderTimer(); setSync(); syncWake(); warmClock(); setupWorkoutPath(); setupWorkoutDemo(previousDemo);
+  renderTimer(); setSync(); syncWake(); warmClock(); setupWorkoutPath(previousPathView); setupWorkoutDemo(previousDemo);
   if(document.getElementById('gclock') && !gInt) gInt=setInterval(gTick,250);
 }
 function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Edit exercise choices, sets, reps, rest, recovery, and level, then Send changes. Other settings and working weights are view-only. Unsent edits are discarded when you leave.</div></div>
@@ -3793,16 +3797,27 @@ function workoutPath(d,slots,s){
       nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after set ${i+1}${letter}, ${sec} seconds"><span class="path-clock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M12 2v3m6 1 1.5-1.5"/><circle cx="12" cy="14" r="8"/><path d="M12 9v5"/></svg></span></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
     }
   }
-  return `<div class="workout-path" data-paired="${!!pair}" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier sets">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Paired set sequence':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later sets">›</button></div>`;
+  return `<div class="workout-path" data-workout="${esc(d.startedAt)}" data-paired="${!!pair}" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier sets">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Paired set sequence':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later sets">›</button></div>`;
 }
-let workoutPathObserver=null;
-function setupWorkoutPath(){
+let workoutPathObserver=null,workoutPathCursor=null;
+function markWorkoutPathArrival(host){
+  if(!host?.dataset)return false;
+  const current=host.querySelector('[aria-current="step"]');if(!current){workoutPathCursor=null;return false;}
+  const scope=host.dataset.workout+'|'+host.dataset.pks,id=current.dataset.pathId,changed=workoutPathCursor?.workout===host.dataset.workout&&(workoutPathCursor.scope!==scope||workoutPathCursor.id!==id);
+  workoutPathCursor={workout:host.dataset.workout,scope,id};
+  const animate=changed&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(animate){current.classList.add('path-arrive');current.addEventListener('animationend',()=>current.classList.remove('path-arrive'),{once:true});}
+  return animate;
+}
+function setupWorkoutPath(previousView){
   workoutPathObserver?.disconnect();workoutPathObserver=null;
   const host=document.querySelector('.workout-path');if(!host)return;
   const rail=host.querySelector('.path-scroll'),arrows=host.querySelectorAll('.path-arrow');if(!rail||arrows.length!==2)return;
+  const animate=markWorkoutPathArrival(host),scope=host.dataset?host.dataset.workout+'|'+host.dataset.pks:'';
+  if(previousView?.scope===scope)rail.scrollLeft=previousView.left;
   const update=()=>{arrows[0].disabled=rail.scrollLeft<=2;arrows[1].disabled=rail.scrollLeft>=rail.scrollWidth-rail.clientWidth-2;};
   rail.addEventListener('scroll',update,{passive:true});
-  const center=()=>{const selected=rail.querySelector('[aria-pressed="true"]');if(selected){const a=rail.getBoundingClientRect(),b=selected.getBoundingClientRect();rail.scrollLeft+=b.left-a.left-(a.width-b.width)/2;}update();};
+  const center=()=>{const selected=rail.querySelector('[aria-pressed="true"]');if(selected){const a=rail.getBoundingClientRect(),b=selected.getBoundingClientRect();const left=rail.scrollLeft+b.left-a.left-(a.width-b.width)/2;if(animate&&rail.scrollTo)rail.scrollTo({left,behavior:'smooth'});else rail.scrollLeft=left;}update();};
   requestAnimationFrame(center);
   if(typeof ResizeObserver!=='undefined'){workoutPathObserver=new ResizeObserver(update);workoutPathObserver.observe(rail);}
 }
@@ -3810,6 +3825,7 @@ function refreshPathPosition(){
   const host=document.querySelector('.workout-path'),d=state.draft;if(!host?.querySelectorAll||!d)return;
   const cur=fPathCurrent(d,dSlots()),moves=(host.dataset.pks||'').split('|').map(pk=>({pk})),same=moves.some(m=>m.pk===cur.pk),id=same&&cur.ph==='ex'?fPathSetId(moves,cur.pk,fSetIndex(d,cur)):'';
   host.querySelectorAll('[data-path-id]').forEach(b=>{const active=b.dataset.pathId===id;b.classList.toggle('current',active);if(active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');b.parentElement.querySelector('.path-status').textContent=active?'Current':'';});
+  markWorkoutPathArrival(host);
 }
 function fPairIntro(d,slots,pair){
   return `<div class="focus">${fTop(d,slots,'Meet your superset')}
@@ -3821,14 +3837,6 @@ function fPairIntro(d,slots,pair){
     ${aFoot(`<button class="btn primary fbig" data-action="fpairbegin" data-pk="${pair.moves[0].pk}">Start A · ${esc(EX[pair.moves[0].id].n)}</button>`)}</div>`;
 }
 // Describe the existing scheduler's destination without changing any logged sets.
-function fPairAction(d,slots,s,k,pair){
-  const candidates=pair.moves.map(move=>{const rows=d.sets[move.pk]||[], extra=move.pk===s.pk&&rows[k]&&!rows[k].done?1:0;return {move,done:doneN(d,move.pk)+extra,open:openN(d,move.pk)-extra};}).filter(x=>x.open>0);
-  candidates.sort((a,b)=>a.done-b.done);const next=candidates[0]?.move;
-  if(!next) return {label:'Done · finish pair',next:'Next: review your pair'};
-  const rest=!(target(s).ssFirst&&next.pk!==s.pk)&&s.cfg.rest&&state.settings.autoRest!==false;
-  const letter=String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===next.pk));
-  return {label:rest?'Done · start rest':`Done · go to ${letter}`,next:`${rest?'After rest':'Up next'}: <b>${esc(EX[next.id].n)}</b>`};
-}
 // More sheet: the less-used actions for the current workout screen
 function fMoreSheet(pk){
   const d=state.draft; if(!d) return; const st=d.step||{};
@@ -3934,7 +3942,7 @@ function renderFocus(){
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
         ${workoutPath(d,slots,s)}
 
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start set ${k+1}${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></section></div>`;
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':'Ready'}</button></div></div></section></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3961,7 +3969,6 @@ function renderFocus(){
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'':'First time: start light.') : startTip(ex);
   const label = `Exercise ${gi+1} of ${gs.length}`;
-  const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
@@ -3970,7 +3977,7 @@ function renderFocus(){
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
       ${workoutPath(d,slots,s)}
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:'Log set'}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext(kk)}</div></section></div>`;
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':'Log set'}</button></div>${pair?'':upNext(kk)}</div></section></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};

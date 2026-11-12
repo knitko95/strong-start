@@ -46,13 +46,14 @@ await test('compact progress counts exercise groups and regular Up next appears 
   h.run(`state.draft.sets[single.pk]=[{w:'25',r:'10',done:false}];state.draft.step.i=0;`);assert.match(h.run('renderFocus()'),/Up next:/);
   h.run(`state.draft.step={ph:'rest',pk:single.pk,restPreview:true,restSec:60};`);assert.doesNotMatch(h.run('renderFocus()'),/Up next:|View \/ edit sets|data-action="fviewsets"|<span class="goal">of /);
 });
-await test('superset next-move guidance remains on every round and its rest',()=>{
+await test('paired sets use Log set and Save changes without repeated next-move text',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));`);
   for(const round of [0,1,2])for(const move of ['A','B']){
     h.run(`for(const pk of [A,B])state.draft.sets[pk].forEach((x,i)=>x.done=i<${round}||(pk===A&&${move}===B&&i===${round}));state.draft.step={ph:'ex',pk:${move},i:${round}};`);
-    const out=h.run('renderFocus()');assert.match(out,/<div class="anext">(?:Up next|After rest|Next):/);assert.match(out,/Exercise \d+ of \d+/);
+    const out=h.run('renderFocus()');assert.match(out,/>Log set<\/button>/);assert.doesNotMatch(out,/<div class="anext">/);assert.match(out,/Exercise \d+ of \d+/);
   }
-  h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);const rest=h.run('renderFocus()');assert.match(rest,/<div class="anext">Up next:/);assert.doesNotMatch(rest,/Paired exercises|pair-link|apair-pattern|View \/ edit sets|data-action="fviewsets"|<span class="goal">of |>Superset /);
+  h.run(`state.draft.step={ph:'ex',pk:A,i:0};`);assert.match(h.run('renderFocus()'),/>Save changes<\/button>/);
+  h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);const rest=h.run('renderFocus()');assert.doesNotMatch(rest,/<div class="anext">/);assert.doesNotMatch(rest,/Paired exercises|pair-link|apair-pattern|View \/ edit sets|data-action="fviewsets"|<span class="goal">of |>Superset /);
 });
 await test('swap recommendations fit equipment/preferences while search reaches the whole library',()=>{
   const h=harness();h.run(`var swapPk=weekKeys().flatMap(sessionSlots)[0].pk;swapSheet(swapPk);var G=swapGroups(ui.swap);`);
@@ -150,6 +151,13 @@ await test('path scroll controls center selection and disable arrows at the boun
   h.run('pathRail.scrollLeft=550;pathScrollHandler();');assert.equal(h.run('pathArrows[1].disabled'),true);
 });
 
+await test('timeline arrival feedback follows actual movement and respects reduced motion',()=>{
+  const h=harness();h.run(`var arrivalClasses=new Set(),arrivalButton={dataset:{pathId:'s0a'},classList:{add:c=>arrivalClasses.add(c),remove:c=>arrivalClasses.delete(c)},addEventListener(){}};var arrivalHost={dataset:{workout:'one',pks:'a|b'},querySelector:()=>arrivalButton};`);
+  assert.equal(h.run('markWorkoutPathArrival(arrivalHost)'),false);assert.equal(h.run('markWorkoutPathArrival(arrivalHost)'),false);
+  h.run("arrivalButton.dataset.pathId='s0b'");assert.equal(h.run('markWorkoutPathArrival(arrivalHost)'),true);assert.equal(h.run("arrivalClasses.has('path-arrive')"),true);
+  h.run("matchMedia=()=>({matches:true});arrivalClasses.clear();arrivalButton.dataset.pathId='r0'");assert.equal(h.run('markWorkoutPathArrival(arrivalHost)'),false);assert.equal(h.run('arrivalClasses.size'),0);
+  h.run("matchMedia=()=>({matches:false});arrivalHost.dataset.workout='another'");assert.equal(h.run('markWorkoutPathArrival(arrivalHost)'),false);
+});
 await test('set tiles navigate without reopening completed sets and preserve edits after reload',()=>{
   const h=harness();
   h.run(`startWorkout(weekKeys()[0]);var navPk=dSlots().find(s=>usesLoad(EX[s.id])).pk;
@@ -489,24 +497,19 @@ await test('superset introduction preserves every set and stays acknowledged aft
   h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);
   assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
   assert.match(h.run('renderFocus()'),/Paired set sequence/);
-  assert.match(h.run('renderFocus()'),/Done · go to B/);
+  assert.match(h.run('renderFocus()'),/>Log set<\/button>/);
   assert.equal(h.run('logs.length'),0);
 });
-await test('superset action descriptions match actual logging with unequal sets and manual rest',()=>{
+await test('paired Log set follows A then B then rest, with unmatched sets and auto-rest off',()=>{
   for(const autoRest of [true,false]){
-    const h=pairedWorkout();h.run(`startWorkout(K);state.settings.autoRest=${autoRest};state.settings.betweenTimer=false;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:A};
-      state.draft.sets[B].push({w:'20',r:'8',done:false});updateDraftSetCount(B);`);
-    h.click('fpairbegin',{pk:h.run('A')});
-    let iterations=0;
+    const h=pairedWorkout();h.run(`startWorkout(K);state.settings.autoRest=${autoRest};state.settings.betweenTimer=false;state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};state.draft.sets[A]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));state.draft.sets[B]=Array.from({length:4},()=>({w:'20',r:'10',done:false}));state.draft.step={ph:'ex',pk:A};`);
+    const trace=[];let iterations=0;
     while(h.run("state.draft.step.ph!=='exdone'")&&iterations++<30){
-      if(h.run("state.draft.step.ph==='rest'"))h.click('fready');
-      h.run(`var sl=dSlots(),current=sl.find(x=>x.pk===state.draft.step.pk),k=state.draft.sets[current.pk].findIndex(x=>!x.done),description=fPairAction(state.draft,sl,current,k,fPair(state.draft,sl,current.pk));`);
-      const label=h.run('description.label');h.click('fdone',{pk:h.run('current.pk'),i:String(h.run('k'))});
-      if(label==='Done · finish pair')assert.equal(h.run('state.draft.step.ph'),'exdone');
-      else if(label==='Done · start rest')assert.equal(h.run('state.draft.step.ph'),'rest');
-      else{const letter=label.endsWith('A')?'A':'B';assert.equal(h.run('state.draft.step.pk'),h.run(letter));assert.equal(h.run('state.draft.step.ph'),'ex');}
+      if(h.run("state.draft.step.ph==='rest'")){trace.push('rest');assert.match(h.run('renderFocus()'),/>Ready<\/button>/);h.click('fready');}
+      h.run(`var currentPk=state.draft.step.pk,k=state.draft.sets[currentPk].findIndex(x=>!x.done);`);
+      trace.push((h.run('currentPk===A')?'A':'B')+(h.run('k')+1));assert.match(h.run('renderFocus()'),/>Log set<\/button>/);h.click('fdone',{pk:h.run('currentPk'),i:String(h.run('k'))});
     }
-    assert(iterations<30,'paired session reaches completion');
+    const expected=['A1','B1',...(autoRest?['rest']:[]),'A2','B2',...(autoRest?['rest']:[]),'A3','B3',...(autoRest?['rest']:[]),'B4'];assert.deepEqual(trace,expected);
     assert(h.run('state.draft.sets[A].every(x=>x.done)&&state.draft.sets[B].every(x=>x.done)'));
   }
 });
@@ -515,7 +518,7 @@ await test('existing paired drafts and a skipped partner do not repeat the intro
   assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
   h.click('fskipyes',{pk:h.run('B')});assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
   h.run(`var sl=dSlots(),move=sl.find(x=>x.pk===A),k=state.draft.sets[A].findIndex(x=>!x.done);`);
-  assert.equal(h.run('fPairAction(state.draft,sl,move,k,fPair(state.draft,sl,A)).label'),'Done · start rest');
+  h.run(`state.draft.sets[A]=[{w:'20',r:'10',done:false},{w:'20',r:'10',done:false}];state.draft.step={ph:'ex',pk:A};`);h.click('fdone',{pk:h.run('A'),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');
 });
 await test('cardio check-in selection survives reload and applies feedback only on Continue',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);state.draft.step={ph:'warm'};state.draft._x=sessionExtras(state.draft,dSlots());gStart('warm');state.draft.guide.mode='cfeel';`);
