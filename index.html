@@ -393,6 +393,14 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .why{background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r);padding:14px 16px}
 .why summary{cursor:pointer;font-weight:600;min-height:44px;align-content:center}
 .why-body{display:flex;flex-direction:column;gap:8px;padding-top:8px}
+.today-progress{display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:space-between;font-size:13px;color:var(--muted)}
+.today-workout{gap:12px}
+.today-workout h1{margin:0}
+.today-other summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}
+.today-reminder{display:flex;justify-content:space-between;gap:12px;text-align:left;min-height:52px}
+.today-reminders .card{padding:12px 16px}
+.today-reminders .cm-today{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding-right:44px}
+.today-reminders .cm-today .cm-identity{flex:1;min-width:0}
 .why ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
 .wcard{display:flex;align-items:center;gap:12px;background:var(--surface);box-shadow:var(--shadow);border:0;border-radius:18px;padding:12px 14px;width:100%;color:var(--ink)}
 .wcard .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700}
@@ -2765,7 +2773,7 @@ function cmCoachCard(today=false){
   const c=CM.summary&&CM.summary.coach;
   if(!c){return today?'':`<section class="card row between"><div><b>Your coach</b><div class="small muted">${CM.err?esc(CM.err):CM.summary?'No coach is linked to this account yet.':'Loading your coach…'}</div></div>${CM.err?'<button class="btn sm" data-action="cmrefresh">Retry</button>':''}</section>`;}
   if(today&&!c.unread)return '';
-  return today?`<section class="card cm-card cm-today"><div class="cm-identity">${cmAvatar(c.name)}<div><div class="row"><span class="eyebrow">Your coach</span><span class="chip acc">${c.unread} new</span></div><b class="cm-name">${esc(c.name)}</b></div></div><button class="cm-dismiss" data-action="cmdismiss" aria-label="Dismiss and mark as read">×</button><p class="cm-preview">${esc(c.preview||'You have a new message.')}</p><button class="btn sm primary" data-action="cmopen">Open message</button></section>`:
+  return today?`<section class="card cm-card cm-today"><div class="cm-identity">${cmAvatar(c.name)}<div><div class="row"><span class="eyebrow">Your coach</span><span class="chip acc">${c.unread} new</span></div><b class="cm-name">${esc(c.name)}</b></div></div><button class="cm-dismiss" data-action="cmdismiss" aria-label="Dismiss and mark as read">×</button><button class="btn sm" data-action="cmopen">Read message</button></section>`:
     `<section class="card cm-card row" style="flex-wrap:nowrap">${cmAvatar(c.name)}<div class="grow"><div class="row"><b class="cm-name">${esc(c.name)}</b>${c.unread?`<span class="chip acc">${c.unread} new</span>`:''}</div><span class="small muted">Your coach</span></div><button class="btn sm primary" data-action="cmopen">Messages</button></section>`;
 }
 function cmInbox(){
@@ -3084,7 +3092,7 @@ function renderPlan(){
   const keys=weekKeys(), ds=trainDays();
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
     <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':', planned '+trainDays().map(d=>DAYN[d]).join(' / ')} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p></div>
-    <p class="small muted">Workouts repeat in order, even when you start midweek or miss a day.</p>${placeSwitch()}</section>
+    <p class="small muted">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p>${placeSwitch()}</section>
     ${renderMuscleMap()}`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k);
@@ -4594,44 +4602,44 @@ function checkinCard(w){
   if(!logs.some(l=>l.block===state.block.n)) return '';
   return `<section class="card stack"><div><div class="eyebrow">Two weeks in</div><h3>How’s it feeling so far?</h3></div>
     <div class="row">${[['easy','Too easy'],['right','About right'],['much','Too much']].map(([k,l])=>`<button class="btn sm ${k==='right'?'primary':''}" data-action="checkin" data-v="${k}">${l}</button>`).join('')}</div>
-    <p class="tiny muted" style="margin:0">We’ll adjust your weights (and your sets, if it’s too much) based on your answer.</p></section>`;
+    </section>`;
 }
 function addDayBanner(w){
   const n=nDays(); if(coachMode || n>=5 || w<3) return '';
   if(state.levelDismiss===`${state.block.n}-${w}`) return '';
   const full=k=>weekLogs(k).length>=weekKeys().length;
   if(!(full(w-1) && full(w-2))) return '';
-  return `<div class="banner"><div><b>Two full weeks in a row. Nice work.</b><div class="small">Ready for one more day a week? Your weights carry over.</div></div>
+  return `<div class="banner"><div><b>Ready for one more day a week?</b></div>
     <div class="row"><button class="btn primary sm" data-action="opensched">Add a day</button><button class="btn ghost sm" data-action="leveldismiss">Not yet</button></div></div>`;
 }
 function renderToday(){
-  if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off. Your plan will be ready after you check your equipment, experience, and limitations.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
+  if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
   const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w);
-  const doneKeys=new Set(wl.map(l=>l.key)), nextKey=nextWorkoutKey();
-  const over=w>L, total=logs.filter(l=>l.block===state.block.n).length, nm=state.settings.name?`, ${esc(state.settings.name)}`:'';
-  let h=hsCard()+ringsCard(w,keys,wl,{L,over,total})+cmCoachCard(true);
-  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) h+=`<section class="card stack"><h2>Your first workout</h2><ol class="small"><li>Tap a workout below to preview it, then choose Start workout.</li><li>Enter the weight and reps you actually do, then mark the set done. Suggested weights are starting points.</li><li>Follow the rest timer. Use Take a break to pause and resume later.</li></ol><button class="btn ghost" data-action="firstworkoutdismiss">Got it</button></section>`;
-  if(pendingQs().length) h+=`<div class="banner"><div><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><div class="small">We added something to setup. Answer it once, no redo needed.</div></div><button class="btn primary sm" data-action="cqopen">Answer</button></div>`;
-  if(!coachMode && state.setup && state.setup.paused) h+=`<div class="banner"><div><b>Finish setting up</b><div class="small">A few more questions so your plan fits you.</div></div><button class="btn primary sm" data-action="suresume">Continue</button></div>`;
-  if(over) h+=`<div class="banner"><div><b>Your 6-week program is done${nm}!</b><div class="small">Time for the next one. Your weights carry over, and your exercises change based on your variety setting.</div></div><div class="row">${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</div></div>`;
-  if(!AUTH.user && state.coach && state.coach.note) h+=`<section class="card" style="padding:12px 16px"><div class="eyebrow">Note from ${esc(coachName())}</div><div class="small" style="margin-top:4px">${esc(state.coach.note)}</div></section>`;
-  if(state.draft) h+=`<div class="banner"><div><b>${esc(tplOf(state.draft.key).name)} ${state.draft.partialSaved?'partly finished':'in progress'}</b><div class="small">Started ${new Date(state.draft.startedAt).toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</div></div>${coachMode?'<span class="small">Plan updates wait until this workout is finished or discarded.</span>':`<button class="btn primary sm" data-action="resume">${state.draft.partialSaved?'Resume remaining sets':'Resume'}</button>`}</div>`;
-  h+=checkinCard(w)+addDayBanner(w);
-  if(!coachMode && weighDue()) h+=`<button class="wcard" data-action="tab" data-tab="weigh"><span class="ic">${state.settings.units}</span><span style="flex:1;text-align:left"><b>Weekly weigh-in</b><br><span class="tiny muted">${DAYL[state.weigh.day]} morning · takes 30 seconds</span></span><span class="skip">Log it</span></button>`;
-  h+=placeSwitch();
-  h+=`<section class="stack"><div><h2>Next up: ${esc(tplOf(nextKey).name)}</h2>
-    <div class="small muted">${esc(scheduleNote())}</div>
-    <div class="tiny muted">Completing the next workout moves you forward. Missed days don’t reset the order.</div></div>
-    ${placeNote(keys)}
-    ${keys.map((k,i)=>{ const t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
-      return `<button class="day ${d&&!nx?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}">
-        <span class="idx">${dayLabel(i)}</span>
-        <span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span>
-        <span class="small muted num" style="text-align:right">${d?'Done '+new Date(log.completedAt||log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}<br>${nx?'<span class="chip acc">Up next</span>':''}</span>
-      </button>`; }).join('')}
-    <button class="btn" data-action="openmap">See which muscles this week trains</button>
-    <p class="tiny muted" style="margin:0">Times include the warm-up and cool-down shown in each workout preview. Optional cardio after lifting adds extra time. ${coachMode?'':'Change your days or workout length in Settings.'}</p>
-  </section>`;
+  const doneKeys=new Set(wl.map(l=>l.key)), nextKey=nextWorkoutKey(), draft=state.draft;
+  const mainKey=draft?draft.key:nextKey, t=tplOf(mainKey), over=w>L;
+  const date=nextTrainingDate(), planned=date.getTime()===dayStart(new Date()).getTime()?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
+  let h=`<section class="today-progress" aria-label="Progress"><span>Week ${Math.min(w,L)} of ${L}</span><span>${wl.length} of ${keys.length} workouts complete</span></section>
+    <section class="card stack today-workout"><div class="eyebrow">${draft?'In progress':'Up next'}</div><h1>${esc(t.name)}</h1>
+    <p class="muted" style="margin:0">${esc(t.focus)}</p>
+    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):esc(lenText(mainKey))}</span>${draft?'':`<span>· ${isFlex()?'Any day':'Planned '+planned}</span>`}</div>
+    ${placeSwitch()}${placeNote([mainKey])}
+    ${draft&&!coachMode?`<button class="btn primary block" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:`<button class="btn primary block" data-action="open" data-key="${mainKey}">View workout</button>`}
+    ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
+  const others=keys.filter(k=>k!==mainKey);
+  if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
+    const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
+    return `<button class="day ${d&&!nx?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}"><span class="idx">${dayLabel(i)}</span><span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span><span class="small muted num" style="text-align:right">${nx?'Up next':d?'Done '+new Date(log.completedAt||log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}</span></button>`;
+  }).join('')}</div></details>`;
+  let reminders=cmCoachCard(true);
+  if(over) reminders+=`<section class="card row between"><b>Your 6-week program is complete</b>${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</section>`;
+  if(!AUTH.user && state.coach && state.coach.note) reminders+=`<details class="card today-other"><summary>Note from ${esc(coachName())}</summary><p class="small">${esc(state.coach.note)}</p></details>`;
+  if(!coachMode && weighDue()) reminders+=`<button class="btn block today-reminder" data-action="tab" data-tab="weigh"><span>Weekly weigh-in</span><span class="small muted">Log it ›</span></button>`;
+  reminders+=checkinCard(w)+addDayBanner(w);
+  if(pendingQs().length) reminders+=`<section class="card row between"><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><button class="btn sm" data-action="cqopen">Answer</button></section>`;
+  if(!coachMode && state.setup && state.setup.paused) reminders+=`<section class="card row between"><b>Finish setting up</b><button class="btn sm" data-action="suresume">Continue</button></section>`;
+  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>View your workout, then choose Start workout.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
+  reminders+=hsCard();
+  if(reminders) h+=`<section class="stack today-reminders" aria-label="Reminders">${reminders}</section>`;
   return h;
 }
 

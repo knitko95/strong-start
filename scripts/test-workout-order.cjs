@@ -22,16 +22,17 @@ const server=http.createServer((req,res)=>{try{const f=path.resolve(dist,'.'+(re
   });
   assert.equal(await page.evaluate(()=>APP_ENV),'development');assert.match(await page.locator('#environment-banner').innerText(),/TESTING/);
   const keys=await page.evaluate(()=>weekKeys());
-  const check=async key=>{assert.equal(await page.locator('.day.next').getAttribute('data-key'),key);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);};
-  const start=async key=>{await page.locator(`.day[data-key="${key}"]`).click();await page.locator('[data-action="fbegin"]').click();assert.equal(await page.evaluate(()=>state.draft.key),key);};
+  const check=async key=>{if(await page.locator('.today-workout [data-action="resume"]').count()){assert.equal(await page.evaluate(()=>state.draft.key),key);return;}assert.equal(await page.locator('.today-workout [data-action="open"]').getAttribute('data-key'),key);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);};
+  const start=async key=>{await page.locator(`.today-workout [data-action="open"][data-key="${key}"]`).click();await page.locator('[data-action="fbegin"]').click();assert.equal(await page.evaluate(()=>state.draft.key),key);};
   const finish=async(partial=false)=>page.evaluate(partial=>{
    const rows=Object.values(state.draft.sets);for(const list of rows)for(const r of list){r.w='20';r.r='8';r.done=!partial;}
    if(partial)rows[0][0].done=true;finishWorkout();closeModal();render();
   },partial);
-  await check(keys[0]);assert.match(await page.locator('#app').innerText(),/Next planned day: Today/);
-  assert.deepEqual(await page.locator('.day .idx').allTextContents(),['1','2','3']);
+  await check(keys[0]);assert.match(await page.locator('#app').innerText(),/Planned Today/);
+  assert.equal(await page.locator('.today-other').first().evaluate(e=>e.open),false);
+  assert.deepEqual(await page.locator('.day .idx').allTextContents(),['2','3']);
   await start(keys[0]);await finish();await check(keys[1]);assert.equal(await page.evaluate(()=>weekLogs(weekNum()).length),1);
-  assert.match(await page.locator('#app').innerText(),/Next planned day: Fri, Nov 13/);
+  assert.match(await page.locator('#app').innerText(),/Planned Fri, Nov 13/);
   await time('2026-11-13');await page.evaluate(()=>render());await start(keys[1]);await finish(true);await check(keys[1]);
   const partialId=await page.evaluate(()=>state.draft.logId);
   await time('2026-11-18');await page.reload();
@@ -48,7 +49,7 @@ const server=http.createServer((req,res)=>{try{const f=path.resolve(dist,'.'+(re
   assert.deepEqual(await page.locator('.ordday').allTextContents(),['1','2','3']);
   // Selected days can change without moving the sequence; flexible uses the same cursor.
   await page.evaluate(()=>{state.settings.days=[2,4,6];state.settings.flex=true;state.settings.nDays=3;ui.tab='today';render();});await check(keys[1]);
-  assert.match(await page.locator('#app').innerText(),/Train whenever you can/);
+  assert.match(await page.locator('#app').innerText(),/Any day/);
   const before=await page.evaluate(()=>JSON.stringify({state,logs}));
   await page.evaluate(()=>{coachMode={own:{state:structuredClone(state),logs:structuredClone(logs)}};render();});await check(keys[1]);
   assert.equal(await page.locator('[data-action="fbegin"]').count(),0);assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),before);
