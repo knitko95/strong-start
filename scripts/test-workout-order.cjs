@@ -22,8 +22,8 @@ const server=http.createServer((req,res)=>{try{const f=path.resolve(dist,'.'+(re
   });
   assert.equal(await page.evaluate(()=>APP_ENV),'development');assert.match(await page.locator('#environment-banner').innerText(),/TESTING/);
   const keys=await page.evaluate(()=>weekKeys());
-  const check=async key=>{if(await page.locator('.today-workout [data-action="resume"]').count()){assert.equal(await page.evaluate(()=>state.draft.key),key);return;}assert.equal(await page.locator('.today-workout [data-action="open"]').getAttribute('data-key'),key);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);};
-  const start=async key=>{await page.locator(`.today-workout [data-action="open"][data-key="${key}"]`).click();await page.locator('[data-action="fbegin"]').click();assert.equal(await page.evaluate(()=>state.draft.key),key);};
+  const check=async key=>{if(await page.locator('.today-workout [data-action="resume"]').count()){assert.equal(await page.evaluate(()=>state.draft.key),key);return;}assert.equal(await page.locator('.today-workout [data-action="fbegin"],.today-workout [data-action="open"]').getAttribute('data-key'),key);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);};
+  const start=async key=>{await page.locator(`.today-workout [data-action="fbegin"][data-key="${key}"]`).click();assert.equal(await page.evaluate(()=>state.draft.key),key);};
   const finish=async(partial=false)=>page.evaluate(partial=>{
    const rows=Object.values(state.draft.sets);for(const list of rows)for(const r of list){r.w='20';r.r='8';r.done=!partial;}
    if(partial)rows[0][0].done=true;finishWorkout();closeModal();render();

@@ -399,6 +399,11 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-progress .rings .ml{font-size:10px;letter-spacing:.1em}
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
+.today-exercises-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:0;border-top:1px solid var(--line);padding:6px 0 0;background:none;color:var(--accent);font-weight:600;text-align:left}
+.today-exercises .slotrow.mrow3{grid-template-columns:38px minmax(0,1fr);gap:8px}
+.today-exercises .slotrow.mrow3>div:last-child{grid-column:2}
+.today-exercises .mthumb{width:38px;height:42px}
+.today-start{min-height:54px}
 .today-other summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}
 .today-reminder{display:flex;justify-content:space-between;gap:12px;text-align:left;min-height:52px}
 .today-reminders .card{padding:12px 16px}
@@ -3185,6 +3190,16 @@ function startWorkout(key){
   save();
 }
 
+function renderPlanExercises(slots){
+  const planes = {S:0,F:0,T:0}; slots.forEach(s=>planes[EX[s.id].pl]++);
+  return `<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>
+      <div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
+        const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
+        return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div style="font-weight:600">${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
+        <div class="tiny muted">${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}</div></div>
+        <div class="row" style="flex-wrap:nowrap"><button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
+}
+
 function renderPlan(){
   const keys=weekKeys(), ds=trainDays();
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
@@ -3193,14 +3208,7 @@ function renderPlan(){
     ${renderMuscleMap()}`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k);
-    const planes = {S:0,F:0,T:0}; ss.forEach(s=>planes[EX[s.id].pl]++);
-    const body=`<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>
-      <div>${ss.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
-        const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
-        return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div style="font-weight:600">${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
-        <div class="tiny muted">${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}</div></div>
-        <div class="row" style="flex-wrap:nowrap"><button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
-    h+=sec('plan-'+k,esc(t.name),`${dayLabel(j,true)} · ${t.focus} · ${lenText(k)}`,body);
+    h+=sec('plan-'+k,esc(t.name),`${dayLabel(j,true)} · ${t.focus} · ${lenText(k)}`,renderPlanExercises(ss));
   });
   return h + whyCard();
 }
@@ -4860,12 +4868,15 @@ function renderToday(){
   const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w);
   const doneKeys=new Set(wl.map(l=>l.key)), nextKey=nextWorkoutKey(), draft=state.draft;
   const mainKey=draft?draft.key:nextKey, t=tplOf(mainKey), over=w>L;
+  const exercisesOpen=ui.todayExercises===mainKey;
   const date=nextTrainingDate(), planned=date.getTime()===dayStart(new Date()).getTime()?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
   let h=ringsCard(w,keys,wl,{L})+`<section class="card stack today-workout"><div class="eyebrow">${draft?'In progress':'Up next'}</div><h1>${esc(t.name)}</h1>
     <p class="muted" style="margin:0">${esc(t.focus)}</p>
     <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):esc(lenText(mainKey))}</span>${draft?'':`<span>· ${isFlex()?'Any day':'Planned '+planned}</span>`}</div>
     ${placeSwitch()}${placeNote([mainKey])}
-    ${draft&&!coachMode?`<button class="btn primary block" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:`<button class="btn primary block" data-action="open" data-key="${mainKey}">View workout</button>`}
+    <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide exercises':'Show exercises'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
+    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderPlanExercises(draft?dSlots():sessionSlots(mainKey)):''}</div>
+    ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">Start workout</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
   const others=keys.filter(k=>k!==mainKey);
   if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
@@ -4879,7 +4890,7 @@ function renderToday(){
   reminders+=checkinCard(w)+addDayBanner(w);
   if(pendingQs().length) reminders+=`<section class="card row between"><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><button class="btn sm" data-action="cqopen">Answer</button></section>`;
   if(!coachMode && state.setup && state.setup.paused) reminders+=`<section class="card row between"><b>Finish setting up</b><button class="btn sm" data-action="suresume">Continue</button></section>`;
-  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>View your workout, then choose Start workout.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
+  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>Tap Show exercises to look ahead, or Start workout when you’re ready.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
   reminders+=hsCard();
   if(reminders) h+=`<section class="stack today-reminders" aria-label="Reminders">${reminders}</section>`;
   return h;
@@ -5373,7 +5384,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
@@ -5421,6 +5432,7 @@ document.addEventListener('click', e=>{
       if(!coachMode && state.draft && state.draft.key===key){ resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break; }
       ui.preview=key; ui.tab='preview'; render(); window.scrollTo(0,0); break;
     }
+    case 'todayexercises': { const open=ui.todayExercises!==b.dataset.key;ui.todayExercises=open?b.dataset.key:null;render();document.querySelector('.today-exercises-toggle')?.focus({preventScroll:true});break; }
     case 'resume': resumePartial(); ui.tab='workout'; render(); window.scrollTo(0,0); break;
     case 'done': { const s=state.draft.sets[b.dataset.pk][+b.dataset.i];
       s.done=!s.done;
