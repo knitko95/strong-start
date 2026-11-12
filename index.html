@@ -753,11 +753,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .demo-first .acard{padding:18px 18px 14px;gap:12px}.demo-first .acard>.ffoot{margin-top:4px;padding-top:0;gap:8px}
 .exercise-hero .hero-how{font-weight:600;box-shadow:none;color:var(--ink);border:0;background:var(--surface)}.exercise-hero.has-demo .hero-how{left:52px;transform:none;bottom:8px}
 .focus .apair>button{background:var(--sunk);border:0;border-radius:14px}.focus .apair>button[aria-pressed="true"]{background:var(--accent-soft)}
-.pair-link{display:flex;align-items:center;gap:4px;min-width:0;background:var(--sunk);padding:3px;border-radius:14px}
-.pair-link button{flex:1;min-width:0;min-height:44px;display:flex;align-items:center;gap:7px;border:0;border-radius:11px;padding:8px 9px;background:transparent;color:var(--muted);font:600 12px var(--body);cursor:pointer}
-.pair-link button[aria-pressed="true"]{background:var(--accent-soft);color:var(--ink)}.pair-link button.done:not([aria-pressed="true"]){color:var(--muted)}.pair-link button:disabled{opacity:.45;cursor:default}
-.pair-letter{flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--line);font-size:11px}.pair-link button[aria-pressed="true"] .pair-letter{background:var(--accent);color:var(--on-accent)}
-.pair-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-align:left}.pair-connector{flex:none;font-size:15px;color:var(--muted)}
+.workout-path[data-paired="true"] .path-stop:not(.rest){margin:0 3px}
 .rest-focus .atimer .fring{width:128px;height:128px}
 
 .workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
@@ -3747,7 +3743,7 @@ function fTop(d,slots,label){
   if(label==null){
     label = st.ph==='warm'?'Warm-up':st.ph==='cool'?'Cool-down':'Workout';
     if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
-      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1} of ${gs.length}` : `Exercise ${gi+1} of ${gs.length}`; }
+      if(gi>=0) label = `Exercise ${gi+1} of ${gs.length}`; }
   }
   // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
   const m=saveStatus();
@@ -3767,11 +3763,6 @@ function fPair(d,slots,pk){
   if(!group||group.length<2) return null;
   const moves=group.map(i=>slots[i]); return {moves,key:moves.map(s=>s.pk).join('|')};
 }
-function fPairStrip(d,pair,pk,rest=false,round){
-  round=round??d.step.afterRound??d.sets[pk]?.findIndex(x=>!x.done)??0;round=Math.max(0,round);
-  const cur=fPathCurrent(d,dSlots());
-  return `<div class="pair-link" role="group" aria-label="Paired exercises">${pair.moves.map((s,i)=>{const row=d.sets[s.pk]?.[round],now=cur.ph==='ex'&&cur.pk===s.pk&&fSetIndex(d,cur)===round,letter=String.fromCharCode(65+i),status=!row?'No set':row.done?'Completed':now?'Current':'Next';return `${i?'<span class="pair-connector" aria-hidden="true">→</span>':''}<button class="${row?.done?'done':''}" data-action="fset" data-pk="${s.pk}" data-i="${round}" aria-pressed="${!rest&&s.pk===pk}" ${now?'aria-current="step"':''} title="${esc(EX[s.id].n)}" aria-label="${letter}: ${esc(EX[s.id].n)}, ${status.toLowerCase()}, round ${round+1}" ${!row?'disabled':''}><span class="pair-letter">${letter}</span><span class="pair-name">${esc(EX[s.id].n)}</span></button>`;}).join('')}</div>`;
-}
 function fSetIndex(d,step){const rows=d.sets[step.pk]||[],n=rows.findIndex(x=>!x.done);return Number.isInteger(step.i)&&rows[step.i]?step.i:n<0?Math.max(0,rows.length-1):n;}
 function fKeepPosition(d){
   if(d.pathCurrent||!['ex','rest','exdone'].includes(d.step.ph)||d.step.restPreview)return;
@@ -3784,23 +3775,25 @@ function fPathCurrent(d,slots){
   if(!slots.some(s=>s.pk===st.pk))st=d.step;
   return st;
 }
+function fPathSetId(moves,pk,i){return `s${i}${moves.length>1?String.fromCharCode(97+moves.findIndex(m=>m.pk===pk)):''}`;}
 function workoutPath(d,slots,s){
   const pair=fPair(d,slots,s.pk),moves=pair?.moves||[s],count=Math.max(...moves.map(m=>(d.sets[m.pk]||[]).length));
   if(!count)return '';
   const st=d.step,cur=fPathCurrent(d,slots),same=moves.some(m=>m.pk===cur.pk),round=fSetIndex(d,cur),restRound=cur.afterRound??d.rest?.afterRound??Math.max(0,round-1);
-  const selected=st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:`s${fSetIndex(d,st)}`;
-  const active=same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?`s${round}`:''):'';
+  const selected=st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:fPathSetId(moves,st.pk,fSetIndex(d,st));
+  const active=same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?fPathSetId(moves,cur.pk,round):''):'';
   const nodes=[];
   for(let i=0;i<count;i++){
-    const available=moves.filter(m=>d.sets[m.pk]?.[i]),complete=available.every(m=>d.sets[m.pk][i].done),id=`s${i}`;
-    const dest=available.find(m=>!d.sets[m.pk][i].done)||available[0];
-
-    nodes.push(`<div class="path-stop"><button class="path-set ${complete?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${dest.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${complete?'Edit':'Go to'} ${pair?'round':'set'} ${i+1}${complete?', completed':active===id?', current':', remaining'}"><span>${pair?'Round':'Set'} ${i+1}</span></button><span class="path-status">${active===id?'Current':''}</span></div>`);
-    if(i<count-1){const rid=`r${i}`,sec=Number(available[available.length-1].cfg.rest)||0;
-      nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after ${pair?'round':'set'} ${i+1}, ${sec} seconds"><span class="path-clock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M12 2v3m6 1 1.5-1.5"/><circle cx="12" cy="14" r="8"/><path d="M12 9v5"/></svg></span></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
+    const available=moves.filter(m=>d.sets[m.pk]?.[i]);
+    for(const move of available){
+      const row=d.sets[move.pk][i],id=fPathSetId(moves,move.pk,i),letter=pair?String.fromCharCode(65+moves.indexOf(move)):'';
+      nodes.push(`<div class="path-stop"><button class="path-set ${row.done?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${move.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${row.done?'Edit':'Go to'} set ${i+1}${letter}${pair?', '+esc(EX[move.id].n):''}${row.done?', completed':active===id?', current':', remaining'}"><span>Set ${i+1}${letter}</span></button><span class="path-status">${active===id?'Current':''}</span></div>`);
+    }
+    if(i<count-1){const rid=`r${i}`,last=available[available.length-1],sec=Number(last.cfg.rest)||0,letter=pair?String.fromCharCode(65+moves.indexOf(last)):'';
+      nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after set ${i+1}${letter}, ${sec} seconds"><span class="path-clock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M12 2v3m6 1 1.5-1.5"/><circle cx="12" cy="14" r="8"/><path d="M12 9v5"/></svg></span></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
     }
   }
-  return `<div class="workout-path" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier ${pair?'rounds':'sets'}">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Superset rounds':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later ${pair?'rounds':'sets'}">›</button></div>`;
+  return `<div class="workout-path" data-paired="${!!pair}" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier sets">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Paired set sequence':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later sets">›</button></div>`;
 }
 let workoutPathObserver=null;
 function setupWorkoutPath(){
@@ -3815,7 +3808,7 @@ function setupWorkoutPath(){
 }
 function refreshPathPosition(){
   const host=document.querySelector('.workout-path'),d=state.draft;if(!host?.querySelectorAll||!d)return;
-  const cur=fPathCurrent(d,dSlots()),same=(host.dataset.pks||'').split('|').includes(cur.pk),id=same&&cur.ph==='ex'?`s${fSetIndex(d,cur)}`:'';
+  const cur=fPathCurrent(d,dSlots()),moves=(host.dataset.pks||'').split('|').map(pk=>({pk})),same=moves.some(m=>m.pk===cur.pk),id=same&&cur.ph==='ex'?fPathSetId(moves,cur.pk,fSetIndex(d,cur)):'';
   host.querySelectorAll('[data-path-id]').forEach(b=>{const active=b.dataset.pathId===id;b.classList.toggle('current',active);if(active)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');b.parentElement.querySelector('.path-status').textContent=active?'Current':'';});
 }
 function fPairIntro(d,slots,pair){
@@ -3941,7 +3934,7 @@ function renderFocus(){
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
         ${workoutPath(d,slots,s)}
 
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></section></div>`;
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start set ${k+1}${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></section></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3967,13 +3960,13 @@ function renderFocus(){
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'':'First time: start light.') : startTip(ex);
-  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1} of ${gs.length}` : `Exercise ${gi+1} of ${gs.length}`;
+  const label = `Exercise ${gi+1} of ${gs.length}`;
   const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
     ${workoutHero(ex,s.pk)}
-    <section class="card acard">${pair?fPairStrip(d,pair,s.pk,false,kk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">${goal}</span></div>
+    <section class="card acard"><div class="ach"><b>Set ${kk+1}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} <span>of ${sets.length}</span></b><span class="goal">${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
       ${workoutPath(d,slots,s)}

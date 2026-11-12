@@ -50,7 +50,7 @@ await test('superset next-move guidance remains on every round and its rest',()=
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));`);
   for(const round of [0,1,2])for(const move of ['A','B']){
     h.run(`for(const pk of [A,B])state.draft.sets[pk].forEach((x,i)=>x.done=i<${round}||(pk===A&&${move}===B&&i===${round}));state.draft.step={ph:'ex',pk:${move},i:${round}};`);
-    const out=h.run('renderFocus()');assert.match(out,/<div class="anext">(?:Up next|After rest|Next):/);assert.match(out,/Superset \d+ of \d+/);
+    const out=h.run('renderFocus()');assert.match(out,/<div class="anext">(?:Up next|After rest|Next):/);assert.match(out,/Exercise \d+ of \d+/);
   }
   h.run(`state.draft.step={ph:'rest',pk:B,afterRound:0,restPreview:true,restSec:60};`);const rest=h.run('renderFocus()');assert.match(rest,/<div class="anext">Up next:/);assert.doesNotMatch(rest,/Paired exercises|pair-link|apair-pattern|View \/ edit sets|data-action="fviewsets"|<span class="goal">of |>Superset /);
 });
@@ -120,15 +120,24 @@ await test('path rest selection distinguishes a preview from another running res
   h.click('fset',{pk,i:'0'});h.run(`ui.timer.end=Date.now()-1;state.draft.rest.end=ui.timer.end;tick();`);h.click('fdone',{pk,i:'0'});
   assert.equal(h.run('state.draft.step.ph'),'ex');assert.equal(h.run('fSetIndex(state.draft,state.draft.step)'),3);
 });
-await test('superset paths use quiet round markers, clickable partners and unequal set counts',()=>{
+await test('paired set paths retain every A/B stop and unequal set counts',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};
     state.draft.sets[A]=Array.from({length:4},(_,i)=>({w:'20',r:'10',done:i<2}));state.draft.sets[B]=Array.from({length:2},()=>({w:'20',r:'10',done:true}));state.draft.step={ph:'ex',pk:A,i:2};`);
-  const out=h.run('renderFocus()');assert.equal((out.match(/class="path-set /g)||[]).length,4);assert.equal((out.match(/class="path-rest /g)||[]).length,3);
-  const path=out.slice(out.indexOf('class="workout-path"'));assert.doesNotMatch(path,/✓/);assert.match(path,/Round 4/);
-  assert.match(out,/data-action="fset"[^>]*data-i="2"[^>]*disabled/);
+  const out=h.run('renderFocus()');assert.equal((out.match(/class="path-set /g)||[]).length,6);assert.equal((out.match(/class="path-rest /g)||[]).length,3);
+  const path=out.slice(out.indexOf('class="workout-path"'));assert.doesNotMatch(path,/✓/);assert.match(path,/Set 4A/);assert.doesNotMatch(path,/Set 3B|Set 4B|Round/);
+  assert.match(out,/data-path-id="s2a"[^>]*aria-current="step"/);
   h.click('fset',{pk:h.run('B'),i:'0'});h.click('fdone',{pk:h.run('B'),i:'0'});
   assert.equal(h.run('state.draft.step.pk'),h.run('A'));assert.equal(h.run('state.draft.step.i'),2);
   assert.equal(h.run('doneN(state.draft,A)'),2);assert.equal(h.run('doneN(state.draft,B)'),2);
+});
+await test('paired A/B timeline tracks completion independently and preserves rest while editing either move',()=>{
+  const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));state.draft.step={ph:'ex',pk:A,i:0};`);
+  const out=h.run('renderFocus()');assert.deepEqual([...out.matchAll(/data-path-id="([sr]\d+[ab]?)"/g)].map(m=>m[1]),['s0a','s0b','r0','s1a','s1b','r1','s2a','s2b']);assert.match(out,/<b>Set 1A <span>of 3/);assert.doesNotMatch(out,/pair-link|Paired exercises|<span>Round/);
+  h.click('fdone',{pk:h.run('A'),i:'0'});assert.equal(h.run('state.draft.step.pk'),h.run('B'));const b=h.run('renderFocus()');assert.match(b,/<b>Set 1B <span>of 3/);assert.match(b,/class="path-set done [^"]*"[^>]*data-path-id="s0a"/);assert.match(b,/data-path-id="s0b"[^>]*aria-current="step"/);assert.equal(h.run('state.draft.sets[B][0].done'),false);
+  h.click('fdone',{pk:h.run('B'),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');const end=h.run('ui.timer.end');
+  for(const move of ['A','B']){h.click('fset',{pk:h.run(move),i:'0'});h.click('fbump',{pk:h.run(move),i:'0',f:'r',dir:'1'});h.click('fdone',{pk:h.run(move),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');assert.equal(h.run('ui.timer.end'),end);}
+  h.run(`state=JSON.parse(localStorage.getItem(LS)).state;ui.timer=null;fRestoreTimer();`);assert.equal(h.run('ui.timer.end'),end);assert.match(h.run('renderFocus()'),/data-path-id="r0"[^>]*aria-current="step"/);
+  h.click('fset',{pk:h.run('B'),i:'0'});h.run(`ui.timer.end=Date.now()-1;state.draft.rest.end=ui.timer.end;tick();`);h.click('fdone',{pk:h.run('B'),i:'0'});const resumed=h.run('renderFocus()');assert.match(resumed,/data-path-id="s1a"[^>]*aria-current="step"/);assert.equal((resumed.match(/aria-current="step"/g)||[]).length,1);
 });
 await test('path scroll controls center selection and disable arrows at the boundaries',()=>{
   const h=harness();h.run(`var pathScrollHandler,scrollAmount=200;
@@ -479,7 +488,7 @@ await test('superset introduction preserves every set and stays acknowledged aft
   assert.equal(h.run('JSON.stringify(state.draft.sets)'),before);
   h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);
   assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
-  assert.match(h.run('renderFocus()'),/Paired exercises/);
+  assert.match(h.run('renderFocus()'),/Paired set sequence/);
   assert.match(h.run('renderFocus()'),/Done · go to B/);
   assert.equal(h.run('logs.length'),0);
 });
