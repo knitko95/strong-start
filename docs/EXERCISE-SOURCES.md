@@ -19,8 +19,7 @@ The initial associations below come from the [November 11 audit](EXERCISE-AUDIT-
 | Review date | Publisher(s) | Scope and evidence |
 | --- | --- | --- |
 | 2026-11-11 | NASM | [Findings and verification limits](EXERCISE-AUDIT-2026-11-11.md); [all 320 catalog entries, 92 warm-up guides and source mappings](exercise-audit-2026-11-11.json). |
-
-No additional publisher has been audited in this register yet. Later ACE, NHS or other source reviews can be recorded alongside NASM without replacing its references. This statement does not claim those future pages have been inspected.
+| 2026-11-11 | NASM, ACE, Runna | [Six standalone animation drafts: movement comparisons and unresolved differences](EXERCISE-ANIMATION-BATCH2-2026-11-11.md). No catalogue wording changes or technique approval. |
 
 ## Catalog exercise associations
 
@@ -35,12 +34,12 @@ The date shown is the underlying audit date. The initial coverage is 33 same-mov
 | Machine Chest Press | `machine-chest-press` | Same movement | 2026-11-11 | [NASM:machine-press][nasm-machine-press] |
 | Standing Cable Chest Press | `standing-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
 | Single-Arm Cable Chest Press | `single-arm-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Single-Arm Dumbbell Bench Press | `single-arm-dumbbell-bench-press` | Same movement | 2026-11-11 | [NASM:single-db-press][nasm-single-db-press] |
-| Dumbbell Floor Press | `dumbbell-floor-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
+| Single-Arm Dumbbell Bench Press | `single-arm-dumbbell-bench-press` | Same movement | 2026-11-11 | [NASM:single-db-press][nasm-single-db-press]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
+| Dumbbell Floor Press | `dumbbell-floor-press` | Same movement | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [Runna: floor press](https://support.runna.com/en/articles/6413209-floor-dumbbell-bench-press-exercise-tutorial); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
 | Kettlebell Floor Press | `kettlebell-floor-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
 | Weighted Push-Up | `weighted-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
 | TRX Chest Press | `trx-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Incline Dumbbell Press | `incline-dumbbell-press` | Same movement | 2026-11-11 | [NASM:incline-db][nasm-incline-db] |
+| Incline Dumbbell Press | `incline-dumbbell-press` | Same movement | 2026-11-11 | [NASM:incline-db][nasm-incline-db]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
 | Incline Barbell Bench Press | `incline-barbell-bench-press` | Same movement | 2026-11-11 | [NASM:incline-bb][nasm-incline-bb] |
 | Incline Machine Press | `incline-machine-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
 | Weighted Dip | `weighted-dip` | No suitable reference | 2026-11-11 | None recorded |
@@ -56,7 +55,7 @@ The date shown is the underlying audit date. The initial coverage is 33 same-mov
 | Standing Barbell Overhead Press | `standing-barbell-overhead-press` | No suitable reference | 2026-11-11 | None recorded |
 | Push Press | `push-press` | No suitable reference | 2026-11-11 | None recorded |
 | Z Press | `z-press` | No suitable reference | 2026-11-11 | None recorded |
-| Seated Dumbbell Shoulder Press | `seated-dumbbell-shoulder-press` | No suitable reference | 2026-11-11 | None recorded |
+| Seated Dumbbell Shoulder Press | `seated-dumbbell-shoulder-press` | Same movement | 2026-11-11 | [ACE: seated press](https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/)  [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
 | Standing Dumbbell Shoulder Press | `standing-dumbbell-shoulder-press` | No suitable reference | 2026-11-11 | None recorded |
 | Machine Shoulder Press | `machine-shoulder-press` | No suitable reference | 2026-11-11 | None recorded |
 | Half-Kneeling Landmine Press | `half-kneeling-landmine-press` | No suitable reference | 2026-11-11 | None recorded |
@@ -65,7 +64,7 @@ The date shown is the underlying audit date. The initial coverage is 33 same-mov
 | Arnold Press | `arnold-press` | No suitable reference | 2026-11-11 | None recorded |
 | Half-Kneeling Single-Arm Cable Press | `half-kneeling-single-arm-cable-press` | No suitable reference | 2026-11-11 | None recorded |
 | Pike Push-Up | `pike-push-up` | Same movement | 2026-11-11 | [NASM:pike][nasm-pike] |
-| Dumbbell Lateral Raise | `dumbbell-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
+| Dumbbell Lateral Raise | `dumbbell-lateral-raise` | Same movement | 2026-11-11 | [NASM:planes][nasm-planes]; [ACE: lateral raise](https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
 | Cable Lateral Raise | `cable-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
 | Machine Lateral Raise | `machine-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
 | Leaning Single-Arm Lateral Raise | `leaning-single-arm-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
@@ -180,7 +179,7 @@ The date shown is the underlying audit date. The initial coverage is 33 same-mov
 | Hack Squat | `hack-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
 | Leg Press | `leg-press` | Same movement | 2026-11-11 | [NASM:leg-press][nasm-leg-press] |
 | Smith Machine Squat | `smith-machine-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Goblet Squat | `goblet-squat` | Same movement | 2026-11-11 | [NASM:goblet][nasm-goblet] |
+| Goblet Squat | `goblet-squat` | Same movement | 2026-11-11 | [NASM:goblet][nasm-goblet]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
 | Double Kettlebell Front Squat | `double-kettlebell-front-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
 | Heel-Elevated Dumbbell Squat | `heel-elevated-dumbbell-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
 | Stability Ball Wall Squat | `stability-ball-wall-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |

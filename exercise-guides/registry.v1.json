@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": "2026-11-11-reviewed-1",
+  "revision": "2026-11-12-reviewed-2",
   "characters": {
     "instructor-rose-v1": {
       "label": "Rose-top instructor",
@@ -85,6 +85,102 @@
           "review": {
             "status": "visually-accepted",
             "date": "2026-11-11"
+          }
+        }
+      }
+    },
+    "goblet-squat": {
+      "version": 2,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/goblet-squat.rose.v2.b1ac4efad46b.glb",
+          "bytes": 5766272,
+          "sha256": "b1ac4efad46b91bfba7e08ee623cc0ce74de3b44495f748e40849ff56be09073",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
+          }
+        }
+      }
+    },
+    "incline-dumbbell-press": {
+      "version": 3,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/incline-dumbbell-press.rose.v3.9c902f724f77.glb",
+          "bytes": 5799732,
+          "sha256": "9c902f724f777719d16fa773a6ee35b8819fd1ce972eee62bfc22243b9d7d609",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
+          }
+        }
+      }
+    },
+    "dumbbell-floor-press": {
+      "version": 3,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/dumbbell-floor-press.rose.v3.3c478ea81626.glb",
+          "bytes": 5748000,
+          "sha256": "3c478ea81626bce91f08e18329068add9695da4a5fffe37a3d170f01ad0f507c",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
+          }
+        }
+      }
+    },
+    "seated-dumbbell-shoulder-press": {
+      "version": 3,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/seated-dumbbell-shoulder-press.rose.v3.196ee77fbec8.glb",
+          "bytes": 5797320,
+          "sha256": "196ee77fbec8d6a4b18102fdbddbe8917578d92f59f3104a30ff21973aae44d9",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
+          }
+        }
+      }
+    },
+    "dumbbell-lateral-raise": {
+      "version": 3,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/dumbbell-lateral-raise.rose.v3.337e128c1d77.glb",
+          "bytes": 5733256,
+          "sha256": "337e128c1d77f8328849d9958da025f5cbe853fda227f68a2567a68c5e815b8a",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
+          }
+        }
+      }
+    },
+    "single-arm-dumbbell-bench-press": {
+      "version": 3,
+      "clip": "Animation",
+      "durationSeconds": 5,
+      "variants": {
+        "instructor-rose-v1": {
+          "asset": "models/single-arm-dumbbell-bench-press.rose.v3.b4ae67bf7144.glb",
+          "bytes": 5753700,
+          "sha256": "b4ae67bf7144dd141e5c1b705c9381ecc7231147c09c5a757ffd53c555e502f0",
+          "review": {
+            "status": "visually-accepted",
+            "date": "2026-11-12"
           }
         }
       }
@@ -185,6 +281,126 @@
         "cameraOrbit": "-65deg 72deg 2.8m",
         "cameraTarget": "0m 0.20m 0m",
         "radiusMetres": 2.8,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "goblet-squat": {
+      "exerciseId": "goblet-squat",
+      "name": "Goblet Squat",
+      "contentSource": "catalogue",
+      "animationId": "goblet-squat",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.2m",
+        "cameraTarget": "0m 0.74m 0m",
+        "radiusMetres": 3.2,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "incline-dumbbell-press": {
+      "exerciseId": "incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "contentSource": "catalogue",
+      "animationId": "incline-dumbbell-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "floor",
+        "cameraOrbit": "-45deg 65deg 3.1m",
+        "cameraTarget": "0m 0.63m -0.15m",
+        "radiusMetres": 3.1,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "dumbbell-floor-press": {
+      "exerciseId": "dumbbell-floor-press",
+      "name": "Dumbbell Floor Press",
+      "contentSource": "catalogue",
+      "animationId": "dumbbell-floor-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "floor",
+        "cameraOrbit": "-45deg 65deg 3.0m",
+        "cameraTarget": "0m 0.3m -0.2m",
+        "radiusMetres": 3.0,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "seated-dumbbell-shoulder-press": {
+      "exerciseId": "seated-dumbbell-shoulder-press",
+      "name": "Seated Dumbbell Shoulder Press",
+      "contentSource": "catalogue",
+      "animationId": "seated-dumbbell-shoulder-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.1m",
+        "cameraTarget": "0m 0.67m 0m",
+        "radiusMetres": 3.1,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "dumbbell-lateral-raise": {
+      "exerciseId": "dumbbell-lateral-raise",
+      "name": "Dumbbell Lateral Raise",
+      "contentSource": "catalogue",
+      "animationId": "dumbbell-lateral-raise",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "standing",
+        "cameraOrbit": "35deg 78deg 3.5m",
+        "cameraTarget": "0m 0.74m 0m",
+        "radiusMetres": 3.5,
+        "defaultSpeed": 1
+      },
+      "fallback": {
+        "type": "existing-text-instructions"
+      }
+    },
+    "single-arm-dumbbell-bench-press": {
+      "exerciseId": "single-arm-dumbbell-bench-press",
+      "name": "Single-Arm Dumbbell Bench Press",
+      "contentSource": "catalogue",
+      "animationId": "single-arm-dumbbell-bench-press",
+      "defaultCharacter": "instructor-rose-v1",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "presentation": {
+        "layout": "floor",
+        "cameraOrbit": "-45deg 65deg 2.9m",
+        "cameraTarget": "0m 0.48m -0.18m",
+        "radiusMetres": 2.9,
         "defaultSpeed": 1
       },
       "fallback": {

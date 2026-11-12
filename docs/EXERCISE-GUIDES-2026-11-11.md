@@ -45,3 +45,7 @@ The full guide suite passed on that hosted runtime at 1280, 390 and 320 px: five
 The hosted Worker suite also passed exact public shell assets, dev-only backend/keys/storage/manifest/banner, normal DNS/TLS, offline reopening and reconnect at all three widths. Production was not changed. A documentation-only follow-up records these results; runtime files/assets are unchanged from the tested candidate.
 
 Pending database migrations and production configuration changes: none. Physical-device rendering/touch/performance and exercise technique remain review limits. Production publication still requires a separately defined and approved release; this initial registry enables development only.
+
+## November 12 extension
+
+The owner visually accepted six further rose-top animations and requested their how-to integration on the test app. The registry now contains eleven mappings; the original five remain unchanged and the separate bodyweight squat remains excluded. See [the six-exercise review, corrected grips, level handles and integration record](EXERCISE-ANIMATION-BATCH2-2026-11-11.md). This extension does not approve a production release.
