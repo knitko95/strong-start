@@ -550,20 +550,21 @@ body.in-focus #app{flex:1}
 .asteps .abtns{display:flex;gap:10px}
 .abtn{width:48px;height:44px;border-radius:14px;border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:24px;font-weight:700;line-height:1;box-shadow:0 1px 3px color-mix(in srgb,var(--ink) 16%,transparent);cursor:pointer}
 .astrip{display:flex;gap:8px;align-items:stretch;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:14px}
-.workout-path{width:100%;min-width:0;border-top:1px solid var(--line);padding-top:14px;display:grid;grid-template-columns:36px minmax(0,1fr) 36px}
-.path-scroll{overflow-x:auto;overflow-y:hidden;min-width:0;padding:6px 5px 8px;scrollbar-width:thin;scrollbar-color:var(--line) transparent;overscroll-behavior-x:contain;mask-image:linear-gradient(to right,transparent,#000 8px,#000 calc(100% - 8px),transparent)}
-.path-track{position:relative;isolation:isolate;display:flex;gap:6px;width:max-content;min-width:100%;align-items:start}
-.path-track:before{content:'';position:absolute;left:20px;right:20px;top:28px;height:2px;background:var(--line);z-index:-1}
-.path-stop{width:72px;flex:none;display:flex;flex-direction:column;align-items:center;gap:5px}.path-stop.rest{width:44px}
-.path-stop button{font:700 12px var(--body);color:var(--ink);cursor:pointer}
-.path-set{width:100%;min-height:56px;padding:5px 1px;border:1px solid var(--line);border-radius:14px;background:var(--surface);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.path-set.done{background:var(--good-soft);border-color:transparent}.path-set.current{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
-.path-stop small{font-size:11px;white-space:nowrap}.path-stop .path-status{height:16px;font:800 11px var(--body);color:var(--accent)}
-.path-set[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:2px}
-.path-rest{width:44px;min-height:56px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0 0;border:0;background:transparent}
-.path-clock{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1px solid var(--line);font-size:19px;font-weight:400;color:var(--muted)}
-.path-rest.current .path-clock{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}.path-rest[aria-pressed="true"] .path-clock{outline:2px solid var(--accent);outline-offset:2px}
-.path-arrow{width:36px;min-height:72px;padding:0;border:0;background:transparent;color:var(--accent);font:400 30px var(--body);cursor:pointer}.path-arrow:disabled{visibility:hidden}
+.workout-path{width:100%;min-width:0;display:grid;grid-template-columns:16px minmax(0,1fr) 16px;padding:8px 0}
+.path-scroll{overflow-x:auto;overflow-y:hidden;min-width:0;padding:4px 0;scrollbar-width:none;overscroll-behavior-x:contain}.path-scroll::-webkit-scrollbar{display:none}
+.path-track{position:relative;isolation:isolate;display:flex;gap:0;width:max-content;min-width:100%;justify-content:center;align-items:center}
+.path-track:before{content:'';position:absolute;left:20px;right:20px;top:50%;height:1px;background:var(--line);z-index:-1}
+.path-stop{width:68px;flex:none;display:flex;flex-direction:column;align-items:center}.path-stop.rest{width:36px}
+.path-stop button{font:600 13px var(--body);color:var(--ink);cursor:pointer}
+.path-set{width:100%;min-height:44px;padding:7px 4px;border:1px solid transparent;border-radius:13px;background:var(--sunk);display:flex;align-items:center;justify-content:center;white-space:nowrap}
+.path-set.done{background:color-mix(in srgb,var(--accent) 15%,var(--surface));color:var(--muted)}.path-set.current{background:var(--accent);color:var(--on-accent)}
+.path-status,.workout-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.path-set[aria-pressed="true"]:not(.current){outline:1.5px solid var(--accent);outline-offset:2px}
+.path-rest{width:36px;min-height:44px;display:grid;place-items:center;padding:0;border:0;background:var(--surface)}
+.path-clock{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--muted)}.path-clock svg{width:21px;height:21px}
+.path-rest.current .path-clock{background:var(--accent);color:var(--on-accent)}.path-rest[aria-pressed="true"]:not(.current) .path-clock{outline:1.5px solid var(--accent);outline-offset:2px}
+.path-arrow{width:16px;min-height:44px;padding:0;border:0;background:transparent;color:var(--ink);font:400 24px var(--body);cursor:pointer}.path-arrow:disabled{visibility:hidden}
+@media(max-width:359px){.path-stop{width:56px}.path-stop.rest,.path-rest{width:28px}.path-stop button{font-size:12px}.path-clock{width:26px;height:26px}}
 .apair>button{min-width:0;min-height:62px;text-align:left;font:inherit;cursor:pointer}.apair>button[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent)}
 .atile{flex:1 1 64px;min-width:0;min-height:48px;border-radius:14px;border:1.5px dashed color-mix(in srgb,var(--muted) 45%,var(--line));background:transparent;color:var(--muted);font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:4px 6px;box-sizing:border-box;text-align:center}
 .atile .tl{font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
@@ -726,14 +727,41 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .swap-filters{display:grid;grid-template-columns:1fr 1fr;gap:10px}.swap-filters label{display:grid;gap:6px;font-size:12px;color:var(--muted)}.swap-filters select{min-width:0;width:100%;min-height:44px;font:16px var(--body);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px}
 .swap-browse{justify-content:space-between}.swap-picker-sheet details summary{font-weight:700;min-height:44px;display:list-item;padding:10px 0}
 
-.demo-first .asteps .fstep{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:4px 0;position:relative}
-.demo-first .asteps .fl{grid-column:1/-1;grid-row:1;margin-bottom:2px}
-.demo-first .asteps .fval{grid-column:2;grid-row:2;display:flex;align-items:center;justify-content:center;width:100%}
-.demo-first .asteps .fval input{font-size:30px;height:44px;max-width:100%;min-width:0;text-align:center}
-.demo-first .asteps .fval small{position:absolute;right:9px;top:10px;font-size:11px;margin:0}
-.demo-first .asteps .abtns{display:contents}.demo-first .asteps .abtn:first-child{grid-column:1;grid-row:2}.demo-first .asteps .abtn:last-child{grid-column:3;grid-row:2}
-.demo-first .asteps .abtn{width:36px;min-width:0;height:44px;border:0;background:none;font-size:24px}
-@media(max-width:360px){.demo-first .asteps .fstep{grid-template-columns:30px minmax(0,1fr) 30px;padding:10px 5px}.demo-first .asteps .abtn{width:30px}.demo-first .asteps .fval input{font-size:27px}.demo-first .asteps .fval small{right:6px}}
+/* Refined workout presentation, scoped to the workout flow and its sheets. */
+.focus{gap:18px}.focus h1{font-size:32px;font-weight:600;font-style:normal;line-height:1.15}
+.workout-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 44px;gap:12px 8px;padding:0 2px}
+.workout-brand{font:italic 600 22px var(--display);white-space:nowrap;letter-spacing:-.6px}
+.workout-top .fprog{display:contents}.workout-top .flabel{grid-column:2;grid-row:1;font-size:13px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);text-align:center}
+.workout-top .ficon{grid-column:3;grid-row:1;background:transparent;border-radius:12px;box-shadow:none}.workout-top .ficon svg{width:21px;height:21px}
+.workout-top .fsegs{grid-column:1/-1;grid-row:2;gap:0;overflow:hidden;border-radius:4px;margin-bottom:4px}.workout-top .fsegs i{height:4px;border-radius:0}
+.focus .ahead{gap:6px}.exercise-muscles{font-size:13px;color:var(--muted)}.exercise-muscles:empty{display:none}
+.focus .acard{border:0;box-shadow:none;border-radius:26px;padding:22px 20px;gap:18px}
+.focus .acard .ach>b{font-size:25px;letter-spacing:-.5px}.focus .acard .ach>b span{font-size:17px;color:var(--muted)}.focus .acard .ach .goal{font-size:14px;font-weight:400;color:var(--ink)}
+.focus .ficon,.focus .abtn,.focus .amore{box-shadow:none}
+.focus .asteps{gap:14px}.focus .asteps .fstep{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;grid-template-rows:auto 56px;gap:8px 0;position:relative;background:transparent;border:0;padding:0;border-radius:0;text-align:left;isolation:isolate}
+.focus .asteps .fstep:before{content:'';grid-column:1/-1;grid-row:2;align-self:stretch;background:var(--sunk);border:1px solid var(--line);border-radius:16px;z-index:-1}
+.focus .asteps .fl{grid-column:1/-1;grid-row:1;margin:0;padding:0 4px;font:400 14px var(--body);color:var(--muted);letter-spacing:0;text-transform:none}
+.focus .asteps .fval{grid-column:2;grid-row:2;display:flex;align-items:center;justify-content:center;width:100%;max-width:100%;min-width:0;flex:none}
+.focus .asteps .fval input{font:600 32px var(--display);height:52px;max-width:100%;min-width:0;text-align:center}
+.focus .asteps .fval small{position:absolute;right:4px;top:0;font:400 12px var(--body);margin:0;max-width:65%;text-align:right}
+.focus .asteps .fixed>.num{grid-column:1/-1;grid-row:2;justify-self:center;font:600 32px var(--display)}
+.focus .asteps .abtns{display:contents}.focus .asteps .abtn:first-child{grid-column:1;grid-row:2}.focus .asteps .abtn:last-child{grid-column:3;grid-row:2}
+.focus .asteps .abtn{width:44px;min-width:0;height:56px;border:0;background:transparent;border-radius:14px;font:400 25px var(--body);padding:0;box-shadow:none}
+.focus .afoot .fbig{height:56px;min-height:56px;border-radius:16px;font-size:17px;font-weight:700;box-shadow:none}.focus .anext{font-size:13px}.focus .anext b{font-weight:400}
+.focus .atimer .aside{background:var(--sunk);border-radius:50%;font-weight:400}.focus .atimer .aside span{font-weight:400}
+.demo-first{gap:0}.demo-first .ahead{margin:16px 2px 10px}.demo-first .exercise-hero{margin:0 0 6px}
+.demo-first .acard{padding:24px 20px 18px;gap:18px}.demo-first .acard>.ffoot{margin-top:8px;padding-top:0;gap:12px}
+.exercise-hero .hero-how{font-weight:600;box-shadow:none;color:var(--ink);border:0;background:var(--surface)}.exercise-hero.has-demo .hero-how{left:52px;transform:none;bottom:8px}
+.focus .apair>button{background:var(--sunk);border:0;border-radius:14px}.focus .apair>button[aria-pressed="true"]{background:var(--accent-soft)}
+.workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
+.workout-menu-sheet.sheet,.workout-info-sheet.sheet{border-radius:26px;padding:24px 22px calc(24px + var(--safe-bottom));max-width:520px;max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px));gap:18px;box-shadow:none}
+.workout-menu-sheet.sheet{align-self:flex-start;margin-top:max(60px,env(safe-area-inset-top,0px)) ;max-height:calc(100dvh - 88px - env(safe-area-inset-top,0px))}
+.workout-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.workout-sheet-head h2{font-size:27px;font-weight:600;line-height:1.15;margin:0}.workout-sheet-head .ficon{background:none;box-shadow:none;width:44px;height:44px;font-size:25px;font-weight:400}
+.workout-menu-group h3{font:800 12px var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:8px 0 6px}
+.workout-menu-group+.workout-menu-group{margin-top:12px}.endsheet .menu-row{display:flex;flex-direction:row;align-items:center;gap:12px;padding:9px 6px;min-height:48px;background:transparent;border:0;border-radius:10px;color:var(--ink);font:inherit;cursor:pointer}.endsheet .menu-row:hover{background:var(--sunk)}.endsheet .menu-row b{font-size:15px;font-weight:600}.menu-row svg{width:20px;height:20px;flex:none}.menu-value{margin-left:auto;font-size:13px;color:var(--muted)}
+.endsheet .menu-end{margin-top:18px;padding-top:18px;border-top:1px solid var(--line);border-radius:0;color:var(--accent)}.menu-save{display:flex;justify-content:center}.menu-save .sync{font-size:12px;font-weight:400}
+.workout-disclosure{border-top:1px solid var(--line);padding-top:4px}.workout-disclosure summary{padding:12px 0;min-height:44px;cursor:pointer;font-size:14px;font-weight:700}.workout-disclosure .howto{margin:0;padding-left:20px;font-size:14px;color:var(--muted)}.workout-info-sheet .btn{min-height:56px;border-radius:16px;box-shadow:none}
+@media(max-width:359px){.workout-brand{font-size:19px}.focus h1{font-size:29px}.focus .acard,.demo-first .acard{padding:20px 16px}.focus .asteps{gap:10px}.focus .asteps .fval input{font-size:28px}.focus .acard .ach>b{font-size:23px}.focus .acard .ach .goal{font-size:12px}.workout-menu-sheet.sheet,.workout-info-sheet.sheet{padding-left:18px;padding-right:18px}.workout-sheet-head h2{font-size:25px}}
 </style>
 </head>
 <body>
@@ -3715,11 +3743,11 @@ function fTop(d,slots,label){
   if(label==null){
     label = st.ph==='warm'?'Warm-up':st.ph==='cool'?'Cool-down':'Workout';
     if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
-      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`; }
+      if(gi>=0) label = gs[gi].length>1 ? `Superset ${gi+1}` : `${gi+1} of ${gs.length}`; }
   }
   // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
   const m=saveStatus();
-  return `<div class="ftop"><span style="width:44px;flex:none" aria-hidden="true"></span>
+  return `<div class="ftop workout-top"><span class="workout-brand">Strong Start</span>
     <div class="fprog"><div class="flabel">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div></div>
     <button class="ficon" data-action="fmore" ${st.pk?`data-pk="${esc(st.pk)}"`:''} aria-label="Workout menu" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div>${m[0]==='warn'?`<button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(m[1])}</button>`:''}`;
 }
@@ -3762,10 +3790,10 @@ function workoutPath(d,slots,s){
   for(let i=0;i<count;i++){
     const available=moves.filter(m=>d.sets[m.pk]?.[i]),complete=available.every(m=>d.sets[m.pk][i].done),id=`s${i}`;
     const dest=available.find(m=>!d.sets[m.pk][i].done)||available[0];
-    const row=d.sets[dest.pk][i],tg=target(dest),value=pair?available.map(m=>String.fromCharCode(65+moves.indexOf(m))).join(' → '):complete?`${usesLoad(tg.ex)&&row.w?weightNumber(row.w)+' × ':''}${row.r}${tg.unit==='sec'?' s':''}`:`${usesLoad(tg.ex)?tg.lo+'–'+tg.hi:tg.r} ${tg.unit}`;
-    nodes.push(`<div class="path-stop"><button class="path-set ${complete?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${dest.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${complete?'Edit':'Go to'} ${pair?'round':'set'} ${i+1}${complete?', completed':''}"><span>${pair?'Round':'Set'} ${i+1}</span><small>${esc(value)}</small></button><span class="path-status">${active===id?'Current':''}</span></div>`);
-    if(i<count-1){const rid=`r${i}`,sec=Number(available[available.length-1].cfg.rest)||0,running=d.rest&&ui.timer?.label==='Rest'&&moves.some(m=>m.pk===d.rest.pk)&&(d.rest.afterRound??restRound)===i;
-      nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after ${pair?'round':'set'} ${i+1}, ${sec} seconds"><span class="path-clock" aria-hidden="true">◷</span><small ${running?'data-path-countdown':''} class="num">${mmss(running?Math.max(0,Math.ceil((ui.timer.end-Date.now())/1000)):sec)}</small></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
+
+    nodes.push(`<div class="path-stop"><button class="path-set ${complete?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${dest.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${complete?'Edit':'Go to'} ${pair?'round':'set'} ${i+1}${complete?', completed':active===id?', current':', remaining'}"><span>${pair?'Round':'Set'} ${i+1}</span></button><span class="path-status">${active===id?'Current':''}</span></div>`);
+    if(i<count-1){const rid=`r${i}`,sec=Number(available[available.length-1].cfg.rest)||0;
+      nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after ${pair?'round':'set'} ${i+1}, ${sec} seconds"><span class="path-clock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M12 2v3m6 1 1.5-1.5"/><circle cx="12" cy="14" r="8"/><path d="M12 9v5"/></svg></span></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
     }
   }
   return `<div class="workout-path" data-pks="${esc(moves.map(m=>m.pk).join('|'))}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier ${pair?'rounds':'sets'}">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${pair?'Superset rounds':'Set and rest sequence'}">${nodes.join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later ${pair?'rounds':'sets'}">›</button></div>`;
@@ -3807,18 +3835,19 @@ function fPairAction(d,slots,s,k,pair){
 // More sheet: the less-used actions for the current workout screen
 function fMoreSheet(pk){
   const d=state.draft; if(!d) return; const st=d.step||{};
-  const opt=(act,title,sub,extra='')=>`<button class="opt2" data-action="fmoredo" data-do="${act}" ${extra}><b>${title}</b><span class="tiny muted">${sub}</span></button>`;
-  const sound=opt('gmute', state.settings.sound===false?'Turn sound on':'Turn sound off', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
+  const icons={swap:'M4 7h14m-3-3 3 3-3 3M20 17H6m3-3-3 3 3 3',adjust:'M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6',fskipex:'m5 5 11 7-11 7V5Zm14 0v14',gmute:'M4 9h4l4-4v14l-4-4H4V9Zm12-2a7 7 0 0 1 0 10m2-13a11 11 0 0 1 0 16',fpause:'M8 5v14m8-14v14',flist:'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',fexit:'M5 5h14v14H5z',addset:'M5 12h14m-7-7v14',rmset:'M5 12h14',msgopen:'M4 4h16v13H9l-5 4V4Z'};
+  const opt=(act,title,sub,extra='')=>`<button class="opt2 menu-row ${act==='fexit'?'menu-end':''}" data-action="fmoredo" data-do="${act}" ${extra}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[act]||'M5 12h14m-6-6 6 6-6 6'}"/></svg><b>${title}</b>${act==='gmute'?`<span class="menu-value">${state.settings.sound===false?'Off':'On'}</span>`:['swap','adjust','flist','xswap'].includes(act)?'<span class="menu-value" aria-hidden="true">›</span>':''}<span class="workout-sr">${sub}</span></button>`;
+  const sound=opt('gmute', 'Timer sound', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
   let h='';
   if((st.ph==='warm'||st.ph==='cool') && d.listView){
     h+=opt('gguide','Guide me with timers','Return to the guided workout.');
     if(st.ph==='warm') h+=opt('fstart','Skip warm-up','Go to your first exercise.');
-    h+=sound;
+
   } else if((st.ph==='warm'||st.ph==='cool') && d.guide){
     const G=d.guide, it=gItems(G.ph)[G.i], pm=G.mode==='paused'?G.pmode:G.mode;
     if(it&&it.alts&&it.alts.length) h+=opt('xswap','Swap this move','Pick something similar.',`data-g="${it.g}" data-k="${it.k}"`);
     if(it&&it.phases&&pm!=='ready') h+=opt('gskipall','Skip the rest of this','Go straight to the next move.');
-    h+=sound+opt('glist','Show as a list','See every move and tick them off yourself.');
+    h+=opt('glist','Show as a list','See every move and tick them off yourself.');
     if(G.mode==='finq') h+=opt('gfin','Skip to the cool-down','', 'data-v="no"');
     if(G.mode==='end') h+=opt('gback','Back to the cool-down','Revisit the last move.');
   } else {
@@ -3830,13 +3859,11 @@ function fMoreSheet(pk){
       if(arr.length>1 && !arr[arr.length-1].done) h+=opt('rmset','Remove a set','',`data-pk="${pk}"`);
       h+=opt('fskipex','Skip this exercise','It won’t count against your progress.',`data-pk="${pk}"`);
     }
-    h+=sound;
+
   }
-  h+=opt('flist','Workout list','Jump to another exercise.');
-  h+=opt('fpause','Pause workout','Resume from Today when you’re ready.');
-  h+=opt('fexit','End workout','Save completed work or discard this session.');
-  if(AUTH.user) h+=opt('msgopen','Feedback','', 'data-side="app"');
-  modal(`<div class="endsheet stack" style="gap:10px"><h2>Workout menu</h2>${h}${fSaveRow()}<button class="btn ghost block" data-action="closemodal">Close</button></div>`);
+  h=(h?`<section class="workout-menu-group"><h3>${st.ph==='warm'?'This warm-up':st.ph==='cool'?'This cool-down':'This exercise'}</h3>${h}</section>`:'')+
+    `<section class="workout-menu-group"><h3>This workout</h3>${opt('flist','Workout list','Jump to another exercise.')}${opt('fpause','Pause workout','Resume from Today when you’re ready.')}${sound}${AUTH.user?opt('msgopen','Feedback','', 'data-side="app"'):''}</section>`;
+  modal(`<div class="workout-sheet-head"><h2>Workout menu</h2><button class="ficon" data-action="closemodal" aria-label="Close workout menu">×</button></div><div class="endsheet">${h}${opt('fexit','End workout','Save completed work or discard this session.')}</div><div class="menu-save">${fSaveRow()}</div>`,{sheetClass:'workout-menu-sheet',scrimClass:'workout-overlay'});
 }
 function stepper(pk,i,f,val,unit,label,ramp=false){
   const scope=ramp?' data-ramp="true"':'';
@@ -3900,7 +3927,7 @@ function renderFocus(){
     const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
     const sets=d.sets[s.pk]||[], k=sets.findIndex(x=>!x.done), dn=sets.filter(x=>x.done).length;
     return `<div class="focus demo-first">${fTop(d,slots)}
-      <div class="ahead"><h1>${esc(ex.n)}</h1></div>
+      <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div></div>
       ${workoutHero(ex,s.pk)}
       <section class="card acard"><div class="ach"><b>Rest</b><span class="goal">of ${mmss(tot)}</span></div>
         ${pair?fPairStrip(d,pair,s.pk,true):''}
@@ -3909,10 +3936,10 @@ function renderFocus(){
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>
-        ${workoutPath(d,slots,s)}</section>
+        ${workoutPath(d,slots,s)}
       <button class="linkbtn" style="align-self:center;min-height:44px" data-action="fviewsets">View / edit sets</button>
 
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></div>`;
+      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':pair?`Start ${String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk))} · round ${k+1}`:`I’m ready${k>=0?` for set ${k+1}`:''}`}</button></div>${pair?`<div class="anext">Up next: <b>${esc(ex.n)}</b></div>`:upNext()}</div></section></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -3938,17 +3965,17 @@ function renderFocus(){
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk], wShow=tg.w??tg.sug;
   const lastTxt = tg.last ? 'Last time: '+tg.last.map(x=>(load&&x.w?`${weightNumber(x.w)}×`:'')+x.r).join(', ') : load ? (wShow!=null?'Suggested start. Change it if it feels off.':'First time: start light.') : startTip(ex);
-  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `Exercise ${gi+1} of ${gs.length}`;
+  const isB = gs[gi].length>1, label = isB ? `Superset ${gi+1}` : `${gi+1} of ${gs.length}`;
   const pairAction=pair?fPairAction(d,slots,s,kk,pair):null;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
-    <div class="ahead"><h1>${esc(ex.n)}</h1>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
+    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
     ${workoutHero(ex,s.pk)}
-    <section class="card acard">${pair?fPairStrip(d,pair,s.pk,false,kk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">Goal ${goal}</span></div>
+    <section class="card acard">${pair?fPairStrip(d,pair,s.pk,false,kk):''}<div class="ach"><b>${pair?'Round':'Set'} ${kk+1} <span>of ${sets.length}</span></b><span class="goal">${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       <div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>
-      ${workoutPath(d,slots,s)}</section>
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:'Log set'}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></div>`;
+      ${workoutPath(d,slots,s)}
+    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':pairAction?pairAction.label:'Log set'}</button></div>${pairAction?`<div class="anext">${pairAction.next}</div>`:upNext()}</div></section></div>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};
@@ -4017,6 +4044,17 @@ function exInfo(id, pk){
   const ex=EX[id]; if(!ex) return; const m=EXM[id], c=exColor(id), med=EX_MEDIA[id];
   const slot = pk ? (state.draft&&state.draft.sets[pk]?dSlots():weekKeys().flatMap(sessionSlots)).find(x=>x.pk===pk && x.id===id) : null;
   const tg = slot ? target(slot) : null, w = tg ? (tg.w??tg.sug) : null;
+  if(ui.tab==='workout' && state.draft){
+    const steps=exHowTo(ex);
+    modal(`<div class="workout-sheet-head"><h2>${esc(ex.n)}</h2><button class="ficon" data-action="closemodal" aria-label="Close instructions">×</button></div>
+      ${painWarningCard(ex)}<div><div class="eyebrow">How to</div><p class="small">${esc(steps[0])}</p></div>
+      <details class="workout-disclosure" open><summary>Form tips</summary><ol class="howto">${steps.slice(1).map(t=>`<li>${esc(t)}</li>`).join('')}</ol></details>
+      <details class="workout-disclosure"><summary>Exercise details</summary><div class="stack"><div class="small muted">${esc(eqLabelList(ex).join(', '))}${ex.uni?' · One side at a time':''}</div>
+        ${tg?`<div class="small">${tg.sets} sets × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}${usesLoad(ex)&&w!=null?' · '+fmtW(w):''}</div>`:''}
+        ${m?`<div class="bodypair">${bodySVG('f',c,{cls:'bodybig'})}${bodySVG('b',c,{cls:'bodybig'})}</div><div class="small muted">${esc([...m.p,...m.s].map(k=>MUSCLES[k]).join(' · '))}</div>`:''}</div></details>
+      <button class="btn primary block" data-action="closemodal">Back to workout</button>`,{sheetClass:'workout-info-sheet',scrimClass:'workout-overlay'});
+    return;
+  }
   modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(ex.n)}</h2>
       <div class="row" style="margin-top:6px">${planeChip(ex.pl)}${ex.uni?'<span class="chip">One side at a time</span>':''}</div>${eqLabelList(ex).length?`<div class="small muted" style="margin-top:6px">You’ll need: ${esc(eqLabelList(ex).join(', '))}</div>`:''}</div>
     ${painWarningCard(ex)}
@@ -4725,7 +4763,7 @@ function renderRamp(d,s,X){
   return `<div class="focus">${fTop(d,dSlots(),`Warm-up set ${k+1} of ${ramps.length}`)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div></div>
     <section class="card acard"><div class="ach"><b>Lighter set</b><span class="goal">Not logged</span></div>
-      <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
+      <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep fixed"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
       ${row.w===''?`<div class="tiny muted" style="text-align:center">${esc(m?m[1]:r.d)}</div>`:''}
       <div class="tiny muted" style="text-align:center">Easy and smooth. These prepare you for your working sets.</div></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>

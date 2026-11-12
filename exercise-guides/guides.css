@@ -25,3 +25,9 @@
 .eg-inline .eg-view{min-width:0}
 .eg-inline:not([data-guide-status]){min-height:310px}
 @media(max-width:360px){.eg-inline:not([data-guide-status]){min-height:285px}}
+
+/* Quiet, icon-only playback controls on the workout demonstration. */
+.eg-inline .eg-controls{bottom:8px}.eg-inline .eg-controls button{width:44px;height:44px;padding:0;border:0;display:grid;place-items:center;background:var(--surface)}
+.eg-inline .eg-controls svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+.eg-inline[data-guide-status=ready] model-viewer::part(default-progress-bar){display:none}

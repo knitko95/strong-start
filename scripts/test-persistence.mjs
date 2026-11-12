@@ -87,6 +87,7 @@ await test('six-set path alternates sets and rests, preserves current while brow
   assert.equal((out.match(/class="path-set /g)||[]).length,6);assert.equal((out.match(/class="path-rest /g)||[]).length,5);
   assert.deepEqual([...out.matchAll(/data-path-id="([sr]\d+)"/g)].map(m=>m[1]),['s0','r0','s1','r1','s2','r2','s3','r3','s4','r4','s5']);
   assert.match(out,/Show earlier sets/);assert.match(out,/Show later sets/);assert.doesNotMatch(out,/arest-link|Back to current/);
+  const path=h.run('workoutPath(state.draft,dSlots(),dSlots().find(s=>s.pk===pathPk))');assert.doesNotMatch(path,/<small|data-path-countdown|◷/);assert.equal((path.match(/class="path-clock"/g)||[]).length,5);assert.match(path,/, completed/);assert.match(path,/, current/);assert.match(path,/, remaining/);
   h.click('fset',{pk,i:'0'});assert.equal(h.run('state.draft.pathCurrent.i'),3);
   const edit=h.run('renderFocus()');assert.match(edit,/data-path-id="s3"[^>]*aria-current="step"/);assert.match(edit,/data-path-id="s0"[^>]*aria-pressed="true"/);
   h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.run(`state=JSON.parse(localStorage.getItem(LS)).state;`);h.click('fdone',{pk,i:'0'});

@@ -44,7 +44,7 @@
       const presentation=guide.presentation,card=document.createElement('section');
       card.className='eg-demo'+(inline?' eg-inline':'');card.dataset.exerciseGuide=exerciseId;card.setAttribute('aria-label','3D exercise demonstration');
       card.innerHTML=inline
-        ? '<span class="eg-status" role="status">Loading demonstration…</span><div class="eg-view"></div><div class="eg-controls" hidden><button type="button" class="eg-play" aria-label="Pause demonstration">Pause</button><button type="button" class="eg-expand" aria-expanded="false">Expand</button></div>'
+        ? '<span class="eg-status" role="status">Loading demonstration…</span><div class="eg-view"></div><div class="eg-controls" hidden><button type="button" class="eg-play" aria-label="Pause demonstration">Pause</button><button type="button" class="eg-expand" aria-label="Expand demonstration" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg></button></div>'
         : '<div class="eg-head"><h3>3D demonstration</h3><span class="eg-status" role="status">Loading…</span></div><div class="eg-view"></div><p class="eg-hint">Drag to rotate · Scroll or pinch to zoom</p><div class="eg-controls" hidden><button type="button" class="btn eg-play">Pause demonstration</button><label>Speed <select class="eg-speed"><option value="1">Normal</option><option value="0.5">Half speed</option></select></label></div><div class="eg-angles" role="group" aria-label="Demonstration view" hidden><button type="button" class="btn" data-eg-angle="0" aria-pressed="false">Front</button><button type="button" class="btn" data-eg-angle="-90" aria-pressed="false">Side</button><button type="button" class="btn" data-eg-angle="180" aria-pressed="false">Back</button><button type="button" class="btn eg-reset">Reset view</button></div>';
       for(const event of ['click','input','change'])card.addEventListener(event,e=>e.stopPropagation(),{signal:entry.abort.signal});
       mount.hidden=false;mount.replaceChildren(card);entry.card=card;
@@ -77,7 +77,7 @@
         if(!owned(entry)||!entry.ready)return;
         const playing=entry.wantsPlayback&&!document.hidden&&!(inline&&covered);
         if(playing)model.play();else model.pause();
-        play.textContent=inline?(entry.wantsPlayback?'Pause':'Play'):(entry.wantsPlayback?'Pause demonstration':'Play demonstration');
+        if(inline)play.innerHTML=entry.wantsPlayback?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6V6Z"/></svg>';else play.textContent=entry.wantsPlayback?'Pause demonstration':'Play demonstration';
         play.setAttribute('aria-label',entry.wantsPlayback?'Pause demonstration':'Play demonstration');
         status.textContent=playing?'Playing':'Paused';
       }
@@ -96,7 +96,7 @@
       speed?.addEventListener('change',()=>{model.timeScale=Number(speed.value);},{signal:entry.abort.signal});
       for(const button of angles)button.addEventListener('click',()=>{clearAngles();button.setAttribute('aria-pressed','true');camera(`${button.dataset.egAngle}deg 78deg ${radius()}`);},{signal:entry.abort.signal});
       card.querySelector('.eg-reset')?.addEventListener('click',()=>{clearAngles();camera(defaultOrbit());},{signal:entry.abort.signal});
-      card.querySelector('.eg-expand')?.addEventListener('click',e=>{const expanded=card.classList.toggle('expanded');e.currentTarget.textContent=expanded?'Collapse':'Expand';e.currentTarget.setAttribute('aria-expanded',String(expanded));},{signal:entry.abort.signal});
+      card.querySelector('.eg-expand')?.addEventListener('click',e=>{const expanded=card.classList.toggle('expanded');e.currentTarget.setAttribute('aria-label',expanded?'Collapse demonstration':'Expand demonstration');e.currentTarget.setAttribute('aria-expanded',String(expanded));},{signal:entry.abort.signal});
       document.addEventListener('visibilitychange',playback,{signal:entry.abort.signal});
       view.append(model);model.setAttribute('camera-orbit',defaultOrbit());model.src=new URL(variant.asset,base).href;
     }catch{if(owned(entry)){if(entry.fail)entry.fail();else unavailable();}}
