@@ -4484,7 +4484,7 @@ function renderGuide(){
     return `<div class="focus">${gtop}${headRow}
       <section class="card acard"><div class="ach"><b>${paused?'Paused':'Get ready'}</b><span class="goal">${paused?'':'starts in'}</span></div>
         <div class="atimer">${back}${gRing(sl,READY,'',true)}${fwd}</div>
-        ${ph ? `<div class="anote"><div class="tiny muted">The plan. Tap a part to start there.</div>${phaseChips(S,-1)}</div>` : `<div class="anote"><div>${esc(setup)}</div>${it.why?`<div style="color:var(--accent);font-weight:700">Gets you ready for ${esc(it.why)}</div>`:''}</div>`}</section>
+        ${ph ? `<div class="anote"><div class="tiny muted">The plan. Tap a part to start there.</div>${phaseChips(S,-1)}</div>` : `<div class="anote"><div>${esc(setup)}</div></div>`}</section>
       ${foot(`<button class="btn primary fbig" data-action="${paused?'gresume':'gnow'}">${paused?'Resume':'Start now'}</button>`,'3 short beeps, then it starts')}</div>`;
   }
   if(pm==='reps'){
