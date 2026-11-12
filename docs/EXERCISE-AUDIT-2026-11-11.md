@@ -8,6 +8,8 @@ Screened the 320 `LIB_RAW` entries, shared `exHowTo()` instructions, 92 `MOVE_HO
 
 The [entry-by-entry inventory](exercise-audit-2026-11-11.json) records source URLs, reference coverage, individual findings and changed fields. These are **coverage categories, not pass marks**:
 
+The [ongoing source register](EXERCISE-SOURCES.md) makes these exercise-to-source associations browsable and retains this dated audit when later reviews add NASM or other credible sources. The register is documentation only; it is not displayed in the app.
+
 | Reference coverage | Catalog | Warm-up/stretch how-tos |
 | --- | ---: | ---: |
 | Same movement described by an inspected NASM page/article | 33 | 8 |
