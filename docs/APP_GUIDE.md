@@ -63,6 +63,8 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 ## Exercise demonstrations
 
+The development exercise text has undergone a NASM reference audit with corrections to six cues and shared instructions for timed movement, power exercises and warm-ups. Reference coverage is incomplete and some NASM pages contain conflicting information; this is not professional technique certification. See the [audit, sources and remaining limits](EXERCISE-AUDIT-2026-11-11.md).
+
 On the test app, the how-to cards for Dumbbell Romanian Deadlift, Hammer Curl, Standing Dumbbell Shoulder Press, Dumbbell Bench Press and Plank include the reviewed rose-top 3D demonstration. Drag to rotate, scroll or pinch to zoom, pause, choose half speed, or use Front/Side/Back and Reset view. Side faces right. The demonstration loads when its how-to opens; the written steps remain available when 3D cannot load or the device is offline. The standalone bodyweight squat reference is not attached to a library exercise. These five demos are enabled only in development; see [the registry and verification record](EXERCISE-GUIDES-2026-11-11.md).
 
 ## Exploring the muscle map

@@ -1,0 +1,4559 @@
+{
+  "reviewDate": "2026-11-11",
+  "baseCommit": "8c30d8e0e082a86c66b17384f4d772b87ceaf116",
+  "scope": "Catalog and written how-to screen against inspected NASM references. Reference levels describe evidence coverage, not approval or certification. Related-only entries are not individually verified.",
+  "summary": {
+    "catalog": 320,
+    "catalogReferenceLevels": {
+      "same-movement": 33,
+      "related-only": 244,
+      "unresolved": 43
+    },
+    "catalogCuesChanged": 6,
+    "warmupHowTos": 92,
+    "warmupReferenceLevels": {
+      "unresolved": 60,
+      "related-only": 24,
+      "same-movement": 8
+    }
+  },
+  "sources": {
+    "bench": {
+      "title": "Barbell Bench Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/barbell-bench-press"
+    },
+    "db-rdl": {
+      "title": "Dumbbell Romanian Deadlift",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift"
+    },
+    "rdl": {
+      "title": "Romanian Deadlift Barbell",
+      "url": "https://www.nasm.org/resource-center/exercise-library/romanian-deadlift-barbell"
+    },
+    "good-morning": {
+      "title": "Good Mornings",
+      "url": "https://www.nasm.org/resource-center/exercise-library/good-mornings"
+    },
+    "deadlift": {
+      "title": "Barbell Deadlift",
+      "url": "https://www.nasm.org/resource-center/exercise-library/barbell-deadlift"
+    },
+    "kb-deadlift": {
+      "title": "Kettlebell Deadlift",
+      "url": "https://www.nasm.org/resource-center/exercise-library/kettlebell-deadlift"
+    },
+    "leg-press": {
+      "title": "Leg Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/leg-press"
+    },
+    "single-press": {
+      "title": "Single-Leg Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/single-leg-press"
+    },
+    "lying-curl": {
+      "title": "Lying Leg Curl",
+      "url": "https://www.nasm.org/resource-center/exercise-library/lying-leg-curl"
+    },
+    "seated-curl": {
+      "title": "Seated Leg Curl",
+      "url": "https://www.nasm.org/resource-center/exercise-library/seated-leg-curl"
+    },
+    "plank": {
+      "title": "Plank",
+      "url": "https://www.nasm.org/resource-center/exercise-library/plank"
+    },
+    "side-plank": {
+      "title": "Side Plank",
+      "url": "https://www.nasm.org/resource-center/exercise-library/side-plank"
+    },
+    "dead-bug": {
+      "title": "Dead Bug",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dead-bug"
+    },
+    "bridge": {
+      "title": "Floor Bridge",
+      "url": "https://www.nasm.org/resource-center/exercise-library/floor-bridge"
+    },
+    "bulgarian": {
+      "title": "Bulgarian Split Squat",
+      "url": "https://www.nasm.org/resource-center/exercise-library/bulgarian-split-squat"
+    },
+    "goblet": {
+      "title": "Goblet Squat",
+      "url": "https://www.nasm.org/resource-center/exercise-library/goblet-squat"
+    },
+    "kb-squat": {
+      "title": "Kettlebell Front Squat",
+      "url": "https://www.nasm.org/resource-center/exercise-library/kettlebell-front-squat"
+    },
+    "prisoner": {
+      "title": "Prisoner Squat",
+      "url": "https://www.nasm.org/resource-center/exercise-library/prisoner-squat"
+    },
+    "box-jump": {
+      "title": "Box Jumps",
+      "url": "https://www.nasm.org/resource-center/exercise-library/box-jumps"
+    },
+    "squat-jump": {
+      "title": "Squat Jump",
+      "url": "https://www.nasm.org/resource-center/exercise-library/squat-jump"
+    },
+    "tuck-jump": {
+      "title": "Tuck Jump",
+      "url": "https://www.nasm.org/resource-center/exercise-library/tuck-jump"
+    },
+    "lunge-jump": {
+      "title": "Lunge Jump",
+      "url": "https://www.nasm.org/resource-center/exercise-library/lunge-jump"
+    },
+    "push-up": {
+      "title": "Push-Up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/push-up"
+    },
+    "pike": {
+      "title": "Pike Push-Up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pike-push-up"
+    },
+    "pull-up": {
+      "title": "Pull-Up",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pull-up"
+    },
+    "curl": {
+      "title": "Barbell Bicep Curl",
+      "url": "https://www.nasm.org/resource-center/exercise-library/barbell-bicep-curl"
+    },
+    "face-pull": {
+      "title": "Face Pull",
+      "url": "https://www.nasm.org/resource-center/exercise-library/face-pull"
+    },
+    "calf": {
+      "title": "Leg Press Calf Raise",
+      "url": "https://www.nasm.org/resource-center/exercise-library/leg-press-calf-raise"
+    },
+    "bench-dip": {
+      "title": "Bench Dips",
+      "url": "https://www.nasm.org/resource-center/exercise-library/bench-dips"
+    },
+    "twist": {
+      "title": "Russian Twist",
+      "url": "https://www.nasm.org/resource-center/exercise-library/russian-twist"
+    },
+    "machine-press": {
+      "title": "Chest Press Machine",
+      "url": "https://www.nasm.org/resource-center/exercise-library/chest-press-machine"
+    },
+    "single-db-press": {
+      "title": "Single-Arm Dumbbell Chest Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/single-arm-dumbbell-chest-press"
+    },
+    "incline-db": {
+      "title": "Two-Arm Incline Dumbbell Chest Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/two-arm-incline-dumbbell-chest-press"
+    },
+    "incline-bb": {
+      "title": "Incline Barbell Bench Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/incline-barbell-bench-press"
+    },
+    "close-press": {
+      "title": "Close Grip Bench Press",
+      "url": "https://www.nasm.org/resource-center/exercise-library/close-grip-bench-press"
+    },
+    "fly": {
+      "title": "Cable Crossover",
+      "url": "https://www.nasm.org/resource-center/exercise-library/cable-crossover"
+    },
+    "bird": {
+      "title": "Bird Dog",
+      "url": "https://www.nasm.org/resource-center/exercise-library/bird-dog"
+    },
+    "child": {
+      "title": "Child's Pose",
+      "url": "https://www.nasm.org/resource-center/exercise-library/childs-pose"
+    },
+    "butterfly": {
+      "title": "Static Butterfly Stretch",
+      "url": "https://www.nasm.org/resource-center/exercise-library/static-butterfly-stretch"
+    },
+    "core": {
+      "title": "Core Programming That Translates to Real Life",
+      "url": "https://www.nasm.org/resource-center/blog/training/core-training-programming"
+    },
+    "functional": {
+      "title": "Functional Strength Training",
+      "url": "https://www.nasm.org/resource-center/blog/training/functional-strength-training"
+    },
+    "stretching": {
+      "title": "Stretches for Beginners",
+      "url": "https://www.nasm.org/resource-center/blog/recovery/stretches-for-beginners"
+    },
+    "planes": {
+      "title": "The 3 Planes of Motion Explained",
+      "url": "https://www.nasm.org/resource-center/blog/training/the-3-planes-of-motion-explained-with-exercises"
+    },
+    "clamshell": {
+      "title": "The Banded Clamshell",
+      "url": "https://www.nasm.org/resource-center/blog/training/the-banded-clamshell-a-simple-move-for-stronger-glutes"
+    },
+    "pulldown": {
+      "title": "The Biomechanics of the Lat Pulldown",
+      "url": "https://www.nasm.org/resource-center/blog/training/the-biomechanics-of-the-lat-pulldown-muscles-grip-and-form"
+    },
+    "talk": {
+      "title": "Heart Rate Training Zones Explained",
+      "url": "https://www.nasm.org/resource-center/blog/heart-rate-training-zones-explained"
+    },
+    "power": {
+      "title": "NASM OPT Model: power movement examples",
+      "url": "https://www.nasm.org/certified-personal-trainer/the-opt-model"
+    },
+    "kb-ballistics": {
+      "title": "Integrated Kettlebell Training",
+      "url": "https://www.nasm.org/docs/default-source/pdf/integrated-kettlebell-2014-2-day.pdf"
+    },
+    "hinge-guide": {
+      "title": "Squats and Deadlifts guide",
+      "url": "https://trainer.nasm.org/hubfs/NASM_Free%20Guide_Squats%20and%20Deadlifts.pdf?hsLang=en"
+    },
+    "arms": {
+      "title": "9 Best Arm Exercises (source contains anatomy errors; limited use)",
+      "url": "https://blog.nasm.org/workout-plans/9-best-arm-exercises/"
+    }
+  },
+  "exercises": [
+    {
+      "id": "barbell-bench-press",
+      "name": "Barbell Bench Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "bench"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "close-grip-bench-press",
+      "name": "Close-Grip Bench Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "SOURCE CONFLICT: NASM common-mistakes section describes pulling mechanics. Retained existing cue; source comparison limited to pressing steps.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "smith-machine-bench-press",
+      "name": "Smith Machine Bench Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-chest-press",
+      "name": "Machine Chest Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "standing-cable-chest-press",
+      "name": "Standing Cable Chest Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-cable-chest-press",
+      "name": "Single-Arm Cable Chest Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-dumbbell-bench-press",
+      "name": "Single-Arm Dumbbell Bench Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "single-db-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-floor-press",
+      "name": "Dumbbell Floor Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-floor-press",
+      "name": "Kettlebell Floor Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "weighted-push-up",
+      "name": "Weighted Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-chest-press",
+      "name": "TRX Chest Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "incline-db"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "incline-barbell-bench-press",
+      "name": "Incline Barbell Bench Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "incline-bb"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "incline-machine-press",
+      "name": "Incline Machine Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "weighted-dip",
+      "name": "Weighted Dip",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-fly-high-to-low",
+      "name": "Cable Fly High to Low",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "SOURCE DIFFERENCE: NASM cable crossover uses a different pulley angle; not evidence that high-to-low flies are incorrect.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-fly-low-to-high",
+      "name": "Cable Fly Low to High",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "SOURCE DIFFERENCE: NASM cable crossover uses a different pulley angle; not evidence that low-to-high flies are incorrect.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "pec-deck",
+      "name": "Pec Deck",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-fly-on-stability-ball",
+      "name": "Dumbbell Fly on Stability Ball",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-fly",
+      "name": "TRX Fly",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "deficit-push-up",
+      "name": "Deficit Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "push-up-on-stability-ball",
+      "name": "Push-Up on Stability Ball",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "feet-on-ball-push-up",
+      "name": "Feet-on-Ball Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-squeeze-press",
+      "name": "Dumbbell Squeeze Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "FOLLOW-UP: inner-chest wording overstates anatomical specificity; no exact usable NASM comparison located.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "standing-barbell-overhead-press",
+      "name": "Standing Barbell Overhead Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "push-press",
+      "name": "Push Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "z-press",
+      "name": "Z Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "seated-dumbbell-shoulder-press",
+      "name": "Seated Dumbbell Shoulder Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "standing-dumbbell-shoulder-press",
+      "name": "Standing Dumbbell Shoulder Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-shoulder-press",
+      "name": "Machine Shoulder Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "half-kneeling-landmine-press",
+      "name": "Half-Kneeling Landmine Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-kettlebell-overhead-press",
+      "name": "Single-Arm Kettlebell Overhead Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bottoms-up-kettlebell-press",
+      "name": "Bottoms-Up Kettlebell Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "arnold-press",
+      "name": "Arnold Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "half-kneeling-single-arm-cable-press",
+      "name": "Half-Kneeling Single-Arm Cable Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "pike-push-up",
+      "name": "Pike Push-Up",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "pike"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-lateral-raise",
+      "name": "Dumbbell Lateral Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-lateral-raise",
+      "name": "Cable Lateral Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-lateral-raise",
+      "name": "Machine Lateral Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "leaning-single-arm-lateral-raise",
+      "name": "Leaning Single-Arm Lateral Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "lu-raise",
+      "name": "Lu Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-y-raise",
+      "name": "Cable Y-Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "y-raise-on-stability-ball",
+      "name": "Y-Raise on Stability Ball",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-front-raise",
+      "name": "Dumbbell Front Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-halo",
+      "name": "Kettlebell Halo",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-rope-pushdown",
+      "name": "Cable Rope Pushdown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "overhead-cable-triceps-extension",
+      "name": "Overhead Cable Triceps Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-cable-kickback",
+      "name": "Single-Arm Cable Kickback",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-skull-crusher",
+      "name": "Dumbbell Skull Crusher",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-skull-crusher",
+      "name": "Barbell Skull Crusher",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-overhead-triceps-extension",
+      "name": "Dumbbell Overhead Triceps Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "tate-press",
+      "name": "Tate Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-triceps-extension",
+      "name": "Machine Triceps Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bench-dip",
+      "name": "Bench Dip",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "bench-dip"
+      ],
+      "result": "SOURCE CONFLICT: NASM exercise steps describe dips but its muscle section describes a barbell deadlift. Retained app muscles; no claim of validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "diamond-push-up",
+      "name": "Diamond Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-triceps-extension",
+      "name": "TRX Triceps Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-woodchop-high-to-low",
+      "name": "Cable Woodchop High to Low",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-lift-low-to-high",
+      "name": "Cable Lift Low to High",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "pallof-press",
+      "name": "Pallof Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "half-kneeling-pallof-press",
+      "name": "Half-Kneeling Pallof Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-trunk-rotation",
+      "name": "Cable Trunk Rotation",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "landmine-rainbow",
+      "name": "Landmine Rainbow",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "landmine-rotational-push-press",
+      "name": "Landmine Rotational Push Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ball-russian-twist",
+      "name": "Ball Russian Twist",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "twist"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-russian-twist",
+      "name": "Dumbbell Russian Twist",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "twist"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-windmill",
+      "name": "Kettlebell Windmill",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-around-the-world",
+      "name": "Kettlebell Around-the-World",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-anti-rotation-press",
+      "name": "TRX Anti-Rotation Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "renegade-row",
+      "name": "Renegade Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-torso-rotation",
+      "name": "Machine Torso Rotation",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hanging-oblique-knee-raise",
+      "name": "Hanging Oblique Knee Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-rollout",
+      "name": "Stability Ball Rollout",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "Clarified stopping before loss of trunk control.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stir-the-pot",
+      "name": "Stir the Pot",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "stability-ball-pike",
+      "name": "Stability Ball Pike",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-jackknife",
+      "name": "Stability Ball Jackknife",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ball-crunch",
+      "name": "Ball Crunch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-body-saw",
+      "name": "TRX Body Saw",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "trx-pike",
+      "name": "TRX Pike",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-fallout",
+      "name": "TRX Fallout",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hanging-leg-raise",
+      "name": "Hanging Leg Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-crunch",
+      "name": "Cable Crunch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-ab-crunch",
+      "name": "Machine Ab Crunch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-rollout",
+      "name": "Barbell Rollout",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "weighted-decline-sit-up",
+      "name": "Weighted Decline Sit-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead Bug",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "dead-bug"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "plank",
+      "name": "Plank",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "plank"
+      ],
+      "result": "Replaced automatic plate-loading suggestion (load is not logged for this timed move) with alignment instructions.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "side-plank",
+      "name": "Side Plank",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "side-plank"
+      ],
+      "result": "Clarified shoulder support and straight alignment rather than pushing hips forward.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked",
+        "Timed side switch uses intervals, not reps"
+      ]
+    },
+    {
+      "id": "copenhagen-plank",
+      "name": "Copenhagen Plank",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked",
+        "Timed side switch uses intervals, not reps"
+      ]
+    },
+    {
+      "id": "hollow-body-hold",
+      "name": "Hollow Body Hold",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "dumbbell-farmer-s-carry",
+      "name": "Dumbbell Farmer's Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-farmer-s-carry",
+      "name": "Kettlebell Farmer's Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "suitcase-carry",
+      "name": "Suitcase Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-front-rack-carry",
+      "name": "Kettlebell Front Rack Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "overhead-kettlebell-carry",
+      "name": "Overhead Kettlebell Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "mixed-rack-and-suitcase-carry",
+      "name": "Mixed Rack and Suitcase Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "weighted-pull-up",
+      "name": "Weighted Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "chin-up",
+      "name": "Chin-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "neutral-grip-pull-up",
+      "name": "Neutral-Grip Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "l-sit-pull-up",
+      "name": "L-Sit Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat Pulldown",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "close-grip-lat-pulldown",
+      "name": "Close-Grip Lat Pulldown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-lat-pulldown",
+      "name": "Single-Arm Lat Pulldown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-pulldown",
+      "name": "Machine Pulldown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-bent-over-row",
+      "name": "Barbell Bent-Over Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "pendlay-row",
+      "name": "Pendlay Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "seal-row",
+      "name": "Seal Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "chest-supported-dumbbell-row",
+      "name": "Chest-Supported Dumbbell Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "landmine-t-bar-row",
+      "name": "Landmine T-Bar Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "seated-cable-row",
+      "name": "Seated Cable Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-row",
+      "name": "Machine Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "inverted-row",
+      "name": "Inverted Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-row",
+      "name": "TRX Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-gorilla-row",
+      "name": "Kettlebell Gorilla Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-dumbbell-row",
+      "name": "Single-Arm Dumbbell Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-arm-rotational-cable-row",
+      "name": "Single-Arm Rotational Cable Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "meadows-row",
+      "name": "Meadows Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-single-arm-row",
+      "name": "Kettlebell Single-Arm Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-single-arm-row",
+      "name": "TRX Single-Arm Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-power-pull",
+      "name": "TRX Power Pull",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "straight-arm-cable-pulldown",
+      "name": "Straight-Arm Cable Pulldown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-pullover",
+      "name": "Dumbbell Pullover",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "half-kneeling-single-arm-cable-row",
+      "name": "Half-Kneeling Single-Arm Cable Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ball-supported-dumbbell-row",
+      "name": "Ball-Supported Dumbbell Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-face-pull",
+      "name": "Cable Face Pull",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "face-pull"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "reverse-pec-deck",
+      "name": "Reverse Pec Deck",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bent-over-dumbbell-reverse-fly",
+      "name": "Bent-Over Dumbbell Reverse Fly",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-reverse-fly",
+      "name": "Cable Reverse Fly",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "incline-dumbbell-rear-delt-row",
+      "name": "Incline Dumbbell Rear Delt Row",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-face-pull",
+      "name": "TRX Face Pull",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "face-pull"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-y-t-w",
+      "name": "TRX Y-T-W",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ball-prone-y-t-w",
+      "name": "Ball Prone Y-T-W",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-external-rotation",
+      "name": "Cable External Rotation",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-shrug",
+      "name": "Dumbbell Shrug",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-curl",
+      "name": "Barbell Curl",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "incline-dumbbell-curl",
+      "name": "Incline Dumbbell Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hammer-curl",
+      "name": "Hammer Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-curl",
+      "name": "Cable Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bayesian-cable-curl",
+      "name": "Bayesian Cable Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "machine-preacher-curl",
+      "name": "Machine Preacher Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "concentration-curl",
+      "name": "Concentration Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "zottman-curl",
+      "name": "Zottman Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-spider-curl",
+      "name": "Dumbbell Spider Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-hammer-curl",
+      "name": "Kettlebell Hammer Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-biceps-curl",
+      "name": "TRX Biceps Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-back-squat",
+      "name": "Barbell Back Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "front-squat",
+      "name": "Front Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "zercher-squat",
+      "name": "Zercher Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "box-squat",
+      "name": "Box Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hack-squat",
+      "name": "Hack Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "leg-press"
+      ],
+      "result": "Depth cue waited for pelvic tuck; corrected to keep pelvis and back supported.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "smith-machine-squat",
+      "name": "Smith Machine Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "goblet-squat",
+      "name": "Goblet Squat",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "goblet"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "double-kettlebell-front-squat",
+      "name": "Double Kettlebell Front Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "heel-elevated-dumbbell-squat",
+      "name": "Heel-Elevated Dumbbell Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-wall-squat",
+      "name": "Stability Ball Wall Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "conventional-deadlift",
+      "name": "Conventional Deadlift",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "deadlift"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "sumo-deadlift",
+      "name": "Sumo Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "deadlift",
+        "kb-deadlift"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "romanian-deadlift",
+      "name": "Romanian Deadlift",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-romanian-deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "db-rdl"
+      ],
+      "result": "Cue omitted the hip hinge; added hip movement and a spinal-control depth limit.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "double-kettlebell-deadlift",
+      "name": "Double Kettlebell Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "deadlift",
+        "kb-deadlift"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-swing",
+      "name": "Kettlebell Swing",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "kb-ballistics"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "good-morning",
+      "name": "Good Morning",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "good-morning"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-pull-through",
+      "name": "Cable Pull-Through",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "weighted-back-extension",
+      "name": "Weighted Back Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning",
+        "functional"
+      ],
+      "result": "FOLLOW-UP: rounded-back glute-bias variation is not settled by generic hip-hinge advice. Retained because no exact NASM comparison establishes it is inaccurate.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-hip-thrust",
+      "name": "Barbell Hip Thrust",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "b-stance-hip-thrust",
+      "name": "B-Stance Hip Thrust",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-hip-thrust",
+      "name": "Dumbbell Hip Thrust",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "glute-drive-machine",
+      "name": "Glute Drive Machine",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-hip-thrust",
+      "name": "Single-Leg Hip Thrust",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-single-leg-bridge",
+      "name": "Stability Ball Single-Leg Bridge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-glute-kickback",
+      "name": "Cable Glute Kickback",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bulgarian-split-squat",
+      "name": "Bulgarian Split Squat",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "bulgarian"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-reverse-lunge",
+      "name": "Barbell Reverse Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-walking-lunge",
+      "name": "Dumbbell Walking Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "front-foot-elevated-split-squat",
+      "name": "Front-Foot-Elevated Split Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-goblet-reverse-lunge",
+      "name": "Kettlebell Goblet Reverse Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "step-up",
+      "name": "Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "smith-machine-split-squat",
+      "name": "Smith Machine Split Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-leg-press",
+      "name": "Single-Leg Leg Press",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "single-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-single-leg-squat",
+      "name": "TRX Single-Leg Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "pistol-squat-to-bench",
+      "name": "Pistol Squat to Bench",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "skater-squat",
+      "name": "Skater Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-romanian-deadlift",
+      "name": "Single-Leg Romanian Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-single-leg-deadlift",
+      "name": "Kettlebell Single-Leg Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "landmine-single-leg-romanian-deadlift",
+      "name": "Landmine Single-Leg Romanian Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-single-leg-romanian-deadlift",
+      "name": "Cable Single-Leg Romanian Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "b-stance-romanian-deadlift",
+      "name": "B-Stance Romanian Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "high-step-up",
+      "name": "High Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "FOLLOW-UP: universal knee-height-or-higher setup needs individual range-of-motion review; no exact usable NASM comparison located.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "lateral-lunge",
+      "name": "Lateral Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cossack-squat",
+      "name": "Cossack Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "lateral-step-up",
+      "name": "Lateral Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "landmine-lateral-lunge",
+      "name": "Landmine Lateral Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-lateral-lunge",
+      "name": "TRX Lateral Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "curtsy-lunge",
+      "name": "Curtsy Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "transverse-lunge",
+      "name": "Transverse Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "skater-bound",
+      "name": "Skater Bound",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws",
+        "Alternating landing cue no longer contradicted by generic side-switch instruction"
+      ]
+    },
+    {
+      "id": "lying-leg-curl",
+      "name": "Lying Leg Curl",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "lying-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "seated-leg-curl",
+      "name": "Seated Leg Curl",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "seated-curl"
+      ],
+      "result": "SOURCE AMBIGUITY: NASM setup wording is unclear about machine pad/start position. Existing forward-lean variation is not proven inaccurate; retained pending machine-specific review.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "standing-cable-leg-curl",
+      "name": "Standing Cable Leg Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-leg-curl",
+      "name": "Dumbbell Leg Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-hamstring-curl",
+      "name": "Stability Ball Hamstring Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-ball-hamstring-curl",
+      "name": "Single-Leg Ball Hamstring Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trx-hamstring-curl",
+      "name": "TRX Hamstring Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "nordic-curl",
+      "name": "Nordic Curl",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "FOLLOW-UP: heel anchoring/equipment setup needs specific verification; a bench alone does not establish a secure anchor.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "glute-ham-raise",
+      "name": "Glute-Ham Raise",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "leg-extension",
+      "name": "Leg Extension",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-extension",
+      "name": "Single-Leg Extension",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "sissy-squat",
+      "name": "Sissy Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "reverse-nordic",
+      "name": "Reverse Nordic",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "peterson-step-up",
+      "name": "Peterson Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hip-adduction-machine",
+      "name": "Hip Adduction Machine",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hip-abduction-machine",
+      "name": "Hip Abduction Machine",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-hip-abduction",
+      "name": "Cable Hip Abduction",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "cable-hip-adduction",
+      "name": "Cable Hip Adduction",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "stability-ball-squeeze-bridge",
+      "name": "Stability Ball Squeeze Bridge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "side-lying-hip-abduction",
+      "name": "Side-Lying Hip Abduction",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "standing-calf-raise-machine",
+      "name": "Standing Calf Raise Machine",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "calf"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "seated-calf-raise",
+      "name": "Seated Calf Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "calf"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "leg-press-calf-raise",
+      "name": "Leg Press Calf Raise",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "calf"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "single-leg-dumbbell-calf-raise",
+      "name": "Single-Leg Dumbbell Calf Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "calf"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "barbell-calf-raise",
+      "name": "Barbell Calf Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "calf"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "tibialis-raise",
+      "name": "Tibialis Raise",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "box-step-up",
+      "name": "Box Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "lateral-box-step-up",
+      "name": "Lateral Box Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "crossover-box-step-up",
+      "name": "Crossover Box Step-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "box-step-up-with-knee-drive",
+      "name": "Box Step-Up with Knee Drive",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "eccentric-box-step-down",
+      "name": "Eccentric Box Step-Down",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "box-bulgarian-split-squat",
+      "name": "Box Bulgarian Split Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "feet-on-box-decline-push-up",
+      "name": "Feet-on-Box Decline Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "box-jump",
+      "name": "Box Jump",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "box-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "seated-box-jump",
+      "name": "Seated Box Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "depth-jump",
+      "name": "Depth Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "lateral-box-jump",
+      "name": "Lateral Box Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "single-leg-box-jump",
+      "name": "Single-Leg Box Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "broad-jump",
+      "name": "Broad Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "squat-jump",
+      "name": "Squat Jump",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "approach-vertical-jump",
+      "name": "Approach Vertical Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "tuck-jump",
+      "name": "Tuck Jump",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "tuck-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "split-squat-jump",
+      "name": "Split Squat Jump",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "lunge-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "lateral-bound",
+      "name": "Lateral Bound",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws",
+        "Alternating landing cue no longer contradicted by generic side-switch instruction"
+      ]
+    },
+    {
+      "id": "180-degree-rotational-jump",
+      "name": "180 Degree Rotational Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "single-leg-lateral-hop",
+      "name": "Single-Leg Lateral Hop",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "pogo-hops",
+      "name": "Pogo Hops",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "FOLLOW-UP: stiff-ankle cue needs specific technique review; shared timer text corrected without changing the movement.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "dumbbell-jump-squat",
+      "name": "Dumbbell Jump Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "side-step-lunge",
+      "name": "Side Step Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "side-step-lunge-to-balance",
+      "name": "Side Step Lunge to Balance",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hanging-knee-raise",
+      "name": "Hanging Knee Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-pull-apart",
+      "name": "Band Pull-Apart",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-face-pull",
+      "name": "Band Face Pull",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "face-pull"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-assisted-archer-pull-up",
+      "name": "Band-Assisted Archer Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kneeling-band-lat-pulldown",
+      "name": "Kneeling Band Lat Pulldown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pulldown"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-seated-row",
+      "name": "Band Seated Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "tube-single-arm-row",
+      "name": "Tube Single-Arm Row",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "anchored-band-chest-press",
+      "name": "Anchored Band Chest Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bench",
+        "machine-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "banded-push-up",
+      "name": "Banded Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-overhead-press",
+      "name": "Band Overhead Press",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-lateral-raise",
+      "name": "Band Lateral Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-triceps-pushdown",
+      "name": "Band Triceps Pushdown",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-biceps-curl",
+      "name": "Band Biceps Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-pallof-press",
+      "name": "Band Pallof Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-woodchop",
+      "name": "Band Woodchop",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "mini-band-lateral-walk",
+      "name": "Mini-Band Lateral Walk",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "mini-band-monster-walk",
+      "name": "Mini-Band Monster Walk",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "banded-clamshell",
+      "name": "Banded Clamshell",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "clamshell"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "banded-glute-bridge",
+      "name": "Banded Glute Bridge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-pull-through",
+      "name": "Band Pull-Through",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "band-good-morning",
+      "name": "Band Good Morning",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning",
+        "functional"
+      ],
+      "result": "Moved band contact from neck to upper back and clarified hip hinge; related barbell guidance, not exact band setup validation.",
+      "changedFields": [
+        "cue"
+      ],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "prone-band-hamstring-curl",
+      "name": "Prone Band Hamstring Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "lying-curl",
+        "seated-curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "battle-rope-alternating-waves",
+      "name": "Battle Rope Alternating Waves",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "battle-rope-side-to-side-waves",
+      "name": "Battle Rope Side-to-Side Waves",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "battle-rope-rotational-slams",
+      "name": "Battle Rope Rotational Slams",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "battle-rope-double-slams",
+      "name": "Battle Rope Double Slams",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "battle-rope-lateral-shuffle-waves",
+      "name": "Battle Rope Lateral Shuffle Waves",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "medicine-ball-slam",
+      "name": "Medicine Ball Slam",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "rotational-medicine-ball-slam",
+      "name": "Rotational Medicine Ball Slam",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-rotational-scoop-toss",
+      "name": "Medicine Ball Rotational Scoop Toss",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-shot-put-throw",
+      "name": "Medicine Ball Shot Put Throw",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-chest-pass",
+      "name": "Medicine Ball Chest Pass",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-overhead-wall-throw",
+      "name": "Medicine Ball Overhead Wall Throw",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-vertical-toss",
+      "name": "Medicine Ball Vertical Toss",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "medicine-ball-russian-twist",
+      "name": "Medicine Ball Russian Twist",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "twist"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "medicine-ball-v-up",
+      "name": "Medicine Ball V-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "FOLLOW-UP: hands-to-feet pass cue may describe a different variation; no exact usable NASM comparison located.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "medicine-ball-push-up",
+      "name": "Medicine Ball Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "medicine-ball-lunge-with-rotation",
+      "name": "Medicine Ball Lunge with Rotation",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "medicine-ball-woodchop",
+      "name": "Medicine Ball Woodchop",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-squat",
+      "name": "BOSU Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-push-up",
+      "name": "BOSU Push-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-mountain-climber",
+      "name": "BOSU Mountain Climber",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "bosu-single-leg-romanian-deadlift",
+      "name": "BOSU Single-Leg Romanian Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "rdl",
+        "db-rdl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-lateral-step-over",
+      "name": "BOSU Lateral Step-Over",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-reverse-lunge",
+      "name": "BOSU Reverse Lunge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bulgarian",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "bosu-side-plank",
+      "name": "BOSU Side Plank",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked",
+        "Timed side switch uses intervals, not reps"
+      ]
+    },
+    {
+      "id": "bosu-squat-jump",
+      "name": "BOSU Squat Jump",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "box-jump",
+        "squat-jump"
+      ],
+      "result": "FOLLOW-UP: landing on an unstable dome needs specific technique/suitability review; no exact usable NASM comparison located.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Power guidance no longer assumes a jump landing for throws"
+      ]
+    },
+    {
+      "id": "monkey-bar-traverse",
+      "name": "Monkey Bar Traverse",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "toes-to-bar",
+      "name": "Toes-to-Bar",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "hanging-windshield-wiper",
+      "name": "Hanging Windshield Wiper",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "commando-pull-up",
+      "name": "Commando Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "archer-pull-up",
+      "name": "Archer Pull-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "plate-front-raise",
+      "name": "Plate Front Raise",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "plate-halo",
+      "name": "Plate Halo",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "plate-pinch-carry",
+      "name": "Plate Pinch Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "plate-russian-twist",
+      "name": "Plate Russian Twist",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "twist"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "turkish-get-up",
+      "name": "Turkish Get-Up",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-clean-and-press",
+      "name": "Kettlebell Clean and Press",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "kb-ballistics"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "kettlebell-snatch",
+      "name": "Kettlebell Snatch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "kb-ballistics"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "smith-machine-hip-thrust",
+      "name": "Smith Machine Hip Thrust",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "dumbbell-glute-bridge",
+      "name": "Dumbbell Glute Bridge",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "trap-bar-deadlift",
+      "name": "Trap Bar Deadlift",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "deadlift",
+        "kb-deadlift"
+      ],
+      "result": "FOLLOW-UP: easier-on-back claim is not an individual safety guarantee; related source does not settle it.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ez-bar-curl",
+      "name": "EZ-Bar Curl",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "curl"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "assisted-pull-up-machine",
+      "name": "Assisted Pull-Up Machine",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "pull-up"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "assisted-dip-machine",
+      "name": "Assisted Dip Machine",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "close-press"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "sled-push",
+      "name": "Sled Push",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "sled-pull",
+      "name": "Sled Pull",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "sandbag-bear-hug-carry",
+      "name": "Sandbag Bear-Hug Carry",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": [
+        "Timed hold/movement guidance checked"
+      ]
+    },
+    {
+      "id": "sandbag-squat",
+      "name": "Sandbag Squat",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "goblet",
+        "prisoner"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ab-wheel-rollout",
+      "name": "Ab Wheel Rollout",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "core"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ankle-weight-glute-kickback",
+      "name": "Ankle-Weight Glute Kickback",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "ankle-weight-side-lying-leg-raise",
+      "name": "Ankle-Weight Side-Lying Leg Raise",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    },
+    {
+      "id": "back-extension",
+      "name": "Back Extension",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning",
+        "functional"
+      ],
+      "result": "No specific correction established from the inspected references; this is not a complete technique or anatomy validation.",
+      "changedFields": [],
+      "sharedInstructionChecks": []
+    }
+  ],
+  "warmupAndStretchHowTos": [
+    {
+      "name": "A-skips",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Arm circles",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Band dislocates",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": true,
+      "result": "Changed pinching guidance to stopping rather than continuing with a wider grip."
+    },
+    {
+      "name": "Band pull-aparts",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Banded lateral walks",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "clamshell"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Lateral band walks",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "clamshell"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Bodyweight squats to a bench",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "prisoner"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Broad jumps",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Broomstick or towel pass-throughs",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Cat-cow",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Dead hang",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Downward dog to plank",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Explosive push-ups",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Fast bodyweight squats",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Fast incline push-ups",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Glute bridges",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "bridge"
+      ],
+      "changed": true,
+      "result": "Clarified the knees-to-shoulders line to avoid suggesting back overextension."
+    },
+    {
+      "name": "Half-kneeling hip flexor stretch with reach",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "High-knee marches",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Hip circles",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Hug-yourself twists",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Inchworms",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Incline push-ups on a bench",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Incline push-ups",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Lat stretch holding a post",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Lateral shuffles",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Leg swings, front to back and side to side",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Leg swings, front to back",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Low box jumps",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "box-jump"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Marching knee lifts",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Medicine ball chest pass",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "power"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Open books lying on your side",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Thoracic open books",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Prone Y-T-W raises",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Push-up to downward dog",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Push-ups",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "push-up"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Reach-and-pull",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Reverse arm swings",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Reverse lunges in place",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Scap pull-ups",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Scap push-ups",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Side lunges",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "planes"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Bodyweight good mornings",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "good-morning"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Calf raises",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Deep squat hold",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Bodyweight squats",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "prisoner"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Quadruped hip circles",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Bird dogs",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "bird"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Dead bugs",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "dead-bug"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Plank shoulder taps",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Spiderman lunge with reach",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Cossack squats",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Goblet squat pry",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Kettlebell halos",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Band face pulls",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "face-pull"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Ankle rocks against a wall",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Hip airplanes",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Single-leg glute bridges",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "bridge"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Quadruped T-spine reach",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Seated twists",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Seated twist",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Shoulder rolls",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Shoulder taps on the wall",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Sit-to-stands from a chair",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Split squat holds",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Standing back arch and round",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Standing hip extensions",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Standing knee hugs",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Walking knee hugs",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Thoracic rotations on hands and knees",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Thread the needle",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Walking lunges",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Wall push-ups",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "push-up"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Wall sit",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Wall slides",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "World’s greatest stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Biceps wall stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Butterfly stretch",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "butterfly"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Calf stretch on a wall",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Child’s pose",
+      "referenceLevel": "same-movement",
+      "sourceIds": [
+        "child"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Cobra stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Cross-body shoulder stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Doorway chest stretch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Figure-4 glute stretch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Half-kneeling hip flexor stretch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Hands-behind-back chest opener",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Kneeling shin stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Lying cross-body glute stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Neck side stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Overhead triceps stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Seated hamstring stretch",
+      "referenceLevel": "related-only",
+      "sourceIds": [
+        "stretching"
+      ],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Standing quad stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    },
+    {
+      "name": "Wrist flexor and extensor stretch",
+      "referenceLevel": "unresolved",
+      "sourceIds": [],
+      "changed": false,
+      "result": "No specific correction established; variant details remain unverified."
+    }
+  ]
+}
