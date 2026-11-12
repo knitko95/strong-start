@@ -89,6 +89,10 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | 31 | Offline notice appears while connected | On the test app | Reported November 11. The focus-layout rule matched every direct `.wrap`, including the hidden offline notice, and its `display:flex` overrode the browser's hidden styling. Scoped that rule to the app content shell only. Browser regression first reproduced the visible notice while `navigator.onLine` was true, then passed after the fix; 228 screen layouts and explicit offline/reconnect visibility checks passed. Existing offline caching and account sync are unchanged. No database migration or production configuration change; test app only. |
 
+| # | Item | Status | Decision / notes |
+|---|---|---|---|
+| 32 | Prepare all current dev changes and database migrations for release | On the test app; awaiting release approval | Requested November 11. Full application candidate `886be94` contains the 49 commits ahead of `main` at `d88f497`, plus documentation-only release preparation. All six new migrations are already on development and remain pending in production. Repeated build, hosted browser checks and rolled-back development database tests passed. See [candidate, migration order, checks and limits](RELEASE-CANDIDATE-2026-11-11.md). Production publication/database changes have not been approved or performed by this preparation. |
+
 ## Standing decisions
 
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.
