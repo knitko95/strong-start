@@ -4443,11 +4443,15 @@ function gItems(ph){
   X.cool.filter(it=>!wskip['cool'+it.k]).forEach(it=>list.push({...cur('cool',it), g:'cool'}));
   return list;
 }
+function gPrepareMove(G,items=gItems(G.ph)){
+  if(G.mode==='paused'&&G.pmode==='ready'){G.mode='ready';G.end=null;delete G.pmode;delete G.left;}
+  if(G.mode==='ready'&&items[G.i]&&!segsFor(items[G.i]).timer){G.mode='reps';G.end=null;}
+}
 function gStart(ph){
   const d=state.draft, X=d._x||sessionExtras(d,dSlots());
   d.guide={ph, i:0, s:0, mode:'ready', end:null, positions:{}, fin: ph==='cool' && X.finisher ? null : 'no'};
   if(ph==='cool' && X.finisher) d.guide.mode='finq';
-  else {const i=gItems(ph).findIndex(it=>!d[it.g]?.[it.k]);if(i>=0)d.guide.i=i;}
+  else {const i=gItems(ph).findIndex(it=>!d[it.g]?.[it.k]);if(i>=0)d.guide.i=i;gPrepareMove(d.guide);}
 }
 function beepShort(){ tone(660,.18,.15); }
 function buzz(p){ try{ navigator.vibrate&&navigator.vibrate(p); }catch(e){} }
@@ -4466,7 +4470,7 @@ function gChooseMove(i){
   gStoreMove();const saved=G.positions?.[gMoveKey(items[i])];
   for(const key of ['pmode','left','tot','lastBeep','feelChoice'])delete G[key];
   G.i=i;G.s=0;G.mode='ready';G.end=null;
-  if(saved)Object.assign(G,saved);return true;
+  if(saved)Object.assign(G,saved);gPrepareMove(G,items);return true;
 }
 function guidePath(d,G,items){
   return `<div class="workout-path guide-path" data-workout="${esc(d.startedAt)}" data-pks="guide:${G.ph}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier moves">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${G.ph==='warm'?'Warm-up':'Cool-down'} moves">${items.map((it,i)=>{const done=!!d[it.g]?.[it.k],current=i===G.i;return `<div class="path-stop"><button class="path-set ${done?'done':''} ${current?'current':''}" data-action="gmove" data-i="${i}" data-path-id="g${i}" aria-pressed="${current}" ${current?'aria-current="step"':''} aria-label="Move ${i+1}: ${esc(it.t)}${done?', completed':current?', current':', remaining'}"><span>Move ${i+1}</span></button><span class="path-status">${current?'Current':''}</span></div>`;}).join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later moves">›</button></div>`;
@@ -4478,7 +4482,7 @@ function gNextItem(markDone){
   G.i++; G.s=0;
   if(G.i>=items.length){ gFinishPhase(); return; }
   G.mode='ready'; G.end=null; G.lastBeep=null;delete G.pmode;delete G.left;
-  const saved=G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);
+  const saved=G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);gPrepareMove(G,items);
 }
 function gFinishPhase(){
   const d=state.draft, G=d.guide;
@@ -4710,7 +4714,7 @@ function renderGuide(){
       ${aFoot('<button class="btn primary fbig" data-action="finish">Finish workout</button>','',``)}</div>`;
   }
   const it=items[G.i]; if(!it){gFinishPhase();return renderFocus();}
-  if(G.mode==='paused'&&G.pmode==='ready'){G.mode='ready';G.end=null;delete G.pmode;delete G.left;}
+  gPrepareMove(G,items);
   const S=segsFor(it),paused=G.mode==='paused',pm=paused?G.pmode:G.mode,ready=pm==='ready',inGap=pm==='gap',seg=S.segs?.[G.s]||S.segs?.[0];
   const name0=it.fin?'Cardio':name,progress=items.map((move,i)=>i===G.i?'c':d[move.g]?.[move.k]?'d':'');
   const header=fTop(d,slots,`${name0} ${G.i+1} of ${items.length}`,progress);
@@ -4742,7 +4746,7 @@ function gAction(a,b){
     case 'gcfeelconfirm': if(G?.mode==='cfeel'&&['easy','good','hard'].includes(G.feelChoice)){cardioFeel(G.feelChoice);delete G.feelChoice;gNextItem(false);save();render();window.scrollTo(0,0);}return true;
     case 'gcfeel': cardioFeel(b.dataset.v); gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
     case 'gcmin': d.cmin=+b.dataset.v; d._x=null; save(); render(); return true;
-    case 'gfin': G.fin=b.dataset.v; G.mode='ready'; G.i=0; G.end=null; save(); render(); return true;
+    case 'gfin': G.fin=b.dataset.v; G.mode='ready'; G.i=0; G.end=null;gPrepareMove(G);save(); render(); return true;
     case 'gnow': if(!G||!['ready','gap'].includes(G.mode))return true;G.end=Date.now();gAdvance();save();render();return true;
     case 'gdone': if(!G||!['run','reps'].includes(G.mode))return true;if(G.mode==='run'){G.end=Date.now();gAdvance();}else gCompleteMove();save();render();window.scrollTo(0,0);return true;
     case 'gseg': { closeModal(); const it=gItems(G.ph)[G.i], S=it&&segsFor(it), n=+b.dataset.n; if(!S||!S.segs[n]) return true;
@@ -4756,7 +4760,7 @@ function gAction(a,b){
     case 'gmute': state.settings.sound = state.settings.sound===false; save(); render(); return true;
     case 'glist': gStoreMove();d.listView=true;save();render();return true;
     case 'gguide': d.listView=false;if(!d.guide||d.guide.ph!==d.step.ph)gStart(d.step.ph);else{const items=gItems(G.ph),it=items[G.i];if(it&&d[it.g]?.[it.k]){const next=items.findIndex(move=>!d[move.g]?.[move.k]);if(next>=0)gChooseMove(next);}for(const move of items)if(d[move.g]?.[move.k])delete G.positions?.[gMoveKey(move)];}save();render();return true;
-    case 'gback': {const items=gItems(G.ph);G.mode='ready';G.i=Math.max(0,items.length-1);G.s=0;G.end=null;delete G.pmode;delete G.left;const saved=items[G.i]&&G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);save();render();return true;}
+    case 'gback': {const items=gItems(G.ph);G.mode='ready';G.i=Math.max(0,items.length-1);G.s=0;G.end=null;delete G.pmode;delete G.left;const saved=items[G.i]&&G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);gPrepareMove(G,items);save();render();return true;}
     case 'framp': d.rampDone=(d.rampDone||0)+1; save(); render(); window.scrollTo(0,0); return true;
     case 'frampskip': d.rampDone=99; save(); render(); return true;
   }

@@ -59,14 +59,13 @@ function guidedWorkout(ph='warm'){
   const h=harness();h.run(`startWorkout(weekKeys()[0]);state.draft.step={ph:'${ph}'};state.draft._x=sessionExtras(state.draft,dSlots());state.settings.sound=false;
     var guideMoves=[{g:'${ph}',k:'nav1',t:'Arm circles',d:'30 s'},{g:'${ph}',k:'nav2',t:'Cat-cow',d:'8 reps'},{g:'${ph}',k:'nav3',t:'Standing quad stretch',d:'20 s each'}];gItems=()=>guideMoves;gStart('${ph}');ui.tab='workout';`);return h;
 }
-await test('guided moves wait for Ready and timer completion stops at the next preparation',()=>{
-  const h=guidedWorkout();assert.equal(h.run('state.draft.guide.end'),null);h.run('gTick();');assert.equal(h.run('state.draft.guide.mode'),'ready');
-  assert.match(h.run('renderFocus()'),/>Ready<\/button>/);h.click('gnow');assert.equal(h.run('state.draft.guide.mode'),'run');assert.equal(h.run('state.draft.guide.tot'),30);const deadline=h.run('state.draft.guide.end');h.click('gnow');assert.equal(h.run('state.draft.guide.end'),deadline);
-  h.run('state.draft.guide.end=Date.now()-1;gTick();');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'ready');assert.equal(h.run('state.draft.guide.end'),null);assert.equal(h.run('state.draft.warm.nav1'),true);h.click('gdone');assert.equal(h.run('state.draft.guide.i'),1);
-  h.run('gTick();');assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gnow');assert.equal(h.run('state.draft.guide.mode'),'reps');h.click('gdone');assert.equal(h.run('state.draft.guide.i'),2);assert.equal(h.run('state.draft.guide.mode'),'ready');
+await test('timed guide moves wait for Ready while rep moves enter directly at their target',()=>{
+  const h=guidedWorkout();assert.equal(h.run('state.draft.guide.end'),null);h.run('gTick()');assert.equal(h.run('state.draft.guide.mode'),'ready');assert.match(h.run('renderFocus()'),/>Ready<\/button>/);
+  h.click('gnow');const deadline=h.run('state.draft.guide.end');h.click('gnow');assert.equal(h.run('state.draft.guide.end'),deadline);h.run('state.draft.guide.end=Date.now()-1;gTick()');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'reps');assert.equal(h.run('state.draft.guide.end'),null);assert.equal(h.run('state.draft.warm.nav1'),true);
+  h.run('gTick()');assert.equal(h.run('state.draft.guide.mode'),'reps');assert.match(h.run('renderFocus()'),/>Done<\/button>/);h.click('gdone');assert.equal(h.run('state.draft.guide.i'),2);assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gdone');assert.equal(h.run('state.draft.guide.i'),2);
 });
 await test('guided timeline pauses a move and restores its timer through navigation, list and reload',()=>{
-  const h=guidedWorkout();h.click('gnow');h.run('state.draft.guide.end=Date.now()+17000;');h.click('gmove',{i:'1'});assert.equal(h.run('state.draft.guide.mode'),'ready');assert.equal(h.run('state.draft.warm.nav1'),undefined);
+  const h=guidedWorkout();h.click('gnow');h.run('state.draft.guide.end=Date.now()+17000;');h.click('gmove',{i:'1'});assert.equal(h.run('state.draft.guide.mode'),'reps');assert.equal(h.run('state.draft.warm.nav1'),undefined);
   h.click('gmove',{i:'0'});assert.equal(h.run('state.draft.guide.mode'),'paused');const left=h.run('state.draft.guide.left');assert(left>16000&&left<=17000);
   h.click('gresume');assert.equal(h.run('state.draft.guide.mode'),'run');h.click('glist');assert.equal(h.run('state.draft.guide.mode'),'paused');h.click('gguide');assert.equal(h.run('state.draft.guide.mode'),'paused');
   h.run('state=migrate(JSON.parse(localStorage.getItem(LS)).state);');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.positions["warm:nav1:Arm circles"].mode'),'paused');
@@ -77,7 +76,7 @@ await test('cool-down side timers keep their durations and gap, then wait before
 });
 await test('Done finishes the current side or cardio part before completing the move',()=>{
   const h=guidedWorkout('cool');h.click('gmove',{i:'2'});h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'gap');assert.equal(h.run('state.draft.cool.nav3'),undefined);h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.cool.nav3'),true);
-  const c=guidedWorkout();c.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};");c.click('gnow');c.click('gdone');assert.equal(c.run('state.draft.guide.mode'),'run');assert.equal(c.run('state.draft.guide.s'),1);assert.equal(c.run('state.draft.warm.nav1'),undefined);c.click('gdone');assert.equal(c.run('state.draft.guide.mode'),'ready');assert.equal(c.run('state.draft.guide.i'),1);
+  const c=guidedWorkout();c.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};");c.click('gnow');c.click('gdone');assert.equal(c.run('state.draft.guide.mode'),'run');assert.equal(c.run('state.draft.guide.s'),1);assert.equal(c.run('state.draft.warm.nav1'),undefined);c.click('gdone');assert.equal(c.run('state.draft.guide.mode'),'reps');assert.equal(c.run('state.draft.guide.i'),1);
 });
 await test('guided navigation keeps How to and completed step selection explicit',()=>{
   const h=guidedWorkout();h.click('ghowto');assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gresume');assert.equal(h.run('state.draft.guide.mode'),'ready');
@@ -95,12 +94,12 @@ await test('cardio part selection waits for Ready and paused time adjustment sta
 });
 await test('Done preserves the cardio effort check-in before the next Ready screen',()=>{
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'30 s',cardio:'after',ctype:'steady',min:10,mode:'walk'};needCardioFeel=()=>true;");h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'cfeel');assert.equal(h.run('state.draft.warm.nav1'),true);assert.equal(h.run('state.draft.cardioDone.min'),10);h.click('gmove',{i:'2'});assert.equal(h.run('state.draft.guide.mode'),'cfeel');
-  h.click('gcfeelpick',{v:'good'});h.click('gcfeelconfirm');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'ready');
+  h.click('gcfeelpick',{v:'good'});h.click('gcfeelconfirm');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'reps');
 });
 await test('workout pause and list navigation preserve the current guide timer',()=>{
   const h=guidedWorkout();h.click('gnow');h.run('state.draft.guide.end=Date.now()+17000;');h.click('fpause');assert.equal(h.run('ui.tab'),'today');assert.equal(h.run('state.draft.guide.mode'),'paused');const left=h.run('state.draft.guide.left');assert(left>16000&&left<=17000);
   h.run("ui.tab='workout'");h.click('gresume');h.click('fjump',{to:h.run('dSlots()[0].pk')});assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.step.ph'),'ex');h.click('fjump',{to:'warm'});assert.equal(h.run('state.draft.guide.mode'),'paused');
-  h.click('glist');h.run('state.draft.warm.nav1=true;');h.click('gguide');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gmove',{i:'0'});assert.equal(h.run('state.draft.guide.mode'),'ready');
+  h.click('glist');h.run('state.draft.warm.nav1=true;');h.click('gguide');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'reps');h.click('gmove',{i:'0'});assert.equal(h.run('state.draft.guide.mode'),'ready');
 });
 await test('returning from cool-down completion restores a skipped timer checkpoint',()=>{
   const h=guidedWorkout('cool');h.click('gmove',{i:'2'});h.click('gnow');h.run('state.draft.guide.end=Date.now()+12000;');h.click('gskipall');assert.equal(h.run('state.draft.guide.mode'),'end');h.click('gback');assert.equal(h.run('state.draft.guide.mode'),'paused');assert(h.run('state.draft.guide.left')>11000);assert.equal(h.run('state.draft.cool.nav3'),undefined);
@@ -109,6 +108,14 @@ await test('guided Next is always visible for preparation, timers, reps, pause a
   const h=guidedWorkout();const next=()=>h.run('renderFocus()');assert.match(next(),/class="guide-next">Next: <span>Cat-cow/);h.click('gnow');assert.match(next(),/Next: <span>Cat-cow/);h.click('gpause');assert.match(next(),/Next: <span>Cat-cow/);h.click('gresume');h.click('gdone');assert.match(next(),/Next: <span>Standing quad stretch/);h.click('gnow');assert.equal(h.run('state.draft.guide.mode'),'reps');assert.match(next(),/Next: <span>Standing quad stretch/);h.click('gdone');
   const expected=h.run('esc(EX[dSlots()[nextGroupStart(state.draft,dSlots(),-1)].id].n)');assert(next().includes('Next: <span>'+expected));h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'gap');assert(next().includes('Next: <span>'+expected));
   const c=guidedWorkout('cool');c.click('gmove',{i:'2'});assert.match(c.run('renderFocus()'),/Next: <span>Finish workout/);
+});
+await test('rep targets stay read-only and skip Ready on first entry, timeline, old drafts and Back',()=>{
+  for(const ph of ['warm','cool']){
+    const h=guidedWorkout(ph);h.run(`guideMoves[0]={g:'${ph}',k:'nav1',t:'Cat-cow',d:'8 reps'};gStart('${ph}');`);assert.equal(h.run('state.draft.guide.mode'),'reps');let out=h.run('renderFocus()');assert.match(out,/>Done<\/button>/);assert.doesNotMatch(out,/>Ready<\/button>|<input|data-action="fbump"/);
+    h.click('gmove',{i:'2'});assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gmove',{i:'0'});assert.equal(h.run('state.draft.guide.mode'),'reps');
+    h.run(`state.draft.guide.mode='ready';state.draft.guide.end=Date.now()+1000;state=migrate(JSON.parse(JSON.stringify(state)));`);out=h.run('renderFocus()');assert.equal(h.run('state.draft.guide.mode'),'reps');assert.doesNotMatch(out,/>Ready<\/button>/);
+    h.run(`guideMoves[2]={g:'${ph}',k:'nav3',t:'Shoulder rolls',d:'10 reps'};state.draft.guide.mode='end';state.draft.guide.i=3;`);h.click('gback');assert.equal(h.run('state.draft.guide.mode'),'reps');
+  }
 });
 await test('guide completion reaches working sets and coach preview cannot mutate guide navigation',()=>{
   const h=guidedWorkout();h.click('gmove',{i:'2'});h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'gap');h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide'),null);assert.equal(h.run('state.draft.step.ph'),'ex');
