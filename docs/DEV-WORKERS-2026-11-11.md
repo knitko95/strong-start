@@ -15,11 +15,11 @@ Owner requested moving development hosting to `https://dev.strongstart.app/`, ma
 
 Local checks pass: 49 persistence/workout scenarios, six offline scenarios, 15 simulated-domain cases, actual Workers routing/headers/public-asset comparisons and offline/reconnect, plus existing synthetic sync/conflict/recovery and setup/Settings/reload suites at 1280/390/320 px. Both dev and production configurations build; their generated Worker settings match except the Worker name.
 
-Hosted new-domain verification and retirement are pending. Confirm exact Git SHA deployment, valid TLS, source/assets, test-only network destinations, manifest/banner/storage isolation, Google handoff, offline reopening/reconnect, and synthetic sync/setup scenarios before changing the old Pages connection. Credential submission, real account writes/reset email delivery and physical-device installation are separate verification limits; do not imply simulated RPC checks prove those operations.
+Hosted candidate `4e7cc96cd98a4d494685e87ebd14fd2012d313dc` deployed successfully from GitHub through build `aa0c9508-b442-4ca3-9876-483156f2f1fc`, version `66af4b59-acd1-4652-aca4-c8c029105dfe`. Verified managed TLS and public DNS, all 13 development public assets, direct index/root routing, no-cache/nosniff/noindex, docs returning 404, test-only network destinations, manifest/banner/storage isolation, Google handoff with the unchanged development callback and new return URL, offline reopening/reconnect, and synthetic sync/setup scenarios at 1280/390/320 px. No captured page errors. This computer initially retained a negative DNS cache; browser checks used the independently verified public address with full TLS validation, and asset checks used curl --resolve. This is separate from public DNS provisioning. Credential submission, real account writes/reset email delivery and physical-device installation are separate verification limits; do not imply simulated RPC checks prove those operations.
 
 ## Old address and user state
 
-The old test address is `https://strong-start-dev.pages.dev/`. Browser sessions, local drafts and installations are isolated by origin. Successfully synced test data stays in the same development database; unsynced local-only drafts do not automatically move. Keep old-origin recovery available while retiring its role as an active deployment target. Do not delete users, workouts or the database.
+After those hosted checks passed, the old Pages project was retired as an automatic deployment target: deployments_enabled and production_deployments_enabled are false, and preview_deployment_setting is none. Its last successful commit `4e7cc96` remains online as a recovery fallback; the project and stored browser data were not deleted. A subsequent dev documentation push verifies that only the new Worker rebuilds. The old test address is `https://strong-start-dev.pages.dev/`. Browser sessions, local drafts and installations are isolated by origin. Successfully synced test data stays in the same development database; unsynced local-only drafts do not automatically move. Keep old-origin recovery available while retiring its role as an active deployment target. Do not delete users, workouts or the database.
 
 ## Reproduce
 
@@ -39,3 +39,7 @@ node scripts/test-workers-hosting.cjs https://dev.strongstart.app/
 node scripts/test-sync-browser.cjs https://dev.strongstart.app/
 node scripts/test-setup-settings.cjs https://dev.strongstart.app/
 ```
+
+## Production boundary
+
+Production remains release `c135c7e`, version `5ea58735-7b9d-4991-a45a-bcc9163b5d35`. No main merge, production deployment, production Auth setting, schema change or user/workout mutation was made. Development Auth Site URL was saved and reloaded as `https://dev.strongstart.app/`, with exact root/index allow-list entries and the old Pages root retained.
