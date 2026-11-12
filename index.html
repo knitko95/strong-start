@@ -393,12 +393,18 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .why{background:var(--surface);box-shadow:var(--shadow);border-radius:var(--r);padding:14px 16px}
 .why summary{cursor:pointer;font-weight:600;min-height:44px;align-content:center}
 .why-body{display:flex;flex-direction:column;gap:8px;padding-top:8px}
-.today-progress>.eyebrow{text-align:center}
-.today-progress .rings{grid-template-columns:132px minmax(0,1fr);gap:20px;padding:0;width:min(100%,296px);margin:0 auto;text-align:center}
+.today-progress .rings{grid-template-columns:132px minmax(0,1fr);gap:18px;padding:4px 0;width:100%;text-align:left}
 .today-progress .rings svg{width:132px;height:132px}
-.today-progress .rings .mv{font-size:24px}
-.today-progress .rings .mv small{display:block;margin:4px 0 0}
-.today-progress .rings .ml{font-size:10px;letter-spacing:.1em}
+.today-progress .rings .mv{font-size:28px;white-space:nowrap}
+.today-progress .rings .mv small{display:inline;margin-left:4px}
+.today-progress .rings .ml{font-size:11px;letter-spacing:.16em}
+@media(max-width:360px){
+  .today-progress .rings{grid-template-columns:112px minmax(0,1fr);gap:12px}
+  .today-progress .rings svg{width:112px;height:112px}
+  .today-progress .rings .mv{font-size:26px}
+  .today-progress .rings .mv small{font-size:11px}
+  .today-progress .rings .ml{font-size:10px}
+}
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
 .today-exercises-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:0;border-top:1px solid var(--line);padding:6px 0 0;background:none;color:var(--accent);font-weight:600;text-align:left}
@@ -3147,9 +3153,8 @@ function ringsCard(w, keys, wl, o){
   const arcs=R.map((m,i)=>{ const r=C-sw/2-i*(sw+gap), circ=2*Math.PI*r, f=m.of?Math.min(1,m.v/m.of):0;
     return `<circle cx="${C}" cy="${C}" r="${r}" fill="none" stroke="var(--line)" stroke-width="${sw}"/>
       <circle class="arc" cx="${C}" cy="${C}" r="${r}" fill="none" stroke="currentColor" style="color:var(--${['accent','gold'][i]})" stroke-width="${sw}" stroke-linecap="round" stroke-dasharray="${(f*circ).toFixed(1)} ${circ.toFixed(1)}" transform="rotate(-90 ${C} ${C})" ${f===0?'stroke-opacity="0"':''}/>`; }).join('');
-  const {L,over,r,total}=o;
   return `<section class="card stack today-progress" aria-label="Progress">
-    <div class="eyebrow">Week ${Math.min(w,L)} of ${L}</div><div class="rings">
+    <div class="rings">
       <svg viewBox="0 0 ${2*C} ${2*C}" role="img" aria-label="${R.map(m=>`${m.label} ${m.v} of ${m.of}`).join(', ')}">${arcs}</svg>
       <div>${R.map(m=>`<div class="m"><div class="ml ${m.cls}">${m.label}</div><div class="mv">${m.v} / ${m.of}<small>${m.unit}</small></div></div>`).join('')}</div>
     </div>
