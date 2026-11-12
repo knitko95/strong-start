@@ -183,6 +183,8 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 | 75 | Match Today progress to the supplied screenshot | On the test app | Requested November 12: nested rings beside left-aligned This week / This program labels, 28 px Playfair Display counts and inline 12 px Nunito units; remove countdown lines and the extra week heading. Retains 132 px rings, existing theme colors and progress calculations, with compact sizing below 360 px. Development build, 92 workout/persistence and six offline checks pass; synthetic empty/half/full progress rendering confirms counts, two arcs and absence of countdowns/heading. Chromium cannot create its singleton socket (Operation not permitted), so visual browser and physical-phone verification remain pending. No saved-data, database or configuration change. Production release requires separate approval. |
 
+| 76 | Remove the coach-message button after saving or finishing a workout | On the test app | Requested November 12. Removes Tell your coach how it went from the shared partial/complete workout summary; retains Back to Today, saved-workout details and existing messaging elsewhere. Synthetic desktop/phone checks cover partial and complete summaries, saved work and return navigation. No database, saved-data or configuration change. Physical phones and authenticated account flows remain unverified. Production release requires separate approval. |
+
 ## Later (needs a bigger decision)
 
 Rest timer alerts while in other apps, exercise photos and videos, a quick-workout option, a custom domain, a real email sender for password resets, a fold-down rig step as equipment.
