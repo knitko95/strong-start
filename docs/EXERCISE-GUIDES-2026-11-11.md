@@ -36,4 +36,12 @@ Local development build passed its syntax/environment checks, 49 persistence/wor
 
 The previously reviewed exported motion data also passed loop/contact constraints, exact motion transfer between the compatible rigs, and corrected dumbbell orientation checks. These do not establish physical-phone performance or professional technique certification.
 
-Hosted exact-commit deployment and verification results are recorded below when complete. Hosted flow checks use isolated synthetic member state in the browser, not real account data or backend writes. No database migration or production configuration change is required.
+## Hosted development verification
+
+Runtime candidate `fc2d060d13ad128206d7ee093146b5debeb90a37` was pushed to `dev` and deployed by successful Workers Build `ca19f7ed-8945-43a3-8111-f38d6ffbb465` at `https://dev.strongstart.app/` (November 11 Eastern time). The connected repository account's push permission was rechecked before deployment. Current main/dev public app/policy sources were compared before implementation; their relevant content already matched despite different promotion commit hashes.
+
+The full guide suite passed on that hosted runtime at 1280, 390 and 320 px: five library-row how-tos, correct assets, mouse/CDP touch rotation during playback, pause/half speed/views, member state and draft preservation, coach preview, reduced motion, offline and corrupt-model text fallback, and close during a delayed model request. No unexpected console errors or backend mutations occurred. These are isolated synthetic member sessions, not authenticated account or real-workout tests.
+
+The hosted Worker suite also passed exact public shell assets, dev-only backend/keys/storage/manifest/banner, normal DNS/TLS, offline reopening and reconnect at all three widths. Production was not changed. A documentation-only follow-up records these results; runtime files/assets are unchanged from the tested candidate.
+
+Pending database migrations and production configuration changes: none. Physical-device rendering/touch/performance and exercise technique remain review limits. Production publication still requires a separately defined and approved release; this initial registry enables development only.
