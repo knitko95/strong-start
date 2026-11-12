@@ -95,10 +95,6 @@ These were built on November 9–10 in a copy of the app that was never pushed. 
 
 ## Standing decisions
 
-| # | Item | Status | Decision / notes |
-|---|---|---|---|
-| 33 | Prepare strongstart.app and Cloudflare production hosting | In development; awaiting cutover approval | Owner requested development preparation and testing only, November 11. Exact-domain production routing, a separate public-file production package and pinned Cloudflare Workers Static Assets configuration; test Pages hosting remains isolated. Local domain/browser, offline and hosting checks pass. No database migration, DNS, domain attachment, production Auth change or live deployment by this task. See [scope, checks, user transition and pending cutover actions](DOMAIN-TRANSITION-2026-11-11.md). |
-
 - **Database:** accounts, plans, workouts and feedback live in the database; later the exercise library (with #12). Rep ranges and progression rules stay in code, where changes are tested before release. Videos go on a video host with links in the database.
 - **Two roles:** app owner (receives app feedback; `app_owners`) and coach (receives coaching messages; `coaches`). The owner currently holds both.
 - **Beta access:** invite-only, one-time links, 14-day expiry.
