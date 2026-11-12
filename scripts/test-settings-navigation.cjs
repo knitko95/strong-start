@@ -60,15 +60,18 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   const roles=await page.evaluate(()=>{
    sb={};AUTH.user={id:'synthetic',email:'settings@example.invalid'};AUTH.access='ok';ui.settingsGroup='account';ui.open={account:true,backup:true};
    const account=renderSettings();ui.settingsGroup=null;AUTH.coach=true;const staff=renderSettings();
+   AUTH.coach=false;CM.owner=AUTH.user.id;CM.summary={coach:{name:'Synthetic coach',unread:2}};
+   const member=renderSettings();$('#app').innerHTML=member;
    coachMode={name:'Synthetic member'};const preview=renderSettings();coachMode=null;AUTH.coach=false;sb=null;AUTH.user=null;
-   return {account,staff,preview};
+   return {account,staff,member,preview};
   });
   assert.match(roles.account,/Delete my account/);assert.match(roles.account,/privacy.html/);assert.match(roles.account,/terms.html/);
-  assert.match(roles.staff,/Your people/);assert(!roles.preview.includes('settingsgroup'));assert(!roles.preview.includes('copybackup'));
+  assert.match(roles.staff,/Your people/);
+  assert(roles.staff.indexOf('data-action="people"')<roles.staff.indexOf('settings-menu'),'staff card precedes settings categories');
+  assert.match(roles.member,/Your coach/);
+  assert(roles.member.indexOf('data-action="cmopen"')<roles.member.indexOf('settings-menu'),'coach messages precede settings categories');
+  assert(await page.evaluate(()=>document.querySelector('.cm-card').getBoundingClientRect().bottom<document.querySelector('.settings-menu').getBoundingClientRect().top));
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert(!roles.preview.includes('settingsgroup'));assert(!roles.preview.includes('copybackup'));
   assert.deepEqual(errors,[]);await page.close();console.log(`PASS Settings categories, expanded controls, persistence, progress and role boundaries at ${width}px`);
  }}finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;server.close();});
-
-
-
-

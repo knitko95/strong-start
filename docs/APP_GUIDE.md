@@ -33,7 +33,7 @@ Offline files download automatically during an online visit; there is no Offline
 
 ## Finding your settings
 
-On the test app, Settings opens with four categories instead of one long list. **Your training** contains goals, schedule/split/workout order, places/equipment, level/limitations and the 6-week program. **Workout preferences** contains exercise choices, cardio and timers. **Profile & appearance** contains personal details and units, a separate Appearance section for app colors/light/dark, and weekly weigh-ins. **Account & backups** contains account access, policy links and copying/restoring a backup. Tap a category, then expand the setting you need; **All settings** returns to the overview. Coach messages and **Your people** remain on that overview for accounts that already have access. Coach member-preview restrictions are unchanged.
+On the test app, Settings opens with four categories instead of one long list. **Your training** contains goals, schedule/split/workout order, places/equipment, level/limitations and the 6-week program. **Workout preferences** contains exercise choices, cardio and timers. **Profile & appearance** contains personal details and units, a separate Appearance section for app colors/light/dark, and weekly weigh-ins. **Account & backups** contains account access, policy links and copying/restoring a backup. Tap a category, then expand the setting you need; **All settings** returns to the overview. Coach messages and **Your people** appear at the top of that overview, above the categories, for accounts that already have access. Coach member-preview restrictions are unchanged.
 
 ## Setup
 

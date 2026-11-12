@@ -4732,9 +4732,9 @@ function renderSettings(){
     <div><div class="eyebrow">${active?'Settings':'Make it yours'}</div><h1 tabindex="-1" id="settings-title">${active?active[1]:'Settings'}</h1></div>
     <p class="small muted" style="margin:0">${active?active[2]+'.':'Choose what you’d like to change.'}</p>
   </section>
-  ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
   ${!active&&(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
   ${!active?cmCoachCard():''}
+  ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
   ${active&&active[0]==='account'?accountCard():''}
   ${active&&active[0]==='profile'?profileCard(s):''}
   ${setting('profile','appearance','Appearance',(COLORS[s.color||'blush']||COLORS.blush).n+' · '+(s.color==='noir'?'Always dark':({auto:'Match my phone',light:'Always light',dark:'Always dark'}[s.theme||'auto'])),appearance)}
