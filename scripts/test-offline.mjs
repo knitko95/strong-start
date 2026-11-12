@@ -31,6 +31,15 @@ await test('closed-page navigation and SDK reload fall back to cached files with
   assert.equal(await page.text(),w.base+'index.html');
   const sdk=await w.fire('fetch',{request:new Request(w.run('SDK'))});assert.match(await sdk.text(),/supabase/);
 });
+await test('new domain root has its own offline scope and preserves Auth query/hash navigation',async()=>{
+  const w=worker('https://strongstart.app/');await w.fire('install');w.offline(true);
+  for(const url of [w.base,w.base+'index.html',w.base+'?code=synthetic-code#recovery']) {
+    const response=await w.fire('fetch',{request:{url,method:'GET',mode:'navigate'}});
+    assert.equal(await response.text(),w.base+'index.html');
+  }
+  assert.ok(w.run('PREFIX').includes(encodeURIComponent(w.base)));
+  assert.equal(await w.fire('fetch',{request:{url:'https://knitko95.github.io/strong-start/',method:'GET',mode:'navigate'}}),undefined);
+});
 await test('API, auth, other paths and mutation requests never enter the shell cache',async()=>{
   const w=worker();await w.fire('install');const before=w.requests.length;
   for(const request of [new Request('https://backend.supabase.co/auth/v1/token'),new Request(w.base+'api'),new Request(w.base+'index.html',{method:'POST'}),{url:'https://test.example/other/',method:'GET',mode:'navigate'}]) {

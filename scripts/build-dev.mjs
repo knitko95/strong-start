@@ -13,7 +13,7 @@ for (const file of ['index.html', 'privacy.html', 'manifest.webmanifest', 'manif
 }
 // A test deployment cannot connect to production even if served at another URL.
 const html = readFileSync(path.join(out, 'index.html'), 'utf8')
-  .replace(/const IS_PRODUCTION = location\.origin[\s\S]*?;\r?\n/, 'const IS_PRODUCTION = false;\n')
+  .replace(/const IS_PRODUCTION = [\s\S]*?;\r?\n/, 'const IS_PRODUCTION = false;\n')
   .replaceAll('https://aybtxqsneywuqxzjwoek.supabase.co', 'https://gvyfgqhgqnfmtoytqpeo.supabase.co')
   .replaceAll('sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl', 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49');
 if (!html.includes('const IS_PRODUCTION = false;') || html.includes('aybtxqsneywuqxzjwoek')) {

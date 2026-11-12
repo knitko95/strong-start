@@ -676,9 +676,11 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 <div id="toast"></div>
 
 <script>
-/* Environment: only the existing production URL may use the live database. */
-const IS_PRODUCTION = location.origin === 'https://knitko95.github.io' &&
-  /^\/strong-start\/(?:index\.html)?$/.test(location.pathname);
+/* Environment: exact approved production locations; previews stay isolated. */
+const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
+  /^\/(?:index\.html)?$/.test(location.pathname)) ||
+  (location.origin === 'https://knitko95.github.io' &&
+  /^\/strong-start\/(?:index\.html)?$/.test(location.pathname));
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 const storageKey = key => IS_PRODUCTION ? key : 'dev_' + key;
 if (!IS_PRODUCTION) {
