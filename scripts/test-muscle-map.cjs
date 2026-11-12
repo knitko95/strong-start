@@ -25,6 +25,7 @@ const server=http.createServer((req,res)=>{
   assert.match(await page.locator('#environment-banner').innerText(),/TESTING/);
   assert.equal(await page.evaluate(()=>SB_URL),'https://gvyfgqhgqnfmtoytqpeo.supabase.co');
   const before=await page.evaluate(()=>JSON.stringify({state,logs,SYNC}));
+  await page.locator('[data-action="sectoggle"][data-v="plan-muscles"]').click();
   const chooser=()=>page.locator('[data-action="choosemuscle"]');
   await chooser().click();
   if(process.env.MUSCLE_MAP_SCREENSHOTS){

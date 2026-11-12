@@ -44,7 +44,7 @@ const server=http.createServer((req,res)=>{try{const f=path.resolve(dist,'.'+(re
   await time('2026-11-20');await page.evaluate(()=>render());await start(keys[2]);await finish();await check(keys[0]);
   await time('2026-11-23');await page.evaluate(()=>render());await check(keys[0]);await start(keys[0]);await finish();await check(keys[1]);
   // Progress does not block another cycle, and repeated sessions stay deduplicated weekly.
-  await page.evaluate(()=>{ui.tab='plan';render();});assert.match(await page.locator('#app').innerText(),/Workout 1/);assert.match(await page.locator('#app').innerText(),/planned Mon \/ Wed \/ Fri/);
+  await page.evaluate(()=>{ui.tab='plan';render();});assert.match(await page.locator('#app').innerText(),/Workout 1/);assert.deepEqual(await page.locator('.plan-day.planned > span').allTextContents(),['Mon','Wed','Fri']);
   await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='training';ui.open={schedule:true};render();});assert.match(await page.locator('#app').innerText(),/Workout order/);
   assert.deepEqual(await page.locator('.ordday').allTextContents(),['1','2','3']);
   // Selected days can change without moving the sequence; flexible uses the same cursor.

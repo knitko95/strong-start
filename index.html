@@ -105,6 +105,20 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 .day.next{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .day.next .idx{color:var(--accent)}
 .day.done .idx{color:var(--good)}
+/* Plan: schedule and repeating workout order are separate. */
+.plan-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.plan-day{display:flex;flex-direction:column;gap:5px;padding:8px 0;border-radius:10px;font-size:12px;color:var(--muted)}
+.plan-day.planned{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.plan-flex{color:var(--accent);font-weight:600}
+.plan-place{padding:0 2px}
+.plan-workout{padding:0;overflow:hidden}
+.plan-workout .sec-head{gap:10px}
+.plan-workout-label{flex:1;min-width:0;text-align:left;display:flex;flex-direction:column;gap:4px}
+.plan-number{font-family:var(--display);font-size:27px;min-width:24px;color:var(--muted);text-align:center}
+.plan-next{border-color:var(--accent)}
+.plan-next .plan-number{color:var(--accent)}
+.plan-schedule .linkbtn{min-height:44px}
+.plan-help{color:var(--muted)}
 .day .grow{flex:1;min-width:0}
 .day .t{font-family:var(--display);font-size:22px;font-weight:700}
 /* Workout */
@@ -1360,7 +1374,7 @@ function selectMuscle(m,fromPicker=false){
     if(panel) panel.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
   },30);
 }
-function renderMuscleMap(split){
+function renderMuscleMap(split,embedded=false){
   const W=weekMuscles(split), c=m=>heat(W[m].score), sel=ui.musSel;
   const chooser=`<button type="button" class="btn muscle-chooser-btn" data-action="choosemuscle" aria-haspopup="dialog" aria-label="${sel?'Choose a muscle, '+MUSCLES[sel]+' selected':'Choose a muscle'}"><span class="selector-name">${sel?MUSCLES[sel]:'Choose a muscle'}</span><svg class="selector-caret" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9 L12 15 L18 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>`;
   let panel=chooser+'<p class="small muted" style="margin:0">Tap the diagram or choose a muscle to see its exercises.</p>';
@@ -1371,8 +1385,8 @@ function renderMuscleMap(split){
       ${prim.length?`<div><div class="eyebrow">Primary target</div>${prim.map(li).join('')}</div>`:''}
       ${sec.length?`<div><div class="eyebrow">Also works it</div>${sec.map(li).join('')}</div>`:''}
       ${!d.items.length?`<p class="small muted" style="margin:0">Nothing this week trains it directly.${sugg?` To add it, use Change on a related slot. Options: ${esc(sugg)}.`:''}</p>`:''}`; }
-  return `<section class="card stack" id="musclemap">
-    <div><div class="eyebrow">This week's muscles</div><h2>Muscle map</h2><div class="small muted">${esc(splitLabel())}</div></div>
+  return `<section class="${embedded?'stack':'card stack'}" id="musclemap">
+    ${embedded?'':`<div><div class="eyebrow">This week's muscles</div><h2>Muscle map</h2><div class="small muted">${esc(splitLabel())}</div></div>`}
     <div class="bodypair">${['f','b'].map(v=>`<div class="map-figure">${bodySVG(v,c,{interactive:true,sel,cls:'bodybig'})}<div class="map-view-label">${v==='f'?'Front':'Back'}</div></div>`).join('')}</div>
     <div class="row legend"><span><i style="background:var(--mbase)"></i>Not trained</span><span><i style="background:var(--h1)"></i>Light</span><span><i style="background:var(--h2)"></i>Moderate</span><span><i style="background:var(--h3)"></i>High</span></div>
     <div class="stack map-detail ${sel?'is-selected':''}" style="gap:8px">${panel}</div>
@@ -3208,16 +3222,23 @@ function renderPlanExercises(slots){
 }
 
 function renderPlan(){
-  const keys=weekKeys(), ds=trainDays();
+  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey();
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
-    <p class="small muted" style="margin:4px 0 0">${nDays()} days a week${isFlex()?', any days':', planned '+trainDays().map(d=>DAYN[d]).join(' / ')} (${esc(splitLabel())}), ${state.settings.mins||45} min each, built for ${goals().map(g=>esc(GOALS[g].n.toLowerCase())).join(' + ')} at ${esc(curPlace().n)}. Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p></div>
-    <p class="small muted">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p>${placeSwitch()}</section>
-    ${renderMuscleMap()}`;
+    </div></section>
+    <section class="card stack plan-schedule" aria-label="Schedule">
+      <div class="row between"><h3>Schedule</h3>${coachMode?'<span class="tiny muted">View only</span>':'<button class="linkbtn" data-action="planeditschedule">Edit schedule</button>'}</div>
+      <p class="small muted" style="margin:0">${nDays()} workouts a week · ${state.settings.mins||45} min each</p>
+      ${isFlex()?'<p class="small plan-flex" style="margin:0">Any days that work for you</p>':`<div class="plan-days" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<div role="listitem" class="plan-day ${ds.includes(d)?'planned':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'planned training day':'not scheduled'}"><span>${DAYN[d]}</span><b aria-hidden="true">${ds.includes(d)?'●':'–'}</b></div>`).join('')}</div>`}
+    </section>
+    ${state.places.length>1?placeSwitch():`<div class="row between small plan-place"><span class="muted">Exercises for</span><span>${esc(curPlace().n)}</span></div>`}
+    <section class="stack" style="gap:4px"><h3>Your workouts</h3><p class="small muted" style="margin:0">Workouts follow this order whenever you train.</p></section>`;
   keys.forEach((k,j)=>{
-    const t=tplOf(k), ss=sessionSlots(k);
-    h+=sec('plan-'+k,esc(t.name),`${dayLabel(j,true)} · ${t.focus} · ${lenText(k)}`,renderPlanExercises(ss));
+    const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id];
+    h+=`<section class="card plan-workout ${k===next?'plan-next':''}">
+      <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><span class="row"><b class="sec-t">${esc(t.name)}</b>${k===next?'<span class="chip acc">Up next</span>':''}</span><span class="tiny muted">${dayLabel(j,true)} · ${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+      ${open?`<div class="stack sec-body">${renderPlanExercises(ss)}</div>`:''}</section>`;
   });
-  return h + whyCard();
+  return h + sec('plan-muscles','Muscles in your plan','',renderMuscleMap(undefined,true)) + whyCard() + `<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
 }
 
 // Simple library filters: equipment type, body part, movement
@@ -4834,7 +4855,7 @@ function whyCard(){
   if(useJump()) bullets.push(`<b>Jumps first</b> on lower days, while you’re fresh, to build power.`);
   bullets.push(`<b>Weights go up</b> as you get stronger. ${L==='start'?'You’ll add reps first, then weight.':'That’s what keeps you improving.'}`);
   const foot = hasGoal('lose') ? 'Most of the scale change comes from what you eat. Lifting makes sure it’s fat you lose.' : hasGoal('muscle') ? 'Eat enough protein and sleep well: that’s when muscle is built.' : 'Showing up consistently matters more than any single workout.';
-  return `<details class="why"><summary>Why your plan looks like this</summary><div class="why-body">
+  return `<details class="why"><summary>Why this plan</summary><div class="why-body">
     <p class="small" style="margin:0">${lead}${intro[g[0]]}${g[1]?' '+intro[g[1]]:''}</p>
     <ul>${bullets.map(x=>`<li>${x}</li>`).join('')}</ul><p class="tiny muted" style="margin:0">${foot}</p></div></details>`;
 }
@@ -4967,7 +4988,7 @@ function weekOrderCard(){
 function sec(id,title,summary,body){
   const open=!!(ui.open||{})[id];
   return `<section class="card" style="padding:0;overflow:hidden">
-    <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span style="flex:1;min-width:0;text-align:left"><b class="sec-t">${title}</b><br><span class="tiny muted">${esc(summary||'')}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+    <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span style="flex:1;min-width:0;text-align:left"><b class="sec-t">${title}</b>${summary?`<br><span class="tiny muted">${esc(summary)}</span>`:''}</span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
     ${open?`<div class="stack sec-body">${body}</div>`:''}</section>`;
 }
 function renderCoachSettings(){
@@ -5454,6 +5475,7 @@ document.addEventListener('click', e=>{
         else if(state.settings.autoRest!==false && tg.rest) startRest(tg.rest,{label:'Rest'}); }
       save(); render(); break; }
     case 'settingsgroup': ui.settingsGroup=b.dataset.v; render(); window.scrollTo(0,0); $('#settings-title').focus({preventScroll:true}); break;
+    case 'planeditschedule': ui.tab='settings'; ui.settingsGroup='training'; ui.open=ui.open||{}; ui.open.schedule=true; render(); { const target=document.querySelector('[data-action="sectoggle"][data-v="schedule"]'); target?.scrollIntoView({block:'start'}); target?.focus({preventScroll:true}); } break;
     case 'settingshome': { const group=ui.settingsGroup; ui.settingsGroup=null; render(); window.scrollTo(0,0); const target=[...document.querySelectorAll('[data-action="settingsgroup"]')].find(el=>el.dataset.v===group); if(target) target.focus({preventScroll:true}); break; }
     case 'proftoggle': ui.profOpen=!ui.profOpen; render(); break;
     case 'sectoggle': ui.open=ui.open||{}; ui.open[b.dataset.v]=!ui.open[b.dataset.v]; render(); break;

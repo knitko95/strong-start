@@ -73,11 +73,13 @@ On the test app, the how-to cards for Dumbbell Romanian Deadlift, Hammer Curl, S
 
 ## Exploring the muscle map
 
-On the test app, each workout group on Plan is a collapsed dropdown. Its name, focus and time remain visible; expand it to see exercises and use Adjust or Swap. Groups open independently and stay open while making adjustments during the page session.
+On the test app, Plan opens with a compact **Schedule** card: workouts per week, session length and selected weekdays, or **Any days that work for you** for flexible schedules. **Edit schedule** opens Settings > Your training with Schedule expanded; coach previews show the schedule as view-only. Selected days are reminders, separate from the repeating workout order.
 
-On the test app, **Why your plan looks like this** is a collapsed dropdown at the bottom of Plan, after the workouts. Open it to read the existing explanation of your goals, reps, rest and progression. It no longer appears on Today.
+Under **Your workouts**, each workout group is a numbered, collapsed dropdown. Its name, focus and time remain visible, and **Up next** follows the same recommendation as Today. Expand it to see exercises and use Adjust or Swap. Groups open independently and stay open while making adjustments during the page session. The location selector still adapts exercises for the selected place. **Plan help** holds the Swap/Adjust instructions and timing notes.
 
-On dev, **Plan > Muscle map** shows the week's planned training on front and back diagrams. Tap a muscle, or use **Choose a muscle** to open the large-button list grouped into Upper body, Core, and Lower body. Choosing a name closes the list, highlights the muscle, and shows its primary and secondary exercises and estimated weekly sets. The list scrolls on shorter screens. Browsing the map does not change your plan or workout progress.
+On the test app, **Why this plan** is a collapsed dropdown after the workouts and muscle coverage. Open it to read the existing explanation of your goals, reps, rest and progression. It no longer appears on Today.
+
+On dev, expand **Plan > Muscles in your plan** below the workouts to see the week's planned training on front and back diagrams. Tap a muscle, or use **Choose a muscle** to open the large-button list grouped into Upper body, Core, and Lower body. Choosing a name closes the list, highlights the muscle, and shows its primary and secondary exercises and estimated weekly sets. The list scrolls on shorter screens. Browsing the map does not change your plan or workout progress.
 
 After selection, the muscle's name becomes the outlined selector button (for example, **Quads ⌄**), with estimated weekly sets beside it. Tap that button to choose another muscle; there is no separate repeated muscle heading.
 
