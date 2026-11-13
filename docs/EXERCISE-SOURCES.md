@@ -20,333 +20,334 @@ The initial associations below come from the [November 11 audit](EXERCISE-AUDIT-
 | --- | --- | --- |
 | 2026-11-11 | NASM | [Findings and verification limits](EXERCISE-AUDIT-2026-11-11.md); [all 320 catalog entries, 92 warm-up guides and source mappings](exercise-audit-2026-11-11.json). |
 | 2026-11-11 | NASM, ACE, Runna | [Six standalone animation drafts: movement comparisons and unresolved differences](EXERCISE-ANIMATION-BATCH2-2026-11-11.md). No catalogue wording changes or technique approval. |
+| 2026-11-13 | NASM, ACE, PureGym, TRX, Catalyst Athletics, Physitrack and other identified authors | [Detailed internal technique research](EXERCISE-TECHNIQUE-2026-11-13.md): original notes for all 320 catalog exercises, all 92 named guides and 12 cardio types / 67 app labels. [Library, evidence relationships and review limits](exercise-technique/README.md); [257 source URLs and section-specific limitations](exercise-technique/sources.md). Research drafts; no runtime cue changes or professional technique approval. |
 
 ## Catalog exercise associations
 
-The date shown is the underlying audit date. The initial coverage is 33 same-movement comparisons, 244 related references and 43 entries without a suitable reference. Use the dated evidence inventory for each entry's findings and changed fields. Source keys below link directly to the original page; titles are listed in the source directory.
+The coverage and date columns below preserve the underlying November 11 audit. Later internal technique links have their own November 13 relationships and evidence boundaries; they do not overwrite those historical columns. The date shown is the underlying audit date. The initial coverage is 33 same-movement comparisons, 244 related references and 43 entries without a suitable reference. Use the dated evidence inventory for each entry's findings and changed fields. Source keys below link directly to the original page; titles are listed in the source directory.
 
 | Exercise | App ID | Reference coverage | Reviewed | Sources |
 | --- | --- | --- | --- | --- |
-| Barbell Bench Press | `barbell-bench-press` | Same movement | 2026-11-11 | [NASM:bench][nasm-bench] |
-| Dumbbell Bench Press | `dumbbell-bench-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Close-Grip Bench Press | `close-grip-bench-press` | Same movement | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Smith Machine Bench Press | `smith-machine-bench-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Machine Chest Press | `machine-chest-press` | Same movement | 2026-11-11 | [NASM:machine-press][nasm-machine-press] |
-| Standing Cable Chest Press | `standing-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Single-Arm Cable Chest Press | `single-arm-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Single-Arm Dumbbell Bench Press | `single-arm-dumbbell-bench-press` | Same movement | 2026-11-11 | [NASM:single-db-press][nasm-single-db-press]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Dumbbell Floor Press | `dumbbell-floor-press` | Same movement | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [Runna: floor press](https://support.runna.com/en/articles/6413209-floor-dumbbell-bench-press-exercise-tutorial); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Kettlebell Floor Press | `kettlebell-floor-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Weighted Push-Up | `weighted-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| TRX Chest Press | `trx-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Incline Dumbbell Press | `incline-dumbbell-press` | Same movement | 2026-11-11 | [NASM:incline-db][nasm-incline-db]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Incline Barbell Bench Press | `incline-barbell-bench-press` | Same movement | 2026-11-11 | [NASM:incline-bb][nasm-incline-bb] |
-| Incline Machine Press | `incline-machine-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Weighted Dip | `weighted-dip` | No suitable reference | 2026-11-11 | None recorded |
-| Cable Fly High to Low | `cable-fly-high-to-low` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Cable Fly Low to High | `cable-fly-low-to-high` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Pec Deck | `pec-deck` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Dumbbell Fly on Stability Ball | `dumbbell-fly-on-stability-ball` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| TRX Fly | `trx-fly` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Deficit Push-Up | `deficit-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Push-Up on Stability Ball | `push-up-on-stability-ball` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Feet-on-Ball Push-Up | `feet-on-ball-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Dumbbell Squeeze Press | `dumbbell-squeeze-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Standing Barbell Overhead Press | `standing-barbell-overhead-press` | No suitable reference | 2026-11-11 | None recorded |
-| Push Press | `push-press` | No suitable reference | 2026-11-11 | None recorded |
-| Z Press | `z-press` | No suitable reference | 2026-11-11 | None recorded |
-| Seated Dumbbell Shoulder Press | `seated-dumbbell-shoulder-press` | Same movement | 2026-11-11 | [ACE: seated press](https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/)  [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Standing Dumbbell Shoulder Press | `standing-dumbbell-shoulder-press` | No suitable reference | 2026-11-11 | None recorded |
-| Machine Shoulder Press | `machine-shoulder-press` | No suitable reference | 2026-11-11 | None recorded |
-| Half-Kneeling Landmine Press | `half-kneeling-landmine-press` | No suitable reference | 2026-11-11 | None recorded |
-| Single-Arm Kettlebell Overhead Press | `single-arm-kettlebell-overhead-press` | No suitable reference | 2026-11-11 | None recorded |
-| Bottoms-Up Kettlebell Press | `bottoms-up-kettlebell-press` | No suitable reference | 2026-11-11 | None recorded |
-| Arnold Press | `arnold-press` | No suitable reference | 2026-11-11 | None recorded |
-| Half-Kneeling Single-Arm Cable Press | `half-kneeling-single-arm-cable-press` | No suitable reference | 2026-11-11 | None recorded |
-| Pike Push-Up | `pike-push-up` | Same movement | 2026-11-11 | [NASM:pike][nasm-pike] |
-| Dumbbell Lateral Raise | `dumbbell-lateral-raise` | Same movement | 2026-11-11 | [NASM:planes][nasm-planes]; [ACE: lateral raise](https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Cable Lateral Raise | `cable-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Machine Lateral Raise | `machine-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Leaning Single-Arm Lateral Raise | `leaning-single-arm-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Lu Raise | `lu-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Cable Y-Raise | `cable-y-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Y-Raise on Stability Ball | `y-raise-on-stability-ball` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Dumbbell Front Raise | `dumbbell-front-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Kettlebell Halo | `kettlebell-halo` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Cable Rope Pushdown | `cable-rope-pushdown` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Overhead Cable Triceps Extension | `overhead-cable-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Single-Arm Cable Kickback | `single-arm-cable-kickback` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Dumbbell Skull Crusher | `dumbbell-skull-crusher` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Barbell Skull Crusher | `barbell-skull-crusher` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Dumbbell Overhead Triceps Extension | `dumbbell-overhead-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Tate Press | `tate-press` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Machine Triceps Extension | `machine-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Bench Dip | `bench-dip` | Same movement | 2026-11-11 | [NASM:bench-dip][nasm-bench-dip] |
-| Diamond Push-Up | `diamond-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| TRX Triceps Extension | `trx-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Cable Woodchop High to Low | `cable-woodchop-high-to-low` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Cable Lift Low to High | `cable-lift-low-to-high` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Pallof Press | `pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Half-Kneeling Pallof Press | `half-kneeling-pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Cable Trunk Rotation | `cable-trunk-rotation` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Landmine Rainbow | `landmine-rainbow` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Landmine Rotational Push Press | `landmine-rotational-push-press` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Ball Russian Twist | `ball-russian-twist` | Related only | 2026-11-11 | [NASM:twist][nasm-twist] |
-| Dumbbell Russian Twist | `dumbbell-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist] |
-| Kettlebell Windmill | `kettlebell-windmill` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Kettlebell Around-the-World | `kettlebell-around-the-world` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| TRX Anti-Rotation Press | `trx-anti-rotation-press` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Renegade Row | `renegade-row` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Machine Torso Rotation | `machine-torso-rotation` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Hanging Oblique Knee Raise | `hanging-oblique-knee-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Stability Ball Rollout | `stability-ball-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Stir the Pot | `stir-the-pot` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Stability Ball Pike | `stability-ball-pike` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Stability Ball Jackknife | `stability-ball-jackknife` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Ball Crunch | `ball-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| TRX Body Saw | `trx-body-saw` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| TRX Pike | `trx-pike` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| TRX Fallout | `trx-fallout` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Hanging Leg Raise | `hanging-leg-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Cable Crunch | `cable-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Machine Ab Crunch | `machine-ab-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Barbell Rollout | `barbell-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Weighted Decline Sit-Up | `weighted-decline-sit-up` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Dead Bug | `dead-bug` | Same movement | 2026-11-11 | [NASM:dead-bug][nasm-dead-bug] |
-| Plank | `plank` | Same movement | 2026-11-11 | [NASM:plank][nasm-plank] |
-| Side Plank | `side-plank` | Same movement | 2026-11-11 | [NASM:side-plank][nasm-side-plank] |
-| Copenhagen Plank | `copenhagen-plank` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Hollow Body Hold | `hollow-body-hold` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Dumbbell Farmer's Carry | `dumbbell-farmer-s-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Kettlebell Farmer's Carry | `kettlebell-farmer-s-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Suitcase Carry | `suitcase-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Kettlebell Front Rack Carry | `kettlebell-front-rack-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Overhead Kettlebell Carry | `overhead-kettlebell-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Mixed Rack and Suitcase Carry | `mixed-rack-and-suitcase-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Weighted Pull-Up | `weighted-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Chin-Up | `chin-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Neutral-Grip Pull-Up | `neutral-grip-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| L-Sit Pull-Up | `l-sit-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Lat Pulldown | `lat-pulldown` | Same movement | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Close-Grip Lat Pulldown | `close-grip-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Single-Arm Lat Pulldown | `single-arm-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Machine Pulldown | `machine-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Barbell Bent-Over Row | `barbell-bent-over-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Pendlay Row | `pendlay-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Seal Row | `seal-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Chest-Supported Dumbbell Row | `chest-supported-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Landmine T-Bar Row | `landmine-t-bar-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Seated Cable Row | `seated-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Machine Row | `machine-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Inverted Row | `inverted-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| TRX Row | `trx-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Kettlebell Gorilla Row | `kettlebell-gorilla-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Single-Arm Dumbbell Row | `single-arm-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Single-Arm Rotational Cable Row | `single-arm-rotational-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Meadows Row | `meadows-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Kettlebell Single-Arm Row | `kettlebell-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| TRX Single-Arm Row | `trx-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| TRX Power Pull | `trx-power-pull` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Straight-Arm Cable Pulldown | `straight-arm-cable-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Dumbbell Pullover | `dumbbell-pullover` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Half-Kneeling Single-Arm Cable Row | `half-kneeling-single-arm-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Ball-Supported Dumbbell Row | `ball-supported-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Cable Face Pull | `cable-face-pull` | Same movement | 2026-11-11 | [NASM:face-pull][nasm-face-pull] |
-| Reverse Pec Deck | `reverse-pec-deck` | No suitable reference | 2026-11-11 | None recorded |
-| Bent-Over Dumbbell Reverse Fly | `bent-over-dumbbell-reverse-fly` | No suitable reference | 2026-11-11 | None recorded |
-| Cable Reverse Fly | `cable-reverse-fly` | No suitable reference | 2026-11-11 | None recorded |
-| Incline Dumbbell Rear Delt Row | `incline-dumbbell-rear-delt-row` | No suitable reference | 2026-11-11 | None recorded |
-| TRX Face Pull | `trx-face-pull` | Related only | 2026-11-11 | [NASM:face-pull][nasm-face-pull] |
-| TRX Y-T-W | `trx-y-t-w` | No suitable reference | 2026-11-11 | None recorded |
-| Ball Prone Y-T-W | `ball-prone-y-t-w` | No suitable reference | 2026-11-11 | None recorded |
-| Cable External Rotation | `cable-external-rotation` | No suitable reference | 2026-11-11 | None recorded |
-| Dumbbell Shrug | `dumbbell-shrug` | No suitable reference | 2026-11-11 | None recorded |
-| Barbell Curl | `barbell-curl` | Same movement | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Incline Dumbbell Curl | `incline-dumbbell-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Hammer Curl | `hammer-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Cable Curl | `cable-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Bayesian Cable Curl | `bayesian-cable-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Machine Preacher Curl | `machine-preacher-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Concentration Curl | `concentration-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Zottman Curl | `zottman-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Dumbbell Spider Curl | `dumbbell-spider-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Kettlebell Hammer Curl | `kettlebell-hammer-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| TRX Biceps Curl | `trx-biceps-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Barbell Back Squat | `barbell-back-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Front Squat | `front-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Zercher Squat | `zercher-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Box Squat | `box-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Hack Squat | `hack-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Leg Press | `leg-press` | Same movement | 2026-11-11 | [NASM:leg-press][nasm-leg-press] |
-| Smith Machine Squat | `smith-machine-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Goblet Squat | `goblet-squat` | Same movement | 2026-11-11 | [NASM:goblet][nasm-goblet]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md) |
-| Double Kettlebell Front Squat | `double-kettlebell-front-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Heel-Elevated Dumbbell Squat | `heel-elevated-dumbbell-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Stability Ball Wall Squat | `stability-ball-wall-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Conventional Deadlift | `conventional-deadlift` | Same movement | 2026-11-11 | [NASM:deadlift][nasm-deadlift] |
-| Sumo Deadlift | `sumo-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift] |
-| Romanian Deadlift | `romanian-deadlift` | Same movement | 2026-11-11 | [NASM:rdl][nasm-rdl] |
-| Dumbbell Romanian Deadlift | `dumbbell-romanian-deadlift` | Same movement | 2026-11-11 | [NASM:db-rdl][nasm-db-rdl] |
-| Double Kettlebell Deadlift | `double-kettlebell-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift] |
-| Kettlebell Swing | `kettlebell-swing` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics] |
-| Good Morning | `good-morning` | Same movement | 2026-11-11 | [NASM:good-morning][nasm-good-morning] |
-| Cable Pull-Through | `cable-pull-through` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional] |
-| Weighted Back Extension | `weighted-back-extension` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional] |
-| Barbell Hip Thrust | `barbell-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| B-Stance Hip Thrust | `b-stance-hip-thrust` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| Dumbbell Hip Thrust | `dumbbell-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Glute Drive Machine | `glute-drive-machine` | No suitable reference | 2026-11-11 | None recorded |
-| Single-Leg Hip Thrust | `single-leg-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Stability Ball Single-Leg Bridge | `stability-ball-single-leg-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Cable Glute Kickback | `cable-glute-kickback` | No suitable reference | 2026-11-11 | None recorded |
-| Bulgarian Split Squat | `bulgarian-split-squat` | Same movement | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian] |
-| Barbell Reverse Lunge | `barbell-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Dumbbell Walking Lunge | `dumbbell-walking-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Front-Foot-Elevated Split Squat | `front-foot-elevated-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Kettlebell Goblet Reverse Lunge | `kettlebell-goblet-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Step-Up | `step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Smith Machine Split Squat | `smith-machine-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Single-Leg Leg Press | `single-leg-leg-press` | Same movement | 2026-11-11 | [NASM:single-press][nasm-single-press] |
-| TRX Single-Leg Squat | `trx-single-leg-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Pistol Squat to Bench | `pistol-squat-to-bench` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Skater Squat | `skater-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Single-Leg Romanian Deadlift | `single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| Kettlebell Single-Leg Deadlift | `kettlebell-single-leg-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| Landmine Single-Leg Romanian Deadlift | `landmine-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| Cable Single-Leg Romanian Deadlift | `cable-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| B-Stance Romanian Deadlift | `b-stance-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| High Step-Up | `high-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Lateral Lunge | `lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Cossack Squat | `cossack-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Lateral Step-Up | `lateral-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Landmine Lateral Lunge | `landmine-lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| TRX Lateral Lunge | `trx-lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Curtsy Lunge | `curtsy-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Transverse Lunge | `transverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Skater Bound | `skater-bound` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Lying Leg Curl | `lying-leg-curl` | Same movement | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl] |
-| Seated Leg Curl | `seated-leg-curl` | Same movement | 2026-11-11 | [NASM:seated-curl][nasm-seated-curl] |
-| Standing Cable Leg Curl | `standing-cable-leg-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| Dumbbell Leg Curl | `dumbbell-leg-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| Stability Ball Hamstring Curl | `stability-ball-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| Single-Leg Ball Hamstring Curl | `single-leg-ball-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| TRX Hamstring Curl | `trx-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| Nordic Curl | `nordic-curl` | No suitable reference | 2026-11-11 | None recorded |
-| Glute-Ham Raise | `glute-ham-raise` | No suitable reference | 2026-11-11 | None recorded |
-| Leg Extension | `leg-extension` | No suitable reference | 2026-11-11 | None recorded |
-| Single-Leg Extension | `single-leg-extension` | No suitable reference | 2026-11-11 | None recorded |
-| Sissy Squat | `sissy-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Reverse Nordic | `reverse-nordic` | No suitable reference | 2026-11-11 | None recorded |
-| Peterson Step-Up | `peterson-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Hip Adduction Machine | `hip-adduction-machine` | No suitable reference | 2026-11-11 | None recorded |
-| Hip Abduction Machine | `hip-abduction-machine` | No suitable reference | 2026-11-11 | None recorded |
-| Cable Hip Abduction | `cable-hip-abduction` | No suitable reference | 2026-11-11 | None recorded |
-| Cable Hip Adduction | `cable-hip-adduction` | No suitable reference | 2026-11-11 | None recorded |
-| Stability Ball Squeeze Bridge | `stability-ball-squeeze-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Side-Lying Hip Abduction | `side-lying-hip-abduction` | No suitable reference | 2026-11-11 | None recorded |
-| Standing Calf Raise Machine | `standing-calf-raise-machine` | Related only | 2026-11-11 | [NASM:calf][nasm-calf] |
-| Seated Calf Raise | `seated-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf] |
-| Leg Press Calf Raise | `leg-press-calf-raise` | Same movement | 2026-11-11 | [NASM:calf][nasm-calf] |
-| Single-Leg Dumbbell Calf Raise | `single-leg-dumbbell-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf] |
-| Barbell Calf Raise | `barbell-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf] |
-| Tibialis Raise | `tibialis-raise` | No suitable reference | 2026-11-11 | None recorded |
-| Box Step-Up | `box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Lateral Box Step-Up | `lateral-box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Crossover Box Step-Up | `crossover-box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Box Step-Up with Knee Drive | `box-step-up-with-knee-drive` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Eccentric Box Step-Down | `eccentric-box-step-down` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Box Bulgarian Split Squat | `box-bulgarian-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Feet-on-Box Decline Push-Up | `feet-on-box-decline-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Box Jump | `box-jump` | Same movement | 2026-11-11 | [NASM:box-jump][nasm-box-jump] |
-| Seated Box Jump | `seated-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Depth Jump | `depth-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Lateral Box Jump | `lateral-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Single-Leg Box Jump | `single-leg-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Broad Jump | `broad-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Squat Jump | `squat-jump` | Same movement | 2026-11-11 | [NASM:squat-jump][nasm-squat-jump] |
-| Approach Vertical Jump | `approach-vertical-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Tuck Jump | `tuck-jump` | Same movement | 2026-11-11 | [NASM:tuck-jump][nasm-tuck-jump] |
-| Split Squat Jump | `split-squat-jump` | Same movement | 2026-11-11 | [NASM:lunge-jump][nasm-lunge-jump] |
-| Lateral Bound | `lateral-bound` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| 180 Degree Rotational Jump | `180-degree-rotational-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Single-Leg Lateral Hop | `single-leg-lateral-hop` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Pogo Hops | `pogo-hops` | No suitable reference | 2026-11-11 | None recorded |
-| Dumbbell Jump Squat | `dumbbell-jump-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Side Step Lunge | `side-step-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Side Step Lunge to Balance | `side-step-lunge-to-balance` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Hanging Knee Raise | `hanging-knee-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Band Pull-Apart | `band-pull-apart` | No suitable reference | 2026-11-11 | None recorded |
-| Band Face Pull | `band-face-pull` | Related only | 2026-11-11 | [NASM:face-pull][nasm-face-pull] |
-| Band-Assisted Archer Pull-Up | `band-assisted-archer-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Kneeling Band Lat Pulldown | `kneeling-band-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown] |
-| Band Seated Row | `band-seated-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Tube Single-Arm Row | `tube-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional] |
-| Anchored Band Chest Press | `anchored-band-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press] |
-| Banded Push-Up | `banded-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Band Overhead Press | `band-overhead-press` | No suitable reference | 2026-11-11 | None recorded |
-| Band Lateral Raise | `band-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Band Triceps Pushdown | `band-triceps-pushdown` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Band Biceps Curl | `band-biceps-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Band Pallof Press | `band-pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Band Woodchop | `band-woodchop` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Mini-Band Lateral Walk | `mini-band-lateral-walk` | No suitable reference | 2026-11-11 | None recorded |
-| Mini-Band Monster Walk | `mini-band-monster-walk` | No suitable reference | 2026-11-11 | None recorded |
-| Banded Clamshell | `banded-clamshell` | Same movement | 2026-11-11 | [NASM:clamshell][nasm-clamshell] |
-| Banded Glute Bridge | `banded-glute-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Band Pull-Through | `band-pull-through` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional] |
-| Band Good Morning | `band-good-morning` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional] |
-| Prone Band Hamstring Curl | `prone-band-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl] |
-| Battle Rope Alternating Waves | `battle-rope-alternating-waves` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Battle Rope Side-to-Side Waves | `battle-rope-side-to-side-waves` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Battle Rope Rotational Slams | `battle-rope-rotational-slams` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Battle Rope Double Slams | `battle-rope-double-slams` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Battle Rope Lateral Shuffle Waves | `battle-rope-lateral-shuffle-waves` | No suitable reference | 2026-11-11 | None recorded |
-| Medicine Ball Slam | `medicine-ball-slam` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Rotational Medicine Ball Slam | `rotational-medicine-ball-slam` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Rotational Scoop Toss | `medicine-ball-rotational-scoop-toss` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Shot Put Throw | `medicine-ball-shot-put-throw` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Chest Pass | `medicine-ball-chest-pass` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Overhead Wall Throw | `medicine-ball-overhead-wall-throw` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Vertical Toss | `medicine-ball-vertical-toss` | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Medicine Ball Russian Twist | `medicine-ball-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist] |
-| Medicine Ball V-Up | `medicine-ball-v-up` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Medicine Ball Push-Up | `medicine-ball-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Medicine Ball Lunge with Rotation | `medicine-ball-lunge-with-rotation` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| Medicine Ball Woodchop | `medicine-ball-woodchop` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| BOSU Squat | `bosu-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| BOSU Push-Up | `bosu-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| BOSU Mountain Climber | `bosu-mountain-climber` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| BOSU Single-Leg Romanian Deadlift | `bosu-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl] |
-| BOSU Lateral Step-Over | `bosu-lateral-step-over` | No suitable reference | 2026-11-11 | None recorded |
-| BOSU Reverse Lunge | `bosu-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional] |
-| BOSU Side Plank | `bosu-side-plank` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| BOSU Squat Jump | `bosu-squat-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump] |
-| Monkey Bar Traverse | `monkey-bar-traverse` | No suitable reference | 2026-11-11 | None recorded |
-| Toes-to-Bar | `toes-to-bar` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Hanging Windshield Wiper | `hanging-windshield-wiper` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Commando Pull-Up | `commando-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Archer Pull-Up | `archer-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Plate Front Raise | `plate-front-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Plate Halo | `plate-halo` | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Plate Pinch Carry | `plate-pinch-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Plate Russian Twist | `plate-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist] |
-| Turkish Get-Up | `turkish-get-up` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Kettlebell Clean and Press | `kettlebell-clean-and-press` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics] |
-| Kettlebell Snatch | `kettlebell-snatch` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics] |
-| Smith Machine Hip Thrust | `smith-machine-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Dumbbell Glute Bridge | `dumbbell-glute-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional] |
-| Trap Bar Deadlift | `trap-bar-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift] |
-| EZ-Bar Curl | `ez-bar-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl] |
-| Assisted Pull-Up Machine | `assisted-pull-up-machine` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up] |
-| Assisted Dip Machine | `assisted-dip-machine` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press] |
-| Sled Push | `sled-push` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Sled Pull | `sled-pull` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Sandbag Bear-Hug Carry | `sandbag-bear-hug-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Sandbag Squat | `sandbag-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner] |
-| Ab Wheel Rollout | `ab-wheel-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core] |
-| Ankle-Weight Glute Kickback | `ankle-weight-glute-kickback` | No suitable reference | 2026-11-11 | None recorded |
-| Ankle-Weight Side-Lying Leg Raise | `ankle-weight-side-lying-leg-raise` | No suitable reference | 2026-11-11 | None recorded |
-| Back Extension | `back-extension` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional] |
+| Barbell Bench Press | `barbell-bench-press` | Same movement | 2026-11-11 | [NASM:bench][nasm-bench]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#barbell-bench-press) |
+| Dumbbell Bench Press | `dumbbell-bench-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-bench-press) |
+| Close-Grip Bench Press | `close-grip-bench-press` | Same movement | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#close-grip-bench-press) |
+| Smith Machine Bench Press | `smith-machine-bench-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#smith-machine-bench-press) |
+| Machine Chest Press | `machine-chest-press` | Same movement | 2026-11-11 | [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#machine-chest-press) |
+| Standing Cable Chest Press | `standing-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#standing-cable-chest-press) |
+| Single-Arm Cable Chest Press | `single-arm-cable-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#single-arm-cable-chest-press) |
+| Single-Arm Dumbbell Bench Press | `single-arm-dumbbell-bench-press` | Same movement | 2026-11-11 | [NASM:single-db-press][nasm-single-db-press]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-presses.md#single-arm-dumbbell-bench-press) |
+| Dumbbell Floor Press | `dumbbell-floor-press` | Same movement | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [Runna: floor press](https://support.runna.com/en/articles/6413209-floor-dumbbell-bench-press-exercise-tutorial); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-floor-press) |
+| Kettlebell Floor Press | `kettlebell-floor-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#kettlebell-floor-press) |
+| Weighted Push-Up | `weighted-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#weighted-push-up) |
+| TRX Chest Press | `trx-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#trx-chest-press) |
+| Incline Dumbbell Press | `incline-dumbbell-press` | Same movement | 2026-11-11 | [NASM:incline-db][nasm-incline-db]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-presses.md#incline-dumbbell-press) |
+| Incline Barbell Bench Press | `incline-barbell-bench-press` | Same movement | 2026-11-11 | [NASM:incline-bb][nasm-incline-bb]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#incline-barbell-bench-press) |
+| Incline Machine Press | `incline-machine-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#incline-machine-press) |
+| Weighted Dip | `weighted-dip` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#weighted-dip) |
+| Cable Fly High to Low | `cable-fly-high-to-low` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#cable-fly-high-to-low) |
+| Cable Fly Low to High | `cable-fly-low-to-high` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#cable-fly-low-to-high) |
+| Pec Deck | `pec-deck` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#pec-deck) |
+| Dumbbell Fly on Stability Ball | `dumbbell-fly-on-stability-ball` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-fly-on-stability-ball) |
+| TRX Fly | `trx-fly` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#trx-fly) |
+| Deficit Push-Up | `deficit-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#deficit-push-up) |
+| Push-Up on Stability Ball | `push-up-on-stability-ball` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#push-up-on-stability-ball) |
+| Feet-on-Ball Push-Up | `feet-on-ball-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#feet-on-ball-push-up) |
+| Dumbbell Squeeze Press | `dumbbell-squeeze-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-squeeze-press) |
+| Standing Barbell Overhead Press | `standing-barbell-overhead-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#standing-barbell-overhead-press) |
+| Push Press | `push-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#push-press) |
+| Z Press | `z-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#z-press) |
+| Seated Dumbbell Shoulder Press | `seated-dumbbell-shoulder-press` | Same movement | 2026-11-11 | [ACE: seated press](https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/)  [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-presses.md#seated-dumbbell-shoulder-press) |
+| Standing Dumbbell Shoulder Press | `standing-dumbbell-shoulder-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#standing-dumbbell-shoulder-press) |
+| Machine Shoulder Press | `machine-shoulder-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#machine-shoulder-press) |
+| Half-Kneeling Landmine Press | `half-kneeling-landmine-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#half-kneeling-landmine-press) |
+| Single-Arm Kettlebell Overhead Press | `single-arm-kettlebell-overhead-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#single-arm-kettlebell-overhead-press) |
+| Bottoms-Up Kettlebell Press | `bottoms-up-kettlebell-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#bottoms-up-kettlebell-press) |
+| Arnold Press | `arnold-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#arnold-press) |
+| Half-Kneeling Single-Arm Cable Press | `half-kneeling-single-arm-cable-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#half-kneeling-single-arm-cable-press) |
+| Pike Push-Up | `pike-push-up` | Same movement | 2026-11-11 | [NASM:pike][nasm-pike]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#pike-push-up) |
+| Dumbbell Lateral Raise | `dumbbell-lateral-raise` | Same movement | 2026-11-11 | [NASM:planes][nasm-planes]; [ACE: lateral raise](https://www.acefitness.org/resources/everyone/exercise-library/26/lateral-raise/); [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-lateral-raise) |
+| Cable Lateral Raise | `cable-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#cable-lateral-raise) |
+| Machine Lateral Raise | `machine-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#machine-lateral-raise) |
+| Leaning Single-Arm Lateral Raise | `leaning-single-arm-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#leaning-single-arm-lateral-raise) |
+| Lu Raise | `lu-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#lu-raise) |
+| Cable Y-Raise | `cable-y-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#cable-y-raise) |
+| Y-Raise on Stability Ball | `y-raise-on-stability-ball` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#y-raise-on-stability-ball) |
+| Dumbbell Front Raise | `dumbbell-front-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-front-raise) |
+| Kettlebell Halo | `kettlebell-halo` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#kettlebell-halo) |
+| Cable Rope Pushdown | `cable-rope-pushdown` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#cable-rope-pushdown) |
+| Overhead Cable Triceps Extension | `overhead-cable-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#overhead-cable-triceps-extension) |
+| Single-Arm Cable Kickback | `single-arm-cable-kickback` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#single-arm-cable-kickback) |
+| Dumbbell Skull Crusher | `dumbbell-skull-crusher` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-skull-crusher) |
+| Barbell Skull Crusher | `barbell-skull-crusher` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#barbell-skull-crusher) |
+| Dumbbell Overhead Triceps Extension | `dumbbell-overhead-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-overhead-triceps-extension) |
+| Tate Press | `tate-press` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#tate-press) |
+| Machine Triceps Extension | `machine-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#machine-triceps-extension) |
+| Bench Dip | `bench-dip` | Same movement | 2026-11-11 | [NASM:bench-dip][nasm-bench-dip]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#bench-dip) |
+| Diamond Push-Up | `diamond-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#diamond-push-up) |
+| TRX Triceps Extension | `trx-triceps-extension` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#trx-triceps-extension) |
+| Cable Woodchop High to Low | `cable-woodchop-high-to-low` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#cable-woodchop-high-to-low) |
+| Cable Lift Low to High | `cable-lift-low-to-high` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#cable-lift-low-to-high) |
+| Pallof Press | `pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#pallof-press) |
+| Half-Kneeling Pallof Press | `half-kneeling-pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#half-kneeling-pallof-press) |
+| Cable Trunk Rotation | `cable-trunk-rotation` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#cable-trunk-rotation) |
+| Landmine Rainbow | `landmine-rainbow` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#landmine-rainbow) |
+| Landmine Rotational Push Press | `landmine-rotational-push-press` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#landmine-rotational-push-press) |
+| Ball Russian Twist | `ball-russian-twist` | Related only | 2026-11-11 | [NASM:twist][nasm-twist]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#ball-russian-twist) |
+| Dumbbell Russian Twist | `dumbbell-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#dumbbell-russian-twist) |
+| Kettlebell Windmill | `kettlebell-windmill` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#kettlebell-windmill) |
+| Kettlebell Around-the-World | `kettlebell-around-the-world` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#kettlebell-around-the-world) |
+| TRX Anti-Rotation Press | `trx-anti-rotation-press` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#trx-anti-rotation-press) |
+| Renegade Row | `renegade-row` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#renegade-row) |
+| Machine Torso Rotation | `machine-torso-rotation` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#machine-torso-rotation) |
+| Hanging Oblique Knee Raise | `hanging-oblique-knee-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#hanging-oblique-knee-raise) |
+| Stability Ball Rollout | `stability-ball-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#stability-ball-rollout) |
+| Stir the Pot | `stir-the-pot` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#stir-the-pot) |
+| Stability Ball Pike | `stability-ball-pike` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#stability-ball-pike) |
+| Stability Ball Jackknife | `stability-ball-jackknife` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#stability-ball-jackknife) |
+| Ball Crunch | `ball-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#ball-crunch) |
+| TRX Body Saw | `trx-body-saw` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#trx-body-saw) |
+| TRX Pike | `trx-pike` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#trx-pike) |
+| TRX Fallout | `trx-fallout` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#trx-fallout) |
+| Hanging Leg Raise | `hanging-leg-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#hanging-leg-raise) |
+| Cable Crunch | `cable-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#cable-crunch) |
+| Machine Ab Crunch | `machine-ab-crunch` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#machine-ab-crunch) |
+| Barbell Rollout | `barbell-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#barbell-rollout) |
+| Weighted Decline Sit-Up | `weighted-decline-sit-up` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#weighted-decline-sit-up) |
+| Dead Bug | `dead-bug` | Same movement | 2026-11-11 | [NASM:dead-bug][nasm-dead-bug]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#dead-bug) |
+| Plank | `plank` | Same movement | 2026-11-11 | [NASM:plank][nasm-plank]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#plank) |
+| Side Plank | `side-plank` | Same movement | 2026-11-11 | [NASM:side-plank][nasm-side-plank]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#side-plank) |
+| Copenhagen Plank | `copenhagen-plank` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#copenhagen-plank) |
+| Hollow Body Hold | `hollow-body-hold` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#hollow-body-hold) |
+| Dumbbell Farmer's Carry | `dumbbell-farmer-s-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#dumbbell-farmer-s-carry) |
+| Kettlebell Farmer's Carry | `kettlebell-farmer-s-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#kettlebell-farmer-s-carry) |
+| Suitcase Carry | `suitcase-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#suitcase-carry) |
+| Kettlebell Front Rack Carry | `kettlebell-front-rack-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#kettlebell-front-rack-carry) |
+| Overhead Kettlebell Carry | `overhead-kettlebell-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#overhead-kettlebell-carry) |
+| Mixed Rack and Suitcase Carry | `mixed-rack-and-suitcase-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#mixed-rack-and-suitcase-carry) |
+| Weighted Pull-Up | `weighted-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#weighted-pull-up) |
+| Chin-Up | `chin-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#chin-up) |
+| Neutral-Grip Pull-Up | `neutral-grip-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#neutral-grip-pull-up) |
+| L-Sit Pull-Up | `l-sit-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#l-sit-pull-up) |
+| Lat Pulldown | `lat-pulldown` | Same movement | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#lat-pulldown) |
+| Close-Grip Lat Pulldown | `close-grip-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#close-grip-lat-pulldown) |
+| Single-Arm Lat Pulldown | `single-arm-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#single-arm-lat-pulldown) |
+| Machine Pulldown | `machine-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#machine-pulldown) |
+| Barbell Bent-Over Row | `barbell-bent-over-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#barbell-bent-over-row) |
+| Pendlay Row | `pendlay-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#pendlay-row) |
+| Seal Row | `seal-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#seal-row) |
+| Chest-Supported Dumbbell Row | `chest-supported-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#chest-supported-dumbbell-row) |
+| Landmine T-Bar Row | `landmine-t-bar-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#landmine-t-bar-row) |
+| Seated Cable Row | `seated-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#seated-cable-row) |
+| Machine Row | `machine-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#machine-row) |
+| Inverted Row | `inverted-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#inverted-row) |
+| TRX Row | `trx-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-row) |
+| Kettlebell Gorilla Row | `kettlebell-gorilla-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#kettlebell-gorilla-row) |
+| Single-Arm Dumbbell Row | `single-arm-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#single-arm-dumbbell-row) |
+| Single-Arm Rotational Cable Row | `single-arm-rotational-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#single-arm-rotational-cable-row) |
+| Meadows Row | `meadows-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#meadows-row) |
+| Kettlebell Single-Arm Row | `kettlebell-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#kettlebell-single-arm-row) |
+| TRX Single-Arm Row | `trx-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-single-arm-row) |
+| TRX Power Pull | `trx-power-pull` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-power-pull) |
+| Straight-Arm Cable Pulldown | `straight-arm-cable-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#straight-arm-cable-pulldown) |
+| Dumbbell Pullover | `dumbbell-pullover` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-pullover) |
+| Half-Kneeling Single-Arm Cable Row | `half-kneeling-single-arm-cable-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#half-kneeling-single-arm-cable-row) |
+| Ball-Supported Dumbbell Row | `ball-supported-dumbbell-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#ball-supported-dumbbell-row) |
+| Cable Face Pull | `cable-face-pull` | Same movement | 2026-11-11 | [NASM:face-pull][nasm-face-pull]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#cable-face-pull) |
+| Reverse Pec Deck | `reverse-pec-deck` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#reverse-pec-deck) |
+| Bent-Over Dumbbell Reverse Fly | `bent-over-dumbbell-reverse-fly` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#bent-over-dumbbell-reverse-fly) |
+| Cable Reverse Fly | `cable-reverse-fly` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#cable-reverse-fly) |
+| Incline Dumbbell Rear Delt Row | `incline-dumbbell-rear-delt-row` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#incline-dumbbell-rear-delt-row) |
+| TRX Face Pull | `trx-face-pull` | Related only | 2026-11-11 | [NASM:face-pull][nasm-face-pull]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-face-pull) |
+| TRX Y-T-W | `trx-y-t-w` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-y-t-w) |
+| Ball Prone Y-T-W | `ball-prone-y-t-w` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#ball-prone-y-t-w) |
+| Cable External Rotation | `cable-external-rotation` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#cable-external-rotation) |
+| Dumbbell Shrug | `dumbbell-shrug` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#dumbbell-shrug) |
+| Barbell Curl | `barbell-curl` | Same movement | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#barbell-curl) |
+| Incline Dumbbell Curl | `incline-dumbbell-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#incline-dumbbell-curl) |
+| Hammer Curl | `hammer-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#hammer-curl) |
+| Cable Curl | `cable-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#cable-curl) |
+| Bayesian Cable Curl | `bayesian-cable-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#bayesian-cable-curl) |
+| Machine Preacher Curl | `machine-preacher-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#machine-preacher-curl) |
+| Concentration Curl | `concentration-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#concentration-curl) |
+| Zottman Curl | `zottman-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#zottman-curl) |
+| Dumbbell Spider Curl | `dumbbell-spider-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#dumbbell-spider-curl) |
+| Kettlebell Hammer Curl | `kettlebell-hammer-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#kettlebell-hammer-curl) |
+| TRX Biceps Curl | `trx-biceps-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#trx-biceps-curl) |
+| Barbell Back Squat | `barbell-back-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#barbell-back-squat) |
+| Front Squat | `front-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#front-squat) |
+| Zercher Squat | `zercher-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#zercher-squat) |
+| Box Squat | `box-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#box-squat) |
+| Hack Squat | `hack-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#hack-squat) |
+| Leg Press | `leg-press` | Same movement | 2026-11-11 | [NASM:leg-press][nasm-leg-press]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#leg-press) |
+| Smith Machine Squat | `smith-machine-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#smith-machine-squat) |
+| Goblet Squat | `goblet-squat` | Same movement | 2026-11-11 | [NASM:goblet][nasm-goblet]; [animation comparison](EXERCISE-ANIMATION-BATCH2-2026-11-11.md); [November 13 internal technique notes](exercise-technique/catalog-legs.md#goblet-squat) |
+| Double Kettlebell Front Squat | `double-kettlebell-front-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#double-kettlebell-front-squat) |
+| Heel-Elevated Dumbbell Squat | `heel-elevated-dumbbell-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#heel-elevated-dumbbell-squat) |
+| Stability Ball Wall Squat | `stability-ball-wall-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#stability-ball-wall-squat) |
+| Conventional Deadlift | `conventional-deadlift` | Same movement | 2026-11-11 | [NASM:deadlift][nasm-deadlift]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#conventional-deadlift) |
+| Sumo Deadlift | `sumo-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#sumo-deadlift) |
+| Romanian Deadlift | `romanian-deadlift` | Same movement | 2026-11-11 | [NASM:rdl][nasm-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#romanian-deadlift) |
+| Dumbbell Romanian Deadlift | `dumbbell-romanian-deadlift` | Same movement | 2026-11-11 | [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#dumbbell-romanian-deadlift) |
+| Double Kettlebell Deadlift | `double-kettlebell-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#double-kettlebell-deadlift) |
+| Kettlebell Swing | `kettlebell-swing` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#kettlebell-swing) |
+| Good Morning | `good-morning` | Same movement | 2026-11-11 | [NASM:good-morning][nasm-good-morning]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#good-morning) |
+| Cable Pull-Through | `cable-pull-through` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cable-pull-through) |
+| Weighted Back Extension | `weighted-back-extension` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#weighted-back-extension) |
+| Barbell Hip Thrust | `barbell-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#barbell-hip-thrust) |
+| B-Stance Hip Thrust | `b-stance-hip-thrust` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#b-stance-hip-thrust) |
+| Dumbbell Hip Thrust | `dumbbell-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#dumbbell-hip-thrust) |
+| Glute Drive Machine | `glute-drive-machine` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#glute-drive-machine) |
+| Single-Leg Hip Thrust | `single-leg-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-hip-thrust) |
+| Stability Ball Single-Leg Bridge | `stability-ball-single-leg-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#stability-ball-single-leg-bridge) |
+| Cable Glute Kickback | `cable-glute-kickback` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cable-glute-kickback) |
+| Bulgarian Split Squat | `bulgarian-split-squat` | Same movement | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#bulgarian-split-squat) |
+| Barbell Reverse Lunge | `barbell-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#barbell-reverse-lunge) |
+| Dumbbell Walking Lunge | `dumbbell-walking-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#dumbbell-walking-lunge) |
+| Front-Foot-Elevated Split Squat | `front-foot-elevated-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#front-foot-elevated-split-squat) |
+| Kettlebell Goblet Reverse Lunge | `kettlebell-goblet-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#kettlebell-goblet-reverse-lunge) |
+| Step-Up | `step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#step-up) |
+| Smith Machine Split Squat | `smith-machine-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#smith-machine-split-squat) |
+| Single-Leg Leg Press | `single-leg-leg-press` | Same movement | 2026-11-11 | [NASM:single-press][nasm-single-press]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-leg-press) |
+| TRX Single-Leg Squat | `trx-single-leg-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#trx-single-leg-squat) |
+| Pistol Squat to Bench | `pistol-squat-to-bench` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#pistol-squat-to-bench) |
+| Skater Squat | `skater-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#skater-squat) |
+| Single-Leg Romanian Deadlift | `single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-romanian-deadlift) |
+| Kettlebell Single-Leg Deadlift | `kettlebell-single-leg-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#kettlebell-single-leg-deadlift) |
+| Landmine Single-Leg Romanian Deadlift | `landmine-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#landmine-single-leg-romanian-deadlift) |
+| Cable Single-Leg Romanian Deadlift | `cable-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cable-single-leg-romanian-deadlift) |
+| B-Stance Romanian Deadlift | `b-stance-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#b-stance-romanian-deadlift) |
+| High Step-Up | `high-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#high-step-up) |
+| Lateral Lunge | `lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#lateral-lunge) |
+| Cossack Squat | `cossack-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cossack-squat) |
+| Lateral Step-Up | `lateral-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#lateral-step-up) |
+| Landmine Lateral Lunge | `landmine-lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#landmine-lateral-lunge) |
+| TRX Lateral Lunge | `trx-lateral-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#trx-lateral-lunge) |
+| Curtsy Lunge | `curtsy-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#curtsy-lunge) |
+| Transverse Lunge | `transverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#transverse-lunge) |
+| Skater Bound | `skater-bound` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#skater-bound) |
+| Lying Leg Curl | `lying-leg-curl` | Same movement | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#lying-leg-curl) |
+| Seated Leg Curl | `seated-leg-curl` | Same movement | 2026-11-11 | [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#seated-leg-curl) |
+| Standing Cable Leg Curl | `standing-cable-leg-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#standing-cable-leg-curl) |
+| Dumbbell Leg Curl | `dumbbell-leg-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#dumbbell-leg-curl) |
+| Stability Ball Hamstring Curl | `stability-ball-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#stability-ball-hamstring-curl) |
+| Single-Leg Ball Hamstring Curl | `single-leg-ball-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-ball-hamstring-curl) |
+| TRX Hamstring Curl | `trx-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#trx-hamstring-curl) |
+| Nordic Curl | `nordic-curl` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#nordic-curl) |
+| Glute-Ham Raise | `glute-ham-raise` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#glute-ham-raise) |
+| Leg Extension | `leg-extension` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#leg-extension) |
+| Single-Leg Extension | `single-leg-extension` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-extension) |
+| Sissy Squat | `sissy-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#sissy-squat) |
+| Reverse Nordic | `reverse-nordic` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#reverse-nordic) |
+| Peterson Step-Up | `peterson-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#peterson-step-up) |
+| Hip Adduction Machine | `hip-adduction-machine` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#hip-adduction-machine) |
+| Hip Abduction Machine | `hip-abduction-machine` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#hip-abduction-machine) |
+| Cable Hip Abduction | `cable-hip-abduction` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cable-hip-abduction) |
+| Cable Hip Adduction | `cable-hip-adduction` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#cable-hip-adduction) |
+| Stability Ball Squeeze Bridge | `stability-ball-squeeze-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#stability-ball-squeeze-bridge) |
+| Side-Lying Hip Abduction | `side-lying-hip-abduction` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#side-lying-hip-abduction) |
+| Standing Calf Raise Machine | `standing-calf-raise-machine` | Related only | 2026-11-11 | [NASM:calf][nasm-calf]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#standing-calf-raise-machine) |
+| Seated Calf Raise | `seated-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#seated-calf-raise) |
+| Leg Press Calf Raise | `leg-press-calf-raise` | Same movement | 2026-11-11 | [NASM:calf][nasm-calf]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#leg-press-calf-raise) |
+| Single-Leg Dumbbell Calf Raise | `single-leg-dumbbell-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#single-leg-dumbbell-calf-raise) |
+| Barbell Calf Raise | `barbell-calf-raise` | Related only | 2026-11-11 | [NASM:calf][nasm-calf]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#barbell-calf-raise) |
+| Tibialis Raise | `tibialis-raise` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#tibialis-raise) |
+| Box Step-Up | `box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#box-step-up) |
+| Lateral Box Step-Up | `lateral-box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#lateral-box-step-up) |
+| Crossover Box Step-Up | `crossover-box-step-up` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#crossover-box-step-up) |
+| Box Step-Up with Knee Drive | `box-step-up-with-knee-drive` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#box-step-up-with-knee-drive) |
+| Eccentric Box Step-Down | `eccentric-box-step-down` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#eccentric-box-step-down) |
+| Box Bulgarian Split Squat | `box-bulgarian-split-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#box-bulgarian-split-squat) |
+| Feet-on-Box Decline Push-Up | `feet-on-box-decline-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#feet-on-box-decline-push-up) |
+| Box Jump | `box-jump` | Same movement | 2026-11-11 | [NASM:box-jump][nasm-box-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#box-jump) |
+| Seated Box Jump | `seated-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#seated-box-jump) |
+| Depth Jump | `depth-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#depth-jump) |
+| Lateral Box Jump | `lateral-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#lateral-box-jump) |
+| Single-Leg Box Jump | `single-leg-box-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#single-leg-box-jump) |
+| Broad Jump | `broad-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#broad-jump) |
+| Squat Jump | `squat-jump` | Same movement | 2026-11-11 | [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#squat-jump) |
+| Approach Vertical Jump | `approach-vertical-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#approach-vertical-jump) |
+| Tuck Jump | `tuck-jump` | Same movement | 2026-11-11 | [NASM:tuck-jump][nasm-tuck-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#tuck-jump) |
+| Split Squat Jump | `split-squat-jump` | Same movement | 2026-11-11 | [NASM:lunge-jump][nasm-lunge-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#split-squat-jump) |
+| Lateral Bound | `lateral-bound` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#lateral-bound) |
+| 180 Degree Rotational Jump | `180-degree-rotational-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#180-degree-rotational-jump) |
+| Single-Leg Lateral Hop | `single-leg-lateral-hop` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#single-leg-lateral-hop) |
+| Pogo Hops | `pogo-hops` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#pogo-hops) |
+| Dumbbell Jump Squat | `dumbbell-jump-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#dumbbell-jump-squat) |
+| Side Step Lunge | `side-step-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#side-step-lunge) |
+| Side Step Lunge to Balance | `side-step-lunge-to-balance` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#side-step-lunge-to-balance) |
+| Hanging Knee Raise | `hanging-knee-raise` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#hanging-knee-raise) |
+| Band Pull-Apart | `band-pull-apart` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#band-pull-apart) |
+| Band Face Pull | `band-face-pull` | Related only | 2026-11-11 | [NASM:face-pull][nasm-face-pull]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#band-face-pull) |
+| Band-Assisted Archer Pull-Up | `band-assisted-archer-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#band-assisted-archer-pull-up) |
+| Kneeling Band Lat Pulldown | `kneeling-band-lat-pulldown` | Related only | 2026-11-11 | [NASM:pulldown][nasm-pulldown]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#kneeling-band-lat-pulldown) |
+| Band Seated Row | `band-seated-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#band-seated-row) |
+| Tube Single-Arm Row | `tube-single-arm-row` | Related only | 2026-11-11 | [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#tube-single-arm-row) |
+| Anchored Band Chest Press | `anchored-band-chest-press` | Related only | 2026-11-11 | [NASM:bench][nasm-bench], [NASM:machine-press][nasm-machine-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#anchored-band-chest-press) |
+| Banded Push-Up | `banded-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#banded-push-up) |
+| Band Overhead Press | `band-overhead-press` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-presses.md#band-overhead-press) |
+| Band Lateral Raise | `band-lateral-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#band-lateral-raise) |
+| Band Triceps Pushdown | `band-triceps-pushdown` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#band-triceps-pushdown) |
+| Band Biceps Curl | `band-biceps-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#band-biceps-curl) |
+| Band Pallof Press | `band-pallof-press` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#band-pallof-press) |
+| Band Woodchop | `band-woodchop` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#band-woodchop) |
+| Mini-Band Lateral Walk | `mini-band-lateral-walk` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#mini-band-lateral-walk) |
+| Mini-Band Monster Walk | `mini-band-monster-walk` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#mini-band-monster-walk) |
+| Banded Clamshell | `banded-clamshell` | Same movement | 2026-11-11 | [NASM:clamshell][nasm-clamshell]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#banded-clamshell) |
+| Banded Glute Bridge | `banded-glute-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#banded-glute-bridge) |
+| Band Pull-Through | `band-pull-through` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#band-pull-through) |
+| Band Good Morning | `band-good-morning` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#band-good-morning) |
+| Prone Band Hamstring Curl | `prone-band-hamstring-curl` | Related only | 2026-11-11 | [NASM:lying-curl][nasm-lying-curl], [NASM:seated-curl][nasm-seated-curl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#prone-band-hamstring-curl) |
+| Battle Rope Alternating Waves | `battle-rope-alternating-waves` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#battle-rope-alternating-waves) |
+| Battle Rope Side-to-Side Waves | `battle-rope-side-to-side-waves` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#battle-rope-side-to-side-waves) |
+| Battle Rope Rotational Slams | `battle-rope-rotational-slams` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#battle-rope-rotational-slams) |
+| Battle Rope Double Slams | `battle-rope-double-slams` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#battle-rope-double-slams) |
+| Battle Rope Lateral Shuffle Waves | `battle-rope-lateral-shuffle-waves` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#battle-rope-lateral-shuffle-waves) |
+| Medicine Ball Slam | `medicine-ball-slam` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-slam) |
+| Rotational Medicine Ball Slam | `rotational-medicine-ball-slam` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#rotational-medicine-ball-slam) |
+| Medicine Ball Rotational Scoop Toss | `medicine-ball-rotational-scoop-toss` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-rotational-scoop-toss) |
+| Medicine Ball Shot Put Throw | `medicine-ball-shot-put-throw` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-shot-put-throw) |
+| Medicine Ball Chest Pass | `medicine-ball-chest-pass` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-chest-pass) |
+| Medicine Ball Overhead Wall Throw | `medicine-ball-overhead-wall-throw` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-overhead-wall-throw) |
+| Medicine Ball Vertical Toss | `medicine-ball-vertical-toss` | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#medicine-ball-vertical-toss) |
+| Medicine Ball Russian Twist | `medicine-ball-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#medicine-ball-russian-twist) |
+| Medicine Ball V-Up | `medicine-ball-v-up` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#medicine-ball-v-up) |
+| Medicine Ball Push-Up | `medicine-ball-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#medicine-ball-push-up) |
+| Medicine Ball Lunge with Rotation | `medicine-ball-lunge-with-rotation` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#medicine-ball-lunge-with-rotation) |
+| Medicine Ball Woodchop | `medicine-ball-woodchop` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#medicine-ball-woodchop) |
+| BOSU Squat | `bosu-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#bosu-squat) |
+| BOSU Push-Up | `bosu-push-up` | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#bosu-push-up) |
+| BOSU Mountain Climber | `bosu-mountain-climber` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#bosu-mountain-climber) |
+| BOSU Single-Leg Romanian Deadlift | `bosu-single-leg-romanian-deadlift` | Related only | 2026-11-11 | [NASM:rdl][nasm-rdl], [NASM:db-rdl][nasm-db-rdl]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#bosu-single-leg-romanian-deadlift) |
+| BOSU Lateral Step-Over | `bosu-lateral-step-over` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#bosu-lateral-step-over) |
+| BOSU Reverse Lunge | `bosu-reverse-lunge` | Related only | 2026-11-11 | [NASM:bulgarian][nasm-bulgarian], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#bosu-reverse-lunge) |
+| BOSU Side Plank | `bosu-side-plank` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#bosu-side-plank) |
+| BOSU Squat Jump | `bosu-squat-jump` | Related only | 2026-11-11 | [NASM:box-jump][nasm-box-jump], [NASM:squat-jump][nasm-squat-jump]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#bosu-squat-jump) |
+| Monkey Bar Traverse | `monkey-bar-traverse` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#monkey-bar-traverse) |
+| Toes-to-Bar | `toes-to-bar` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#toes-to-bar) |
+| Hanging Windshield Wiper | `hanging-windshield-wiper` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#hanging-windshield-wiper) |
+| Commando Pull-Up | `commando-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#commando-pull-up) |
+| Archer Pull-Up | `archer-pull-up` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#archer-pull-up) |
+| Plate Front Raise | `plate-front-raise` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#plate-front-raise) |
+| Plate Halo | `plate-halo` | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#plate-halo) |
+| Plate Pinch Carry | `plate-pinch-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#plate-pinch-carry) |
+| Plate Russian Twist | `plate-russian-twist` | Same movement | 2026-11-11 | [NASM:twist][nasm-twist]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#plate-russian-twist) |
+| Turkish Get-Up | `turkish-get-up` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#turkish-get-up) |
+| Kettlebell Clean and Press | `kettlebell-clean-and-press` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#kettlebell-clean-and-press) |
+| Kettlebell Snatch | `kettlebell-snatch` | Related only | 2026-11-11 | [NASM:kb-ballistics][nasm-kb-ballistics]; [November 13 internal technique notes](exercise-technique/catalog-power-and-conditioning.md#kettlebell-snatch) |
+| Smith Machine Hip Thrust | `smith-machine-hip-thrust` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#smith-machine-hip-thrust) |
+| Dumbbell Glute Bridge | `dumbbell-glute-bridge` | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#dumbbell-glute-bridge) |
+| Trap Bar Deadlift | `trap-bar-deadlift` | Related only | 2026-11-11 | [NASM:deadlift][nasm-deadlift], [NASM:kb-deadlift][nasm-kb-deadlift]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#trap-bar-deadlift) |
+| EZ-Bar Curl | `ez-bar-curl` | Related only | 2026-11-11 | [NASM:curl][nasm-curl]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#ez-bar-curl) |
+| Assisted Pull-Up Machine | `assisted-pull-up-machine` | Related only | 2026-11-11 | [NASM:pull-up][nasm-pull-up]; [November 13 internal technique notes](exercise-technique/catalog-pulls.md#assisted-pull-up-machine) |
+| Assisted Dip Machine | `assisted-dip-machine` | Related only | 2026-11-11 | [NASM:close-press][nasm-close-press]; [November 13 internal technique notes](exercise-technique/catalog-presses.md#assisted-dip-machine) |
+| Sled Push | `sled-push` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#sled-push) |
+| Sled Pull | `sled-pull` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#sled-pull) |
+| Sandbag Bear-Hug Carry | `sandbag-bear-hug-carry` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#sandbag-bear-hug-carry) |
+| Sandbag Squat | `sandbag-squat` | Related only | 2026-11-11 | [NASM:goblet][nasm-goblet], [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#sandbag-squat) |
+| Ab Wheel Rollout | `ab-wheel-rollout` | Related only | 2026-11-11 | [NASM:core][nasm-core]; [November 13 internal technique notes](exercise-technique/catalog-core-and-carries.md#ab-wheel-rollout) |
+| Ankle-Weight Glute Kickback | `ankle-weight-glute-kickback` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#ankle-weight-glute-kickback) |
+| Ankle-Weight Side-Lying Leg Raise | `ankle-weight-side-lying-leg-raise` | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/catalog-legs.md#ankle-weight-side-lying-leg-raise) |
+| Back Extension | `back-extension` | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning], [NASM:functional][nasm-functional]; [November 13 internal technique notes](exercise-technique/catalog-legs.md#back-extension) |
 
 ## Warm-up and stretch guide associations
 
@@ -354,98 +355,98 @@ These 92 entries retain their exact app lookup names. There are eight same-movem
 
 | Guide name | Reference coverage | Reviewed | Sources |
 | --- | --- | --- | --- |
-| A-skips | No suitable reference | 2026-11-11 | None recorded |
-| Arm circles | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Band dislocates | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Band pull-aparts | No suitable reference | 2026-11-11 | None recorded |
-| Banded lateral walks | Related only | 2026-11-11 | [NASM:clamshell][nasm-clamshell] |
-| Lateral band walks | Related only | 2026-11-11 | [NASM:clamshell][nasm-clamshell] |
-| Bodyweight squats to a bench | Related only | 2026-11-11 | [NASM:prisoner][nasm-prisoner] |
-| Broad jumps | No suitable reference | 2026-11-11 | None recorded |
-| Broomstick or towel pass-throughs | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Cat-cow | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Dead hang | No suitable reference | 2026-11-11 | None recorded |
-| Downward dog to plank | No suitable reference | 2026-11-11 | None recorded |
-| Explosive push-ups | No suitable reference | 2026-11-11 | None recorded |
-| Fast bodyweight squats | No suitable reference | 2026-11-11 | None recorded |
-| Fast incline push-ups | No suitable reference | 2026-11-11 | None recorded |
-| Glute bridges | Same movement | 2026-11-11 | [NASM:bridge][nasm-bridge] |
-| Half-kneeling hip flexor stretch with reach | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| High-knee marches | No suitable reference | 2026-11-11 | None recorded |
-| Hip circles | No suitable reference | 2026-11-11 | None recorded |
-| Hug-yourself twists | No suitable reference | 2026-11-11 | None recorded |
-| Inchworms | No suitable reference | 2026-11-11 | None recorded |
-| Incline push-ups on a bench | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Incline push-ups | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Lat stretch holding a post | No suitable reference | 2026-11-11 | None recorded |
-| Lateral shuffles | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Leg swings, front to back and side to side | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Leg swings, front to back | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Low box jumps | Same movement | 2026-11-11 | [NASM:box-jump][nasm-box-jump] |
-| Marching knee lifts | No suitable reference | 2026-11-11 | None recorded |
-| Medicine ball chest pass | Related only | 2026-11-11 | [NASM:power][nasm-power] |
-| Open books lying on your side | No suitable reference | 2026-11-11 | None recorded |
-| Thoracic open books | No suitable reference | 2026-11-11 | None recorded |
-| Prone Y-T-W raises | No suitable reference | 2026-11-11 | None recorded |
-| Push-up to downward dog | No suitable reference | 2026-11-11 | None recorded |
-| Push-ups | Same movement | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Reach-and-pull | No suitable reference | 2026-11-11 | None recorded |
-| Reverse arm swings | No suitable reference | 2026-11-11 | None recorded |
-| Reverse lunges in place | No suitable reference | 2026-11-11 | None recorded |
-| Scap pull-ups | No suitable reference | 2026-11-11 | None recorded |
-| Scap push-ups | No suitable reference | 2026-11-11 | None recorded |
-| Side lunges | Related only | 2026-11-11 | [NASM:planes][nasm-planes] |
-| Bodyweight good mornings | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning] |
-| Calf raises | No suitable reference | 2026-11-11 | None recorded |
-| Deep squat hold | No suitable reference | 2026-11-11 | None recorded |
-| Bodyweight squats | Related only | 2026-11-11 | [NASM:prisoner][nasm-prisoner] |
-| Quadruped hip circles | No suitable reference | 2026-11-11 | None recorded |
-| Bird dogs | Same movement | 2026-11-11 | [NASM:bird][nasm-bird] |
-| Dead bugs | Same movement | 2026-11-11 | [NASM:dead-bug][nasm-dead-bug] |
-| Plank shoulder taps | No suitable reference | 2026-11-11 | None recorded |
-| Spiderman lunge with reach | No suitable reference | 2026-11-11 | None recorded |
-| Cossack squats | No suitable reference | 2026-11-11 | None recorded |
-| Goblet squat pry | No suitable reference | 2026-11-11 | None recorded |
-| Kettlebell halos | No suitable reference | 2026-11-11 | None recorded |
-| Band face pulls | Same movement | 2026-11-11 | [NASM:face-pull][nasm-face-pull] |
-| Ankle rocks against a wall | No suitable reference | 2026-11-11 | None recorded |
-| Hip airplanes | No suitable reference | 2026-11-11 | None recorded |
-| Single-leg glute bridges | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge] |
-| Quadruped T-spine reach | No suitable reference | 2026-11-11 | None recorded |
-| Seated twists | No suitable reference | 2026-11-11 | None recorded |
-| Seated twist | No suitable reference | 2026-11-11 | None recorded |
-| Shoulder rolls | No suitable reference | 2026-11-11 | None recorded |
-| Shoulder taps on the wall | No suitable reference | 2026-11-11 | None recorded |
-| Sit-to-stands from a chair | No suitable reference | 2026-11-11 | None recorded |
-| Split squat holds | No suitable reference | 2026-11-11 | None recorded |
-| Standing back arch and round | No suitable reference | 2026-11-11 | None recorded |
-| Standing hip extensions | No suitable reference | 2026-11-11 | None recorded |
-| Standing knee hugs | No suitable reference | 2026-11-11 | None recorded |
-| Walking knee hugs | No suitable reference | 2026-11-11 | None recorded |
-| Thoracic rotations on hands and knees | No suitable reference | 2026-11-11 | None recorded |
-| Thread the needle | No suitable reference | 2026-11-11 | None recorded |
-| Walking lunges | No suitable reference | 2026-11-11 | None recorded |
-| Wall push-ups | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up] |
-| Wall sit | No suitable reference | 2026-11-11 | None recorded |
-| Wall slides | No suitable reference | 2026-11-11 | None recorded |
-| World’s greatest stretch | No suitable reference | 2026-11-11 | None recorded |
-| Biceps wall stretch | No suitable reference | 2026-11-11 | None recorded |
-| Butterfly stretch | Same movement | 2026-11-11 | [NASM:butterfly][nasm-butterfly] |
-| Calf stretch on a wall | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Child’s pose | Same movement | 2026-11-11 | [NASM:child][nasm-child] |
-| Cobra stretch | No suitable reference | 2026-11-11 | None recorded |
-| Cross-body shoulder stretch | No suitable reference | 2026-11-11 | None recorded |
-| Doorway chest stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Figure-4 glute stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Half-kneeling hip flexor stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Hands-behind-back chest opener | No suitable reference | 2026-11-11 | None recorded |
-| Kneeling shin stretch | No suitable reference | 2026-11-11 | None recorded |
-| Lying cross-body glute stretch | No suitable reference | 2026-11-11 | None recorded |
-| Neck side stretch | No suitable reference | 2026-11-11 | None recorded |
-| Overhead triceps stretch | No suitable reference | 2026-11-11 | None recorded |
-| Seated hamstring stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching] |
-| Standing quad stretch | No suitable reference | 2026-11-11 | None recorded |
-| Wrist flexor and extensor stretch | No suitable reference | 2026-11-11 | None recorded |
+| A-skips | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#a-skips) |
+| Arm circles | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#arm-circles) |
+| Band dislocates | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#band-dislocates) |
+| Band pull-aparts | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#band-pull-aparts) |
+| Banded lateral walks | Related only | 2026-11-11 | [NASM:clamshell][nasm-clamshell]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#banded-lateral-walks) |
+| Lateral band walks | Related only | 2026-11-11 | [NASM:clamshell][nasm-clamshell]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#lateral-band-walks) |
+| Bodyweight squats to a bench | Related only | 2026-11-11 | [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#bodyweight-squats-to-a-bench) |
+| Broad jumps | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#broad-jumps) |
+| Broomstick or towel pass-throughs | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#broomstick-or-towel-pass-throughs) |
+| Cat-cow | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#cat-cow) |
+| Dead hang | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#dead-hang) |
+| Downward dog to plank | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#downward-dog-to-plank) |
+| Explosive push-ups | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#explosive-push-ups) |
+| Fast bodyweight squats | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#fast-bodyweight-squats) |
+| Fast incline push-ups | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#fast-incline-push-ups) |
+| Glute bridges | Same movement | 2026-11-11 | [NASM:bridge][nasm-bridge]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#glute-bridges) |
+| Half-kneeling hip flexor stretch with reach | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#half-kneeling-hip-flexor-stretch-with-reach) |
+| High-knee marches | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#high-knee-marches) |
+| Hip circles | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#hip-circles) |
+| Hug-yourself twists | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#hug-yourself-twists) |
+| Inchworms | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#inchworms) |
+| Incline push-ups on a bench | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#incline-push-ups-on-a-bench) |
+| Incline push-ups | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#incline-push-ups) |
+| Lat stretch holding a post | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#lat-stretch-holding-a-post) |
+| Lateral shuffles | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#lateral-shuffles) |
+| Leg swings, front to back and side to side | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#leg-swings-front-to-back-and-side-to-side) |
+| Leg swings, front to back | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#leg-swings-front-to-back) |
+| Low box jumps | Same movement | 2026-11-11 | [NASM:box-jump][nasm-box-jump]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#low-box-jumps) |
+| Marching knee lifts | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#marching-knee-lifts) |
+| Medicine ball chest pass | Related only | 2026-11-11 | [NASM:power][nasm-power]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#medicine-ball-chest-pass) |
+| Open books lying on your side | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#open-books-lying-on-your-side) |
+| Thoracic open books | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#thoracic-open-books) |
+| Prone Y-T-W raises | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#prone-y-t-w-raises) |
+| Push-up to downward dog | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#push-up-to-downward-dog) |
+| Push-ups | Same movement | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#push-ups) |
+| Reach-and-pull | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#reach-and-pull) |
+| Reverse arm swings | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#reverse-arm-swings) |
+| Reverse lunges in place | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#reverse-lunges-in-place) |
+| Scap pull-ups | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#scap-pull-ups) |
+| Scap push-ups | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#scap-push-ups) |
+| Side lunges | Related only | 2026-11-11 | [NASM:planes][nasm-planes]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#side-lunges) |
+| Bodyweight good mornings | Related only | 2026-11-11 | [NASM:good-morning][nasm-good-morning]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#bodyweight-good-mornings) |
+| Calf raises | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#calf-raises) |
+| Deep squat hold | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#deep-squat-hold) |
+| Bodyweight squats | Related only | 2026-11-11 | [NASM:prisoner][nasm-prisoner]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#bodyweight-squats) |
+| Quadruped hip circles | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#quadruped-hip-circles) |
+| Bird dogs | Same movement | 2026-11-11 | [NASM:bird][nasm-bird]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#bird-dogs) |
+| Dead bugs | Same movement | 2026-11-11 | [NASM:dead-bug][nasm-dead-bug]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#dead-bugs) |
+| Plank shoulder taps | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#plank-shoulder-taps) |
+| Spiderman lunge with reach | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#spiderman-lunge-with-reach) |
+| Cossack squats | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#cossack-squats) |
+| Goblet squat pry | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#goblet-squat-pry) |
+| Kettlebell halos | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#kettlebell-halos) |
+| Band face pulls | Same movement | 2026-11-11 | [NASM:face-pull][nasm-face-pull]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#band-face-pulls) |
+| Ankle rocks against a wall | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#ankle-rocks-against-a-wall) |
+| Hip airplanes | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#hip-airplanes) |
+| Single-leg glute bridges | Related only | 2026-11-11 | [NASM:bridge][nasm-bridge]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#single-leg-glute-bridges) |
+| Quadruped T-spine reach | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#quadruped-t-spine-reach) |
+| Seated twists | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#seated-twists) |
+| Seated twist | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#seated-twist) |
+| Shoulder rolls | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#shoulder-rolls) |
+| Shoulder taps on the wall | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#shoulder-taps-on-the-wall) |
+| Sit-to-stands from a chair | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#sit-to-stands-from-a-chair) |
+| Split squat holds | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#split-squat-holds) |
+| Standing back arch and round | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#standing-back-arch-and-round) |
+| Standing hip extensions | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#standing-hip-extensions) |
+| Standing knee hugs | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#standing-knee-hugs) |
+| Walking knee hugs | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#walking-knee-hugs) |
+| Thoracic rotations on hands and knees | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#thoracic-rotations-on-hands-and-knees) |
+| Thread the needle | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#thread-the-needle) |
+| Walking lunges | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#walking-lunges) |
+| Wall push-ups | Related only | 2026-11-11 | [NASM:push-up][nasm-push-up]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#wall-push-ups) |
+| Wall sit | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#wall-sit) |
+| Wall slides | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#wall-slides) |
+| World’s greatest stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#world-s-greatest-stretch) |
+| Biceps wall stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#biceps-wall-stretch) |
+| Butterfly stretch | Same movement | 2026-11-11 | [NASM:butterfly][nasm-butterfly]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#butterfly-stretch) |
+| Calf stretch on a wall | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#calf-stretch-on-a-wall) |
+| Child’s pose | Same movement | 2026-11-11 | [NASM:child][nasm-child]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#child-s-pose) |
+| Cobra stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#cobra-stretch) |
+| Cross-body shoulder stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#cross-body-shoulder-stretch) |
+| Doorway chest stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#doorway-chest-stretch) |
+| Figure-4 glute stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#figure-4-glute-stretch) |
+| Half-kneeling hip flexor stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#half-kneeling-hip-flexor-stretch) |
+| Hands-behind-back chest opener | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#hands-behind-back-chest-opener) |
+| Kneeling shin stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#kneeling-shin-stretch) |
+| Lying cross-body glute stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#lying-cross-body-glute-stretch) |
+| Neck side stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#neck-side-stretch) |
+| Overhead triceps stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#overhead-triceps-stretch) |
+| Seated hamstring stretch | Related only | 2026-11-11 | [NASM:stretching][nasm-stretching]; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#seated-hamstring-stretch) |
+| Standing quad stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#standing-quad-stretch) |
+| Wrist flexor and extensor stretch | No suitable reference | 2026-11-11 | None recorded; [November 13 internal technique notes](exercise-technique/warmups-and-stretches.md#wrist-flexor-and-extensor-stretch) |
 
 ## Initial source directory
 

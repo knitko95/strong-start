@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "reviewDate": "2026-11-13",
+  "catalogBaseCommit": "7b763e9",
+  "catalogHtmlSha256": "bb33aa56941c81d059a28b374ea0d3cd0ede27b4abb5d1ea481084997803e3bc",
+  "scope": "Internal original technique research notes. Public repository documents, excluded from runtime assets. No app instruction, animation, account, database or permission change.",
+  "summary": {
+    "catalog": 320,
+    "guides": 92,
+    "cardioTypes": 12,
+    "cardioLabels": 67,
+    "sources": 257,
+    "catalogRelationships": {
+      "same-movement": 163,
+      "related-only": 156,
+      "unresolved": 1
+    },
+    "guideRelationships": {
+      "related-only": 51,
+      "same-movement": 41
+    }
+  }
+}
