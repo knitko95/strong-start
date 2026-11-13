@@ -9,7 +9,7 @@ const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map
 function harness(){
   const storage=new Map(), elements=new Map(), timers=new Map(), handlers=new Map(); let nextTimer=0;
   const element=()=>({style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},innerHTML:'',querySelector(){return null;},focus(){}});
-  const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,
+  const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,crypto,AbortSignal,
     location:new URL('http://localhost:8731/'),history:{replaceState(){}},
     navigator:{onLine:true,userAgent:'Test'},matchMedia:()=>({matches:false,addEventListener(){}}),
     document:{body:{...element(),insertBefore(){}},documentElement:element(),visibilityState:'visible',addEventListener(type,fn){ if(!handlers.has(type)) handlers.set(type,[]); handlers.get(type).push(fn); },createElement:element,
@@ -34,9 +34,10 @@ const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 
 await test('feedback captures the running version and resolution links preserve provenance',async()=>{
   const h=harness();
-  h.run(`AUTH.user={id:'synthetic-owner'};AUTH.coach=false;FB.owner=true;refreshUnread=()=>{};closeModal=()=>{};
+  h.run(`AUTH.user={id:'synthetic-owner'};AUTH.access='ok';AUTH.coach=false;FB.owner=true;refreshUnread=()=>{};closeModal=()=>{};
     var sentFeedback=null, updatedFeedback=null, feedbackFailure=false;
-    sb={from:()=>({insert:async row=>{sentFeedback=row;return {error:feedbackFailure?{message:'offline'}:null};},update:values=>({eq:()=>({select:async()=>{updatedFeedback=values;return {data:[{id:1}],error:feedbackFailure?{message:'offline'}:null};}})})})};
+    sb={auth:{getSession:async()=>({data:{session:{access_token:'synthetic-session'}}})},from:()=>({insert:async()=>{throw Error('App feedback must not write the database');},update:values=>({eq:()=>({select:async()=>{updatedFeedback=values;return {data:[{id:1}],error:feedbackFailure?{message:'offline'}:null};}})})})};
+    fetch=async(url,options)=>{sentFeedback=JSON.parse(options.body);return {ok:true,json:async()=>({id:sentFeedback.id,status:'delivered'})};};
     FBS={side:'app',tag:'bug',text:'Synthetic bug',screen:'Settings',device:'Synthetic phone'};`);
   h.elements.set('#fbtext',{value:'Synthetic bug'});
   assert.equal(h.run('appVersionLabel()'),'v'+h.run('APP_VERSION')+'-dev');
@@ -50,9 +51,10 @@ await test('feedback captures the running version and resolution links preserve 
   assert.equal(h.run('feedbackVariant({app_build:"dev-noir--abcdef012345-abcdef012345",app_environment:"development"})'),'dev-noir');
 
   await h.run('fbSend()');
-  assert.equal(h.run('sentFeedback.app_version'),h.run('APP_VERSION'));
-  assert.equal(h.run('sentFeedback.app_build'),h.run('APP_BUILD.id'));
-  assert.equal(h.run('sentFeedback.app_environment'),'development');
+  assert.equal(h.run('sentFeedback.version'),h.run('APP_VERSION'));
+  assert.equal(h.run('sentFeedback.build'),h.run('APP_BUILD.id'));
+  assert.equal(h.run('sentFeedback.app_environment'),undefined,'Origin must be determined by the server');
+  assert.equal(h.run('sentFeedback.workout'),undefined,'No workout payload is sent to GitHub');
   h.run(`FB.box={kind:'app',list:[{id:1,user_id:AUTH.user.id,message:'Synthetic bug',created_at:new Date().toISOString(),app_version:APP_VERSION,app_build:'old-tab-build',app_environment:'development'}],filter:'all'};`);
   h.run('fbResolveSheet(1)');assert.match(h.run('lastModal'),/No release linked/);
   await h.run('markDone(1,true,APP_VERSION)');

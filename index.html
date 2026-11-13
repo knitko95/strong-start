@@ -2853,9 +2853,11 @@ function fbWorkout(side,logId){
 }
 function fbOpen(side,logId){
   if(!AUTH.user){ toast('Sign in to send feedback.'); return; }
+  if(FBS.busy){ toast('Your feedback is still sending.'); return; }
   if(AUTH.coach)side='app';
   if(side==='coach'){ cmOpen(null,'',logId);return; }
-  FBS={side:side==='coach'?'coach':'app', tag:'', text:FBS.text||'', busy:false, screen:fbScreen(), device:fbDevice(), logId:logId||null};
+  const sameOwner=FBS.owner===AUTH.user.id;
+  FBS={side:side==='coach'?'coach':'app', owner:AUTH.user.id, tag:sameOwner?FBS.tag||'':'', text:sameOwner?FBS.text||'':'', submission:sameOwner?FBS.submission:null, busy:false, screen:fbScreen(), device:fbDevice(), logId:logId||null};
   fbRender();
 }
 function fbRender(){
@@ -2865,6 +2867,7 @@ function fbRender(){
   const sentWith = app ? esc(appVersionLabel()) : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
   modal(`${AUTH.coach?'<h2>About the app</h2>':`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>`}
     <p class="small muted" style="margin:0">Something broken, confusing or missing? Tell us. This goes to the people who make the app.</p>
+    <p class="tiny muted" style="margin:0">Sent to our private feedback tracker with the app version, screen and device type. Leave out personal, health and login details.</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
     <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
     <div class="tiny muted">${app?sentWith:`Sent with: ${sentWith}`}</div>
@@ -2877,15 +2880,34 @@ function fbKeepText(){ const t=$('#fbtext'); if(t) FBS.text=t.value; }
 async function fbSend(){
   fbKeepText(); const msg=(FBS.text||'').trim();
   if(!msg){ toast('Write a few words first.'); const t=$('#fbtext'); if(t) t.focus(); return; }
-  if(FBS.busy) return; FBS.busy=true; fbRender();
-  const app=FBS.side==='app', w=fbWorkout(FBS.side,FBS.logId);
-  const row={kind:FBS.side, tag:FBS.tag||null, message:msg.slice(0,4000), workout:w};
-  if(app){ row.app_version=APP_VERSION; row.app_build=APP_BUILD.id; row.app_environment=APP_ENV; row.screen=String(FBS.screen||'').slice(0,200); row.device=String(FBS.device||'').slice(0,300); }
-  let error=null; try{ ({error}=await withTimeout(sb.from('feedback').insert(row),12000)); }catch(e){ error=e; }
-  FBS.busy=false;
-  if(error){ fbRender(); toast('Couldn’t send. Check your connection and try again.'); return; }
-  FBS.text=''; closeModal(); toast(app?'Thanks! Your feedback was sent.':`Sent to ${coachName()}.`);
-  refreshUnread();
+  if(FBS.side==='coach'){cmOpen(null,'',FBS.logId);return;}
+  if(!AUTH.user||AUTH.access!=='ok'||coachMode||AUTH.deleting){toast('Sign in with an approved account to send feedback.');return;}
+  if(FBS.busy)return;
+  const form=FBS,owner=AUTH.user.id,tag=form.tag||'',key=JSON.stringify({message:msg,tag});
+  if(!form.submission||form.submission.key!==key)form.submission={key,payload:{id:crypto.randomUUID(),message:msg,tag,screen:String(form.screen||'').slice(0,200),device:String(form.device||'').slice(0,300),version:APP_VERSION,build:APP_BUILD.id}};
+  const payload=form.submission.payload;
+  form.busy=true;fbRender();
+  let error='',receipt=null;
+  try{
+    const session=await sb.auth.getSession();
+    if(!AUTH.user||AUTH.user.id!==owner||FBS!==form)return;
+    if(session.error||!session.data?.session?.access_token)throw new Error('sign-in-required');
+    const response=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.data.session.access_token},body:JSON.stringify(payload),signal:AbortSignal.timeout(20000)});
+    const result=await response.json();
+    if(!response.ok)throw new Error(result.error||'temporarily-unavailable');
+    if(result.id!==payload.id||!['delivered','queued','checking'].includes(result.status))throw new Error('temporarily-unavailable');
+    receipt=result;
+  }catch(e){error=e.message||'temporarily-unavailable';}
+  finally{form.busy=false;}
+  if(!AUTH.user||AUTH.user.id!==owner||FBS!==form)return;
+  if(error){
+    const messages={'remove-private-details':'Please remove personal information or login details before sending.','sign-in-required':'Sign in again, then retry your feedback.','account-not-approved':'This account is not approved to send feedback.','too-many-reports':'Please wait before sending more feedback. Your draft is kept.','submission-changed':'This report changed. Edit it and try again.'};
+    fbRender();toast(messages[error]||'Couldn’t send. Your draft is kept; check your connection and retry.');return;
+  }
+  form.submission=null;
+  const changed=(form.text||'').trim()!==msg||(form.tag||'')!==tag;
+  if(!changed){form.text='';closeModal();}else fbRender();
+  toast(receipt.status==='delivered'?'Thanks! Your feedback was sent.':'Your feedback is saved for delivery.');
 }
 function fbAction(a,b){
   if(cmAction(a,b))return true;
