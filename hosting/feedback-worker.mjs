@@ -1,5 +1,5 @@
 import {DurableObject} from 'cloudflare:workers';
-import {FeedbackError,json,readJson,normalizeReport,authenticate,hash,githubIssue,githubFetch,sourceMarker,UUID} from './feedback-core.mjs';
+import {FeedbackError,json,readJson,normalizeReport,normalizeSubmitter,loadSubmitter,authenticate,hash,githubIssue,githubFetch,sourceMarker,UUID,ATTRIBUTION} from './feedback-core.mjs';
 
 // A namespace instance per authenticated account: independent rate limits and delivery state.
 export class FeedbackOutbox extends DurableObject {
@@ -17,7 +17,7 @@ export class FeedbackOutbox extends DurableObject {
   }
   row(id){return this.ctx.storage.sql.exec('SELECT * FROM reports WHERE id = ?',id).toArray()[0];}
   receipt(row){return row?{id:row.id,status:row.state==='delivered'?'delivered':row.state==='uncertain'?'checking':'queued'}:null;}
-  async submit(input){
+  async submit(input,submitter=null){
     const report=normalizeReport(input),digest=await hash(JSON.stringify(report));
     let row=this.row(report.id);
     if(row&&row.digest!==digest)return {httpStatus:409,error:'submission-changed'};
@@ -26,7 +26,8 @@ export class FeedbackOutbox extends DurableObject {
       const recent=this.ctx.storage.sql.exec('SELECT count(*) AS n FROM reports WHERE created_at > ?',now-3600000).one().n;
       const pending=this.ctx.storage.sql.exec("SELECT count(*) AS n FROM reports WHERE state <> 'delivered'").one().n;
       if(recent>=10||pending>=20)return {httpStatus:429,error:'too-many-reports'};
-      this.ctx.storage.sql.exec("INSERT INTO reports(id,digest,payload,state,created_at,next_at) VALUES(?,?,?,'queued',?,?)",report.id,digest,JSON.stringify(report),now,now);
+      const payload=report.attribution===ATTRIBUTION?{...report,submitter:normalizeSubmitter(submitter)}:report;
+      this.ctx.storage.sql.exec("INSERT INTO reports(id,digest,payload,state,created_at,next_at) VALUES(?,?,?,'queued',?,?)",report.id,digest,JSON.stringify(payload),now,now);
     }
     await this.schedule(); // Persist the retry before attempting external delivery.
     await this.deliver(report.id);
@@ -102,28 +103,44 @@ export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url);
     if(!url.pathname.startsWith('/api/feedback'))return new Response('Not found',{status:404});
+    // The supported legacy Pages app calls the canonical production API. Bearer
+    // authentication is still required; no cookies or wildcard CORS are used.
+    const origin=request.headers.get('Origin');
+    const legacy=env.FEEDBACK_ENVIRONMENT==='production'&&url.origin==='https://strongstart.app'&&origin==='https://knitko95.github.io';
+    const reply=(value,status=200)=>{
+      const response=json(value,status);
+      if(legacy){response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');}
+      return response;
+    };
     try{
       const environment=env.FEEDBACK_ENVIRONMENT;
+      if(origin&&origin!==url.origin&&!legacy)throw new FeedbackError(403,'wrong-origin');
+      if(request.method==='OPTIONS'){
+        const method=request.headers.get('Access-Control-Request-Method'),headers=(request.headers.get('Access-Control-Request-Headers')||'').toLowerCase().split(',').map(x=>x.trim()).filter(Boolean);
+        if(!legacy||!['GET','POST'].includes(method)||headers.some(h=>!['authorization','content-type'].includes(h)))throw new FeedbackError(403,'wrong-origin');
+        return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, POST','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600','Cache-Control':'no-store',Vary:'Origin'}});
+      }
       if(!['development','production'].includes(environment)||!env.GITHUB_FEEDBACK_TOKEN)throw new FeedbackError(503,'not-configured');
-      if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)throw new FeedbackError(403,'wrong-origin');
       if(request.method!=='POST'&&request.method!=='GET')throw new FeedbackError(405,'method-not-allowed');
       if(request.method==='POST'&&url.pathname!=='/api/feedback')throw new FeedbackError(404,'not-found');
       if(request.method==='POST'&&!/^application\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))throw new FeedbackError(415,'json-required');
       let report;
       if(request.method==='POST')report=normalizeReport(await readJson(request));
       else if(!UUID.test(url.pathname.slice('/api/feedback/'.length)))throw new FeedbackError(404,'not-found');
-      const owner=await authenticate(request,environment);
-      const outbox=ctx.exports.FeedbackOutbox.getByName(owner);
+      const identity=await authenticate(request,environment);
+      const outbox=ctx.exports.FeedbackOutbox.getByName(identity.owner);
       if(request.method==='GET'){
         const receipt=await outbox.status(url.pathname.slice('/api/feedback/'.length));
-        return receipt?json(receipt):json({error:'not-found'},404);
+        return receipt?reply(receipt):reply({error:'not-found'},404);
       }
-      const result=await outbox.submit(report);
-      const {httpStatus,...body}=result;return json(body,httpStatus);
+      const existing=await outbox.status(report.id);
+      const submitter=report.attribution===ATTRIBUTION&&!existing?await loadSubmitter(request,environment,identity.accountId):null;
+      const result=await outbox.submit(report,submitter);
+      const {httpStatus,...body}=result;return reply(body,httpStatus);
     }catch(error){
-      if(error instanceof FeedbackError)return json({error:error.code},error.status);
+      if(error instanceof FeedbackError)return reply({error:error.code},error.status);
       console.warn(JSON.stringify({event:'feedback.request_failed'}));
-      return json({error:'temporarily-unavailable'},503);
+      return reply({error:'temporarily-unavailable'},503);
     }
   }
 };

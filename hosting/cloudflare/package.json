@@ -2,10 +2,13 @@
   "name": "strong-start-hosting",
   "private": true,
   "type": "module",
-  "engines": {"node":"^22.23.0 || ^24.22.0 || ^26.12.0"},
+  "engines": {
+    "node": "^22.23.0 || ^24.22.0 || ^26.12.0"
+  },
   "scripts": {
     "build": "node ../../scripts/build-production.mjs && cf build",
-    "dev": "cf dev"
+    "dev": "cf dev",
+    "deploy": "node ../deploy-feedback-production.mjs"
   },
   "devDependencies": {
     "cf": "1.0.0-beta.30",

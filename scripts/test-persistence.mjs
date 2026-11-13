@@ -52,6 +52,7 @@ await test('feedback captures the running version without a database inbox',asyn
   await h.run('fbSend()');
   assert.equal(h.run('sentFeedback.version'),h.run('APP_VERSION'));
   assert.equal(h.run('sentFeedback.build'),h.run('APP_BUILD.id'));
+  assert.equal(h.run('sentFeedback.attribution'),'name-account-id');
   assert.equal(h.run('sentFeedback.app_environment'),undefined,'Origin must be determined by the server');
   assert.equal(h.run('sentFeedback.workout'),undefined,'No workout payload is sent to GitHub');
   assert.equal(h.run('inboxCards()'),'');

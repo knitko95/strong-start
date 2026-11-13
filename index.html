@@ -869,6 +869,21 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.3.1",
+    "date": "2026-11-13",
+    "title": "Clearer feedback reports",
+    "notes": ["Private feedback reports show the feedback, name and app version first, with technical details available to expand."]
+  },
+  {
+    "version": "0.3.0",
+    "date": "2026-11-13",
+    "title": "Feedback submitter details",
+    "notes": [
+      "New app feedback includes your account display name and account ID in our private tracker.",
+      "Email and workout records are excluded. Older reports keep their original attribution."
+    ]
+  },
+  {
     "version": "0.2.0",
     "date": "2026-11-13",
     "title": "Private feedback tracking",
@@ -2622,7 +2637,7 @@ function selfDeleteSheet(){
   ui.selfDeleteUser=AUTH.user.id;
   modal(`<h2>Delete your account forever?</h2>
     <p class="small" style="margin:0">This permanently deletes your login, plan, settings, workout history, and coach messages, including any unfinished workout. This can’t be undone. Joining again requires a new beta invite.</p>
-    <p class="small" style="margin:0">Your app feedback stays in our private tracker and historical records to help improve Strong Start. New reports have no attached account identity or workout record. Older records lose their account and workout links, but the message text and screen/device context remain. Anything you wrote may still identify you. Contact the app owner if you want retained feedback removed.</p>
+    <p class="small" style="margin:0">Your app feedback stays in our private tracker and historical records to help improve Strong Start. Reports sent with the name-and-ID notice retain those details after account deletion. Earlier unattributed reports stay unattributed; older database records lose their account and workout links. The message text and screen/device context remain and may identify you. Contact the app owner to request removal or redaction of retained feedback.</p>
     <p class="small" style="margin:0">You must have signed in within the last 10 minutes. If needed, cancel, sign out, and sign in again before returning here. Other devices may retain an offline copy until they reconnect.</p>
     <button class="btn sm" data-action="selfdeletebackup">Copy backup first</button><textarea id="delete-backup" aria-label="Backup to copy" hidden readonly></textarea>
     <label class="field2" for="self-delete-confirm"><span class="flabel">Type DELETE to confirm</span><input class="in" id="self-delete-confirm" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
@@ -2775,7 +2790,7 @@ function acctDeleteSheet(id){
   const p=acctPerson(id); if(!p) return; const n=acctName(p), key=(p.name||p.email||'').trim();
   ui.delKey=key.toLowerCase();
   modal(`<h2>Delete ${esc(n)}’s account forever?</h2>
-    <p class="small" style="margin:0">This erases their login, plan and settings, all ${p.workouts_total} workout${p.workouts_total===1?'':'s'}, and messages they sent you as their coach. App feedback remains in the private tracker and historical records. New reports have no attached account identity; older records lose their account and workout links. Text they wrote may still identify them.</p>
+    <p class="small" style="margin:0">This erases their login, plan and settings, all ${p.workouts_total} workout${p.workouts_total===1?'':'s'}, and messages they sent you as their coach. App feedback remains in the private tracker and historical records. Reports sent with the name-and-ID notice retain those details after deletion. Earlier unattributed reports stay unattributed; historical database records lose their account/workout links. Text they wrote may still identify them. Contact the app owner for feedback removal or redaction.</p>
     <p class="small" style="margin:0"><b>This can’t be undone.</b> To keep everything instead, disable the account.</p>
     <label class="field2" for="delconfirm"><span class="flabel">Type <b>${esc(key)}</b> to confirm</span><input class="in" id="delconfirm" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
     <div class="row"><button class="btn danger" id="delbtn" data-action="acctdeletego" data-id="${esc(id)}" disabled>Delete forever</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
@@ -2864,7 +2879,7 @@ function fbRender(){
   const sentWith = app ? esc(appVersionLabel()) : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
   modal(`${AUTH.coach?'<h2>About the app</h2>':`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>`}
     <p class="small muted" style="margin:0">Something broken, confusing or missing? Tell us. This goes to the people who make the app.</p>
-    <p class="tiny muted" style="margin:0">Sent to our private feedback tracker with the app version, screen and device type. Leave out personal, health and login details.</p>
+    <p class="tiny muted" style="margin:0">Your account name and ID are shared with people and agents who can access our private feedback tracker, along with the app version, screen and device type. Your email and workout records aren’t included. Leave out other personal, health and login details.</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
     <label class="field2" for="fbtext"><span class="sr-only" style="position:absolute;left:-9999px">Message</span><textarea id="fbtext" maxlength="4000" placeholder="${app?'What happened, or what would make it better?':'How did it go?'}">${esc(S.text)}</textarea></label>
     <div class="tiny muted">${app?sentWith:`Sent with: ${sentWith}`}</div>
@@ -2881,7 +2896,7 @@ async function fbSend(){
   if(!AUTH.user||AUTH.access!=='ok'||coachMode||AUTH.deleting){toast('Sign in with an approved account to send feedback.');return;}
   if(FBS.busy)return;
   const form=FBS,owner=AUTH.user.id,tag=form.tag||'',key=JSON.stringify({message:msg,tag});
-  if(!form.submission||form.submission.key!==key)form.submission={key,payload:{id:crypto.randomUUID(),message:msg,tag,screen:String(form.screen||'').slice(0,200),device:String(form.device||'').slice(0,300),version:APP_VERSION,build:APP_BUILD.id}};
+  if(!form.submission||form.submission.key!==key)form.submission={key,payload:{id:crypto.randomUUID(),message:msg,tag,screen:String(form.screen||'').slice(0,200),device:String(form.device||'').slice(0,300),version:APP_VERSION,build:APP_BUILD.id,attribution:'name-account-id'}};
   const payload=form.submission.payload;
   form.busy=true;fbRender();
   let error='',receipt=null;
@@ -2889,7 +2904,8 @@ async function fbSend(){
     const session=await sb.auth.getSession();
     if(!AUTH.user||AUTH.user.id!==owner||FBS!==form)return;
     if(session.error||!session.data?.session?.access_token)throw new Error('sign-in-required');
-    const response=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.data.session.access_token},body:JSON.stringify(payload),signal:AbortSignal.timeout(20000)});
+    const endpoint=IS_PRODUCTION?'https://strongstart.app/api/feedback':'/api/feedback';
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.data.session.access_token},body:JSON.stringify(payload),signal:AbortSignal.timeout(20000)});
     const result=await response.json();
     if(!response.ok)throw new Error(result.error||'temporarily-unavailable');
     if(result.id!==payload.id||!['delivered','queued','checking'].includes(result.status))throw new Error('temporarily-unavailable');

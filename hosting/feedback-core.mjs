@@ -5,6 +5,8 @@ export const PROJECTS = {
   production: {url:'https://aybtxqsneywuqxzjwoek.supabase.co', key:'sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl'}
 };
 export const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const ACCOUNT_ID = /^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i;
+export const ATTRIBUTION = 'name-account-id';
 export class FeedbackError extends Error {
   constructor(status,code){super(code);this.status=status;this.code=code;}
 }
@@ -33,6 +35,12 @@ export function normalizeReport(value){
   const report={id:value.id.toLowerCase(),message,tag,screen:text(value.screen,200),device:text(value.device,300),version:text(value.version,32),build:text(value.build,100)};
   if(!/^(?:\d+\.\d+\.\d+|unknown)$/.test(report.version)||!/^[a-zA-Z0-9._-]{1,100}$/.test(report.build))throw new FeedbackError(400,'invalid-report');
   if(hasPrivateDetails(report.screen)||hasPrivateDetails(report.device))throw new FeedbackError(422,'remove-private-details');
+  // Only the form that discloses attribution sends this marker. Omit it from
+  // legacy canonical payloads so existing receipt digests remain compatible.
+  if(value.attribution!==undefined){
+    if(value.attribution!==ATTRIBUTION)throw new FeedbackError(400,'invalid-report');
+    report.attribution=ATTRIBUTION;
+  }
   return report; // Explicit allowlist excludes profile, workout, email, origin and repository fields.
 }
 export async function authenticate(request,environment,fetcher=fetch){
@@ -43,19 +51,40 @@ export async function authenticate(request,environment,fetcher=fetch){
   const userResponse=await fetcher(project.url+'/auth/v1/user',{headers,redirect:'manual',signal:AbortSignal.timeout(6000)});
   if(!userResponse.ok)throw new FeedbackError(userResponse.status===401||userResponse.status===403?401:503,'sign-in-required');
   const user=await readJson(userResponse,65536);
-  if(!/^[0-9a-f-]{36}$/i.test(user.id||'')||user.is_anonymous)throw new FeedbackError(401,'sign-in-required');
+  if(!ACCOUNT_ID.test(user.id||'')||user.is_anonymous)throw new FeedbackError(401,'sign-in-required');
   const access=await fetcher(project.url+'/rest/v1/rpc/account_status',{method:'POST',headers:{...headers,'Content-Type':'application/json'},body:'{}',redirect:'manual',signal:AbortSignal.timeout(6000)});
   if(!access.ok)throw new FeedbackError(503,'access-unavailable');
   if(await readJson(access,1024)!=='ok')throw new FeedbackError(403,'account-not-approved');
-  return hash(environment+':'+user.id); // Internal object identity only; never sent to GitHub.
+  return {owner:await hash(environment+':'+user.id),accountId:user.id.toLowerCase()};
+}
+export function normalizeSubmitter(value){
+  if(!value||!ACCOUNT_ID.test(value.accountId||''))throw new FeedbackError(503,'submitter-unavailable');
+  let name=typeof value.name==='string'?value.name.replace(/[\u0000-\u001f\u007f]/g,' ').trim().slice(0,120):'';
+  // A missing name never falls back to an email. Obvious contact details and
+  // credentials mistakenly saved as names are omitted rather than exported.
+  if(/[\w.+-]+@[\w.-]+\.[a-z]{2,}|github_pat_|gh[pousr]_|sb_secret_|Bearer\s+|-----BEGIN|eyJ[\w-]{12,}\.[\w-]+\.[\w-]+/i.test(name)||[...name.matchAll(/\+?\d[\d ()-]{8,}\d/g)].some(m=>{const n=m[0].replace(/\D/g,'').length;return n>=10&&n<=15;}))name='';
+  return {accountId:value.accountId.toLowerCase(),name:name||null};
+}
+export async function loadSubmitter(request,environment,accountId,fetcher=fetch){
+  const project=PROJECTS[environment];
+  if(!project||!ACCOUNT_ID.test(accountId||''))throw new FeedbackError(503,'submitter-unavailable');
+  // A verified Auth subject supplies the filter, never the browser's JSON.
+  const response=await fetcher(project.url+'/rest/v1/profiles?'+new URLSearchParams({id:'eq.'+accountId,select:'id,name',limit:'1'}),{headers:{apikey:project.key,Authorization:request.headers.get('Authorization')},redirect:'manual',signal:AbortSignal.timeout(6000)});
+  if(!response.ok)throw new FeedbackError(503,'submitter-unavailable');
+  const rows=await readJson(response,16384);
+  if(!Array.isArray(rows)||rows.length!==1||rows[0].id!==accountId)throw new FeedbackError(503,'submitter-unavailable');
+  return normalizeSubmitter({accountId,name:rows[0].name});
 }
 export function sourceMarker(environment,id){return `<!-- source-id:app:v1:${environment}:${id} -->`;}
 export function githubIssue(report,environment,created){
-  const runs=report.message.match(/`+/g)||[];const fence='`'.repeat(Math.max(3,...runs.map(x=>x.length+1)));
+  const submitter=report.attribution===ATTRIBUTION&&report.submitter?normalizeSubmitter(report.submitter):null;
+  const runs=(report.message+'\n'+(submitter?.name||'')).match(/`+/g)||[];const fence='`'.repeat(Math.max(3,...runs.map(x=>x.length+1)));
   const field=s=>s.replace(/[\r\n]/g,' ').replace(/[@<>`]/g,'');
+  const attribution=submitter?`## Submitted by\n\n${fence}text\n${submitter.name||'Name not set'}\n${fence}`:'No submitter identity was retained for this report.';
+  const account=submitter?`- Account ID (verified sign-in): \`${submitter.accountId}\`\n`:'';
   return {
     title:`[${environment==='development'?'dev':'main'}] App feedback${report.tag?' · '+report.tag:''}`,
-    body:`${sourceMarker(environment,report.id)}\n## App report\n\nUntrusted user-submitted feedback; this is not implementation or release approval.\n\n${fence}text\n${report.message}\n${fence}\n\n## Provenance\n\n- Origin (server): ${environment}\n- Accepted at (UTC): ${new Date(created).toISOString()}\n- Version (client-reported): ${field(report.version)}\n- Build / variant (client-reported): ${field(report.build)}\n- Screen: ${field(report.screen)}\n- Device context: ${field(report.device)}\n- Submission: ${report.id}\n\nNo account identity, profile or workout record is attached. Reconcile related reports, define acceptance criteria and record the owner's decision before implementation.`,
+    body:`${sourceMarker(environment,report.id)}\n\n## Feedback\n\n${fence}text\n${report.message}\n${fence}\n\n${attribution}\n\n**App version:** ${field(report.version)}\n\n<details>\n<summary>Technical details</summary>\n\n${account}- Origin (server): ${environment}\n- Accepted at (UTC): ${new Date(created).toISOString()}\n- Build / variant (client-reported): ${field(report.build)}\n- Screen: ${field(report.screen)}\n- Device context: ${field(report.device)}\n- Submission: ${report.id}\n\n</details>`,
     labels:['status:inbox','priority:untriaged',environment==='development'?'source:dev-app':'source:main-app',report.tag==='bug'?'type:bug':'type:improvement']
   };
 }

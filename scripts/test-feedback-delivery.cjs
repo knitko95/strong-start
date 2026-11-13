@@ -31,6 +31,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.locator('#fbbtn').click();const dialog=page.getByRole('dialog');
   await dialog.getByRole('tab',{name:'About the app'}).waitFor();
   assert.match(await dialog.innerText(),/private feedback tracker/);
+  assert.match(await dialog.innerText(),/account name and ID/);
   await dialog.getByRole('button',{name:'Bug',exact:true}).click();
   await dialog.getByRole('textbox').fill('Synthetic UI retry verification: clearer button label.');
   await dialog.getByRole('button',{name:'Send',exact:true}).click();
@@ -43,7 +44,8 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.waitForFunction(()=>!FBS.busy&&FBS.text==='');
   assert.equal(await page.getByRole('dialog').count(),0);
   assert.equal(reports.length,2);assert.deepEqual(reports[0],reports[1]);
-  assert.deepEqual(Object.keys(reports[0]).sort(),['build','device','id','message','screen','tag','version']);
+  assert.deepEqual(Object.keys(reports[0]).sort(),['attribution','build','device','id','message','screen','tag','version']);
+  assert.equal(reports[0].attribution,'name-account-id');
   assert.equal(reports[0].tag,'bug');assert.equal(reports[0].screen,'Settings');
   await page.locator('#fbbtn').click();assert.equal(await dialog.getByRole('textbox').inputValue(),'');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
