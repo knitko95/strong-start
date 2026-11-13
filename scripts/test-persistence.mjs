@@ -90,7 +90,28 @@ await test('legacy guide preparation upgrades without resetting active or paused
 });
 await test('unstarted cardio part selection waits for Ready and paused time adjustment stays paused',()=>{
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};");h.click('gseg',{n:'1'});assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gnow');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.tot'),120);
-  h.click('gpause');const left=h.run('state.draft.guide.left');h.click('gprev');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),0);assert(h.run('state.draft.guide.left')>14000);h.click('gskip');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),1);assert(Math.abs(h.run('state.draft.guide.left')-left)<1000);
+  h.click('gpause');const left=h.run('state.draft.guide.left');h.click('gprev');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.left'),left-15000);h.click('gskip');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.left'),left);
+});
+await test('cardio plus and minus change remaining time in the displayed direction in both phases',()=>{
+  for(const ph of ['warm','cool']){
+    const h=guidedWorkout(ph);h.run(`guideMoves[0]={g:'${ph}',k:'timer',t:'Cardio',d:'2 min',phases:[{sec:60,label:'Easy'},{sec:60,label:'Steady'}]};`);h.click('gnow');const end=h.run('state.draft.guide.end');
+    h.click('gskip');assert.equal(h.run('state.draft.guide.end'),end+15000);assert.equal(h.run('state.draft.guide.s'),0);assert.equal(h.run('state.draft.guide.tot'),75);
+    h.click('gprev');assert.equal(h.run('state.draft.guide.end'),end);assert.equal(h.run('state.draft.guide.s'),0);
+    h.click('gstep',{i:'0',s:'1'});h.click('gpause');const left=h.run('state.draft.guide.left');h.click('gskip');assert.equal(h.run('state.draft.guide.left'),left+15000);assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.mode'),'paused');h.click('gprev');assert.equal(h.run('state.draft.guide.left'),left);
+    h.run('state=migrate(JSON.parse(localStorage.getItem(LS)).state);');assert.equal(h.run('state.draft.guide.left'),left);assert.equal(h.run('state.draft.guide.mode'),'paused');
+  }
+});
+await test('removing the last seconds advances one cardio part and preserves a paused timer',()=>{
+  for(const ph of ['warm','cool']){
+    const h=guidedWorkout(ph);h.run(`guideMoves[0]={g:'${ph}',k:'timer',t:'Cardio',d:'2 min',phases:[{sec:60,label:'Easy'},{sec:60,label:'Steady'}]};`);h.click('gnow');h.run('state.draft.guide.end=Date.now()+5000;');h.click('gprev');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.mode'),'run');assert.equal(h.run('state.draft.guide.tot'),60);
+    const p=guidedWorkout(ph);p.run(`guideMoves[0]={g:'${ph}',k:'timer',t:'Cardio',d:'2 min',phases:[{sec:60,label:'Easy'},{sec:60,label:'Steady'}]};`);p.click('gnow');p.click('gpause');p.run('state.draft.guide.left=5000;');p.click('gprev');assert.equal(p.run('state.draft.guide.s'),1);assert.equal(p.run('state.draft.guide.mode'),'paused');assert(p.run('state.draft.guide.left')>59000);
+  }
+});
+await test('minus at the end of cardio retains effort feedback and the next move boundary',()=>{
+  for(const ph of ['warm','cool']){
+    const h=guidedWorkout(ph);h.run(`guideMoves[0]={g:'${ph}',k:'timer',t:'Cardio',d:'1 min',cardio:'${ph==='warm'?'warm':'after'}',ctype:'steady',min:1,phases:[{sec:60,label:'Easy'}]};needCardioFeel=()=>true;`);h.click('gnow');h.run('state.draft.guide.end=Date.now()+5000;');h.click('gprev');assert.equal(h.run('state.draft.guide.mode'),'cfeel');assert.equal(h.run(`state.draft.${ph}.timer`),true);
+    h.click('gcfeelpick',{v:'good'});h.click('gcfeelconfirm');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'reps');
+  }
 });
 await test('warm-up cardio shares the grouped path and keeps running between selected parts',()=>{
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'c',t:'Walk warm-up',d:'4 min',cardio:'warm',mode:'walk',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'},{sec:60,label:'Cool off: easy walk'}]};needCardioFeel=()=>false;");

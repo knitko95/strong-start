@@ -36,12 +36,19 @@ const step=(page,i,s=0)=>page.locator(`[data-action="gstep"][data-i="${i}"][data
   assert.equal(await page.locator('.guide-parts').count(),0);
   assert.equal(await page.locator('.flabel').innerText(),'Cardio · Part 1 of 3');
   const counts=await page.evaluate(()=>({steps:document.querySelectorAll('[data-action="gstep"]').length,segments:document.querySelectorAll('.fsegs i').length}));assert.equal(counts.steps,counts.segments);
+  // Plus/minus adjust the countdown, including the beginning of the first part.
+  const timerEnd=await page.evaluate(()=>state.draft.guide.end);
+  await page.getByRole('button',{name:'15 seconds more',exact:true}).click();assert.equal(await page.evaluate(()=>state.draft.guide.end),timerEnd+15000);assert.equal(await page.evaluate(()=>state.draft.guide.s),0);
+  await page.getByRole('button',{name:'15 seconds less',exact:true}).click();assert.equal(await page.evaluate(()=>state.draft.guide.end),timerEnd);assert.equal(await page.evaluate(()=>state.draft.guide.s),0);
   await page.evaluate(()=>{state.draft.guide.end=Date.now()-10000;gTick();});
   assert.equal(await page.evaluate(()=>state.draft.guide.s),1);assert.equal(await page.evaluate(()=>state.draft.guide.mode),'run');
   assert.equal(await page.locator('.ahead h1').innerText(),'Brisk walk');assert.equal(await page.locator('.ach>b').innerText(),'Time left');
   assert.match(await page.locator('.guide-next').innerText(),/Cool off/);
   await step(page,0,2).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'run');
-  await page.locator('[data-action="gpause"]').click();await step(page,0,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
+  await page.locator('[data-action="gpause"]').click();
+  const pausedLeft=await page.evaluate(()=>state.draft.guide.left);
+  await page.getByRole('button',{name:'15 seconds more',exact:true}).click();assert.equal(await page.evaluate(()=>state.draft.guide.left),pausedLeft+15000);assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
+  await page.getByRole('button',{name:'15 seconds less',exact:true}).click();assert.equal(await page.evaluate(()=>state.draft.guide.left),pausedLeft);assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');await step(page,0,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
   await page.locator('.fbig[data-action="gresume"]').click();await step(page,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'ready');
   await step(page,0,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
   const left=await page.evaluate(()=>state.draft.guide.left);await page.reload();

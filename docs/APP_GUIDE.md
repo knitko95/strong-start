@@ -120,6 +120,8 @@ One **Ready** tap starts warm-up cardio; **Start cardio** on the optional post-w
 
 Tapping another move pauses an active timer and preserves its remaining time and side/part. Return to it and choose **Resume**. These checkpoints survive reload. Completed moves retain their completion color; revisiting one waits for Ready before repeating it. **How to**, **Show as a list**, **Pause workout**, and workout-list navigation also preserve the current timer. Skip this move, sound and list view are in the top-right menu. Skipping does not mark a move complete. Tapping another part of the same running cardio starts that part immediately, during either warm-up or cool-down. A paused cardio timer stays paused when changing parts or adjusting its time. Choosing a part before starting cardio still waits for Ready.
 
+During warm-up and cool-down cardio, **+15** adds 15 seconds to the current part's countdown and **−15** removes 15 seconds, matching the rest timer. These controls do not rewind or seek through earlier parts. Removing all remaining time completes the current part; cardio continues to its next part, or reaches its usual completion/effort check-in. Adjusting while paused keeps the timer paused, including when moving into the next cardio part.
+
 The existing optional-cardio choice, effort check-in, working-set start and Finish workout flows remain. Lighter weighted warm-up sets keep their separate weight controls. No new warm-up/cool-down exercises or equipment requirements are introduced.
 
 ## Progress and programs

@@ -4618,18 +4618,13 @@ function gAdvance(){
   }
   if(G.mode==='gap'){ G.mode='run'; G.tot=S.segs[G.s].sec; G.end=Date.now()+G.tot*1000; beep(); buzz(150); }
 }
-// Move the cardio timer ±sec across its parts. Returns true if that runs past the end.
-function gSeek(it,sec){
-  const G=state.draft.guide, segs=segsFor(it).segs, left=Math.max(0,(G.end-Date.now())/1000);
-  let pos=segs.slice(0,G.s).reduce((a,x)=>a+x.sec,0)+(segs[G.s].sec-left)+sec;
-  const total=segs.reduce((a,x)=>a+x.sec,0); if(pos>=total-1) return true; pos=Math.max(0,pos);
-  let s=0; while(s<segs.length-1 && pos>=segs[s].sec){ pos-=segs[s].sec; s++; }
-  if(s!==G.s) beep(); G.s=s; G.tot=segs[s].sec; G.end=Date.now()+(segs[s].sec-pos)*1000; return false;
-}
+// Match the rest timer: plus adds remaining time; minus removes it.
 function gAdjustTime(sec){
-  const G=state.draft.guide,it=gItems(G.ph)[G.i],paused=G.mode==='paused';
-  if(paused){G.mode=G.pmode;G.end=Date.now()+G.left;}
-  if(gSeek(it,sec))gCompleteMove();else if(paused)gPauseMove();
+  const G=state.draft.guide,paused=G.mode==='paused',now=Date.now();
+  const left=Math.max(0,paused?G.left:G.end-now)+sec*1000;
+  if(left<=0){G.mode='run';G.end=now;gAdvance();if(paused)gPauseMove();return;}
+  G.tot=Math.max(G.tot||0,Math.ceil(left/1000));
+  if(paused)G.left=left;else G.end=now+left;
 }
 let gInt=null;
 function gTick(){
@@ -4832,7 +4827,7 @@ function renderGuide(){
   const pause=!ready&&pm!=='reps'?`<button class="guide-pause" data-action="${paused?'gresume':'gpause'}" aria-label="${paused?'Resume timer':'Pause timer'}">${paused?ICON.play:ICON.pause}</button>`:'';
   const fine=!!it.phases,seekable=pm==='run';
   const ring=S.timer?gRing(left,total,'',inGap):`<div class="guide-reps"><span class="num">${esc(n[1]||'')}</span><span>${esc(n[1]?(n[2]||'reps'):it.d)}</span></div>`;
-  const timer=fine?`<div class="atimer"><button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gprev" aria-label="Back 15 seconds"><b>−</b><span>15 s</span></button>${ring}<button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gskip" aria-label="Ahead 15 seconds"><b>+</b><span>15 s</span></button></div>`:`<div class="guide-timer">${ring}</div>`;
+  const timer=fine?`<div class="atimer"><button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gprev" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>${ring}<button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gskip" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>`:`<div class="guide-timer">${ring}</div>`;
   const hint=it.k==='foam'?'Grab a foam roller. About 30 seconds each spot.':it.phases&&seg?effortHint(seg.label):'';
   const act=paused?'gresume':ready||inGap?'gnow':'gdone',label=paused?'Resume':ready||inGap?'Ready':'Done';
   const next=items[G.i+1],first=G.ph==='warm'?nextGroupStart(d,slots,-1):-1;
