@@ -1,8 +1,9 @@
 import {V,Q,M,T,rad,clone} from './rig.mjs';
+import {refineEquipment} from './equipment-corrections.mjs';
 const colors={metal:[.20,.23,.26,1],chrome:[.42,.46,.49,1],rubber:[.045,.052,.06,1],pad:[.12,.16,.16,1],band:[.30,.56,.45,1],ball:[.26,.42,.42,1],mat:[.14,.20,.20,1],wood:[.48,.37,.26,1]};
 export function material(kind='metal'){return {name:kind,doubleSided:true,pbrMetallicRoughness:{baseColorFactor:colors[kind]||colors.metal,roughnessFactor:kind==='chrome'?.35:.72,metallicFactor:['metal','chrome'].includes(kind)?.55:0}};}
 export class Equipment{
- constructor(spec,rig,meta,geometries,setups){this.spec=spec;this.rig=rig;this.geometry=geometries;this.props=[];this.dynamic=[];this.meta=meta;this.build(setups);}
+ constructor(spec,rig,meta,geometries,setups){this.spec=spec;this.rig=rig;this.geometry=geometries;this.props=[];this.dynamic=[];this.meta=meta;this.build(setups);refineEquipment(this,setups);}
  add(name,shape,position,size,kind='metal',rotation=Q(),parent=null){
   const i=this.props.length;this.props.push({name,matrix:M().compose(position,rotation,size).toArray(),parts:[{geometry:this.geometry[shape],material:material(kind)}],...(parent?{parent}:{})});return i;
  }
@@ -10,7 +11,7 @@ export class Equipment{
  sphere(name,p,size,kind='ball'){return this.add(name,'sphere',p,size,kind);}
  line(name,a,b,radius=.025,kind='metal',dynamic=null){const d=b.clone().sub(a);const i=this.add(name,'cylinder',a.clone().add(b).multiplyScalar(.5),V(radius,d.length(),radius),kind,Q().setFromUnitVectors(V(0,1,0),d.normalize()));if(dynamic)this.dynamic.push({i,fn:dynamic,type:'line',radius});return i;}
  animate(i,fn){this.dynamic.push({i,fn,type:'matrix'});}
- socket(side){return V(0,.04,0).applyMatrix4(this.rig.world(this.rig.ids['hand_'+side]));}
+ socket(side){return this.rig.palmPoint(side);}
  build(setups){
   const s=this.spec,n=s.name.toLowerCase(),f=s.family,m=this.meta,eq=new Set(s.eq);const both=fn=>{for(const [side,sign]of [['l',1],['r',-1]])if(!s.unilateral||side==='l')fn(side,sign);};
   const grip=side=>this.socket(side),center=()=>grip('l').add(grip('r')).multiplyScalar(.5);

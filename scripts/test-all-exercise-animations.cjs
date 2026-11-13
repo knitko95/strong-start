@@ -15,6 +15,7 @@ const server=http.createServer((req,res)=>{try{const file=path.resolve(dist,'.'+
   await page.goto(url);await page.waitForFunction(()=>typeof defaults==='function'&&window.StrongStartExerciseGuides);
   await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user=null;closeModal();state=defaults();logs=[];state.setup=null;state.onboarded=true;state.settings.sound=false;state.places=[{k:'gym',n:'Gym',eq:EQ_ALL}];state.curPlace='gym';newBlock();ui.tab='library';ui.libEasy=false;ui.libShowAll=true;render();});
   assert.equal(await page.evaluate(()=>APP_ENV),'development');assert.equal(await page.evaluate(()=>SB_URL),'https://gvyfgqhgqnfmtoytqpeo.supabase.co');
+  assert.equal(await page.evaluate(()=>guideAnimationId({t:'Air bike'})),'air-bike');assert.equal(await page.evaluate(()=>guideAnimationId({t:'Stationary bike'})),'stationary-bike');
   const baseline=await page.evaluate(()=>JSON.stringify({state,logs,SYNC}));await page.locator('[data-action=animationgallery]').click();
   await page.waitForFunction(()=>window.sharedExerciseDebug?.state().loaded,{timeout:90000});
   assert.equal(await page.locator('#exercise option').count(),manifest.exercises.length);

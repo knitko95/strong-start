@@ -17,7 +17,7 @@ unchanged. Muscle highlighting stays on the anatomical instructor.
 
 The candidate contains 25,471 vertices and 48,296 triangles, one 1024px atlas,
 four weights per vertex and one skinned draw. Compressed geometry plus texture
-is 1,622,056 bytes. The anatomical body is loaded lazily if selected; fitted
+is 1,623,372 bytes. The anatomical body is loaded lazily if selected; fitted
 candidate geometries are bounded to two cached bind frames. Package size is
 not a physical-phone performance measurement.
 
@@ -28,10 +28,16 @@ skin coordinates, playback, half speed, reduced motion, cached offline model
 switching and no horizontal overflow or unexpected browser errors. Main app
 build, syntax, environment, persistence/workout, ownership and offline checks
 also pass. Front/back/side, pressing and supported-row screenshots were inspected.
-The existing full-library WebGL regression also passes all 445 exercises at
+Before the concurrent motion update, the full-library WebGL regression passed 445 exercises at
 three poses, phone/desktop controls, retry/storage/decompression fallback and
 unchanged synthetic app state. The new candidate's visual checks remain the
 12 representative movements above, rather than every library contact/frame.
+
+After integrating the concurrent development updates, the library contains 446
+entries. The 36 candidate comparison cases and normal build checks pass again.
+The updated mechanical checks cover 428 authored clips and 17,548 sampled poses,
+including loop, wrist, limb-length and foot-target constraints. These checks do
+not replace appearance/contact or professional technique review.
 
 This is a first realistic-style draft, not the reference's photorealism. Contact
 fit, appearance approval, physical phones, low-end performance and professional

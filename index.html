@@ -4939,7 +4939,7 @@ function guideAnimationId(it){
   if(/^Foam roll:|^Massage ball:/i.test(it.t)){const [tool,areas]=it.t.split(':');return slugify(tool+' '+areas.split(/,| and /)[0].trim());}
   const title=it.t.toLowerCase();
   if(MOVE_HOW[it.t])return slugify(it.t);
-  if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
+  if(/air bike|airbike/.test(title))return 'air-bike';if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
   return slugify(it.t);
 }
 function gHowTo(it){
