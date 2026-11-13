@@ -7,6 +7,13 @@ recipes in `recipes.mjs` and `poses.mjs`; reusable equipment is in `equipment.mj
 The generated `recipes.json` records every exercise, its catalogue cue, roles,
 equipment and review status. These are draft demonstrations for owner review.
 
+The [November 13 correction record](../docs/exercise-animation-audit/corrections.md)
+maps the reference-supported form/equipment findings to the revised drafts.
+`corrections.mjs` supplies fitted pose/contact targets and
+`equipment-corrections.mjs` supplies the corresponding mechanisms. Run
+`node scripts/test-animation-corrections.mjs` before rebuilding those assets.
+The library now includes a distinct linked-handle air bike (446 clips total).
+
 From the repository root:
 
 ```powershell

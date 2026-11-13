@@ -1,5 +1,7 @@
 # Exercise animation form and equipment audit
 
+**Follow-up:** the [correction candidate and closer-review dispositions](corrections.md) address this snapshot for test-app review. The audit below remains the original historical result; it is not a description of the corrected candidate.
+
 Reviewed November 13, 2026 against development baseline `521c42c06955495ad29576a6dd4c78bf01a3907c`. **The draft library does not pass the form/equipment audit.** This is a reference-guided discrepancy review, not a professional technique certification. No runtime assets were corrected or published by this audit.
 
 ## Scope and method

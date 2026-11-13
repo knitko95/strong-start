@@ -17419,6 +17419,44 @@
     "roleKey": "[[\"gastrocnemius_lateral\",\"gastrocnemius_medial\",\"rectus_femoris\",\"soleus\",\"vastus_lateralis\",\"vastus_medialis\"],[\"external_oblique\",\"rectus_abdominis_inferior\",\"rectus_abdominis_lower\",\"rectus_abdominis_middle\",\"rectus_abdominis_upper\"],null]"
   },
   {
+    "id": "air-bike",
+    "name": "Air bike",
+    "category": "cardio",
+    "family": "cycle",
+    "eq": [],
+    "muscles": {
+      "p": [
+        "quads",
+        "calves"
+      ],
+      "s": [
+        "abs",
+        "obliques"
+      ]
+    },
+    "draft": true,
+    "hold": false,
+    "halfKneel": false,
+    "seated": false,
+    "side": null,
+    "main": [
+      "rectus_femoris",
+      "vastus_lateralis",
+      "vastus_medialis",
+      "gastrocnemius_medial",
+      "gastrocnemius_lateral",
+      "soleus"
+    ],
+    "supporting": [
+      "rectus_abdominis_upper",
+      "rectus_abdominis_middle",
+      "rectus_abdominis_lower",
+      "rectus_abdominis_inferior",
+      "external_oblique"
+    ],
+    "roleKey": "[[\"gastrocnemius_lateral\",\"gastrocnemius_medial\",\"rectus_femoris\",\"soleus\",\"vastus_lateralis\",\"vastus_medialis\"],[\"external_oblique\",\"rectus_abdominis_inferior\",\"rectus_abdominis_lower\",\"rectus_abdominis_middle\",\"rectus_abdominis_upper\"],null]"
+  },
+  {
     "id": "foam-roll-quads",
     "name": "Foam roll: quads",
     "category": "recovery",
