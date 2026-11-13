@@ -457,11 +457,19 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-exercises .slotrow.mrow3>div:last-child{grid-column:2}
 .today-exercises .mthumb{width:38px;height:42px}
 .today-start{min-height:54px}
+.today-status h2{font-size:23px;margin:0 0 6px}
+.today-status p,.today-resume p{margin:0;line-height:1.6}
+.today-finished{background:var(--good-soft);border:1px solid var(--good);box-shadow:none}
+.today-finished .eyebrow{color:var(--good);margin-bottom:8px}
+.today-rest{background:var(--sunk);box-shadow:none}
+.today-resume{padding:12px 14px;background:var(--accent-soft);border-radius:12px}
+.today-resume-meter{height:5px;border-radius:10px;background:var(--line);margin-top:10px;overflow:hidden}
+.today-resume-meter span{display:block;height:100%;background:var(--accent);border-radius:10px}
 .today-other summary{cursor:pointer;min-height:44px;align-content:center;font-weight:600}
 .today-reminder{display:flex;justify-content:space-between;gap:12px;text-align:left;min-height:52px}
 .today-reminders .card{padding:12px 16px}
-.today-reminders .cm-today{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding-right:44px}
-.today-reminders .cm-today .cm-identity{flex:1;min-width:0}
+.cm-today{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 44px 12px 16px}
+.cm-today .cm-identity{flex:1;min-width:0}
 .why ul{margin:0;padding-left:18px;font-size:14px;display:flex;flex-direction:column;gap:4px}
 .wcard{display:flex;align-items:center;gap:12px;background:var(--surface);box-shadow:var(--shadow);border:0;border-radius:18px;padding:12px 14px;width:100%;color:var(--ink)}
 .wcard .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700}
@@ -5070,27 +5078,55 @@ function addDayBanner(w){
   return `<div class="banner"><div><b>Ready for one more day a week?</b></div>
     <div class="row"><button class="btn primary sm" data-action="opensched">Add a day</button><button class="btn ghost sm" data-action="leveldismiss">Not yet</button></div></div>`;
 }
+function todayCompletedWorkout(){
+  const today=dayStart(new Date()).getTime();
+  return logs.filter(l=>l.block===state.block.n && l.status!=='partial'
+    && dayStart(new Date(l.completedAt||l.date)).getTime()===today)
+    .sort((a,b)=>new Date(b.completedAt||b.date)-new Date(a.completedAt||a.date))[0]||null;
+}
+function todayResumeNext(d,slots){
+  const unfinished=s=>{ const rows=d.sets?.[s.pk]||[]; return rows.length<(d.planCounts?.[s.pk]||0)||rows.some(r=>!r.done||!(+r.r>0)); };
+  if(d.partialSaved){ const next=slots.find(unfinished); return next?EX[next.id].n:'Cool-down'; }
+  const step=d.step;
+  if(step?.ph==='warm') return 'Warm-up';
+  if(step?.ph==='cool') return 'Cool-down';
+  const current=slots.find(s=>s.pk===step?.pk);
+  if(current && ['ex','rest'].includes(step.ph)) return (step.ph==='rest'?'Rest · ':'')+EX[current.id].n;
+  if(current && step.ph==='exdone'){ const n=nextGroupStart(d,slots,slots.indexOf(current)); return n>=0?EX[slots[n].id].n:'Cool-down'; }
+  if(!Object.values(d.sets||{}).flat().some(r=>r.done)) return 'Warm-up';
+  const n=nextGroupStart(d,slots,-1); return n>=0?EX[slots[n].id].n:'Cool-down';
+}
 function renderToday(){
   if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
   const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w);
   const doneKeys=new Set(wl.map(l=>l.key)), nextKey=nextWorkoutKey(), draft=state.draft;
   const mainKey=draft?draft.key:nextKey, t=tplOf(mainKey), over=w>L;
   const exercisesOpen=ui.todayExercises===mainKey;
+  const slots=draft?dSlots():sessionSlots(mainKey), completion=draft?workoutCompletion(draft):null;
+  const finished=!draft?todayCompletedWorkout():null;
+  const restDay=!draft&&!finished&&!isFlex()&&!trainDays().includes(new Date().getDay());
   const date=nextTrainingDate(), planned=date.getTime()===dayStart(new Date()).getTime()?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
-  let h=ringsCard(w,keys,wl,{L})+`<section class="card stack today-workout"><div class="eyebrow">${draft?'In progress':'Up next'}</div><h1>${esc(t.name)}</h1>
+  let h=ringsCard(w,keys,wl,{L});
+  if(finished){
+    const count=(finished.entries||[]).length, recap=[finished.name,finished.dur!=null?finished.dur+' min':null,count?count+' exercise'+(count===1?'':'s'):null].filter(Boolean).join(' · ');
+    h+=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
+  } else if(restDay) h+=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
+  h+=`<section class="card stack today-workout"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><h1>${esc(t.name)}</h1>
     <p class="muted" style="margin:0">${esc(t.focus)}</p>
     <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):esc(lenText(mainKey))}</span>${draft?'':`<span>· ${isFlex()?'Any day':'Planned '+planned}</span>`}</div>
     ${placeSwitch()}${placeNote([mainKey])}
-    <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide exercises':'Show exercises'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
-    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderPlanExercises(draft?dSlots():sessionSlots(mainKey)):''}</div>
-    ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">Start workout</button>`}
+    ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
+    <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide exercises':`Show ${slots.length} exercise${slots.length===1?'':'s'}`}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
+    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderPlanExercises(slots):''}</div>
+    ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">${restDay?'Train today':'Start workout'}</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
+  h+=cmCoachCard(true);
   const others=keys.filter(k=>k!==mainKey);
   if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
     const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
     return `<button class="day ${d&&!nx?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}"><span class="idx">${dayLabel(i)}</span><span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span><span class="small muted num" style="text-align:right">${nx?'Up next':d?'Done '+new Date(log.completedAt||log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}</span></button>`;
   }).join('')}</div></details>`;
-  let reminders=cmCoachCard(true);
+  let reminders='';
   if(over) reminders+=`<section class="card row between"><b>Your 6-week program is complete</b>${coachMode?'':'<button class="btn primary sm" data-action="newblock">Start the next program</button>'}</section>`;
   if(!AUTH.user && state.coach && state.coach.note) reminders+=`<details class="card today-other"><summary>Note from ${esc(coachName())}</summary><p class="small">${esc(state.coach.note)}</p></details>`;
   if(!coachMode && weighDue()) reminders+=`<button class="btn block today-reminder" data-action="tab" data-tab="weigh"><span>Weekly weigh-in</span><span class="small muted">Log it ›</span></button>`;
