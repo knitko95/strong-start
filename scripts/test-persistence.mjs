@@ -88,9 +88,21 @@ await test('legacy guide preparation upgrades without resetting active or paused
   h.run("state.draft.guide={ph:'warm',i:0,s:0,mode:'paused',pmode:'run',left:17000,tot:30,fin:'no'};state=migrate(state);");assert.equal(h.run('state.draft.guide.left'),17000);assert.equal(h.run('state.draft.guide.mode'),'paused');
   h.run("state.draft.guide={ph:'warm',i:0,s:0,mode:'paused',pmode:'ready',left:5000,fin:'no'};state=migrate(state);");assert.equal(h.run('state.draft.guide.mode'),'ready');assert.equal(h.run('state.draft.guide.end'),null);
 });
-await test('cardio part selection waits for Ready and paused time adjustment stays paused',()=>{
+await test('unstarted cardio part selection waits for Ready and paused time adjustment stays paused',()=>{
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};");h.click('gseg',{n:'1'});assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gnow');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.tot'),120);
   h.click('gpause');const left=h.run('state.draft.guide.left');h.click('gprev');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),0);assert(h.run('state.draft.guide.left')>14000);h.click('gskip');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),1);assert(Math.abs(h.run('state.draft.guide.left')-left)<1000);
+});
+await test('warm-up cardio shares the grouped path and keeps running between selected parts',()=>{
+  const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'c',t:'Walk warm-up',d:'4 min',cardio:'warm',mode:'walk',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'},{sec:60,label:'Cool off: easy walk'}]};needCardioFeel=()=>false;");
+  let out=h.run('renderFocus()');assert.match(out,/guide-group-label">Cardio/);assert.match(out,/guide-group-label">Warm-up moves/);assert.doesNotMatch(out,/guide-parts/);assert.match(out,/Warm-up · Part 1 of 3/);
+  h.click('gnow');h.click('gstep',{i:'0',s:'1'});assert.equal(h.run('state.draft.guide.mode'),'run');assert.equal(h.run('state.draft.guide.s'),1);out=h.run('renderFocus()');assert.match(out,/<h1>Brisk walk<\/h1>/);assert.match(out,/>Time left<\/b>/);assert.match(out,/Next: <span>Cool off/);
+  h.click('gpause');h.click('gstep',{i:'0',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.left'),60000);h.click('gresume');h.click('gstep',{i:'1',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'reps');h.click('gstep',{i:'0',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'paused');
+  h.run('state=migrate(JSON.parse(localStorage.getItem(LS)).state);');assert.equal(h.run('state.draft.guide.mode'),'paused');
+});
+await test('one warm-up cardio start catches up across parts and waits before the next timed move',()=>{
+  const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'c',t:'Walk warm-up',d:'3 min',cardio:'warm',phases:[{sec:60,label:'Easy walk'},{sec:60,label:'Brisk walk'},{sec:60,label:'Cool off'}]};guideMoves[1]={g:'warm',k:'m0',t:'Arm circles',d:'30 s'};needCardioFeel=()=>false;");
+  h.click('gnow');h.run('state.draft.guide.end=Date.now()-10000;gTick()');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.mode'),'run');assert(h.run('state.draft.guide.end-Date.now()')>49000);assert(h.run('state.draft.guide.end-Date.now()')<=50000);
+  h.run('state.draft.guide.end=Date.now()-65000;gTick()');assert.equal(h.run('state.draft.guide.mode'),'ready');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.warm.c'),true);assert.equal(h.run('state.draft.cardioDone'),undefined);
 });
 await test('post-lift cardio starts once and runs continuously through its parts',()=>{
   const h=guidedWorkout('cool');h.run("guideMoves[0]={g:'cool',k:'f',t:'Steady walk',d:'10 min',fin:true,cardio:'after',ctype:'steady',min:10,mode:'walk',phases:[{sec:60,label:'Easy walk'},{sec:480,label:'Brisk walk'},{sec:60,label:'Cool off: easy walk'}]};state.draft.guide.mode='finq';needCardioFeel=()=>false;");
