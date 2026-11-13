@@ -82,7 +82,12 @@ export class FeedbackOutbox extends DurableObject {
         try{const issue=await readJson(response,65536);if(!Number.isInteger(issue.number))throw new Error();this.complete(id,issue.number);}
         catch{this.retry(id,'create-response-unknown',true);}
       }else if(response.status>=500){this.retry(id,'create-response-unknown',true);}
-      else{const delay=Math.min(3600000,Math.max(60000,Number(response.headers.get('Retry-After')||0)*1000));this.retry(id,'github-'+response.status,false,delay);await response.body?.cancel();}
+      else{
+        const retryAfter=response.headers.get('Retry-After')||'',seconds=Number(retryAfter);
+        const requested=Number.isFinite(seconds)?seconds*1000:Date.parse(retryAfter)-Date.now();
+        const delay=Math.min(3600000,Math.max(60000,Number.isFinite(requested)?requested:60000));
+        this.retry(id,'github-'+response.status,false,delay);await response.body?.cancel();
+      }
     }catch{this.retry(id,'delivery-unavailable',row?.state==='creating'||row?.state==='uncertain',300000);}
     finally{this.busy=false;await this.schedule();}
   }

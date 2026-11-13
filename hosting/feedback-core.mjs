@@ -26,12 +26,13 @@ export function normalizeReport(value){
   if(!value||typeof value!=='object'||Array.isArray(value)||!UUID.test(value.id))throw new FeedbackError(400,'invalid-report');
   const message=text(value.message,4000,true);
   // Reject obvious secrets/contact details. This is a guard, not a claim of semantic anonymization.
-  const privateText=/(?:github_pat_|gh[pousr]_|sb_secret_|-----BEGIN [A-Z ]*PRIVATE KEY|Bearer\s+[\w.-]+|eyJ[\w-]{12,}\.[\w-]+\.[\w-]+)|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\b(?:\+?\d[\d ()-]{8,}\d)\b|\b(?:my diagnosis|my medication|i (?:have|was diagnosed with) (?:a |an )?(?:back pain|injury|medical|diabetes|arthritis))/i;
-  if(privateText.test(message))throw new FeedbackError(422,'remove-private-details');
+  const privateText=/(?:github_pat_|gh[pousr]_|sb_secret_|-----BEGIN [A-Z ]*PRIVATE KEY|Bearer\s+[\w.-]+|eyJ[\w-]{12,}\.[\w-]+\.[\w-]+)|[\w.+-]+@[\w.-]+\.[a-z]{2,}|\b(?:my diagnosis|my medication|i (?:have|was diagnosed with) (?:a |an )?(?:back pain|injury|medical|diabetes|arthritis))/i;
+  const hasPrivateDetails=s=>privateText.test(s)||[...s.matchAll(/\+?\d[\d ()-]{8,}\d/g)].some(m=>{const digits=m[0].replace(/\D/g,'').length;return digits>=10&&digits<=15;});
+  if(hasPrivateDetails(message))throw new FeedbackError(422,'remove-private-details');
   const tag=value.tag||'';if(!['','bug','idea','confusing','exercise'].includes(tag))throw new FeedbackError(400,'invalid-report');
   const report={id:value.id.toLowerCase(),message,tag,screen:text(value.screen,200),device:text(value.device,300),version:text(value.version,32),build:text(value.build,100)};
   if(!/^(?:\d+\.\d+\.\d+|unknown)$/.test(report.version)||!/^[a-zA-Z0-9._-]{1,100}$/.test(report.build))throw new FeedbackError(400,'invalid-report');
-  if(privateText.test(report.screen)||privateText.test(report.device))throw new FeedbackError(422,'remove-private-details');
+  if(hasPrivateDetails(report.screen)||hasPrivateDetails(report.device))throw new FeedbackError(422,'remove-private-details');
   return report; // Explicit allowlist excludes profile, workout, email, origin and repository fields.
 }
 export async function authenticate(request,environment,fetcher=fetch){

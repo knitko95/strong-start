@@ -8,14 +8,14 @@ import {hash,PROJECTS,normalizeReport,githubIssue,sourceMarker,authenticate} fro
 
 const network=setupNetwork(), api='https://api.github.com/repos/knitko95/strong-start-feedback';
 let user;
-let account='ok',anonymous=false,posts=0,posted=[],mode='success',issueNumber=200;
+let account='ok',anonymous=false,posts=0,posted=[],mode='success',issueNumber=200,retryAfter='60';
 const report=()=>({id:crypto.randomUUID(),message:'Synthetic delivery verification: the app button needs a clearer label.',tag:'bug',screen:'Settings',device:'Synthetic phone',version:'0.1.1',build:'synthetic-build'});
 const request=(p,method='POST',token='test-user')=>new Request('https://feedback.test/api/feedback'+(method==='GET'?'/'+p.id:''),{method,headers:{Authorization:'Bearer '+token,...(method==='POST'?{'Content-Type':'application/json'}:{})},...(method==='POST'?{body:JSON.stringify(p)}:{})});
 beforeAll(()=>network.enable());
 afterAll(()=>network.disable());
 beforeEach(()=>{
   user='00000000-0000-4000-8000-'+crypto.randomUUID().slice(-12);
-  account='ok';anonymous=false;posts=0;posted=[];mode='success';
+  account='ok';anonymous=false;posts=0;posted=[];mode='success';retryAfter='60';
   network.use(
     http.get(PROJECTS.development.url+'/auth/v1/user',({request})=>HttpResponse.json({id:request.headers.get('Authorization').includes('other-user')?'11111111-1111-4111-8111-111111111111':user,is_anonymous:anonymous})),
     http.post(PROJECTS.development.url+'/rest/v1/rpc/account_status',()=>HttpResponse.json(account)),
@@ -23,7 +23,7 @@ beforeEach(()=>{
     http.get(api+'/issues',()=>HttpResponse.json(posted.map((body,i)=>({body,number:issueNumber+i,created_at:new Date().toISOString()})))),
     http.post(api+'/issues',async({request})=>{
       posts++;const issue=await request.json();
-      if(mode==='rate-limit')return HttpResponse.json({}, {status:429,headers:{'Retry-After':'60'}});
+      if(mode==='rate-limit')return HttpResponse.json({}, {status:429,headers:{'Retry-After':retryAfter}});
       posted.push(issue.body);
       if(mode==='lost-response')return HttpResponse.error();
       return HttpResponse.json({number:issueNumber++},{status:201});
@@ -31,9 +31,16 @@ beforeEach(()=>{
     http.all('*',()=>HttpResponse.error()) // No test may contact a real upstream.
   );
 });
-afterEach(()=>network.resetHandlers());
+afterEach(async()=>{
+  // The runtime's alarms are real. Leave none running into the next test's
+  // upstream handlers/counters; storage isolation is explicit in this plugin.
+  const object=await stub();
+  await runInDurableObject(object,async(_instance,state)=>{await state.storage.deleteAlarm();});
+  await evictDurableObject(object);
+  network.resetHandlers();
+});
 async function stub(){return env.TEST_OUTBOX.getByName(await hash('development:'+user));}
-async function due(object){await runInDurableObject(object,async(_instance,state)=>{state.storage.sql.exec("UPDATE reports SET next_at=0 WHERE state <> 'delivered'");await state.storage.setAlarm(Date.now());});}
+async function due(object){await runInDurableObject(object,async(_instance,state)=>{state.storage.sql.exec("UPDATE reports SET next_at=0 WHERE state <> 'delivered'");await state.storage.setAlarm(Date.now()+3600000);});}
 
 describe('feedback authentication and input boundaries',()=>{
   it('validates the trusted Auth user and account status through mocked upstreams',async()=>{
@@ -58,6 +65,8 @@ describe('feedback authentication and input boundaries',()=>{
     expect((await exports.default.fetch(request({...p,message:'x'.repeat(30000)}))).status).toBe(413);
     expect((await exports.default.fetch(request({...p,message:'Please contact person@example.invalid'}))).status).toBe(422);
     expect((await exports.default.fetch(request({...p,message:'Token: github_pat_synthetic'}))).status).toBe(422);
+    expect((await exports.default.fetch(request({...p,message:'Call +1 (212) 555-0199'}))).status).toBe(422);
+    expect(normalizeReport({...p,message:'The calendar showed 2026-11-13.'}).message).toContain('2026-11-13');
     expect(posts).toBe(0);
   });
   it('fails closed without a credential and never sends text to a public repository',async()=>{
@@ -109,6 +118,14 @@ describe('durable delivery and deduplication',()=>{
     const p=report();mode='lost-response';expect((await exports.default.fetch(request(p))).status).toBe(202);
     const object=await stub();await evictDurableObject(object);mode='success';await due(object);await runDurableObjectAlarm(object);
     expect((await object.status(p.id)).status).toBe('delivered');expect(posts).toBe(1);
+  });
+  it('keeps definite failures queued when Retry-After uses an HTTP date',async()=>{
+    const p=report();mode='rate-limit';retryAfter=new Date(Date.now()+120000).toUTCString();
+    const response=await exports.default.fetch(request(p));expect(response.status).toBe(202);expect((await response.json()).status).toBe('queued');
+    await runInDurableObject(await stub(),async(_instance,state)=>{
+      const row=state.storage.sql.exec('SELECT next_at,error FROM reports WHERE id=?',p.id).one();
+      expect(row.next_at).toBeGreaterThan(Date.now()+60000);expect(row.error).toBe('github-429');
+    });
   });
   it('retains ambiguous text and does not blindly resend when reconciliation finds nothing',async()=>{
     const p=report();mode='lost-response';await exports.default.fetch(request(p));posted=[];
