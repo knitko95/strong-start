@@ -43,13 +43,13 @@ The owner saved a separate fine-grained token as encrypted BUILD Secret `GITHUB_
 
 This release applies no Supabase migration and deletes no records. Public `main` receives only the scoped release commit. The private tracker records exact dev/release SHA, deployment IDs, owner approval, checks and limitations. Live status requires verified production publication.
 
-## Submitter attribution candidate — dev only, November 13
+## Submitter attribution — approved scoped release, November 13
 
-The owner explicitly requested display name and account ID on private GitHub issues, excluding email. The new dev form discloses the sharing and sends only an `attribution: name-account-id` capability marker, never identity. Auth supplies the account ID; the existing caller JWT reads only `profiles?id=eq.VERIFIED_ID&select=id,name&limit=1`. Existing SELECT grants/RLS suffice; there is no schema, grant, role or service-key change. Display names remain user-editable labels, not authorization or proof of identity. Empty names or obvious contact/credential content use **Name not set**, never an email fallback. Names are bounded and fenced against Markdown/mention injection.
+The owner explicitly requested display name and account ID on private GitHub issues, excluding email. The form discloses the sharing and sends only an `attribution: name-account-id` capability marker, never identity. Auth supplies the account ID; the existing caller JWT reads only `profiles?id=eq.VERIFIED_ID&select=id,name&limit=1`. Existing SELECT grants/RLS suffice; there is no schema, grant, role or service-key change. Display names remain user-editable labels, not authorization or proof of identity. Empty names or obvious contact/credential content use **Name not set**, never an email fallback. Names are bounded and fenced against Markdown/mention injection.
 
 The outbox persists that snapshot alongside a newly accepted report. Retries compare the original report digest and do not change attribution, even after a name change or profile-service outage. Delivered payloads, including the name/account ID snapshot, are purged; GitHub retains the issue. Receipts expose no identity. Reports accepted without the capability marker and old queued payloads stay unattributed, preserving their notice and existing receipt digests. No historical issue backfill is authorized.
 
-Attributable issue names/account IDs remain after app account deletion; the form/privacy/deletion notices explain retention and an owner request for removal/redaction. Existing database deletion behavior is unchanged. Do not mirror identifying issue text into public code/docs/PRs. Production attribution is not approved or deployed by this request; test and hand off the exact dev candidate first.
+Attributable issue names/account IDs remain after app account deletion; the form/privacy/deletion notices explain retention and an owner request for removal/redaction. Existing database deletion behavior is unchanged. Do not mirror identifying issue text into public code/docs/PRs. The owner approved production attribution and the cleaner report format after dev testing. Publication evidence and verification limits are recorded in the private tracker.
 
 ## Report presentation
 
