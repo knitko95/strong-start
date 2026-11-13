@@ -1,6 +1,6 @@
 # Private feedback delivery — November 13, 2026
 
-The member-facing Feedback form remains. The shared implementation sends app reports to a same-origin Cloudflare Worker and the private GitHub tracker. Development is the first deployment; production publication and configuration require approval of a defined tested release.
+The member-facing Feedback form remains. The shared implementation sends app reports to a same-origin Cloudflare Worker and the private GitHub tracker. Development delivery and the owner’s iPhone test are verified. The owner approved a production release limited to feedback delivery, admin inbox removal and their required support; unrelated dev changes are excluded.
 
 ## Delivery contract
 
@@ -17,7 +17,7 @@ Coach messages retain their existing assigned-coach conversation, read receipts 
 
 The dev Worker is `strong-start-dev`; production is `strong-start`. Each has a separate durable namespace and environment-specific Supabase authentication. Neither uses a Supabase service-role key. GitHub credentials are absent from static assets and source.
 
-The owner's dev token was saved as the encrypted **build** secret `GITHUB_FEEDBACK_TOKEN`. The dev-only deployment command is `npm run deploy` in `hosting/cloudflare-dev`. `hosting/deploy-feedback-dev.mjs` writes that one secret to a temporary mode-0600 JSON file, invokes the supported `cf deploy --prebuilt --secrets-file` option for `strong-start-dev`, then removes the file. The value is never printed or included in process arguments. Workers Builds supplies Cloudflare deployment authentication. Do not run this dev helper for production. The token expires February 11, 2027; rotate it before that date and redeploy dev. Do not copy a developer's local Git credential to either Worker.
+The owner's dev token was saved as the encrypted **build** secret `GITHUB_FEEDBACK_TOKEN`. The dev-only deployment command is `npm run deploy` in `hosting/cloudflare-dev`. `hosting/deploy-feedback-dev.mjs` writes that one secret to a temporary mode-0600 JSON file, invokes the supported `cf deploy --prebuilt --secrets-file` option for `strong-start-dev`, then removes the file. The value is never printed or included in process arguments. Workers Builds supplies Cloudflare deployment authentication. Do not run this dev helper for production. The dev token expires February 11, 2027. Replace its encrypted BUILD secret before expiry and redeploy; runtime-only rotation is overwritten by the next build. Do not copy a developer's local Git credential to either Worker.
 
 Use Worker Logs to investigate `feedback.delivery_retry`, `feedback.delivery_uncertain` or `feedback.request_failed`. Logs contain only a submission UUID, opaque outbox ID and error code, never message text or tokens. Restore/rotate an expired credential and redeploy; alarms retry queued reports. Keep the namespace and pending records when deploying or rolling back.
 
@@ -29,10 +29,16 @@ Original database records are retained unchanged. Current forms no longer insert
 
 The prior additive feedback-version migration remains historical/compatible. The new form and tracker require no new Supabase migration and no production application of that migration merely for GitHub delivery. Review unrelated pending migrations separately before any live release.
 
-The old GitHub Pages address has no Worker API. After an approved release, use `strongstart.app` for new submissions; a request made on the old address fails visibly and keeps its draft. It must never fall back to a public unauthenticated proxy.
+The legacy GitHub Pages app calls the canonical production Worker with its existing bearer session. CORS permits exactly `https://knitko95.github.io` only in production at `strongstart.app`, with GET/POST and Authorization/Content-Type preflight support. It never enables credentials, wildcard origins or anonymous submission. Canonical calls remain same-origin; dev never accepts this cross-origin exception.
 
 ## Checks and limits
 
 The Worker suite runs authentication/input boundaries, private destination, server-selected origin, diagnostic allowlisting, account isolation, rate limits, concurrent retry deduplication, delivered-payload purging, SQLite persistence after eviction, durable alarm retry and ambiguous-response reconciliation. Browser checks exercise failed-send draft retention, unchanged retries, queued acknowledgment, coach routing and horizontal fit at widths 1280, 390 and 320. Build checks cover syntax/environment isolation, existing persistence/workout scenarios, offline caching, versions and public animation packaging.
 
 Hosted verification uses a temporary approved ordinary **dev** member and a synthetic technical report. No coach/app-owner role is granted. The test identity and Auth sessions are removed afterward. This establishes form → real Worker → dev Auth/access → private GitHub delivery and repeat-receipt handling; it does not establish physical-phone keyboard behavior, an actual GitHub outage or production delivery. Exact deployment/verification evidence and the current lifecycle live in the private tracker, without mirroring report contents into this public repository.
+
+## Production deployment credential
+
+The owner saved a separate fine-grained token as encrypted BUILD Secret `GITHUB_FEEDBACK_TOKEN` on **strong-start**. Production deploys from `hosting/cloudflare` with `npm run deploy`; the production-only wrapper uploads that build secret to the runtime binding through the same restricted temporary-file mechanism tested on dev. It refuses another Worker override. Dev retains its own token and namespace. Rotate each environment's BUILD secret independently, then redeploy that environment. Never copy a local developer credential onto a server.
+
+This release applies no Supabase migration and deletes no records. Public `main` receives only the scoped release commit. The private tracker records exact dev/release SHA, deployment IDs, owner approval, checks and limitations. Live status requires verified production publication.

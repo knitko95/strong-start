@@ -1,4 +1,7 @@
-# Strong Start: feedback log
+# Strong Start: historical feedback log
+
+The authoritative feedback backlog is now the private [GitHub tracker](https://github.com/knitko95/strong-start-feedback). Read [the agent workflow](FEEDBACK_WORKFLOW.md) for priorities, claims and deployment evidence. Existing entries below are historical; do not maintain a second current backlog here. Original database reports are preserved; ongoing triage belongs in private issues.
+
 
 Historical feedback and release evidence, started November 11, 2026. On November 13 the owner requested a private shared tracker, migration of existing feedback, and agent coordination rules. The authoritative backlog is now the private [feedback tracker](https://github.com/knitko95/strong-start-feedback), with a [human review board](https://github.com/users/knitko95/projects/1). Read [the current workflow](FEEDBACK_WORKFLOW.md) at session start. Do not add new feedback or maintain current statuses in this public file.
 

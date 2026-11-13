@@ -2889,7 +2889,8 @@ async function fbSend(){
     const session=await sb.auth.getSession();
     if(!AUTH.user||AUTH.user.id!==owner||FBS!==form)return;
     if(session.error||!session.data?.session?.access_token)throw new Error('sign-in-required');
-    const response=await fetch('/api/feedback',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.data.session.access_token},body:JSON.stringify(payload),signal:AbortSignal.timeout(20000)});
+    const endpoint=IS_PRODUCTION?'https://strongstart.app/api/feedback':'/api/feedback';
+    const response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+session.data.session.access_token},body:JSON.stringify(payload),signal:AbortSignal.timeout(20000)});
     const result=await response.json();
     if(!response.ok)throw new Error(result.error||'temporarily-unavailable');
     if(result.id!==payload.id||!['delivered','queued','checking'].includes(result.status))throw new Error('temporarily-unavailable');

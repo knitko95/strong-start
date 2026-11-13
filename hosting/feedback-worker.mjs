@@ -102,10 +102,24 @@ export default {
   async fetch(request,env,ctx){
     const url=new URL(request.url);
     if(!url.pathname.startsWith('/api/feedback'))return new Response('Not found',{status:404});
+    // The supported legacy Pages app calls the canonical production API. Bearer
+    // authentication is still required; no cookies or wildcard CORS are used.
+    const origin=request.headers.get('Origin');
+    const legacy=env.FEEDBACK_ENVIRONMENT==='production'&&url.origin==='https://strongstart.app'&&origin==='https://knitko95.github.io';
+    const reply=(value,status=200)=>{
+      const response=json(value,status);
+      if(legacy){response.headers.set('Access-Control-Allow-Origin',origin);response.headers.set('Vary','Origin');}
+      return response;
+    };
     try{
       const environment=env.FEEDBACK_ENVIRONMENT;
+      if(origin&&origin!==url.origin&&!legacy)throw new FeedbackError(403,'wrong-origin');
+      if(request.method==='OPTIONS'){
+        const method=request.headers.get('Access-Control-Request-Method'),headers=(request.headers.get('Access-Control-Request-Headers')||'').toLowerCase().split(',').map(x=>x.trim()).filter(Boolean);
+        if(!legacy||!['GET','POST'].includes(method)||headers.some(h=>!['authorization','content-type'].includes(h)))throw new FeedbackError(403,'wrong-origin');
+        return new Response(null,{status:204,headers:{'Access-Control-Allow-Origin':origin,'Access-Control-Allow-Methods':'GET, POST','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Max-Age':'600','Cache-Control':'no-store',Vary:'Origin'}});
+      }
       if(!['development','production'].includes(environment)||!env.GITHUB_FEEDBACK_TOKEN)throw new FeedbackError(503,'not-configured');
-      if(request.headers.get('Origin')&&request.headers.get('Origin')!==url.origin)throw new FeedbackError(403,'wrong-origin');
       if(request.method!=='POST'&&request.method!=='GET')throw new FeedbackError(405,'method-not-allowed');
       if(request.method==='POST'&&url.pathname!=='/api/feedback')throw new FeedbackError(404,'not-found');
       if(request.method==='POST'&&!/^application\/json(?:;|$)/i.test(request.headers.get('Content-Type')||''))throw new FeedbackError(415,'json-required');
@@ -116,14 +130,14 @@ export default {
       const outbox=ctx.exports.FeedbackOutbox.getByName(owner);
       if(request.method==='GET'){
         const receipt=await outbox.status(url.pathname.slice('/api/feedback/'.length));
-        return receipt?json(receipt):json({error:'not-found'},404);
+        return receipt?reply(receipt):reply({error:'not-found'},404);
       }
       const result=await outbox.submit(report);
-      const {httpStatus,...body}=result;return json(body,httpStatus);
+      const {httpStatus,...body}=result;return reply(body,httpStatus);
     }catch(error){
-      if(error instanceof FeedbackError)return json({error:error.code},error.status);
+      if(error instanceof FeedbackError)return reply({error:error.code},error.status);
       console.warn(JSON.stringify({event:'feedback.request_failed'}));
-      return json({error:'temporarily-unavailable'},503);
+      return reply({error:'temporarily-unavailable'},503);
     }
   }
 };

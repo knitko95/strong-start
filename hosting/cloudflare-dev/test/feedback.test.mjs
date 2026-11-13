@@ -43,6 +43,18 @@ async function stub(){return env.TEST_OUTBOX.getByName(await hash('development:'
 async function due(object){await runInDurableObject(object,async(_instance,state)=>{state.storage.sql.exec("UPDATE reports SET next_at=0 WHERE state <> 'delivered'");await state.storage.setAlarm(Date.now()+3600000);});}
 
 describe('feedback authentication and input boundaries',()=>{
+  it('allows only the supported legacy app to preflight the production API and still requires Auth',async()=>{
+    const production={...env,FEEDBACK_ENVIRONMENT:'production'},ctx=createExecutionContext();
+    const preflight=(origin='https://knitko95.github.io',headers='authorization, content-type')=>new Request('https://strongstart.app/api/feedback',{method:'OPTIONS',headers:{Origin:origin,'Access-Control-Request-Method':'POST','Access-Control-Request-Headers':headers}});
+    const allowed=await worker.fetch(preflight(),production,ctx);
+    expect(allowed.status).toBe(204);expect(allowed.headers.get('Access-Control-Allow-Origin')).toBe('https://knitko95.github.io');
+    expect(allowed.headers.has('Access-Control-Allow-Credentials')).toBe(false);
+    expect((await worker.fetch(preflight('https://other.test'),production,ctx)).status).toBe(403);
+    expect((await worker.fetch(preflight('https://knitko95.github.io','x-other'),production,ctx)).status).toBe(403);
+    expect((await worker.fetch(preflight(),env,ctx)).status).toBe(403);
+    const post=new Request('https://strongstart.app/api/feedback',{method:'POST',headers:{Origin:'https://knitko95.github.io','Content-Type':'application/json'},body:JSON.stringify(report())});
+    const denied=await worker.fetch(post,production,ctx);expect(denied.status).toBe(401);expect(denied.headers.get('Access-Control-Allow-Origin')).toBe('https://knitko95.github.io');expect(posts).toBe(0);
+  });
   it('validates the trusted Auth user and account status through mocked upstreams',async()=>{
     expect(await authenticate(request(report()),'development')).toBe(await hash('development:'+user));
   });

@@ -72,3 +72,5 @@ Read this file first. It is the shared guidance for coding agents; `CLAUDE.md` i
 ## Keep this handoff current
 
 Keep operational rules here and deeper explanations in `docs/`. Update the app guide/architecture when behavior changes. Date reviews and name their source/check scope. Recheck remote and database facts before consequential work; a review is a snapshot.
+
+The scoped feedback delivery/admin-inbox release was approved and published as `92bd527` on November 13, 2026. Production retains its previous exercise assets and UI; unrelated development version UI, animations and references stay on dev. The private tracker records live verification. Legacy Pages feedback uses the canonical authenticated API; dev retains its own backend, token and namespace. No Supabase migration or account/data mutation was applied.
