@@ -33,8 +33,7 @@ await card(workout).querySelector('.eg-play').emit('click');guides.suspendWorkou
 await card(workout).querySelector('.eg-expand').emit('click');assert.equal(card(workout).querySelector('.eg-expand').attrs['aria-expanded'],'true');
 const next=mount();await guides.attach({exerciseId:'hammer-curl',mount:next,environment:'development',mode:'workout'});assert.equal(w.removed,true);assert.equal(workout.children.length,0);await model(next).emit('load');
 await model(next).emit('error');assert.equal(card(next).dataset.guideStatus,'error');assert.equal(card(next).querySelector('.eg-controls').hidden,true);
-const production=mount();await guides.attach({exerciseId:'goblet-squat',mount:production,environment:'production',mode:'workout'});await model(production).emit('load');assert.equal(model(production).paused,false);
-const excluded=mount();await guides.attach({exerciseId:'goblet-squat',mount:excluded,environment:'unsupported',mode:'workout'});assert.equal(excluded.hidden,true);assert.equal(excluded.children.length,0);
+const excluded=mount();await guides.attach({exerciseId:'goblet-squat',mount:excluded,environment:'production',mode:'workout'});assert.equal(excluded.hidden,true);assert.equal(excluded.children.length,0);
 const absent=mount();await guides.attach({exerciseId:'machine-chest-press',mount:absent,environment:'development',mode:'workout'});assert.equal(absent.hidden,true);
 const late=mount(),pending=guides.attach({exerciseId:'plank',mount:late,environment:'development',mode:'workout'});guides.dispose('workout');await pending;assert.equal(late.children.length,0,'A cancelled attach cannot create a stale model');
 assert.equal(fetches,1,'Registry is shared by both media surfaces');
