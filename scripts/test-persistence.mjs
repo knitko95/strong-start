@@ -32,6 +32,36 @@ let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 
+await test('feedback captures the running version and resolution links preserve provenance',async()=>{
+  const h=harness();
+  h.run(`AUTH.user={id:'synthetic-owner'};AUTH.coach=false;FB.owner=true;refreshUnread=()=>{};closeModal=()=>{};
+    var sentFeedback=null, updatedFeedback=null, feedbackFailure=false;
+    sb={from:()=>({insert:async row=>{sentFeedback=row;return {error:feedbackFailure?{message:'offline'}:null};},update:values=>({eq:()=>({select:async()=>{updatedFeedback=values;return {data:[{id:1}],error:feedbackFailure?{message:'offline'}:null};}})})})};
+    FBS={side:'app',tag:'bug',text:'Synthetic bug',screen:'Settings',device:'Synthetic phone'};`);
+  h.elements.set('#fbtext',{value:'Synthetic bug'});
+  await h.run('fbSend()');
+  assert.equal(h.run('sentFeedback.app_version'),h.run('APP_VERSION'));
+  assert.equal(h.run('sentFeedback.app_build'),h.run('APP_BUILD.id'));
+  assert.equal(h.run('sentFeedback.app_environment'),'development');
+  h.run(`FB.box={kind:'app',list:[{id:1,user_id:AUTH.user.id,message:'Synthetic bug',created_at:new Date().toISOString(),app_version:APP_VERSION,app_build:'old-tab-build',app_environment:'development'}],filter:'all'};`);
+  h.run('fbResolveSheet(1)');assert.match(h.run('lastModal'),/No release linked/);
+  await h.run('markDone(1,true,APP_VERSION)');
+  assert.equal(h.run('FB.box.list[0].resolved_version'),h.run('APP_VERSION'));
+  assert.equal(h.run('FB.box.list[0].app_build'),'old-tab-build');
+  assert.match(h.run('renderInbox()'),/Addressed in v0.1.0/);
+  h.run('feedbackFailure=true');await h.run('markDone(1,false)');
+  assert(h.run('FB.box.list[0].done_at'),'Failed update must not clear resolution');
+  h.run('feedbackFailure=false');await h.run('markDone(1,false)');
+  assert.equal(h.run('FB.box.list[0].resolved_version'),null);assert.equal(h.run('FB.box.list[0].done_at'),null);
+  h.run(`FB.box.list[0].app_version=null;FB.box.list[0].app_build=null;`);
+  assert.match(h.run('renderInbox()'),/version unknown/);
+  h.run('releaseNotes("9.9.9")');assert.match(h.run('lastModal'),/Release notes are unavailable/);
+  h.click('releasenotes');assert.match(h.run('lastModal'),/<details class="card" open>/);
+  h.run(`FB.box.list[0].app_version='<img src=x>';FB.box.list[0].app_build='<script>';`);
+  assert.doesNotMatch(h.run('renderInbox()'),/<img src=x>|<script>/);
+  h.run('FB.owner=false;updatedFeedback=null');await h.run('markDone(1,true)');assert.equal(h.run('updatedFeedback'),null);
+});
+
 await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);
   const out=h.run('renderFocus()');assert.match(out,/focus demo-first/);assert(out.indexOf('workout-demo')<out.indexOf('class="asteps"'));

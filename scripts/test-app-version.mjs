@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {stampApp,releasesFromHTML} from './app-version.mjs';
+const root=new URL('../',import.meta.url), html=readFileSync(new URL('index.html',root),'utf8'), sw=readFileSync(new URL('sw.js',root),'utf8');
+const a=stampApp(html,sw,root),b=stampApp(html+'\n<!-- different build -->',sw,root);
+assert.notEqual(a.metadata.id,b.metadata.id,'Distinct content must have distinct build identities');
+assert.equal(a.metadata.version,releasesFromHTML(html)[0].version);
+assert(a.html.includes(JSON.stringify({id:a.metadata.id,commit:a.metadata.commit})));
+assert(a.sw.includes(`const VERSION = '${a.metadata.id}';`),'Offline cache must use build identity');
+assert.throws(()=>releasesFromHTML(html.replace('"notes": [','"notes": [], "ignored": [')),/release notes/);
+assert.throws(()=>releasesFromHTML(html.replace('"version": "0.1.0"','"version": "bad"')),/versions/);
+const dev=JSON.parse(readFileSync(new URL('dist/version.json',root),'utf8'));
+assert.equal(dev.environment,'development');assert.equal(dev.version,a.metadata.version);
+assert(readFileSync(new URL('dist/index.html',root),'utf8').includes(`"id":"${dev.id}"`));
+console.log('PASS release-note validation, build identity, offline cache stamp and development version metadata');

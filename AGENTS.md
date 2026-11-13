@@ -44,6 +44,12 @@ Read this file first. It is the shared guidance for coding agents; `CLAUDE.md` i
 - Schema changes require a versioned file in `supabase/migrations/`, development validation, and security-advisor review. Inspect current tables/functions/grants/policies first. Run role/mutation tests against development with synthetic fixtures; roll back transaction fixtures and avoid external side effects. Do not test against production rows. Promote reviewed migration scripts only after release approval, never a copy of the test database or its users/workouts.
 - Preserve the invite-only beta. The guest entry button is hidden, although local-only code remains. A publishable key grants no database administration rights.
 
+## App versions and release notes
+
+- `APP_RELEASES` in `index.html` is the release history, newest first. For each new user-visible version, prepend a unique `major.minor.patch` entry with date, title and concise notes describing the actual changes. Keep published entries intact. Use patch for fixes, minor for features, major for incompatible changes. Tracking begins at 0.1.0; do not invent versions for older builds or backfill unknown feedback metadata.
+- Both deployment builds stamp the HTML and service worker with a source-commit/content build ID and expose public `version.json`. The loaded page's stamp is authoritative for its feedback, including older/offline tabs. Never fetch the latest server version to label an already-open page. Raw unpackaged source is explicitly marked `source` with no deployment commit; use the built packages for testing/deployment.
+- Feedback stores reported `app_version`, `app_build`, `app_environment`, and optional owner-selected `resolved_version`. Marking done alone does not claim a fix shipped. Testing resolution links do not authorize production publication. Apply the additive version migration before releasing this frontend to production.
+
 ## Local checks and publication
 
 1. On `dev`, build the isolated site and run its automatic syntax/environment checks. Serve `dist/` locally with synthetic test data:

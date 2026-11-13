@@ -865,6 +865,33 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
   (location.origin === 'https://knitko95.github.io' &&
   /^\/strong-start\/(?:index\.html)?$/.test(location.pathname));
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
+/* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
+const APP_RELEASES = [
+  {
+    "version": "0.1.0",
+    "date": "2026-11-13",
+    "title": "Versions and feedback",
+    "notes": [
+      "See your app version, build and release notes in Settings.",
+      "New app feedback records the version and build you are using.",
+      "App owners can link completed feedback to the version that addressed it."
+    ]
+  }
+];
+// Stamped into this HTML by both deployment builds, so offline/older tabs keep their identity.
+const APP_BUILD = {"id":"source","commit":null};
+const APP_VERSION = APP_RELEASES[0].version;
+function appBuildLabel(){return `v${APP_VERSION} · ${APP_BUILD.id} · ${IS_PRODUCTION?'Live':'Testing'}`;}
+function releaseNotes(version=APP_VERSION){
+  const known=APP_RELEASES.some(r=>r.version===version);
+  modal(`<div><div class="eyebrow">Strong Start</div><h2>Release notes</h2><p class="tiny muted" style="overflow-wrap:anywhere">${esc(appBuildLabel())}</p></div>
+    ${APP_BUILD.commit?`<a class="tiny" href="https://github.com/knitko95/strong-start/commit/${esc(APP_BUILD.commit)}" target="_blank" rel="noopener noreferrer">View build source</a>`:'<p class="tiny muted">Unpackaged source; no deployment commit recorded.</p>'}
+    ${!known?`<p class="small">Release notes are unavailable for ${esc(version||'this older build')}.</p>`:''}
+    ${APP_RELEASES.map(r=>`<details class="card" ${r.version===version?'open':''}><summary><b>v${esc(r.version)} · ${esc(r.title)}</b><span class="tiny muted" style="display:block">${esc(r.date)}${r.version===APP_VERSION?' · This app version':''}</span></summary><ul class="small">${r.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></details>`).join('')}
+    <p class="tiny muted">Version tracking starts at v0.1.0. Earlier feedback has no recorded version. Testing changes await a live release.</p>
+    <button class="btn" data-action="closemodal">Done</button>`);
+}
+
 const storageKey = key => IS_PRODUCTION ? key : 'dev_' + key;
 if (!IS_PRODUCTION) {
   document.title = 'Strong Start · Testing';
@@ -2500,7 +2527,7 @@ function renderAuth(){
   const g=AUTH.google && (m==='signin'||m==='signup') ? `<button class="btn block" data-action="authgoogle" ${busy} style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;border-radius:14px;font-size:16px"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</button><div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>` : '';
   b=b.replace('<form ', g+'<form ');
   const skip = m==='recovery' ? '' : `<div class="spacer"></div>`;   // "Use without an account" is hidden during the invite-only beta
-  return `<div class="ob auth-screen">${b}${skip}<nav aria-label="Policies" class="row auth-policies"><a class="tiny muted" href="privacy.html">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></nav></div>`;
+  return `<div class="ob auth-screen">${b}${skip}<nav aria-label="Policies" class="row auth-policies"><a class="tiny muted" href="privacy.html">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></nav><button class="link tiny muted" data-action="releasenotes">v${esc(APP_VERSION)} · Release notes</button></div>`;
 }
 function authFriendly(e){
   const s=String((e&&(e.message||e.error_description))||e||'');
@@ -2821,7 +2848,7 @@ function fbRender(){
   if(AUTH.coach)FBS.side='app';
   if(FBS.side==='coach'){cmOpen(null,'',FBS.logId);return;}
   const S=FBS, app=S.side==='app', w=fbWorkout(S.side,S.logId);
-  const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
+  const sentWith = app ? `${esc(S.screen)} · ${esc(S.device)} · ${esc(appBuildLabel())}` : (w?`today’s workout · ${esc(w.name)}`:'today’s workout');
   modal(`${AUTH.coach?'<h2>About the app</h2>':`<div class="tabs2" role="tablist"><button role="tab" class="${app?'on':''}" aria-selected="${app}" data-action="msgside" data-side="app">About the app</button><button role="tab" class="${app?'':'on'}" aria-selected="${!app}" data-action="msgside" data-side="coach">To my coach</button></div>`}
     <p class="small muted" style="margin:0">Something broken, confusing or missing? Tell us. This goes to the people who make the app.</p>
     <div class="fbtags" role="group" aria-label="Type (optional)">${FB_TAGS[S.side].map(([k,l])=>`<button class="painchip ${S.tag===k?'on':''}" aria-pressed="${S.tag===k}" data-action="msgtag" data-v="${k}">${l}</button>`).join('')}</div>
@@ -2839,7 +2866,7 @@ async function fbSend(){
   if(FBS.busy) return; FBS.busy=true; fbRender();
   const app=FBS.side==='app', w=fbWorkout(FBS.side,FBS.logId);
   const row={kind:FBS.side, tag:FBS.tag||null, message:msg.slice(0,4000), workout:w};
-  if(app){ row.screen=String(FBS.screen||'').slice(0,200); row.device=String(FBS.device||'').slice(0,300); }
+  if(app){ row.app_version=APP_VERSION; row.app_build=APP_BUILD.id; row.app_environment=APP_ENV; row.screen=String(FBS.screen||'').slice(0,200); row.device=String(FBS.device||'').slice(0,300); }
   let error=null; try{ ({error}=await withTimeout(sb.from('feedback').insert(row),12000)); }catch(e){ error=e; }
   FBS.busy=false;
   if(error){ fbRender(); toast('Couldn’t send. Check your connection and try again.'); return; }
@@ -2855,14 +2882,15 @@ function fbAction(a,b){
   if(a==='msgcancel'){ fbKeepText(); closeModal(); return true; }
   if(a==='msginbox'){ ui.tab='inbox'; if(b.dataset.k==='coach'){ui.cmInbox=true;cmRefresh();render();}else{ui.cmInbox=false;loadInbox('app');} window.scrollTo(0,0); return true; }
   if(a==='msgfilter'){ if(FB.box){ FB.box.filter=b.dataset.v; render(); } return true; }
-  if(a==='msgdone'){ markDone(+b.dataset.id, b.dataset.v!=='0'); return true; }
+  if(a==='msgdone'){ if(b.dataset.v==='0')markDone(+b.dataset.id,false);else fbResolveSheet(+b.dataset.id); return true; }
+  if(a==='msgresolve'){ markDone(+b.dataset.id,true,$('#fb-resolved-version').value||null); return true; }
   if(a==='msgperson'){ openPerson(b.dataset.id,b.dataset.n); return true; }
   return false;
 }
 async function loadInbox(kind){
   const prev=FB.box&&FB.box.kind===kind?FB.box:null;
   FB.box={kind, loading:true, err:'', list:prev?prev.list:[], filter:prev?prev.filter:'new'}; render();
-  const {data,error}=await sb.from('feedback').select('id,user_id,kind,tag,message,screen,device,workout,created_at,read_at,done_at,profiles(name,email)').eq('kind',kind).order('created_at',{ascending:false}).limit(300);
+  const {data,error}=await sb.from('feedback').select('id,user_id,kind,tag,message,screen,device,workout,app_version,app_build,app_environment,resolved_version,created_at,read_at,done_at,profiles(name,email)').eq('kind',kind).order('created_at',{ascending:false}).limit(300);
   if(!FB.box || FB.box.kind!==kind) return;
   if(error){ FB.box.loading=false; FB.box.err=authFriendly(error); render(); return; }
   (data||[]).forEach(r=>r.isNew=!r.read_at);
@@ -2872,11 +2900,22 @@ async function loadInbox(kind){
     if(!e2){ FB.box.list.forEach(r=>{ if(ids.includes(r.id)) r.read_at=now; }); FB.unread[kind]=0; render(); } }
   refreshUnread();
 }
-async function markDone(id,done){
-  const r=FB.box&&FB.box.list.find(x=>x.id===id); if(!r) return;
-  const {error}=await sb.from('feedback').update({done_at:done?new Date().toISOString():null}).eq('id',id);
-  if(error){ toast('Couldn’t save. Check your connection.'); return; }
-  r.done_at=done?new Date().toISOString():null; render(); if(done) toast('Marked done');
+function fbResolveSheet(id){
+  const r=FB.box&&FB.box.list.find(x=>x.id===id); if(!r||!FB.owner)return;
+  modal(`<h2>Mark feedback done</h2><label class="field2" for="fb-resolved-version">Addressed in<select class="select" id="fb-resolved-version"><option value="">No release linked</option>${APP_RELEASES.map(v=>`<option value="${esc(v.version)}">v${esc(v.version)} · ${esc(v.title)}</option>`).join('')}</select></label><p class="tiny muted">Choose the version that includes the change, or leave unlinked for feedback that does not need a release.</p><div class="row"><button class="btn primary" data-action="msgresolve" data-id="${id}">Mark done</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
+}
+async function markDone(id,done,version=null){
+  const r=FB.box&&FB.box.list.find(x=>x.id===id); if(!r||!FB.owner||r.saving) return;
+  if(version&&!APP_RELEASES.some(v=>v.version===version)){toast('Choose an available version.');return;}
+  const owner=AUTH.user&&AUTH.user.id, box=FB.box;
+  const values={done_at:done?new Date().toISOString():null,resolved_version:done?version:null};
+  r.saving=true;
+  let error=null,data=null;
+  try{({error,data}=await withTimeout(sb.from('feedback').update(values).eq('id',id).select('id'),12000));}catch(e){error=e;}
+  r.saving=false;
+  if(!AUTH.user||AUTH.user.id!==owner||FB.box!==box)return;
+  if(error||!data||!data.length){ toast('Couldn’t save. Check your connection.'); return; }
+  Object.assign(r,values); closeModal(); render(); if(done) toast('Marked done');
 }
 function fbAgo(d){ const m=Math.round((Date.now()-new Date(d).getTime())/6e4); if(m<1) return 'just now'; if(m<60) return m+' min ago'; const h=Math.round(m/60); if(h<24) return h+' h ago';
   return new Date(d).toLocaleDateString(undefined,{month:'short',day:'numeric'})+', '+new Date(d).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}); }
@@ -2898,10 +2937,11 @@ function renderInbox(){
     return `<section class="card stack fbitem ${r.isNew?'isnew':''}" style="gap:6px">
     <div class="row" style="justify-content:space-between;flex-wrap:nowrap;gap:8px"><div style="min-width:0"><b>${esc(nm)}</b>${r.user_id===me?' <span class="tiny muted">(you)</span>':''} <span class="tiny muted">· ${esc(fbAgo(r.created_at))}</span></div>${r.tag?`<span class="chip acc">${esc(fbTagName(r.tag))}</span>`:''}</div>
     <div class="small" style="white-space:pre-wrap;overflow-wrap:anywhere">${esc(r.message)}</div>
+    ${app?`<div class="tiny muted" style="overflow-wrap:anywhere">${r.app_version?`Reported on <button class="link" data-action="releasenotes" data-v="${esc(r.app_version)}">v${esc(r.app_version)}</button> · ${esc(r.app_build||'Unknown build')} · ${r.app_environment==='development'?'Testing':r.app_environment==='production'?'Live':'Unknown environment'}`:'Reported on an older build · version unknown'}</div>`:''}
     ${app&&r.screen?`<div class="tiny muted">Screen: ${esc(r.screen)}</div>`:''}
     ${w&&w.name?`<div class="tiny muted">Workout: ${esc(w.name)}${w.status?` (${esc(w.status)})`:''}</div>`:''}
     ${app&&r.device?`<div class="tiny muted">Device: ${esc(r.device)}</div>`:''}
-    <div class="row" style="gap:8px">${r.done_at?`<span class="chip good">Done</span><button class="btn sm ghost" data-action="msgdone" data-id="${r.id}" data-v="0">Undo</button>`:`<button class="btn sm" data-action="msgdone" data-id="${r.id}" data-v="1">Mark done</button>`}
+    <div class="row" style="gap:8px">${r.done_at?`<span class="chip good">Done</span>${r.resolved_version?`<button class="link" data-action="releasenotes" data-v="${esc(r.resolved_version)}">Addressed in v${esc(r.resolved_version)}</button>`:''}<button class="btn sm ghost" data-action="msgdone" data-id="${r.id}" data-v="0">Undo</button>`:`<button class="btn sm" data-action="msgdone" data-id="${r.id}" data-v="1">Mark done</button>`}
       ${r.user_id&&r.user_id!==me&&AUTH.coach?`<button class="btn sm primary" data-action="msgperson" data-id="${esc(r.user_id)}" data-n="${esc(nm)}">Open their app</button>`:''}</div>
   </section>`; }).join('')}`;
 }
@@ -5251,6 +5291,7 @@ function renderSettings(){
   </section>
   ${!active&&(AUTH.coach||FB.owner)&&!coachMode?`<section class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div><b>Your people</b>${fbUnreadTotal()?` <span class="chip acc">${fbUnreadTotal()} new</span>`:''}<div class="tiny muted">See everyone’s progress, messages and app feedback</div></div><button class="btn sm primary" data-action="people">Open</button></section>`:''}
   ${!active?cmCoachCard():''}
+  ${!active?`<section class="card row" style="justify-content:space-between"><div><b>App version</b><div class="tiny muted" style="overflow-wrap:anywhere">${esc(appBuildLabel())}</div></div><button class="btn sm" data-action="releasenotes">Release notes</button></section>`:''}
   ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
   ${active&&active[0]==='account'?accountCard():''}
   ${active&&active[0]==='profile'?profileCard(s):''}
@@ -5647,6 +5688,7 @@ document.addEventListener('click', e=>{
   if(a==='fmoredo'){ closeModal(); a=b.dataset.do; }  // More sheet: close it, then run the chosen action
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
   if(a==='firstworkoutdismiss'){ state.tips.firstWorkout=false; save(); render(); return; }
+  if(a==='releasenotes'){ releaseNotes(b.dataset.v||APP_VERSION); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
   if(a==='syncchoose'){ resolveSyncConflict(b.dataset.v); return; }
   if(a==='synccopy'){ copySyncRecovery(); return; }
