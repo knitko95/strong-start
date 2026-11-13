@@ -29,4 +29,6 @@ Only exact URLs, metadata and independently written research notes are committed
 
 The visual-reference checker now verifies all 237 follow-up targets, prior-reference retention, candidate/page provenance, honest inspection scope and JSON/Markdown agreement in addition to the existing inventory, namespace, hash, URL, publisher, exclusion and runtime-isolation checks. The internal-technique checker verifies the unchanged 320 exercises, 92 guides, 12 cardio types / 67 labels and 262 technique sources.
 
-Publication evidence will be recorded after the exact development commit is deployed. Production publication is outside this change.
+The content candidate c275f44e33da20e89b8c9b847672f392cfbf08a8 was verified on the development site. Cloudflare build caad8f74-62bb-4cd6-b864-1e7ac69f42a2 completed successfully at 21:09:45 UTC on November 13, 2026. The served version, HTML and service worker returned HTTP 200 with build ID dev--c275f44e33da-9f433f9b7e3b. Development backend isolation, Testing markup and absence of internal-reference runtime imports were checked. Nineteen public repository reference/checker files matched the local candidate. No authenticated application flow or full media playback was tested for this documentation-only change.
+
+Production publication is outside this change; no migrations or configuration changes are pending for the reference files.

@@ -354,7 +354,7 @@ The structured audit preserves the earlier video/relationship and exact evidence
 
 **Target action:** Lower and raise the body as one unit with the added load stable over the torso.
 
-**Evidence:** FitnessFAQs public preview shows a floor push-up with an external plate secured over the upper torso. This establishes added load rather than the unloaded push-up comparison.
+**Evidence:** FitnessFAQs public preview shows a floor push-up with an external plate placed over the upper back. This establishes added load rather than the unloaded push-up comparison.
 
 **Limits:** The clip covers several progressions; only the plate-loaded floor push-up section is relevant. Full playback and load placement instruction remain unreviewed.
 

@@ -466,7 +466,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Progress Your Push Ups (START NOW)](https://www.youtube.com/watch?v=H0k47Ghb0GY) — video; FitnessFAQs; credited creator: FitnessFAQs; [provenance](sources.md#v5327307b4339). Relationship: configuration-matched.
 
-**Match and limits:** FitnessFAQs public preview shows a floor push-up with an external plate secured over the upper torso. This establishes added load rather than the unloaded push-up comparison. The clip covers several progressions; only the plate-loaded floor push-up section is relevant. Full playback and load placement instruction remain unreviewed.
+**Match and limits:** FitnessFAQs public preview shows a floor push-up with an external plate placed over the upper back. This establishes added load rather than the unloaded push-up comparison. The clip covers several progressions; only the plate-loaded floor push-up section is relevant. Full playback and load placement instruction remain unreviewed.
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-weighted-push-up).
 
