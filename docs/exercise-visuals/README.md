@@ -1,50 +1,49 @@
 # Internal exercise visual references
 
-Reviewed **November 13, 2026**. The library covers **320 catalog exercises, 92 warm-up/stretch guides and 12 cardio types / 67 app labels**: **424 entries**. Every entry has a full-video link and at least one visual reference. Two still-image format gaps remain.
+Reviewed **November 13, 2026**. The library covers **320 catalog exercises, 92 warm-up/stretch guides and 12 cardio types / 67 app labels**: **424 entries**. Every entry retains a video reference; two still-image gaps remain.
 
-These are **public repository research files outside the app**. Runtime pages do not import or package them. Third-party media are linked, not copied into the repository; reproduction permission is not established.
+These are **public repository references outside the app**. Runtime pages neither import nor package them. Third-party media are linked; reproduction permission is not established.
 
 | Browse | Contents |
 | --- | --- |
-| [Catalog](catalog.md) | All 320 catalog exercises |
-| [Warm-ups and stretches](guides.md) | All 92 named guides |
-| [Cardio](cardio.md) | 12 types and all 67 labels |
-| [Follow-up evidence](research.md) | All 233 earlier related comparisons and four former video gaps |
-| [Source provenance](sources.md) | Selected and retained media, creator credits and publisher rationale |
-| [Gaps and conflicts](gaps.md) | Unresolved variants, still gaps and excluded associations |
+| [Catalog](catalog.md) | 320 exercises |
+| [Warm-ups and stretches](guides.md) | 92 guides |
+| [Cardio](cardio.md) | 12 types / 67 labels |
+| [Latest 107-comparison review](research-round2.md) | 28 improved matches; 79 explicit unresolved comparisons |
+| [First follow-up](research.md) | Historical 237-target audit and previous decisions |
+| [Source provenance](sources.md) | Selected/retained media, creator credits and publisher rationale |
+| [Gaps and conflicts](gaps.md) | Remaining variants, missing stills and exclusions |
 | [Written technique library](../exercise-technique/README.md) | Internal setup, execution and form notes |
 
-## Coverage and interpretation
+## Current coverage
 
 | Video relationship | Entries |
 | --- | ---: |
-| Configuration matched by source-specific evidence | 130 |
-| Earlier same-labelled discovery; no new configuration audit | 187 |
-| Related configuration / component / operation only | 107 |
-| No full-video link | 0 |
+| Configuration supported by source-specific evidence | 158 |
+| Earlier same-labelled discovery; not newly audited | 187 |
+| Related / unresolved configuration | 79 |
+| No video link | 0 |
 
-**Configuration-matched** means exercise-specific written setup and/or inspected primary stills support the stated equipment, posture, support and action relationship. Read each boundary: some references show only the identified phase of a combination or a documented progression. It does **not** mean the full video has been watched, the complete repetition is correct, or a professional has approved it.
+**Configuration-matched** means exercise-specific prose and/or inspected original stills/player positions support the stated equipment, support and action. Read the limits: some clips support an identified phase, a particular machine or a catalog variant that differs from an internal-note regression. It does **not** mean every repetition or spoken cue has been approved. **Full continuous motion and professional technique approval remain unreviewed.**
 
-**Same-labelled-movement** retains the earlier discovery classification. Those 187 entries were outside this follow-up and were not automatically upgraded. **Related-only** retains an equipment, posture, load, support, direction, sequencing or evidence gap. A console-operation reference is distinct from stepping form. Naming alone and successful HTTP responses do not establish an exact match.
+The latest pass gives all **107** remaining comparisons a source-specific disposition; **28** gained configuration support and **79** retain explicit differences or evidence gaps. The [structured second pass](research-round2.json) preserves every previous selection and its relationship. The [first-pass audit](research.json) remains unchanged: 143 source-specific comparisons and 94 discovery/provenance screens at that earlier stage. Those historical depth counts are not a claim about the new pass.
 
-The follow-up researched all **237 targets**. **143** received source-specific comparisons; **94** reached discovery/provenance screening without a newly accepted configuration reference. The structured research depth preserves this difference.
+**Same-labelled-movement** retains the earlier discovery classification for 187 entries outside this follow-up. **Related-only** retains equipment, load, posture, support, direction, sequence, access or publisher-provenance gaps. A title, successful metadata response or console view is insufficient to establish an exact exercise.
 
-## Media and evidence
+## Sources and inspection limits
 
-The selected/retained graph contains **705 media URLs from 393 source pages and 37 publisher groups**. Entry still formats remain **198 exercise photos/illustrations, 221 platform posters, three animation references and two gaps**. Posters are artwork, not pose sequences. The earlier 615 media remain referenced, including replaced comparisons; historical NASM associations are preserved.
+The selected/retained graph contains **755 media URLs, 437 source pages and 56 publisher groups**. All 705 media from the preceding pass remain referenced, including replaced comparisons; the original 615 references and historical NASM associations remain intact. The new pass adds 26 video URLs and 24 provider posters. Still formats remain 198 exercise-photo references, 221 provider-poster references, three animation references and two gaps.
 
-The additional [candidate register](research-candidates.json) retains **628 consulted video URLs** with exact origin links, credited creators and metadata/access status, including rejected, redacted and unselected candidates. It is not an endorsed exercise library. [Page retrieval records](research-pages.json) preserve **228 exact requested URLs and statuses** without copying page bodies.
+The [candidate register](research-candidates.json) retains **649 consulted video URLs** with exact source links, creator credits and access status, including unselected material. The [retrieval ledger](research-pages.json) records **458 public requests**; repeated URLs can have different access methods. A source can be readable through the web reader while a direct request is blocked. An unselected candidate is not an endorsement.
 
-Public provider preview stills have unknown positions in the underlying video and are not given invented timestamps. Direct public publisher videos were decoded at recorded sample times for configuration checks. **Full continuous motion, narration, frame-by-frame technique review and professional approval remain unreviewed.** Public metadata may work while playback is restricted.
-
-The four former gaps now use Rehab Hero's A March for high-knee marches, Queensland's standing march for marching knee lifts and marching cardio, and Special Olympics' cross-body shoulder demonstration. Earlier static/GIF references and their provenance remain retained.
+Public provider previews have unknown positions; no timestamps are invented for them. Public publisher videos sampled with a decoder have recorded sample times. Visible-player checks record displayed positions and do not imply continuous playback. Public metadata can be available while a standalone video is restricted. Original published descriptions were examined for setup differences; their full text is not redistributed.
 
 ## Conflicts and maintenance
 
-The original 14 source-card mismatches remain quarantined in [excluded.json](excluded.json). New findings include regional Physitrack slug/title differences, a Smith split-squat heading paired with a bilateral squat, load-position disagreements, a misleading Queensland filename, gated exact-match footage and mixed standing/kneeling source prose. See [the explicit findings](research.md).
+The [latest audit](research-round2.md) records unilateral versus bilateral landings, goblet versus side-held loads, high versus low anchors, cross-body versus frontal cable pull, front/rear BOSU support, retained versus released balls, wrist naming errors and moving stairs versus pedals. Credible publisher identity does not erase an exercise-specific mismatch. The original 14 source-card mismatches remain quarantined in [excluded.json](excluded.json).
 
-The TRX anti-rotation reference and [written setup resolution](../TRX-ANTI-ROTATION-2026-11-13.md) remain intact. Its written resolution does not constitute full-video approval.
+The [TRX anti-rotation setup resolution](../TRX-ANTI-ROTATION-2026-11-13.md) remains intact. Written setup resolution is not full-video approval.
 
-Structured data: [entries](entries.json), [media](media.json), [sources](sources.json), [publishers](publishers.json), [coverage](coverage.json), [per-target research](research.json), [candidate videos](research-candidates.json), [retrieved pages](research-pages.json). Media/source IDs are URL hashes. Record source changes and earlier relationships; do not silently relabel or upgrade them.
+Structured files: [entries](entries.json), [media](media.json), [sources](sources.json), [publishers](publishers.json), [coverage](coverage.json), [latest dispositions](research-round2.json), [historical dispositions](research.json). IDs are URL hashes. Preserve sources, previous relationships and unresolved differences when adding later evidence.
 
-Run the exercise-visuals and internal-technique check scripts from the repository root. Documentation-only verification needs no accounts or database changes.
+Run `node scripts/check-exercise-visuals.mjs` and `node scripts/check-internal-technique.mjs` from the repository root. Documentation-only verification needs no accounts or database changes.

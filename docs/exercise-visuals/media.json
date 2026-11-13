@@ -14902,7 +14902,8 @@
       "visualReview": "not-viewed",
       "publisherId": "scottherman",
       "sourceIds": [
-        "s985005c201a2"
+        "s985005c201a2",
+        "sa021fed93aec"
       ],
       "checkedOn": "2026-11-13",
       "reuse": "Reference link only; reproduction permission not established.",
@@ -14916,14 +14917,19 @@
       "availability": "provider-metadata-200; playback-not-tested",
       "configurationInspection": {
         "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Scott Herman’s specifically named hanging-windshield-wiper video and inspected previews establish a hanging raised-leg implementation. The catalog says to sweep raised legs side to side and does not require bent knees. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
         "imageUrls": [
           "https://i.ytimg.com/vi/arDUVmCzyhc/1.jpg",
           "https://i.ytimg.com/vi/arDUVmCzyhc/2.jpg",
           "https://i.ytimg.com/vi/arDUVmCzyhc/3.jpg"
-        ],
-        "scope": "Visible equipment, support and configuration only; preview positions are not known timestamps.",
-        "fullMotionReviewed": false,
-        "checkedOn": "2026-11-13"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
       }
     },
     "v971bce9ef50d": {
@@ -15777,6 +15783,1386 @@
         "fullMotionReviewed": false,
         "checkedOn": "2026-11-13"
       }
+    },
+    "vd71f200b599e": {
+      "id": "vd71f200b599e",
+      "url": "https://www.youtube.com/watch?v=p8eMhRdeX4g",
+      "type": "video",
+      "label": "Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "kbfitness",
+      "sourceIds": [
+        "sd71f200b599e",
+        "sc3a689b7ecc2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)",
+        "author_name": "KB Fitness - Kurtis Ackerman",
+        "author_url": "https://www.youtube.com/channel/UCyghv979KQRTKkPBlMjrdHQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/p8eMhRdeX4g/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Kurtis Ackerman identifies the original demonstration as a leaning unilateral dumbbell raise. The three inspected public previews show one hand supported on a post, an inclined body and the other arm raising a dumbbell sideways. His published biography lists graduate kinesiology training and CSCS. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/p8eMhRdeX4g/1.jpg",
+          "https://i.ytimg.com/vi/p8eMhRdeX4g/2.jpg",
+          "https://i.ytimg.com/vi/p8eMhRdeX4g/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v78aff146317a": {
+      "id": "v78aff146317a",
+      "url": "https://i.ytimg.com/vi/p8eMhRdeX4g/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration) — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "kbfitness",
+      "sourceIds": [
+        "sd71f200b599e",
+        "sc3a689b7ecc2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vd71f200b599e"
+    },
+    "v100cfbbb0f47": {
+      "id": "v100cfbbb0f47",
+      "url": "https://www.youtube.com/watch?v=Qe2dGicUEUA",
+      "type": "video",
+      "label": "Keiser Exercise of the Day: Standing Cable Rotation",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "keiser",
+      "sourceIds": [
+        "s100cfbbb0f47"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Keiser Exercise of the Day: Standing Cable Rotation",
+        "author_name": "Keiser Europe",
+        "author_url": "https://www.youtube.com/channel/UCNbkzS_KdMewueZMgsp27uQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/Qe2dGicUEUA/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Keiser Europe’s original standing cable-rotation demonstration shows two hands in front of the chest, a standing staggered stance and a roughly horizontal cable line. This replaces the diagonal cable-chop comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/Qe2dGicUEUA/1.jpg",
+          "https://i.ytimg.com/vi/Qe2dGicUEUA/2.jpg",
+          "https://i.ytimg.com/vi/Qe2dGicUEUA/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vc3ef272c895e": {
+      "id": "vc3ef272c895e",
+      "url": "https://i.ytimg.com/vi/Qe2dGicUEUA/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Keiser Exercise of the Day: Standing Cable Rotation — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "keiser",
+      "sourceIds": [
+        "s100cfbbb0f47"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v100cfbbb0f47"
+    },
+    "v8c47a8340ab3": {
+      "id": "v8c47a8340ab3",
+      "url": "https://www.youtube.com/watch?v=gEXB2iWhoIM",
+      "type": "video",
+      "label": "How To Do a TRX Fallout",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "swift",
+      "sourceIds": [
+        "s8c47a8340ab3"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "How To Do a TRX Fallout",
+        "author_name": "Swift Movement Academy",
+        "author_url": "https://www.youtube.com/channel/UCrt--VTax4ZSz9kpJbWBYkw",
+        "thumbnail_url": "https://i.ytimg.com/vi/gEXB2iWhoIM/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Swift Movement Academy identifies David Adamo as an accredited exercise physiologist in its original TRX-fallout description. Public previews show standing feet, hands in suspension handles and the arms extended overhead as the body leans forward. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/gEXB2iWhoIM/1.jpg",
+          "https://i.ytimg.com/vi/gEXB2iWhoIM/2.jpg",
+          "https://i.ytimg.com/vi/gEXB2iWhoIM/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vfa91d4f62153": {
+      "id": "vfa91d4f62153",
+      "url": "https://i.ytimg.com/vi/gEXB2iWhoIM/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "How To Do a TRX Fallout — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "swift",
+      "sourceIds": [
+        "s8c47a8340ab3"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v8c47a8340ab3"
+    },
+    "v6a859534ec47": {
+      "id": "v6a859534ec47",
+      "url": "https://www.youtube.com/watch?v=W86Sj_sUqR8",
+      "type": "video",
+      "label": "Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "lifefitness",
+      "sourceIds": [
+        "s6a859534ec47"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions",
+        "author_name": "Life Fitness / Hammer Strength",
+        "author_url": "https://www.youtube.com/channel/UCG39tIfVJWu5jJvfrwq-ZEQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/W86Sj_sUqR8/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "The original Life Fitness/Hammer Strength instruction video and its previews show a seated plate-loaded front pulldown with overhead lever handles, chest support and thigh restraint. The manufacturer’s product page independently specifies the overhead pivot and underhand lever grip. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/W86Sj_sUqR8/1.jpg",
+          "https://i.ytimg.com/vi/W86Sj_sUqR8/2.jpg",
+          "https://i.ytimg.com/vi/W86Sj_sUqR8/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vf1ab4f40343f": {
+      "id": "vf1ab4f40343f",
+      "url": "https://i.ytimg.com/vi/W86Sj_sUqR8/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "lifefitness",
+      "sourceIds": [
+        "s6a859534ec47"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v6a859534ec47"
+    },
+    "v3001141d7696": {
+      "id": "v3001141d7696",
+      "url": "https://media.physitrack.com/exercises/b8dae74a-615d-4f67-8fcc-656e9bccfd97/en/video_1280x720.mp4",
+      "type": "video",
+      "label": "Heel elevated dumbbell squat",
+      "location": "public publisher exercise video",
+      "visualReview": "not-viewed",
+      "publisherId": "physitrack",
+      "sourceIds": [
+        "s4f72a6d4c64e"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "public-video-http-200; full-playback-not-reviewed",
+      "linkCheck": {
+        "status": 200,
+        "contentType": "video/mp4"
+      },
+      "configurationInspection": {
+        "method": "sampled-publisher-video-frames",
+        "checkedOn": "2026-11-13",
+        "scope": "Physitrack’s exercise-specific page and sampled public video show raised heels, toes on the floor, a dumbbell in each hand and a squat. The catalog requires dumbbells and elevated heels, but does not mandate a goblet grip. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "durationSeconds": 19.666667,
+        "sampleSeconds": [
+          3.933,
+          9.833,
+          15.733
+        ]
+      }
+    },
+    "v9f4f9ccd64a2": {
+      "id": "v9f4f9ccd64a2",
+      "url": "https://vimeo.com/322120209",
+      "type": "video",
+      "label": "Glute Drive Sizzle Video",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "core",
+      "sourceIds": [
+        "s80ef99ea6412",
+        "s9f4f9ccd64a2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "title": "Glute Drive Sizzle Video",
+        "author_name": "Core Health & Fitness",
+        "author_url": "https://vimeo.com/corehealthandfitness",
+        "thumbnail_url": "https://i.vimeocdn.com/video/788678279-7c2812ce3c8db028de0429367aeb3d54d257c07d17507eb9f85c4b22673308ba-d_640?region=us",
+        "status": 200
+      },
+      "configurationInspection": {
+        "method": "public-player-position-inspection",
+        "checkedOn": "2026-11-13",
+        "scope": "The manufacturer’s public Nautilus Glute Drive video was inspected through the visible player. At the displayed 0:35 and 0:40 positions it shows the plate-loaded hip-thrust machine, supported back, feet on the platform and the belt across the hips. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "displayedPositions": [
+          "0:35",
+          "0:40"
+        ]
+      }
+    },
+    "vf494f4caecb8": {
+      "id": "vf494f4caecb8",
+      "url": "https://i.vimeocdn.com/video/788678279-7c2812ce3c8db028de0429367aeb3d54d257c07d17507eb9f85c4b22673308ba-d_640?region=us",
+      "type": "video-poster",
+      "label": "Glute Drive Sizzle Video — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "core",
+      "sourceIds": [
+        "s80ef99ea6412",
+        "s9f4f9ccd64a2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v9f4f9ccd64a2"
+    },
+    "v2cece7867181": {
+      "id": "v2cece7867181",
+      "url": "https://www.youtube.com/watch?v=U1oarHmUKrY",
+      "type": "video",
+      "label": "Single-leg stability ball bridge",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "pfp",
+      "sourceIds": [
+        "s2cece7867181",
+        "s014a578c2546"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Single-leg stability ball bridge",
+        "author_name": "PFP media",
+        "author_url": "https://www.youtube.com/channel/UCrBBr3Y1jQm8wQRAfrPMqbw",
+        "thumbnail_url": "https://i.ytimg.com/vi/U1oarHmUKrY/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Brian Schiff’s authored PFP article embeds the credited PFP media video and explicitly describes supine support, one heel/lower leg on the ball, the opposite leg lifted and hip extension. The inspected public previews show the single-leg ball bridge. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/U1oarHmUKrY/1.jpg",
+          "https://i.ytimg.com/vi/U1oarHmUKrY/2.jpg",
+          "https://i.ytimg.com/vi/U1oarHmUKrY/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vd7c793bf4b01": {
+      "id": "vd7c793bf4b01",
+      "url": "https://i.ytimg.com/vi/U1oarHmUKrY/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Single-leg stability ball bridge — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "pfp",
+      "sourceIds": [
+        "s2cece7867181",
+        "s014a578c2546"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v2cece7867181"
+    },
+    "v971d952e4eeb": {
+      "id": "v971d952e4eeb",
+      "url": "https://www.youtube.com/watch?v=Nfj95QABIdI",
+      "type": "video",
+      "label": "Exercise Demo: Skater Squat",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "sinkler",
+      "sourceIds": [
+        "s971d952e4eeb",
+        "s6be495a43c6e"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Exercise Demo: Skater Squat",
+        "author_name": "Jen Sinkler",
+        "author_url": "https://www.youtube.com/channel/UCklhTm3JQXn4-mQ8rrLUieA",
+        "thumbnail_url": "https://i.ytimg.com/vi/Nfj95QABIdI/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Jen Sinkler’s original instructions describe a one-legged squat with the free knee descending behind the body to the floor or a pad. Inspected previews show an unloaded version with a padded target, unlike the existing dumbbell-counterbalanced reference. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/Nfj95QABIdI/1.jpg",
+          "https://i.ytimg.com/vi/Nfj95QABIdI/2.jpg",
+          "https://i.ytimg.com/vi/Nfj95QABIdI/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vdf26ec2e4b76": {
+      "id": "vdf26ec2e4b76",
+      "url": "https://i.ytimg.com/vi/Nfj95QABIdI/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Exercise Demo: Skater Squat — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "sinkler",
+      "sourceIds": [
+        "s971d952e4eeb",
+        "s6be495a43c6e"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v971d952e4eeb"
+    },
+    "vb1a9744716e2": {
+      "id": "vb1a9744716e2",
+      "url": "https://www.youtube.com/watch?v=_V0Y9YFAyFo",
+      "type": "video",
+      "label": "Standing Cable Leg Curl",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "heming",
+      "sourceIds": [
+        "sb1a9744716e2",
+        "sdbef5bbc38b8"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Standing Cable Leg Curl",
+        "author_name": "Andrew Heming",
+        "author_url": "https://www.youtube.com/channel/UCvzpUUpym8ln65jhGsQuFkg",
+        "thumbnail_url": "https://i.ytimg.com/vi/_V0Y9YFAyFo/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Andrew Heming’s original standing cable-leg-curl video and public previews show standing support at a cable station with an ankle attachment and knee flexion. His university profile identifies exercise-science education and strength/personal-training certifications. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/_V0Y9YFAyFo/1.jpg",
+          "https://i.ytimg.com/vi/_V0Y9YFAyFo/2.jpg",
+          "https://i.ytimg.com/vi/_V0Y9YFAyFo/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v5fda73533e56": {
+      "id": "v5fda73533e56",
+      "url": "https://i.ytimg.com/vi/_V0Y9YFAyFo/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Standing Cable Leg Curl — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "heming",
+      "sourceIds": [
+        "sb1a9744716e2",
+        "sdbef5bbc38b8"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vb1a9744716e2"
+    },
+    "v51730d02f78a": {
+      "id": "v51730d02f78a",
+      "url": "https://www.youtube.com/watch?v=PTn6icEeH3Y",
+      "type": "video",
+      "label": "Standing single leg dumbbell calf raises",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "fittr",
+      "sourceIds": [
+        "s51730d02f78a",
+        "s1db6d3347e22"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Standing single leg dumbbell calf raises",
+        "author_name": "FITTR",
+        "author_url": "https://www.youtube.com/channel/UCANHPTFjTMoL45WjQ2qaokg",
+        "thumbnail_url": "https://i.ytimg.com/vi/PTn6icEeH3Y/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "FITTR’s original instructions specify one dumbbell at the side, a single forefoot on a raised block, the other leg lifted and hand support for balance. The three public previews show that loaded supported single-leg arrangement. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/PTn6icEeH3Y/1.jpg",
+          "https://i.ytimg.com/vi/PTn6icEeH3Y/2.jpg",
+          "https://i.ytimg.com/vi/PTn6icEeH3Y/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v74ef819934de": {
+      "id": "v74ef819934de",
+      "url": "https://i.ytimg.com/vi/PTn6icEeH3Y/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Standing single leg dumbbell calf raises — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "fittr",
+      "sourceIds": [
+        "s51730d02f78a",
+        "s1db6d3347e22"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v51730d02f78a"
+    },
+    "v675cb25cf7bf": {
+      "id": "v675cb25cf7bf",
+      "url": "https://www.youtube.com/watch?v=ENZjCX9HjVI",
+      "type": "video",
+      "label": "How to: Single leg Box Jump",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "sats",
+      "sourceIds": [
+        "s675cb25cf7bf",
+        "s65ff4954111a"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "How to: Single leg Box Jump",
+        "author_name": "SATS Nordic",
+        "author_url": "https://www.youtube.com/channel/UCqhskBVX4e4henE1Wcgh5cg",
+        "thumbnail_url": "https://i.ytimg.com/vi/ENZjCX9HjVI/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-player-position-inspection",
+        "checkedOn": "2026-11-13",
+        "scope": "SATS’s original description specifies using one leg. Visible-player positions around 0:01, 0:03 and 0:04 were compared: a unilateral floor stance is followed by same-leg support on the box with the other leg lifted. OPEX’s description explicitly instructs a two-foot landing and is rejected for this target. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "displayedPositions": [
+          "0:01",
+          "0:03",
+          "0:04"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vc0af92924a14": {
+      "id": "vc0af92924a14",
+      "url": "https://i.ytimg.com/vi/ENZjCX9HjVI/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "How to: Single leg Box Jump — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "sats",
+      "sourceIds": [
+        "s675cb25cf7bf",
+        "s65ff4954111a"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v675cb25cf7bf"
+    },
+    "v5deee15ae161": {
+      "id": "v5deee15ae161",
+      "url": "https://www.youtube.com/watch?v=GGPXs7JbH5o",
+      "type": "video",
+      "label": "Dumbbell Jump Squat",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "anniemiller",
+      "sourceIds": [
+        "s5deee15ae161",
+        "s5567cd422f05"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Dumbbell Jump Squat",
+        "author_name": "Annie Miller",
+        "author_url": "https://www.youtube.com/channel/UCYjozDABNdFcNISPqs7p5dw",
+        "thumbnail_url": "https://i.ytimg.com/vi/GGPXs7JbH5o/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Annie Miller’s original exercise description identifies the jump-squat version with dumbbells at the sides; inspected public previews show the two side-held dumbbells and the squat/jump setup. Her primary education page lists an exercise-science degree and CSCS background. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/GGPXs7JbH5o/1.jpg",
+          "https://i.ytimg.com/vi/GGPXs7JbH5o/2.jpg",
+          "https://i.ytimg.com/vi/GGPXs7JbH5o/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v79d09a085c8e": {
+      "id": "v79d09a085c8e",
+      "url": "https://i.ytimg.com/vi/GGPXs7JbH5o/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Dumbbell Jump Squat — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "anniemiller",
+      "sourceIds": [
+        "s5deee15ae161",
+        "s5567cd422f05"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v5deee15ae161"
+    },
+    "v563751a0877b": {
+      "id": "v563751a0877b",
+      "url": "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+      "type": "video",
+      "label": "Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "befit",
+      "sourceIds": [
+        "s563751a0877b",
+        "sc9ff1a7cd9a2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab",
+        "author_name": "The BeFit Physio Method",
+        "author_url": "https://www.youtube.com/channel/UCuyRuwucVQ-X2FwwEydF1rA",
+        "thumbnail_url": "https://i.ytimg.com/vi/2ISWPJg8IKA/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/2ISWPJg8IKA/1.jpg",
+          "https://i.ytimg.com/vi/2ISWPJg8IKA/2.jpg",
+          "https://i.ytimg.com/vi/2ISWPJg8IKA/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v5da633391cac": {
+      "id": "v5da633391cac",
+      "url": "https://i.ytimg.com/vi/2ISWPJg8IKA/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "befit",
+      "sourceIds": [
+        "s563751a0877b",
+        "sc9ff1a7cd9a2"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v563751a0877b"
+    },
+    "v0340d79cf6fe": {
+      "id": "v0340d79cf6fe",
+      "url": "https://www.youtube.com/watch?v=fGIKnkrBOcs",
+      "type": "video",
+      "label": "Kneeling band lat pulldown",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "dorworth",
+      "sourceIds": [
+        "s0340d79cf6fe",
+        "s5c7a971ea2df"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Kneeling band lat pulldown",
+        "author_name": "Steph Dorworth",
+        "author_url": "https://www.youtube.com/channel/UCxANSpXQjICB1pPAibkM9xg",
+        "thumbnail_url": "https://i.ytimg.com/vi/fGIKnkrBOcs/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Steph Dorworth’s original nine-second demonstration and its previews show kneeling support, bands from high anchors and bent elbows pulling downward. Her authored PostureMedic manual identifies her physiotherapy and strength-coaching background. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/fGIKnkrBOcs/1.jpg",
+          "https://i.ytimg.com/vi/fGIKnkrBOcs/2.jpg",
+          "https://i.ytimg.com/vi/fGIKnkrBOcs/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v926ed3e49888": {
+      "id": "v926ed3e49888",
+      "url": "https://i.ytimg.com/vi/fGIKnkrBOcs/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Kneeling band lat pulldown — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "dorworth",
+      "sourceIds": [
+        "s0340d79cf6fe",
+        "s5c7a971ea2df"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v0340d79cf6fe"
+    },
+    "ve54b02e56ade": {
+      "id": "ve54b02e56ade",
+      "url": "https://www.youtube.com/watch?v=pomi-NOseBw",
+      "type": "video",
+      "label": "Strengthen your core and obliques with this functional stability exercise - Pallof Press",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "rehabhero",
+      "sourceIds": [
+        "se54b02e56ade"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Strengthen your core and obliques with this functional stability exercise - Pallof Press",
+        "author_name": "Rehab Hero",
+        "author_url": "https://www.youtube.com/channel/UCNBaCaOlUrhrm8MeTv_O1FQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/pomi-NOseBw/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Rehab Hero’s Pallof page explicitly describes an elastic band anchored to the side, hands starting at the chest and a forward press while resisting turn. Its original video previews show the standing band version, replacing PureGym’s cable demonstration. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/pomi-NOseBw/1.jpg",
+          "https://i.ytimg.com/vi/pomi-NOseBw/2.jpg",
+          "https://i.ytimg.com/vi/pomi-NOseBw/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vcec4c2f96617": {
+      "id": "vcec4c2f96617",
+      "url": "https://i.ytimg.com/vi/pomi-NOseBw/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Strengthen your core and obliques with this functional stability exercise - Pallof Press — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "rehabhero",
+      "sourceIds": [
+        "se54b02e56ade"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "ve54b02e56ade"
+    },
+    "v62d132db3d2c": {
+      "id": "v62d132db3d2c",
+      "url": "https://www.youtube.com/watch?v=w0CTy_eIIcM",
+      "type": "video",
+      "label": "Medicine Ball Russian Twist | Exercise Demo",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "reddot",
+      "sourceIds": [
+        "s62d132db3d2c",
+        "s32a5332b9504"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Medicine Ball Russian Twist | Exercise Demo",
+        "author_name": "Red Dot Fitness",
+        "author_url": "https://www.youtube.com/channel/UCjoGZi0DJoZuw5LzO98WhNA",
+        "thumbnail_url": "https://i.ytimg.com/vi/w0CTy_eIIcM/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Red Dot Fitness’s original medicine-ball Russian-twist previews show seated floor support, a medicine ball held in both hands and rotation beside the hips. The primary staff page documents a professional strength-coaching and athletic-training team. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/w0CTy_eIIcM/1.jpg",
+          "https://i.ytimg.com/vi/w0CTy_eIIcM/2.jpg",
+          "https://i.ytimg.com/vi/w0CTy_eIIcM/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v05f81e2b1915": {
+      "id": "v05f81e2b1915",
+      "url": "https://i.ytimg.com/vi/w0CTy_eIIcM/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Medicine Ball Russian Twist | Exercise Demo — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "reddot",
+      "sourceIds": [
+        "s62d132db3d2c",
+        "s32a5332b9504"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v62d132db3d2c"
+    },
+    "v3041503e40a2": {
+      "id": "v3041503e40a2",
+      "url": "https://www.youtube.com/watch?v=91eINjZpk_E",
+      "type": "video",
+      "label": "Medicine Ball Woodchop - How To workout | With the WeStrive App",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "westrive",
+      "sourceIds": [
+        "s3041503e40a2",
+        "sc8cb61868c6c"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Medicine Ball Woodchop - How To workout | With the WeStrive App",
+        "author_name": "WeStrive App",
+        "author_url": "https://www.youtube.com/channel/UChkGz9EDw-gJlRP46pSYTrw",
+        "thumbnail_url": "https://i.ytimg.com/vi/91eINjZpk_E/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "WeStrive’s original clip credits featured trainer David Miguens and identifies its library as trainer-made. Its public previews show a held medicine ball travelling on a diagonal between a high shoulder position and the opposite low side, rather than a cable or released throw. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/91eINjZpk_E/1.jpg",
+          "https://i.ytimg.com/vi/91eINjZpk_E/2.jpg",
+          "https://i.ytimg.com/vi/91eINjZpk_E/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v78e33734baf1": {
+      "id": "v78e33734baf1",
+      "url": "https://i.ytimg.com/vi/91eINjZpk_E/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Medicine Ball Woodchop - How To workout | With the WeStrive App — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "westrive",
+      "sourceIds": [
+        "s3041503e40a2",
+        "sc8cb61868c6c"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v3041503e40a2"
+    },
+    "v673b02137bc0": {
+      "id": "v673b02137bc0",
+      "url": "https://www.youtube.com/watch?v=ovzFOjgrhls",
+      "type": "video",
+      "label": "BOSU Side Plank Hold | Exercise Demo | Coaching Software | QuickCoach",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "quickcoach",
+      "sourceIds": [
+        "s673b02137bc0",
+        "sb67216c20572"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "BOSU Side Plank Hold | Exercise Demo | Coaching Software | QuickCoach",
+        "author_name": "QuickCoach",
+        "author_url": "https://www.youtube.com/channel/UCeO4CMoEoXdBjGN4gizdhww",
+        "thumbnail_url": "https://i.ytimg.com/vi/ovzFOjgrhls/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "QuickCoach’s original instructions explicitly place a forearm on the dome with the flat base on the floor, stack the feet and hold a raised side plank. The inspected public previews show that support arrangement. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/ovzFOjgrhls/1.jpg",
+          "https://i.ytimg.com/vi/ovzFOjgrhls/2.jpg",
+          "https://i.ytimg.com/vi/ovzFOjgrhls/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v68b9ac699831": {
+      "id": "v68b9ac699831",
+      "url": "https://i.ytimg.com/vi/ovzFOjgrhls/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "BOSU Side Plank Hold | Exercise Demo | Coaching Software | QuickCoach — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "quickcoach",
+      "sourceIds": [
+        "s673b02137bc0",
+        "sb67216c20572"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v673b02137bc0"
+    },
+    "vb099be7673fe": {
+      "id": "vb099be7673fe",
+      "url": "https://www.youtube.com/watch?v=c3dKJRVMRHw",
+      "type": "video",
+      "label": "Toes to Bar | Exercise Technique Library",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "goodin",
+      "sourceIds": [
+        "sb099be7673fe",
+        "s759026552938"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Toes to Bar | Exercise Technique Library",
+        "author_name": "Dr. Jacob Goodin",
+        "author_url": "https://www.youtube.com/channel/UCYUNAfli7Uu0hOjj1D0Q6Cw",
+        "thumbnail_url": "https://i.ytimg.com/vi/c3dKJRVMRHw/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Jacob Goodin’s original toes-to-bar description explicitly identifies a hanging bar setup, raising the toes to the bar and limiting swing. Public previews show the hanging raised-leg implementation. This replaces the less specific hanging-leg-raise comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/c3dKJRVMRHw/1.jpg",
+          "https://i.ytimg.com/vi/c3dKJRVMRHw/2.jpg",
+          "https://i.ytimg.com/vi/c3dKJRVMRHw/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v23313ecdb50e": {
+      "id": "v23313ecdb50e",
+      "url": "https://i.ytimg.com/vi/c3dKJRVMRHw/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Toes to Bar | Exercise Technique Library — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "goodin",
+      "sourceIds": [
+        "sb099be7673fe",
+        "s759026552938"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vb099be7673fe"
+    },
+    "ve49d54627cc2": {
+      "id": "ve49d54627cc2",
+      "url": "https://i.ytimg.com/vi/arDUVmCzyhc/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "How To: Hanging Windshield Wiper — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "scottherman",
+      "sourceIds": [
+        "s985005c201a2",
+        "sa021fed93aec"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v985005c201a2"
+    },
+    "v36425fc397e8": {
+      "id": "v36425fc397e8",
+      "url": "https://www.youtube.com/watch?v=7p-Ma0eksaY",
+      "type": "video",
+      "label": "How To Perform Shoulder Dislocates | Resistance Band",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "stick",
+      "sourceIds": [
+        "s36425fc397e8",
+        "s1013ffa9ebfb"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "How To Perform Shoulder Dislocates | Resistance Band",
+        "author_name": "Stick Mobility",
+        "author_url": "https://www.youtube.com/channel/UCHn2jmtK1fEsQgxMKEiTnUw",
+        "thumbnail_url": "https://i.ytimg.com/vi/7p-Ma0eksaY/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Stick Mobility’s original resistance-band dislocate/passthrough demonstration and previews show a wide two-hand band grip passing overhead to behind the body. Its own manufacturer/education page documents the movement-training publishing context. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/7p-Ma0eksaY/1.jpg",
+          "https://i.ytimg.com/vi/7p-Ma0eksaY/2.jpg",
+          "https://i.ytimg.com/vi/7p-Ma0eksaY/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vb2d9432cd288": {
+      "id": "vb2d9432cd288",
+      "url": "https://i.ytimg.com/vi/7p-Ma0eksaY/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "How To Perform Shoulder Dislocates | Resistance Band — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "stick",
+      "sourceIds": [
+        "s36425fc397e8",
+        "s1013ffa9ebfb"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v36425fc397e8"
+    },
+    "v88158343d5e3": {
+      "id": "v88158343d5e3",
+      "url": "https://www.youtube.com/watch?v=-ooNS30xQ1Q",
+      "type": "video",
+      "label": "Incline Push Ups on Bench",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "foxman",
+      "sourceIds": [
+        "s88158343d5e3",
+        "s97a142b58ac8"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Incline Push Ups on Bench",
+        "author_name": "Eric Foxman",
+        "author_url": "https://www.youtube.com/channel/UCQGkLWMIMxLrzZNmWafWRFQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/-ooNS30xQ1Q/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Eric Foxman’s original incline-push-up-on-bench video and previews show both hands supported on a stable bench and feet on the floor. His primary biography states ACE personal-training certification and a longstanding training practice. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/-ooNS30xQ1Q/1.jpg",
+          "https://i.ytimg.com/vi/-ooNS30xQ1Q/2.jpg",
+          "https://i.ytimg.com/vi/-ooNS30xQ1Q/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v8e83479ca924": {
+      "id": "v8e83479ca924",
+      "url": "https://i.ytimg.com/vi/-ooNS30xQ1Q/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Incline Push Ups on Bench — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "foxman",
+      "sourceIds": [
+        "s88158343d5e3",
+        "s97a142b58ac8"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "v88158343d5e3"
+    },
+    "vb1c1b1ac1bce": {
+      "id": "vb1c1b1ac1bce",
+      "url": "https://www.youtube.com/watch?v=ZUsGZi4HGwE",
+      "type": "video",
+      "label": "SpiderMan Rotations - Thoracic Mobility Exercise",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "rehabhero",
+      "sourceIds": [
+        "sb1c1b1ac1bce"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "SpiderMan Rotations - Thoracic Mobility Exercise",
+        "author_name": "Rehab Hero",
+        "author_url": "https://www.youtube.com/channel/UCNBaCaOlUrhrm8MeTv_O1FQ",
+        "thumbnail_url": "https://i.ytimg.com/vi/ZUsGZi4HGwE/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Rehab Hero’s separately named Spiderman Rotations page and original video previews show a long split-lunge support with the front-leg-side arm reaching upward and the other hand on the floor. This supplies the reach missing from the current lunge-only comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/ZUsGZi4HGwE/1.jpg",
+          "https://i.ytimg.com/vi/ZUsGZi4HGwE/2.jpg",
+          "https://i.ytimg.com/vi/ZUsGZi4HGwE/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v65295c8e6d04": {
+      "id": "v65295c8e6d04",
+      "url": "https://i.ytimg.com/vi/ZUsGZi4HGwE/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "SpiderMan Rotations - Thoracic Mobility Exercise — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "rehabhero",
+      "sourceIds": [
+        "sb1c1b1ac1bce"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vb1c1b1ac1bce"
+    },
+    "vc73f685b0271": {
+      "id": "vc73f685b0271",
+      "url": "https://www.youtube.com/watch?v=099rt7KePMY",
+      "type": "video",
+      "label": "Split-Squat Hold [At-Home Workout Tips]",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "sanford",
+      "sourceIds": [
+        "sc73f685b0271"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Split-Squat Hold [At-Home Workout Tips]",
+        "author_name": "Sanford Health",
+        "author_url": "https://www.youtube.com/channel/UCJCUSlIK0mlTlKnCMcikQOg",
+        "thumbnail_url": "https://i.ytimg.com/vi/099rt7KePMY/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Sanford Health’s original description names its certified strength-and-conditioning coaches and explicitly identifies split-squat holds followed by mobility work. Its public previews show the held split stance. This adds the isometric phase missing from the ordinary split-squat comparator. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/099rt7KePMY/1.jpg",
+          "https://i.ytimg.com/vi/099rt7KePMY/2.jpg",
+          "https://i.ytimg.com/vi/099rt7KePMY/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "v9809aeaec9f3": {
+      "id": "v9809aeaec9f3",
+      "url": "https://i.ytimg.com/vi/099rt7KePMY/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Split-Squat Hold [At-Home Workout Tips] — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "sanford",
+      "sourceIds": [
+        "sc73f685b0271"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vc73f685b0271"
+    },
+    "v3468405c9279": {
+      "id": "v3468405c9279",
+      "url": "https://media.physitrack.com/exercises/b1f9c5cc-8e08-45ab-a8f9-0b9ce5b74174/en/video_1280x720.mp4",
+      "type": "video",
+      "label": "Standing hip extension, supported",
+      "location": "public publisher exercise video",
+      "visualReview": "not-viewed",
+      "publisherId": "physitrack",
+      "sourceIds": [
+        "sada3dfaa390d"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "public-video-http-200; full-playback-not-reviewed",
+      "linkCheck": {
+        "status": 200,
+        "contentType": "video/mp4"
+      },
+      "configurationInspection": {
+        "method": "sampled-publisher-video-frames",
+        "checkedOn": "2026-11-13",
+        "scope": "Physitrack’s standing-hip-extension page specifies upright chair support and moving a straight leg backward without trunk lean. Three decoded samples of its public video show the supported standing unweighted setup. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "durationSeconds": 10.56,
+        "sampleSeconds": [
+          2.112,
+          5.28,
+          8.448
+        ]
+      }
+    },
+    "vf3389861596c": {
+      "id": "vf3389861596c",
+      "url": "https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104849868/DOD_104849868-1024x576-1769k.mp4",
+      "type": "video",
+      "label": "Walking Knee Hug",
+      "location": "public publisher exercise video",
+      "visualReview": "not-viewed",
+      "publisherId": "dvids",
+      "sourceIds": [
+        "sbd2818f718c6"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "public-video-http-200; full-playback-not-reviewed",
+      "linkCheck": {
+        "status": 200,
+        "contentType": "video/mp4"
+      },
+      "configurationInspection": {
+        "method": "sampled-publisher-video-frames",
+        "checkedOn": "2026-11-13",
+        "scope": "The U.S. Marine Corps Training and Education Command’s original DVIDS instructions explicitly describe a standing knee hug, stepping onto the released leg and repeating with the opposite leg. A decoded public-video sample shows the upright knee grasp. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "durationSeconds": 29.312,
+        "sampleSeconds": [
+          5.862,
+          14.656,
+          23.45
+        ]
+      }
+    },
+    "vd03d7d8eaba6": {
+      "id": "vd03d7d8eaba6",
+      "url": "https://www.youtube.com/watch?v=Hkum-kPTtrw",
+      "type": "video",
+      "label": "Lying Cross Body Glute Stretch",
+      "location": "original publisher video",
+      "visualReview": "not-viewed",
+      "publisherId": "neeld",
+      "sourceIds": [
+        "sd03d7d8eaba6",
+        "sa987ef575397"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-metadata-200; full-playback-not-reviewed",
+      "providerMetadata": {
+        "status": 200,
+        "title": "Lying Cross Body Glute Stretch",
+        "author_name": "Kevin Neeld",
+        "author_url": "https://www.youtube.com/channel/UCr8pUbY0nY8UtDCYTSizldA",
+        "thumbnail_url": "https://i.ytimg.com/vi/Hkum-kPTtrw/hqdefault.jpg"
+      },
+      "configurationInspection": {
+        "method": "public-provider-preview-stills",
+        "checkedOn": "2026-11-13",
+        "scope": "Kevin Neeld’s original lying-cross-body-glute-stretch previews show supine support and a bent knee guided across the body. This is more specific than the current straight-to-chest hug. His primary coaching page documents strength-and-conditioning credentials and professional hockey work. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.",
+        "fullMotionReviewed": false,
+        "imageUrls": [
+          "https://i.ytimg.com/vi/Hkum-kPTtrw/1.jpg",
+          "https://i.ytimg.com/vi/Hkum-kPTtrw/2.jpg",
+          "https://i.ytimg.com/vi/Hkum-kPTtrw/3.jpg"
+        ]
+      },
+      "publishedDescriptionReview": {
+        "checkedOn": "2026-11-13",
+        "method": "public-watch-page-published-video-details",
+        "scope": "Published creator/title/description inspected for setup claims. Description presence is not playback, independent credential verification or permission to reuse text."
+      }
+    },
+    "vffc5967f59a4": {
+      "id": "vffc5967f59a4",
+      "url": "https://i.ytimg.com/vi/Hkum-kPTtrw/hqdefault.jpg",
+      "type": "video-poster",
+      "label": "Lying Cross Body Glute Stretch — provider poster",
+      "location": "provider thumbnail metadata",
+      "visualReview": "not-viewed",
+      "publisherId": "neeld",
+      "sourceIds": [
+        "sd03d7d8eaba6",
+        "sa987ef575397"
+      ],
+      "checkedOn": "2026-11-13",
+      "reuse": "Reference link only; reproduction permission not established.",
+      "availability": "provider-thumbnail-metadata; pose-not-validated",
+      "videoId": "vd03d7d8eaba6"
     }
   }
 }

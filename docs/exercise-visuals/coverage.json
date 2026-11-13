@@ -10,8 +10,8 @@
     "entriesWithVideo": 424,
     "videoRelationships": {
       "same-labelled-movement": 187,
-      "configuration-matched": 130,
-      "related-only": 107
+      "configuration-matched": 158,
+      "related-only": 79
     },
     "stillFormatsByEntry": {
       "image": 198,
@@ -19,15 +19,15 @@
       "not-found": 2,
       "animated-image": 3
     },
-    "uniqueMedia": 705,
+    "uniqueMedia": 755,
     "uniqueMediaTypes": {
-      "video": 387,
+      "video": 413,
       "image": 170,
-      "video-poster": 147,
+      "video-poster": 171,
       "animated-image": 1
     },
-    "sourcePages": 393,
-    "publisherGroups": 37,
+    "sourcePages": 437,
+    "publisherGroups": 56,
     "excludedAssociations": 14,
     "identityReviewedStills": 171,
     "followupTargets": 237,
@@ -39,8 +39,14 @@
       "source-specific-configuration-comparison": 143,
       "discovery-and-provenance-screening; no-new-configuration-acceptance": 94
     },
-    "consultedCandidateUrls": 628,
-    "retrievedPageRecords": 228,
-    "configurationInspectedVideos": 90
+    "consultedCandidateUrls": 649,
+    "retrievedPageRecords": 458,
+    "configurationInspectedVideos": 116,
+    "secondFollowupTargets": 107,
+    "secondFollowupDecisions": {
+      "configuration-matched": 28,
+      "related-only": 79
+    },
+    "secondFollowupSourceSpecificComparisons": 107
   }
 }

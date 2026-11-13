@@ -1,5 +1,7 @@
 # Follow-up configuration research
 
+Historical first-pass record. Current outcomes for the 107 remaining comparisons are in the [second-pass audit](research-round2.md); the original decisions and evidence below are preserved.
+
 Reviewed November 13, 2026 against baseline aeffe3981fcbd0fd5a22abb15d24fccf96b032ac. This pass targets all **233 earlier related comparisons plus four missing-video entries**.
 
 **130 reference sets now have configuration-specific support; 107 remain related. All four video-format gaps are filled.** These are research references, not professionally approved demonstrations.

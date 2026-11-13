@@ -4214,6 +4214,446 @@
       "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
       "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
       "techniqueSourceIds": []
+    },
+    "sd71f200b599e": {
+      "id": "sd71f200b599e",
+      "url": "https://www.youtube.com/watch?v=p8eMhRdeX4g",
+      "publisherId": "kbfitness",
+      "title": "Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sc3a689b7ecc2": {
+      "id": "sc3a689b7ecc2",
+      "url": "https://www.kbfitnesstrainingstudio.com",
+      "publisherId": "kbfitness",
+      "title": "KB Fitness / Kurtis Ackerman — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s100cfbbb0f47": {
+      "id": "s100cfbbb0f47",
+      "url": "https://www.youtube.com/watch?v=Qe2dGicUEUA",
+      "publisherId": "keiser",
+      "title": "Keiser Exercise of the Day: Standing Cable Rotation",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s8c47a8340ab3": {
+      "id": "s8c47a8340ab3",
+      "url": "https://www.youtube.com/watch?v=gEXB2iWhoIM",
+      "publisherId": "swift",
+      "title": "How To Do a TRX Fallout",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s6a859534ec47": {
+      "id": "s6a859534ec47",
+      "url": "https://www.youtube.com/watch?v=W86Sj_sUqR8",
+      "publisherId": "lifefitness",
+      "title": "Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s4f72a6d4c64e": {
+      "id": "s4f72a6d4c64e",
+      "url": "https://na.physitrack.com/home-exercise-video/heel-elevated-dumbbell-squat",
+      "publisherId": "physitrack",
+      "title": "Heel elevated dumbbell squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s80ef99ea6412": {
+      "id": "s80ef99ea6412",
+      "url": "https://info.corehandf.com/glute-drive",
+      "publisherId": "core",
+      "title": "Glute Drive Sizzle Video",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s9f4f9ccd64a2": {
+      "id": "s9f4f9ccd64a2",
+      "url": "https://vimeo.com/322120209",
+      "publisherId": "core",
+      "title": "Core Health & Fitness / Nautilus — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s2cece7867181": {
+      "id": "s2cece7867181",
+      "url": "https://www.youtube.com/watch?v=U1oarHmUKrY",
+      "publisherId": "pfp",
+      "title": "Single-leg stability ball bridge",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s014a578c2546": {
+      "id": "s014a578c2546",
+      "url": "https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html",
+      "publisherId": "pfp",
+      "title": "PFP / Brian Schiff — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s971d952e4eeb": {
+      "id": "s971d952e4eeb",
+      "url": "https://www.youtube.com/watch?v=Nfj95QABIdI",
+      "publisherId": "sinkler",
+      "title": "Exercise Demo: Skater Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s6be495a43c6e": {
+      "id": "s6be495a43c6e",
+      "url": "https://www.girlsgonestrong.com/blog/articles/jen-sinkler/",
+      "publisherId": "sinkler",
+      "title": "Jen Sinkler — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sb1a9744716e2": {
+      "id": "sb1a9744716e2",
+      "url": "https://www.youtube.com/watch?v=_V0Y9YFAyFo",
+      "publisherId": "heming",
+      "title": "Standing Cable Leg Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sdbef5bbc38b8": {
+      "id": "sdbef5bbc38b8",
+      "url": "https://www.twu.ca/profile/andrew-heming",
+      "publisherId": "heming",
+      "title": "Andrew Heming — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s51730d02f78a": {
+      "id": "s51730d02f78a",
+      "url": "https://www.youtube.com/watch?v=PTn6icEeH3Y",
+      "publisherId": "fittr",
+      "title": "Standing single leg dumbbell calf raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s1db6d3347e22": {
+      "id": "s1db6d3347e22",
+      "url": "https://usa.fittr.com/faq",
+      "publisherId": "fittr",
+      "title": "FITTR — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s675cb25cf7bf": {
+      "id": "s675cb25cf7bf",
+      "url": "https://www.youtube.com/watch?v=ENZjCX9HjVI",
+      "publisherId": "sats",
+      "title": "How to: Single leg Box Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s65ff4954111a": {
+      "id": "s65ff4954111a",
+      "url": "https://careers.sats.com/pages/work-as-a-personal-trainer",
+      "publisherId": "sats",
+      "title": "SATS Nordic — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s5deee15ae161": {
+      "id": "s5deee15ae161",
+      "url": "https://www.youtube.com/watch?v=GGPXs7JbH5o",
+      "publisherId": "anniemiller",
+      "title": "Dumbbell Jump Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s5567cd422f05": {
+      "id": "s5567cd422f05",
+      "url": "https://learn.anniemiller.co/pure-programming/",
+      "publisherId": "anniemiller",
+      "title": "Annie Miller — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s563751a0877b": {
+      "id": "s563751a0877b",
+      "url": "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+      "publisherId": "befit",
+      "title": "Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sc9ff1a7cd9a2": {
+      "id": "sc9ff1a7cd9a2",
+      "url": "https://befittrainingphysio.com/team/",
+      "publisherId": "befit",
+      "title": "BeFit Training Physiotherapy — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s0340d79cf6fe": {
+      "id": "s0340d79cf6fe",
+      "url": "https://www.youtube.com/watch?v=fGIKnkrBOcs",
+      "publisherId": "dorworth",
+      "title": "Kneeling band lat pulldown",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s5c7a971ea2df": {
+      "id": "s5c7a971ea2df",
+      "url": "https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf",
+      "publisherId": "dorworth",
+      "title": "Steph Dorworth — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "se54b02e56ade": {
+      "id": "se54b02e56ade",
+      "url": "https://www.youtube.com/watch?v=pomi-NOseBw",
+      "publisherId": "rehabhero",
+      "title": "Strengthen your core and obliques with this functional stability exercise - Pallof Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s62d132db3d2c": {
+      "id": "s62d132db3d2c",
+      "url": "https://www.youtube.com/watch?v=w0CTy_eIIcM",
+      "publisherId": "reddot",
+      "title": "Medicine Ball Russian Twist | Exercise Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s32a5332b9504": {
+      "id": "s32a5332b9504",
+      "url": "https://reddotfitness.net/staff",
+      "publisherId": "reddot",
+      "title": "Red Dot Fitness — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s3041503e40a2": {
+      "id": "s3041503e40a2",
+      "url": "https://www.youtube.com/watch?v=91eINjZpk_E",
+      "publisherId": "westrive",
+      "title": "Medicine Ball Woodchop - How To workout | With the WeStrive App",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sc8cb61868c6c": {
+      "id": "sc8cb61868c6c",
+      "url": "https://www.westrive.com",
+      "publisherId": "westrive",
+      "title": "WeStrive — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s673b02137bc0": {
+      "id": "s673b02137bc0",
+      "url": "https://www.youtube.com/watch?v=ovzFOjgrhls",
+      "publisherId": "quickcoach",
+      "title": "BOSU Side Plank Hold | Exercise Demo | Coaching Software | QuickCoach",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sb67216c20572": {
+      "id": "sb67216c20572",
+      "url": "https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html",
+      "publisherId": "quickcoach",
+      "title": "QuickCoach — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sb099be7673fe": {
+      "id": "sb099be7673fe",
+      "url": "https://www.youtube.com/watch?v=c3dKJRVMRHw",
+      "publisherId": "goodin",
+      "title": "Toes to Bar | Exercise Technique Library",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s759026552938": {
+      "id": "s759026552938",
+      "url": "https://www.pointloma.edu/file/15881/download",
+      "publisherId": "goodin",
+      "title": "Jacob Goodin — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sa021fed93aec": {
+      "id": "sa021fed93aec",
+      "url": "https://muscularstrength.com/team",
+      "publisherId": "scottherman",
+      "title": "Scott Herman / Muscular Strength — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s36425fc397e8": {
+      "id": "s36425fc397e8",
+      "url": "https://www.youtube.com/watch?v=7p-Ma0eksaY",
+      "publisherId": "stick",
+      "title": "How To Perform Shoulder Dislocates | Resistance Band",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s1013ffa9ebfb": {
+      "id": "s1013ffa9ebfb",
+      "url": "https://stickmobility.com/pages/about-stick-mobility",
+      "publisherId": "stick",
+      "title": "Stick Mobility — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s88158343d5e3": {
+      "id": "s88158343d5e3",
+      "url": "https://www.youtube.com/watch?v=-ooNS30xQ1Q",
+      "publisherId": "foxman",
+      "title": "Incline Push Ups on Bench",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "s97a142b58ac8": {
+      "id": "s97a142b58ac8",
+      "url": "https://www.balancepersonaltraining.com/personal-trainer/",
+      "publisherId": "foxman",
+      "title": "Eric Foxman / Balance Personal Training — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sb1c1b1ac1bce": {
+      "id": "sb1c1b1ac1bce",
+      "url": "https://www.youtube.com/watch?v=ZUsGZi4HGwE",
+      "publisherId": "rehabhero",
+      "title": "SpiderMan Rotations - Thoracic Mobility Exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sc73f685b0271": {
+      "id": "sc73f685b0271",
+      "url": "https://www.youtube.com/watch?v=099rt7KePMY",
+      "publisherId": "sanford",
+      "title": "Split-Squat Hold [At-Home Workout Tips]",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sada3dfaa390d": {
+      "id": "sada3dfaa390d",
+      "url": "https://ie.physitrack.com/home-exercise-video/standing-hip-extension%252c-supported",
+      "publisherId": "physitrack",
+      "title": "Standing hip extension, supported",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sbd2818f718c6": {
+      "id": "sbd2818f718c6",
+      "url": "https://www.dvidshub.net/video/551850/walking-knee-hug",
+      "publisherId": "dvids",
+      "title": "Walking Knee Hug",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sd03d7d8eaba6": {
+      "id": "sd03d7d8eaba6",
+      "url": "https://www.youtube.com/watch?v=Hkum-kPTtrw",
+      "publisherId": "neeld",
+      "title": "Lying Cross Body Glute Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Source-specific equipment, support and action comparison recorded in research-round2.json; public creator identity was retained separately from full-motion approval.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
+    },
+    "sa987ef575397": {
+      "id": "sa987ef575397",
+      "url": "https://kevinneeld.com/ultimate-hockey-transformation-2-0/",
+      "publisherId": "neeld",
+      "title": "Kevin Neeld — professional publishing context",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Primary publisher identity/context checked; the limits of individual credentials and exercise-specific validation remain explicit.",
+      "accessScope": "Original public publication, published provider details and/or explicitly recorded sample/player positions were reviewed. Access and configuration do not constitute full-motion technique approval.",
+      "techniqueSourceIds": []
     }
   }
 }

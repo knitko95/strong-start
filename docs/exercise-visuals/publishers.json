@@ -372,6 +372,201 @@
       ],
       "limitations": "Technique clips illustrate the AirBike Classic. Saddle locks, controls and monitor settings differ on other air bikes.",
       "checkedOn": "2026-11-13"
+    },
+    "kbfitness": {
+      "id": "kbfitness",
+      "name": "KB Fitness / Kurtis Ackerman",
+      "basis": "Original exercise publisher; his published video biography lists an MS in kinesiology/rehabilitative science and NSCA CSCS.",
+      "evidenceUrls": [
+        "https://www.kbfitnesstrainingstudio.com",
+        "https://www.youtube.com/watch?v=p8eMhRdeX4g"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "keiser": {
+      "id": "keiser",
+      "name": "Keiser Europe",
+      "basis": "Equipment manufacturer publishing its own exercise demonstration through the credited Keiser Europe channel.",
+      "evidenceUrls": [
+        "https://www.youtube.com/watch?v=Qe2dGicUEUA"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "swift": {
+      "id": "swift",
+      "name": "Swift Movement Academy",
+      "basis": "Original movement-education channel identifies this presenter, David Adamo, as an accredited exercise physiologist. This is a publisher-reported qualification.",
+      "evidenceUrls": [
+        "https://www.youtube.com/watch?v=gEXB2iWhoIM"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "core": {
+      "id": "core",
+      "name": "Core Health & Fitness / Nautilus",
+      "basis": "Equipment manufacturer primary page embeds the original Core Health & Fitness Glute Drive video; provider credit agrees with the primary publication.",
+      "evidenceUrls": [
+        "https://info.corehandf.com/glute-drive",
+        "https://vimeo.com/322120209"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "pfp": {
+      "id": "pfp",
+      "name": "PFP / Brian Schiff",
+      "basis": "Professional fitness publication; Brian Schiff authors the exercise-specific article embedding the credited PFP media demonstration. The article explains the exact supported bridge configuration.",
+      "evidenceUrls": [
+        "https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "sinkler": {
+      "id": "sinkler",
+      "name": "Jen Sinkler",
+      "basis": "Original bodyweight demonstration; a first-person interview published by Girls Gone Strong identifies her PCC bodyweight and other strength-coaching qualifications.",
+      "evidenceUrls": [
+        "https://www.girlsgonestrong.com/blog/articles/jen-sinkler/"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "heming": {
+      "id": "heming",
+      "name": "Andrew Heming",
+      "basis": "University-hosted professional profile identifies exercise-science education, strength-and-conditioning certification and personal-training certification. Original video credits Andrew Heming.",
+      "evidenceUrls": [
+        "https://www.twu.ca/profile/andrew-heming"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "fittr": {
+      "id": "fittr",
+      "name": "FITTR",
+      "basis": "Professional coaching and exercise-library publisher; its primary FAQ states that its coaches are certified. The original instruction clip is credited to FITTR.",
+      "evidenceUrls": [
+        "https://usa.fittr.com/faq"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "sats": {
+      "id": "sats",
+      "name": "SATS Nordic",
+      "basis": "Gym operator’s original exercise channel, supported by its primary description of trainer education, profiles and professional coaching responsibilities.",
+      "evidenceUrls": [
+        "https://careers.sats.com/pages/work-as-a-personal-trainer"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "anniemiller": {
+      "id": "anniemiller",
+      "name": "Annie Miller",
+      "basis": "Original strength-exercise demonstration; her primary professional-education page reports exercise/sport-science education and CSCS background.",
+      "evidenceUrls": [
+        "https://learn.anniemiller.co/pure-programming/"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "befit": {
+      "id": "befit",
+      "name": "BeFit Training Physiotherapy",
+      "basis": "Original channel identifies BeFit clinics in Edgecliff and Coogee; the primary clinic team page documents a physiotherapy practice in those locations.",
+      "evidenceUrls": [
+        "https://befittrainingphysio.com/team/",
+        "https://www.youtube.com/watch?v=2ISWPJg8IKA"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "dorworth": {
+      "id": "dorworth",
+      "name": "Steph Dorworth",
+      "basis": "Original demonstration is credited to Steph Dorworth; an authored manufacturer manual identifies her physiotherapy and strength-coaching qualifications.",
+      "evidenceUrls": [
+        "https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "reddot": {
+      "id": "reddot",
+      "name": "Red Dot Fitness",
+      "basis": "Original coaching demonstration; the primary staff page lists strength-and-conditioning, athletic-training and other professional exercise backgrounds.",
+      "evidenceUrls": [
+        "https://reddotfitness.net/staff"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "westrive": {
+      "id": "westrive",
+      "name": "WeStrive",
+      "basis": "Professional coaching-software publisher; original video credits featured trainer David Miguens and identifies its demonstration library as made by certified personal trainers.",
+      "evidenceUrls": [
+        "https://www.westrive.com",
+        "https://www.youtube.com/watch?v=91eINjZpk_E"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "quickcoach": {
+      "id": "quickcoach",
+      "name": "QuickCoach",
+      "basis": "Professional coaching-software publisher supplies its original exercise instructions and demonstration; its primary history identifies its Personal Trainer Development Center origins.",
+      "evidenceUrls": [
+        "https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html",
+        "https://www.youtube.com/watch?v=ovzFOjgrhls"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "stick": {
+      "id": "stick",
+      "name": "Stick Mobility",
+      "basis": "Movement-equipment and professional-education publisher; its primary identity page names the founders and explains its movement-training system. Original demonstration credits Stick Mobility.",
+      "evidenceUrls": [
+        "https://stickmobility.com/pages/about-stick-mobility"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "foxman": {
+      "id": "foxman",
+      "name": "Eric Foxman / Balance Personal Training",
+      "basis": "Original bench-push-up demonstration; the author’s primary biography reports ACE personal-training certification and a longstanding professional training practice.",
+      "evidenceUrls": [
+        "https://www.balancepersonaltraining.com/personal-trainer/"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "sanford": {
+      "id": "sanford",
+      "name": "Sanford Health / Sanford Sports",
+      "basis": "Original health-system sports-training channel names certified strength-and-conditioning coaches in the description of this split-squat-hold demonstration.",
+      "evidenceUrls": [
+        "https://www.youtube.com/watch?v=099rt7KePMY"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
+    },
+    "neeld": {
+      "id": "neeld",
+      "name": "Kevin Neeld",
+      "basis": "Original exercise channel; the author’s primary coaching page reports strength-and-conditioning certifications and professional hockey strength-coaching work.",
+      "evidenceUrls": [
+        "https://kevinneeld.com/ultimate-hockey-transformation-2-0/"
+      ],
+      "limitations": "Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.",
+      "checkedOn": "2026-11-13"
     }
   }
 }

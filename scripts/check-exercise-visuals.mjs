@@ -60,6 +60,10 @@ for(const [k,m] of Object.entries(media)){
       if(q.method==='sampled-publisher-video-frames'){
         assert.equal(q.sampleSeconds.length,3);assert.ok(q.durationSeconds>0);
         assert.ok(q.sampleSeconds.every((t,i)=>t>0&&t<q.durationSeconds&&(i===0||t>q.sampleSeconds[i-1])));
+      }else if(q.method==='public-player-position-inspection'){
+        assert.ok(q.displayedPositions.length>=2);
+        assert.ok(q.displayedPositions.every(t=>/^\d+:\d{2}$/.test(t)));
+        assert.ok(!q.sampleSeconds,'Displayed player positions are not decoded sample timestamps');
       }else{
         assert.equal(q.method,'public-provider-preview-stills');assert.equal(q.imageUrls.length,3);
         for(const u of q.imageUrls)assert.equal(new URL(u).protocol,'https:');
@@ -86,7 +90,8 @@ assert.equal(audit.filter(a=>a.previousRelationship==='not-found').length,4);
 assert.equal(entries.filter(e=>e.videoRelationship==='same-labelled-movement').length,187,'Earlier discovery rows are not silently upgraded');
 for(const a of audit){
   const e=entries[a.index];assert.equal(a.id,e.id);assert.equal(a.kind,e.kind);assert.equal(a.name,e.name);
-  assert.equal(a.decision,e.videoRelationship);assert.equal(a.selectedVideo,e.video);assert.equal(a.fullMotionReviewed,false);
+  if(!e.secondFollowupAudit){assert.equal(a.decision,e.videoRelationship);assert.equal(a.selectedVideo,e.video);}
+  assert.equal(a.fullMotionReviewed,false);
   assert.equal(e.followupAudit.decision,a.decision);assert.equal(e.followupAudit.document,`research.md#${e.kind}-${e.id}`);
   assert.ok(researchMd.includes(`id="${e.kind}-${e.id}"`));assert.ok(researchMd.includes(a.evidence));assert.ok(researchMd.includes(a.limits));
   assert.ok(a.evidence.length>60&&a.limits.length>30&&a.sourceUrls.length);
@@ -96,6 +101,30 @@ for(const a of audit){
   for(const u of a.sourceUrls)assert.equal(new URL(u).protocol,'https:');
   for(const id of a.candidateIds)assert.ok(candidates[id]);
 }
+// Later evidence overrides active selections while preserving the first-pass audit.
+const second=json('research-round2.json'),latest=second.entries,latestMd=read(path.join(dir,'research-round2.md'));
+assert.equal(second.baselineRelated,107);assert.equal(second.fullMotionReviewed,false);
+assert.equal(latest.length,107);assert.equal(new Set(latest.map(a=>a.index)).size,107);
+assert.deepEqual(latest.map(a=>a.index).sort((a,b)=>a-b),audit.filter(a=>a.decision==='related-only').map(a=>a.index).sort((a,b)=>a-b),'Every comparison remaining after the first pass is accounted for');
+for(const a of latest){
+  const e=entries[a.index],previous=audit.find(p=>p.index===a.index);
+  assert.deepEqual([a.id,a.kind,a.name],[e.id,e.kind,e.name]);
+  assert.equal(a.previousRelationship,previous.decision);assert.equal(a.previousVideo,previous.selectedVideo);
+  assert.equal(a.decision,e.videoRelationship);assert.equal(a.selectedVideo,e.video);
+  assert.equal(a.reviewDepth,'source-specific-configuration-comparison');assert.equal(a.fullMotionReviewed,false);
+  assert.ok(a.evidence.length>60&&a.limits.length>40&&a.comparisonScope.length>40);
+  assert.equal(e.secondFollowupAudit.decision,a.decision);
+  assert.equal(e.secondFollowupAudit.document,`research-round2.md#${e.kind}-${e.id}`);
+  assert.ok(latestMd.includes(`id="${e.kind}-${e.id}"`)&&latestMd.includes(a.evidence)&&latestMd.includes(a.limits));
+  assert.ok(read(path.join(dir,e.document)).includes(e.secondFollowupAudit.document));
+  assert.ok(media[a.previousVideo]);assert.ok(e.video===a.previousVideo||(e.additionalMedia||[]).includes(a.previousVideo));
+  for(const u of a.sourceUrls)assert.equal(new URL(u).protocol,'https:');
+  for(const id of a.candidateIds)assert.ok(candidates[id]);
+  if(a.internalNotesDifference)assert.ok(latestMd.includes(a.internalNotesDifference));
+}
+assert.equal(summary.secondFollowupTargets,latest.length);
+assert.equal(summary.secondFollowupSourceSpecificComparisons,latest.length);
+assert.deepEqual(summary.secondFollowupDecisions,count(latest.map(a=>a.decision)));
 assert.equal(new Set(Object.values(candidates).map(c=>c.url)).size,Object.keys(candidates).length);
 for(const [id,c] of Object.entries(candidates)){
   assert.equal(id,'c'+createHash('sha256').update(c.url).digest('hex').slice(0,12));
