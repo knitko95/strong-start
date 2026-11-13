@@ -1,23 +1,23 @@
 {
   "summary": {
     "date": "2026-11-13",
-    "baseline": "9f4fc09cdfa2134d9ce8b7fd371248d356ae98c5",
-    "eligible": 273,
+    "baseline": "521c42c06955495ad29576a6dd4c78bf01a3907c",
+    "eligible": 296,
     "byKind": {
-      "catalog": 214,
-      "guide": 56,
+      "catalog": 230,
+      "guide": 63,
       "cardio": 3
     },
-    "excluded": 151,
-    "renderedClips": 272,
-    "renderedImages": 1632,
-    "authoredClipsMeasured": 255,
-    "authoredSamples": 10455,
+    "excluded": 128,
+    "renderedClips": 295,
+    "renderedImages": 1770,
+    "authoredClipsMeasured": 278,
+    "authoredSamples": 11398,
     "browserErrors": [],
     "outcomes": {
-      "no-additional-discrepancy-observed": 58,
-      "closer-review-required": 39,
-      "corrections-required": 175,
+      "no-additional-discrepancy-observed": 62,
+      "closer-review-required": 40,
+      "corrections-required": 193,
       "missing-animation": 1
     },
     "hashes": {
@@ -25,7 +25,7 @@
       "animation-authoring/poses.mjs": "eea13d000f65ff7d291bf2db84495a18982b4761b8922a2c1352b46a5aae19a0",
       "animation-authoring/equipment.mjs": "6e61edcf6d3bc5da0a05aa5f8dd9400ac8935c87f6749d89f937ce5d5194faa4",
       "animation-authoring/recipes.json": "3aeb0d4a3c04c05ff71330846f88f77967b42746f2ade341a0f2c0c877a2abb2",
-      "docs/exercise-visuals/entries.json": "251a081a6f493893c36d6383a41636c39cc67898a0f5545b22e13f69f89eb3f7",
+      "docs/exercise-visuals/entries.json": "57bbb479e7bb3433d1e90919da31ebfaefa6406621005834e67f77be3b021f7e",
       "docs/exercise-technique/catalog.json": "3af8c634f32b3cd6457e16e6bacf101ace047fdcfebad0e62885277b53cb3d7e",
       "docs/exercise-technique/guides.json": "8689004d77bbeadc31254d3aaa5fead71e82a6830de852608286965510f4ca4c",
       "docs/exercise-technique/cardio.json": "03efb30e2b7dd5786d5745e4d2cc0452f04c9b1565d345c3bdcd53123ad8b12a"
@@ -78,6 +78,7 @@
         "cable-woodchop-high-to-low",
         "cable-lift-low-to-high",
         "pallof-press",
+        "cable-trunk-rotation",
         "cable-crunch",
         "lat-pulldown",
         "close-grip-lat-pulldown",
@@ -90,6 +91,7 @@
         "cable-curl",
         "cable-pull-through",
         "cable-glute-kickback",
+        "standing-cable-leg-curl",
         "cable-hip-abduction",
         "cable-hip-adduction"
       ]
@@ -109,6 +111,7 @@
         "machine-triceps-extension",
         "machine-torso-rotation",
         "machine-ab-crunch",
+        "machine-pulldown",
         "machine-preacher-curl"
       ]
     },
@@ -134,10 +137,12 @@
         "weighted-pull-up",
         "chin-up",
         "neutral-grip-pull-up",
+        "machine-pulldown",
         "machine-preacher-curl",
         "hack-squat",
         "leg-press",
         "smith-machine-squat",
+        "glute-drive-machine",
         "smith-machine-split-squat",
         "single-leg-leg-press",
         "lying-leg-curl",
@@ -150,6 +155,8 @@
         "standing-calf-raise-machine",
         "leg-press-calf-raise",
         "hanging-knee-raise",
+        "toes-to-bar",
+        "hanging-windshield-wiper",
         "assisted-pull-up-machine",
         "back-extension",
         "dead-hang"
@@ -186,6 +193,7 @@
         "push-ups",
         "scap-push-ups",
         "bird-dogs",
+        "spiderman-lunge-with-reach",
         "world-s-greatest-stretch",
         "child-s-pose",
         "cobra-stretch"
@@ -402,13 +410,16 @@
         "dead-bug",
         "barbell-hip-thrust",
         "dumbbell-hip-thrust",
+        "glute-drive-machine",
         "single-leg-hip-thrust",
+        "stability-ball-single-leg-bridge",
         "stability-ball-squeeze-bridge",
         "dumbbell-glute-bridge",
         "glute-bridges",
         "dead-bugs",
         "single-leg-glute-bridges",
-        "figure-4-glute-stretch"
+        "figure-4-glute-stretch",
+        "lying-cross-body-glute-stretch"
       ]
     },
     {
@@ -767,6 +778,157 @@
         "band-pallof-press",
         "band-woodchop",
         "prone-band-hamstring-curl"
+      ]
+    },
+    {
+      "id": "E58",
+      "title": "Heel-elevated squat has no heel support",
+      "priority": "P1",
+      "observation": "The new squat recipe keeps both foot pitches at zero and both ankle targets at the ordinary flat-floor height, with no wedge/plates generated.",
+      "required": "Add a stable matched heel wedge, fit heel and forefoot surfaces to it and author the controlled squat. The newer visual reference permits side-held dumbbells; do not silently require the conflicting goblet note.",
+      "affected": [
+        "heel-elevated-dumbbell-squat"
+      ]
+    },
+    {
+      "id": "E59",
+      "title": "Glute-drive machine is only a bench and generic frame",
+      "priority": "P1",
+      "observation": "The glute-drive scene lacks the referenced hip belt/pad, foot platform and moving load lever. It shares the unsupported hip-thrust trunk motion.",
+      "required": "Build the specific belt/pad and footplate/back support configuration, and solve the hip extension against that mechanism.",
+      "affected": [
+        "glute-drive-machine"
+      ]
+    },
+    {
+      "id": "E60",
+      "title": "Single-leg ball bridge uses both feet on the ball",
+      "priority": "P1",
+      "observation": "The ball branch overrides both foot heights and locations after the single-leg branch, leaving the free leg on the ball rather than lifted.",
+      "required": "Keep only the working heel/lower leg on the ball; lift the free leg and retain supported shoulders and a level pelvis.",
+      "affected": [
+        "stability-ball-single-leg-bridge"
+      ]
+    },
+    {
+      "id": "E61",
+      "title": "Trunk rotation is a diagonal chop",
+      "priority": "P1",
+      "observation": "Cable trunk rotation shares the chop recipe, changing the hand height from about 1.50 to 0.75 m instead of the referenced horizontal chest-height rotation.",
+      "required": "Hold a consistent cable height through a controlled horizontal arc and coordinate hip/foot pivot without substituting a high-to-low chop.",
+      "affected": [
+        "cable-trunk-rotation"
+      ]
+    },
+    {
+      "id": "E62",
+      "title": "Machine pulldown lacks its referenced lever machine",
+      "priority": "P1",
+      "observation": "The entry uses a generic seat and two telescoping arms, without the plate-loaded overhead pivots, chest support or thigh restraint identified in the manufacturer reference.",
+      "required": "Model the selected manufacturer-style lever path, handles and support contacts; retain rigid lever lengths and stable seat/pelvis contact.",
+      "affected": [
+        "machine-pulldown"
+      ]
+    },
+    {
+      "id": "E63",
+      "title": "Supported single-arm raise has no support post",
+      "priority": "P1",
+      "observation": "The leaning lateral raise places a free-hand target in space but does not generate a post.",
+      "required": "Add the post at the actual support hand and solve the whole-body lean and working-arm lateral arc around that stable contact.",
+      "affected": [
+        "leaning-single-arm-lateral-raise"
+      ]
+    },
+    {
+      "id": "E64",
+      "title": "Leg-curl cuff and support do not match the standing setup",
+      "priority": "P1",
+      "observation": "Standing cable leg curl uses a torus cable handle at the foot rather than a fitted ankle cuff and positions its free hand without a stable support.",
+      "required": "Show the low cable attachment behind the leg, a fitted cuff and an actual support under the free hand; keep the thigh stable during knee flexion.",
+      "affected": [
+        "standing-cable-leg-curl"
+      ]
+    },
+    {
+      "id": "E65",
+      "title": "Band face-pull anchor and direction are incomplete",
+      "priority": "P1",
+      "observation": "The band face-pull uses the generic chest-height floating anchor rather than the accepted upper-face anchor, and the band/hand path needs a real fixed support.",
+      "required": "Anchor the band around the documented upper-face height and fit the hands-to-temples finish with controlled elbow/shoulder motion.",
+      "affected": [
+        "band-face-pull",
+        "band-face-pulls"
+      ]
+    },
+    {
+      "id": "E66",
+      "title": "Standing hip extension has no chair support",
+      "priority": "P1",
+      "observation": "The unweighted guide places its free hand in space and moves the leg without the fixed chair support described by the accepted source.",
+      "required": "Provide the supported upright variant and keep ribs/pelvis quiet through the small straight-leg reach.",
+      "affected": [
+        "standing-hip-extensions"
+      ]
+    },
+    {
+      "id": "E67",
+      "title": "Knee hug lacks the travelling hand/leg sequence",
+      "priority": "P1",
+      "observation": "The walking-knee-hug branch holds one foot at a raised coordinate and both hands in front of the body. It does not alternate grasp, release, step and the opposite-side hug.",
+      "required": "Author alternating controlled knee grasps and walking steps; keep the foot/body support consistent during each balance phase.",
+      "affected": [
+        "walking-knee-hugs"
+      ]
+    },
+    {
+      "id": "E68",
+      "title": "Cross-body glute stretch reuses figure-four",
+      "priority": "P1",
+      "observation": "The named cross-body stretch uses the figure4 branch with crossed legs and a two-hand thigh reach rather than guiding one bent knee across the supine body.",
+      "required": "Author the accepted bent-knee cross-body guide with both shoulders supported, retaining its distinct setup from a figure-four stretch.",
+      "affected": [
+        "lying-cross-body-glute-stretch"
+      ]
+    },
+    {
+      "id": "E69",
+      "title": "Medicine-ball twist becomes a stability-ball exercise",
+      "priority": "P1",
+      "observation": "The Russian-twist branch checks for the word ball and places the torso supine on a second large stability ball, even for Medicine Ball Russian Twist.",
+      "required": "Keep a seated supported-foot Russian twist with one medicine ball in the hands; do not create the separate stability-ball version.",
+      "affected": [
+        "medicine-ball-russian-twist"
+      ]
+    },
+    {
+      "id": "E70",
+      "title": "Toes-to-bar does not approach the bar",
+      "priority": "P1",
+      "observation": "The raised-leg target produces bent knees and feet well below the bar; no toe-to-bar or near-bar endpoint is established in the inspected finish.",
+      "required": "Author controlled hip flexion/pelvic curl with toes approaching the actual bar within the intended range, and retain the stable hand grip.",
+      "affected": [
+        "toes-to-bar"
+      ]
+    },
+    {
+      "id": "E71",
+      "title": "Jump squat swings the dumbbells",
+      "priority": "P1",
+      "observation": "The generic jump recipe raises both hands toward head height during flight, carrying the dumbbells with them instead of keeping them at the sides.",
+      "required": "Keep the light dumbbells at the sides while authoring the countermovement, jump and balanced landing.",
+      "affected": [
+        "dumbbell-jump-squat"
+      ]
+    },
+    {
+      "id": "E72",
+      "title": "Skater squat lacks the rear-knee descent",
+      "priority": "P1",
+      "observation": "The generic lunge IK places the free knee forward/high while its foot folds behind; it does not bring the free knee toward the documented padded target behind the body.",
+      "required": "Keep the rear knee behind the working leg and lower it toward a padded target through a controlled single-leg squat.",
+      "affected": [
+        "skater-squat"
       ]
     }
   ],
@@ -3020,6 +3182,75 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "leaning-single-arm-lateral-raise",
+      "name": "Leaning Single-Arm Lateral Raise",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "leaning-single-arm-lateral-raise"
+      ],
+      "family": "raise",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E63"
+      ],
+      "referenceScope": "Kurtis Ackerman identifies the original demonstration as a leaning unilateral dumbbell raise. The three inspected public previews show one hand supported on a post, an inclined body and the other arm raising a dumbbell sideways. His published biography lists graduate kinesiology training and CSCS. Publisher-reported qualifications are not a renewal audit. The amount of lean and shoulder range are individual; complete repetitions remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Hold a sturdy post with the free hand and establish a small whole-body side lean with both feet secure.",
+      "expectedAction": "Maintain the lean as the working arm follows a lateral arc; return without swinging the torso upright.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/arms-and-shoulders/lateral-raises/dumbbell-lateral-raise/",
+        "https://pubmed.ncbi.nlm.nih.gov/20411160/",
+        "https://www.youtube.com/watch?v=p8eMhRdeX4g",
+        "https://www.kbfitnesstrainingstudio.com"
+      ],
+      "images": [
+        {
+          "file": "034-leaning-single-arm-lateral-raise-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "034-leaning-single-arm-lateral-raise-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "034-leaning-single-arm-lateral-raise-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "034-leaning-single-arm-lateral-raise-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "034-leaning-single-arm-lateral-raise-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "034-leaning-single-arm-lateral-raise-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "leaning-single-arm-lateral-raise",
+        "family": "raise",
+        "eq": [
+          "db"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 22.64797983813378,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "dumbbell-front-raise",
       "name": "Dumbbell Front Raise",
       "kind": "catalog",
@@ -4086,6 +4317,74 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "cable-trunk-rotation",
+      "name": "Cable Trunk Rotation",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "cable-trunk-rotation"
+      ],
+      "family": "chop",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E03",
+        "E61"
+      ],
+      "referenceScope": "Keiser Europe’s original standing cable-rotation demonstration shows two hands in front of the chest, a standing staggered stance and a roughly horizontal cable line. This replaces the diagonal cable-chop comparison. Manufacturer exercise context supports the configuration; hip restraint, exact range and all narrated cues still require complete-motion review. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Set a cable near chest height and hold the handle with both hands at a manageable reach.",
+      "expectedAction": "Turn the torso and hips together through a controlled horizontal arc, letting the feet pivot as needed.",
+      "sourceUrls": [
+        "https://www.acefitness.org/resources/everyone/exercise-library/108/standing-wood-chop/",
+        "https://www.youtube.com/watch?v=Qe2dGicUEUA"
+      ],
+      "images": [
+        {
+          "file": "051-cable-trunk-rotation-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "051-cable-trunk-rotation-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "051-cable-trunk-rotation-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "051-cable-trunk-rotation-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "051-cable-trunk-rotation-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "051-cable-trunk-rotation-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "cable-trunk-rotation",
+        "family": "chop",
+        "eq": [
+          "cb"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 72.89286316862702,
+        "leftFootTravel": 1.8619006149354548e-16,
+        "rightFootTravel": 1.7677164180852906e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "landmine-rotational-push-press",
       "name": "Landmine Rotational Push Press",
       "kind": "catalog",
@@ -5044,8 +5343,8 @@
       "id": "trx-fallout",
       "name": "TRX Fallout",
       "kind": "catalog",
-      "eligibility": "same-movement-written-reference",
-      "referenceRelationship": "related-only",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
       "writtenRelationship": "same-movement",
       "animationIds": [
         "trx-fallout"
@@ -5055,13 +5354,12 @@
       "findingIds": [
         "E07"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Ab Wheel Roll Outs. The full TRX Fallout equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Swift Movement Academy identifies David Adamo as an accredited exercise physiologist in its original TRX-fallout description. Public previews show standing feet, hands in suspension handles and the arms extended overhead as the body leans forward. This establishes a standing suspension fallout rather than a kneeling wheel rollout. Accreditation is publisher-reported; full motion and all spinal-position cues remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Face away from the anchor with handles forward and straps taut; start in a small standing lean.",
       "expectedAction": "Reach the arms overhead as the body inclines forward, then return as a connected trunk and pelvis.",
       "sourceUrls": [
         "https://www.trxtraining.com/blogs/news/standing-ab-exercises",
-        "https://www.puregym.com/exercises/abs/ab-wheel-rollouts/",
-        "https://www.youtube.com/watch?v=SBO5aFR09D4"
+        "https://www.youtube.com/watch?v=gEXB2iWhoIM"
       ],
       "images": [
         {
@@ -5191,7 +5489,7 @@
         "E03",
         "E50"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: AB EXERCISE - How to do an abdominal crunch (ab crunch). The full Cable Crunch equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Muscle & Strength explicitly describes kneeling under a high rope pulley and flexing the torso. Its embedded Vimeo identifier was discovered on the primary page, but public metadata were redacted and the standalone viewing page was unavailable. Colossus previews show a kneeling cable candidate. The exact written setup is supported; the M&S video identity/playback and the alternative creator’s professional basis remain unresolved. The floor-crunch comparison is not upgraded. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Kneel facing a high cable with the rope held near the temples or shoulders and hips in a repeatable position.",
       "expectedAction": "Curl the ribs toward the pelvis while keeping the rope's relationship to the head steady; uncurl with control.",
       "sourceUrls": [
@@ -5397,7 +5695,7 @@
         "E26",
         "E50"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Decline Sit Ups. The full Weighted Decline Sit-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "PureGym’s original decline-sit-up description establishes the declined bench and secured feet, but does not establish an external plate held at the chest. The closer weighted search result did not supply a verified professional demonstration. The catalog’s plate-at-chest loading remains unverified; an unloaded decline sit-up is still only a comparison. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Secure the feet on a modest decline and hold a light load against the chest before lying back.",
       "expectedAction": "Curl and sit up through the planned trunk/hip range, then lower slowly without jerking against the foot pads.",
       "sourceUrls": [
@@ -6382,6 +6680,75 @@
         ],
         "sampleCount": 41,
         "maximumPalmForearmAxisAngle": 21.194841214921578,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "machine-pulldown",
+      "name": "Machine Pulldown",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "machine-pulldown"
+      ],
+      "family": "pulldown",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E04",
+        "E05",
+        "E62"
+      ],
+      "referenceScope": "The original Life Fitness/Hammer Strength instruction video and its previews show a seated plate-loaded front pulldown with overhead lever handles, chest support and thigh restraint. The manufacturer’s product page independently specifies the overhead pivot and underhand lever grip. This is the Signature plate-loaded implementation. Model-specific adjustments and the full return to the top are not individually approved. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Adjust the seat, thigh support and grip so the machine's handles can be reached without a jump.",
+      "expectedAction": "Pull down along the lever path while the pelvis stays supported; return without letting the levers yank overhead.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/back/lat-exercises/lat-pulldown/",
+        "https://www.youtube.com/watch?v=W86Sj_sUqR8"
+      ],
+      "images": [
+        {
+          "file": "086-machine-pulldown-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "086-machine-pulldown-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "086-machine-pulldown-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "086-machine-pulldown-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "086-machine-pulldown-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "086-machine-pulldown-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "machine-pulldown",
+        "family": "pulldown",
+        "eq": [
+          "mc"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 77.45898915485067,
         "leftFootTravel": 0,
         "rightFootTravel": 0
       },
@@ -8815,6 +9182,74 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "heel-elevated-dumbbell-squat",
+      "name": "Heel-Elevated Dumbbell Squat",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "heel-elevated-dumbbell-squat"
+      ],
+      "family": "squat",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E58"
+      ],
+      "referenceScope": "Physitrack’s exercise-specific page and sampled public video show raised heels, toes on the floor, a dumbbell in each hand and a squat. The catalog requires dumbbells and elevated heels, but does not mandate a goblet grip. The filmed support is a low wedge/ledge rather than a loose plate. The internal notes choose a goblet load; that difference remains explicit and those notes are not validated by the side-loaded clip. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Use a solid matched heel wedge or stable plates that support both heels evenly; hold the dumbbell near the chest.",
+      "expectedAction": "Allow controlled forward knee travel while descending and keep the forefoot and heel supports in contact.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/legs/quad-exercises/squats/goblet-squat/",
+        "https://na.physitrack.com/home-exercise-video/heel-elevated-dumbbell-squat",
+        "https://media.physitrack.com/exercises/b8dae74a-615d-4f67-8fcc-656e9bccfd97/en/video_1280x720.mp4"
+      ],
+      "images": [
+        {
+          "file": "124-heel-elevated-dumbbell-squat-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "124-heel-elevated-dumbbell-squat-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "124-heel-elevated-dumbbell-squat-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "124-heel-elevated-dumbbell-squat-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "124-heel-elevated-dumbbell-squat-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "124-heel-elevated-dumbbell-squat-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "heel-elevated-dumbbell-squat",
+        "family": "squat",
+        "eq": [
+          "db"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 14.230505799022314,
+        "leftFootTravel": 1.7772239894833365e-16,
+        "rightFootTravel": 2.2215299868541707e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "conventional-deadlift",
       "name": "Conventional Deadlift",
       "kind": "catalog",
@@ -9220,7 +9655,7 @@
       "findingIds": [
         "E03"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Band-resisted hip hinge comparator. The similarly titled lumbar pull-through deliberately rounds the lumbar spine and was rejected for this cable hip hinge. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Live Lean’s original cable pull-through description and previews show a rope from a low stack passing between the legs. Rehab Hero’s current reference uses an anchored band. The cable candidate is closer, but its professional credential basis remains unverified here. Its claim of no spinal loading is not adopted. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Attach a rope to a low cable behind you and straddle it with enough distance for stack clearance.",
       "expectedAction": "Hinge backward with hands passing between the thighs, then extend the hips to stand without pulling the rope with the arms.",
       "sourceUrls": [
@@ -9412,6 +9847,76 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "glute-drive-machine",
+      "name": "Glute Drive Machine",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "glute-drive-machine"
+      ],
+      "family": "bridge",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E05",
+        "E23",
+        "E59"
+      ],
+      "referenceScope": "The manufacturer’s public Nautilus Glute Drive video was inspected through the visible player. At the displayed 0:35 and 0:40 positions it shows the plate-loaded hip-thrust machine, supported back, feet on the platform and the belt across the hips. A manufacturer marketing video supports machine identity and operating position. Those isolated player positions do not validate all repetition mechanics, belt adjustment or the promotional safety claims. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Read the machine placard, set the seat/back support and secure the lap belt or pad over the intended hip area.",
+      "expectedAction": "Extend the hips against the lever, pause without a lumbar backbend and return to the machine's controlled bottom.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/glutes/hip-thrusts/barbell-hip-thrust/",
+        "https://info.corehandf.com/glute-drive",
+        "https://vimeo.com/322120209"
+      ],
+      "images": [
+        {
+          "file": "134-glute-drive-machine-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "134-glute-drive-machine-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "134-glute-drive-machine-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "134-glute-drive-machine-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "134-glute-drive-machine-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "134-glute-drive-machine-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "glute-drive-machine",
+        "family": "bridge",
+        "eq": [
+          "mc"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 62.04507000091316,
+        "leftFootTravel": 4.154074181055224e-16,
+        "rightFootTravel": 4.154074181055224e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "single-leg-hip-thrust",
       "name": "Single-Leg Hip Thrust",
       "kind": "catalog",
@@ -9476,6 +9981,76 @@
         "maximumPalmForearmAxisAngle": 62.04507000091316,
         "leftFootTravel": 4.154074181055224e-16,
         "rightFootTravel": 2.7894008272968645e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "stability-ball-single-leg-bridge",
+      "name": "Stability Ball Single-Leg Bridge",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "stability-ball-single-leg-bridge"
+      ],
+      "family": "bridge",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E23",
+        "E60"
+      ],
+      "referenceScope": "Brian Schiff’s authored PFP article embeds the credited PFP media video and explicitly describes supine support, one heel/lower leg on the ball, the opposite leg lifted and hip extension. The inspected public previews show the single-leg ball bridge. The article offers arm-position and tempo progressions; these are optional variants, not extra catalog requirements. Full-motion and individual prescription remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Lie with one heel on a stable ball and arms wide on the floor; keep the free knee bent initially.",
+      "expectedAction": "Lift the hips while pressing the heel down and preventing the ball from rolling away or the pelvis rotating.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/glutes/glute-bridge/single-leg-glute-bridges/",
+        "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/swiss-ball-hamstring-curls/",
+        "https://www.youtube.com/watch?v=U1oarHmUKrY",
+        "https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html"
+      ],
+      "images": [
+        {
+          "file": "136-stability-ball-single-leg-bridge-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "136-stability-ball-single-leg-bridge-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "136-stability-ball-single-leg-bridge-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "136-stability-ball-single-leg-bridge-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "136-stability-ball-single-leg-bridge-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "136-stability-ball-single-leg-bridge-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "stability-ball-single-leg-bridge",
+        "family": "bridge",
+        "eq": [
+          "sb"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 62.045070000913206,
+        "leftFootTravel": 4.0125770192081414e-16,
+        "rightFootTravel": 4.710277376051326e-16
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -10021,6 +10596,74 @@
         "maximumPalmForearmAxisAngle": 8.661047440425532,
         "leftFootTravel": 2.5438405243138006e-16,
         "rightFootTravel": 0.17999999999999988
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "skater-squat",
+      "name": "Skater Squat",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "skater-squat"
+      ],
+      "family": "lunge",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E72"
+      ],
+      "referenceScope": "Jen Sinkler’s original instructions describe a one-legged squat with the free knee descending behind the body to the floor or a pad. Inspected previews show an unloaded version with a padded target, unlike the existing dumbbell-counterbalanced reference. Her first-person Girls Gone Strong interview supplies a bodyweight-coaching background; it is historical and does not verify current certification renewal or every repetition. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Stand on one leg with the other knee bent behind and a padded target beneath the rear knee.",
+      "expectedAction": "Bend the working leg and incline the torso enough for balance as the rear knee approaches the pad, then stand.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/legs/quad-exercises/squats/split-squats/",
+        "https://www.youtube.com/watch?v=Nfj95QABIdI",
+        "https://www.girlsgonestrong.com/blog/articles/jen-sinkler/"
+      ],
+      "images": [
+        {
+          "file": "145-skater-squat-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "145-skater-squat-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "145-skater-squat-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "145-skater-squat-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "145-skater-squat-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "145-skater-squat-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "skater-squat",
+        "family": "lunge",
+        "eq": [
+          "bw"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 7.922428673141845,
+        "leftFootTravel": 2.482534153247273e-16,
+        "rightFootTravel": 2.387624894196368e-16
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -10830,6 +11473,76 @@
         "maximumPalmForearmAxisAngle": 0.28547344743409464,
         "leftFootTravel": 0.6074537019394973,
         "rightFootTravel": 0.6074537019394973
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "standing-cable-leg-curl",
+      "name": "Standing Cable Leg Curl",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "standing-cable-leg-curl"
+      ],
+      "family": "legCurl",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E03",
+        "E64"
+      ],
+      "referenceScope": "Andrew Heming’s original standing cable-leg-curl video and public previews show standing support at a cable station with an ankle attachment and knee flexion. His university profile identifies exercise-science education and strength/personal-training certifications. This replaces the lying machine comparison. The exact cuff fit, cable clearance and complete return range remain for full playback review. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Attach a cuff to a low cable behind the working leg and hold a support with the thighs aligned.",
+      "expectedAction": "Bend the working knee to bring the heel backward while the pelvis and thigh stay mostly still.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/lying-leg-curl/",
+        "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/banded-hamstring-curl/",
+        "https://www.youtube.com/watch?v=_V0Y9YFAyFo",
+        "https://www.twu.ca/profile/andrew-heming"
+      ],
+      "images": [
+        {
+          "file": "158-standing-cable-leg-curl-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "158-standing-cable-leg-curl-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "158-standing-cable-leg-curl-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "158-standing-cable-leg-curl-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "158-standing-cable-leg-curl-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "158-standing-cable-leg-curl-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "standing-cable-leg-curl",
+        "family": "legCurl",
+        "eq": [
+          "cb"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 8.69232959367041,
+        "leftFootTravel": 0.4808326112068524,
+        "rightFootTravel": 0
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -11918,8 +12631,8 @@
       "id": "single-leg-dumbbell-calf-raise",
       "name": "Single-Leg Dumbbell Calf Raise",
       "kind": "catalog",
-      "eligibility": "same-movement-written-reference",
-      "referenceRelationship": "related-only",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
       "writtenRelationship": "same-movement",
       "animationIds": [
         "single-leg-dumbbell-calf-raise"
@@ -11927,12 +12640,13 @@
       "family": "calf",
       "outcome": "no-additional-discrepancy-observed",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Single Leg Calf Raise. The full Single-Leg Dumbbell Calf Raise equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "FITTR’s original instructions specify one dumbbell at the side, a single forefoot on a raised block, the other leg lifted and hand support for balance. The three public previews show that loaded supported single-leg arrangement. FITTR identifies its coaching staff as certified; the unnamed model’s individual credential is not independently checked. A controlled individual ankle range still needs full-motion review. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Hold a stable support with one hand and a dumbbell with the other, working forefoot on a secure step or floor.",
       "expectedAction": "Raise the working heel, pause and lower without ankle rolling or pushing through the support arm.",
       "sourceUrls": [
         "https://www.puregym.com/exercises/legs/calf-exercises/single-leg-calf-raises/",
-        "https://www.youtube.com/watch?v=IphGZ8OlfYg"
+        "https://www.youtube.com/watch?v=PTn6icEeH3Y",
+        "https://usa.fittr.com/faq"
       ],
       "images": [
         {
@@ -12194,7 +12908,7 @@
       "findingIds": [
         "E28"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Bulgarian Split Squats. The full Box Bulgarian Split Squat equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Squat University’s tutorial discusses rear-support height and split-squat stance, but the inspected previews do not establish the catalog pair of dumbbells with a box supporting the rear foot. PureGym’s generic Bulgarian clip remains the earlier comparison. Need the rear-foot box support and dumbbell loading in the actual selected demonstration; a generic Bulgarian-squat name is insufficient. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Use a stable low box for the rear foot and choose the front-foot distance before taking dumbbells.",
       "expectedAction": "Lower through the front hip/knee with the rear foot mainly supplying balance, then stand through the front foot.",
       "sourceUrls": [
@@ -12515,6 +13229,72 @@
         "maximumPalmForearmAxisAngle": 51.714828936290075,
         "leftFootTravel": 0.6646475732410547,
         "rightFootTravel": 0.6646475732410545
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "single-leg-box-jump",
+      "name": "Single-Leg Box Jump",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "single-leg-box-jump"
+      ],
+      "family": "jump",
+      "outcome": "no-additional-discrepancy-observed",
+      "findingIds": [],
+      "referenceScope": "SATS’s original description specifies using one leg. Visible-player positions around 0:01, 0:03 and 0:04 were compared: a unilateral floor stance is followed by same-leg support on the box with the other leg lifted. OPEX’s description explicitly instructs a two-foot landing and is rejected for this target. The SATS evidence supports the takeoff/landing configuration. The catalog step-down exit, every landing and continuous movement have not been validated. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Use a very low box and establish controlled single-leg landings on the floor first.",
+      "expectedAction": "Take off and land on the same leg, hold balance and step down safely rather than hopping down.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/plyometrics/jumps/box-jumps/",
+        "https://www.youtube.com/watch?v=ENZjCX9HjVI",
+        "https://careers.sats.com/pages/work-as-a-personal-trainer"
+      ],
+      "images": [
+        {
+          "file": "184-single-leg-box-jump-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "184-single-leg-box-jump-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "184-single-leg-box-jump-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "184-single-leg-box-jump-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "184-single-leg-box-jump-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "184-single-leg-box-jump-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "single-leg-box-jump",
+        "family": "jump",
+        "eq": [
+          "bx"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 34.13427837712476,
+        "leftFootTravel": 0.548943776447817,
+        "rightFootTravel": 0.548943776447817
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -12858,7 +13638,7 @@
       "family": "jump",
       "outcome": "no-additional-discrepancy-observed",
       "findingIds": [],
-      "referenceScope": "The Physitrack pogo pages and sampled videos are single-leg or alternating hops. The catalog uses two-foot in-place ankle hops; the earlier E3 diagonal component remains related.",
+      "referenceScope": "Live Lean’s published instructions explicitly describe small quick bilateral ankle hops, and previews show a two-foot hopping posture. Physitrack’s similarly named pages instead contain single-leg or alternating hops. The Live Lean creator’s professional qualification basis remains unverified here; the earlier E3 diagonal component is not reclassified as an in-place two-foot demonstration. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Stand tall on a nonslip floor with a clear area and low jump amplitude.",
       "expectedAction": "Use quick small ankle-driven rebounds with soft knees and aligned trunk, letting heels lower as control requires.",
       "sourceUrls": [
@@ -12912,6 +13692,74 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "dumbbell-jump-squat",
+      "name": "Dumbbell Jump Squat",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "dumbbell-jump-squat"
+      ],
+      "family": "jump",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E71"
+      ],
+      "referenceScope": "Annie Miller’s original exercise description identifies the jump-squat version with dumbbells at the sides; inspected public previews show the two side-held dumbbells and the squat/jump setup. Her primary education page lists an exercise-science degree and CSCS background. This supports implement and action identity. Load choice, landing quality and complete repetitions remain unreviewed; no universal loading percentage is adopted. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Hold very light bells at the sides after unloaded jump and landing competence is established.",
+      "expectedAction": "Use a small countermovement, jump without swinging the bells and land with balanced whole-body control.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/legs/quad-exercises/squats/squat-jumps/",
+        "https://www.youtube.com/watch?v=GGPXs7JbH5o",
+        "https://learn.anniemiller.co/pure-programming/"
+      ],
+      "images": [
+        {
+          "file": "191-dumbbell-jump-squat-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "191-dumbbell-jump-squat-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "191-dumbbell-jump-squat-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "191-dumbbell-jump-squat-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "191-dumbbell-jump-squat-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "191-dumbbell-jump-squat-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "dumbbell-jump-squat",
+        "family": "jump",
+        "eq": [
+          "db"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 48.17953135224739,
+        "leftFootTravel": 0.269728127966155,
+        "rightFootTravel": 0.269728127966155
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "side-step-lunge",
       "name": "Side Step Lunge",
       "kind": "catalog",
@@ -12924,7 +13772,7 @@
       "family": "lateral",
       "outcome": "closer-review-required",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Side Lunge Slider. The full Side Step Lunge equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Stryd’s side-step lunge explicitly places the hands on the hips, and OriGym’s candidate uses a ViPR. The current Rehab Hero clip uses a slider rather than stepping out with dumbbells. A dumbbell-loaded side step with a return and alternating sides remains unresolved; unloaded, ViPR and sliding versions are kept distinct. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Start tall with light dumbbells or no load, leaving room for a sideways step.",
       "expectedAction": "Step out and sit into that hip, then push back to center and alternate legs as the catalog specifies.",
       "sourceUrls": [
@@ -13111,6 +13959,141 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "band-face-pull",
+      "name": "Band Face Pull",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "band-face-pull"
+      ],
+      "family": "rearFly",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E65"
+      ],
+      "referenceScope": "BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Only the band face-pull setup is adopted. The publisher’s broad rehabilitation/condition claims are not adopted; no individual licence-renewal or complete-motion audit was performed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Anchor an inspected band around eye level to a rated fixture and stand clear of its recoil line.",
+      "expectedAction": "Pull toward the brow while the hands separate and elbows move outward, then return without the band snapping.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/face-pulls/",
+        "https://cdn.muscleandstrength.com/exercises/band-pull-apart",
+        "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+        "https://befittrainingphysio.com/team/"
+      ],
+      "images": [
+        {
+          "file": "195-band-face-pull-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "195-band-face-pull-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "195-band-face-pull-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "195-band-face-pull-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "195-band-face-pull-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "195-band-face-pull-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "band-face-pull",
+        "family": "rearFly",
+        "eq": [
+          "bd"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 49.26517140347718,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "kneeling-band-lat-pulldown",
+      "name": "Kneeling Band Lat Pulldown",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "kneeling-band-lat-pulldown"
+      ],
+      "family": "pulldown",
+      "outcome": "no-additional-discrepancy-observed",
+      "findingIds": [],
+      "referenceScope": "Steph Dorworth’s original nine-second demonstration and its previews show kneeling support, bands from high anchors and bent elbows pulling downward. Her authored PostureMedic manual identifies her physiotherapy and strength-coaching background. High-anchor band loading replaces the cable comparator. The manual supports author identity, not this particular video’s complete technique or a current licensing check. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Anchor an inspected band high to a rated fixture and kneel with padding at a distance that keeps controlled tension.",
+      "expectedAction": "Draw the elbows toward the ribs, then return to a comfortable overhead reach without leaning backward.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/back/lat-exercises/kneeling-lat-pulldown/",
+        "https://www.youtube.com/watch?v=fGIKnkrBOcs",
+        "https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf"
+      ],
+      "images": [
+        {
+          "file": "196-kneeling-band-lat-pulldown-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "196-kneeling-band-lat-pulldown-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "196-kneeling-band-lat-pulldown-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "196-kneeling-band-lat-pulldown-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "196-kneeling-band-lat-pulldown-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "196-kneeling-band-lat-pulldown-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "kneeling-band-lat-pulldown",
+        "family": "pulldown",
+        "eq": [
+          "bd"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 20.70770443064746,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "band-overhead-press",
       "name": "Band Overhead Press",
       "kind": "catalog",
@@ -13250,8 +14233,8 @@
       "id": "band-pallof-press",
       "name": "Band Pallof Press",
       "kind": "catalog",
-      "eligibility": "same-movement-written-reference",
-      "referenceRelationship": "related-only",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
       "writtenRelationship": "same-movement",
       "animationIds": [
         "band-pallof-press"
@@ -13261,12 +14244,12 @@
       "findingIds": [
         "E56"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Pallof Press. The full Band Pallof Press equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Rehab Hero’s Pallof page explicitly describes an elastic band anchored to the side, hands starting at the chest and a forward press while resisting turn. Its original video previews show the standing band version, replacing PureGym’s cable demonstration. The source suggests longer holds than the catalog two-second pause. Hold duration remains a programming difference; the equipment and anti-rotation configuration are supported. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Anchor an inspected band near chest height and stand side-on with hands held at the sternum.",
       "expectedAction": "Press forward and hold briefly without letting the band turn the torso, then return slowly.",
       "sourceUrls": [
         "https://www.puregym.com/exercises/abs/pallof-press/",
-        "https://www.youtube.com/watch?v=HXrLaqNIkTs"
+        "https://www.youtube.com/watch?v=pomi-NOseBw"
       ],
       "images": [
         {
@@ -13790,7 +14773,7 @@
       "family": "medThrow",
       "outcome": "closer-review-required",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Straight overhead slam component only. Rotation, side target and foot pivot remain a direct-variant gap. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "JS FIT’s original description specifies raising the ball overhead and slamming to one side; its previews show the low side finish. The current Muscle & Strength comparison slams centrally. Onnit’s article separately discusses rotational slams. The outside-foot placement and a sufficiently attributed exact video remain unresolved. A central slam does not establish the rotational finish. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Use a slam-rated ball and clear the outside-foot landing area on both sides.",
       "expectedAction": "Raise the ball, turn through hips and feet and slam beside the body, then retrieve and repeat the other side.",
       "sourceUrls": [
@@ -13856,7 +14839,7 @@
       "family": "medThrow",
       "outcome": "closer-review-required",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Half-kneeling lateral throw is related only to the standing low scoop toss. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Simone Sports Performance’s candidate previews show standing rotational medicine-ball work at a wall, unlike Victor Lopez’s explicitly half-kneeling video and the existing kneeling comparator. Need to establish the low scoop release, back-hip loading and standing side-on sequence in the closer source; standing chest passes must remain distinct. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Stand side-on to an approved wall with a suitable rebound-rated ball near the rear hip.",
       "expectedAction": "Load the rear hip, turn and drive the ball from low beside the hip toward the wall, then reset or receive under control.",
       "sourceUrls": [
@@ -13990,7 +14973,7 @@
       "family": "medThrow",
       "outcome": "closer-review-required",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Medicine ball overhead toss. The full Medicine Ball Overhead Wall Throw equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "NeuStrength describes a medicine ball lifted overhead for a wall throw and its previews show an overhead stance facing a wall. The existing Physitrack overhead-toss label does not establish the required step-in wall-directed sequence. The step-in soccer-throw action, wall target and the new publisher’s professional basis remain unresolved together. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Face an approved wall with enough distance for the throw and rebound; hold a suitable ball overhead with both hands.",
       "expectedAction": "Use a controlled step and coordinated trunk/arm drive to release toward the wall, then reset.",
       "sourceUrls": [
@@ -14040,6 +15023,74 @@
         "maximumPalmForearmAxisAngle": 56.19458788710881,
         "leftFootTravel": 0,
         "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "medicine-ball-russian-twist",
+      "name": "Medicine Ball Russian Twist",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "medicine-ball-russian-twist"
+      ],
+      "family": "russian",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E69"
+      ],
+      "referenceScope": "Red Dot Fitness’s original medicine-ball Russian-twist previews show seated floor support, a medicine ball held in both hands and rotation beside the hips. The primary staff page documents a professional strength-coaching and athletic-training team. The catalog medicine-ball load is supported; grounded versus lifted feet and the individual rotation range remain variants. Team qualifications are not attributed to the unnamed model. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Sit with feet supported and a light ball held near the chest, leaning back only as far as control allows.",
+      "expectedAction": "Turn the chest and ball together through a small arc, then return through center to the other side.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/abs/russian-twists/",
+        "https://www.youtube.com/watch?v=w0CTy_eIIcM",
+        "https://reddotfitness.net/staff"
+      ],
+      "images": [
+        {
+          "file": "211-medicine-ball-russian-twist-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "211-medicine-ball-russian-twist-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "211-medicine-ball-russian-twist-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "211-medicine-ball-russian-twist-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "211-medicine-ball-russian-twist-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "211-medicine-ball-russian-twist-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "medicine-ball-russian-twist",
+        "family": "russian",
+        "eq": [
+          "mb"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 17.944950882070632,
+        "leftFootTravel": 3.2487068343022356e-16,
+        "rightFootTravel": 4.0886516013572506e-16
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -14107,6 +15158,72 @@
         "maximumPalmForearmAxisAngle": 62.65232148468976,
         "leftFootTravel": 3.8659043403122315e-16,
         "rightFootTravel": 4.710277376051325e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "medicine-ball-woodchop",
+      "name": "Medicine Ball Woodchop",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "medicine-ball-woodchop"
+      ],
+      "family": "chop",
+      "outcome": "closer-review-required",
+      "findingIds": [],
+      "referenceScope": "WeStrive’s original clip credits featured trainer David Miguens and identifies its library as trainer-made. Its public previews show a held medicine ball travelling on a diagonal between a high shoulder position and the opposite low side, rather than a cable or released throw. This is a professional coaching-software publisher’s attribution, not independent verification of the featured trainer’s current certification. Complete motion and foot pivot remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Hold a light ball with both hands and stand with room for a diagonal high-to-low arc.",
+      "expectedAction": "Move from above one shoulder toward the opposite hip/knee region while coordinating the hips and foot pivot.",
+      "sourceUrls": [
+        "https://www.acefitness.org/resources/everyone/exercise-library/108/standing-wood-chop/",
+        "https://www.youtube.com/watch?v=91eINjZpk_E",
+        "https://www.westrive.com"
+      ],
+      "images": [
+        {
+          "file": "213-medicine-ball-woodchop-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "213-medicine-ball-woodchop-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "213-medicine-ball-woodchop-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "213-medicine-ball-woodchop-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "213-medicine-ball-woodchop-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "213-medicine-ball-woodchop-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "medicine-ball-woodchop",
+        "family": "chop",
+        "eq": [
+          "mb"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 74.89203758705453,
+        "leftFootTravel": 1.8619006149354548e-16,
+        "rightFootTravel": 1.7677164180852906e-16
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -14248,8 +15365,8 @@
       "id": "bosu-side-plank",
       "name": "BOSU Side Plank",
       "kind": "catalog",
-      "eligibility": "same-movement-written-reference",
-      "referenceRelationship": "related-only",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
       "writtenRelationship": "same-movement",
       "animationIds": [
         "bosu-side-plank"
@@ -14259,13 +15376,14 @@
       "findingIds": [
         "E33"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Side Plank. The full BOSU Side Plank equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "QuickCoach’s original instructions explicitly place a forearm on the dome with the flat base on the floor, stack the feet and hold a raised side plank. The inspected public previews show that support arrangement. A professional coaching-software reference supports setup identity, not an individual medical credential, a suitable hold duration or approval of continuous execution. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Set the dome up and place the supporting forearm on it with elbow under the shoulder region.",
       "expectedAction": "Lift into a side plank while keeping the dome stable, using a bent lower knee if needed.",
       "sourceUrls": [
         "https://www.acefitness.org/resources/everyone/exercise-library/303/side-plank/",
         "https://www.puregym.com/exercises/abs/side-planks/",
-        "https://www.youtube.com/watch?v=Oe9Tp9SvTCE"
+        "https://www.youtube.com/watch?v=ovzFOjgrhls",
+        "https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html"
       ],
       "images": [
         {
@@ -14325,7 +15443,7 @@
       "family": "jump",
       "outcome": "closer-review-required",
       "findingIds": [],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Manufacturer pulse squat-jump variation; check whether the catalog starts/lands on the same surface. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "BOSU’s official Pulse Squat Jump begins and continues on top of the balance trainer. Nicole Murphy’s candidate previews also show the exerciser already on the dome. The catalog starts on the floor, jumps onto the dome and steps down. An on-dome jump sequence is not an exact entry/exit reference. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Use the dome-up BOSU and demonstrate floor squat jumps and stable dome landings before attempting this version.",
       "expectedAction": "Jump from the floor onto the dome, absorb the landing with knees and hips flexed, then step down and reset.",
       "sourceUrls": [
@@ -14374,6 +15492,144 @@
         "maximumPalmForearmAxisAngle": 50.42585254077937,
         "leftFootTravel": 0.43908996800200306,
         "rightFootTravel": 0.43809237848279414
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "toes-to-bar",
+      "name": "Toes-to-Bar",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "toes-to-bar"
+      ],
+      "family": "hanging",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E05",
+        "E70"
+      ],
+      "referenceScope": "Jacob Goodin’s original toes-to-bar description explicitly identifies a hanging bar setup, raising the toes to the bar and limiting swing. Public previews show the hanging raised-leg implementation. This replaces the less specific hanging-leg-raise comparison. The anti-swing instruction supports the intended controlled variant; repeated toe contact and all repetitions have not been inspected. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Use a secure bar with sufficient clearance and establish a strong controlled hang before lifting.",
+      "expectedAction": "Raise the legs and curl the pelvis until the toes approach the bar within available control, then lower without a large swing.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/abs/hanging-leg-raises/",
+        "https://www.youtube.com/watch?v=c3dKJRVMRHw",
+        "https://www.pointloma.edu/file/15881/download"
+      ],
+      "images": [
+        {
+          "file": "218-toes-to-bar-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "218-toes-to-bar-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "218-toes-to-bar-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "218-toes-to-bar-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "218-toes-to-bar-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "218-toes-to-bar-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "toes-to-bar",
+        "family": "hanging",
+        "eq": [
+          "pu"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 1.9591266328592292,
+        "leftFootTravel": 1.5380187135013097,
+        "rightFootTravel": 1.5380187135013097
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "hanging-windshield-wiper",
+      "name": "Hanging Windshield Wiper",
+      "kind": "catalog",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "hanging-windshield-wiper"
+      ],
+      "family": "hanging",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E05"
+      ],
+      "referenceScope": "Scott Herman’s specifically named hanging-windshield-wiper video and inspected previews establish a hanging raised-leg implementation. The catalog says to sweep raised legs side to side and does not require bent knees. The video is the advanced straight-leg configuration. The internal notes deliberately begin with bent knees and a small arc; that regression is not presented as the filmed variant. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Begin with a secure hang and bent knees raised only as high as the trunk can support.",
+      "expectedAction": "Move the legs through a small side-to-side arc with a controlled pelvis, then return to center before lowering.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/abs/hanging-leg-raises/",
+        "https://www.puregym.com/exercises/abs/russian-twists/",
+        "https://www.youtube.com/watch?v=arDUVmCzyhc",
+        "https://muscularstrength.com/team"
+      ],
+      "images": [
+        {
+          "file": "219-hanging-windshield-wiper-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "219-hanging-windshield-wiper-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "219-hanging-windshield-wiper-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "219-hanging-windshield-wiper-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "219-hanging-windshield-wiper-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "219-hanging-windshield-wiper-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "hanging-windshield-wiper",
+        "family": "hanging",
+        "eq": [
+          "pu"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 10.697833986015807,
+        "leftFootTravel": 0.49999999999999994,
+        "rightFootTravel": 0.49999999999999994
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -15113,6 +16369,72 @@
         "eq": [],
         "sampleCount": 41,
         "maximumPalmForearmAxisAngle": 81.0101238790331,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "band-dislocates",
+      "name": "Band dislocates",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "band-dislocates"
+      ],
+      "family": "passThrough",
+      "outcome": "no-additional-discrepancy-observed",
+      "findingIds": [],
+      "referenceScope": "Stick Mobility’s original resistance-band dislocate/passthrough demonstration and previews show a wide two-hand band grip passing overhead to behind the body. Its own manufacturer/education page documents the movement-training publishing context. Only the comfortable passthrough phase is relevant. Extra band-wrapping phases, forced end range and broad benefit claims are not adopted. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Inspect a light band and hold it very wide with arms forward and elbows soft.",
+      "expectedAction": "Raise it overhead and behind only within an unforced range, then reverse without rib flare.",
+      "sourceUrls": [
+        "https://www.cfa.vic.gov.au/ArticleDocuments/556/Brigade-Magazine%20-Spring-2020-web.pdf.aspx",
+        "https://www.youtube.com/watch?v=7p-Ma0eksaY",
+        "https://stickmobility.com/pages/about-stick-mobility"
+      ],
+      "images": [
+        {
+          "file": "231-band-dislocates-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "231-band-dislocates-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "231-band-dislocates-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "231-band-dislocates-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "231-band-dislocates-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "231-band-dislocates-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "band-dislocates",
+        "family": "passThrough",
+        "eq": [
+          "bd"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 33.08726332399093,
         "leftFootTravel": 0,
         "rightFootTravel": 0
       },
@@ -16035,8 +17357,8 @@
       "id": "incline-push-ups-on-a-bench",
       "name": "Incline push-ups on a bench",
       "kind": "guide",
-      "eligibility": "same-movement-written-reference",
-      "referenceRelationship": "related-only",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
       "writtenRelationship": "same-movement",
       "animationIds": [
         "incline-push-ups-on-a-bench"
@@ -16046,12 +17368,13 @@
       "findingIds": [
         "E06"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Incline push-up reference; support type and explosive/fast pace may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Eric Foxman’s original incline-push-up-on-bench video and previews show both hands supported on a stable bench and feet on the floor. His primary biography states ACE personal-training certification and a longstanding training practice. Bench support is established, replacing the generic incline comparison. The amount of incline and complete repetitions remain unreviewed; certification renewal was not checked. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Use a stable bench against movement and set the hands slightly wider than the shoulders.",
       "expectedAction": "Lower the chest toward the bench and press away while keeping head, pelvis and heels connected.",
       "sourceUrls": [
         "https://www.puregym.com/exercises/chest/press-up/incline-push-ups/",
-        "https://www.youtube.com/watch?v=yAbg3_pJKvw"
+        "https://www.youtube.com/watch?v=-ooNS30xQ1Q",
+        "https://www.balancepersonaltraining.com/personal-trainer/"
       ],
       "images": [
         {
@@ -17140,6 +18463,71 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "spiderman-lunge-with-reach",
+      "name": "Spiderman lunge with reach",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "spiderman-lunge-with-reach"
+      ],
+      "family": "worldStretch",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E06"
+      ],
+      "referenceScope": "Rehab Hero’s separately named Spiderman Rotations page and original video previews show a long split-lunge support with the front-leg-side arm reaching upward and the other hand on the floor. This supplies the reach missing from the current lunge-only comparison. The source’s generic mobility-benefit statements are not individual outcome evidence. The rear-knee-supported regression and full repetition sequence remain distinct from the extended-leg implementation. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Step into a supported long lunge with hands on the floor or blocks inside the front foot.",
+      "expectedAction": "Open the chest by reaching the front-leg-side arm upward, then return and switch sides.",
+      "sourceUrls": [
+        "https://ca.physitrack.com/home-exercise-video/hip-stretch-flow---%2522worlds-greatest-stretch%2522",
+        "https://www.youtube.com/watch?v=ZUsGZi4HGwE"
+      ],
+      "images": [
+        {
+          "file": "263-spiderman-lunge-with-reach-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "263-spiderman-lunge-with-reach-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "263-spiderman-lunge-with-reach-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "263-spiderman-lunge-with-reach-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "263-spiderman-lunge-with-reach-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "263-spiderman-lunge-with-reach-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "spiderman-lunge-with-reach",
+        "family": "worldStretch",
+        "eq": [],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 85.32347643946623,
+        "leftFootTravel": 2.3055512673781017e-16,
+        "rightFootTravel": 2.276126435504334e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "cossack-squats",
       "name": "Cossack squats",
       "kind": "guide",
@@ -17269,6 +18657,75 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "band-face-pulls",
+      "name": "Band face pulls",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "band-face-pulls"
+      ],
+      "family": "rearFly",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E65"
+      ],
+      "referenceScope": "BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Only the band face-pull setup is adopted. The publisher’s broad rehabilitation/condition claims are not adopted; no individual licence-renewal or complete-motion audit was performed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Anchor an inspected light band securely around eye level with the body out of its recoil line.",
+      "expectedAction": "Draw the hands toward the temples and separate them comfortably, then return slowly.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/face-pulls/",
+        "https://cdn.muscleandstrength.com/exercises/band-pull-apart",
+        "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+        "https://befittrainingphysio.com/team/"
+      ],
+      "images": [
+        {
+          "file": "266-band-face-pulls-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "266-band-face-pulls-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "266-band-face-pulls-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "266-band-face-pulls-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "266-band-face-pulls-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "266-band-face-pulls-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "band-face-pulls",
+        "family": "rearFly",
+        "eq": [
+          "bd"
+        ],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 49.26517140347718,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "ankle-rocks-against-a-wall",
       "name": "Ankle rocks against a wall",
       "kind": "guide",
@@ -17283,7 +18740,7 @@
       "findingIds": [
         "E36"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Ankle dorsiflexion reference; confirm the actual wall/support setup. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Rehab Hero’s original ankle-rock instructions support the hands on a squat rack or door frame and keep the heels down while the knees advance. The guide instead uses the knee-to-wall target. The wall target and controlled knee contact remain unverified in the current video. A rack-supported ankle rock is related mobility evidence. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Face a wall in a small split stance with the front heel firmly on the floor.",
       "expectedAction": "Move the front knee toward the wall over the toes, then return without the heel lifting.",
       "sourceUrls": [
@@ -17528,6 +18985,201 @@
         "maximumPalmForearmAxisAngle": 22.330777457377366,
         "leftFootTravel": 1.7772239894833365e-16,
         "rightFootTravel": 2.2215299868541707e-16
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "split-squat-holds",
+      "name": "Split squat holds",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "split-squat-holds"
+      ],
+      "family": "lunge",
+      "outcome": "no-additional-discrepancy-observed",
+      "findingIds": [],
+      "referenceScope": "Sanford Health’s original description names its certified strength-and-conditioning coaches and explicitly identifies split-squat holds followed by mobility work. Its public previews show the held split stance. This adds the isometric phase missing from the ordinary split-squat comparator. Only the hold phase is relevant; the subsequent mobility work is not added to the guide. The exact hold depth and duration are not universally prescribed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Take a stable split stance with a support nearby and both knees softly bent.",
+      "expectedAction": "Lower into a shallow split squat and hold while breathing, then rise and change lead legs.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/legs/quad-exercises/squats/split-squats/",
+        "https://www.youtube.com/watch?v=099rt7KePMY"
+      ],
+      "images": [
+        {
+          "file": "271-split-squat-holds-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "271-split-squat-holds-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "271-split-squat-holds-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "271-split-squat-holds-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "271-split-squat-holds-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "271-split-squat-holds-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "split-squat-holds",
+        "family": "lunge",
+        "eq": [],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 3.5736433320894747,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "standing-hip-extensions",
+      "name": "Standing hip extensions",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "standing-hip-extensions"
+      ],
+      "family": "gluteKick",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E66"
+      ],
+      "referenceScope": "Physitrack’s standing-hip-extension page specifies upright chair support and moving a straight leg backward without trunk lean. Three decoded samples of its public video show the supported standing unweighted setup. This is the unweighted supported version. Full pelvic control, every repetition and suitability for an individual remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Stand beside a fixed support with ribs over the pelvis and no ankle load initially.",
+      "expectedAction": "Move one thigh backward a small distance and return without arching the lower back.",
+      "sourceUrls": [
+        "https://www.puregym.com/exercises/glutes/glute-kickbacks/cable-kickbacks/",
+        "https://ie.physitrack.com/home-exercise-video/standing-hip-extension%252c-supported",
+        "https://media.physitrack.com/exercises/b1f9c5cc-8e08-45ab-a8f9-0b9ce5b74174/en/video_1280x720.mp4"
+      ],
+      "images": [
+        {
+          "file": "272-standing-hip-extensions-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "272-standing-hip-extensions-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "272-standing-hip-extensions-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "272-standing-hip-extensions-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "272-standing-hip-extensions-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "272-standing-hip-extensions-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "standing-hip-extensions",
+        "family": "gluteKick",
+        "eq": [],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 43.77413390532881,
+        "leftFootTravel": 0.3939543120718441,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
+      "id": "walking-knee-hugs",
+      "name": "Walking knee hugs",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "walking-knee-hugs"
+      ],
+      "family": "march",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E67"
+      ],
+      "referenceScope": "The U.S. Marine Corps Training and Education Command’s original DVIDS instructions explicitly describe a standing knee hug, stepping onto the released leg and repeating with the opposite leg. A decoded public-video sample shows the upright knee grasp. The published step sequence supports walking rather than supine knee hugs. Three samples do not validate every travelling step, pace or repetition. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Use a clear lane and begin with slow supported standing knee lifts if balance is limited.",
+      "expectedAction": "Step, draw one knee gently toward the torso, release it and continue with the other side.",
+      "sourceUrls": [
+        "https://ca.physitrack.com/home-exercise-video/knee-hugs",
+        "https://www.dvidshub.net/video/551850/walking-knee-hug",
+        "https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104849868/DOD_104849868-1024x576-1769k.mp4"
+      ],
+      "images": [
+        {
+          "file": "273-walking-knee-hugs-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "273-walking-knee-hugs-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "273-walking-knee-hugs-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "273-walking-knee-hugs-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "273-walking-knee-hugs-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "273-walking-knee-hugs-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "walking-knee-hugs",
+        "family": "march",
+        "eq": [],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 30.595756526438027,
+        "leftFootTravel": 0.030000000000000138,
+        "rightFootTravel": 0.4234919588275409
       },
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
@@ -18379,6 +20031,73 @@
       "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
     },
     {
+      "id": "lying-cross-body-glute-stretch",
+      "name": "Lying cross-body glute stretch",
+      "kind": "guide",
+      "eligibility": "source-specific-configuration-evidence",
+      "referenceRelationship": "configuration-matched",
+      "writtenRelationship": "related-only",
+      "animationIds": [
+        "lying-cross-body-glute-stretch"
+      ],
+      "family": "figure4",
+      "outcome": "corrections-required",
+      "findingIds": [
+        "E23",
+        "E68"
+      ],
+      "referenceScope": "Kevin Neeld’s original lying-cross-body-glute-stretch previews show supine support and a bent knee guided across the body. This is more specific than the current straight-to-chest hug. His primary coaching page documents strength-and-conditioning credentials and professional hockey work. The nonworking leg is bent/supported in the preview rather than forced straight. Individual stretch range and continuous technique remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.",
+      "expectedSetup": "Lie on the back with both shoulders supported and draw one bent knee toward the torso.",
+      "expectedAction": "Guide the thigh gently toward the opposite side without forcing the pelvis or knee, then return.",
+      "sourceUrls": [
+        "https://www.nhs.uk/live-well/exercise/how-to-stretch-after-exercising/",
+        "https://www.youtube.com/watch?v=Hkum-kPTtrw",
+        "https://kevinneeld.com/ultimate-hockey-transformation-2-0/"
+      ],
+      "images": [
+        {
+          "file": "287-lying-cross-body-glute-stretch-oblique-0.png",
+          "fraction": 0,
+          "angle": "oblique"
+        },
+        {
+          "file": "287-lying-cross-body-glute-stretch-oblique-0.51.png",
+          "fraction": 0.508,
+          "angle": "oblique"
+        },
+        {
+          "file": "287-lying-cross-body-glute-stretch-side-0.png",
+          "fraction": 0,
+          "angle": "side"
+        },
+        {
+          "file": "287-lying-cross-body-glute-stretch-side-0.51.png",
+          "fraction": 0.508,
+          "angle": "side"
+        },
+        {
+          "file": "287-lying-cross-body-glute-stretch-oblique-0.25.png",
+          "fraction": 0.25,
+          "angle": "oblique"
+        },
+        {
+          "file": "287-lying-cross-body-glute-stretch-oblique-0.75.png",
+          "fraction": 0.748,
+          "angle": "oblique"
+        }
+      ],
+      "diagnostics": {
+        "id": "lying-cross-body-glute-stretch",
+        "family": "figure4",
+        "eq": [],
+        "sampleCount": 41,
+        "maximumPalmForearmAxisAngle": 82.9703269764774,
+        "leftFootTravel": 0,
+        "rightFootTravel": 0
+      },
+      "limit": "Sampled visual/source audit only. No professional form approval; no full continuous source-video review or exhaustive skin/contact validation."
+    },
+    {
       "id": "neck-side-stretch",
       "name": "Neck side stretch",
       "kind": "guide",
@@ -18653,7 +20372,7 @@
       "findingIds": [
         "E42"
       ],
-      "referenceScope": "Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Extensor component shown. Separate flexor component is linked below. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.",
+      "referenceScope": "Glen Abbey Physiotherapy’s original description includes both assisted wrist-bending directions, but reverses the flexor/extensor labels. The three public previews do not independently establish both phases. The current Rehab Hero reference covers only the extensor stretch. Need both correctly attributed wrist-stretch phases. The clinic’s naming conflict is recorded and is not copied into the technique notes. Full continuous motion and professional technique approval remain unreviewed.",
       "expectedSetup": "Extend one arm forward with elbow comfortably straight and shoulder relaxed.",
       "expectedAction": "With light help from the other hand, guide the wrist into extension for the palm-side forearm and flexion for the back-side forearm, then release.",
       "sourceUrls": [
@@ -18889,11 +20608,6 @@
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "leaning-single-arm-lateral-raise",
-      "name": "Leaning Single-Arm Lateral Raise",
-      "relationship": "related-only"
-    },
-    {
       "id": "lu-raise",
       "name": "Lu Raise",
       "relationship": "same-labelled-movement"
@@ -18911,11 +20625,6 @@
     {
       "id": "half-kneeling-pallof-press",
       "name": "Half-Kneeling Pallof Press",
-      "relationship": "related-only"
-    },
-    {
-      "id": "cable-trunk-rotation",
-      "name": "Cable Trunk Rotation",
       "relationship": "related-only"
     },
     {
@@ -18952,11 +20661,6 @@
       "id": "l-sit-pull-up",
       "name": "L-Sit Pull-Up",
       "relationship": "same-labelled-movement"
-    },
-    {
-      "id": "machine-pulldown",
-      "name": "Machine Pulldown",
-      "relationship": "related-only"
     },
     {
       "id": "seal-row",
@@ -19024,11 +20728,6 @@
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "heel-elevated-dumbbell-squat",
-      "name": "Heel-Elevated Dumbbell Squat",
-      "relationship": "related-only"
-    },
-    {
       "id": "stability-ball-wall-squat",
       "name": "Stability Ball Wall Squat",
       "relationship": "same-labelled-movement"
@@ -19049,16 +20748,6 @@
       "relationship": "related-only"
     },
     {
-      "id": "glute-drive-machine",
-      "name": "Glute Drive Machine",
-      "relationship": "related-only"
-    },
-    {
-      "id": "stability-ball-single-leg-bridge",
-      "name": "Stability Ball Single-Leg Bridge",
-      "relationship": "related-only"
-    },
-    {
       "id": "front-foot-elevated-split-squat",
       "name": "Front-Foot-Elevated Split Squat",
       "relationship": "same-labelled-movement"
@@ -19072,11 +20761,6 @@
       "id": "pistol-squat-to-bench",
       "name": "Pistol Squat to Bench",
       "relationship": "same-labelled-movement"
-    },
-    {
-      "id": "skater-squat",
-      "name": "Skater Squat",
-      "relationship": "related-only"
     },
     {
       "id": "cable-single-leg-romanian-deadlift",
@@ -19097,11 +20781,6 @@
       "id": "curtsy-lunge",
       "name": "Curtsy Lunge",
       "relationship": "same-labelled-movement"
-    },
-    {
-      "id": "standing-cable-leg-curl",
-      "name": "Standing Cable Leg Curl",
-      "relationship": "related-only"
     },
     {
       "id": "dumbbell-leg-curl",
@@ -19149,11 +20828,6 @@
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "single-leg-box-jump",
-      "name": "Single-Leg Box Jump",
-      "relationship": "related-only"
-    },
-    {
       "id": "approach-vertical-jump",
       "name": "Approach Vertical Jump",
       "relationship": "related-only"
@@ -19169,28 +20843,13 @@
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "dumbbell-jump-squat",
-      "name": "Dumbbell Jump Squat",
-      "relationship": "related-only"
-    },
-    {
       "id": "side-step-lunge-to-balance",
       "name": "Side Step Lunge to Balance",
       "relationship": "related-only"
     },
     {
-      "id": "band-face-pull",
-      "name": "Band Face Pull",
-      "relationship": "related-only"
-    },
-    {
       "id": "band-assisted-archer-pull-up",
       "name": "Band-Assisted Archer Pull-Up",
-      "relationship": "related-only"
-    },
-    {
-      "id": "kneeling-band-lat-pulldown",
-      "name": "Kneeling Band Lat Pulldown",
       "relationship": "related-only"
     },
     {
@@ -19269,11 +20928,6 @@
       "relationship": "related-only"
     },
     {
-      "id": "medicine-ball-russian-twist",
-      "name": "Medicine Ball Russian Twist",
-      "relationship": "related-only"
-    },
-    {
       "id": "medicine-ball-v-up",
       "name": "Medicine Ball V-Up",
       "relationship": "related-only"
@@ -19281,11 +20935,6 @@
     {
       "id": "medicine-ball-lunge-with-rotation",
       "name": "Medicine Ball Lunge with Rotation",
-      "relationship": "related-only"
-    },
-    {
-      "id": "medicine-ball-woodchop",
-      "name": "Medicine Ball Woodchop",
       "relationship": "related-only"
     },
     {
@@ -19311,16 +20960,6 @@
     {
       "id": "monkey-bar-traverse",
       "name": "Monkey Bar Traverse",
-      "relationship": "related-only"
-    },
-    {
-      "id": "toes-to-bar",
-      "name": "Toes-to-Bar",
-      "relationship": "related-only"
-    },
-    {
-      "id": "hanging-windshield-wiper",
-      "name": "Hanging Windshield Wiper",
       "relationship": "related-only"
     },
     {
@@ -19392,11 +21031,6 @@
       "id": "a-skips",
       "name": "A-skips",
       "relationship": "same-labelled-movement"
-    },
-    {
-      "id": "band-dislocates",
-      "name": "Band dislocates",
-      "relationship": "related-only"
     },
     {
       "id": "bodyweight-squats-to-a-bench",
@@ -19474,18 +21108,8 @@
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "spiderman-lunge-with-reach",
-      "name": "Spiderman lunge with reach",
-      "relationship": "related-only"
-    },
-    {
       "id": "goblet-squat-pry",
       "name": "Goblet squat pry",
-      "relationship": "related-only"
-    },
-    {
-      "id": "band-face-pulls",
-      "name": "Band face pulls",
       "relationship": "related-only"
     },
     {
@@ -19514,28 +21138,13 @@
       "relationship": "related-only"
     },
     {
-      "id": "split-squat-holds",
-      "name": "Split squat holds",
-      "relationship": "related-only"
-    },
-    {
       "id": "standing-back-arch-and-round",
       "name": "Standing back arch and round",
       "relationship": "same-labelled-movement"
     },
     {
-      "id": "standing-hip-extensions",
-      "name": "Standing hip extensions",
-      "relationship": "related-only"
-    },
-    {
       "id": "standing-knee-hugs",
       "name": "Standing knee hugs",
-      "relationship": "related-only"
-    },
-    {
-      "id": "walking-knee-hugs",
-      "name": "Walking knee hugs",
       "relationship": "related-only"
     },
     {
@@ -19562,11 +21171,6 @@
       "id": "hands-behind-back-chest-opener",
       "name": "Hands-behind-back chest opener",
       "relationship": "same-labelled-movement"
-    },
-    {
-      "id": "lying-cross-body-glute-stretch",
-      "name": "Lying cross-body glute stretch",
-      "relationship": "related-only"
     },
     {
       "id": "walking-and-treadmill-walking",

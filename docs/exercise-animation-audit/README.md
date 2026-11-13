@@ -1,14 +1,16 @@
 # Exercise animation form and equipment audit
 
-Reviewed November 13, 2026 against development baseline `9f4fc09cdfa2134d9ce8b7fd371248d356ae98c5`. **The draft library does not pass the form/equipment audit.** This is a reference-guided discrepancy review, not a professional technique certification. No runtime assets were corrected or published by this audit.
+Reviewed November 13, 2026 against development baseline `521c42c06955495ad29576a6dd4c78bf01a3907c`. **The draft library does not pass the form/equipment audit.** This is a reference-guided discrepancy review, not a professional technique certification. No runtime assets were corrected or published by this audit.
 
 ## Scope and method
 
-273 source entries qualify: 214 strength exercises, 56 guides and 3 cardio types. Eligibility requires configuration-specific visual evidence or an exercise-specific written same-movement source. A video title alone is insufficient. The other 151 reference entries are explicitly excluded, not passed.
+The reference snapshot includes the concurrently published follow-up research at `f39cf3a`; its 23 newly eligible entries were added before handoff. Runtime animation and authoring hashes remain identical to the starting `9f4fc09` candidate. [Targeted primary-source retrievals and access limits](source-checks.md) supplement the retained per-exercise reference library.
 
-272 clips were rendered in actual Chrome/WebGL at four cycle positions (0%, 25%, 51%, 75%): oblique at all four and side at 0%/51%, 1632 images total. All 42 overview sheets were visually inspected. The marching type is compared only with Easy marching; this does not approve its high-knee/running labels. Air bike has no separate matching clip and is recorded missing rather than substituting the fixed-handle stationary bike.
+296 source entries qualify: 230 strength exercises, 63 guides and 3 cardio types. Eligibility requires configuration-specific visual evidence or an exercise-specific written same-movement source. A video title alone is insufficient. The other 128 reference entries are explicitly excluded, not passed.
 
-255 procedural clips were additionally sampled at 41 evenly spaced cycle positions (10455 poses). Measurements inspect rigid equipment/contact targets and hand axes. They are geometric diagnostics, not anatomical joint angles, clinical thresholds, force simulation or collision proof. The 17 previously accepted strength clips receive current sampled visual review, not automatic approval from their historical status.
+295 clips were rendered in actual Chrome/WebGL at four cycle positions (0%, 25%, 51%, 75%): oblique at all four and side at 0%/51%, 1770 images total. All 45 overview sheets were visually inspected. The marching type is compared only with Easy marching; this does not approve its high-knee/running labels. Air bike has no separate matching clip and is recorded missing rather than substituting the fixed-handle stationary bike.
+
+278 procedural clips were additionally sampled at 41 evenly spaced cycle positions (11398 poses). Measurements inspect rigid equipment/contact targets and hand axes. They are geometric diagnostics, not anatomical joint angles, clinical thresholds, force simulation or collision proof. The 17 previously accepted strength clips receive current sampled visual review, not automatic approval from their historical status.
 
 The reference snapshot preserves all NASM associations and original source links. Per-entry setup/action below uses the existing original research synthesis; disputed generic notes are not treated as authority over the exercise-specific setup. Full continuous third-party video/narration review was not performed. Equipment models were checked for a mechanically recognisable configuration, not a certified replica of every manufacturer model.
 
@@ -16,9 +18,9 @@ The reference snapshot preserves all NASM associations and original source links
 
 | Outcome | Entries |
 | --- | ---: |
-| no-additional-discrepancy-observed | 58 |
-| closer-review-required | 39 |
-| corrections-required | 175 |
+| no-additional-discrepancy-observed | 62 |
+| closer-review-required | 40 |
+| corrections-required | 193 |
 | missing-animation | 1 |
 
 **No-additional-discrepancy-observed is a limited sampled result, not safe/correct/approved.** Closer-review-required means a geometric hand-axis flag or another unresolved detail remains; it is not a proven clinical fault. Corrections-required means at least one concrete rendered/authoring discrepancy is listed.
@@ -51,7 +53,7 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Required correction:** Place working pulleys on the frame at exercise-specific height/direction; connect the cable and correct attachment to the load path.
 
-**Affected (25):** [single-arm-cable-chest-press](entries.md#single-arm-cable-chest-press), [cable-fly-high-to-low](entries.md#cable-fly-high-to-low), [cable-fly-low-to-high](entries.md#cable-fly-low-to-high), [half-kneeling-single-arm-cable-press](entries.md#half-kneeling-single-arm-cable-press), [cable-lateral-raise](entries.md#cable-lateral-raise), [cable-rope-pushdown](entries.md#cable-rope-pushdown), [overhead-cable-triceps-extension](entries.md#overhead-cable-triceps-extension), [single-arm-cable-kickback](entries.md#single-arm-cable-kickback), [cable-woodchop-high-to-low](entries.md#cable-woodchop-high-to-low), [cable-lift-low-to-high](entries.md#cable-lift-low-to-high), [pallof-press](entries.md#pallof-press), [cable-crunch](entries.md#cable-crunch), [lat-pulldown](entries.md#lat-pulldown), [close-grip-lat-pulldown](entries.md#close-grip-lat-pulldown), [single-arm-lat-pulldown](entries.md#single-arm-lat-pulldown), [seated-cable-row](entries.md#seated-cable-row), [single-arm-rotational-cable-row](entries.md#single-arm-rotational-cable-row), [straight-arm-cable-pulldown](entries.md#straight-arm-cable-pulldown), [half-kneeling-single-arm-cable-row](entries.md#half-kneeling-single-arm-cable-row), [cable-face-pull](entries.md#cable-face-pull), [cable-curl](entries.md#cable-curl), [cable-pull-through](entries.md#cable-pull-through), [cable-glute-kickback](entries.md#cable-glute-kickback), [cable-hip-abduction](entries.md#cable-hip-abduction), [cable-hip-adduction](entries.md#cable-hip-adduction).
+**Affected (27):** [single-arm-cable-chest-press](entries.md#single-arm-cable-chest-press), [cable-fly-high-to-low](entries.md#cable-fly-high-to-low), [cable-fly-low-to-high](entries.md#cable-fly-low-to-high), [half-kneeling-single-arm-cable-press](entries.md#half-kneeling-single-arm-cable-press), [cable-lateral-raise](entries.md#cable-lateral-raise), [cable-rope-pushdown](entries.md#cable-rope-pushdown), [overhead-cable-triceps-extension](entries.md#overhead-cable-triceps-extension), [single-arm-cable-kickback](entries.md#single-arm-cable-kickback), [cable-woodchop-high-to-low](entries.md#cable-woodchop-high-to-low), [cable-lift-low-to-high](entries.md#cable-lift-low-to-high), [pallof-press](entries.md#pallof-press), [cable-trunk-rotation](entries.md#cable-trunk-rotation), [cable-crunch](entries.md#cable-crunch), [lat-pulldown](entries.md#lat-pulldown), [close-grip-lat-pulldown](entries.md#close-grip-lat-pulldown), [single-arm-lat-pulldown](entries.md#single-arm-lat-pulldown), [seated-cable-row](entries.md#seated-cable-row), [single-arm-rotational-cable-row](entries.md#single-arm-rotational-cable-row), [straight-arm-cable-pulldown](entries.md#straight-arm-cable-pulldown), [half-kneeling-single-arm-cable-row](entries.md#half-kneeling-single-arm-cable-row), [cable-face-pull](entries.md#cable-face-pull), [cable-curl](entries.md#cable-curl), [cable-pull-through](entries.md#cable-pull-through), [cable-glute-kickback](entries.md#cable-glute-kickback), [standing-cable-leg-curl](entries.md#standing-cable-leg-curl), [cable-hip-abduction](entries.md#cable-hip-abduction), [cable-hip-adduction](entries.md#cable-hip-adduction).
 
 ### E04: Machine arms telescope instead of pivoting
 
@@ -59,7 +61,7 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Required correction:** Choose a recognisable machine mechanism with fixed-length lever arms, suitable pivot/handle axes, support pads and a plausible resistance linkage.
 
-**Affected (9):** [machine-chest-press](entries.md#machine-chest-press), [incline-machine-press](entries.md#incline-machine-press), [pec-deck](entries.md#pec-deck), [machine-shoulder-press](entries.md#machine-shoulder-press), [machine-lateral-raise](entries.md#machine-lateral-raise), [machine-triceps-extension](entries.md#machine-triceps-extension), [machine-torso-rotation](entries.md#machine-torso-rotation), [machine-ab-crunch](entries.md#machine-ab-crunch), [machine-preacher-curl](entries.md#machine-preacher-curl).
+**Affected (10):** [machine-chest-press](entries.md#machine-chest-press), [incline-machine-press](entries.md#incline-machine-press), [pec-deck](entries.md#pec-deck), [machine-shoulder-press](entries.md#machine-shoulder-press), [machine-lateral-raise](entries.md#machine-lateral-raise), [machine-triceps-extension](entries.md#machine-triceps-extension), [machine-torso-rotation](entries.md#machine-torso-rotation), [machine-ab-crunch](entries.md#machine-ab-crunch), [machine-pulldown](entries.md#machine-pulldown), [machine-preacher-curl](entries.md#machine-preacher-curl).
 
 ### E05: Loaded hands do not wrap around the equipment
 
@@ -67,7 +69,7 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Required correction:** Author palms, thumbs and fingers around actual handle surfaces and solve the wrist/forearm alignment from that grip.
 
-**Affected (34):** [smith-machine-bench-press](entries.md#smith-machine-bench-press), [machine-chest-press](entries.md#machine-chest-press), [incline-machine-press](entries.md#incline-machine-press), [weighted-dip](entries.md#weighted-dip), [pec-deck](entries.md#pec-deck), [machine-shoulder-press](entries.md#machine-shoulder-press), [machine-lateral-raise](entries.md#machine-lateral-raise), [machine-triceps-extension](entries.md#machine-triceps-extension), [machine-torso-rotation](entries.md#machine-torso-rotation), [hanging-oblique-knee-raise](entries.md#hanging-oblique-knee-raise), [hanging-leg-raise](entries.md#hanging-leg-raise), [machine-ab-crunch](entries.md#machine-ab-crunch), [weighted-pull-up](entries.md#weighted-pull-up), [chin-up](entries.md#chin-up), [neutral-grip-pull-up](entries.md#neutral-grip-pull-up), [machine-preacher-curl](entries.md#machine-preacher-curl), [hack-squat](entries.md#hack-squat), [leg-press](entries.md#leg-press), [smith-machine-squat](entries.md#smith-machine-squat), [smith-machine-split-squat](entries.md#smith-machine-split-squat), [single-leg-leg-press](entries.md#single-leg-leg-press), [lying-leg-curl](entries.md#lying-leg-curl), [seated-leg-curl](entries.md#seated-leg-curl), [glute-ham-raise](entries.md#glute-ham-raise), [leg-extension](entries.md#leg-extension), [single-leg-extension](entries.md#single-leg-extension), [hip-adduction-machine](entries.md#hip-adduction-machine), [hip-abduction-machine](entries.md#hip-abduction-machine), [standing-calf-raise-machine](entries.md#standing-calf-raise-machine), [leg-press-calf-raise](entries.md#leg-press-calf-raise), [hanging-knee-raise](entries.md#hanging-knee-raise), [assisted-pull-up-machine](entries.md#assisted-pull-up-machine), [back-extension](entries.md#back-extension), [dead-hang](entries.md#dead-hang).
+**Affected (38):** [smith-machine-bench-press](entries.md#smith-machine-bench-press), [machine-chest-press](entries.md#machine-chest-press), [incline-machine-press](entries.md#incline-machine-press), [weighted-dip](entries.md#weighted-dip), [pec-deck](entries.md#pec-deck), [machine-shoulder-press](entries.md#machine-shoulder-press), [machine-lateral-raise](entries.md#machine-lateral-raise), [machine-triceps-extension](entries.md#machine-triceps-extension), [machine-torso-rotation](entries.md#machine-torso-rotation), [hanging-oblique-knee-raise](entries.md#hanging-oblique-knee-raise), [hanging-leg-raise](entries.md#hanging-leg-raise), [machine-ab-crunch](entries.md#machine-ab-crunch), [weighted-pull-up](entries.md#weighted-pull-up), [chin-up](entries.md#chin-up), [neutral-grip-pull-up](entries.md#neutral-grip-pull-up), [machine-pulldown](entries.md#machine-pulldown), [machine-preacher-curl](entries.md#machine-preacher-curl), [hack-squat](entries.md#hack-squat), [leg-press](entries.md#leg-press), [smith-machine-squat](entries.md#smith-machine-squat), [glute-drive-machine](entries.md#glute-drive-machine), [smith-machine-split-squat](entries.md#smith-machine-split-squat), [single-leg-leg-press](entries.md#single-leg-leg-press), [lying-leg-curl](entries.md#lying-leg-curl), [seated-leg-curl](entries.md#seated-leg-curl), [glute-ham-raise](entries.md#glute-ham-raise), [leg-extension](entries.md#leg-extension), [single-leg-extension](entries.md#single-leg-extension), [hip-adduction-machine](entries.md#hip-adduction-machine), [hip-abduction-machine](entries.md#hip-abduction-machine), [standing-calf-raise-machine](entries.md#standing-calf-raise-machine), [leg-press-calf-raise](entries.md#leg-press-calf-raise), [hanging-knee-raise](entries.md#hanging-knee-raise), [toes-to-bar](entries.md#toes-to-bar), [hanging-windshield-wiper](entries.md#hanging-windshield-wiper), [assisted-pull-up-machine](entries.md#assisted-pull-up-machine), [back-extension](entries.md#back-extension), [dead-hang](entries.md#dead-hang).
 
 ### E06: Floor or bench support through the hands is missing
 
@@ -75,7 +77,7 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Required correction:** Solve planted palm/forearm contact, shoulder-over-support alignment and reachable arm targets before the trunk motion; preserve contact throughout the loaded phase.
 
-**Affected (27):** [weighted-push-up](entries.md#weighted-push-up), [feet-on-ball-push-up](entries.md#feet-on-ball-push-up), [pike-push-up](entries.md#pike-push-up), [diamond-push-up](entries.md#diamond-push-up), [stability-ball-rollout](entries.md#stability-ball-rollout), [stir-the-pot](entries.md#stir-the-pot), [stability-ball-pike](entries.md#stability-ball-pike), [trx-body-saw](entries.md#trx-body-saw), [trx-pike](entries.md#trx-pike), [barbell-rollout](entries.md#barbell-rollout), [feet-on-box-decline-push-up](entries.md#feet-on-box-decline-push-up), [medicine-ball-push-up](entries.md#medicine-ball-push-up), [bosu-mountain-climber](entries.md#bosu-mountain-climber), [ab-wheel-rollout](entries.md#ab-wheel-rollout), [cat-cow](entries.md#cat-cow), [downward-dog-to-plank](entries.md#downward-dog-to-plank), [explosive-push-ups](entries.md#explosive-push-ups), [inchworms](entries.md#inchworms), [incline-push-ups-on-a-bench](entries.md#incline-push-ups-on-a-bench), [incline-push-ups](entries.md#incline-push-ups), [push-up-to-downward-dog](entries.md#push-up-to-downward-dog), [push-ups](entries.md#push-ups), [scap-push-ups](entries.md#scap-push-ups), [bird-dogs](entries.md#bird-dogs), [world-s-greatest-stretch](entries.md#world-s-greatest-stretch), [child-s-pose](entries.md#child-s-pose), [cobra-stretch](entries.md#cobra-stretch).
+**Affected (28):** [weighted-push-up](entries.md#weighted-push-up), [feet-on-ball-push-up](entries.md#feet-on-ball-push-up), [pike-push-up](entries.md#pike-push-up), [diamond-push-up](entries.md#diamond-push-up), [stability-ball-rollout](entries.md#stability-ball-rollout), [stir-the-pot](entries.md#stir-the-pot), [stability-ball-pike](entries.md#stability-ball-pike), [trx-body-saw](entries.md#trx-body-saw), [trx-pike](entries.md#trx-pike), [barbell-rollout](entries.md#barbell-rollout), [feet-on-box-decline-push-up](entries.md#feet-on-box-decline-push-up), [medicine-ball-push-up](entries.md#medicine-ball-push-up), [bosu-mountain-climber](entries.md#bosu-mountain-climber), [ab-wheel-rollout](entries.md#ab-wheel-rollout), [cat-cow](entries.md#cat-cow), [downward-dog-to-plank](entries.md#downward-dog-to-plank), [explosive-push-ups](entries.md#explosive-push-ups), [inchworms](entries.md#inchworms), [incline-push-ups-on-a-bench](entries.md#incline-push-ups-on-a-bench), [incline-push-ups](entries.md#incline-push-ups), [push-up-to-downward-dog](entries.md#push-up-to-downward-dog), [push-ups](entries.md#push-ups), [scap-push-ups](entries.md#scap-push-ups), [bird-dogs](entries.md#bird-dogs), [spiderman-lunge-with-reach](entries.md#spiderman-lunge-with-reach), [world-s-greatest-stretch](entries.md#world-s-greatest-stretch), [child-s-pose](entries.md#child-s-pose), [cobra-stretch](entries.md#cobra-stretch).
 
 ### E07: Suspension setup is not mechanically constrained
 
@@ -211,7 +213,7 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Required correction:** Keep head/upper-back contacts on the mat and solve hip movement or opposite-limb reach independently; check the complete skin surface.
 
-**Affected (10):** [dead-bug](entries.md#dead-bug), [barbell-hip-thrust](entries.md#barbell-hip-thrust), [dumbbell-hip-thrust](entries.md#dumbbell-hip-thrust), [single-leg-hip-thrust](entries.md#single-leg-hip-thrust), [stability-ball-squeeze-bridge](entries.md#stability-ball-squeeze-bridge), [dumbbell-glute-bridge](entries.md#dumbbell-glute-bridge), [glute-bridges](entries.md#glute-bridges), [dead-bugs](entries.md#dead-bugs), [single-leg-glute-bridges](entries.md#single-leg-glute-bridges), [figure-4-glute-stretch](entries.md#figure-4-glute-stretch).
+**Affected (13):** [dead-bug](entries.md#dead-bug), [barbell-hip-thrust](entries.md#barbell-hip-thrust), [dumbbell-hip-thrust](entries.md#dumbbell-hip-thrust), [glute-drive-machine](entries.md#glute-drive-machine), [single-leg-hip-thrust](entries.md#single-leg-hip-thrust), [stability-ball-single-leg-bridge](entries.md#stability-ball-single-leg-bridge), [stability-ball-squeeze-bridge](entries.md#stability-ball-squeeze-bridge), [dumbbell-glute-bridge](entries.md#dumbbell-glute-bridge), [glute-bridges](entries.md#glute-bridges), [dead-bugs](entries.md#dead-bugs), [single-leg-glute-bridges](entries.md#single-leg-glute-bridges), [figure-4-glute-stretch](entries.md#figure-4-glute-stretch), [lying-cross-body-glute-stretch](entries.md#lying-cross-body-glute-stretch).
 
 ### E24: Hip thrust does not keep the upper back on the bench
 
@@ -477,9 +479,131 @@ Fix support and load constraints before polishing surfaces: planted palms/back/f
 
 **Affected (4):** [band-triceps-pushdown](entries.md#band-triceps-pushdown), [band-pallof-press](entries.md#band-pallof-press), [band-woodchop](entries.md#band-woodchop), [prone-band-hamstring-curl](entries.md#prone-band-hamstring-curl).
 
+### E58: Heel-elevated squat has no heel support
+
+**P1 — observed:** The new squat recipe keeps both foot pitches at zero and both ankle targets at the ordinary flat-floor height, with no wedge/plates generated.
+
+**Required correction:** Add a stable matched heel wedge, fit heel and forefoot surfaces to it and author the controlled squat. The newer visual reference permits side-held dumbbells; do not silently require the conflicting goblet note.
+
+**Affected (1):** [heel-elevated-dumbbell-squat](entries.md#heel-elevated-dumbbell-squat).
+
+### E59: Glute-drive machine is only a bench and generic frame
+
+**P1 — observed:** The glute-drive scene lacks the referenced hip belt/pad, foot platform and moving load lever. It shares the unsupported hip-thrust trunk motion.
+
+**Required correction:** Build the specific belt/pad and footplate/back support configuration, and solve the hip extension against that mechanism.
+
+**Affected (1):** [glute-drive-machine](entries.md#glute-drive-machine).
+
+### E60: Single-leg ball bridge uses both feet on the ball
+
+**P1 — observed:** The ball branch overrides both foot heights and locations after the single-leg branch, leaving the free leg on the ball rather than lifted.
+
+**Required correction:** Keep only the working heel/lower leg on the ball; lift the free leg and retain supported shoulders and a level pelvis.
+
+**Affected (1):** [stability-ball-single-leg-bridge](entries.md#stability-ball-single-leg-bridge).
+
+### E61: Trunk rotation is a diagonal chop
+
+**P1 — observed:** Cable trunk rotation shares the chop recipe, changing the hand height from about 1.50 to 0.75 m instead of the referenced horizontal chest-height rotation.
+
+**Required correction:** Hold a consistent cable height through a controlled horizontal arc and coordinate hip/foot pivot without substituting a high-to-low chop.
+
+**Affected (1):** [cable-trunk-rotation](entries.md#cable-trunk-rotation).
+
+### E62: Machine pulldown lacks its referenced lever machine
+
+**P1 — observed:** The entry uses a generic seat and two telescoping arms, without the plate-loaded overhead pivots, chest support or thigh restraint identified in the manufacturer reference.
+
+**Required correction:** Model the selected manufacturer-style lever path, handles and support contacts; retain rigid lever lengths and stable seat/pelvis contact.
+
+**Affected (1):** [machine-pulldown](entries.md#machine-pulldown).
+
+### E63: Supported single-arm raise has no support post
+
+**P1 — observed:** The leaning lateral raise places a free-hand target in space but does not generate a post.
+
+**Required correction:** Add the post at the actual support hand and solve the whole-body lean and working-arm lateral arc around that stable contact.
+
+**Affected (1):** [leaning-single-arm-lateral-raise](entries.md#leaning-single-arm-lateral-raise).
+
+### E64: Leg-curl cuff and support do not match the standing setup
+
+**P1 — observed:** Standing cable leg curl uses a torus cable handle at the foot rather than a fitted ankle cuff and positions its free hand without a stable support.
+
+**Required correction:** Show the low cable attachment behind the leg, a fitted cuff and an actual support under the free hand; keep the thigh stable during knee flexion.
+
+**Affected (1):** [standing-cable-leg-curl](entries.md#standing-cable-leg-curl).
+
+### E65: Band face-pull anchor and direction are incomplete
+
+**P1 — observed:** The band face-pull uses the generic chest-height floating anchor rather than the accepted upper-face anchor, and the band/hand path needs a real fixed support.
+
+**Required correction:** Anchor the band around the documented upper-face height and fit the hands-to-temples finish with controlled elbow/shoulder motion.
+
+**Affected (2):** [band-face-pull](entries.md#band-face-pull), [band-face-pulls](entries.md#band-face-pulls).
+
+### E66: Standing hip extension has no chair support
+
+**P1 — observed:** The unweighted guide places its free hand in space and moves the leg without the fixed chair support described by the accepted source.
+
+**Required correction:** Provide the supported upright variant and keep ribs/pelvis quiet through the small straight-leg reach.
+
+**Affected (1):** [standing-hip-extensions](entries.md#standing-hip-extensions).
+
+### E67: Knee hug lacks the travelling hand/leg sequence
+
+**P1 — observed:** The walking-knee-hug branch holds one foot at a raised coordinate and both hands in front of the body. It does not alternate grasp, release, step and the opposite-side hug.
+
+**Required correction:** Author alternating controlled knee grasps and walking steps; keep the foot/body support consistent during each balance phase.
+
+**Affected (1):** [walking-knee-hugs](entries.md#walking-knee-hugs).
+
+### E68: Cross-body glute stretch reuses figure-four
+
+**P1 — observed:** The named cross-body stretch uses the figure4 branch with crossed legs and a two-hand thigh reach rather than guiding one bent knee across the supine body.
+
+**Required correction:** Author the accepted bent-knee cross-body guide with both shoulders supported, retaining its distinct setup from a figure-four stretch.
+
+**Affected (1):** [lying-cross-body-glute-stretch](entries.md#lying-cross-body-glute-stretch).
+
+### E69: Medicine-ball twist becomes a stability-ball exercise
+
+**P1 — observed:** The Russian-twist branch checks for the word ball and places the torso supine on a second large stability ball, even for Medicine Ball Russian Twist.
+
+**Required correction:** Keep a seated supported-foot Russian twist with one medicine ball in the hands; do not create the separate stability-ball version.
+
+**Affected (1):** [medicine-ball-russian-twist](entries.md#medicine-ball-russian-twist).
+
+### E70: Toes-to-bar does not approach the bar
+
+**P1 — observed:** The raised-leg target produces bent knees and feet well below the bar; no toe-to-bar or near-bar endpoint is established in the inspected finish.
+
+**Required correction:** Author controlled hip flexion/pelvic curl with toes approaching the actual bar within the intended range, and retain the stable hand grip.
+
+**Affected (1):** [toes-to-bar](entries.md#toes-to-bar).
+
+### E71: Jump squat swings the dumbbells
+
+**P1 — observed:** The generic jump recipe raises both hands toward head height during flight, carrying the dumbbells with them instead of keeping them at the sides.
+
+**Required correction:** Keep the light dumbbells at the sides while authoring the countermovement, jump and balanced landing.
+
+**Affected (1):** [dumbbell-jump-squat](entries.md#dumbbell-jump-squat).
+
+### E72: Skater squat lacks the rear-knee descent
+
+**P1 — observed:** The generic lunge IK places the free knee forward/high while its foot folds behind; it does not bring the free knee toward the documented padded target behind the body.
+
+**Required correction:** Keep the rear knee behind the working leg and lower it toward a padded target through a controlled single-leg squat.
+
+**Affected (1):** [skater-squat](entries.md#skater-squat).
+
 ## Recheck evidence and limits
 
-[Per-exercise findings and references](entries.md), [machine-readable audit and frozen hashes](audit.json), [selected rendered evidence](evidence/README.md). Full capture images, 42 contact sheets, raw matrices and local review gallery are retained in `output/technique-audit/` in the audit worktree; generated files are excluded from deployment. The capture and measurement scripts in `scripts/` reproduce the recorded geometry from the frozen source. Re-running them against changed assets is a new candidate, not verification of this snapshot.
+The app's `guideAnimationId()` bike-label routing currently substitutes `stationary-bike` for air-bike labels. The missing-animation result means **no matching linked-handle air-bike model**, not that the UI has no animation at all. Its fixed-handle substitute must not be accepted as air-bike technique evidence.
+
+[Per-exercise findings and references](entries.md), [machine-readable audit and frozen hashes](audit.json), [selected rendered evidence](evidence/README.md). Full capture images, 45 contact sheets, raw matrices and local review gallery are retained in `output/technique-audit/` in the audit worktree; generated files are excluded from deployment. The capture and measurement scripts in `scripts/` reproduce the recorded geometry from the frozen source. Re-running them against changed assets is a new candidate, not verification of this snapshot.
 
 Current capture has zero uncaught page errors and one character load in each browser run. No account or database was accessed: the renderer was mounted in a standalone local harness. This does not test authenticated journeys, physical phones, clinical appropriateness, breathing, load selection, pain tolerance, full skin collision or continuous source-video technique.
 

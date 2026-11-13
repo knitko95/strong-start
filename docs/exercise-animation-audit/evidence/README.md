@@ -1,6 +1,6 @@
 # Selected rendered evidence
 
-These are screenshots of the application's own frozen development animation assets, captured November 13, 2026. They are not third-party exercise photographs and are not corrected examples. The full local capture contains 1,632 views; these selected views illustrate specific findings.
+These are screenshots of the application's own frozen development animation assets, captured November 13, 2026. They are not third-party exercise photographs and are not corrected examples. The full local capture contains 1,770 views; these selected views illustrate specific findings.
 
 | View | Finding |
 | --- | --- |
