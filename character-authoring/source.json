@@ -1,0 +1,15 @@
+{
+  "reviewed": "2026-11-13",
+  "bodyAndRig": "MakeHuman / MPFB graphical assets, CC0; existing locally authored female base",
+  "mpfbRevision": "6ff1eb358f6c1959ced77e79e6dd2406d9a71f49",
+  "skinURL": "https://download.tuxfamily.org/makehuman/assets/1.1/base/skins/textures/young_lightskinned_female_diffuse.png",
+  "skinSHA256": "b2a6ac8cd4f9febdb447368e29c76cd68410bb66e46d9dcfa2d5f75126eea8fc",
+  "licenseRegister": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html",
+  "styling": "Independently authored fitted colors, hair strands, pupils, trainers and laces; reference pixels not used",
+  "runtimeBytes": 1600435,
+  "vertices": 24936,
+  "triangles": 47264,
+  "textureSize": [1024, 1024],
+  "runtimeBones": 55,
+  "reviewStatus": "draft"
+}
