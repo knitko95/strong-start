@@ -44,6 +44,24 @@ for m in list(body.modifiers):
     elif m.type=='SUBSURF':body.modifiers.remove(m)
 active(body)
 for m in list(body.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
+# A restrained adult facial refinement. These edits affect the head mesh only;
+# joint locations, the rest rig, limb lengths and exercise contacts are retained.
+def bell(value,center,width):return math.exp(-((value-center)/width)**2)
+lip_group=body.vertex_groups['lips'].index
+for v in body.data.vertices:
+    x,y,z=v.co
+    front=max(0,min(1,(-y-.035)/.035))
+    if z>1.21 and abs(x)<.075:
+        v.co.x*=1-.055*bell(z,1.265,.025)*front
+        v.co.x*=1+.025*bell(z,1.322,.014)*front
+        nose=bell(x,0,.017)*bell(z,1.315,.026)*front
+        v.co.x*=1-.10*nose
+        v.co.y-=.0015*bell(x,0,.010)*bell(z,1.310,.011)*front
+        v.co.z+=.0011*bell(abs(x),.043,.012)*bell(z,1.340,.012)*front
+    if any(g.group==lip_group and g.weight>.15 for g in v.groups):
+        v.co.z+=.0042*min(1,abs(x)/.025)**2
+        v.co.y-=.0007
+body.data.update()
 sub=body.modifiers.new('Smooth face and silhouette','SUBSURF');sub.levels=1
 bpy.ops.object.modifier_apply(modifier=sub.name)
 dec=body.modifiers.new('Mobile surface budget','DECIMATE');dec.ratio=.31
@@ -56,6 +74,7 @@ mat=bpy.data.materials.new('Baked athletic skin and fabric');mat.use_nodes=True
 nodes=mat.node_tree.nodes;links=mat.node_tree.links;nodes.clear()
 coord=nodes.new('ShaderNodeTexCoord');sep=nodes.new('ShaderNodeSeparateXYZ');links.new(coord.outputs['Object'],sep.inputs[0])
 skin=nodes.new('ShaderNodeTexImage');skin.image=bpy.data.images.load(str(review/'skin-source.png'))
+skin_tone=nodes.new('ShaderNodeHueSaturation');skin_tone.inputs['Saturation'].default_value=1.07;skin_tone.inputs['Value'].default_value=.94;links.new(skin.outputs['Color'],skin_tone.inputs['Color'])
 coverage=body.data.color_attributes.new(name='Arm coverage',type='FLOAT_COLOR',domain='CORNER')
 for li,loop in enumerate(body.data.loops):
     v=body.data.vertices[loop.vertex_index]
@@ -78,7 +97,7 @@ top=calc('MULTIPLY',calc('MULTIPLY',calc('GREATER_THAN',z,.975),calc('LESS_THAN'
 legs=calc('LESS_THAN',z,.87)
 top=calc('MULTIPLY',top,calc('LESS_THAN',arm_channel.outputs[0],.2))
 legs=calc('MULTIPLY',legs,calc('LESS_THAN',arm_channel.outputs[0],.2))
-color=skin.outputs['Color']
+color=skin_tone.outputs['Color']
 for mask,c in [(top,(.31,.095,.14,1)),(legs,(.038,.034,.042,1))]:
     mix=nodes.new('ShaderNodeMixRGB');links.new(mask,mix.inputs[0]);links.new(color,mix.inputs[1]);mix.inputs[2].default_value=c;color=mix.outputs[0]
 emit=nodes.new('ShaderNodeEmission');links.new(color,emit.inputs[0]);out=nodes.new('ShaderNodeOutputMaterial');links.new(emit.outputs[0],out.inputs[0])
@@ -91,9 +110,9 @@ bpy.ops.object.bake(type='EMIT');image.filepath_raw=str(review/'body-baked.png')
 
 def material(name,color):
     m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);return m
-hairmat=material('Chestnut hair',(.032,.015,.009));strandmat=material('Hair sheen strands',(.070,.032,.015))
+hairmat=material('Chestnut hair',(.026,.012,.007));strandmat=material('Hair sheen strands',(.044,.022,.012))
 ivory=material('Ivory trainer',(.78,.75,.70));solemat=material('Warm white sole',(.90,.88,.84));lace=material('Laces',(.94,.92,.88))
-dark=material('Pupil and lash',(.005,.003,.002));iris=material('Hazel iris',(.11,.058,.022))
+dark=material('Pupil and lash',(.005,.003,.002));iris=material('Warm brown iris',(.045,.023,.009))
 
 def bone_parent(o,bone):
     bpy.context.view_layer.update();world=o.matrix_world.copy();o.parent=rig;o.parent_type='BONE';o.parent_bone=bone
@@ -110,27 +129,47 @@ hair=bpy.data.objects['Sculpted pulled-back hair'];hair.data.materials.clear();h
 for mod in hair.modifiers:
     if mod.type=='SUBSURF':mod.levels=1
 from mathutils.bvhtree import BVHTree
-bpy.context.view_layer.update()
+bpy.context.view_layer.update();face_surface=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get())
+for v in hair.data.vertices:
+    x,y,z=v.co
+    front=max(0,min(1,(-y-.025)/.065));edge=max(0,min(1,(1.425-z)/.04))
+    desired=v.co+Vector((0,0,-(.008+.004*bell(x,-.015,.035))*front*edge))
+    if front>.05:
+        hit,normal,_,_=face_surface.ray_cast(Vector((desired.x,-.5,desired.z)),Vector((0,1,0)))
+        if hit is not None:v.co=hit+normal*.006
+hair.data.update();bpy.context.view_layer.update()
 hair_surface=BVHTree.FromObject(hair,bpy.context.evaluated_depsgraph_get())
 bun=bpy.data.objects['Hair bun'];bun.data.materials.clear();bun.data.materials.append(hairmat)
 for v in bun.data.vertices:
     q=v.co;angle=math.atan2(q.z,q.x);q*=1+.045*math.sin(angle*14)
+    q.x*=1.12;q.z*=.88
 for s in [-1,1]:
     for j in range(9):
         pts=[]
         for k in range(20):
-            t=k/19;phi=-1.35+t*2.55;xx=s*(.008+j*.0065)*(1-.36*t)
+            t=k/19;phi=-1.35+t*2.55;xx=s*(.008+j*.0065)*(1-.36*t)+.008*math.sin(math.pi*t)
             # Elliptical swept lines follow the fitted scalp dome.
             point=Vector((xx,-.032+.086*math.sin(phi),1.360+.083*math.cos(phi)-j*.0007))
             hit,normal,_,_=hair_surface.find_nearest(point)
             pts.append(tuple(hit+normal*.0004))
         line('Swept hair strand',pts,.00055,strandmat,'head')
-    line('Loose temple strand',[(s*.065,-.066,1.365),(s*.066,-.080,1.340),(s*.064,-.088,1.316),(s*.068,-.081,1.296)],.0013,hairmat,'head')
+    line('Loose temple strand',[(s*(.060+.006*math.sin(t*math.pi*1.8)),-.068-.021*math.sin(t*math.pi*.7),1.374-.074*t) for t in [k/18 for k in range(19)]],.00125,hairmat,'head')
+    # Tapered brows and a fine upper lash line give the eyes a natural frame.
+    points=[]
+    for k in range(12):
+        t=k/11;desired=Vector((s*(.012+.038*t),-.108+.013*t,1.350+.0028*math.sin(math.pi*t)+.001*t))
+        hit,normal,_,_=face_surface.ray_cast(Vector((desired.x,-.5,desired.z)),Vector((0,1,0)))
+        if hit is not None:points.append(tuple(hit+normal*.0008))
+    brow=line('Sculpted eyebrow',points,.0015,hairmat,'head')
+    for k,p in enumerate(brow.data.splines[0].points):p.radius=.2+.8*math.sin(math.pi*(k+.5)/12)**.6
+    eye=bpy.data.objects['Eye '+('l' if s==1 else 'r')].matrix_world.translation.copy()
+    line('Fine upper eyelashes',[(eye.x+.010*math.cos(a),eye.y-.0105,eye.z+.0044*math.sin(a)+.0013) for a in [math.pi*k/16 for k in range(17)]],.00045,dark,'head')
 
 for side in ['l','r']:
     eye=bpy.data.objects['Eye '+side];o=bpy.data.objects['Iris '+side];o.data.materials.clear();o.data.materials.append(iris)
+    for v in o.data.vertices:v.co.x*=.84;v.co.z*=.84
     loc=o.matrix_world.translation.copy();bpy.ops.mesh.primitive_uv_sphere_add(segments=16,ring_count=8,location=loc+Vector((0,-.002,0)))
-    pupil=bpy.context.object;pupil.name='Pupil '+side;pupil.scale=(.003,.001,.003);pupil.data.materials.append(dark);active(pupil);bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);bone_parent(pupil,'head')
+    pupil=bpy.context.object;pupil.name='Pupil '+side;pupil.scale=(.0022,.001,.0022);pupil.data.materials.append(dark);active(pupil);bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);bone_parent(pupil,'head')
     # Remove old oval trainers and build a low-poly sneaker silhouette with a flat sole.
     for name in ['Trainer upper '+side,'Trainer outsole '+side]:bpy.data.objects.remove(bpy.data.objects[name],do_unlink=True)
     xx=rig.data.bones['foot_'+side].head_local.x
