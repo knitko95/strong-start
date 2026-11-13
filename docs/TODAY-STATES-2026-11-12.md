@@ -19,4 +19,8 @@ Existing rings, schedule/sequence rules, exercise controls and reminders remain.
 - `node scripts/test-workout-order.cjs`: three browser journeys pass for midweek starts, missed days, cross-week partial resumption, sequence wrapping, reload and coach restrictions.
 - Phone screenshots of the completed, paused and rest states were reviewed. `git diff --check` passes.
 
-Hosted verification is pending. These are synthetic browser checks: authenticated real-account flows and physical iPhone/Android behavior remain unverified.
+## Hosted verification
+
+Runtime `25740ad2f5a44d8c5c3cb5d185aad5a10a7dec1f` deployed successfully through Workers Build `c4f2cba8-053f-4c76-8788-d012e46bbce3`. The hosted Today suite verifies the exact built HTML and passes all six desktop/phone/light/dark journeys. The hosted workout-order suite passes all three widths. Read-only hosting checks pass at all three widths for exact public assets, Testing banner, development-only backend/storage/manifest, headers, offline reopening and reconnect. No captured console/page errors or synthetic-flow backend mutations.
+
+These are synthetic browser checks: authenticated real-account flows and physical iPhone/Android behavior remain unverified. Production was not changed.
