@@ -173,21 +173,25 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 /* History */
 .hist{border-top:1px solid var(--line);padding:10px 0}
 .hist:first-child{border-top:0}
-.history-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;border:0;background:none;color:var(--ink);font:inherit;padding:8px 0;cursor:pointer;border-radius:6px}
+.history-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;border:0;background:none;color:var(--ink);font:inherit;padding:8px 0;cursor:pointer;border-radius:6px}
 .history-toggle:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
-.history-heading{display:grid;gap:5px;min-width:0;overflow-wrap:anywhere}
+.history-heading{display:grid;gap:6px;min-width:0;overflow-wrap:anywhere}
 .history-action{display:flex;align-items:center;gap:6px;flex:none;color:var(--accent);font-size:12px;font-weight:700}
 .history-arrow{font-size:22px;line-height:1;transform:rotate(90deg)}
 .history-toggle[aria-expanded=true] .history-arrow{transform:rotate(-90deg)}
-.history-details{padding:12px 0 4px;display:grid;gap:16px}
-.history-exercise h4{font:700 15px var(--body);margin:0 0 6px;overflow-wrap:anywhere}
-.history-sets{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
-.history-sets th,.history-sets td{text-align:right;padding:7px 0;border-bottom:1px solid var(--line)}
-.history-sets th{font-size:12px;font-weight:400;color:var(--muted)}
-.history-sets th:first-child,.history-sets td:first-child{text-align:left}
-.history-sets tr:last-child td{border-bottom:0}
-.history-context{border-top:1px solid var(--line);padding-top:12px;font-size:13px;color:var(--muted)}
-.history-context summary{cursor:pointer;min-height:32px;color:var(--accent)}
+.history-details{padding:10px 0 4px;display:grid;gap:0}
+.history-exercise{padding:14px 0;border-top:1px solid var(--line)}
+.history-exercise h4{font:700 15px var(--body);margin:0;overflow-wrap:anywhere}
+.history-note{font-size:12px;color:var(--muted);margin-top:4px}
+.history-sets{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:10px 0 0;font-variant-numeric:tabular-nums}
+.history-set{background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:8px 4px;text-align:center;display:grid;align-content:start;gap:4px;font-size:13px;min-width:0;overflow-wrap:anywhere}
+.history-set-label{font-size:11px;color:var(--muted)}
+.history-set b{font-size:14px}
+.history-set-result{color:var(--muted)}
+.history-footer{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+.history-footer>.btn{flex:none;font-size:12px;min-height:36px}
+.history-context{flex:1;min-width:0;font-size:13px;color:var(--muted)}
+.history-context summary{cursor:pointer;min-height:36px;padding-top:8px;color:var(--accent);font-size:12px}
 .history-context p{margin:8px 0;overflow-wrap:anywhere}
 svg text{fill:var(--muted);font-family:var(--body);font-size:11px}
 /* Settings */
@@ -3296,22 +3300,23 @@ function historyExercise(e){
   const load=(ex&&usesLoad(ex)) || e.sets.some(s=>s.w!=null&&s.w!=='');
   const each=ex&&load&&(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)));
   const note=[each?'Weight per hand':'',ex?.uni?(timed?'Time per side':'Reps per side'):''].filter(Boolean).join(' · ');
-  return `<section class="history-exercise"><h4>${esc(e.name)}</h4>${note?`<div class="tiny muted">${note}</div>`:''}
-    ${e.sets.length?`<table class="history-sets" aria-label="${esc(e.name)} recorded sets"><thead><tr><th scope="col">Set</th>${load?`<th scope="col">${ex?.mode==='B'?'Added weight':'Weight'}</th>`:''}<th scope="col">${timed?'Seconds':'Reps'}</th></tr></thead>
-      <tbody>${e.sets.map((s,i)=>`<tr><td>${i+1}</td>${load?`<td>${ex?.mode==='B'&&+s.w===0?'Bodyweight':s.w==null||s.w===''?'—':esc((ex?.mode==='B'?'+':'')+fmtW(s.w))}</td>`:''}<td>${esc(s.r)}</td></tr>`).join('')}</tbody></table>`:'<p class="small muted">No sets recorded.</p>'}</section>`;
+  const unit=timed?'sec':'reps';
+  const weight=s=>s.w==null||s.w===''?'—':ex?.mode==='B'&&+s.w===0?'Bodyweight':(ex?.mode==='B'?'+':'')+fmtW(s.w);
+  return `<section class="history-exercise"><h4>${esc(e.name)}</h4>${note?`<div class="history-note">${note}</div>`:''}
+    ${e.sets.length?`<ol class="history-sets" aria-label="${esc(e.name)} recorded sets">${e.sets.map((s,i)=>`<li class="history-set"><span class="history-set-label">Set ${i+1}</span><b>${esc(load?weight(s):s.r+' '+unit)}</b>${load?`<span class="history-set-result">${esc(s.r+' '+unit)}</span>`:''}</li>`).join('')}</ol>`:'<p class="small muted">No sets recorded.</p>'}</section>`;
 }
 function historySession(l,i){
   const open=ui.histOpen===l.id, detailId='history-session-'+i;
-  const date=new Date(l.date).toLocaleDateString([], {weekday:'short',month:'short',day:'numeric',year:'numeric'});
-  const info=[l.dur!=null?`${l.dur} min`:null,`${l.entries.length} exercise${l.entries.length===1?'':'s'}`].filter(Boolean).join(' · ');
+  const date=new Date(l.date).toLocaleDateString([], {month:'short',day:'numeric',...(new Date(l.date).getFullYear()!==new Date().getFullYear()?{year:'numeric'}:{})});
+  const info=[date,l.dur!=null?`${l.dur} min`:null,`${l.entries.length} exercise${l.entries.length===1?'':'s'}`].filter(Boolean).join(' · ');
   return `<div class="hist"><button class="history-toggle" data-action="histopen" data-id="${esc(l.id)}" aria-expanded="${open}" aria-controls="${detailId}">
-    <span class="history-heading"><span class="tiny muted">${esc(date)}</span><b>${esc(l.name)}</b><span class="small muted">${esc(info)}</span>${l.status==='partial'?`<span class="tiny muted">Partial${l.completed!=null&&l.planned!=null?` · ${esc(l.completed)} of ${esc(l.planned)} sets`:''}</span>`:''}</span>
-    <span class="history-action">${open?'Hide':'View'} session <span class="history-arrow" aria-hidden="true">›</span></span></button>
+    <span class="history-heading"><b>${esc(l.name)}</b><span class="tiny muted">${esc(info)}</span>${l.status==='partial'?`<span class="tiny muted">Partial${l.completed!=null&&l.planned!=null?` · ${esc(l.completed)} of ${esc(l.planned)} sets`:''}</span>`:''}</span>
+    <span class="history-action">${open?'Hide':'View'} <span class="history-arrow" aria-hidden="true">›</span></span></button>
     <div id="${detailId}" ${open?'':'hidden'}>${open?`<div class="history-details">${l.entries.map(historyExercise).join('')}
-      <details class="history-context"><summary>Plan &amp; progression</summary>
+      <div class="history-footer"><details class="history-context"><summary>Plan &amp; progression</summary>
         <p>${l.block!=null?`Program ${esc(l.block)}`:''}${l.week!=null?` · Week ${esc(l.week)}`:''}</p>
         ${l.entries.filter(e=>e.plan||e.msg).map(e=>`<p><b>${esc(e.name)}</b>${e.plan?`<br>Planned: ${esc(e.plan)}${e.planned!=null?' at '+esc(fmtW(e.planned)):''}`:''}${e.msg?`<br>${esc(e.msg)}`:''}</p>`).join('')}
-      </details>${coachMode?'':`<button class="btn sm ghost" data-action="dellog" data-id="${esc(l.id)}" style="justify-self:start">Delete session</button>`}</div>`:''}</div></div>`;
+      </details>${coachMode?'':`<button class="btn sm ghost" data-action="dellog" data-id="${esc(l.id)}" aria-label="Delete session">Delete</button>`}</div></div>`:''}</div></div>`;
 }
 function renderHistory(){
   const exIds=[...new Set(logs.flatMap(l=>l.entries.map(e=>e.ex)))].filter(id=>EX[id]);
