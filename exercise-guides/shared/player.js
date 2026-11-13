@@ -9,6 +9,7 @@ const host=document.createElement('div');host.className='ss-player';host.innerHT
 const rawCache=new Map(),geometryCache=new Map(),resolvedGeometry=new Map(),textureCache=new Map(),materialCache=new Map();
 const stats={networkBytes:0,networkRequests:0,persistentHits:0,characterLoads:0};
 const pinnedAssets=new Set();
+$('.ss-notices').href=new URL('NOTICES.html',assetBase).href;
 const modelCache=new Map();let candidates=[],selectedCharacter='anatomical',currentModel,anatomicalGeometry;
 async function model(id){if(id==='anatomical')return null;if(!modelCache.has(id)){const spec=candidates.find(c=>c.id===id);if(!spec)throw Error('Unknown character');if(JSON.stringify(spec.jointNames)!==JSON.stringify(library.jointNames))throw Error('Incompatible character skeleton');const promise=Promise.all([unpack(spec.geometry),texture(spec.texture)]).then(([arrays,map])=>{stats.characterLoads++;return {spec,geometry:geometry(arrays),map};});modelCache.set(id,promise);promise.catch(()=>modelCache.delete(id));}return modelCache.get(id);}
 
