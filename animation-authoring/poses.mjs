@@ -1,5 +1,6 @@
 // Author poses in metres: Y up, Z forward, left on +X. All limb lengths come from the frozen rig.
 import {V,Q,M,T,rad} from './rig.mjs';
+import {correctTargets,finishPose} from './corrections.mjs';
 const lerp=T.MathUtils.lerp,clamp=T.MathUtils.clamp;
 export const ease=x=>{x=clamp(x,0,1);return x*x*(3-2*x);};
 export function phase(t){return t<.12?0:t<.46?ease((t-.12)/.34):t<.57?1:t<.94?1-ease((t-.57)/.37):0;}
@@ -285,6 +286,10 @@ export function pose(r,s,t){
  default:throw Error('No pose author for '+f+' '+s.name);
  }
  if(s.halfKneel&&!['kneelingStretch','worldStretch','pulldown','overhead','singleRow','chop','pallof','crunch'].includes(f)){hip.y=.52;foot('l',V(.17,.074,.41));foot('r',V(-.14,.08,-.43),180);}
+ const corrected=correctTargets(r,s,t,{hip,pitch,yaw,roll,axial,feet,footPitch,hand,pole,grip,floor,bench,seated,prone,kneel},meta);
+ ({hip,pitch,yaw,roll,axial,feet,footPitch,hand,pole,grip,floor,bench,seated,prone,kneel}=corrected);
+ const forearmSide=['l','r'].find(ss=>meta.handModes?.[ss]==='forearm');
+ if(forearmSide){r.trunk(hip,pitch,yaw,roll,axial);const sh=r.point('upperarm_'+forearmSide),z=meta.forearmBall?hand[forearmSide].z-.236:.443,h=meta.forearmBall?.60:/stir/.test(n)?.58:s.eq.includes('bs')?.27:.047,len=r.length('upperarm_'+forearmSide,'lowerarm_'+forearmSide);hip.y+=h+Math.sqrt(Math.max(.0025,len*len-(sh.z-z)**2))-sh.y;meta.forearm={height:h,z};}
  if(jumpingYaw){const turn=M().makeRotationY(rad(jumpingYaw));both(side=>{feet[side].sub(hip).applyMatrix4(turn).add(hip);hand[side].sub(hip).applyMatrix4(turn).add(hip);});}
  // Keep authored foot contacts inside the legs' reachable ranges.
  for(let iteration=0;iteration<24;iteration++){
@@ -293,22 +298,31 @@ export function pose(r,s,t){
   if(max<.00002)break;
  }
  const transform=r.trunk(hip,pitch,yaw,roll,axial);
+ if(meta.backContact){
+  const saved=['pelvis','spine_01','spine_02'].map(n=>[n,r.world(r.ids[n])]);
+  r.trunk(V(0,meta.backContact.y+.05,meta.backContact.z+.45),-94);
+  const upper=['spine_03','neck_01','head','clavicle_l','clavicle_r'].map(n=>[n,r.world(r.ids[n])]);
+  for(const [n,m] of saved)r.set(n,m);
+  for(const [n,m] of upper)r.set(n,m);
+ }
  if(f==='catcow'||f==='standingCat'){for(const bone of ['spine_01','spine_02','spine_03']){const i=r.ids[bone];r.locals[i].multiply(M().makeRotationX(rad(4*w)));}}
+ if(meta.crunch||meta.chestRotation){for(const bone of ['spine_01','spine_02','spine_03']){const i=r.ids[bone];r.locals[i].multiply(meta.crunch?M().makeRotationX(meta.crunch):M().makeRotationY(rad(meta.chestRotation/3)));}}
  if(meta.neckTilt){const i=r.ids.neck_01;r.locals[i].multiply(M().makeRotationZ(rad(meta.neckTilt)));}
  if(f==='shoulderRoll'){for(const side of ['l','r']){const p=r.point('clavicle_'+side);p.y+=.025*(1+w);p.z+=.018*c;r.orient('clavicle_'+side,p,r.rotation('clavicle_'+side));}}
  // Enforce actual knee planes and foot placements; solve, rather than scale, every limb.
  both((side,sign)=>{
   let legPole=V(0,0,1);if(prone||f==='legCurl'&&/lying|dumbbell|prone/.test(n))legPole=V(0,-1,.05);if(['butterfly','clamshell','hipMachine'].includes(f))legPole=V(sign,0,.1);if(f==='clamshell'&&side==='l')legPole=V(0,1,.1+q);
   if(['sideLeg','sidePlank','openBook'].includes(f))legPole=V(.1,1,0);
-  const leg=r.leg(side,feet[side],legPole,footPitch[side],jumpingYaw);meta.contacts.push({side,requested:feet[side].toArray(),actual:leg.ankle.toArray()});
+  if(meta.legPoles?.[side])legPole=meta.legPoles[side];
+  const leg=r.leg(side,feet[side],legPole,footPitch[side],meta.footYaw?.[side]??jumpingYaw);meta.contacts.push({side,requested:feet[side].toArray(),actual:leg.ankle.toArray()});
  });
  both((side,sign)=>{
   if(!hand[side]){const shoulder=r.point('upperarm_'+side);hand[side]=shoulder.clone().add(V(sign*.07,-.47,.035));}
   // Unilateral demos keep the non-working arm quiet; supports and asymmetrical poses retain explicit targets.
-  if(un&&side==='r'&&s.category==='strength'&&['standingPress','overhead','raise','curl','pulldown'].includes(f))hand[side]=r.point('upperarm_'+side).add(V(-.07,-.47,.02));
+  if(un&&side==='r'&&s.category==='strength'&&!meta.handModes?.r&&['standingPress','overhead','raise','curl','pulldown'].includes(f))hand[side]=r.point('upperarm_'+side).add(V(-.07,-.47,.02));
   meta[side]=r.arm(side,hand[side],pole[side]||V(sign,-.3,.1),grip);
  });
- r.closeHands(s.eq.some(x=>['db','bb','kb','cb','bd','pl','trx','rp','sandbag','sled','abwheel'].includes(x))?1:0);
+ finishPose(r,s,t,meta,corrected);
  meta.floor=floor;meta.bench=bench;meta.seated=seated;meta.prone=prone;meta.hip=hip;meta.pitch=pitch;meta.yaw=yaw;meta.grip=grip;
  return meta;
 }

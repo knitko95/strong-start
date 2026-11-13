@@ -66,3 +66,13 @@ There is deliberately no automatic production database migration or production r
 ## Pending atomic-sync release
 
 Development has migration `20261111184231_atomic_account_sync.sql` and the matching frontend; production does not. See [sync verification and release limits](SYNC-REVIEW-2026-11-11.md). This migration deliberately denies legacy direct writes. An approved release must apply the migration and publish the matching frontend in a coordinated window, then ask existing open tabs/Home Screen sessions to reload. Cached old clients preserve their local copy but cannot sync until refreshed. A frontend-only rollback to the old save protocol is incompatible; prepare and test any rollback separately. Do not restore old broad write grants as an automatic workaround.
+
+## Independent experience experiments
+
+`dev1` and `dev2` are independent branches and Workers at https://dev1.strongstart.app/ and https://dev2.strongstart.app/. Each starts from dev; later dev updates are merged deliberately, never automatically. Their build roots are `hosting/cloudflare-dev1` and `hosting/cloudflare-dev2`. The existing dev/main build triggers are unchanged.
+
+Run `node scripts/build-preview.mjs dev1` (or dev2) to build locally. Both force the development backend, stamp the variant in version metadata/feedback, identify the installed app, and reject a mismatched CI branch. Each origin has its own browser storage, sessions and offline cache. Feedback uses a same-origin proxy to the existing dev feedback service, retaining its verified Auth and outbox. No feedback credentials are duplicated.
+
+All three test apps share Supabase `gvyfgqhgqnfmtoytqpeo`: the same test account edits the same saved plan, workout history and messages. Avoid simultaneous edits; existing sync-conflict handling still applies. These branches support visual changes and entirely different UX/prompts. Preserve the shared persistence contract; coordinate compatible migrations through dev and do not reset or reinterpret another variant's saved data. Use separate test accounts when experiment data should differ. Production remains separate.
+
+Experiment changes can stay on their named branch without changing dev. Promotion to the regular app requires deliberate integration into dev, hosted testing and explicit approval before production.

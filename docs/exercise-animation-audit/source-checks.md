@@ -14,3 +14,19 @@ November 13, 2026. Per-exercise reference associations and boundaries are retain
 | [Attempted ACE inverted-row URL](https://www.acefitness.org/resources/everyone/exercise-library/168/inverted-row/) | No new evidence accepted. | Not accessible through the retrieval tool; this attempted route is not a replacement source. The fixed-bar target comes from the existing per-exercise research and app equipment definition. |
 
 Publisher attribution does not establish permission to reproduce videos, professional approval, or suitability for an individual. The audit concerns visible demonstration/configuration discrepancies.
+
+
+## Correction follow-up
+
+November 13, 2026. Existing per-entry source associations remain intact. Additional direct primary pages were rechecked while authoring the correction candidate:
+
+| Exact source | Facts checked and resulting correction | Conflict / limit |
+| --- | --- | --- |
+| [ACE Halo](https://www.acefitness.org/resources/everyone/exercise-library/394/halo/) | Horns-held bell travels from chest around/behind the head and back; reworked the circle and two-hand targets. | This does not prescribe one universal shoulder range. Full continuous publisher video not replayed. |
+| [PureGym Front Squat](https://www.puregym.com/exercises/legs/quad-exercises/squats/front-squat/) | Shaft supported across the anterior shoulders, with elbows forward/high; revised the candidate to the underhand rack. | Fine hand/skin support and individual wrist tolerance remain human-review items. |
+| [ACE Overhead Slams](https://www.acefitness.org/resources/everyone/exercise-library/182/overhead-slams/) | Overhead loading, downward release and floor impact; page distinguishes rebound and non-bouncing balls. | Candidate explicitly retrieves a dead ball; it does not show a rebound catch. No universal load or range recommendation imported. |
+| [ACE Rotational Slam](https://www.acefitness.org/resources/everyone/exercise-library/287/rotational-slam/) | Alternating side slams from overhead, coordinated with lower-body turning. | ACE describes a rebound catch; the selected app configuration also has a separate dead-ball reference. Candidate retains the dead-ball retrieval variant and records that difference. |
+| [Muscle & Strength Rotational Med Ball Shot Put](https://www.muscleandstrength.com/exercises/rotational-med-ball-shot-put) | Original exercise guide identifies a unilateral rotational push; separated the working-arm push from the free hand and wall return. | Not equivalent to a two-handed chest pass. Full continuous motion/tempo not certified. |
+| [ACE Overhead Medicine Ball Throws](https://www.acefitness.org/resources/everyone/exercise-library/178/overhead-medicine-ball-throws/) | Behind-head preparation, overhead release, coordinated step; its repeating-throws variation explicitly uses a wall and bouncing ball. | Main instructions use a partner; the candidate deliberately uses its wall-rebound variation. |
+
+Attempted Onnit gorilla-row and BOSU blog routes were not retrievable in this pass and supply no new evidence. The already registered Onnit/publisher configuration records were retained instead. Eight-phase candidate views distinguish alternating floor-set gorilla rows and on-top BOSU jumps. Band-walk placement and optional side-step-lunge loading differences are retained in the closer-review dispositions rather than erased.

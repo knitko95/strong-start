@@ -1,0 +1,74 @@
+{
+  "date": "2026-11-13",
+  "developmentBaseline": "b466b8e388cdbc9ca0d22cfb36451a64f06d9b77",
+  "hashes": {
+    "exercise-guides/shared/manifest.json": "129abf32354a52a480dbe6026b0ba53cd84bd49744f82aa7a2ccefd2b3777194",
+    "animation-authoring/poses.mjs": "ac32465da2233e32ff28201257777520b4f4fc385b3a6445382eda5347fa658d",
+    "animation-authoring/equipment.mjs": "492362987d997381b13c6831958cfed07606020f5f241362949b5bfbb269dc0c",
+    "animation-authoring/recipes.json": "e53f08b188d79eb6e747a1a16a776eb1c6afe5ca1d01977bd6ae1802defd2ec2",
+    "animation-authoring/rig.mjs": "8aac0f4bdf4d1a8d6ef3d932d835016d095cf14882640c2d64683ff867d0e8aa",
+    "animation-authoring/corrections.mjs": "f6a75e7a4d956f221141b005bd4c6d35fd7ce5b11e30d5e4e3711b825a7e84ad",
+    "animation-authoring/equipment-corrections.mjs": "327ec63e42cae7b0c6e26cd268934bc53bd1da022287ef7ab1ff5a793ebf29eb",
+    "docs/exercise-visuals/entries.json": "57bbb479e7bb3433d1e90919da31ebfaefa6406621005834e67f77be3b021f7e",
+    "docs/exercise-technique/catalog.json": "3af8c634f32b3cd6457e16e6bacf101ace047fdcfebad0e62885277b53cb3d7e",
+    "docs/exercise-technique/guides.json": "8689004d77bbeadc31254d3aaa5fead71e82a6830de852608286965510f4ca4c",
+    "docs/exercise-technique/cardio.json": "03efb30e2b7dd5786d5745e4d2cc0452f04c9b1565d345c3bdcd53123ad8b12a"
+  },
+  "mechanical": {
+    "clips": 428,
+    "poses": 17548,
+    "maximumGripGap": 1.7335230216082916e-09,
+    "maximumNeutralWristAngle": 2.699869328381916e-06,
+    "maximumRigidLengthDrift": 2.429657586233702e-10,
+    "maximumLimbLengthDrift": 3.1086244689504383e-15,
+    "maximumLoopDifference": 2.245426067304379e-14,
+    "maximumFootTargetGap": 0
+  },
+  "browser": {
+    "scope": "isolated local development build; synthetic browser state; backend mutations blocked",
+    "exercises": 446,
+    "posesPerExercise": 3,
+    "errors": [],
+    "maximumJointPlaybackDifferenceMetres": 0.0009384837226406145,
+    "characterRequests": 1,
+    "widths": [
+      320,
+      390,
+      1280
+    ]
+  },
+  "rendered": {
+    "standard": {
+      "entries": 296,
+      "views": 1184,
+      "characterLoads": 1,
+      "errors": []
+    },
+    "-extra": {
+      "entries": 296,
+      "views": 592,
+      "characterLoads": 1,
+      "errors": []
+    },
+    "-sequence": {
+      "entries": 53,
+      "views": 424,
+      "characterLoads": 1,
+      "errors": []
+    }
+  },
+  "regressions": {
+    "persistenceAndWorkout": 103,
+    "offline": 6,
+    "animationLifecycle": "passed"
+  },
+  "reviewStatus": "awaiting-owner-review",
+  "productionPublished": false,
+  "limits": [
+    "Engineering/source-configuration review of sampled illustrations; no clinical or professional certification.",
+    "Not a continuous replay of every source video.",
+    "Fine finger/skin collisions, manufacturer-specific dimensions, movement cadence and individual safe range still require human technique review.",
+    "Shared changes propagate to unreferenced drafts; all 446 clips have browser checks, but the 128 excluded source entries are not technique-cleared.",
+    "No real-account or physical-phone test; no database migration, production configuration change or live publication."
+  ]
+}

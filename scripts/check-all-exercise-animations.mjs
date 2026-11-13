@@ -8,7 +8,7 @@ const characters=readJSON(path.join(directory,'characters.json'));assert.equal(c
 for(const c of characters.candidates){assert.deepEqual(c.jointNames,library.jointNames);assert.equal(c.sourceInverseBindMatrices.length,55);assert(c.vertices<35000&&c.triangles<60000);assert.equal(c.reviewStatus,'draft');}
 const original=readJSON(path.join(root,'animation-authoring/accepted-manifest.json')),acceptedLibrary=readJSON(path.join(root,'animation-authoring/accepted-library.json'));
 assert.deepEqual(library.character,acceptedLibrary.character,'Character geometry must remain unchanged');assert.deepEqual(library.jointNames,acceptedLibrary.jointNames);assert.equal(library.jointNames.length,55);
-const byId=new Map(manifest.exercises.map(e=>[e.id,e]));assert.equal(byId.size,manifest.exercises.length);assert.equal(byId.size,445);
+const byId=new Map(manifest.exercises.map(e=>[e.id,e]));assert.equal(byId.size,manifest.exercises.length);assert.equal(byId.size,446);assert(byId.has('air-bike'));
 for(const e of catalogue.exercises)assert.equal(byId.get(e.id)?.name,e.n,'Missing/mislabelled strength animation '+e.id);
 for(const e of catalogue.moves)assert(byId.has(e.id),'Missing named warm-up/stretch '+e.id);
 let tracks=0,motionBytes=0,configBytes=0,newClips=0;const motionSizes=[];

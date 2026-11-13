@@ -1637,7 +1637,9 @@ function lvl(){ return LEVEL_ORDER.includes(state.settings.level) ? state.settin
 function goals(){ const g=state.settings.goals; return g&&g.length?g:['muscle']; }
 function hasGoal(k){ return goals().includes(k); }
 function painRe(){ return (state.settings.pain||[]).map(k=>PAIN[k]&&PAIN[k].re).filter(Boolean); }
-function painConflicts(ex){ return (state.settings.pain||[]).filter(k=>PAIN[k]&&PAIN[k].re.test(ex.n)); }
+// Caution-only exercises stay eligible for plans and suggested swaps.
+const PAIN_CAUTION_ONLY = {back:new Set(['cable-pull-through','band-pull-through'])};
+function painConflicts(ex){ return (state.settings.pain||[]).filter(k=>PAIN[k]&&(PAIN[k].re.test(ex.n)||PAIN_CAUTION_ONLY[k]?.has(ex.id))); }
 function painAreas(keys){ return keys.map(k=>PAIN[k].n.toLowerCase()).join(', ').replace(/, ([^,]*)$/,' and $1'); }
 function painWarningIcon(){ return '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M10.3 4.2a2 2 0 0 1 3.4 0l8 13.8a2 2 0 0 1-1.7 3H4a2 2 0 0 1-1.7-3z" fill="currentColor"/><path d="M12 9v5" stroke="#fff8e9" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="17" r="1" fill="#fff8e9"/></svg>'; }
 function painWarningBubble(ex){
@@ -4937,7 +4939,7 @@ function guideAnimationId(it){
   if(/^Foam roll:|^Massage ball:/i.test(it.t)){const [tool,areas]=it.t.split(':');return slugify(tool+' '+areas.split(/,| and /)[0].trim());}
   const title=it.t.toLowerCase();
   if(MOVE_HOW[it.t])return slugify(it.t);
-  if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
+  if(/air bike|airbike/.test(title))return 'air-bike';if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
   return slugify(it.t);
 }
 function gHowTo(it){

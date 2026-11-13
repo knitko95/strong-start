@@ -6,7 +6,11 @@ import {assetHeaders, assetRedirects} from './hosting-assets.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = path.join(root, 'dist');
-if (process.env.CF_PAGES_BRANCH && process.env.CF_PAGES_BRANCH !== 'dev') {
+const target = process.env.STRONG_START_PREVIEW || 'dev';
+if (!['dev','dev1','dev2'].includes(target)) throw new Error('Unknown test target');
+if (target !== 'dev') process.env.STRONG_START_VARIANT = target;
+const branch = process.env.WORKERS_CI_BRANCH || process.env.CF_PAGES_BRANCH;
+if (branch && branch !== target) {
   throw new Error('This Cloudflare project deploys only the dev branch.');
 }
 mkdirSync(out, { recursive: true });
@@ -24,6 +28,12 @@ if (!html.includes('const IS_PRODUCTION = false;') || html.includes('aybtxqsneyw
   throw new Error('Development database isolation check failed.');
 }
 const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root);
+if(target !== 'dev'){
+  stamped.html=stamped.html.replace('Strong Start · Testing','Strong Start · '+target.toUpperCase()).replace('TESTING · Separate test accounts and data',target.toUpperCase()+' · Shared test data');
+  const manifest=JSON.parse(readFileSync(path.join(out,'manifest.dev.webmanifest'),'utf8'));
+  manifest.name='Strong Start '+target.toUpperCase(); manifest.short_name='SS '+target.toUpperCase();
+  writeFileSync(path.join(out,'manifest.dev.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
+}
 writeFileSync(path.join(out, 'index.html'), stamped.html);
 writeFileSync(path.join(out,'sw.js'),stamped.sw);
 writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'development'},null,2)+'\n');

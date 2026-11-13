@@ -43,10 +43,19 @@ export class Rig{
   const sign=side==='l'?1:-1,hi=this.ids[hand],inv=this.bind[hi].clone().invert();
   const y0=this.heads['middle_01_'+side].clone().applyMatrix4(inv).normalize(),x0=this.heads['pinky_01_'+side].clone().applyMatrix4(inv).sub(this.heads['index_01_'+side].clone().applyMatrix4(inv)).multiplyScalar(sign);x0.addScaledVector(y0,-x0.dot(y0)).normalize();
   const frame=M().makeBasis(x0,y0,x0.clone().cross(y0).normalize());
-  const axis=grip==='bar'?V(1,0,0):grip==='underhand'?V(-1,0,0):grip==='vertical'?V(0,1,0):V(0,0,sign);
-  let y=longitudinal?.clone()||end.clone().sub(elbow);y.addScaledVector(axis,-y.dot(axis));if(y.length()<.015)y=V(0,-1,0).addScaledVector(axis,axis.y);if(y.length()<.01)y=V(0,0,1);y.normalize();
+  // Wrist follows the forearm. Project the chosen handle axis, rather than
+  // projecting away most of the forearm direction (which bent some wrists 80°).
+  let y=(longitudinal?.clone()||end.clone().sub(elbow)).normalize();
+  const desired=grip?.isVector3?grip.clone():grip==='bar'?V(1,0,0):grip==='underhand'?V(-1,0,0):grip==='vertical'?V(0,1,0):V(0,0,sign);
+  let axis=desired.addScaledVector(y,-desired.dot(y));if(axis.length()<.01)axis=V(sign,0,0).addScaledVector(y,-sign*y.x);axis.normalize();
   const rotation=Q().setFromRotationMatrix(M().makeBasis(axis,y,axis.clone().cross(y).normalize()).multiply(frame.invert()));this.orient(hand,end,rotation);
   return {shoulder,elbow,wrist:end,axis};
  }
- closeHands(amount=1){for(const s of ['l','r'])for(const f of ['index','middle','ring','pinky'])for(let j=1;j<=3;j++){const n=`${f}_0${j}_${s}`,i=this.ids[n];if(i===undefined)continue;this.locals[i]=this.rest[i].clone().multiply(M().makeRotationX(rad([0,38,62,38][j]*amount)));}}
+ palmPoint(side){const i=this.ids['hand_'+side],local=this.heads['middle_01_'+side].clone().applyMatrix4(this.bind[i].clone().invert()).normalize().multiplyScalar(.04);return local.applyMatrix4(this.world(i));}
+ grasp(side,target,pole,grip='neutral'){
+  let sh=this.point('upperarm_'+side);const l1=this.length('upperarm_'+side,'lowerarm_'+side),l2=this.length('lowerarm_'+side,'hand_'+side),offset=.04*this.scales[this.ids['hand_'+side]].y;
+  const excess=sh.distanceTo(target)-(l1+l2+offset-.0002);if(excess>0&&excess<.025){const n='clavicle_'+side,p=this.point(n).add(target.clone().sub(sh).setLength(excess));this.orient(n,p,this.rotation(n));sh=this.point('upperarm_'+side);}
+  const [el,end]=this.solve(sh,target,l1,l2+offset,pole),wrist=el.clone().lerp(end,l2/(l2+offset));return this.arm(side,wrist,el.clone().sub(sh),grip);
+ }
+ closeHands(amount=1){for(const s of ['l','r']){const a=typeof amount==='object'?amount[s]??0:amount;for(const f of ['index','middle','ring','pinky'])for(let j=1;j<=3;j++){const n=`${f}_0${j}_${s}`,i=this.ids[n];if(i===undefined)continue;this.locals[i]=this.rest[i].clone().multiply(M().makeRotationX(rad([0,38,62,38][j]*a)));}}}
 }
