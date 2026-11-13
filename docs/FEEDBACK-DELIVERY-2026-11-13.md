@@ -50,3 +50,7 @@ The owner explicitly requested display name and account ID on private GitHub iss
 The outbox persists that snapshot alongside a newly accepted report. Retries compare the original report digest and do not change attribution, even after a name change or profile-service outage. Delivered payloads, including the name/account ID snapshot, are purged; GitHub retains the issue. Receipts expose no identity. Reports accepted without the capability marker and old queued payloads stay unattributed, preserving their notice and existing receipt digests. No historical issue backfill is authorized.
 
 Attributable issue names/account IDs remain after app account deletion; the form/privacy/deletion notices explain retention and an owner request for removal/redaction. Existing database deletion behavior is unchanged. Do not mirror identifying issue text into public code/docs/PRs. Production attribution is not approved or deployed by this request; test and hand off the exact dev candidate first.
+
+## Report presentation
+
+New reports show the feedback, submitter display name (when disclosed) and reported app version first. Account ID and diagnostics appear inside a collapsed Technical details section. The hidden source marker and delivery/deduplication behavior are unchanged. Agent handling guidance lives in the private tracker README rather than repeated in each report. Existing issues are not reformatted.

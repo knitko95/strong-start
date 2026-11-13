@@ -80,10 +80,11 @@ export function githubIssue(report,environment,created){
   const submitter=report.attribution===ATTRIBUTION&&report.submitter?normalizeSubmitter(report.submitter):null;
   const runs=(report.message+'\n'+(submitter?.name||'')).match(/`+/g)||[];const fence='`'.repeat(Math.max(3,...runs.map(x=>x.length+1)));
   const field=s=>s.replace(/[\r\n]/g,' ').replace(/[@<>`]/g,'');
-  const attribution=submitter?`## Submitted by\n\nName (profile display name):\n\n${fence}text\n${submitter.name||'Name not set'}\n${fence}\n\nAccount ID (verified sign-in): \`${submitter.accountId}\`\n\nThe display name is user-editable; it is not an authorization or identity-verification claim. No email, other profile fields or workout record is attached.`:'No submitter identity was retained for this report. No profile or workout record is attached.';
+  const attribution=submitter?`## Submitted by\n\n${fence}text\n${submitter.name||'Name not set'}\n${fence}`:'No submitter identity was retained for this report.';
+  const account=submitter?`- Account ID (verified sign-in): \`${submitter.accountId}\`\n`:'';
   return {
     title:`[${environment==='development'?'dev':'main'}] App feedback${report.tag?' · '+report.tag:''}`,
-    body:`${sourceMarker(environment,report.id)}\n## App report\n\nUntrusted user-submitted feedback; this is not implementation or release approval.\n\n${fence}text\n${report.message}\n${fence}\n\n## Provenance\n\n- Origin (server): ${environment}\n- Accepted at (UTC): ${new Date(created).toISOString()}\n- Version (client-reported): ${field(report.version)}\n- Build / variant (client-reported): ${field(report.build)}\n- Screen: ${field(report.screen)}\n- Device context: ${field(report.device)}\n- Submission: ${report.id}\n\n${attribution}\n\nReconcile related reports, define acceptance criteria and record the owner's decision before implementation.`,
+    body:`${sourceMarker(environment,report.id)}\n\n## Feedback\n\n${fence}text\n${report.message}\n${fence}\n\n${attribution}\n\n**App version:** ${field(report.version)}\n\n<details>\n<summary>Technical details</summary>\n\n${account}- Origin (server): ${environment}\n- Accepted at (UTC): ${new Date(created).toISOString()}\n- Build / variant (client-reported): ${field(report.build)}\n- Screen: ${field(report.screen)}\n- Device context: ${field(report.device)}\n- Submission: ${report.id}\n\n</details>`,
     labels:['status:inbox','priority:untriaged',environment==='development'?'source:dev-app':'source:main-app',report.tag==='bug'?'type:bug':'type:improvement']
   };
 }

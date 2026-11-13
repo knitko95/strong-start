@@ -103,6 +103,17 @@ describe('feedback authentication and input boundaries',()=>{
   });
 });
 describe('server-derived submitter details',()=>{
+  it('keeps feedback, name and version visible while collapsing diagnostics and omitting agent instructions',()=>{
+    const report={...attributedReport(),message:'Synthetic layout check',version:'0.3.1',build:'dev-layout-build',screen:'settings',device:'phone',submitter:{accountId:user,name:'Synthetic member'}};
+    const issue=githubIssue(report,'development',0);
+    const [visible,details]=issue.body.split('<details>');
+    expect(visible).toContain('Synthetic layout check');expect(visible).toContain('Synthetic member');expect(visible).toContain('**App version:** 0.3.1');
+    expect(visible).toContain(sourceMarker('development',report.id));expect(visible).not.toContain(user);
+    for(const text of [user,'dev-layout-build','settings','phone','Origin (server): development','1970-01-01T00:00:00.000Z','Submission: '+report.id])expect(details).toContain(text);
+    expect(details).toMatch(/^\n<summary>Technical details<\/summary>\n\n/);expect(details).toMatch(/\n\n<\/details>$/);
+    expect(issue.body).not.toContain('Untrusted user');expect(issue.body).not.toContain('before implementation');
+    expect(issue.labels).toEqual(['status:inbox','priority:untriaged','source:dev-app','type:bug']);
+  });
   it('delivers a missing profile name with the verified account ID and no email fallback',async()=>{
     profileName=null;expect((await exports.default.fetch(request(attributedReport()))).status).toBe(200);
     expect(posted[0]).toContain('Name not set');expect(posted[0]).toContain(user);expect(posted[0]).not.toContain('example.invalid');
@@ -141,7 +152,7 @@ describe('server-derived submitter details',()=>{
       expect(p.body).toContain('Name not set');expect(p.body).toContain(user);if(name)expect(p.body).not.toContain(name);
     }
     const p=githubIssue({...attributedReport(),submitter:{accountId:user,name:'```\n@someone <script>unsafe</script>'}},'development',Date.now());
-    expect(p.body).toContain('````text');expect(p.body).toContain('user-editable');
+    expect(p.body).toContain('````text');expect(p.body).not.toContain('user-editable');
   });
 });
 describe('durable delivery and deduplication',()=>{
