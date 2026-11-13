@@ -1056,69 +1056,69 @@
       ],
       "geometry": {
         "asset": {
-          "url": "assets/rose-athlete.5f8bacdaa07115cc.bin.gz",
-          "bytes": 966146,
-          "sha256": "5f8bacdaa07115ccb66171f197a861dc1e0e0e0ce16aaab3c7f7cd9d8831befd"
+          "url": "assets/rose-athlete.eced5aaf43fe2aed.bin.gz",
+          "bytes": 980032,
+          "sha256": "eced5aaf43fe2aeda3637fb54b95e97f69c815426e9e77245d10d58c204f8f84"
         },
         "arrays": {
           "POSITION": {
             "componentType": 5126,
             "size": 3,
-            "count": 24936,
+            "count": 25471,
             "normalized": false,
             "offset": 0,
-            "length": 299232
+            "length": 305652
           },
           "NORMAL": {
             "componentType": 5126,
             "size": 3,
-            "count": 24936,
+            "count": 25471,
             "normalized": false,
-            "offset": 299232,
-            "length": 299232
+            "offset": 305652,
+            "length": 305652
           },
           "TEXCOORD_0": {
             "componentType": 5126,
             "size": 2,
-            "count": 24936,
+            "count": 25471,
             "normalized": false,
-            "offset": 598464,
-            "length": 199488
+            "offset": 611304,
+            "length": 203768
           },
           "JOINTS_0": {
             "componentType": 5123,
             "size": 4,
-            "count": 24936,
+            "count": 25471,
             "normalized": false,
-            "offset": 797952,
-            "length": 199488
+            "offset": 815072,
+            "length": 203768
           },
           "WEIGHTS_0": {
             "componentType": 5126,
             "size": 4,
-            "count": 24936,
+            "count": 25471,
             "normalized": false,
-            "offset": 997440,
-            "length": 398976
+            "offset": 1018840,
+            "length": 407536
           },
           "index": {
             "componentType": 5125,
             "size": 1,
-            "count": 141792,
+            "count": 144888,
             "normalized": false,
-            "offset": 1396416,
-            "length": 567168
+            "offset": 1426376,
+            "length": 579552
           }
         },
-        "decodedBytes": 1963584
+        "decodedBytes": 2005928
       },
       "texture": {
-        "url": "assets/rose-athlete-color.82a2417777fe1b19.png",
-        "bytes": 634289,
-        "sha256": "82a2417777fe1b1912252e1c2b31217778af1fcd36d3f822bb2c5f3bd933ba79"
+        "url": "assets/rose-athlete-color.445cd1a3f33781bf.png",
+        "bytes": 642024,
+        "sha256": "445cd1a3f33781bf64a7f178088762c9aeaecffa0e8290361ef16a53abaad796"
       },
-      "vertices": 24936,
-      "triangles": 47264,
+      "vertices": 25471,
+      "triangles": 48296,
       "commonRestBonesVerified": 53,
       "reviewStatus": "draft",
       "license": "MakeHuman base skin and graphical assets CC0; independently authored styling. See CHARACTER-NOTICES.html."

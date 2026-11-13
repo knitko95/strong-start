@@ -15,9 +15,9 @@ fitting adapts mesh rest coordinates rather than changing the animations.
 Existing anatomical body data, role maps, exercise motion and equipment remain
 unchanged. Muscle highlighting stays on the anatomical instructor.
 
-The candidate contains 24,936 vertices and 47,264 triangles, one 1024px atlas,
+The candidate contains 25,471 vertices and 48,296 triangles, one 1024px atlas,
 four weights per vertex and one skinned draw. Compressed geometry plus texture
-is 1,600,435 bytes. The anatomical body is loaded lazily if selected; fitted
+is 1,622,056 bytes. The anatomical body is loaded lazily if selected; fitted
 candidate geometries are bounded to two cached bind frames. Package size is
 not a physical-phone performance measurement.
 
@@ -40,3 +40,11 @@ Production publication requires approval of a defined tested release.
 
 See [the authoring notes](../character-authoring/README.md) for source provenance,
 reproduction, asset format and local editable Blender output.
+
+## Appearance refinement
+
+The subsequent appearance pass adds tapered eyebrows and upper lash lines,
+warmer brown irises, smaller pupils, a softer jaw and narrower nose bridge,
+a subtly lifted mouth, warmer skin and a fuller swept hairline/bun. The head
+mesh and styling change; rig rest frames, limb proportions, animation and
+equipment remain unchanged. The candidate remains a visual draft for review.
