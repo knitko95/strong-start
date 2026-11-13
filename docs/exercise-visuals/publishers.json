@@ -1,0 +1,204 @@
+{
+  "publishers": {
+    "nasm": {
+      "id": "nasm",
+      "name": "NASM",
+      "basis": "Professional fitness education and certification organization; official exercise pages and credited NASM channel.",
+      "evidenceUrls": [
+        "https://www.nasm.org/workout-exercise-guidance"
+      ],
+      "limitations": "Publisher authority does not validate every variation or resolve inconsistencies in an individual page.",
+      "checkedOn": "2026-11-13"
+    },
+    "puregym": {
+      "id": "puregym",
+      "name": "PureGym",
+      "basis": "Gym operator publishing its own trainer exercise demonstrations and technique guides.",
+      "evidenceUrls": [
+        "https://www.puregym.com/exercises/"
+      ],
+      "limitations": "Commercial training guidance. Some written pages have known errors retained in the technique library; multiple videos on a page can show different variants.",
+      "checkedOn": "2026-11-13"
+    },
+    "physitrack": {
+      "id": "physitrack",
+      "name": "Physitrack",
+      "basis": "Clinical exercise-prescription publisher; describes expert-created, professionally narrated demonstrations. Provider metadata credits Physitrack.",
+      "evidenceUrls": [
+        "https://www.physitrack.com/en-gb/exercise-library"
+      ],
+      "limitations": "Library landing-page card labels can disagree with the linked video. Thirteen mismatched pairs were excluded. Clinical-library provenance is not an individual prescription.",
+      "checkedOn": "2026-11-13"
+    },
+    "rehabhero": {
+      "id": "rehabhero",
+      "name": "Rehab Hero",
+      "basis": "Clinician-led exercise library. Primary biography identifies David Song as a chiropractor and strength coach; selected embedded clips credit Rehab Hero.",
+      "evidenceUrls": [
+        "https://www.rehabhero.ca/dr-david-song"
+      ],
+      "limitations": "Biography is publisher-reported, not a license audit. Do not assume every unnamed model or contributor is the clinician. One mislabeled embedded clip was excluded; identical article titles can refer to different postures.",
+      "checkedOn": "2026-11-13"
+    },
+    "ms": {
+      "id": "ms",
+      "name": "Muscle & Strength",
+      "basis": "Established exercise editorial publisher; selected original demonstrations are credited to its own channel and linked from exercise-specific instruction pages.",
+      "evidenceUrls": [
+        "https://www.muscleandstrength.com/exercises/all.html"
+      ],
+      "limitations": "Supplementary strength instruction. The selected pages do not establish the individual demonstrator credentials; some prose is inconsistent. No clinical authority inferred.",
+      "checkedOn": "2026-11-13"
+    },
+    "strongfirst": {
+      "id": "strongfirst",
+      "name": "StrongFirst",
+      "basis": "Strength education organization and original kettlebell coaching demonstrations. Windmill article identifies Brett Jones and his training qualifications.",
+      "evidenceUrls": [
+        "https://www.strongfirst.com/kettlebell-windmill-101/"
+      ],
+      "limitations": "Method-specific coaching choices; a title match is not evidence that every catalog variation or progression is shown.",
+      "checkedOn": "2026-11-13"
+    },
+    "trx": {
+      "id": "trx",
+      "name": "TRX",
+      "basis": "Equipment manufacturer and official training channel.",
+      "evidenceUrls": [
+        "https://www.trxtraining.com/"
+      ],
+      "limitations": "Manufacturer expertise applies to its equipment; model-specific setup remains relevant. Compilation videos can contain multiple exercises.",
+      "checkedOn": "2026-11-13"
+    },
+    "hk": {
+      "id": "hk",
+      "name": "Human Kinetics",
+      "basis": "Original sport and exercise textbook publisher with attributed instructional videos.",
+      "evidenceUrls": [
+        "https://www.humankineticslibrary.com/custom-browse?docid=HumanKineticsStrengthandConditioningVideo"
+      ],
+      "limitations": "Some library items require subscription. Selected public YouTube metadata was checked; full playback was not inspected.",
+      "checkedOn": "2026-11-13"
+    },
+    "onnit": {
+      "id": "onnit",
+      "name": "Onnit",
+      "basis": "Equipment and coaching publisher; named original demonstrations include Shane Heins and Aaron Guyett.",
+      "evidenceUrls": [
+        "https://www.onnit.com/blogs/the-edge/9-battle-ropes-exercises-to-build-muscular-arms"
+      ],
+      "limitations": "Commercial coaching reference. Kneeling, seated and in-and-out rope patterns must not be treated as standing or rotational variants.",
+      "checkedOn": "2026-11-13"
+    },
+    "gentilcore": {
+      "id": "gentilcore",
+      "name": "Tony Gentilcore / Testosterone Nation",
+      "basis": "Named strength coach original TRX anti-rotation article; embedded clip credited to Testosterone Nation rather than the article author channel.",
+      "evidenceUrls": [
+        "https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/"
+      ],
+      "limitations": "Written setup was reviewed separately. Full video motion remains unreviewed; creator and host publisher are preserved separately.",
+      "checkedOn": "2026-11-13"
+    },
+    "steph": {
+      "id": "steph",
+      "name": "Steph Gaudreau",
+      "basis": "Strength coach primary biography lists NASM-CPT and sports-nutrition credentials; selected clip credits her Fuel Your Strength channel.",
+      "evidenceUrls": [
+        "https://www.stephgaudreau.com/steph-gaudreau/"
+      ],
+      "limitations": "Publisher-reported credentials; no independent credential renewal check or full playback review.",
+      "checkedOn": "2026-11-13"
+    },
+    "e3": {
+      "id": "e3",
+      "name": "E3 Rehab",
+      "basis": "Clinician education company founded by doctors of physical therapy; original exercise articles and credited E3 Rehab channel.",
+      "evidenceUrls": [
+        "https://e3rehab.com/our-story/"
+      ],
+      "limitations": "Rehabilitation context is not a prescription for app members. The pogo section start time comes from the article link, not observed playback.",
+      "checkedOn": "2026-11-13"
+    },
+    "atg": {
+      "id": "atg",
+      "name": "ATG / Ben Patrick",
+      "basis": "Original coach and author of the Knee Ability Zero tibialis-raise method; primary coaching reference and credited The Kneesovertoesguy channel.",
+      "evidenceUrls": [
+        "https://app.atgonlinecoaching.com/articles/article-chapter-1-of-the-knee-ability-zero-picture-book"
+      ],
+      "limitations": "Coaching-method reference, not medical authority or evidence for broader injury-prevention claims.",
+      "checkedOn": "2026-11-13"
+    },
+    "bosu": {
+      "id": "bosu",
+      "name": "BOSU",
+      "basis": "Equipment manufacturer official named exercise demonstration.",
+      "evidenceUrls": [
+        "https://www.youtube.com/watch?v=GtytyYHmrNM"
+      ],
+      "limitations": "Pulse squat-jump variation is related only to a generic BOSU squat jump; surface orientation and transitions need comparison.",
+      "checkedOn": "2026-11-13"
+    },
+    "crossfit": {
+      "id": "crossfit",
+      "name": "CrossFit",
+      "basis": "Original strength-and-conditioning education publisher and credited official channel.",
+      "evidenceUrls": [
+        "https://www.crossfit.com/261003"
+      ],
+      "limitations": "Sandbag demonstration only; no general endorsement of programming or individual suitability.",
+      "checkedOn": "2026-11-13"
+    },
+    "rogue": {
+      "id": "rogue",
+      "name": "Rogue Fitness",
+      "basis": "Equipment manufacturer original movement demonstration; provider description identifies athlete Matt Chan.",
+      "evidenceUrls": [
+        "https://www.roguefitness.com/theindex/video/equipment-demo-sled-drag-variations-rogue-fitness-2?prerender=1"
+      ],
+      "limitations": "Forward/backward drags are related to sled pulling; waist-harness and hand-over-hand rope versions differ. Direct page fetch was blocked, but indexed publisher page and official clip identity were checked.",
+      "checkedOn": "2026-11-13"
+    },
+    "qld": {
+      "id": "qld",
+      "name": "Health and Wellbeing Queensland",
+      "basis": "Queensland public-health agency publishing its own exercise image and video.",
+      "evidenceUrls": [
+        "https://hw.qld.gov.au/physical-activity/scapular-push-up-using-desk/"
+      ],
+      "limitations": "Elevated desk support differs from a floor scapular push-up.",
+      "checkedOn": "2026-11-13"
+    },
+    "concept2": {
+      "id": "concept2",
+      "name": "Concept2",
+      "basis": "Rowing-machine manufacturer original technique demonstration and guidance.",
+      "evidenceUrls": [
+        "https://www.concept2.com/training/rowing-technique"
+      ],
+      "limitations": "Manufacturer technique reference; machine setup and individual adjustments still require comparison.",
+      "checkedOn": "2026-11-13"
+    },
+    "squatu": {
+      "id": "squatu",
+      "name": "Squat University",
+      "basis": "Aaron Horschig primary biography identifies a doctorate in physical therapy and strength/coaching background.",
+      "evidenceUrls": [
+        "https://squatuniversity.com/about/"
+      ],
+      "limitations": "Selected still identifies a movement starting posture only; not a complete observed hip-airplane sequence.",
+      "checkedOn": "2026-11-13"
+    },
+    "aaos": {
+      "id": "aaos",
+      "name": "AAOS OrthoInfo",
+      "basis": "American Academy of Orthopaedic Surgeons patient exercise illustrations.",
+      "evidenceUrls": [
+        "https://orthoinfo.aaos.org/en/recovery/rotator-cuff-and-shoulder-conditioning-program/"
+      ],
+      "limitations": "Cross-body shoulder figure only; medical rehabilitation context is not an individual prescription.",
+      "checkedOn": "2026-11-13"
+    }
+  }
+}

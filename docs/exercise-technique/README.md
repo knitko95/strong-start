@@ -4,6 +4,8 @@ Reviewed November 13, 2026, against the catalog on development commit `7b763e9f9
 
 This reference covers **all 320 catalog exercises**, **all 92 named warm-up/stretch guides**, and **12 cardio movement types mapped to 67 app labels**. It is for internal research, coaching review and future authoring. The repository is public: internal means outside the member interface, not confidential. These documents and JSON files are not imported, fetched, precached or packaged by the app.
 
+Visual companions are indexed separately in the [internal visual-reference library](../exercise-visuals/README.md), with credited sources, photos/posters/videos, related-variant boundaries and unresolved format gaps. Visual discovery does not change the written evidence classifications below.
+
 ## Read the notes
 
 | Area | Reference |

@@ -1,0 +1,34 @@
+{
+  "reviewDate": "2026-11-13",
+  "summary": {
+    "catalog": 320,
+    "guides": 92,
+    "cardioTypes": 12,
+    "cardioLabels": 67,
+    "entries": 424,
+    "entriesWithAnyVisual": 424,
+    "entriesWithVideo": 420,
+    "videoRelationships": {
+      "same-labelled-movement": 187,
+      "related-only": 233,
+      "not-found": 4
+    },
+    "stillFormatsByEntry": {
+      "image": 198,
+      "video-poster": 221,
+      "not-found": 2,
+      "animated-image": 3
+    },
+    "uniqueMedia": 615,
+    "uniqueMediaTypes": {
+      "video": 297,
+      "image": 170,
+      "video-poster": 147,
+      "animated-image": 1
+    },
+    "sourcePages": 283,
+    "publisherGroups": 20,
+    "excludedAssociations": 14,
+    "identityReviewedStills": 171
+  }
+}

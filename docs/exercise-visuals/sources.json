@@ -1,0 +1,3118 @@
+{
+  "sources": {
+    "s304ac6c5c15f": {
+      "id": "s304ac6c5c15f",
+      "url": "https://www.puregym.com/exercises/back/lat-exercises/kneeling-lat-pulldown/",
+      "publisherId": "puregym",
+      "title": "Kneeling Lat Pulldowns",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p66"
+      ]
+    },
+    "sf80b72e61a68": {
+      "id": "sf80b72e61a68",
+      "url": "https://www.puregym.com/exercises/chest/press-up/push-ups/",
+      "publisherId": "puregym",
+      "title": "Push Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p110"
+      ]
+    },
+    "s4180c99d41f7": {
+      "id": "s4180c99d41f7",
+      "url": "https://www.puregym.com/exercises/legs/inner-outer-thigh/cable-hip-abduction/",
+      "publisherId": "puregym",
+      "title": "Cable Hip Abduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p154"
+      ]
+    },
+    "sdb1caba62a8d": {
+      "id": "sdb1caba62a8d",
+      "url": "https://www.rehabhero.ca/exercise/inchworm",
+      "publisherId": "rehabhero",
+      "title": "Inchworm",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd108a22d486e": {
+      "id": "sd108a22d486e",
+      "url": "https://www.nasm.org/resource-center/exercise-library/bird-dog",
+      "publisherId": "nasm",
+      "title": "Bird Dog",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nbird"
+      ]
+    },
+    "sc01f43608228": {
+      "id": "sc01f43608228",
+      "url": "https://www.puregym.com/exercises/glutes/hip-thrusts/single-leg-hip-thrust/",
+      "publisherId": "puregym",
+      "title": "Single Leg Hip Thrusts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p126"
+      ]
+    },
+    "s998f3b6c4071": {
+      "id": "s998f3b6c4071",
+      "url": "https://www.physitrack.com/en-gb/exercise-library",
+      "publisherId": "physitrack",
+      "title": "Half kneeling medicine ball lateral throw – inside leg up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1ed395d068b0": {
+      "id": "s1ed395d068b0",
+      "url": "https://www.rehabhero.ca/exercise/band-lateral-raise",
+      "publisherId": "rehabhero",
+      "title": "Band Lateral Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf41eaf91b8da": {
+      "id": "sf41eaf91b8da",
+      "url": "https://www.puregym.com/exercises/chest/press-up/decline-push-ups/",
+      "publisherId": "puregym",
+      "title": "Decline Push Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p103"
+      ]
+    },
+    "s1c23a2718be7": {
+      "id": "s1c23a2718be7",
+      "url": "https://www.rehabhero.ca/exercise/shoulder-dislocations",
+      "publisherId": "rehabhero",
+      "title": "Shoulder Dislocations",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1b5a0fc56d29": {
+      "id": "s1b5a0fc56d29",
+      "url": "https://www.rehabhero.ca/exercise/dumbbell-pullover",
+      "publisherId": "rehabhero",
+      "title": "Dumbbell Pullover",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s155a957f49c1": {
+      "id": "s155a957f49c1",
+      "url": "https://www.puregym.com/exercises/legs/inner-outer-thigh/side-lying-hip-abduction/",
+      "publisherId": "puregym",
+      "title": "Side Lying Hip Abduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p158"
+      ]
+    },
+    "sb5446da9a867": {
+      "id": "sb5446da9a867",
+      "url": "https://www.rehabhero.ca/exercise/lu-raises",
+      "publisherId": "rehabhero",
+      "title": "Lu Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xluphysio"
+      ]
+    },
+    "sfde8056112e8": {
+      "id": "sfde8056112e8",
+      "url": "https://www.rehabhero.ca/exercise/bent-over-reverse-fly",
+      "publisherId": "rehabhero",
+      "title": "Bent Over Reverse Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb682c2a7a618": {
+      "id": "sb682c2a7a618",
+      "url": "https://www.rehabhero.ca/exercise/triceps-pushdown",
+      "publisherId": "rehabhero",
+      "title": "Triceps Pushdown",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s321a6e2d9f0a": {
+      "id": "s321a6e2d9f0a",
+      "url": "https://www.rehabhero.ca/exercise/prone-back-extension",
+      "publisherId": "rehabhero",
+      "title": "Prone Back Extension",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc600028248e9": {
+      "id": "sc600028248e9",
+      "url": "https://www.youtube.com/watch?v=XPPfnSEATJA",
+      "publisherId": "nasm",
+      "title": "How to do a Dumbbell Lateral Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7da86f1586a7": {
+      "id": "s7da86f1586a7",
+      "url": "https://www.muscleandstrength.com/exercises/landmine-rotation",
+      "publisherId": "ms",
+      "title": "Landmine Rotation",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s5cf7f1e60cfd": {
+      "id": "s5cf7f1e60cfd",
+      "url": "https://www.puregym.com/exercises/back/rows/trx-row/",
+      "publisherId": "puregym",
+      "title": "TRX Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p82"
+      ]
+    },
+    "sd7fc37de051a": {
+      "id": "sd7fc37de051a",
+      "url": "https://www.rehabhero.ca/exercise/tall-plank-shoulder-tap",
+      "publisherId": "rehabhero",
+      "title": "Tall Plank Shoulder Tap",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s2f152c262b54": {
+      "id": "s2f152c262b54",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/hack-squat/",
+      "publisherId": "puregym",
+      "title": "Hack Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p181"
+      ]
+    },
+    "sd0d532791f2d": {
+      "id": "sd0d532791f2d",
+      "url": "https://www.rehabhero.ca/exercise/hip-airplane",
+      "publisherId": "rehabhero",
+      "title": "Hip Airplane",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3a3cfb28d293": {
+      "id": "s3a3cfb28d293",
+      "url": "https://www.muscleandstrength.com/exercises/close-grip-dumbbell-press.html",
+      "publisherId": "ms",
+      "title": "Dumbbell Crush Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sdf69fe132c5f": {
+      "id": "sdf69fe132c5f",
+      "url": "https://www.muscleandstrength.com/exercises/farmers-walk",
+      "publisherId": "ms",
+      "title": "Dumbbell Suitcase / Farmers Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb6b64dbaabf0": {
+      "id": "sb6b64dbaabf0",
+      "url": "https://ca.physitrack.com/home-exercise-video/hip-stretch-flow---%2522worlds-greatest-stretch%2522",
+      "publisherId": "physitrack",
+      "title": "Hip stretch flow: world's greatest stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xworldstretch"
+      ]
+    },
+    "s5b39a2f781cf": {
+      "id": "s5b39a2f781cf",
+      "url": "https://www.rehabhero.ca/exercise/cable-reverse-fly",
+      "publisherId": "rehabhero",
+      "title": "Cable Reverse Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0c6e7e3b32db": {
+      "id": "s0c6e7e3b32db",
+      "url": "https://www.youtube.com/watch?v=RkEHyudfkyM",
+      "publisherId": "trx",
+      "title": "TRX Hamstring Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s8f401d95b526": {
+      "id": "s8f401d95b526",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/seated-leg-curl",
+      "publisherId": "puregym",
+      "title": "Seated Leg Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p151"
+      ]
+    },
+    "s7aa8ed2cbc8e": {
+      "id": "s7aa8ed2cbc8e",
+      "url": "https://www.rehabhero.ca/exercise/lateral-step-up",
+      "publisherId": "rehabhero",
+      "title": "Lateral Step Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0f5aef27b379": {
+      "id": "s0f5aef27b379",
+      "url": "https://www.youtube.com/watch?v=PvJDjcfZe1c",
+      "publisherId": "e3",
+      "title": "How to Safely Set Up, Perform, & Program Reverse Nordics (Progressions | Regressions | Alternatives)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd024796a881f": {
+      "id": "sd024796a881f",
+      "url": "https://www.muscleandstrength.com/exercises/standing-overhead-medicine-ball-slam",
+      "publisherId": "ms",
+      "title": "Standing Overhead Medicine Ball Slam",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s88b1e4aca69f": {
+      "id": "s88b1e4aca69f",
+      "url": "https://www.concept2.com/training/rowing-technique",
+      "publisherId": "concept2",
+      "title": "Indoor Rowing Technique",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xrower"
+      ]
+    },
+    "s4da77bb61714": {
+      "id": "s4da77bb61714",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/incline-dumbbell-press/",
+      "publisherId": "puregym",
+      "title": "Incline Dumbbell Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p89"
+      ]
+    },
+    "scaf6e5510aa8": {
+      "id": "scaf6e5510aa8",
+      "url": "https://www.rehabhero.ca/exercise/scapular-pull-ups",
+      "publisherId": "rehabhero",
+      "title": "Scapular Pull Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7367ce2a6016": {
+      "id": "s7367ce2a6016",
+      "url": "https://www.muscleandstrength.com/exercises/wood-chop.html",
+      "publisherId": "ms",
+      "title": "Standing Cable Chop",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "seae6da571e70": {
+      "id": "seae6da571e70",
+      "url": "https://www.rehabhero.ca/exercise/swiss-ball-wall-squat",
+      "publisherId": "rehabhero",
+      "title": "Swiss Ball Wall Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb0b7644184e3": {
+      "id": "sb0b7644184e3",
+      "url": "https://www.youtube.com/watch?v=jRwUtI5aIhE",
+      "publisherId": "strongfirst",
+      "title": "Kettlebell Halo | StrongFirst",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s8c6d2ae19a7b": {
+      "id": "s8c6d2ae19a7b",
+      "url": "https://www.rehabhero.ca/exercise/calf-raises",
+      "publisherId": "rehabhero",
+      "title": "Calf Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s12d5218ec81e": {
+      "id": "s12d5218ec81e",
+      "url": "https://www.rehabhero.ca/exercise/wall-push-up",
+      "publisherId": "rehabhero",
+      "title": "Wall Push Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s72d0670c2ac4": {
+      "id": "s72d0670c2ac4",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/seated-chest-press/",
+      "publisherId": "puregym",
+      "title": "Seated Chest Press (Machine Chest Press)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p91"
+      ]
+    },
+    "s801bb0a2f092": {
+      "id": "s801bb0a2f092",
+      "url": "https://www.nasm.org/resource-center/exercise-library/band-assisted-pull-up",
+      "publisherId": "nasm",
+      "title": "Band Assisted Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nband-pullup"
+      ]
+    },
+    "s07973fbb7514": {
+      "id": "s07973fbb7514",
+      "url": "https://www.puregym.com/exercises/legs/calf-exercises/leg-press-calf-raises/",
+      "publisherId": "puregym",
+      "title": "Leg Press Calf Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p133"
+      ]
+    },
+    "s319af6ca2743": {
+      "id": "s319af6ca2743",
+      "url": "https://www.rehabhero.ca/exercise/standing-bottoms-up-kettlebell-press",
+      "publisherId": "rehabhero",
+      "title": "Standing Bottoms Up Kettlebell Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd767e4470d2d": {
+      "id": "sd767e4470d2d",
+      "url": "https://www.rehabhero.ca/exercise/copenhagen-planks",
+      "publisherId": "rehabhero",
+      "title": "Copenhagen Planks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf71f3a4f6646": {
+      "id": "sf71f3a4f6646",
+      "url": "https://www.roguefitness.com/theindex/video/equipment-demo-sled-drag-variations-rogue-fitness-2?prerender=1",
+      "publisherId": "rogue",
+      "title": "Equipment Demo - Sled Drag Variations - Rogue Fitness",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4dd5d9494f16": {
+      "id": "s4dd5d9494f16",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/barbell-bench-press/",
+      "publisherId": "puregym",
+      "title": "Barbell Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p83"
+      ]
+    },
+    "sc16f7f797cc5": {
+      "id": "sc16f7f797cc5",
+      "url": "https://www.muscleandstrength.com/exercises/l-sit-pull-up",
+      "publisherId": "ms",
+      "title": "L-Sit Pull-up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s5032b27a300e": {
+      "id": "s5032b27a300e",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/deadlifts/b-stance-deadlift/",
+      "publisherId": "puregym",
+      "title": "B-Stance Deadlifts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p137"
+      ]
+    },
+    "s2d3746534d76": {
+      "id": "s2d3746534d76",
+      "url": "https://www.rehabhero.ca/exercise/kettlebell-carry",
+      "publisherId": "rehabhero",
+      "title": "Kettlebell Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s872d0707fdea": {
+      "id": "s872d0707fdea",
+      "url": "https://www.rehabhero.ca/exercise/turkish-get-up",
+      "publisherId": "rehabhero",
+      "title": "Turkish Get Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd26ff619925c": {
+      "id": "sd26ff619925c",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/split-squats/",
+      "publisherId": "puregym",
+      "title": "Split Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p187"
+      ]
+    },
+    "s9125d9aeb18c": {
+      "id": "s9125d9aeb18c",
+      "url": "https://www.muscleandstrength.com/exercises/double-kettlebell-front-squat",
+      "publisherId": "ms",
+      "title": "Double Kettlebell Front Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc3e9520be235": {
+      "id": "sc3e9520be235",
+      "url": "https://www.rehabhero.ca/exercise/zottman-curl",
+      "publisherId": "rehabhero",
+      "title": "Zottman Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s287c517c4502": {
+      "id": "s287c517c4502",
+      "url": "https://www.crossfit.com/261003",
+      "publisherId": "crossfit",
+      "title": "Workout 261003: Sandbag Bear-Hug Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xsandbag"
+      ]
+    },
+    "s013491f596a4": {
+      "id": "s013491f596a4",
+      "url": "https://www.puregym.com/exercises/plyometrics/jumps/box-jumps/",
+      "publisherId": "puregym",
+      "title": "Box Jumps",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p195"
+      ]
+    },
+    "s21621cdfb246": {
+      "id": "s21621cdfb246",
+      "url": "https://www.youtube.com/watch?v=fFGhTpQHOBA",
+      "publisherId": "trx",
+      "title": "TRX Power Pull",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sed6557e8fa92": {
+      "id": "sed6557e8fa92",
+      "url": "https://www.rehabhero.ca/exercise/seal-row",
+      "publisherId": "rehabhero",
+      "title": "Seal Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4e0809cc1384": {
+      "id": "s4e0809cc1384",
+      "url": "https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/",
+      "publisherId": "gentilcore",
+      "title": "Exercises You Should Be Doing: TRX Anti-Rotation Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xtrxgentilcore"
+      ]
+    },
+    "sbfa7ab759046": {
+      "id": "sbfa7ab759046",
+      "url": "https://www.rehabhero.ca/exercise/wrist-extensor-stretch",
+      "publisherId": "rehabhero",
+      "title": "Wrist Extensor Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "se94366b761f7": {
+      "id": "se94366b761f7",
+      "url": "https://www.youtube.com/watch?v=i_45-JMoXg4",
+      "publisherId": "trx",
+      "title": "TRX Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sff25bc74d558": {
+      "id": "sff25bc74d558",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/wall-sits/wall-sit/",
+      "publisherId": "puregym",
+      "title": "Wall Sits",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p194"
+      ]
+    },
+    "s756ea2736993": {
+      "id": "s756ea2736993",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/barbell-back-squat/",
+      "publisherId": "puregym",
+      "title": "Barbell Back Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p175"
+      ]
+    },
+    "sc70ef4e3463b": {
+      "id": "sc70ef4e3463b",
+      "url": "https://www.rehabhero.ca/exercise/deficit-push-up",
+      "publisherId": "rehabhero",
+      "title": "Deficit Push Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7ce3b63a0cc6": {
+      "id": "s7ce3b63a0cc6",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/incline-bicep-curls/",
+      "publisherId": "puregym",
+      "title": "How To Do Incline Bicep Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p28"
+      ]
+    },
+    "s132ecfced816": {
+      "id": "s132ecfced816",
+      "url": "https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift",
+      "publisherId": "nasm",
+      "title": "Dumbbell Romanian Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "ndb-rdl"
+      ]
+    },
+    "s888500a3c142": {
+      "id": "s888500a3c142",
+      "url": "https://www.rehabhero.ca/exercise/hamstring-reach-stretch",
+      "publisherId": "rehabhero",
+      "title": "Hamstring Reach Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0d1559e82157": {
+      "id": "s0d1559e82157",
+      "url": "https://www.rehabhero.ca/exercise/banded-biceps-curl",
+      "publisherId": "rehabhero",
+      "title": "Banded Biceps Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4da1684e5569": {
+      "id": "s4da1684e5569",
+      "url": "https://www.muscleandstrength.com/exercises/machine-reverse-fly",
+      "publisherId": "ms",
+      "title": "Machine Reverse Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s9447a4b7b54c": {
+      "id": "s9447a4b7b54c",
+      "url": "https://www.muscleandstrength.com/exercises/dumbbell-tate-press",
+      "publisherId": "ms",
+      "title": "Dumbbell Tate Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s76611e4e9400": {
+      "id": "s76611e4e9400",
+      "url": "https://www.puregym.com/exercises/plyometrics/jumps/tuck-jumps/",
+      "publisherId": "puregym",
+      "title": "Tuck Jumps",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p199"
+      ]
+    },
+    "s8906b02456e6": {
+      "id": "s8906b02456e6",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/bodyweight-squat/",
+      "publisherId": "puregym",
+      "title": "Bodyweight Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p176"
+      ]
+    },
+    "s7da76f0a3b12": {
+      "id": "s7da76f0a3b12",
+      "url": "https://www.puregym.com/exercises/chest/chest-fly/cable-flyes/",
+      "publisherId": "puregym",
+      "title": "Cable Flyes",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p93"
+      ]
+    },
+    "s59f88885a669": {
+      "id": "s59f88885a669",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/barbell-incline-bench-press/",
+      "publisherId": "puregym",
+      "title": "Barbell Incline Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p84"
+      ]
+    },
+    "s18f7ef4928fc": {
+      "id": "s18f7ef4928fc",
+      "url": "https://www.puregym.com/exercises/abs/hanging-knee-raises/",
+      "publisherId": "puregym",
+      "title": "Hanging Knee Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p7"
+      ]
+    },
+    "sfaf9cb3de8d8": {
+      "id": "sfaf9cb3de8d8",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/barbell-push-press/",
+      "publisherId": "puregym",
+      "title": "Barbell Push Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p48"
+      ]
+    },
+    "s2e8fe49232a7": {
+      "id": "s2e8fe49232a7",
+      "url": "https://www.youtube.com/watch?v=0bWRPC49-KI",
+      "publisherId": "strongfirst",
+      "title": "Turkish Get-Up Basics",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3d1ce50c1aca": {
+      "id": "s3d1ce50c1aca",
+      "url": "https://www.rehabhero.ca/exercise/romanian-deadlift-1",
+      "publisherId": "rehabhero",
+      "title": "Romanian Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sbeb2ce837722": {
+      "id": "sbeb2ce837722",
+      "url": "https://www.nasm.org/resource-center/exercise-library/static-latissimus-dorsi-ball-stretch",
+      "publisherId": "nasm",
+      "title": "Static Latissimus Dorsi Ball Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nlat-stretch"
+      ]
+    },
+    "s37e3018a51ba": {
+      "id": "s37e3018a51ba",
+      "url": "https://www.rehabhero.ca/exercise/childs-pose",
+      "publisherId": "rehabhero",
+      "title": "Child’s Pose",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s28134d52968b": {
+      "id": "s28134d52968b",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/zercher-squat/",
+      "publisherId": "puregym",
+      "title": "Zercher Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p192"
+      ]
+    },
+    "s0dd5e597a179": {
+      "id": "s0dd5e597a179",
+      "url": "https://www.puregym.com/exercises/abs/swiss-ball-crunches/",
+      "publisherId": "puregym",
+      "title": "Swiss Ball Crunches",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p19"
+      ]
+    },
+    "sce39ee12ab3d": {
+      "id": "sce39ee12ab3d",
+      "url": "https://www.rehabhero.ca/exercise/mountain-climber-holds",
+      "publisherId": "rehabhero",
+      "title": "Mountain Climber Holds",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc36588a1e987": {
+      "id": "sc36588a1e987",
+      "url": "https://www.rehabhero.ca/exercise/serratus-wall-slide",
+      "publisherId": "rehabhero",
+      "title": "Serratus Wall Slide",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sdcd079dcc4b7": {
+      "id": "sdcd079dcc4b7",
+      "url": "https://www.onnit.com/blogs/the-edge/9-battle-ropes-exercises-to-build-muscular-arms",
+      "publisherId": "onnit",
+      "title": "In-and-Out Waves Battle Ropes Exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s521448dd6071": {
+      "id": "s521448dd6071",
+      "url": "https://www.rehabhero.ca/exercise/straight-bar-cable-curl",
+      "publisherId": "rehabhero",
+      "title": "Straight Bar Cable Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3523cf10ba6f": {
+      "id": "s3523cf10ba6f",
+      "url": "https://www.puregym.com/exercises/legs/inner-outer-thigh/seated-hip-adduction/",
+      "publisherId": "puregym",
+      "title": "Seated Hip Adduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p157"
+      ]
+    },
+    "sd0c8875eb204": {
+      "id": "sd0c8875eb204",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/nordic-curls/",
+      "publisherId": "puregym",
+      "title": "Nordic Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p150"
+      ]
+    },
+    "saa9e9ddf052d": {
+      "id": "saa9e9ddf052d",
+      "url": "https://www.rehabhero.ca/exercise/shoulder-rolls",
+      "publisherId": "rehabhero",
+      "title": "Shoulder Rolls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf156c797c904": {
+      "id": "sf156c797c904",
+      "url": "https://www.rehabhero.ca/exercise/pistol-box-squat",
+      "publisherId": "rehabhero",
+      "title": "Pistol Box Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s88db3cc832a5": {
+      "id": "s88db3cc832a5",
+      "url": "https://www.onnit.com/blogs/the-edge/the-kettlebell-around-the-world-exercise-explained",
+      "publisherId": "onnit",
+      "title": "The Kettlebell Around The World Exercise Explained",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xaround"
+      ]
+    },
+    "sd89a9d796420": {
+      "id": "sd89a9d796420",
+      "url": "https://www.muscleandstrength.com/exercises/power-slam-battle-rope",
+      "publisherId": "ms",
+      "title": "Battling Ropes (Power Slam)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "saa6b564dc25f": {
+      "id": "saa6b564dc25f",
+      "url": "https://www.strongfirst.com/kettlebell-windmill-101/",
+      "publisherId": "strongfirst",
+      "title": "The Kettlebell Windmill by Chief SFG Brett Jones",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0b76474aa6b8": {
+      "id": "s0b76474aa6b8",
+      "url": "https://www.puregym.com/exercises/back/rows/renegade-row/",
+      "publisherId": "puregym",
+      "title": "Renegade Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p79"
+      ]
+    },
+    "s1a316575972f": {
+      "id": "s1a316575972f",
+      "url": "https://www.physitrack.com/en-gb/exercise-library/how-to-perform-the-peterson-step-up-exercise",
+      "publisherId": "physitrack",
+      "title": "Peterson Step Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xpeterson"
+      ]
+    },
+    "sdbe931c8734d": {
+      "id": "sdbe931c8734d",
+      "url": "https://www.rehabhero.ca/exercise/lunge-stretch",
+      "publisherId": "rehabhero",
+      "title": "Lunge Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s401a6896769c": {
+      "id": "s401a6896769c",
+      "url": "https://www.rehabhero.ca/exercise/single-leg-glute-bridge",
+      "publisherId": "rehabhero",
+      "title": "Single Leg Glute Bridge",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc7e3be4857de": {
+      "id": "sc7e3be4857de",
+      "url": "https://www.rehabhero.ca/exercise/farmers-carry",
+      "publisherId": "rehabhero",
+      "title": "Farmer’s Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd5246bd94cd6": {
+      "id": "sd5246bd94cd6",
+      "url": "https://www.rehabhero.ca/exercise/trap-bar-deadlift",
+      "publisherId": "rehabhero",
+      "title": "Trap Bar Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3562a228cbb5": {
+      "id": "s3562a228cbb5",
+      "url": "https://www.nasm.org/resource-center/exercise-library/bench-dips",
+      "publisherId": "nasm",
+      "title": "Bench Dips",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nbench-dip"
+      ]
+    },
+    "s99f724853b7f": {
+      "id": "s99f724853b7f",
+      "url": "https://www.rehabhero.ca/exercise/single-arm-cable-row",
+      "publisherId": "rehabhero",
+      "title": "Single Arm Cable Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0edf4d1a57be": {
+      "id": "s0edf4d1a57be",
+      "url": "https://www.puregym.com/exercises/abs/swiss-ball-pikes/",
+      "publisherId": "puregym",
+      "title": "Swiss Ball Pikes",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p20"
+      ]
+    },
+    "sc726f28ddc3f": {
+      "id": "sc726f28ddc3f",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/hammer-curls/",
+      "publisherId": "puregym",
+      "title": "Hammer Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p27"
+      ]
+    },
+    "s7e18bbdbaf53": {
+      "id": "s7e18bbdbaf53",
+      "url": "https://www.rehabhero.ca/exercise/doorway-chest-stretch",
+      "publisherId": "rehabhero",
+      "title": "Doorway Chest Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6138d77f26df": {
+      "id": "s6138d77f26df",
+      "url": "https://www.rehabhero.ca/exercise/cable-face-pull",
+      "publisherId": "rehabhero",
+      "title": "Cable Face Pull",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s121d0ebe23e0": {
+      "id": "s121d0ebe23e0",
+      "url": "https://www.puregym.com/exercises/chest/chest-fly/machine-fly/",
+      "publisherId": "puregym",
+      "title": "Machine Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p98"
+      ]
+    },
+    "s69bd539e60c1": {
+      "id": "s69bd539e60c1",
+      "url": "https://www.rehabhero.ca/exercise/a-skips",
+      "publisherId": "rehabhero",
+      "title": "A Skips",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6313e3913446": {
+      "id": "s6313e3913446",
+      "url": "https://www.rehabhero.ca/exercise/face-pulls",
+      "publisherId": "rehabhero",
+      "title": "Face Pulls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s92e631dbdca3": {
+      "id": "s92e631dbdca3",
+      "url": "https://www.muscleandstrength.com/exercises/rotational-med-ball-shot-put",
+      "publisherId": "ms",
+      "title": "Rotational Medicine Ball Shot Put",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6c1e33ea4859": {
+      "id": "s6c1e33ea4859",
+      "url": "https://www.puregym.com/exercises/abs/planks/",
+      "publisherId": "puregym",
+      "title": "Planks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p12"
+      ]
+    },
+    "s893bc35f81c6": {
+      "id": "s893bc35f81c6",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/squat-jumps/",
+      "publisherId": "puregym",
+      "title": "Squat Jumps",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p188"
+      ]
+    },
+    "s77b7cd2c6629": {
+      "id": "s77b7cd2c6629",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/walking-lunges/",
+      "publisherId": "puregym",
+      "title": "Walking Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p174"
+      ]
+    },
+    "s47aca531ce39": {
+      "id": "s47aca531ce39",
+      "url": "https://www.nasm.org/resource-center/exercise-library/pull-up",
+      "publisherId": "nasm",
+      "title": "Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "npull-up"
+      ]
+    },
+    "sadc3299fddde": {
+      "id": "sadc3299fddde",
+      "url": "https://www.rehabhero.ca/exercise/sissy-squat",
+      "publisherId": "rehabhero",
+      "title": "Sissy Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s70fe87aad8de": {
+      "id": "s70fe87aad8de",
+      "url": "https://www.puregym.com/exercises/abs/pallof-press/",
+      "publisherId": "puregym",
+      "title": "Pallof Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p9"
+      ]
+    },
+    "s24fd8fdc4c70": {
+      "id": "s24fd8fdc4c70",
+      "url": "https://www.nasm.org/resource-center/exercise-library/kettlebell-deadlift",
+      "publisherId": "nasm",
+      "title": "Kettlebell Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nkb-deadlift"
+      ]
+    },
+    "s330434f5d986": {
+      "id": "s330434f5d986",
+      "url": "https://www.rehabhero.ca/exercise/box-squats",
+      "publisherId": "rehabhero",
+      "title": "Box Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1b2ffc9c611b": {
+      "id": "s1b2ffc9c611b",
+      "url": "https://www.rehabhero.ca/exercise/common-wrist-flexor-stretch",
+      "publisherId": "rehabhero",
+      "title": "Common Wrist Flexor Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sbd896ca6698c": {
+      "id": "sbd896ca6698c",
+      "url": "https://www.puregym.com/exercises/plyometrics/jumps/broad-jumps/",
+      "publisherId": "puregym",
+      "title": "Broad Jumps",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p196"
+      ]
+    },
+    "s423738d22e20": {
+      "id": "s423738d22e20",
+      "url": "https://www.puregym.com/exercises/glutes/hip-thrusts/barbell-hip-thrust/",
+      "publisherId": "puregym",
+      "title": "Barbell Hip Thrusts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p122"
+      ]
+    },
+    "s844f34304aee": {
+      "id": "s844f34304aee",
+      "url": "https://www.rehabhero.ca/exercise/wall-calf-stretch",
+      "publisherId": "rehabhero",
+      "title": "Wall Calf Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sea69f9be282d": {
+      "id": "sea69f9be282d",
+      "url": "https://www.youtube.com/watch?v=9F7bI_VAPeM",
+      "publisherId": "hk",
+      "title": "How to perform the TRX triceps press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7b0ed73c9f01": {
+      "id": "s7b0ed73c9f01",
+      "url": "https://www.puregym.com/exercises/back/rows/barbell-bent-over-row/",
+      "publisherId": "puregym",
+      "title": "Barbell Bent Over Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p73"
+      ]
+    },
+    "sbfe91ee03920": {
+      "id": "sbfe91ee03920",
+      "url": "https://www.rehabhero.ca/exercise/seated-banded-row",
+      "publisherId": "rehabhero",
+      "title": "Seated Banded Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd5f52b5cd40d": {
+      "id": "sd5f52b5cd40d",
+      "url": "https://www.rehabhero.ca/exercise/swiss-ball-jackknives",
+      "publisherId": "rehabhero",
+      "title": "Swiss Ball Jackknives",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc87931910155": {
+      "id": "sc87931910155",
+      "url": "https://www.rehabhero.ca/exercise/butterfly-stretch",
+      "publisherId": "rehabhero",
+      "title": "Butterfly Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s8885cc7f8a27": {
+      "id": "s8885cc7f8a27",
+      "url": "https://hw.qld.gov.au/physical-activity/scapular-push-up-using-desk/",
+      "publisherId": "qld",
+      "title": "Scapular push-up using desk",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xscappush"
+      ]
+    },
+    "s833e5dfae9cd": {
+      "id": "s833e5dfae9cd",
+      "url": "https://www.rehabhero.ca/exercise/swiss-ball-straight-leg-bridge",
+      "publisherId": "rehabhero",
+      "title": "Swiss Ball Straight Leg Bridge",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s75622ffd4273": {
+      "id": "s75622ffd4273",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/military-press/",
+      "publisherId": "puregym",
+      "title": "Military Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p51"
+      ]
+    },
+    "s39b9f6d6f1c0": {
+      "id": "s39b9f6d6f1c0",
+      "url": "https://www.puregym.com/exercises/legs/calf-exercises/seated-calf-raises/",
+      "publisherId": "puregym",
+      "title": "Seated Calf Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p134"
+      ]
+    },
+    "s474c3b06f947": {
+      "id": "s474c3b06f947",
+      "url": "https://www.puregym.com/exercises/abs/decline-sit-ups/",
+      "publisherId": "puregym",
+      "title": "Decline Sit Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p6"
+      ]
+    },
+    "sac0224e37d44": {
+      "id": "sac0224e37d44",
+      "url": "https://www.muscleandstrength.com/exercises/kettlebell-floor-press",
+      "publisherId": "ms",
+      "title": "Bilateral Kettlebell Floor Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb1e5642d9d19": {
+      "id": "sb1e5642d9d19",
+      "url": "https://www.rehabhero.ca/exercise/plank",
+      "publisherId": "rehabhero",
+      "title": "Plank",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf9a9e3a61183": {
+      "id": "sf9a9e3a61183",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/shoulder-press-machine/",
+      "publisherId": "puregym",
+      "title": "Shoulder Press Machine",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p53"
+      ]
+    },
+    "sf1523caa3d50": {
+      "id": "sf1523caa3d50",
+      "url": "https://www.puregym.com/exercises/back/rows/incline-row/",
+      "publisherId": "puregym",
+      "title": "Incline Row (Chest Supported Row)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p75"
+      ]
+    },
+    "sdb1f8b6b6f39": {
+      "id": "sdb1f8b6b6f39",
+      "url": "https://www.puregym.com/exercises/back/rows/seated-cable-row/",
+      "publisherId": "puregym",
+      "title": "Seated Cable Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p80"
+      ]
+    },
+    "s05917a54cfee": {
+      "id": "s05917a54cfee",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/lateral-lunges/",
+      "publisherId": "puregym",
+      "title": "Lateral Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p171"
+      ]
+    },
+    "s906da4db59bb": {
+      "id": "s906da4db59bb",
+      "url": "https://www.nasm.org/resource-center/exercise-library/lying-leg-curl",
+      "publisherId": "nasm",
+      "title": "Lying Leg Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nlying-curl"
+      ]
+    },
+    "s99967b17fdcf": {
+      "id": "s99967b17fdcf",
+      "url": "https://www.rehabhero.ca/exercise/landmine-shoulder-press",
+      "publisherId": "rehabhero",
+      "title": "Landmine Shoulder Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s2c042fa48d4e": {
+      "id": "s2c042fa48d4e",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/goblet-squat/",
+      "publisherId": "puregym",
+      "title": "Goblet Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p180"
+      ]
+    },
+    "sb3d3befef7d4": {
+      "id": "sb3d3befef7d4",
+      "url": "https://www.puregym.com/exercises/back/rows/landmine-row/",
+      "publisherId": "puregym",
+      "title": "T Bar Rows (Landmine Rows)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p77"
+      ]
+    },
+    "s851d68988a56": {
+      "id": "s851d68988a56",
+      "url": "https://www.muscleandstrength.com/exercises/depth-jump",
+      "publisherId": "ms",
+      "title": "Depth Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sbf382a4bb7d0": {
+      "id": "sbf382a4bb7d0",
+      "url": "https://www.rehabhero.ca/exercise/the-worlds-greatest-stretch",
+      "publisherId": "rehabhero",
+      "title": "The World’s Greatest Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sae0a1573f2cb": {
+      "id": "sae0a1573f2cb",
+      "url": "https://www.rehabhero.ca/exercise/preacher-curl",
+      "publisherId": "rehabhero",
+      "title": "Preacher Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1ff730709fd2": {
+      "id": "s1ff730709fd2",
+      "url": "https://www.rehabhero.ca/exercise/swiss-ball-push-up",
+      "publisherId": "rehabhero",
+      "title": "Swiss Ball Push Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sec84747c704f": {
+      "id": "sec84747c704f",
+      "url": "https://www.muscleandstrength.com/exercises/meadows-row",
+      "publisherId": "ms",
+      "title": "Meadows Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xmeadows"
+      ]
+    },
+    "sdcf5262c8d40": {
+      "id": "sdcf5262c8d40",
+      "url": "https://www.puregym.com/exercises/back/rows/pendlay-row/",
+      "publisherId": "puregym",
+      "title": "Pendlay Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p78"
+      ]
+    },
+    "s3cc3cda99838": {
+      "id": "s3cc3cda99838",
+      "url": "https://www.puregym.com/exercises/back/rows/single-arm-dumbbell-row/",
+      "publisherId": "puregym",
+      "title": "Single Arm Dumbbell Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p81"
+      ]
+    },
+    "sf92649fc5c1e": {
+      "id": "sf92649fc5c1e",
+      "url": "https://www.rehabhero.ca/exercise/single-leg-lateral-hops",
+      "publisherId": "rehabhero",
+      "title": "Single Leg Lateral Hops",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6156e8cbe96a": {
+      "id": "s6156e8cbe96a",
+      "url": "https://www.rehabhero.ca/exercise/bosu-ball-push-up",
+      "publisherId": "rehabhero",
+      "title": "Bosu Ball Push Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb7129cfaf145": {
+      "id": "sb7129cfaf145",
+      "url": "https://www.youtube.com/watch?v=ihRozd9hafw",
+      "publisherId": "strongfirst",
+      "title": "Introduction to the StrongFirst One-Arm Kettlebell Military Press | StrongFirst",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s487e18296fad": {
+      "id": "s487e18296fad",
+      "url": "https://www.rehabhero.ca/exercise/quadriceps-stretch",
+      "publisherId": "rehabhero",
+      "title": "Quadriceps Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s08c8c8566d13": {
+      "id": "s08c8c8566d13",
+      "url": "https://www.muscleandstrength.com/exercises/alternating-small-waves-battling-ropes",
+      "publisherId": "ms",
+      "title": "Battling Ropes (Alternating Small Waves)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s55570d949504": {
+      "id": "s55570d949504",
+      "url": "https://www.rehabhero.ca/exercise/banded-glute-pull-through",
+      "publisherId": "rehabhero",
+      "title": "Banded Glute Pull Through",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sbbbb29c30b02": {
+      "id": "sbbbb29c30b02",
+      "url": "https://www.nasm.org/resource-center/exercise-library/leg-press",
+      "publisherId": "nasm",
+      "title": "Leg Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nleg-press"
+      ]
+    },
+    "sca47f4839dbc": {
+      "id": "sca47f4839dbc",
+      "url": "https://www.puregym.com/exercises/abs/side-planks/",
+      "publisherId": "puregym",
+      "title": "Side Planks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p15"
+      ]
+    },
+    "s6fc090ef3282": {
+      "id": "s6fc090ef3282",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/bulgarian-split-squat/",
+      "publisherId": "puregym",
+      "title": "Bulgarian Split Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p178"
+      ]
+    },
+    "sc32688ca2eab": {
+      "id": "sc32688ca2eab",
+      "url": "https://www.puregym.com/exercises/back/lat-exercises/close-grip-lat-pulldown/",
+      "publisherId": "puregym",
+      "title": "Close Lat Grip Pulldowns",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p65"
+      ]
+    },
+    "se6b5812b1c2c": {
+      "id": "se6b5812b1c2c",
+      "url": "https://www.rehabhero.ca/exercise/deep-squat-rotations",
+      "publisherId": "rehabhero",
+      "title": "Deep Squat Rotations",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s56a065026c99": {
+      "id": "s56a065026c99",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/curtsy-lunges/",
+      "publisherId": "puregym",
+      "title": "Curtsy Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p168"
+      ]
+    },
+    "scd9ac95f5041": {
+      "id": "scd9ac95f5041",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/deadlifts/single-leg-deadlift/",
+      "publisherId": "puregym",
+      "title": "Single Leg Deadlifts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p142"
+      ]
+    },
+    "scf4385a2b90f": {
+      "id": "scf4385a2b90f",
+      "url": "https://www.puregym.com/exercises/glutes/glute-bridge/dumbbell-glute-bridges/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Glute Bridges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p116"
+      ]
+    },
+    "sd1f687d54bee": {
+      "id": "sd1f687d54bee",
+      "url": "https://www.rehabhero.ca/exercise/front-leg-swing",
+      "publisherId": "rehabhero",
+      "title": "Front Leg Swing",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s30506fe2a4b7": {
+      "id": "s30506fe2a4b7",
+      "url": "https://www.rehabhero.ca/exercise/thread-the-needle",
+      "publisherId": "rehabhero",
+      "title": "Thread the Needle",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s89ee6e19325a": {
+      "id": "s89ee6e19325a",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/leg-presses/45-degree-leg-press/",
+      "publisherId": "puregym",
+      "title": "45 Degree Leg Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p163"
+      ]
+    },
+    "s304ce193f52f": {
+      "id": "s304ce193f52f",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/dumbbell-bench-press/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p88"
+      ]
+    },
+    "sd8bbcadcc276": {
+      "id": "sd8bbcadcc276",
+      "url": "https://www.puregym.com/exercises/back/rows/inverted-row/",
+      "publisherId": "puregym",
+      "title": "Inverted Rows",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p76"
+      ]
+    },
+    "s8e87e2b11c1e": {
+      "id": "s8e87e2b11c1e",
+      "url": "https://www.nasm.org/resource-center/exercise-library/seated-machine-row-close-grip",
+      "publisherId": "nasm",
+      "title": "Seated Machine Row Close Grip",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nmachine-row"
+      ]
+    },
+    "sd4da03809628": {
+      "id": "sd4da03809628",
+      "url": "https://www.rehabhero.ca/exercise/kettlebell-single-leg-deadlift",
+      "publisherId": "rehabhero",
+      "title": "Kettlebell Single Leg Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s736171e2fe4b": {
+      "id": "s736171e2fe4b",
+      "url": "https://www.rehabhero.ca/exercise/depth-jump",
+      "publisherId": "rehabhero",
+      "title": "Depth Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s8218b8703c76": {
+      "id": "s8218b8703c76",
+      "url": "https://www.puregym.com/exercises/back/lat-exercises/single-arm-lat-pulldown/",
+      "publisherId": "puregym",
+      "title": "Single Arm Lat Pulldowns",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p69"
+      ]
+    },
+    "s11d83b8feba2": {
+      "id": "s11d83b8feba2",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/front-raises/dumbbell-front-raise/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Front Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p39"
+      ]
+    },
+    "s1c21867d43d6": {
+      "id": "s1c21867d43d6",
+      "url": "https://www.rehabhero.ca/exercise/cable-row",
+      "publisherId": "rehabhero",
+      "title": "Cable Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s5c4789ec8b31": {
+      "id": "s5c4789ec8b31",
+      "url": "https://www.muscleandstrength.com/exercises/counterbalanced-skater-squat",
+      "publisherId": "ms",
+      "title": "Counterbalanced Skater Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s215eab264acb": {
+      "id": "s215eab264acb",
+      "url": "https://www.puregym.com/exercises/legs/calf-exercises/single-leg-calf-raises/",
+      "publisherId": "puregym",
+      "title": "Single Leg Calf Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p135"
+      ]
+    },
+    "s3817bbe28f15": {
+      "id": "s3817bbe28f15",
+      "url": "https://www.rehabhero.ca/exercise/suitcase-carry",
+      "publisherId": "rehabhero",
+      "title": "Suitcase Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s10e85ce7f6e6": {
+      "id": "s10e85ce7f6e6",
+      "url": "https://www.puregym.com/exercises/abs/v-sit-ups/",
+      "publisherId": "puregym",
+      "title": "V Sit Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p22"
+      ]
+    },
+    "sb45229d077cb": {
+      "id": "sb45229d077cb",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/z-press/",
+      "publisherId": "puregym",
+      "title": "Z Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p55"
+      ]
+    },
+    "s997ba8ad80b9": {
+      "id": "s997ba8ad80b9",
+      "url": "https://www.puregym.com/exercises/chest/chest-fly/dumbbell-chest-fly/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Chest Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p95"
+      ]
+    },
+    "sc578c739d308": {
+      "id": "sc578c739d308",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/lateral-raises/cable-lateral-raise/",
+      "publisherId": "puregym",
+      "title": "Cable Lateral Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p41"
+      ]
+    },
+    "sd024194048fb": {
+      "id": "sd024194048fb",
+      "url": "https://www.youtube.com/watch?v=GtytyYHmrNM",
+      "publisherId": "bosu",
+      "title": "Official BOSU Pulse Squat Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1298466c3d27": {
+      "id": "s1298466c3d27",
+      "url": "https://www.rehabhero.ca/exercise/deep-knee-bend-step-up",
+      "publisherId": "rehabhero",
+      "title": "Deep Knee Bend Step Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s34825b6671db": {
+      "id": "s34825b6671db",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/spider-curls/",
+      "publisherId": "puregym",
+      "title": "Spider Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p31"
+      ]
+    },
+    "sf83e3207eb70": {
+      "id": "sf83e3207eb70",
+      "url": "https://www.rehabhero.ca/exercise/squat",
+      "publisherId": "rehabhero",
+      "title": "Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s5229efe3ca47": {
+      "id": "s5229efe3ca47",
+      "url": "https://www.nasm.org/resource-center/exercise-library/close-grip-bench-press",
+      "publisherId": "nasm",
+      "title": "Close Grip Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nclose-press"
+      ]
+    },
+    "se1e328637af9": {
+      "id": "se1e328637af9",
+      "url": "https://www.muscleandstrength.com/exercises/low-wood-chop.html",
+      "publisherId": "ms",
+      "title": "Standing Cable Lift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s436bb482c9a9": {
+      "id": "s436bb482c9a9",
+      "url": "https://www.rehabhero.ca/exercise/stir-the-pot",
+      "publisherId": "rehabhero",
+      "title": "Stir The Pot",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sdafe68d9b9d2": {
+      "id": "sdafe68d9b9d2",
+      "url": "https://www.rehabhero.ca/exercise/front-foot-elevated-split-squat",
+      "publisherId": "rehabhero",
+      "title": "Front Foot Elevated Split Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0cf0e27632bc": {
+      "id": "s0cf0e27632bc",
+      "url": "https://www.muscleandstrength.com/exercises/incline-swiss-ball-push-up.html",
+      "publisherId": "ms",
+      "title": "Pushup (Feet on Physioball)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3b2b498dafbe": {
+      "id": "s3b2b498dafbe",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/jumping-lunges/",
+      "publisherId": "puregym",
+      "title": "Jumping Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p170"
+      ]
+    },
+    "s3ab943945f27": {
+      "id": "s3ab943945f27",
+      "url": "https://www.rehabhero.ca/exercise/cable-overhead-triceps-extension",
+      "publisherId": "rehabhero",
+      "title": "Cable Overhead Triceps Extension",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s826937fdefb2": {
+      "id": "s826937fdefb2",
+      "url": "https://www.puregym.com/exercises/abs/crunches/",
+      "publisherId": "puregym",
+      "title": "Ab Crunches",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p4"
+      ]
+    },
+    "se35d78201269": {
+      "id": "se35d78201269",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/front-squat/",
+      "publisherId": "puregym",
+      "title": "Front Squats",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p179"
+      ]
+    },
+    "sef55f11c82f9": {
+      "id": "sef55f11c82f9",
+      "url": "https://e3rehab.com/strength-training-for-runners/",
+      "publisherId": "e3",
+      "title": "BEST Exercises for Runners (Strength Training | Plyometrics | Power Exercises)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6749b7e4b832": {
+      "id": "s6749b7e4b832",
+      "url": "https://www.muscleandstrength.com/exercises/sled-push",
+      "publisherId": "ms",
+      "title": "Sled Push",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7a75bcf50bad": {
+      "id": "s7a75bcf50bad",
+      "url": "https://www.puregym.com/exercises/abs/russian-twists/",
+      "publisherId": "puregym",
+      "title": "Russian Twists",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p14"
+      ]
+    },
+    "s087c7ccb9a55": {
+      "id": "s087c7ccb9a55",
+      "url": "https://www.muscleandstrength.com/exercises/cable-chest-press.html",
+      "publisherId": "ms",
+      "title": "Standing Cable Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc90e5dd7a9fa": {
+      "id": "sc90e5dd7a9fa",
+      "url": "https://www.rehabhero.ca/exercise/good-morning",
+      "publisherId": "rehabhero",
+      "title": "Good Morning",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf42e6606954d": {
+      "id": "sf42e6606954d",
+      "url": "https://www.rehabhero.ca/exercise/banded-clamshells",
+      "publisherId": "rehabhero",
+      "title": "Banded Clamshells",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s6f5efdebbfb8": {
+      "id": "s6f5efdebbfb8",
+      "url": "https://www.nasm.org/resource-center/exercise-library/seated-leg-curl",
+      "publisherId": "nasm",
+      "title": "Seated Leg Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nseated-curl"
+      ]
+    },
+    "sb74c3549b1d2": {
+      "id": "sb74c3549b1d2",
+      "url": "https://www.rehabhero.ca/exercise/banded-overhead-press",
+      "publisherId": "rehabhero",
+      "title": "Banded Overhead Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sbb4755ce5898": {
+      "id": "sbb4755ce5898",
+      "url": "https://www.rehabhero.ca/exercise/ankle-rocks",
+      "publisherId": "rehabhero",
+      "title": "Ankle Rocks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s960637c6f0ec": {
+      "id": "s960637c6f0ec",
+      "url": "https://www.rehabhero.ca/exercise/sumo-deadlift",
+      "publisherId": "rehabhero",
+      "title": "Sumo Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sdff484fe72f4": {
+      "id": "sdff484fe72f4",
+      "url": "https://www.rehabhero.ca/exercise/half-kneel-pallof-press-1",
+      "publisherId": "rehabhero",
+      "title": "Half Kneel Pallof Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sae62a4baa1e8": {
+      "id": "sae62a4baa1e8",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/leg-presses/single-leg-press/",
+      "publisherId": "puregym",
+      "title": "Single Leg Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p166"
+      ]
+    },
+    "s97fa0a936158": {
+      "id": "s97fa0a936158",
+      "url": "https://www.nasm.org/resource-center/exercise-library/plyometric-push-up",
+      "publisherId": "nasm",
+      "title": "Plyometric Push-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nplyo-pushup"
+      ]
+    },
+    "s3a520da93781": {
+      "id": "s3a520da93781",
+      "url": "https://www.puregym.com/exercises/chest/press-up/medicine-ball-push-ups/",
+      "publisherId": "puregym",
+      "title": "Medicine Ball Push Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p106"
+      ]
+    },
+    "sddafe853cd46": {
+      "id": "sddafe853cd46",
+      "url": "https://www.puregym.com/exercises/abs/deadbugs/",
+      "publisherId": "puregym",
+      "title": "Deadbugs",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p5"
+      ]
+    },
+    "sa07d76214ca8": {
+      "id": "sa07d76214ca8",
+      "url": "https://www.muscleandstrength.com/exercises/leg-extension.html",
+      "publisherId": "ms",
+      "title": "Leg Extension",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xlegextension"
+      ]
+    },
+    "sf05fbe64df02": {
+      "id": "sf05fbe64df02",
+      "url": "https://www.puregym.com/exercises/abs/hanging-leg-raises/",
+      "publisherId": "puregym",
+      "title": "Hanging Leg Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p8"
+      ]
+    },
+    "sb10edddc4c0a": {
+      "id": "sb10edddc4c0a",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/y-raises/",
+      "publisherId": "puregym",
+      "title": "Y Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p46"
+      ]
+    },
+    "s5e256013ee48": {
+      "id": "s5e256013ee48",
+      "url": "https://www.muscleandstrength.com/exercises/single-arm-landmine-push-press",
+      "publisherId": "ms",
+      "title": "Single Arm Landmine Push Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s86ddd07d6b52": {
+      "id": "s86ddd07d6b52",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/arnold-press/",
+      "publisherId": "puregym",
+      "title": "Arnold Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p47"
+      ]
+    },
+    "s7464f5f144fc": {
+      "id": "s7464f5f144fc",
+      "url": "https://app.atgonlinecoaching.com/articles/article-chapter-1-of-the-knee-ability-zero-picture-book",
+      "publisherId": "atg",
+      "title": "Chapter 1 of the Knee Ability Zero Picture-Book",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xtibialis"
+      ]
+    },
+    "sf0a85b7c28e9": {
+      "id": "sf0a85b7c28e9",
+      "url": "https://www.puregym.com/exercises/glutes/glute-kickbacks/cable-kickbacks/",
+      "publisherId": "puregym",
+      "title": "Cable Kickbacks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p119"
+      ]
+    },
+    "s48122f31da9c": {
+      "id": "s48122f31da9c",
+      "url": "https://www.orthoinfo.org/bodypart/shoulder/rotator-cuff-and-shoulder-conditioning-program/",
+      "publisherId": "aaos",
+      "title": "Rotator Cuff and Shoulder Conditioning Program",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xshoulder"
+      ]
+    },
+    "sc09ef8743718": {
+      "id": "sc09ef8743718",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/deadlifts/conventional-deadlift/",
+      "publisherId": "puregym",
+      "title": "Conventional Deadlifts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p138"
+      ]
+    },
+    "s5d3739c28299": {
+      "id": "s5d3739c28299",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/tricep-kickbacks/",
+      "publisherId": "puregym",
+      "title": "Tricep Kickbacks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p59"
+      ]
+    },
+    "s87ffe04f9151": {
+      "id": "s87ffe04f9151",
+      "url": "https://www.youtube.com/watch?v=8yjVS5xyR5A",
+      "publisherId": "steph",
+      "title": "Dumbbell Pullover Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s3a3d2f6d2fd9": {
+      "id": "s3a3d2f6d2fd9",
+      "url": "https://www.puregym.com/exercises/glutes/glute-kickbacks/donkey-kicks/",
+      "publisherId": "puregym",
+      "title": "Donkey Kicks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p120"
+      ]
+    },
+    "s749a08207aa4": {
+      "id": "s749a08207aa4",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/reverse-lunges/",
+      "publisherId": "puregym",
+      "title": "Reverse Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p172"
+      ]
+    },
+    "s445ff249eb6f": {
+      "id": "s445ff249eb6f",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/concentration-curls/",
+      "publisherId": "puregym",
+      "title": "Concentration Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p25"
+      ]
+    },
+    "s8e2bfb90cad1": {
+      "id": "s8e2bfb90cad1",
+      "url": "https://www.youtube.com/watch?v=AR6E01ABoHk",
+      "publisherId": "strongfirst",
+      "title": "Proper Path of the Kettlebell Snatch | StrongFirst",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s11a3a062aa18": {
+      "id": "s11a3a062aa18",
+      "url": "https://www.rehabhero.ca/exercise/hammer-curl",
+      "publisherId": "rehabhero",
+      "title": "Hammer Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0ad72c7928a4": {
+      "id": "s0ad72c7928a4",
+      "url": "https://us.physitrack.com/home-exercise-video/shin-stretch-%2528tibialis-anterior%2529",
+      "publisherId": "physitrack",
+      "title": "Shin stretch (Tibialis anterior)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xshin"
+      ]
+    },
+    "se8ed53990213": {
+      "id": "se8ed53990213",
+      "url": "https://www.muscleandstrength.com/exercises/front-foot-elevated-dumbbell-split-squat",
+      "publisherId": "ms",
+      "title": "Front Foot Elevated Split Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sadef88f4d2a3": {
+      "id": "sadef88f4d2a3",
+      "url": "https://www.muscleandstrength.com/exercises/band-pull-apart",
+      "publisherId": "ms",
+      "title": "Band Pull Apart",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4b35f4146dcb": {
+      "id": "s4b35f4146dcb",
+      "url": "https://www.nasm.org/resource-center/exercise-library/good-mornings",
+      "publisherId": "nasm",
+      "title": "Good Mornings",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "ngood-morning"
+      ]
+    },
+    "sff4d77ac5d1a": {
+      "id": "sff4d77ac5d1a",
+      "url": "https://www.puregym.com/exercises/legs/inner-outer-thigh/seated-hip-abduction/",
+      "publisherId": "puregym",
+      "title": "Seated Hip Abduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p156"
+      ]
+    },
+    "s3131b390ff80": {
+      "id": "s3131b390ff80",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/swiss-ball-hamstring-curls/",
+      "publisherId": "puregym",
+      "title": "Swiss Ball Hamstring Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p153"
+      ]
+    },
+    "s18e8c11e1e23": {
+      "id": "s18e8c11e1e23",
+      "url": "https://www.rehabhero.ca/exercise/heel-elevated-squat",
+      "publisherId": "rehabhero",
+      "title": "Heel Elevated Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s8e3b12ced2ad": {
+      "id": "s8e3b12ced2ad",
+      "url": "https://www.rehabhero.ca/exercise/single-leg-stability-ball-curl",
+      "publisherId": "rehabhero",
+      "title": "Single Leg Stability Ball Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc20966859803": {
+      "id": "sc20966859803",
+      "url": "https://www.rehabhero.ca/exercise/rope-triceps-pushdown",
+      "publisherId": "rehabhero",
+      "title": "Rope Triceps Pushdown",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc51803af78ce": {
+      "id": "sc51803af78ce",
+      "url": "https://www.rehabhero.ca/exercise/dumbbell-hip-adduction",
+      "publisherId": "rehabhero",
+      "title": "Dumbbell Hip Adduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s9b8e5df9e3a8": {
+      "id": "s9b8e5df9e3a8",
+      "url": "https://www.muscleandstrength.com/exercises/glute-ham-raise",
+      "publisherId": "ms",
+      "title": "Glute Ham Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xghr"
+      ]
+    },
+    "se6cb745f1c33": {
+      "id": "se6cb745f1c33",
+      "url": "https://www.puregym.com/exercises/legs/quad-exercises/lunges/clock-lunges/",
+      "publisherId": "puregym",
+      "title": "Clock Lunges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p167"
+      ]
+    },
+    "s44df1d68caba": {
+      "id": "s44df1d68caba",
+      "url": "https://www.rehabhero.ca/exercise/monster-walks",
+      "publisherId": "rehabhero",
+      "title": "Monster Walks",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sa2574923bf9e": {
+      "id": "sa2574923bf9e",
+      "url": "https://www.rehabhero.ca/exercise/good-morning-with-band",
+      "publisherId": "rehabhero",
+      "title": "Good Morning with Band",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4caeb000b34c": {
+      "id": "s4caeb000b34c",
+      "url": "https://www.rehabhero.ca/exercise/figure-4-stretch",
+      "publisherId": "rehabhero",
+      "title": "Figure 4 Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s5393e14f6e73": {
+      "id": "s5393e14f6e73",
+      "url": "https://www.rehabhero.ca/exercise/upper-trapezius-stretch",
+      "publisherId": "rehabhero",
+      "title": "Upper Trapezius Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s790e20c2b39e": {
+      "id": "s790e20c2b39e",
+      "url": "https://www.rehabhero.ca/exercise/seated-box-jump",
+      "publisherId": "rehabhero",
+      "title": "Seated Box Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s0a83b2ec6aa0": {
+      "id": "s0a83b2ec6aa0",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/dumbbell-hamstring-curl/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Hamstring Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p148"
+      ]
+    },
+    "s461d7b7e0480": {
+      "id": "s461d7b7e0480",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/lateral-raises/dumbbell-lateral-raise/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Lateral Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p42"
+      ]
+    },
+    "s0c0111a2c3c2": {
+      "id": "s0c0111a2c3c2",
+      "url": "https://www.rehabhero.ca/exercise/banded-glute-bridge",
+      "publisherId": "rehabhero",
+      "title": "Banded Glute Bridge",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4cd681d44ebc": {
+      "id": "s4cd681d44ebc",
+      "url": "https://www.puregym.com/exercises/chest/press-up/pike-push-ups/",
+      "publisherId": "puregym",
+      "title": "Pike Push Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p108"
+      ]
+    },
+    "saab957c39569": {
+      "id": "saab957c39569",
+      "url": "https://www.nasm.org/resource-center/exercise-library/face-pull",
+      "publisherId": "nasm",
+      "title": "Face Pull",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nface-pull"
+      ]
+    },
+    "se02dab0b565a": {
+      "id": "se02dab0b565a",
+      "url": "https://www.rehabhero.ca/exercise/overhead-triceps-extension",
+      "publisherId": "rehabhero",
+      "title": "Overhead Triceps Extension",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sb587041a5f1b": {
+      "id": "sb587041a5f1b",
+      "url": "https://www.puregym.com/exercises/chest/bench-press/close-grip-bench-press",
+      "publisherId": "puregym",
+      "title": "Close Grip Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p85"
+      ]
+    },
+    "se294121f70e1": {
+      "id": "se294121f70e1",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/deadlifts/sumo-deadlift/",
+      "publisherId": "puregym",
+      "title": "Sumo Deadlifts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p143"
+      ]
+    },
+    "s2774cd95598b": {
+      "id": "s2774cd95598b",
+      "url": "https://www.puregym.com/exercises/back/lat-exercises/lat-pulldown/",
+      "publisherId": "puregym",
+      "title": "Lat Pulldowns",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p67"
+      ]
+    },
+    "s408881845756": {
+      "id": "s408881845756",
+      "url": "https://www.puregym.com/exercises/chest/dips/",
+      "publisherId": "puregym",
+      "title": "Chest Dips",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p101"
+      ]
+    },
+    "s0b8a052824e3": {
+      "id": "s0b8a052824e3",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/shoulder-press/dumbbell-shoulder-press/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Shoulder Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p50"
+      ]
+    },
+    "s41014751f58a": {
+      "id": "s41014751f58a",
+      "url": "https://www.rehabhero.ca/exercise/step-up",
+      "publisherId": "rehabhero",
+      "title": "Step Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s89b1cb2b59df": {
+      "id": "s89b1cb2b59df",
+      "url": "https://www.rehabhero.ca/exercise/side-lunge-slider",
+      "publisherId": "rehabhero",
+      "title": "Side Lunge Slider",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s4d2429f2e4eb": {
+      "id": "s4d2429f2e4eb",
+      "url": "https://www.puregym.com/exercises/chest/press-up/incline-push-ups/",
+      "publisherId": "puregym",
+      "title": "Incline Push Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p105"
+      ]
+    },
+    "sd42f3a917b84": {
+      "id": "sd42f3a917b84",
+      "url": "https://www.youtube.com/watch?v=hWDOISqFzfQ",
+      "publisherId": "hk",
+      "title": "Plyometric exercise- Medicine ball chest pass",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s51b769ed5d82": {
+      "id": "s51b769ed5d82",
+      "url": "https://www.rehabhero.ca/exercise/cossack-squat",
+      "publisherId": "rehabhero",
+      "title": "Cossack Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sc4281c04163b": {
+      "id": "sc4281c04163b",
+      "url": "https://www.youtube.com/watch?v=M5uxEQH5BUM",
+      "publisherId": "nasm",
+      "title": "How to do Lateral Band Walking",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s7c1aff6ec28c": {
+      "id": "s7c1aff6ec28c",
+      "url": "https://www.puregym.com/exercises/back/lat-exercises/straight-arm-lat-pulldown/",
+      "publisherId": "puregym",
+      "title": "Straight Arm Lat Pulldowns",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p70"
+      ]
+    },
+    "s11c201b0b909": {
+      "id": "s11c201b0b909",
+      "url": "https://www.nasm.org/resource-center/exercise-library/romanian-deadlift-barbell",
+      "publisherId": "nasm",
+      "title": "Romanian Deadlift Barbell",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nrdl"
+      ]
+    },
+    "sfe9b2421b082": {
+      "id": "sfe9b2421b082",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/skull-crushers/",
+      "publisherId": "puregym",
+      "title": "Skull Crushers",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p57"
+      ]
+    },
+    "sa7e048ce33bc": {
+      "id": "sa7e048ce33bc",
+      "url": "https://www.puregym.com/exercises/glutes/step-ups/step-up/",
+      "publisherId": "puregym",
+      "title": "Step Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p130"
+      ]
+    },
+    "sad1ff06e394a": {
+      "id": "sad1ff06e394a",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/barbell-bicep-curls/",
+      "publisherId": "puregym",
+      "title": "Barbell Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p23"
+      ]
+    },
+    "s676b0bafebf1": {
+      "id": "s676b0bafebf1",
+      "url": "https://www.puregym.com/exercises/back/pull-up/assisted-pull-ups/",
+      "publisherId": "puregym",
+      "title": "Assisted Pull Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xassisted"
+      ]
+    },
+    "s9ab54fa59bd1": {
+      "id": "s9ab54fa59bd1",
+      "url": "https://www.rehabhero.ca/exercise/chest-opener",
+      "publisherId": "rehabhero",
+      "title": "Chest Opener",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd7b6cc37ac64": {
+      "id": "sd7b6cc37ac64",
+      "url": "https://www.rehabhero.ca/exercise/loop-band-hamstring-curl",
+      "publisherId": "rehabhero",
+      "title": "Loop Band Hamstring Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s486d77d7ca07": {
+      "id": "s486d77d7ca07",
+      "url": "https://www.rehabhero.ca/exercise/spiderman-lunge-stretch",
+      "publisherId": "rehabhero",
+      "title": "Spiderman Lunge Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s992590a2033a": {
+      "id": "s992590a2033a",
+      "url": "https://squatuniversity.com/2018/05/06/the-hip-airplane/comment-page-1/",
+      "publisherId": "squatu",
+      "title": "The Hip Airplane",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "xhipairplane"
+      ]
+    },
+    "se56b808a1dfc": {
+      "id": "se56b808a1dfc",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/cable-bicep-curls/",
+      "publisherId": "puregym",
+      "title": "Cable Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p24"
+      ]
+    },
+    "sd9f492c13b92": {
+      "id": "sd9f492c13b92",
+      "url": "https://www.rehabhero.ca/exercise/biceps-stretch",
+      "publisherId": "rehabhero",
+      "title": "Biceps Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s63c7b5f2ec01": {
+      "id": "s63c7b5f2ec01",
+      "url": "https://www.puregym.com/exercises/glutes/hip-thrusts/dumbbell-hip-thrust/",
+      "publisherId": "puregym",
+      "title": "Dumbbell Hip Thrusts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p124"
+      ]
+    },
+    "sdd5d89f918d4": {
+      "id": "sdd5d89f918d4",
+      "url": "https://www.rehabhero.ca/exercise/hip-circles",
+      "publisherId": "rehabhero",
+      "title": "Hip Circles",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sf61c16757ef5": {
+      "id": "sf61c16757ef5",
+      "url": "https://www.rehabhero.ca/exercise/swiss-ball-pec-fly",
+      "publisherId": "rehabhero",
+      "title": "Swiss Ball Pec Fly",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s76019b8dc800": {
+      "id": "s76019b8dc800",
+      "url": "https://www.nasm.org/resource-center/exercise-library/single-arm-dumbbell-chest-press",
+      "publisherId": "nasm",
+      "title": "Single-Arm Dumbbell Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "nsingle-db-press"
+      ]
+    },
+    "s3ae9aef6b00d": {
+      "id": "s3ae9aef6b00d",
+      "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/zottman-curls/",
+      "publisherId": "puregym",
+      "title": "Zottman Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p32"
+      ]
+    },
+    "s1f3a4dda9c77": {
+      "id": "s1f3a4dda9c77",
+      "url": "https://www.muscleandstrength.com/exercises/hollow-body-hold",
+      "publisherId": "ms",
+      "title": "Hollow Body Hold",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s1b78c6e52c5d": {
+      "id": "s1b78c6e52c5d",
+      "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/lying-leg-curl/",
+      "publisherId": "puregym",
+      "title": "Lying Leg Curls",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p149"
+      ]
+    },
+    "s1ff3349f2b05": {
+      "id": "s1ff3349f2b05",
+      "url": "https://www.nasm.org/resource-center/exercise-library/leg-press-calf-raise",
+      "publisherId": "nasm",
+      "title": "Leg Press Calf Raise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "ncalf"
+      ]
+    },
+    "sea505a54abf2": {
+      "id": "sea505a54abf2",
+      "url": "https://www.youtube.com/watch?v=AWJJxssRVDY",
+      "publisherId": "trx",
+      "title": "TRX Freestyle Friday | TRX Inverted Row & TRX Bicep Curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "s52d4a03d7d4c": {
+      "id": "s52d4a03d7d4c",
+      "url": "https://www.puregym.com/exercises/plyometrics/kettlebells/two-hand-kb-swing/",
+      "publisherId": "puregym",
+      "title": "Two Handed Kettlebell Swings",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p202"
+      ]
+    },
+    "s4fb614275f7b": {
+      "id": "s4fb614275f7b",
+      "url": "https://www.puregym.com/exercises/abs/ab-wheel-rollouts/",
+      "publisherId": "puregym",
+      "title": "Ab Wheel Rollouts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p1"
+      ]
+    },
+    "s52372717f574": {
+      "id": "s52372717f574",
+      "url": "https://www.puregym.com/exercises/glutes/glute-bridge/single-leg-glute-bridges/",
+      "publisherId": "puregym",
+      "title": "Single Leg Glute Bridges",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p118"
+      ]
+    },
+    "sddacf2bdea80": {
+      "id": "sddacf2bdea80",
+      "url": "https://www.puregym.com/exercises/chest/press-up/diamond-press-ups/",
+      "publisherId": "puregym",
+      "title": "Diamond Press Ups",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": [
+        "p104"
+      ]
+    },
+    "s9e44bb041689": {
+      "id": "s9e44bb041689",
+      "url": "https://www.rehabhero.ca/exercise/triceps-stretch",
+      "publisherId": "rehabhero",
+      "title": "Triceps Stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
+      "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    }
+  }
+}
