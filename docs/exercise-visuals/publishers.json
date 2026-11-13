@@ -1,4 +1,5 @@
 {
+  "reviewDate": "2026-11-13",
   "publishers": {
     "nasm": {
       "id": "nasm",
@@ -198,6 +199,178 @@
         "https://orthoinfo.aaos.org/en/recovery/rotator-cuff-and-shoulder-conditioning-program/"
       ],
       "limitations": "Cross-body shoulder figure only; medical rehabilitation context is not an individual prescription.",
+      "checkedOn": "2026-11-13"
+    },
+    "opex": {
+      "id": "opex",
+      "name": "OPEX Fitness",
+      "basis": "Professional fitness-coach education publisher; original exercise demonstrations are credited to the OPEX channel.",
+      "evidenceUrls": [
+        "https://www.opexfit.com/"
+      ],
+      "limitations": "Coaching-education authority, not an individual clinical prescription. Speaker-specific licenses and full motion were not audited.",
+      "checkedOn": "2026-11-13"
+    },
+    "fbb": {
+      "id": "fbb",
+      "name": "Functional Bodybuilding",
+      "basis": "Original coaching publisher founded by Marcus Filly; primary biography describes affiliate ownership and individual coaching.",
+      "evidenceUrls": [
+        "https://functional-bodybuilding.com/pages/about"
+      ],
+      "limitations": "Commercial coaching reference. Leaving medical school does not establish a medical qualification; no physician status is claimed.",
+      "checkedOn": "2026-11-13"
+    },
+    "matrix": {
+      "id": "matrix",
+      "name": "Matrix Fitness",
+      "basis": "Equipment manufacturer official setup, movement and operation demonstrations; provider metadata credits Matrix Fitness.",
+      "evidenceUrls": [
+        "https://www.matrixfitness.com/"
+      ],
+      "limitations": "Machine geometry and controls are model-specific. Console operation is distinct from stepping-form review.",
+      "checkedOn": "2026-11-13"
+    },
+    "lifefitness": {
+      "id": "lifefitness",
+      "name": "Life Fitness / Hammer Strength",
+      "basis": "Equipment manufacturer official machine instruction demonstrations, credited to its Life Fitness / Hammer Strength channel.",
+      "evidenceUrls": [
+        "https://www.lifefitness.com/en-us/catalog/strength-training"
+      ],
+      "limitations": "A specific machine model illustrates a configuration. The actual unit placard governs seat, pad and pivot adjustment.",
+      "checkedOn": "2026-11-13"
+    },
+    "specialolympics": {
+      "id": "specialolympics",
+      "name": "Special Olympics",
+      "basis": "Official sports-coaching organization publishing its own warm-up and cool-down exercise library and credited videos.",
+      "evidenceUrls": [
+        "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos"
+      ],
+      "limitations": "General coaching demonstrations, not individualized rehabilitation. Seated, standing and moving variants must be checked separately.",
+      "checkedOn": "2026-11-13"
+    },
+    "scottherman": {
+      "id": "scottherman",
+      "name": "Scott Herman / Muscular Strength",
+      "basis": "Primary team biography identifies Scott Herman as a certified personal trainer; selected original clips credit ScottHermanFitness.",
+      "evidenceUrls": [
+        "https://muscularstrength.com/team"
+      ],
+      "limitations": "Publisher-reported training background, not a current credential-renewal audit. A separate corroborating article is not claimed to embed his video.",
+      "checkedOn": "2026-11-13"
+    },
+    "fitnessfaqs": {
+      "id": "fitnessfaqs",
+      "name": "FitnessFAQs",
+      "basis": "Original calisthenics coaching publisher. Primary biography identifies Daniel Vadnal and describes his physiotherapy background.",
+      "evidenceUrls": [
+        "https://www.fitnessfaqs.com/the-vault"
+      ],
+      "limitations": "Background is publisher-reported; no current clinical license claim. A progression compilation is not a single-exercise instruction or full-motion approval.",
+      "checkedOn": "2026-11-13"
+    },
+    "dvids": {
+      "id": "dvids",
+      "name": "Marine Corps Force Fitness / DVIDS",
+      "basis": "Original military physical-fitness instruction distributed through DVIDS; selected pages identify Marine Corps Training and Education Command.",
+      "evidenceUrls": [
+        "https://www.dvidshub.net/video/642051/trx-pike",
+        "https://www.dvidshub.net/video/692485/lateral-box-jump"
+      ],
+      "limitations": "Physical-fitness education, not medical authority. Attribution and source copyright conditions remain applicable; no media redistribution is authorized.",
+      "checkedOn": "2026-11-13"
+    },
+    "rmp": {
+      "id": "rmp",
+      "name": "Rehab My Patient",
+      "basis": "Clinical exercise-prescription publisher; its primary site describes software designed by physiotherapists and a library of original exercise videos.",
+      "evidenceUrls": [
+        "https://www.rehabmypatient.com/"
+      ],
+      "limitations": "Publisher-reported clinical context is not a license audit of every demonstrator or evidence of individual suitability.",
+      "checkedOn": "2026-11-13"
+    },
+    "origym": {
+      "id": "origym",
+      "name": "OriGym",
+      "basis": "Professional personal-training education provider publishing its own attributed exercise demonstrations.",
+      "evidenceUrls": [
+        "https://www.origym.co.uk/about-us/",
+        "https://www.origym.co.uk/courses/personal-trainer-courses/"
+      ],
+      "limitations": "Provider-reported educational accreditation does not identify the credential of every model. Configuration and technique still need individual checking.",
+      "checkedOn": "2026-11-13"
+    },
+    "goodin": {
+      "id": "goodin",
+      "name": "Jacob Goodin",
+      "basis": "Original exercise demonstrations by Jacob Goodin; his university-hosted CV identifies a PhD in Sport Physiology and Performance.",
+      "evidenceUrls": [
+        "https://www.pointloma.edu/file/15881/download"
+      ],
+      "limitations": "The CV establishes an educational background, not a medical license or current employment claim. Full video motion remains unreviewed.",
+      "checkedOn": "2026-11-13"
+    },
+    "horton": {
+      "id": "horton",
+      "name": "Horton Barbell",
+      "basis": "Primary biography identifies Coach Horton as CSCS with a long collegiate strength-coaching and sports-science background.",
+      "evidenceUrls": [
+        "https://hortonbarbell.com/"
+      ],
+      "limitations": "Publisher-reported qualifications, not a certification-renewal audit. External load and counterbalance variants must remain explicit.",
+      "checkedOn": "2026-11-13"
+    },
+    "pike": {
+      "id": "pike",
+      "name": "Pike Fitness",
+      "basis": "Original training facility exercise demonstrations; primary staff page identifies Steve and Jeff Burmann as NSCA-CPT.",
+      "evidenceUrls": [
+        "https://pikefitness.com/"
+      ],
+      "limitations": "Credentials are publisher-reported and not assigned to an unidentified model. Preview configuration checks are not full repetition or technique approval.",
+      "checkedOn": "2026-11-13"
+    },
+    "mbsc": {
+      "id": "mbsc",
+      "name": "Mike Boyle Strength & Conditioning",
+      "basis": "Original strength-coaching facility exercise demonstrations; primary team biographies identify exercise-science education and CSCS-qualified coaches.",
+      "evidenceUrls": [
+        "https://www.bodybyboyle.com/team/coaches"
+      ],
+      "limitations": "Team credentials do not identify every demonstrator. Direct page fetch was blocked; primary indexed biographies were reviewed.",
+      "checkedOn": "2026-11-13"
+    },
+    "champion": {
+      "id": "champion",
+      "name": "Champion Physical Therapy and Performance",
+      "basis": "Original clinic exercise demonstrations; primary practice biography identifies physical therapists Mike Reinold and Lenny Macrina.",
+      "evidenceUrls": [
+        "https://championptandperformance.com/the-champion-difference/"
+      ],
+      "limitations": "Clinical provenance is not a prescription. Direct page fetch was blocked; primary indexed biography and credited video metadata were reviewed.",
+      "checkedOn": "2026-11-13"
+    },
+    "brattain": {
+      "id": "brattain",
+      "name": "Nick Brattain",
+      "basis": "Original strength-coach demonstration; Tulane primary biography identifies Nick Brattain as CSCS with exercise-science education.",
+      "evidenceUrls": [
+        "https://sopa.tulane.edu/about-sopa/advisory-boards/nick-brattain"
+      ],
+      "limitations": "Educational/coaching background is not an individual clinical prescription. Precise leg-drive timing remains unreviewed.",
+      "checkedOn": "2026-11-13"
+    },
+    "assault": {
+      "id": "assault",
+      "name": "Assault Fitness",
+      "basis": "Equipment manufacturer original Assault University air-bike technique demonstrations, credited to the official Assault Fitness channel.",
+      "evidenceUrls": [
+        "https://www.assaultfitness.com/"
+      ],
+      "limitations": "Technique clips illustrate the AirBike Classic. Saddle locks, controls and monitor settings differ on other air bikes.",
       "checkedOn": "2026-11-13"
     }
   }

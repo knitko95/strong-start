@@ -6295,3 +6295,1242 @@ Cross-body shoulder figure only; medical rehabilitation context is not an indivi
 - Checked: 2026-11-13; provider-metadata-200; playback-not-tested; visual inspection: not-viewed.
 - Provider metadata: “How To Use The Assisted Pull Up Machine”; credited creator [PureGym](https://www.youtube.com/@PureGymVideo).
 - Reference link only; reproduction permission not established.
+
+## Follow-up publisher context
+
+[Per-target research and limits](research.md). Earlier publisher and media records above are retained as historical evidence.
+
+<a id="publisher-opex"></a>
+### OPEX Fitness
+
+Professional fitness-coach education publisher; original exercise demonstrations are credited to the OPEX channel.
+
+Primary identity/context: [source](https://www.opexfit.com/).
+
+Coaching-education authority, not an individual clinical prescription. Speaker-specific licenses and full motion were not audited.
+
+<a id="publisher-fbb"></a>
+### Functional Bodybuilding
+
+Original coaching publisher founded by Marcus Filly; primary biography describes affiliate ownership and individual coaching.
+
+Primary identity/context: [source](https://functional-bodybuilding.com/pages/about).
+
+Commercial coaching reference. Leaving medical school does not establish a medical qualification; no physician status is claimed.
+
+<a id="publisher-matrix"></a>
+### Matrix Fitness
+
+Equipment manufacturer official setup, movement and operation demonstrations; provider metadata credits Matrix Fitness.
+
+Primary identity/context: [source](https://www.matrixfitness.com/).
+
+Machine geometry and controls are model-specific. Console operation is distinct from stepping-form review.
+
+<a id="publisher-lifefitness"></a>
+### Life Fitness / Hammer Strength
+
+Equipment manufacturer official machine instruction demonstrations, credited to its Life Fitness / Hammer Strength channel.
+
+Primary identity/context: [source](https://www.lifefitness.com/en-us/catalog/strength-training).
+
+A specific machine model illustrates a configuration. The actual unit placard governs seat, pad and pivot adjustment.
+
+<a id="publisher-specialolympics"></a>
+### Special Olympics
+
+Official sports-coaching organization publishing its own warm-up and cool-down exercise library and credited videos.
+
+Primary identity/context: [source](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos).
+
+General coaching demonstrations, not individualized rehabilitation. Seated, standing and moving variants must be checked separately.
+
+<a id="publisher-scottherman"></a>
+### Scott Herman / Muscular Strength
+
+Primary team biography identifies Scott Herman as a certified personal trainer; selected original clips credit ScottHermanFitness.
+
+Primary identity/context: [source](https://muscularstrength.com/team).
+
+Publisher-reported training background, not a current credential-renewal audit. A separate corroborating article is not claimed to embed his video.
+
+<a id="publisher-fitnessfaqs"></a>
+### FitnessFAQs
+
+Original calisthenics coaching publisher. Primary biography identifies Daniel Vadnal and describes his physiotherapy background.
+
+Primary identity/context: [source](https://www.fitnessfaqs.com/the-vault).
+
+Background is publisher-reported; no current clinical license claim. A progression compilation is not a single-exercise instruction or full-motion approval.
+
+<a id="publisher-dvids"></a>
+### Marine Corps Force Fitness / DVIDS
+
+Original military physical-fitness instruction distributed through DVIDS; selected pages identify Marine Corps Training and Education Command.
+
+Primary identity/context: [source](https://www.dvidshub.net/video/642051/trx-pike), [source](https://www.dvidshub.net/video/692485/lateral-box-jump).
+
+Physical-fitness education, not medical authority. Attribution and source copyright conditions remain applicable; no media redistribution is authorized.
+
+<a id="publisher-rmp"></a>
+### Rehab My Patient
+
+Clinical exercise-prescription publisher; its primary site describes software designed by physiotherapists and a library of original exercise videos.
+
+Primary identity/context: [source](https://www.rehabmypatient.com/).
+
+Publisher-reported clinical context is not a license audit of every demonstrator or evidence of individual suitability.
+
+<a id="publisher-origym"></a>
+### OriGym
+
+Professional personal-training education provider publishing its own attributed exercise demonstrations.
+
+Primary identity/context: [source](https://www.origym.co.uk/about-us/), [source](https://www.origym.co.uk/courses/personal-trainer-courses/).
+
+Provider-reported educational accreditation does not identify the credential of every model. Configuration and technique still need individual checking.
+
+<a id="publisher-goodin"></a>
+### Jacob Goodin
+
+Original exercise demonstrations by Jacob Goodin; his university-hosted CV identifies a PhD in Sport Physiology and Performance.
+
+Primary identity/context: [source](https://www.pointloma.edu/file/15881/download).
+
+The CV establishes an educational background, not a medical license or current employment claim. Full video motion remains unreviewed.
+
+<a id="publisher-horton"></a>
+### Horton Barbell
+
+Primary biography identifies Coach Horton as CSCS with a long collegiate strength-coaching and sports-science background.
+
+Primary identity/context: [source](https://hortonbarbell.com/).
+
+Publisher-reported qualifications, not a certification-renewal audit. External load and counterbalance variants must remain explicit.
+
+<a id="publisher-pike"></a>
+### Pike Fitness
+
+Original training facility exercise demonstrations; primary staff page identifies Steve and Jeff Burmann as NSCA-CPT.
+
+Primary identity/context: [source](https://pikefitness.com/).
+
+Credentials are publisher-reported and not assigned to an unidentified model. Preview configuration checks are not full repetition or technique approval.
+
+<a id="publisher-mbsc"></a>
+### Mike Boyle Strength & Conditioning
+
+Original strength-coaching facility exercise demonstrations; primary team biographies identify exercise-science education and CSCS-qualified coaches.
+
+Primary identity/context: [source](https://www.bodybyboyle.com/team/coaches).
+
+Team credentials do not identify every demonstrator. Direct page fetch was blocked; primary indexed biographies were reviewed.
+
+<a id="publisher-champion"></a>
+### Champion Physical Therapy and Performance
+
+Original clinic exercise demonstrations; primary practice biography identifies physical therapists Mike Reinold and Lenny Macrina.
+
+Primary identity/context: [source](https://championptandperformance.com/the-champion-difference/).
+
+Clinical provenance is not a prescription. Direct page fetch was blocked; primary indexed biography and credited video metadata were reviewed.
+
+<a id="publisher-brattain"></a>
+### Nick Brattain
+
+Original strength-coach demonstration; Tulane primary biography identifies Nick Brattain as CSCS with exercise-science education.
+
+Primary identity/context: [source](https://sopa.tulane.edu/about-sopa/advisory-boards/nick-brattain).
+
+Educational/coaching background is not an individual clinical prescription. Precise leg-drive timing remains unreviewed.
+
+<a id="publisher-assault"></a>
+### Assault Fitness
+
+Equipment manufacturer original Assault University air-bike technique demonstrations, credited to the official Assault Fitness channel.
+
+Primary identity/context: [source](https://www.assaultfitness.com/).
+
+Technique clips illustrate the AirBike Classic. Saddle locks, controls and monitor settings differ on other air bikes.
+
+## Follow-up video references
+
+<a id="vf39af5c9dc27"></a>
+### How To: Smith Machine- Bench Press — vf39af5c9dc27
+
+- Media: [video](https://www.youtube.com/watch?v=z_r6hDOYtO0).
+- Publisher: [Scott Herman / Muscular Strength](#publisher-scottherman).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/smith-machine-bench-press.html), [source page](https://www.youtube.com/watch?v=z_r6hDOYtO0).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To: Smith Machine- Bench Press”; credited creator [ScottHermanFitness](https://www.youtube.com/@ScottHermanFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/z_r6hDOYtO0/1.jpg), [preview 2](https://i.ytimg.com/vi/z_r6hDOYtO0/2.jpg), [preview 3](https://i.ytimg.com/vi/z_r6hDOYtO0/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v105fb0cef41b"></a>
+### Single Arm Cable Chest Press — v105fb0cef41b
+
+- Media: [video](https://www.youtube.com/watch?v=w6Ar00OUUkg).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=w6Ar00OUUkg).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Single Arm Cable Chest Press”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/w6Ar00OUUkg/1.jpg), [preview 2](https://i.ytimg.com/vi/w6Ar00OUUkg/2.jpg), [preview 3](https://i.ytimg.com/vi/w6Ar00OUUkg/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v5327307b4339"></a>
+### How To Progress Your Push Ups (START NOW) — v5327307b4339
+
+- Media: [video](https://www.youtube.com/watch?v=H0k47Ghb0GY).
+- Publisher: [FitnessFAQs](#publisher-fitnessfaqs).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=H0k47Ghb0GY).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To Progress Your Push Ups (START NOW)”; credited creator [FitnessFAQs](https://www.youtube.com/@FitnessFAQs).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/H0k47Ghb0GY/1.jpg), [preview 2](https://i.ytimg.com/vi/H0k47Ghb0GY/2.jpg), [preview 3](https://i.ytimg.com/vi/H0k47Ghb0GY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v6d63286c3cfb"></a>
+### Machine Incline Bench Press — v6d63286c3cfb
+
+- Media: [video](https://www.youtube.com/watch?v=qkIaG_Zu9BY).
+- Publisher: [Muscle & Strength](#publisher-ms).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/hammer-strength-incline-bench-press), [source page](https://www.youtube.com/watch?v=qkIaG_Zu9BY).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Machine Incline Bench Press”; credited creator [Muscle & Strength](https://www.youtube.com/@muscleandstrength).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/qkIaG_Zu9BY/1.jpg), [preview 2](https://i.ytimg.com/vi/qkIaG_Zu9BY/2.jpg), [preview 3](https://i.ytimg.com/vi/qkIaG_Zu9BY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vb7394aa53830"></a>
+### Dip (Weighted) — vb7394aa53830
+
+- Media: [video](https://www.youtube.com/watch?v=ZQnPQG5d67E).
+- Publisher: [Muscle & Strength](#publisher-ms).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/weighted-tricep-dips.html), [source page](https://www.youtube.com/watch?v=ZQnPQG5d67E).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Dip (Weighted)”; credited creator [Muscle & Strength](https://www.youtube.com/@muscleandstrength).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ZQnPQG5d67E/1.jpg), [preview 2](https://i.ytimg.com/vi/ZQnPQG5d67E/2.jpg), [preview 3](https://i.ytimg.com/vi/ZQnPQG5d67E/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v3063d3098fd0"></a>
+### Cool Combo: TRX® Chest Fly to TRX Chest Press — v3063d3098fd0
+
+- Media: [video](https://www.youtube.com/watch?v=xpsTGTKyn8A).
+- Publisher: [TRX](#publisher-trx).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=xpsTGTKyn8A).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Cool Combo: TRX® Chest Fly to TRX Chest Press”; credited creator [TRXtraining](https://www.youtube.com/@TRXtraining).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/xpsTGTKyn8A/1.jpg), [preview 2](https://i.ytimg.com/vi/xpsTGTKyn8A/2.jpg), [preview 3](https://i.ytimg.com/vi/xpsTGTKyn8A/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v7313a2958acd"></a>
+### Seated Dumbbell Press (Bilateral) — v7313a2958acd
+
+- Media: [video](https://www.youtube.com/watch?v=FRxZ6wr5bpA).
+- Publisher: [Muscle & Strength](#publisher-ms).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/seated-dumbbell-press.html), [source page](https://www.youtube.com/watch?v=FRxZ6wr5bpA).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Seated Dumbbell Press (Bilateral)”; credited creator [Muscle & Strength](https://www.youtube.com/@muscleandstrength).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/FRxZ6wr5bpA/1.jpg), [preview 2](https://i.ytimg.com/vi/FRxZ6wr5bpA/2.jpg), [preview 3](https://i.ytimg.com/vi/FRxZ6wr5bpA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="va66e6e0cf9a8"></a>
+### Half Kneeling Single Arm Cable Chest Press — va66e6e0cf9a8
+
+- Media: [video](https://www.youtube.com/watch?v=5k2Bz_XR37U).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=5k2Bz_XR37U).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Half Kneeling Single Arm Cable Chest Press”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/5k2Bz_XR37U/1.jpg), [preview 2](https://i.ytimg.com/vi/5k2Bz_XR37U/2.jpg), [preview 3](https://i.ytimg.com/vi/5k2Bz_XR37U/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v23d274f61953"></a>
+### How To Do Cable Lateral Raises — v23d274f61953
+
+- Media: [video](https://www.youtube.com/watch?v=Z5FA9aq3L6A).
+- Publisher: [PureGym](#publisher-puregym).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Z5FA9aq3L6A).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To Do Cable Lateral Raises”; credited creator [PureGym](https://www.youtube.com/@PureGymVideo).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Z5FA9aq3L6A/1.jpg), [preview 2](https://i.ytimg.com/vi/Z5FA9aq3L6A/2.jpg), [preview 3](https://i.ytimg.com/vi/Z5FA9aq3L6A/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vb8da40a9ff0e"></a>
+### Life Fitness Pro2 Lateral Raise Instructions — vb8da40a9ff0e
+
+- Media: [video](https://www.youtube.com/watch?v=siazAOww2Tc).
+- Publisher: [Life Fitness / Hammer Strength](#publisher-lifefitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=siazAOww2Tc).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Life Fitness Pro2 Lateral Raise Instructions”; credited creator [Life Fitness / Hammer Strength](https://www.youtube.com/@lifefitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/siazAOww2Tc/1.jpg), [preview 2](https://i.ytimg.com/vi/siazAOww2Tc/2.jpg), [preview 3](https://i.ytimg.com/vi/siazAOww2Tc/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v02bcba52bede"></a>
+### Cable Tricep Kickback - triceps strengthening exercise — v02bcba52bede
+
+- Media: [video](https://www.youtube.com/watch?v=t7k5MWa8NJQ).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.rehabhero.ca/exercise/cable-triceps-kickback), [source page](https://www.youtube.com/watch?v=t7k5MWa8NJQ).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Cable Tricep Kickback - triceps strengthening exercise”; credited creator [Rehab Hero](https://www.youtube.com/@RehabHero).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/t7k5MWa8NJQ/1.jpg), [preview 2](https://i.ytimg.com/vi/t7k5MWa8NJQ/2.jpg), [preview 3](https://i.ytimg.com/vi/t7k5MWa8NJQ/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vc739fb44d8aa"></a>
+### Dumbbell Skull Crushers - Triceps Strengthening Exercise — vc739fb44d8aa
+
+- Media: [video](https://www.youtube.com/watch?v=yDlkWx_V9Bs).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.rehabhero.ca/exercise/dumbbell-skull-crushers), [source page](https://www.youtube.com/watch?v=yDlkWx_V9Bs).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Dumbbell Skull Crushers - Triceps Strengthening Exercise”; credited creator [Rehab Hero](https://www.youtube.com/@RehabHero).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/yDlkWx_V9Bs/1.jpg), [preview 2](https://i.ytimg.com/vi/yDlkWx_V9Bs/2.jpg), [preview 3](https://i.ytimg.com/vi/yDlkWx_V9Bs/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v4c606ec35c24"></a>
+### Barbell Skull Crusher - Exercise Demonstration — v4c606ec35c24
+
+- Media: [video](https://www.youtube.com/watch?v=ad3dSGLAslA).
+- Publisher: [Pike Fitness](#publisher-pike).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ad3dSGLAslA).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Barbell Skull Crusher - Exercise Demonstration”; credited creator [Pike Fitness](https://www.youtube.com/@PikeFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ad3dSGLAslA/1.jpg), [preview 2](https://i.ytimg.com/vi/ad3dSGLAslA/2.jpg), [preview 3](https://i.ytimg.com/vi/ad3dSGLAslA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v2e3e0bb83144"></a>
+### Aura Series / Triceps Extension / Setup & Movements / Matrix Fitness — v2e3e0bb83144
+
+- Media: [video](https://www.youtube.com/watch?v=r9d-O-zLj3g).
+- Publisher: [Matrix Fitness](#publisher-matrix).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=r9d-O-zLj3g).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Aura Series / Triceps Extension / Setup & Movements / Matrix Fitness”; credited creator [Matrix Fitness](https://www.youtube.com/@MatrixFitnessGlobal).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/r9d-O-zLj3g/1.jpg), [preview 2](https://i.ytimg.com/vi/r9d-O-zLj3g/2.jpg), [preview 3](https://i.ytimg.com/vi/r9d-O-zLj3g/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v8a25d4450b3f"></a>
+### Landmine Rotational Press — v8a25d4450b3f
+
+- Media: [video](https://www.youtube.com/watch?v=W_H5JDfdOKo).
+- Publisher: [Nick Brattain](#publisher-brattain).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=W_H5JDfdOKo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Landmine Rotational Press”; credited creator [Nick Brattain](https://www.youtube.com/@nickbrattain1884).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/W_H5JDfdOKo/1.jpg), [preview 2](https://i.ytimg.com/vi/W_H5JDfdOKo/2.jpg), [preview 3](https://i.ytimg.com/vi/W_H5JDfdOKo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v1afa286b6ec0"></a>
+### Aura Series / Rotary Torso / Setup & Movements / Matrix Fitness — v1afa286b6ec0
+
+- Media: [video](https://www.youtube.com/watch?v=0t17aBlo680).
+- Publisher: [Matrix Fitness](#publisher-matrix).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=0t17aBlo680).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Aura Series / Rotary Torso / Setup & Movements / Matrix Fitness”; credited creator [Matrix Fitness](https://www.youtube.com/@MatrixFitnessGlobal).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/0t17aBlo680/1.jpg), [preview 2](https://i.ytimg.com/vi/0t17aBlo680/2.jpg), [preview 3](https://i.ytimg.com/vi/0t17aBlo680/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v9eb41eeff197"></a>
+### Hanging Oblique Knee Raises — v9eb41eeff197
+
+- Media: [video](https://d34w7g4gy10iej.cloudfront.net/video/1905/DOD_106741525/DOD_106741525-1024x576-1769k.mp4).
+- Publisher: [Marine Corps Force Fitness / DVIDS](#publisher-dvids).
+- Origin / corroboration: [source page](https://www.dvidshub.net/video/679685/hanging-oblique-knee-raises).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 3.874 s, 9.685 s, 15.496 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v415555764184"></a>
+### Stability Ball Rollout — v415555764184
+
+- Media: [video](https://www.youtube.com/watch?v=IIqlcqMiSx4).
+- Publisher: [Mike Boyle Strength & Conditioning](#publisher-mbsc).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=IIqlcqMiSx4).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Stability Ball Rollout”; credited creator [Mike Boyle Strength & Conditioning](https://www.youtube.com/@mbscvideo).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/IIqlcqMiSx4/1.jpg), [preview 2](https://i.ytimg.com/vi/IIqlcqMiSx4/2.jpg), [preview 3](https://i.ytimg.com/vi/IIqlcqMiSx4/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v0f758514dbea"></a>
+### TRX Monday Move - TRX Body Saw — v0f758514dbea
+
+- Media: [video](https://www.youtube.com/watch?v=ClXC0_yNsoM).
+- Publisher: [TRX](#publisher-trx).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ClXC0_yNsoM).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “TRX Monday Move - TRX Body Saw”; credited creator [TRXtraining](https://www.youtube.com/@TRXtraining).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ClXC0_yNsoM/1.jpg), [preview 2](https://i.ytimg.com/vi/ClXC0_yNsoM/2.jpg), [preview 3](https://i.ytimg.com/vi/ClXC0_yNsoM/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v4fc69f50d6f2"></a>
+### TRX Pike — v4fc69f50d6f2
+
+- Media: [video](https://d34w7g4gy10iej.cloudfront.net/video/1811/DOD_106233666/DOD_106233666-1024x576-1769k.mp4).
+- Publisher: [Marine Corps Force Fitness / DVIDS](#publisher-dvids).
+- Origin / corroboration: [source page](https://www.dvidshub.net/video/642051/trx-pike).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 2.219 s, 5.546 s, 8.874 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v5d7cc4e239f4"></a>
+### Life Fitness Signature Series Abdominal Instructions — v5d7cc4e239f4
+
+- Media: [video](https://www.youtube.com/watch?v=MuC0_N4pSLI).
+- Publisher: [Life Fitness / Hammer Strength](#publisher-lifefitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=MuC0_N4pSLI).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Life Fitness Signature Series Abdominal Instructions”; credited creator [Life Fitness / Hammer Strength](https://www.youtube.com/@lifefitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/MuC0_N4pSLI/1.jpg), [preview 2](https://i.ytimg.com/vi/MuC0_N4pSLI/2.jpg), [preview 3](https://i.ytimg.com/vi/MuC0_N4pSLI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v7ea03e4486ca"></a>
+### How to perform a barbell rollout — v7ea03e4486ca
+
+- Media: [video](https://www.youtube.com/watch?v=Hr8L6reVEVQ).
+- Publisher: [Human Kinetics](#publisher-hk).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Hr8L6reVEVQ).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How to perform a barbell rollout”; credited creator [Human Kinetics](https://www.youtube.com/@HumanKineticsUSA).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Hr8L6reVEVQ/1.jpg), [preview 2](https://i.ytimg.com/vi/Hr8L6reVEVQ/2.jpg), [preview 3](https://i.ytimg.com/vi/Hr8L6reVEVQ/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v39d5ac328e56"></a>
+### Kettlebell Front Rack Carry — v39d5ac328e56
+
+- Media: [video](https://www.youtube.com/watch?v=8i3PV6vZlXA).
+- Publisher: [Functional Bodybuilding](#publisher-fbb).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=8i3PV6vZlXA).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Kettlebell Front Rack Carry”; credited creator [Functional Bodybuilding](https://www.youtube.com/@FunctionalBodybuilding).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/8i3PV6vZlXA/1.jpg), [preview 2](https://i.ytimg.com/vi/8i3PV6vZlXA/2.jpg), [preview 3](https://i.ytimg.com/vi/8i3PV6vZlXA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v82ca05b07ff6"></a>
+### Single Arm Kettlebell Overhead Carry — v82ca05b07ff6
+
+- Media: [video](https://www.youtube.com/watch?v=UTV5o4Oi2KM).
+- Publisher: [Functional Bodybuilding](#publisher-fbb).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=UTV5o4Oi2KM).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Single Arm Kettlebell Overhead Carry”; credited creator [Functional Bodybuilding](https://www.youtube.com/@FunctionalBodybuilding).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/UTV5o4Oi2KM/1.jpg), [preview 2](https://i.ytimg.com/vi/UTV5o4Oi2KM/2.jpg), [preview 3](https://i.ytimg.com/vi/UTV5o4Oi2KM/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vda89b27ee95e"></a>
+### Weighted Pull-Up — vda89b27ee95e
+
+- Media: [video](https://www.youtube.com/watch?v=2m58VKBEQuo).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.opexfit.com/blog/how-to-do-a-pull-up), [source page](https://www.youtube.com/watch?v=2m58VKBEQuo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Weighted Pull-Up”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/2m58VKBEQuo/1.jpg), [preview 2](https://i.ytimg.com/vi/2m58VKBEQuo/2.jpg), [preview 3](https://i.ytimg.com/vi/2m58VKBEQuo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vd5ed43ad0151"></a>
+### Neutral Grip Pull-Up — vd5ed43ad0151
+
+- Media: [video](https://www.youtube.com/watch?v=cd_38C6LuvY).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.opexfit.com/blog/seven-different-pull-up-grips-and-their-benefits), [source page](https://www.youtube.com/watch?v=cd_38C6LuvY).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Neutral Grip Pull-Up”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/cd_38C6LuvY/1.jpg), [preview 2](https://i.ytimg.com/vi/cd_38C6LuvY/2.jpg), [preview 3](https://i.ytimg.com/vi/cd_38C6LuvY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v54a5312c06e7"></a>
+### Build Muscle With The Gorilla Row / @EricLeija — v54a5312c06e7
+
+- Media: [video](https://www.youtube.com/watch?v=yNJwusxZnfw).
+- Publisher: [Onnit](#publisher-onnit).
+- Origin / corroboration: [source page](https://www.onnit.com/blogs/the-edge/build-muscle-with-the-gorilla-row-exercise), [source page](https://www.youtube.com/watch?v=yNJwusxZnfw).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Build Muscle With The Gorilla Row / @EricLeija”; credited creator [Onnit](https://www.youtube.com/@Onnitofficial).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/yNJwusxZnfw/1.jpg), [preview 2](https://i.ytimg.com/vi/yNJwusxZnfw/2.jpg), [preview 3](https://i.ytimg.com/vi/yNJwusxZnfw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vd8e6bd78ff14"></a>
+### 1 Arm Rotational Cable Row — vd8e6bd78ff14
+
+- Media: [video](https://www.youtube.com/watch?v=NhDGpy6__tA).
+- Publisher: [Champion Physical Therapy and Performance](#publisher-champion).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=NhDGpy6__tA).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “1 Arm Rotational Cable Row”; credited creator [Champion Physical Therapy and Performance](https://www.youtube.com/@championptp).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/NhDGpy6__tA/1.jpg), [preview 2](https://i.ytimg.com/vi/NhDGpy6__tA/2.jpg), [preview 3](https://i.ytimg.com/vi/NhDGpy6__tA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vbf35048a61c4"></a>
+### Single Arm Kettlebell Row — vbf35048a61c4
+
+- Media: [video](https://www.youtube.com/watch?v=l5qelXL5nfs).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=l5qelXL5nfs).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Single Arm Kettlebell Row”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/l5qelXL5nfs/1.jpg), [preview 2](https://i.ytimg.com/vi/l5qelXL5nfs/2.jpg), [preview 3](https://i.ytimg.com/vi/l5qelXL5nfs/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v255b62ee5181"></a>
+### TRX single arm row — v255b62ee5181
+
+- Media: [video](https://www.youtube.com/watch?v=D_7CBJbEfPA).
+- Publisher: [Human Kinetics](#publisher-hk).
+- Origin / corroboration: [source page](https://www.trxtraining.com/blogs/news/trx-weekly-exercise-trx-single-arm-row), [source page](https://www.youtube.com/watch?v=D_7CBJbEfPA).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “TRX single arm row”; credited creator [Human Kinetics](https://www.youtube.com/@HumanKineticsUSA).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/D_7CBJbEfPA/1.jpg), [preview 2](https://i.ytimg.com/vi/D_7CBJbEfPA/2.jpg), [preview 3](https://i.ytimg.com/vi/D_7CBJbEfPA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vf80a966f0b28"></a>
+### Half Kneeling Single Arm Cable Row — vf80a966f0b28
+
+- Media: [video](https://www.youtube.com/watch?v=redrpTwkplw).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=redrpTwkplw).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Half Kneeling Single Arm Cable Row”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/redrpTwkplw/1.jpg), [preview 2](https://i.ytimg.com/vi/redrpTwkplw/2.jpg), [preview 3](https://i.ytimg.com/vi/redrpTwkplw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v98168c85e8a3"></a>
+### Reverse Fly - Rhomboid Exercise and Trapezius Strengthening for Upper Back Workout — v98168c85e8a3
+
+- Media: [video](https://www.youtube.com/watch?v=zBCbzuDLAdU).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.rehabhero.ca/exercise/reverse-fly), [source page](https://www.youtube.com/watch?v=zBCbzuDLAdU).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Reverse Fly - Rhomboid Exercise and Trapezius Strengthening for Upper Back Workout”; credited creator [Rehab Hero](https://www.youtube.com/@RehabHero).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/zBCbzuDLAdU/1.jpg), [preview 2](https://i.ytimg.com/vi/zBCbzuDLAdU/2.jpg), [preview 3](https://i.ytimg.com/vi/zBCbzuDLAdU/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="ve661514c9112"></a>
+### TRX "Face pull" — ve661514c9112
+
+- Media: [video](https://media.physitrack.com/exercises/f2ba8571-4d40-4c77-881f-2e3e47631883/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://uk.physitrack.com/home-exercise-video/trx-%2522face-pull%2522).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 11.443 s, 28.608 s, 45.773 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v29288f461d93"></a>
+### Standing Dumbbell Shrug — v29288f461d93
+
+- Media: [video](https://www.youtube.com/watch?v=dj2Gm628kas).
+- Publisher: [Muscle & Strength](#publisher-ms).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/dumbbell-shrugs.html), [source page](https://www.youtube.com/watch?v=dj2Gm628kas).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Standing Dumbbell Shrug”; credited creator [Muscle & Strength](https://www.youtube.com/@muscleandstrength).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/dj2Gm628kas/1.jpg), [preview 2](https://i.ytimg.com/vi/dj2Gm628kas/2.jpg), [preview 3](https://i.ytimg.com/vi/dj2Gm628kas/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v3472dc89c4bc"></a>
+### Life Fitness Signature Series Biceps Curl Instructions — v3472dc89c4bc
+
+- Media: [video](https://www.youtube.com/watch?v=7X7ZV4gdvXg).
+- Publisher: [Life Fitness / Hammer Strength](#publisher-lifefitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=7X7ZV4gdvXg).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Life Fitness Signature Series Biceps Curl Instructions”; credited creator [Life Fitness / Hammer Strength](https://www.youtube.com/@lifefitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/7X7ZV4gdvXg/1.jpg), [preview 2](https://i.ytimg.com/vi/7X7ZV4gdvXg/2.jpg), [preview 3](https://i.ytimg.com/vi/7X7ZV4gdvXg/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vfd8210d34457"></a>
+### TRX bicep curl — vfd8210d34457
+
+- Media: [video](https://media.physitrack.com/exercises/b9cc96ce-6352-498a-a0d1-2394aac8bf48/en/video_720p.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://uk.physitrack.com/home-exercise-video/trx-bicep-curl).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 10.415 s, 26.037 s, 41.659 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v2fe40d67fb08"></a>
+### Smith Machine Back Squat — v2fe40d67fb08
+
+- Media: [video](https://www.youtube.com/watch?v=BtfMX4WqUBo).
+- Publisher: [Muscle & Strength](#publisher-ms).
+- Origin / corroboration: [source page](https://www.muscleandstrength.com/exercises/smith-machine-squat.html), [source page](https://www.youtube.com/watch?v=BtfMX4WqUBo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Smith Machine Back Squat”; credited creator [Muscle & Strength](https://www.youtube.com/@muscleandstrength).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/BtfMX4WqUBo/1.jpg), [preview 2](https://i.ytimg.com/vi/BtfMX4WqUBo/2.jpg), [preview 3](https://i.ytimg.com/vi/BtfMX4WqUBo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="va0068b8a3788"></a>
+### Barbell Reverse Lunge - OPEX Exercise Library — va0068b8a3788
+
+- Media: [video](https://www.youtube.com/watch?v=qfpaNBDhidg).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=qfpaNBDhidg).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Barbell Reverse Lunge - OPEX Exercise Library”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/qfpaNBDhidg/1.jpg), [preview 2](https://i.ytimg.com/vi/qfpaNBDhidg/2.jpg), [preview 3](https://i.ytimg.com/vi/qfpaNBDhidg/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v61ed1f9ed254"></a>
+### Dumbbell Walking Lunge - OPEX Exercise Library — v61ed1f9ed254
+
+- Media: [video](https://www.youtube.com/watch?v=8fZxWTiIJWo).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=8fZxWTiIJWo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Dumbbell Walking Lunge - OPEX Exercise Library”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/8fZxWTiIJWo/1.jpg), [preview 2](https://i.ytimg.com/vi/8fZxWTiIJWo/2.jpg), [preview 3](https://i.ytimg.com/vi/8fZxWTiIJWo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v7b5aed8ffae9"></a>
+### Smith Machine Split Squat / Machine / Strength and Conditioning Exercises — v7b5aed8ffae9
+
+- Media: [video](https://www.youtube.com/watch?v=bgIjlz6CxkI).
+- Publisher: [Rehab My Patient](#publisher-rmp).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=bgIjlz6CxkI).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Smith Machine Split Squat / Machine / Strength and Conditioning Exercises”; credited creator [Rehab My Patient](https://www.youtube.com/@RehabMyPatient).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/bgIjlz6CxkI/1.jpg), [preview 2](https://i.ytimg.com/vi/bgIjlz6CxkI/2.jpg), [preview 3](https://i.ytimg.com/vi/bgIjlz6CxkI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v4b58fa1b96bb"></a>
+### How to do a Single-Leg Romanian Deadlift — v4b58fa1b96bb
+
+- Media: [video](https://www.youtube.com/watch?v=6pEL3KxnlEo).
+- Publisher: [NASM](#publisher-nasm).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=6pEL3KxnlEo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How to do a Single-Leg Romanian Deadlift”; credited creator [National Academy of Sports Medicine (NASM)](https://www.youtube.com/@NasmOrgPersonalTrainer).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/6pEL3KxnlEo/1.jpg), [preview 2](https://i.ytimg.com/vi/6pEL3KxnlEo/2.jpg), [preview 3](https://i.ytimg.com/vi/6pEL3KxnlEo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v0e2ee9e93c9e"></a>
+### Landmine Single Leg Romanian Deadlift — v0e2ee9e93c9e
+
+- Media: [video](https://www.youtube.com/watch?v=7r2gUum_DoQ).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=7r2gUum_DoQ).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Landmine Single Leg Romanian Deadlift”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/7r2gUum_DoQ/1.jpg), [preview 2](https://i.ytimg.com/vi/7r2gUum_DoQ/2.jpg), [preview 3](https://i.ytimg.com/vi/7r2gUum_DoQ/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v1757adfc612b"></a>
+### Landmine Lateral Lunge Demo — v1757adfc612b
+
+- Media: [video](https://www.youtube.com/watch?v=Bf_xQeZeIb0).
+- Publisher: [Steph Gaudreau](#publisher-steph).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Bf_xQeZeIb0).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Landmine Lateral Lunge Demo”; credited creator [Steph Gaudreau - Fuel Your Strength](https://www.youtube.com/@StephGaudreauTV).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Bf_xQeZeIb0/1.jpg), [preview 2](https://i.ytimg.com/vi/Bf_xQeZeIb0/2.jpg), [preview 3](https://i.ytimg.com/vi/Bf_xQeZeIb0/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v66b8ebe2c43a"></a>
+### TRX lateral lunge — v66b8ebe2c43a
+
+- Media: [video](https://media.physitrack.com/exercises/75fab906-1395-4dbe-92af-576f4b3868ef/en/video_720p.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/trx-lateral-lunge).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 7.104 s, 17.76 s, 28.416 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v5105692765b3"></a>
+### How to do a Lunge to Balance Transverse — v5105692765b3
+
+- Media: [video](https://www.youtube.com/watch?v=UG2Sf8ck1WI).
+- Publisher: [NASM](#publisher-nasm).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=UG2Sf8ck1WI).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How to do a Lunge to Balance Transverse”; credited creator [National Academy of Sports Medicine (NASM)](https://www.youtube.com/@NasmOrgPersonalTrainer).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/UG2Sf8ck1WI/1.jpg), [preview 2](https://i.ytimg.com/vi/UG2Sf8ck1WI/2.jpg), [preview 3](https://i.ytimg.com/vi/UG2Sf8ck1WI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="veaafb499238c"></a>
+### Lateral bounds/Skater Jumps — veaafb499238c
+
+- Media: [video](https://media.physitrack.com/exercises/68f0bcf0-deae-4b99-bf5a-ce98c0431a95/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/skater-jumps).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 4.256 s, 10.64 s, 17.024 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vcac3211c3d0e"></a>
+### How To Do A Single Leg Extension — vcac3211c3d0e
+
+- Media: [video](https://www.youtube.com/watch?v=82IuSLk5zNc).
+- Publisher: [PureGym](#publisher-puregym).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=82IuSLk5zNc).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To Do A Single Leg Extension”; credited creator [PureGym](https://www.youtube.com/@PureGymVideo).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/82IuSLk5zNc/1.jpg), [preview 2](https://i.ytimg.com/vi/82IuSLk5zNc/2.jpg), [preview 3](https://i.ytimg.com/vi/82IuSLk5zNc/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v26e4afb689f5"></a>
+### Cable Hip Abduction — v26e4afb689f5
+
+- Media: [video](https://www.youtube.com/watch?v=WLwzA9S2aek).
+- Publisher: [OPEX Fitness](#publisher-opex).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=WLwzA9S2aek).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Cable Hip Abduction”; credited creator [OPEX Fitness](https://www.youtube.com/@OPEXFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/WLwzA9S2aek/1.jpg), [preview 2](https://i.ytimg.com/vi/WLwzA9S2aek/2.jpg), [preview 3](https://i.ytimg.com/vi/WLwzA9S2aek/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v2e6baea10b83"></a>
+### Cable hip adduction (Hip adduction strengthening, with cable (low), to side, standing) — v2e6baea10b83
+
+- Media: [video](https://media.physitrack.com/exercises/1c9e728e-fd34-4bce-8a03-b63f2eb910e8/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/cable-hip-adduction).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 9.489 s, 23.723 s, 37.956 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v8345b057e7fd"></a>
+### Bridging with adduction stabilisation ("Bridge" Core/gluteals strengthening, squeezing ball; 01) — v8345b057e7fd
+
+- Media: [video](https://media.physitrack.com/exercises/321297a3-2337-473f-9125-c1821c525472/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/bridging-with-adduction-stabilisation).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 8.875 s, 22.186 s, 35.498 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vcfb662652c0e"></a>
+### Standing calf raise in a machine — vcfb662652c0e
+
+- Media: [video](https://media.physitrack.com/exercises/fac9d180-28d1-4f48-b9ff-ee0b18212561/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/standing-calf-raise-in-a-machine).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 3.224 s, 8.06 s, 12.896 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vd5105a28b25f"></a>
+### Step up with weight — vd5105a28b25f
+
+- Media: [video](https://media.physitrack.com/exercises/0ab64fc5-1900-4a96-99d8-77a4b682bc6a/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://ie.physitrack.com/home-exercise-video/step-up-with-weight).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 4.459 s, 11.146 s, 17.834 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v26f56b56e08d"></a>
+### Crossover step-up ("Step ups to side, crossovers" Lower extremity strengthening) — v26f56b56e08d
+
+- Media: [video](https://media.physitrack.com/exercises/5bffd216-6950-45b6-bf81-cf71acbe6b21/en/video_720p.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://ca.physitrack.com/home-exercise-video/crossover-step-up).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 14.754 s, 36.885 s, 59.015 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vf8e2ad514fb7"></a>
+### Lateral Box Jump — vf8e2ad514fb7
+
+- Media: [video](https://d34w7g4gy10iej.cloudfront.net/video/1906/DOD_106947727/DOD_106947727.mp4).
+- Publisher: [Marine Corps Force Fitness / DVIDS](#publisher-dvids).
+- Origin / corroboration: [source page](https://www.dvidshub.net/video/692485/lateral-box-jump).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 2.654 s, 6.634 s, 10.614 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vfc7c1a35aa6d"></a>
+### How to perform a lateral bound — vfc7c1a35aa6d
+
+- Media: [video](https://www.youtube.com/watch?v=ISWh7DSh4SE).
+- Publisher: [Human Kinetics](#publisher-hk).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ISWh7DSh4SE).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How to perform a lateral bound”; credited creator [Human Kinetics](https://www.youtube.com/@HumanKineticsUSA).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ISWh7DSh4SE/1.jpg), [preview 2](https://i.ytimg.com/vi/ISWh7DSh4SE/2.jpg), [preview 3](https://i.ytimg.com/vi/ISWh7DSh4SE/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v2a39aac2f6e8"></a>
+### Resisted single arm row standing ("Row" Shoulder extension/scapular retraction strengthening, with band (mid), (unilateral), standing) — v2a39aac2f6e8
+
+- Media: [video](https://media.physitrack.com/exercises/2e7d8ca9-653b-4a46-be1a-9d7fad5a6214/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/resisted-single-arm-row-standing).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 17.404 s, 43.509 s, 69.614 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vb59f8a319624"></a>
+### Band Overhead Press: Exercise Demonstration — vb59f8a319624
+
+- Media: [video](https://www.youtube.com/watch?v=GU-Ira_Bx7A).
+- Publisher: [Jacob Goodin](#publisher-goodin).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=GU-Ira_Bx7A).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Band Overhead Press: Exercise Demonstration”; credited creator [Dr. Jacob Goodin](https://www.youtube.com/@DrJacobGoodin).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/GU-Ira_Bx7A/1.jpg), [preview 2](https://i.ytimg.com/vi/GU-Ira_Bx7A/2.jpg), [preview 3](https://i.ytimg.com/vi/GU-Ira_Bx7A/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v2899e9c9b388"></a>
+### Tricep press down with exercise band ("Triceps pull down" Elbow extension strengthening, with band (high), standing) — v2899e9c9b388
+
+- Media: [video](https://media.physitrack.com/exercises/3dec2b3b-5702-4cef-8fca-0370fc078c95/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/tricep-press-down-with-exercise-band).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 6.664 s, 16.661 s, 26.658 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vfc19f81da394"></a>
+### Resisted decline rotations ("Woodchop" Trunk rotation/flexion strengthening, with band (high); 01) — vfc19f81da394
+
+- Media: [video](https://media.physitrack.com/exercises/a87e08dd-d9f7-4cac-a2c2-0830858d38ae/en/video_720p.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/resisted-decline-rotations).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 5.683 s, 14.208 s, 22.733 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v3b6c64bc9271"></a>
+### Banded Hamstring Curl - exercise for strengthening the hamstrings at home — v3b6c64bc9271
+
+- Media: [video](https://www.youtube.com/watch?v=g5Jmdfex1Jo).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.rehabhero.ca/exercise/banded-hamstring-curl), [source page](https://www.youtube.com/watch?v=g5Jmdfex1Jo).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Banded Hamstring Curl - exercise for strengthening the hamstrings at home”; credited creator [Rehab Hero](https://www.youtube.com/@RehabHero).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/g5Jmdfex1Jo/1.jpg), [preview 2](https://i.ytimg.com/vi/g5Jmdfex1Jo/2.jpg), [preview 3](https://i.ytimg.com/vi/g5Jmdfex1Jo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v620053d8d772"></a>
+### Medicine Ball Slam Demo — v620053d8d772
+
+- Media: [video](https://www.youtube.com/watch?v=Tf0uda1pqtI).
+- Publisher: [Steph Gaudreau](#publisher-steph).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Tf0uda1pqtI).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Medicine Ball Slam Demo”; credited creator [Steph Gaudreau - Fuel Your Strength](https://www.youtube.com/@StephGaudreauTV).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Tf0uda1pqtI/1.jpg), [preview 2](https://i.ytimg.com/vi/Tf0uda1pqtI/2.jpg), [preview 3](https://i.ytimg.com/vi/Tf0uda1pqtI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v39b3a852955d"></a>
+### How to do a BOSU squat — v39b3a852955d
+
+- Media: [video](https://www.youtube.com/watch?v=nL67Ic0KChc).
+- Publisher: [Rehab My Patient](#publisher-rmp).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=nL67Ic0KChc).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How to do a BOSU squat”; credited creator [Rehab My Patient](https://www.youtube.com/@RehabMyPatient).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/nL67Ic0KChc/1.jpg), [preview 2](https://i.ytimg.com/vi/nL67Ic0KChc/2.jpg), [preview 3](https://i.ytimg.com/vi/nL67Ic0KChc/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v7709f3b9c7ab"></a>
+### BOSU Mountain Climber — v7709f3b9c7ab
+
+- Media: [video](https://www.youtube.com/watch?v=iyZHqgsI4Zk).
+- Publisher: [BOSU](#publisher-bosu).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=iyZHqgsI4Zk).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “BOSU Mountain Climber”; credited creator [BOSU](https://www.youtube.com/@BOSUOfficial).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/iyZHqgsI4Zk/1.jpg), [preview 2](https://i.ytimg.com/vi/iyZHqgsI4Zk/2.jpg), [preview 3](https://i.ytimg.com/vi/iyZHqgsI4Zk/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v985005c201a2"></a>
+### How To: Hanging Windshield Wiper — v985005c201a2
+
+- Media: [video](https://www.youtube.com/watch?v=arDUVmCzyhc).
+- Publisher: [Scott Herman / Muscular Strength](#publisher-scottherman).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=arDUVmCzyhc).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To: Hanging Windshield Wiper”; credited creator [ScottHermanFitness](https://www.youtube.com/@ScottHermanFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/arDUVmCzyhc/1.jpg), [preview 2](https://i.ytimg.com/vi/arDUVmCzyhc/2.jpg), [preview 3](https://i.ytimg.com/vi/arDUVmCzyhc/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v971bce9ef50d"></a>
+### Plate Front Raise / Shoulder / Strength and Conditioning Exercises — v971bce9ef50d
+
+- Media: [video](https://www.youtube.com/watch?v=-TlT6aXNok4).
+- Publisher: [Rehab My Patient](#publisher-rmp).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=-TlT6aXNok4).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Plate Front Raise / Shoulder / Strength and Conditioning Exercises”; credited creator [Rehab My Patient](https://www.youtube.com/@RehabMyPatient).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/-TlT6aXNok4/1.jpg), [preview 2](https://i.ytimg.com/vi/-TlT6aXNok4/2.jpg), [preview 3](https://i.ytimg.com/vi/-TlT6aXNok4/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vfb9ef2e68eb9"></a>
+### How To Do Weight Plate Halo / Exercise Demo — vfb9ef2e68eb9
+
+- Media: [video](https://www.youtube.com/watch?v=ymCcWUFUfng).
+- Publisher: [OriGym](#publisher-origym).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ymCcWUFUfng).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To Do Weight Plate Halo / Exercise Demo”; credited creator [OriGym](https://www.youtube.com/@OriGymPersonalTrainerCourses).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ymCcWUFUfng/1.jpg), [preview 2](https://i.ytimg.com/vi/ymCcWUFUfng/2.jpg), [preview 3](https://i.ytimg.com/vi/ymCcWUFUfng/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vb18a837230af"></a>
+### Plate Pinch Carry Demo — vb18a837230af
+
+- Media: [video](https://www.youtube.com/watch?v=iQnSTXgf-Gs).
+- Publisher: [Steph Gaudreau](#publisher-steph).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=iQnSTXgf-Gs).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Plate Pinch Carry Demo”; credited creator [Steph Gaudreau - Fuel Your Strength](https://www.youtube.com/@StephGaudreauTV).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/iQnSTXgf-Gs/1.jpg), [preview 2](https://i.ytimg.com/vi/iQnSTXgf-Gs/2.jpg), [preview 3](https://i.ytimg.com/vi/iQnSTXgf-Gs/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vea1e33f5110f"></a>
+### Back Extension Version 3 — vea1e33f5110f
+
+- Media: [video](https://media.physitrack.com/exercises/92b455c6-fb16-4d4b-b546-b3cb8f3244a6/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/back-extension-version-3).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 3.984 s, 9.96 s, 15.936 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vbfc64c307c01"></a>
+### Arm Circles — vbfc64c307c01
+
+- Media: [video](https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104840680/DOD_104840680-1024x576-1769k.mp4).
+- Publisher: [Marine Corps Force Fitness / DVIDS](#publisher-dvids).
+- Origin / corroboration: [source page](https://www.dvidshub.net/video/551356/arm-circles).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 5.312 s, 13.28 s, 21.248 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v134378c03523"></a>
+### How To Do Band Pull Aparts — v134378c03523
+
+- Media: [video](https://www.youtube.com/watch?v=smSSXITNpCI).
+- Publisher: [Rogue Fitness](#publisher-rogue).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=smSSXITNpCI).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “How To Do Band Pull Aparts”; credited creator [Rogue Fitness](https://www.youtube.com/@roguefitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/smSSXITNpCI/1.jpg), [preview 2](https://i.ytimg.com/vi/smSSXITNpCI/2.jpg), [preview 3](https://i.ytimg.com/vi/smSSXITNpCI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vb977ccab3981"></a>
+### Dead hang — vb977ccab3981
+
+- Media: [video](https://media.physitrack.com/exercises/a13d96a9-25ad-4acc-bd78-c6962d065a38/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/dead-hang).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 14.464 s, 36.16 s, 57.856 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v7614b54616c1"></a>
+### Prone push up to downward dog — v7614b54616c1
+
+- Media: [video](https://media.physitrack.com/exercises/71659252-8636-401e-aa96-c1f3599b32bb/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/prone-push-up-to-downward-dog).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 10.662 s, 26.655 s, 42.648 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v996475f0a606"></a>
+### A Marches - Running warm up drill — v996475f0a606
+
+- Media: [video](https://www.youtube.com/watch?v=PUua5i6DzgE).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.rehabhero.ca/exercise/a-marches), [source page](https://www.youtube.com/watch?v=PUua5i6DzgE).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “A Marches - Running warm up drill”; credited creator [Rehab Hero](https://www.youtube.com/@RehabHero).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/PUua5i6DzgE/1.jpg), [preview 2](https://i.ytimg.com/vi/PUua5i6DzgE/2.jpg), [preview 3](https://i.ytimg.com/vi/PUua5i6DzgE/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v16661add3275"></a>
+### Hip circles — v16661add3275
+
+- Media: [video](https://hw.qld.gov.au/wp-content/uploads/2026/08/HWQld-Exercise-HipCircles-FacingSide.webm).
+- Publisher: [Health and Wellbeing Queensland](#publisher-qld).
+- Origin / corroboration: [source page](https://hw.qld.gov.au/physical-activity/hip-circles/).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/webm.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 2.602 s, 6.504 s, 10.406 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v2afe8fb42ee2"></a>
+### Trunk rotations — v2afe8fb42ee2
+
+- Media: [video](https://hw.qld.gov.au/wp-content/uploads/2026/07/HWQld-Exercise-TrunkRotations-FacingFront.webm).
+- Publisher: [Health and Wellbeing Queensland](#publisher-qld).
+- Origin / corroboration: [source page](https://hw.qld.gov.au/physical-activity/trunk-rotations/).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/webm.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 1.938 s, 4.844 s, 7.75 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v4d220727154b"></a>
+### DYNAMIC WARM UP Side Shuffles updated — v4d220727154b
+
+- Media: [video](https://www.youtube.com/watch?v=P6bTrTSnitc).
+- Publisher: [Special Olympics](#publisher-specialolympics).
+- Origin / corroboration: [source page](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/dynamic-warm-up-side-shuffles), [source page](https://www.youtube.com/watch?v=P6bTrTSnitc).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “DYNAMIC WARM UP Side Shuffles updated”; credited creator [Special Olympics](https://www.youtube.com/@specialolympics).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/P6bTrTSnitc/1.jpg), [preview 2](https://i.ytimg.com/vi/P6bTrTSnitc/2.jpg), [preview 3](https://i.ytimg.com/vi/P6bTrTSnitc/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v37c3808bc364"></a>
+### DYNAMIC WARM UP Forward and Lateral Leg Swings updated — v37c3808bc364
+
+- Media: [video](https://www.youtube.com/watch?v=sHKx2FRVQcQ).
+- Publisher: [Special Olympics](#publisher-specialolympics).
+- Origin / corroboration: [source page](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/dynamic-warm-up-walking-high-kicks), [source page](https://www.youtube.com/watch?v=sHKx2FRVQcQ).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “DYNAMIC WARM UP Forward and Lateral Leg Swings updated”; credited creator [Special Olympics](https://www.youtube.com/@specialolympics).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/sHKx2FRVQcQ/1.jpg), [preview 2](https://i.ytimg.com/vi/sHKx2FRVQcQ/2.jpg), [preview 3](https://i.ytimg.com/vi/sHKx2FRVQcQ/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v66ba207ac309"></a>
+### Marching on the spot — v66ba207ac309
+
+- Media: [video](https://hw.qld.gov.au/wp-content/uploads/2026/08/HWQld-Exercise-MarchingOnTheSpot-FacingSide.webm).
+- Publisher: [Health and Wellbeing Queensland](#publisher-qld).
+- Origin / corroboration: [source page](https://hw.qld.gov.au/physical-activity/marching-on-the-spot/).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/webm.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 1.642 s, 4.104 s, 6.566 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vcd6e456a275c"></a>
+### Bodyweight Good Mornings (Exercise Library) — vcd6e456a275c
+
+- Media: [video](https://www.youtube.com/watch?v=61zbhuRiwQg).
+- Publisher: [Horton Barbell](#publisher-horton).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=61zbhuRiwQg).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Bodyweight Good Mornings (Exercise Library)”; credited creator [Horton Barbell](https://www.youtube.com/@hortonbarbell).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/61zbhuRiwQg/1.jpg), [preview 2](https://i.ytimg.com/vi/61zbhuRiwQg/2.jpg), [preview 3](https://i.ytimg.com/vi/61zbhuRiwQg/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v5648dcdd87cd"></a>
+### Forearm wall slides — v5648dcdd87cd
+
+- Media: [video](https://media.physitrack.com/exercises/1c3e6f30-4ab4-4461-b3f5-153799df6a29/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/forearm-wall-slides).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 12.25 s, 30.624 s, 48.998 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vc6dda1e1d573"></a>
+### Cobra stretch — vc6dda1e1d573
+
+- Media: [video](https://media.physitrack.com/exercises/b7fa9688-e340-4f84-bbca-9b4b404e9b26/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/cobra-stretch).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 3.836 s, 9.589 s, 15.342 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v2400f0a9b538"></a>
+### COOL DOWN Cross Body Shoulder Stretch updated — v2400f0a9b538
+
+- Media: [video](https://www.youtube.com/watch?v=mMOzQRRZI0k).
+- Publisher: [Special Olympics](#publisher-specialolympics).
+- Origin / corroboration: [source page](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-cross-body-shoulder-stretch), [source page](https://www.youtube.com/watch?v=mMOzQRRZI0k).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “COOL DOWN Cross Body Shoulder Stretch updated”; credited creator [Special Olympics](https://www.youtube.com/@specialolympics).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/mMOzQRRZI0k/1.jpg), [preview 2](https://i.ytimg.com/vi/mMOzQRRZI0k/2.jpg), [preview 3](https://i.ytimg.com/vi/mMOzQRRZI0k/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vab2a8c1e92f4"></a>
+### Half-kneeling hip flexor stretch — vab2a8c1e92f4
+
+- Media: [video](https://media.physitrack.com/exercises/b8e86696-68c8-4962-adeb-e03bc73af5ec/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://us.physitrack.com/home-exercise-video/half-kneeling-hip-flexor-stretch).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 3.072 s, 7.68 s, 12.288 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vf99c4af4b461"></a>
+### COOL DOWN Side to Side Neck Stretch updated — vf99c4af4b461
+
+- Media: [video](https://www.youtube.com/watch?v=SqA2S9_0SRY).
+- Publisher: [Special Olympics](#publisher-specialolympics).
+- Origin / corroboration: [source page](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-side-to-side-neck-stretch), [source page](https://www.youtube.com/watch?v=SqA2S9_0SRY).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “COOL DOWN Side to Side Neck Stretch updated”; credited creator [Special Olympics](https://www.youtube.com/@specialolympics).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/SqA2S9_0SRY/1.jpg), [preview 2](https://i.ytimg.com/vi/SqA2S9_0SRY/2.jpg), [preview 3](https://i.ytimg.com/vi/SqA2S9_0SRY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vda7326379286"></a>
+### COOL DOWN Modified Hurdler's Stretch updated — vda7326379286
+
+- Media: [video](https://www.youtube.com/watch?v=l81JEc6FEQw).
+- Publisher: [Special Olympics](#publisher-specialolympics).
+- Origin / corroboration: [source page](https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-modified-hurdlers-stretch), [source page](https://www.youtube.com/watch?v=l81JEc6FEQw).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “COOL DOWN Modified Hurdler's Stretch updated”; credited creator [Special Olympics](https://www.youtube.com/@specialolympics).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/l81JEc6FEQw/1.jpg), [preview 2](https://i.ytimg.com/vi/l81JEc6FEQw/2.jpg), [preview 3](https://i.ytimg.com/vi/l81JEc6FEQw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vecc8ac71f16b"></a>
+### Standing quadriceps stretch — vecc8ac71f16b
+
+- Media: [video](https://hw.qld.gov.au/wp-content/uploads/2026/05/HWQld-Exercise-StandingHipFlexorStretch2.webm).
+- Publisher: [Health and Wellbeing Queensland](#publisher-qld).
+- Origin / corroboration: [source page](https://hw.qld.gov.au/physical-activity/standing-quadriceps-stretch/).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/webm.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 2.674 s, 6.684 s, 10.694 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v48731c0b5ca4"></a>
+### Assault University: AirBike Classic Technique - Pushing and Pulling the Handles — v48731c0b5ca4
+
+- Media: [video](https://www.youtube.com/watch?v=Sg3Id7Lu8XU).
+- Publisher: [Assault Fitness](#publisher-assault).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Sg3Id7Lu8XU).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Assault University: AirBike Classic Technique - Pushing and Pulling the Handles”; credited creator [Assault Fitness](https://www.youtube.com/@AssaultFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Sg3Id7Lu8XU/1.jpg), [preview 2](https://i.ytimg.com/vi/Sg3Id7Lu8XU/2.jpg), [preview 3](https://i.ytimg.com/vi/Sg3Id7Lu8XU/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v74f7008a178b"></a>
+### Matrix Fitness / How to Use the C7xe ClimbMill — v74f7008a178b
+
+- Media: [video](https://www.youtube.com/watch?v=4dVJoIAOYPQ).
+- Publisher: [Matrix Fitness](#publisher-matrix).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=4dVJoIAOYPQ).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Matrix Fitness / How to Use the C7xe ClimbMill”; credited creator [Matrix Fitness](https://www.youtube.com/@MatrixFitnessGlobal).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/4dVJoIAOYPQ/1.jpg), [preview 2](https://i.ytimg.com/vi/4dVJoIAOYPQ/2.jpg), [preview 3](https://i.ytimg.com/vi/4dVJoIAOYPQ/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v4030e428e94d"></a>
+### Shadow boxing - Version 2 — v4030e428e94d
+
+- Media: [video](https://media.physitrack.com/exercises/8fe962e8-f546-49ec-bc44-086b498194c6/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://ca.physitrack.com/home-exercise-video/shadow-boxing---version-2).
+- Checked: 2026-11-13; publisher-media-link; sampled-frames-only; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Three decoded frames for equipment/support/configuration; no continuous-motion or narration review.
+- Decoded sample times: 5.914 s, 14.784 s, 23.654 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vbb5c8128a667"></a>
+### Assault University: AirBike Classic Technique - Pedaling — vbb5c8128a667
+
+- Media: [video](https://www.youtube.com/watch?v=y7_ODbEIixY).
+- Publisher: [Assault Fitness](#publisher-assault).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=y7_ODbEIixY).
+- Checked: 2026-11-13; provider-metadata-200; playback-not-tested; full-motion inspection: not-viewed.
+- Provider metadata: “Assault University: AirBike Classic Technique - Pedaling”; credited creator [Assault Fitness](https://www.youtube.com/@AssaultFitness).
+- Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/y7_ODbEIixY/1.jpg), [preview 2](https://i.ytimg.com/vi/y7_ODbEIixY/2.jpg), [preview 3](https://i.ytimg.com/vi/y7_ODbEIixY/3.jpg).
+- Reference link only; reproduction permission not established.

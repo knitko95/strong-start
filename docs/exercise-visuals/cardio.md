@@ -1,20 +1,20 @@
 # Cardio visual references
 
-Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.md). Full video motion has not been reviewed. A related reference does not validate the complete catalog exercise.
+Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration evidence is distinct from full-motion or professional technique approval.
 
 | Exercise | Still / animation | Video relationship |
 | --- | --- | --- |
 | [Walking and treadmill walking](#walking-and-treadmill-walking) | video-poster | same-labelled-movement |
 | [Jogging and running](#jogging-and-running) | video-poster | related-only |
-| [Marching and high knees](#marching-and-high-knees) | animated-image | not-found |
+| [Marching and high knees](#marching-and-high-knees) | animated-image | configuration-matched |
 | [Stationary bike](#stationary-bike) | video-poster | same-labelled-movement |
-| [Air bike](#air-bike) | video-poster | related-only |
+| [Air bike](#air-bike) | video-poster | configuration-matched |
 | [Rowing machine](#rowing-machine) | video-poster | same-labelled-movement |
 | [Elliptical](#elliptical) | video-poster | same-labelled-movement |
 | [Stair climber](#stair-climber) | video-poster | related-only |
 | [Jump rope](#jump-rope) | video-poster | same-labelled-movement |
 | [Jumping jacks](#jumping-jacks) | video-poster | same-labelled-movement |
-| [Shadow boxing](#shadow-boxing) | video-poster | related-only |
+| [Shadow boxing](#shadow-boxing) | video-poster | configuration-matched |
 | [Sled and battle-rope cardio](#sled-and-battle-rope-cardio) | video-poster | related-only |
 
 <a id="walking-and-treadmill-walking"></a>
@@ -36,11 +36,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#jogging-and-running).
 
-**Still / animation:** [Running in place](https://i.vimeocdn.com/video/1420548641-ada5064f6d41741287ab5ef106f3104434b98f7b91aaf9da813c081554570b7d-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v786f19c019fa). Relationship: related-only.
+**Still / animation:** [Running in place](https://i.vimeocdn.com/video/1420548641-ada5064f6d41741287ab5ef106f3104434b98f7b91aaf9da813c081554570b7d-d_1280) — video-poster; Physitrack; [provenance](sources.md#v786f19c019fa). Relationship: related-only.
 
-**Video:** [Running in place](https://vimeo.com/703197974/38f47c9176) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v983a597bfe13). Relationship: related-only.
+**Video:** [Running in place](https://vimeo.com/703197974/38f47c9176) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v983a597bfe13). Relationship: related-only.
 
-**Match and limits:** Running in place is related only to overground/treadmill running.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Running in place is related only to overground/treadmill running. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-jogging-and-running).
 
 **App labels mapped to this type:** Jog, hard the last minute, Treadmill or outdoor run intervals, Walk or jog, Easy run, Run fast, Easy jog. Timing/intensity prescriptions are not individually validated.
 
@@ -50,11 +52,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#marching-and-high-knees).
 
-**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
+**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
 
-**Video:** No accepted full-video reference; explicit format gap. Relationship: not-found.
+**Video:** [Marching on the spot](https://hw.qld.gov.au/wp-content/uploads/2026/08/HWQld-Exercise-MarchingOnTheSpot-FacingSide.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#v66ba207ac309). Relationship: configuration-matched.
 
-**Match and limits:** Published standing-march GIF inspected at three sample frames: arms forward and alternating knee lift. Full video metadata unavailable. Knee height and arm pattern differ between march/high-knee variants.
+**Match and limits:** Queensland marching-on-the-spot video and written instructions show upright alternating knee lifts and arm coordination; the page describes increasing knee height or speed as progressions. This supports the marching component of the cardio type. It does not validate every brisk or running high-knee prescription mapped to that type.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-marching-and-high-knees).
 
 **App labels mapped to this type:** March in place, Brisk march with arm swings, Brisk walk or march in place, High knees. Timing/intensity prescriptions are not individually validated.
 
@@ -78,11 +82,17 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#air-bike).
 
-**Still / animation:** [Stationary cycle spin bike](https://i.vimeocdn.com/video/1420551226-d0e8b5378da9f7f85a855242db6a9f9f0a1f051beab4efb24e594ecab0517a87-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vf41a67be3f5f). Relationship: related-only.
+**Still / animation:** [Stationary cycle spin bike](https://i.vimeocdn.com/video/1420551226-d0e8b5378da9f7f85a855242db6a9f9f0a1f051beab4efb24e594ecab0517a87-d_1280) — video-poster; Physitrack; [provenance](sources.md#vf41a67be3f5f). Relationship: related-only.
 
-**Video:** [Stationary cycle spin bike](https://vimeo.com/703197851/8ef64abfe9) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vf431e785116f). Relationship: related-only.
+**Video:** [Assault University: AirBike Classic Technique - Pushing and Pulling the Handles](https://www.youtube.com/watch?v=Sg3Id7Lu8XU) — video; Assault Fitness; credited creator: Assault Fitness; [provenance](sources.md#v48731c0b5ca4). Relationship: configuration-matched.
 
-**Match and limits:** Stationary cycling demonstrates saddle/leg rhythm only; linked moving handles/fan mechanics are not established.
+**Match and limits:** Assault Fitness manufacturer public previews show the rider seated on an air bike with linked moving handles, pedals and a fan. Its named technique clip addresses pushing/pulling the handles; a separately credited pedaling clip is retained. The two technique clips support the broad machine type. Actual saddle locks, controls and monitor settings remain model-specific.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-air-bike).
+
+**Additional component / retained earlier comparison:** [Stationary cycle spin bike](https://vimeo.com/703197851/8ef64abfe9) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vf431e785116f).
+
+**Additional component / retained earlier comparison:** [Assault University: AirBike Classic Technique - Pedaling](https://www.youtube.com/watch?v=y7_ODbEIixY) — video; Assault Fitness; credited creator: Assault Fitness; [provenance](sources.md#vbb5c8128a667).
 
 **App labels mapped to this type:** Easy air bike, easy air bike, Air bike. Timing/intensity prescriptions are not individually validated.
 
@@ -120,11 +130,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#stair-climber).
 
-**Still / animation:** [Cardiovascular step ups](https://i.vimeocdn.com/video/1420548989-118e59364d39e2bd78fe94efe2087af61cd5f13fd4cd91ddbcfb5d5bea5dd555-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v9ac982587fa9). Relationship: related-only.
+**Still / animation:** [Cardiovascular step ups](https://i.vimeocdn.com/video/1420548989-118e59364d39e2bd78fe94efe2087af61cd5f13fd4cd91ddbcfb5d5bea5dd555-d_1280) — video-poster; Physitrack; [provenance](sources.md#v9ac982587fa9). Relationship: related-only.
 
-**Video:** [Cardiovascular step ups](https://vimeo.com/703198374/54c006057e) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vb345a5ea3a5c). Relationship: related-only.
+**Video:** [Matrix Fitness / How to Use the C7xe ClimbMill](https://www.youtube.com/watch?v=4dVJoIAOYPQ) — video; Matrix Fitness; credited creator: Matrix Fitness; [provenance](sources.md#v74f7008a178b). Relationship: related-only.
 
-**Match and limits:** Step-up reference only; a moving stair-climber and controls differ.
+**Match and limits:** Matrix Fitness publishes a C7xe ClimbMill operation demonstration; public previews show the touchscreen and hand control. This improves the machine-operation reference, but the inspected previews do not establish foot placement on the moving stairs. A stepping-form demonstration remains desirable.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-stair-climber).
+
+**Additional component / retained earlier comparison:** [Cardiovascular step ups](https://vimeo.com/703198374/54c006057e) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vb345a5ea3a5c).
 
 **App labels mapped to this type:** Stair climber, Stair climber, fast finish, Stair climber, slow pace, slow stair climber. Timing/intensity prescriptions are not individually validated.
 
@@ -162,11 +176,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#shadow-boxing).
 
-**Still / animation:** [Air boxing - upper cut](https://i.vimeocdn.com/video/1420548494-3e275e0552f791711087f110a160da41d70fcff6e5e83a447f8928624c6b3a0d-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vc672f755c113). Relationship: related-only.
+**Still / animation:** [Air boxing - upper cut](https://i.vimeocdn.com/video/1420548494-3e275e0552f791711087f110a160da41d70fcff6e5e83a447f8928624c6b3a0d-d_1280) — video-poster; Physitrack; [provenance](sources.md#vc672f755c113). Relationship: related-only.
 
-**Video:** [Air boxing - upper cut](https://vimeo.com/703198067/dddba7b1dc) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vdb27e3bf73ca). Relationship: related-only.
+**Video:** [Shadow boxing - Version 2](https://media.physitrack.com/exercises/8fe962e8-f546-49ec-bc44-086b498194c6/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v4030e428e94d). Relationship: configuration-matched.
 
-**Match and limits:** Air-boxing uppercut is one punch pattern; it does not establish a full shadow-boxing sequence.
+**Match and limits:** Physitrack instructions describe a standing boxing stance, alternating forward punches, returning the hands and adding uppercuts/directions. Sampled frames show varied punches from that stance. This supports the broad shadow-boxing cardio type, not a specific boxing combination or sparring technique.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-shadow-boxing).
+
+**Additional component / retained earlier comparison:** [Air boxing - upper cut](https://vimeo.com/703198067/dddba7b1dc) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vdb27e3bf73ca).
 
 **App labels mapped to this type:** Shadow boxing, fast finish, Shadow boxing intervals. Timing/intensity prescriptions are not individually validated.
 
@@ -176,14 +194,16 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/cardio.md#sled-and-battle-rope-cardio).
 
-**Still / animation:** [Sled Push](https://i.ytimg.com/vi/SWmRa-YgONs/hqdefault.jpg) — video-poster; Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/sled-push); [provenance](sources.md#v908e97bfba6c). Relationship: related-only.
+**Still / animation:** [Sled Push](https://i.ytimg.com/vi/SWmRa-YgONs/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v908e97bfba6c). Relationship: related-only.
 
-**Video:** [Sled Push](https://www.youtube.com/watch?v=SWmRa-YgONs) — video; Muscle & Strength; credited video creator: Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/sled-push); [provenance](sources.md#v7380188ab3db). Relationship: related-only.
+**Video:** [Sled Push](https://www.youtube.com/watch?v=SWmRa-YgONs) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7380188ab3db). Relationship: related-only.
 
-**Match and limits:** Sled push is one equipment pattern; use the separate rope entries for ropes.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Sled push is one equipment pattern; use the separate rope entries for ropes. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
 
-**Additional component:** [Battling Ropes (Alternating Small Waves)](https://www.youtube.com/watch?v=uUl9jEElbOM) — video; Muscle & Strength; credited video creator: Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/alternating-small-waves-battling-ropes); [provenance](sources.md#va330a5770a60).
+[Follow-up evidence, previous comparison and candidate trail](research.md#cardio-sled-and-battle-rope-cardio).
 
-**Additional component:** [Battling Ropes (Power Slam)](https://www.youtube.com/watch?v=rhDIbhHvK9E) — video; Muscle & Strength; credited video creator: Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/power-slam-battle-rope); [provenance](sources.md#v387c7b96ffd8).
+**Additional component / retained earlier comparison:** [Battling Ropes (Alternating Small Waves)](https://www.youtube.com/watch?v=uUl9jEElbOM) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#va330a5770a60).
+
+**Additional component / retained earlier comparison:** [Battling Ropes (Power Slam)](https://www.youtube.com/watch?v=rhDIbhHvK9E) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v387c7b96ffd8).
 
 **App labels mapped to this type:** Sled pushes, Battle rope intervals. Timing/intensity prescriptions are not individually validated.

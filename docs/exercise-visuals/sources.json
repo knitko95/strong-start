@@ -1,4 +1,5 @@
 {
+  "reviewDate": "2026-11-13",
   "sources": {
     "s304ac6c5c15f": {
       "id": "s304ac6c5c15f",
@@ -3112,6 +3113,1106 @@
       "checkedOn": "2026-11-13",
       "factsChecked": "Exercise-specific source association, named media and credited provider identity where available; not full motion approval.",
       "accessScope": "Publisher exercise page/index or original credited video metadata. Some publisher requests were blocked; metadata is not a playback test.",
+      "techniqueSourceIds": []
+    },
+    "sd0eb48294962": {
+      "id": "sd0eb48294962",
+      "url": "https://www.muscleandstrength.com/exercises/smith-machine-bench-press.html",
+      "publisherId": "scottherman",
+      "title": "How To: Smith Machine- Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sf39af5c9dc27": {
+      "id": "sf39af5c9dc27",
+      "url": "https://www.youtube.com/watch?v=z_r6hDOYtO0",
+      "publisherId": "scottherman",
+      "title": "How To: Smith Machine- Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s105fb0cef41b": {
+      "id": "s105fb0cef41b",
+      "url": "https://www.youtube.com/watch?v=w6Ar00OUUkg",
+      "publisherId": "opex",
+      "title": "Single Arm Cable Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s5327307b4339": {
+      "id": "s5327307b4339",
+      "url": "https://www.youtube.com/watch?v=H0k47Ghb0GY",
+      "publisherId": "fitnessfaqs",
+      "title": "How To Progress Your Push Ups (START NOW)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s34d69a72c410": {
+      "id": "s34d69a72c410",
+      "url": "https://www.muscleandstrength.com/exercises/hammer-strength-incline-bench-press",
+      "publisherId": "ms",
+      "title": "Machine Incline Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s6d63286c3cfb": {
+      "id": "s6d63286c3cfb",
+      "url": "https://www.youtube.com/watch?v=qkIaG_Zu9BY",
+      "publisherId": "ms",
+      "title": "Machine Incline Bench Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s0f897f902f6e": {
+      "id": "s0f897f902f6e",
+      "url": "https://www.muscleandstrength.com/exercises/weighted-tricep-dips.html",
+      "publisherId": "ms",
+      "title": "Dip (Weighted)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sb7394aa53830": {
+      "id": "sb7394aa53830",
+      "url": "https://www.youtube.com/watch?v=ZQnPQG5d67E",
+      "publisherId": "ms",
+      "title": "Dip (Weighted)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s3063d3098fd0": {
+      "id": "s3063d3098fd0",
+      "url": "https://www.youtube.com/watch?v=xpsTGTKyn8A",
+      "publisherId": "trx",
+      "title": "Cool Combo: TRX® Chest Fly to TRX Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s17461f2dcc83": {
+      "id": "s17461f2dcc83",
+      "url": "https://www.muscleandstrength.com/exercises/seated-dumbbell-press.html",
+      "publisherId": "ms",
+      "title": "Seated Dumbbell Press (Bilateral)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s7313a2958acd": {
+      "id": "s7313a2958acd",
+      "url": "https://www.youtube.com/watch?v=FRxZ6wr5bpA",
+      "publisherId": "ms",
+      "title": "Seated Dumbbell Press (Bilateral)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sa66e6e0cf9a8": {
+      "id": "sa66e6e0cf9a8",
+      "url": "https://www.youtube.com/watch?v=5k2Bz_XR37U",
+      "publisherId": "opex",
+      "title": "Half Kneeling Single Arm Cable Chest Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s23d274f61953": {
+      "id": "s23d274f61953",
+      "url": "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
+      "publisherId": "puregym",
+      "title": "How To Do Cable Lateral Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sb8da40a9ff0e": {
+      "id": "sb8da40a9ff0e",
+      "url": "https://www.youtube.com/watch?v=siazAOww2Tc",
+      "publisherId": "lifefitness",
+      "title": "Life Fitness Pro2 Lateral Raise Instructions",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sf6611a6af5e8": {
+      "id": "sf6611a6af5e8",
+      "url": "https://www.rehabhero.ca/exercise/cable-triceps-kickback",
+      "publisherId": "rehabhero",
+      "title": "Cable Tricep Kickback - triceps strengthening exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s02bcba52bede": {
+      "id": "s02bcba52bede",
+      "url": "https://www.youtube.com/watch?v=t7k5MWa8NJQ",
+      "publisherId": "rehabhero",
+      "title": "Cable Tricep Kickback - triceps strengthening exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sd2071d4b82fb": {
+      "id": "sd2071d4b82fb",
+      "url": "https://www.rehabhero.ca/exercise/dumbbell-skull-crushers",
+      "publisherId": "rehabhero",
+      "title": "Dumbbell Skull Crushers - Triceps Strengthening Exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sc739fb44d8aa": {
+      "id": "sc739fb44d8aa",
+      "url": "https://www.youtube.com/watch?v=yDlkWx_V9Bs",
+      "publisherId": "rehabhero",
+      "title": "Dumbbell Skull Crushers - Triceps Strengthening Exercise",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s4c606ec35c24": {
+      "id": "s4c606ec35c24",
+      "url": "https://www.youtube.com/watch?v=ad3dSGLAslA",
+      "publisherId": "pike",
+      "title": "Barbell Skull Crusher - Exercise Demonstration",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s2e3e0bb83144": {
+      "id": "s2e3e0bb83144",
+      "url": "https://www.youtube.com/watch?v=r9d-O-zLj3g",
+      "publisherId": "matrix",
+      "title": "Aura Series | Triceps Extension | Setup & Movements | Matrix Fitness",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s8a25d4450b3f": {
+      "id": "s8a25d4450b3f",
+      "url": "https://www.youtube.com/watch?v=W_H5JDfdOKo",
+      "publisherId": "brattain",
+      "title": "Landmine Rotational Press",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s1afa286b6ec0": {
+      "id": "s1afa286b6ec0",
+      "url": "https://www.youtube.com/watch?v=0t17aBlo680",
+      "publisherId": "matrix",
+      "title": "Aura Series | Rotary Torso | Setup & Movements | Matrix Fitness",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s87cf198e83c5": {
+      "id": "s87cf198e83c5",
+      "url": "https://www.dvidshub.net/video/679685/hanging-oblique-knee-raises",
+      "publisherId": "dvids",
+      "title": "Hanging Oblique Knee Raises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s415555764184": {
+      "id": "s415555764184",
+      "url": "https://www.youtube.com/watch?v=IIqlcqMiSx4",
+      "publisherId": "mbsc",
+      "title": "Stability Ball Rollout",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s0f758514dbea": {
+      "id": "s0f758514dbea",
+      "url": "https://www.youtube.com/watch?v=ClXC0_yNsoM",
+      "publisherId": "trx",
+      "title": "TRX Monday Move - TRX Body Saw",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sef45592642d8": {
+      "id": "sef45592642d8",
+      "url": "https://www.dvidshub.net/video/642051/trx-pike",
+      "publisherId": "dvids",
+      "title": "TRX Pike",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s5d7cc4e239f4": {
+      "id": "s5d7cc4e239f4",
+      "url": "https://www.youtube.com/watch?v=MuC0_N4pSLI",
+      "publisherId": "lifefitness",
+      "title": "Life Fitness Signature Series Abdominal Instructions",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s7ea03e4486ca": {
+      "id": "s7ea03e4486ca",
+      "url": "https://www.youtube.com/watch?v=Hr8L6reVEVQ",
+      "publisherId": "hk",
+      "title": "How to perform a barbell rollout",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s39d5ac328e56": {
+      "id": "s39d5ac328e56",
+      "url": "https://www.youtube.com/watch?v=8i3PV6vZlXA",
+      "publisherId": "fbb",
+      "title": "Kettlebell Front Rack Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s82ca05b07ff6": {
+      "id": "s82ca05b07ff6",
+      "url": "https://www.youtube.com/watch?v=UTV5o4Oi2KM",
+      "publisherId": "fbb",
+      "title": "Single Arm Kettlebell Overhead Carry",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s19484a4be497": {
+      "id": "s19484a4be497",
+      "url": "https://www.opexfit.com/blog/how-to-do-a-pull-up",
+      "publisherId": "opex",
+      "title": "Weighted Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sda89b27ee95e": {
+      "id": "sda89b27ee95e",
+      "url": "https://www.youtube.com/watch?v=2m58VKBEQuo",
+      "publisherId": "opex",
+      "title": "Weighted Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "se23050fbc406": {
+      "id": "se23050fbc406",
+      "url": "https://www.opexfit.com/blog/seven-different-pull-up-grips-and-their-benefits",
+      "publisherId": "opex",
+      "title": "Neutral Grip Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sd5ed43ad0151": {
+      "id": "sd5ed43ad0151",
+      "url": "https://www.youtube.com/watch?v=cd_38C6LuvY",
+      "publisherId": "opex",
+      "title": "Neutral Grip Pull-Up",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s47dc3efea1e7": {
+      "id": "s47dc3efea1e7",
+      "url": "https://www.onnit.com/blogs/the-edge/build-muscle-with-the-gorilla-row-exercise",
+      "publisherId": "onnit",
+      "title": "Build Muscle With The Gorilla Row | @EricLeija",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s54a5312c06e7": {
+      "id": "s54a5312c06e7",
+      "url": "https://www.youtube.com/watch?v=yNJwusxZnfw",
+      "publisherId": "onnit",
+      "title": "Build Muscle With The Gorilla Row | @EricLeija",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sd8e6bd78ff14": {
+      "id": "sd8e6bd78ff14",
+      "url": "https://www.youtube.com/watch?v=NhDGpy6__tA",
+      "publisherId": "champion",
+      "title": "1 Arm Rotational Cable Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sbf35048a61c4": {
+      "id": "sbf35048a61c4",
+      "url": "https://www.youtube.com/watch?v=l5qelXL5nfs",
+      "publisherId": "opex",
+      "title": "Single Arm Kettlebell Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s0a9bcb29abad": {
+      "id": "s0a9bcb29abad",
+      "url": "https://www.trxtraining.com/blogs/news/trx-weekly-exercise-trx-single-arm-row",
+      "publisherId": "hk",
+      "title": "TRX single arm row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s255b62ee5181": {
+      "id": "s255b62ee5181",
+      "url": "https://www.youtube.com/watch?v=D_7CBJbEfPA",
+      "publisherId": "hk",
+      "title": "TRX single arm row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sf80a966f0b28": {
+      "id": "sf80a966f0b28",
+      "url": "https://www.youtube.com/watch?v=redrpTwkplw",
+      "publisherId": "opex",
+      "title": "Half Kneeling Single Arm Cable Row",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s4485fd3b8f44": {
+      "id": "s4485fd3b8f44",
+      "url": "https://www.rehabhero.ca/exercise/reverse-fly",
+      "publisherId": "rehabhero",
+      "title": "Reverse Fly - Rhomboid Exercise and Trapezius Strengthening for Upper Back Workout",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s98168c85e8a3": {
+      "id": "s98168c85e8a3",
+      "url": "https://www.youtube.com/watch?v=zBCbzuDLAdU",
+      "publisherId": "rehabhero",
+      "title": "Reverse Fly - Rhomboid Exercise and Trapezius Strengthening for Upper Back Workout",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "se983c355b5d0": {
+      "id": "se983c355b5d0",
+      "url": "https://uk.physitrack.com/home-exercise-video/trx-%2522face-pull%2522",
+      "publisherId": "physitrack",
+      "title": "TRX \"Face pull\"",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s54c7e767d915": {
+      "id": "s54c7e767d915",
+      "url": "https://www.muscleandstrength.com/exercises/dumbbell-shrugs.html",
+      "publisherId": "ms",
+      "title": "Standing Dumbbell Shrug",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s29288f461d93": {
+      "id": "s29288f461d93",
+      "url": "https://www.youtube.com/watch?v=dj2Gm628kas",
+      "publisherId": "ms",
+      "title": "Standing Dumbbell Shrug",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s3472dc89c4bc": {
+      "id": "s3472dc89c4bc",
+      "url": "https://www.youtube.com/watch?v=7X7ZV4gdvXg",
+      "publisherId": "lifefitness",
+      "title": "Life Fitness Signature Series Biceps Curl Instructions",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sccfea587b593": {
+      "id": "sccfea587b593",
+      "url": "https://uk.physitrack.com/home-exercise-video/trx-bicep-curl",
+      "publisherId": "physitrack",
+      "title": "TRX bicep curl",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sbc3e2dd26a17": {
+      "id": "sbc3e2dd26a17",
+      "url": "https://www.muscleandstrength.com/exercises/smith-machine-squat.html",
+      "publisherId": "ms",
+      "title": "Smith Machine Back Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s2fe40d67fb08": {
+      "id": "s2fe40d67fb08",
+      "url": "https://www.youtube.com/watch?v=BtfMX4WqUBo",
+      "publisherId": "ms",
+      "title": "Smith Machine Back Squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sa0068b8a3788": {
+      "id": "sa0068b8a3788",
+      "url": "https://www.youtube.com/watch?v=qfpaNBDhidg",
+      "publisherId": "opex",
+      "title": "Barbell Reverse Lunge - OPEX Exercise Library",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s61ed1f9ed254": {
+      "id": "s61ed1f9ed254",
+      "url": "https://www.youtube.com/watch?v=8fZxWTiIJWo",
+      "publisherId": "opex",
+      "title": "Dumbbell Walking Lunge - OPEX Exercise Library",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s7b5aed8ffae9": {
+      "id": "s7b5aed8ffae9",
+      "url": "https://www.youtube.com/watch?v=bgIjlz6CxkI",
+      "publisherId": "rmp",
+      "title": "Smith Machine Split Squat | Machine | Strength and Conditioning Exercises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s4b58fa1b96bb": {
+      "id": "s4b58fa1b96bb",
+      "url": "https://www.youtube.com/watch?v=6pEL3KxnlEo",
+      "publisherId": "nasm",
+      "title": "How to do a Single-Leg Romanian Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s0e2ee9e93c9e": {
+      "id": "s0e2ee9e93c9e",
+      "url": "https://www.youtube.com/watch?v=7r2gUum_DoQ",
+      "publisherId": "opex",
+      "title": "Landmine Single Leg Romanian Deadlift",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s1757adfc612b": {
+      "id": "s1757adfc612b",
+      "url": "https://www.youtube.com/watch?v=Bf_xQeZeIb0",
+      "publisherId": "steph",
+      "title": "Landmine Lateral Lunge Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s2473c486a0b3": {
+      "id": "s2473c486a0b3",
+      "url": "https://na.physitrack.com/home-exercise-video/trx-lateral-lunge",
+      "publisherId": "physitrack",
+      "title": "TRX lateral lunge",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s5105692765b3": {
+      "id": "s5105692765b3",
+      "url": "https://www.youtube.com/watch?v=UG2Sf8ck1WI",
+      "publisherId": "nasm",
+      "title": "How to do a Lunge to Balance Transverse",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s450eae6b87dc": {
+      "id": "s450eae6b87dc",
+      "url": "https://us.physitrack.com/home-exercise-video/skater-jumps",
+      "publisherId": "physitrack",
+      "title": "Lateral bounds/Skater Jumps",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "scac3211c3d0e": {
+      "id": "scac3211c3d0e",
+      "url": "https://www.youtube.com/watch?v=82IuSLk5zNc",
+      "publisherId": "puregym",
+      "title": "How To Do A Single Leg Extension",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s26e4afb689f5": {
+      "id": "s26e4afb689f5",
+      "url": "https://www.youtube.com/watch?v=WLwzA9S2aek",
+      "publisherId": "opex",
+      "title": "Cable Hip Abduction",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s43bc2d797139": {
+      "id": "s43bc2d797139",
+      "url": "https://us.physitrack.com/home-exercise-video/cable-hip-adduction",
+      "publisherId": "physitrack",
+      "title": "Cable hip adduction (Hip adduction strengthening, with cable (low), to side, standing)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sea6b2cabe57d": {
+      "id": "sea6b2cabe57d",
+      "url": "https://us.physitrack.com/home-exercise-video/bridging-with-adduction-stabilisation",
+      "publisherId": "physitrack",
+      "title": "Bridging with adduction stabilisation (\"Bridge\" Core/gluteals strengthening, squeezing ball; 01)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "se729a4e1fce1": {
+      "id": "se729a4e1fce1",
+      "url": "https://us.physitrack.com/home-exercise-video/standing-calf-raise-in-a-machine",
+      "publisherId": "physitrack",
+      "title": "Standing calf raise in a machine",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sb3499fb05c16": {
+      "id": "sb3499fb05c16",
+      "url": "https://ie.physitrack.com/home-exercise-video/step-up-with-weight",
+      "publisherId": "physitrack",
+      "title": "Step up with weight",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s8437b7e3205b": {
+      "id": "s8437b7e3205b",
+      "url": "https://ca.physitrack.com/home-exercise-video/crossover-step-up",
+      "publisherId": "physitrack",
+      "title": "Crossover step-up (\"Step ups to side, crossovers\" Lower extremity strengthening)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sc33215f0f21c": {
+      "id": "sc33215f0f21c",
+      "url": "https://www.dvidshub.net/video/692485/lateral-box-jump",
+      "publisherId": "dvids",
+      "title": "Lateral Box Jump",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sfc7c1a35aa6d": {
+      "id": "sfc7c1a35aa6d",
+      "url": "https://www.youtube.com/watch?v=ISWh7DSh4SE",
+      "publisherId": "hk",
+      "title": "How to perform a lateral bound",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "se74672635857": {
+      "id": "se74672635857",
+      "url": "https://us.physitrack.com/home-exercise-video/resisted-single-arm-row-standing",
+      "publisherId": "physitrack",
+      "title": "Resisted single arm row standing (\"Row\" Shoulder extension/scapular retraction strengthening, with band (mid), (unilateral), standing)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sb59f8a319624": {
+      "id": "sb59f8a319624",
+      "url": "https://www.youtube.com/watch?v=GU-Ira_Bx7A",
+      "publisherId": "goodin",
+      "title": "Band Overhead Press: Exercise Demonstration",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s9718de6cdf55": {
+      "id": "s9718de6cdf55",
+      "url": "https://us.physitrack.com/home-exercise-video/tricep-press-down-with-exercise-band",
+      "publisherId": "physitrack",
+      "title": "Tricep press down with exercise band (\"Triceps pull down\" Elbow extension strengthening, with band (high), standing)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s9e274240a3cb": {
+      "id": "s9e274240a3cb",
+      "url": "https://us.physitrack.com/home-exercise-video/resisted-decline-rotations",
+      "publisherId": "physitrack",
+      "title": "Resisted decline rotations (\"Woodchop\" Trunk rotation/flexion strengthening, with band (high); 01)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s8457e7c5e29b": {
+      "id": "s8457e7c5e29b",
+      "url": "https://www.rehabhero.ca/exercise/banded-hamstring-curl",
+      "publisherId": "rehabhero",
+      "title": "Banded Hamstring Curl - exercise for strengthening the hamstrings at home",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s3b6c64bc9271": {
+      "id": "s3b6c64bc9271",
+      "url": "https://www.youtube.com/watch?v=g5Jmdfex1Jo",
+      "publisherId": "rehabhero",
+      "title": "Banded Hamstring Curl - exercise for strengthening the hamstrings at home",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s620053d8d772": {
+      "id": "s620053d8d772",
+      "url": "https://www.youtube.com/watch?v=Tf0uda1pqtI",
+      "publisherId": "steph",
+      "title": "Medicine Ball Slam Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s39b3a852955d": {
+      "id": "s39b3a852955d",
+      "url": "https://www.youtube.com/watch?v=nL67Ic0KChc",
+      "publisherId": "rmp",
+      "title": "How to do a BOSU squat",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s7709f3b9c7ab": {
+      "id": "s7709f3b9c7ab",
+      "url": "https://www.youtube.com/watch?v=iyZHqgsI4Zk",
+      "publisherId": "bosu",
+      "title": "BOSU Mountain Climber",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s985005c201a2": {
+      "id": "s985005c201a2",
+      "url": "https://www.youtube.com/watch?v=arDUVmCzyhc",
+      "publisherId": "scottherman",
+      "title": "How To: Hanging Windshield Wiper",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s971bce9ef50d": {
+      "id": "s971bce9ef50d",
+      "url": "https://www.youtube.com/watch?v=-TlT6aXNok4",
+      "publisherId": "rmp",
+      "title": "Plate Front Raise | Shoulder | Strength and Conditioning Exercises",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sfb9ef2e68eb9": {
+      "id": "sfb9ef2e68eb9",
+      "url": "https://www.youtube.com/watch?v=ymCcWUFUfng",
+      "publisherId": "origym",
+      "title": "How To Do Weight Plate Halo | Exercise Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sb18a837230af": {
+      "id": "sb18a837230af",
+      "url": "https://www.youtube.com/watch?v=iQnSTXgf-Gs",
+      "publisherId": "steph",
+      "title": "Plate Pinch Carry Demo",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sa23b21f30c60": {
+      "id": "sa23b21f30c60",
+      "url": "https://na.physitrack.com/home-exercise-video/back-extension-version-3",
+      "publisherId": "physitrack",
+      "title": "Back Extension Version 3",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sae7c45a4bc0d": {
+      "id": "sae7c45a4bc0d",
+      "url": "https://www.dvidshub.net/video/551356/arm-circles",
+      "publisherId": "dvids",
+      "title": "Arm Circles",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s134378c03523": {
+      "id": "s134378c03523",
+      "url": "https://www.youtube.com/watch?v=smSSXITNpCI",
+      "publisherId": "rogue",
+      "title": "How To Do Band Pull Aparts",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s719e1e292cfe": {
+      "id": "s719e1e292cfe",
+      "url": "https://na.physitrack.com/home-exercise-video/dead-hang",
+      "publisherId": "physitrack",
+      "title": "Dead hang",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s7f6b36db0471": {
+      "id": "s7f6b36db0471",
+      "url": "https://us.physitrack.com/home-exercise-video/prone-push-up-to-downward-dog",
+      "publisherId": "physitrack",
+      "title": "Prone push up to downward dog",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s6bb563f3d7c0": {
+      "id": "s6bb563f3d7c0",
+      "url": "https://www.rehabhero.ca/exercise/a-marches",
+      "publisherId": "rehabhero",
+      "title": "A Marches - Running warm up drill",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s996475f0a606": {
+      "id": "s996475f0a606",
+      "url": "https://www.youtube.com/watch?v=PUua5i6DzgE",
+      "publisherId": "rehabhero",
+      "title": "A Marches - Running warm up drill",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sb1b15cbdd676": {
+      "id": "sb1b15cbdd676",
+      "url": "https://hw.qld.gov.au/physical-activity/hip-circles/",
+      "publisherId": "qld",
+      "title": "Hip circles",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s597f11f912d8": {
+      "id": "s597f11f912d8",
+      "url": "https://hw.qld.gov.au/physical-activity/trunk-rotations/",
+      "publisherId": "qld",
+      "title": "Trunk rotations",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s22e68a3f0322": {
+      "id": "s22e68a3f0322",
+      "url": "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/dynamic-warm-up-side-shuffles",
+      "publisherId": "specialolympics",
+      "title": "DYNAMIC WARM UP Side Shuffles updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s4d220727154b": {
+      "id": "s4d220727154b",
+      "url": "https://www.youtube.com/watch?v=P6bTrTSnitc",
+      "publisherId": "specialolympics",
+      "title": "DYNAMIC WARM UP Side Shuffles updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sb5578f47911f": {
+      "id": "sb5578f47911f",
+      "url": "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/dynamic-warm-up-walking-high-kicks",
+      "publisherId": "specialolympics",
+      "title": "DYNAMIC WARM UP Forward and Lateral Leg Swings updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s37c3808bc364": {
+      "id": "s37c3808bc364",
+      "url": "https://www.youtube.com/watch?v=sHKx2FRVQcQ",
+      "publisherId": "specialolympics",
+      "title": "DYNAMIC WARM UP Forward and Lateral Leg Swings updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s223f701bc565": {
+      "id": "s223f701bc565",
+      "url": "https://hw.qld.gov.au/physical-activity/marching-on-the-spot/",
+      "publisherId": "qld",
+      "title": "Marching on the spot",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "scd6e456a275c": {
+      "id": "scd6e456a275c",
+      "url": "https://www.youtube.com/watch?v=61zbhuRiwQg",
+      "publisherId": "horton",
+      "title": "Bodyweight Good Mornings (Exercise Library)",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sbfd75cea1f3f": {
+      "id": "sbfd75cea1f3f",
+      "url": "https://na.physitrack.com/home-exercise-video/forearm-wall-slides",
+      "publisherId": "physitrack",
+      "title": "Forearm wall slides",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s8ce3a0eb24f5": {
+      "id": "s8ce3a0eb24f5",
+      "url": "https://na.physitrack.com/home-exercise-video/cobra-stretch",
+      "publisherId": "physitrack",
+      "title": "Cobra stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sfe9e62369868": {
+      "id": "sfe9e62369868",
+      "url": "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-cross-body-shoulder-stretch",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Cross Body Shoulder Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s2400f0a9b538": {
+      "id": "s2400f0a9b538",
+      "url": "https://www.youtube.com/watch?v=mMOzQRRZI0k",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Cross Body Shoulder Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s37d733f1c61b": {
+      "id": "s37d733f1c61b",
+      "url": "https://us.physitrack.com/home-exercise-video/half-kneeling-hip-flexor-stretch",
+      "publisherId": "physitrack",
+      "title": "Half-kneeling hip flexor stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s54be17e3bb83": {
+      "id": "s54be17e3bb83",
+      "url": "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-side-to-side-neck-stretch",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Side to Side Neck Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sf99c4af4b461": {
+      "id": "sf99c4af4b461",
+      "url": "https://www.youtube.com/watch?v=SqA2S9_0SRY",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Side to Side Neck Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s3d75ce87fa23": {
+      "id": "s3d75ce87fa23",
+      "url": "https://resources.specialolympics.org/sports-essentials/sports-and-coaching/warm-up-and-cool-down-videos/cool-down-modified-hurdlers-stretch",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Modified Hurdler's Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "sda7326379286": {
+      "id": "sda7326379286",
+      "url": "https://www.youtube.com/watch?v=l81JEc6FEQw",
+      "publisherId": "specialolympics",
+      "title": "COOL DOWN Modified Hurdler's Stretch updated",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s9d97ccd64341": {
+      "id": "s9d97ccd64341",
+      "url": "https://hw.qld.gov.au/physical-activity/standing-quadriceps-stretch/",
+      "publisherId": "qld",
+      "title": "Standing quadriceps stretch",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "s48731c0b5ca4": {
+      "id": "s48731c0b5ca4",
+      "url": "https://www.youtube.com/watch?v=Sg3Id7Lu8XU",
+      "publisherId": "assault",
+      "title": "Assault University: AirBike Classic Technique - Pushing and Pulling the Handles",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "s74f7008a178b": {
+      "id": "s74f7008a178b",
+      "url": "https://www.youtube.com/watch?v=4dVJoIAOYPQ",
+      "publisherId": "matrix",
+      "title": "Matrix Fitness | How to Use the C7xe ClimbMill",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
+      "techniqueSourceIds": []
+    },
+    "scd46212fa79b": {
+      "id": "scd46212fa79b",
+      "url": "https://ca.physitrack.com/home-exercise-video/shadow-boxing---version-2",
+      "publisherId": "physitrack",
+      "title": "Shadow boxing - Version 2",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public exercise-specific page and openly served publisher video; three sampled video frames inspected for configuration. Full continuous motion, narration and technique approval remain unreviewed.",
+      "techniqueSourceIds": []
+    },
+    "sbb5c8128a667": {
+      "id": "sbb5c8128a667",
+      "url": "https://www.youtube.com/watch?v=y7_ODbEIixY",
+      "publisherId": "assault",
+      "title": "Assault University: AirBike Classic Technique - Pedaling",
+      "checkedOn": "2026-11-13",
+      "factsChecked": "Exercise-specific page/clip association, original publisher identity and setup evidence; see the per-entry follow-up audit for exact facts and conflicts.",
+      "accessScope": "Public original video metadata and source-specific setup evidence. Metadata availability is not a full playback test; corroborating pages are not automatically claimed as embeds.",
       "techniqueSourceIds": []
     }
   }

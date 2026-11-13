@@ -7,11 +7,11 @@
     "cardioLabels": 67,
     "entries": 424,
     "entriesWithAnyVisual": 424,
-    "entriesWithVideo": 420,
+    "entriesWithVideo": 424,
     "videoRelationships": {
       "same-labelled-movement": 187,
-      "related-only": 233,
-      "not-found": 4
+      "configuration-matched": 130,
+      "related-only": 107
     },
     "stillFormatsByEntry": {
       "image": 198,
@@ -19,16 +19,28 @@
       "not-found": 2,
       "animated-image": 3
     },
-    "uniqueMedia": 615,
+    "uniqueMedia": 705,
     "uniqueMediaTypes": {
-      "video": 297,
+      "video": 387,
       "image": 170,
       "video-poster": 147,
       "animated-image": 1
     },
-    "sourcePages": 283,
-    "publisherGroups": 20,
+    "sourcePages": 393,
+    "publisherGroups": 37,
     "excludedAssociations": 14,
-    "identityReviewedStills": 171
+    "identityReviewedStills": 171,
+    "followupTargets": 237,
+    "followupDecisions": {
+      "configuration-matched": 130,
+      "related-only": 107
+    },
+    "followupReviewDepth": {
+      "source-specific-configuration-comparison": 143,
+      "discovery-and-provenance-screening; no-new-configuration-acceptance": 94
+    },
+    "consultedCandidateUrls": 628,
+    "retrievedPageRecords": 228,
+    "configurationInspectedVideos": 90
   }
 }

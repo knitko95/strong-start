@@ -1,51 +1,51 @@
 # Warm-up and stretch visual references
 
-Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.md). Full video motion has not been reviewed. A related reference does not validate the complete catalog exercise.
+Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration evidence is distinct from full-motion or professional technique approval.
 
 | Exercise | Still / animation | Video relationship |
 | --- | --- | --- |
 | [A-skips](#a-skips) | image | same-labelled-movement |
-| [Arm circles](#arm-circles) | video-poster | related-only |
+| [Arm circles](#arm-circles) | video-poster | configuration-matched |
 | [Band dislocates](#band-dislocates) | image | related-only |
-| [Band pull-aparts](#band-pull-aparts) | video-poster | related-only |
+| [Band pull-aparts](#band-pull-aparts) | video-poster | configuration-matched |
 | [Banded lateral walks](#banded-lateral-walks) | video-poster | same-labelled-movement |
 | [Lateral band walks](#lateral-band-walks) | video-poster | same-labelled-movement |
 | [Bodyweight squats to a bench](#bodyweight-squats-to-a-bench) | video-poster | related-only |
 | [Broad jumps](#broad-jumps) | image | same-labelled-movement |
 | [Broomstick or towel pass-throughs](#broomstick-or-towel-pass-throughs) | image | same-labelled-movement |
 | [Cat-cow](#cat-cow) | video-poster | same-labelled-movement |
-| [Dead hang](#dead-hang) | video-poster | related-only |
-| [Downward dog to plank](#downward-dog-to-plank) | video-poster | related-only |
+| [Dead hang](#dead-hang) | video-poster | configuration-matched |
+| [Downward dog to plank](#downward-dog-to-plank) | video-poster | configuration-matched |
 | [Explosive push-ups](#explosive-push-ups) | video-poster | same-labelled-movement |
 | [Fast bodyweight squats](#fast-bodyweight-squats) | video-poster | related-only |
 | [Fast incline push-ups](#fast-incline-push-ups) | image | related-only |
 | [Glute bridges](#glute-bridges) | video-poster | same-labelled-movement |
 | [Half-kneeling hip flexor stretch with reach](#half-kneeling-hip-flexor-stretch-with-reach) | image | related-only |
-| [High-knee marches](#high-knee-marches) | animated-image | not-found |
-| [Hip circles](#hip-circles) | image | related-only |
-| [Hug-yourself twists](#hug-yourself-twists) | video-poster | related-only |
+| [High-knee marches](#high-knee-marches) | animated-image | configuration-matched |
+| [Hip circles](#hip-circles) | image | configuration-matched |
+| [Hug-yourself twists](#hug-yourself-twists) | video-poster | configuration-matched |
 | [Inchworms](#inchworms) | image | same-labelled-movement |
 | [Incline push-ups on a bench](#incline-push-ups-on-a-bench) | image | related-only |
 | [Incline push-ups](#incline-push-ups) | image | same-labelled-movement |
 | [Lat stretch holding a post](#lat-stretch-holding-a-post) | video-poster | related-only |
-| [Lateral shuffles](#lateral-shuffles) | video-poster | related-only |
-| [Leg swings, front to back and side to side](#leg-swings-front-to-back-and-side-to-side) | image | related-only |
-| [Leg swings, front to back](#leg-swings-front-to-back) | image | related-only |
-| [Low box jumps](#low-box-jumps) | video-poster | related-only |
-| [Marching knee lifts](#marching-knee-lifts) | animated-image | not-found |
+| [Lateral shuffles](#lateral-shuffles) | video-poster | configuration-matched |
+| [Leg swings, front to back and side to side](#leg-swings-front-to-back-and-side-to-side) | image | configuration-matched |
+| [Leg swings, front to back](#leg-swings-front-to-back) | image | configuration-matched |
+| [Low box jumps](#low-box-jumps) | video-poster | configuration-matched |
+| [Marching knee lifts](#marching-knee-lifts) | animated-image | configuration-matched |
 | [Medicine ball chest pass](#medicine-ball-chest-pass) | video-poster | same-labelled-movement |
 | [Open books lying on your side](#open-books-lying-on-your-side) | video-poster | same-labelled-movement |
 | [Thoracic open books](#thoracic-open-books) | video-poster | same-labelled-movement |
 | [Prone Y-T-W raises](#prone-y-t-w-raises) | video-poster | related-only |
-| [Push-up to downward dog](#push-up-to-downward-dog) | video-poster | related-only |
+| [Push-up to downward dog](#push-up-to-downward-dog) | video-poster | configuration-matched |
 | [Push-ups](#push-ups) | image | same-labelled-movement |
 | [Reach-and-pull](#reach-and-pull) | video-poster | related-only |
 | [Reverse arm swings](#reverse-arm-swings) | video-poster | related-only |
 | [Reverse lunges in place](#reverse-lunges-in-place) | video-poster | related-only |
 | [Scap pull-ups](#scap-pull-ups) | image | same-labelled-movement |
-| [Scap push-ups](#scap-push-ups) | image | related-only |
+| [Scap push-ups](#scap-push-ups) | image | configuration-matched |
 | [Side lunges](#side-lunges) | image | same-labelled-movement |
-| [Bodyweight good mornings](#bodyweight-good-mornings) | video-poster | related-only |
+| [Bodyweight good mornings](#bodyweight-good-mornings) | video-poster | configuration-matched |
 | [Calf raises](#calf-raises) | image | same-labelled-movement |
 | [Deep squat hold](#deep-squat-hold) | image | related-only |
 | [Bodyweight squats](#bodyweight-squats) | image | same-labelled-movement |
@@ -77,24 +77,24 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 | [Walking lunges](#walking-lunges) | image | same-labelled-movement |
 | [Wall push-ups](#wall-push-ups) | image | same-labelled-movement |
 | [Wall sit](#wall-sit) | image | same-labelled-movement |
-| [Wall slides](#wall-slides) | image | related-only |
+| [Wall slides](#wall-slides) | image | configuration-matched |
 | [World’s greatest stretch](#world-s-greatest-stretch) | image | same-labelled-movement |
-| [Biceps wall stretch](#biceps-wall-stretch) | image | related-only |
+| [Biceps wall stretch](#biceps-wall-stretch) | image | configuration-matched |
 | [Butterfly stretch](#butterfly-stretch) | image | same-labelled-movement |
 | [Calf stretch on a wall](#calf-stretch-on-a-wall) | image | same-labelled-movement |
 | [Child’s pose](#child-s-pose) | image | same-labelled-movement |
-| [Cobra stretch](#cobra-stretch) | video-poster | related-only |
-| [Cross-body shoulder stretch](#cross-body-shoulder-stretch) | image | not-found |
+| [Cobra stretch](#cobra-stretch) | video-poster | configuration-matched |
+| [Cross-body shoulder stretch](#cross-body-shoulder-stretch) | image | configuration-matched |
 | [Doorway chest stretch](#doorway-chest-stretch) | image | same-labelled-movement |
 | [Figure-4 glute stretch](#figure-4-glute-stretch) | image | same-labelled-movement |
-| [Half-kneeling hip flexor stretch](#half-kneeling-hip-flexor-stretch) | image | related-only |
+| [Half-kneeling hip flexor stretch](#half-kneeling-hip-flexor-stretch) | image | configuration-matched |
 | [Hands-behind-back chest opener](#hands-behind-back-chest-opener) | image | same-labelled-movement |
-| [Kneeling shin stretch](#kneeling-shin-stretch) | Gap | related-only |
+| [Kneeling shin stretch](#kneeling-shin-stretch) | Gap | configuration-matched |
 | [Lying cross-body glute stretch](#lying-cross-body-glute-stretch) | video-poster | related-only |
-| [Neck side stretch](#neck-side-stretch) | image | related-only |
-| [Overhead triceps stretch](#overhead-triceps-stretch) | image | related-only |
-| [Seated hamstring stretch](#seated-hamstring-stretch) | image | related-only |
-| [Standing quad stretch](#standing-quad-stretch) | image | related-only |
+| [Neck side stretch](#neck-side-stretch) | image | configuration-matched |
+| [Overhead triceps stretch](#overhead-triceps-stretch) | image | configuration-matched |
+| [Seated hamstring stretch](#seated-hamstring-stretch) | image | configuration-matched |
+| [Standing quad stretch](#standing-quad-stretch) | image | configuration-matched |
 | [Wrist flexor and extensor stretch](#wrist-flexor-and-extensor-stretch) | image | related-only |
 
 <a id="a-skips"></a>
@@ -114,11 +114,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#arm-circles).
 
-**Still / animation:** [Shoulder circles](https://i.vimeocdn.com/video/1421662931-bbcd5f046e8d19551a10d2bf702e3966878b0069f02a4f11a4ee2fd35daaf0f4-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v6c0df92bec45). Relationship: related-only.
+**Still / animation:** [Shoulder circles](https://i.vimeocdn.com/video/1421662931-bbcd5f046e8d19551a10d2bf702e3966878b0069f02a4f11a4ee2fd35daaf0f4-d_1280) — video-poster; Physitrack; [provenance](sources.md#v6c0df92bec45). Relationship: related-only.
 
-**Video:** [Shoulder circles](https://vimeo.com/703911259/6b59f087e9) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vaef72809657a). Relationship: related-only.
+**Video:** [Arm Circles](https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104840680/DOD_104840680-1024x576-1769k.mp4) — video; Marine Corps Force Fitness / DVIDS; [provenance](sources.md#vbfc64c307c01). Relationship: configuration-matched.
 
-**Match and limits:** Shoulder-circle reference; reverse arm swings are a different arc/sequence.
+**Match and limits:** Marine Corps Force Fitness sampled frames show standing with both arms extended to the sides and changing arm-circle positions. The dedicated demonstration establishes the standing arm-circle configuration. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-arm-circles).
+
+**Additional component / retained earlier comparison:** [Shoulder circles](https://vimeo.com/703911259/6b59f087e9) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vaef72809657a).
 
 
 <a id="band-dislocates"></a>
@@ -126,11 +130,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#band-dislocates).
 
-**Still / animation:** [Shoulder Dislocations](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/79c6d5e2-b2e5-4bf5-ac43-5f83b8608d51/shoulder+dislocation.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/shoulder-dislocations); [provenance](sources.md#vd40c3ef73228). Relationship: related-only.
+**Still / animation:** [Shoulder Dislocations](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/79c6d5e2-b2e5-4bf5-ac43-5f83b8608d51/shoulder+dislocation.jpg) — image; Rehab Hero; [provenance](sources.md#vd40c3ef73228). Relationship: related-only.
 
-**Video:** [Shoulder Dislocations](https://www.youtube.com/watch?v=gXE-gVzYD9w) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/shoulder-dislocations); [provenance](sources.md#v0346e6d011b9). Relationship: related-only.
+**Video:** [Shoulder Dislocations](https://www.youtube.com/watch?v=gXE-gVzYD9w) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v0346e6d011b9). Relationship: related-only.
 
-**Match and limits:** Dowel pass-through reference; band/towel implementation is a related implement adaptation.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Dowel pass-through reference; band/towel implementation is a related implement adaptation. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-band-dislocates).
 
 
 <a id="band-pull-aparts"></a>
@@ -138,11 +144,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#band-pull-aparts).
 
-**Still / animation:** [Band Pull Apart](https://i.ytimg.com/vi/nMB_zabRo74/hqdefault.jpg) — video-poster; Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/band-pull-apart); [provenance](sources.md#v92a0f903e736). Relationship: related-only.
+**Still / animation:** [Band Pull Apart](https://i.ytimg.com/vi/nMB_zabRo74/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v92a0f903e736). Relationship: related-only.
 
-**Video:** [Band Pull Apart](https://www.youtube.com/watch?v=nMB_zabRo74) — video; Muscle & Strength; credited video creator: Muscle & Strength; [source page](https://www.muscleandstrength.com/exercises/band-pull-apart); [provenance](sources.md#vcb174399ae1a). Relationship: related-only.
+**Video:** [How To Do Band Pull Aparts](https://www.youtube.com/watch?v=smSSXITNpCI) — video; Rogue Fitness; credited creator: Rogue Fitness; [provenance](sources.md#v134378c03523). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: Band Pull Apart. The full Band pull-aparts equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Rogue manufacturer public previews show a light elastic band held at chest/shoulder height and the hands spreading apart horizontally toward the chest. This establishes the band pull-apart configuration. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-band-pull-aparts).
+
+**Additional component / retained earlier comparison:** [Band Pull Apart](https://www.youtube.com/watch?v=nMB_zabRo74) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#vcb174399ae1a).
 
 
 <a id="banded-lateral-walks"></a>
@@ -174,11 +184,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#bodyweight-squats-to-a-bench).
 
-**Still / animation:** [Sit to stand without arms](https://i.vimeocdn.com/video/1421649438-ee6b9584db0b5a2fd3713700c598c95fa97ebad3c8cde124b75324f48b37d195-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v8e7c620b408a). Relationship: related-only.
+**Still / animation:** [Sit to stand without arms](https://i.vimeocdn.com/video/1421649438-ee6b9584db0b5a2fd3713700c598c95fa97ebad3c8cde124b75324f48b37d195-d_1280) — video-poster; Physitrack; [provenance](sources.md#v8e7c620b408a). Relationship: related-only.
 
-**Video:** [Sit to stand without arms](https://vimeo.com/703902658/d04fa85f0c) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v043e0da325f9). Relationship: related-only.
+**Video:** [Sit to stand without arms](https://vimeo.com/703902658/d04fa85f0c) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v043e0da325f9). Relationship: related-only.
 
-**Match and limits:** Sit-to-stand reference; target height and degree of seated rest may differ.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Sit-to-stand reference; target height and degree of seated rest may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-bodyweight-squats-to-a-bench).
 
 
 <a id="broad-jumps"></a>
@@ -222,11 +234,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#dead-hang).
 
-**Still / animation:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://i.ytimg.com/vi/9yVGh3XbJ34/hqdefault.jpg) — video-poster; NASM; [source page](https://www.nasm.org/resource-center/exercise-library/pull-up); [provenance](sources.md#v5253a653d243). Relationship: related-only.
+**Still / animation:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://i.ytimg.com/vi/9yVGh3XbJ34/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v5253a653d243). Relationship: related-only.
 
-**Video:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=9yVGh3XbJ34) — video; NASM; credited video creator: National Academy of Sports Medicine (NASM); [source page](https://www.nasm.org/resource-center/exercise-library/pull-up); [provenance](sources.md#v46c1f7ed68f4). Relationship: related-only.
+**Video:** [Dead hang](https://media.physitrack.com/exercises/a13d96a9-25ad-4acc-bd78-c6962d065a38/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#vb977ccab3981). Relationship: configuration-matched.
 
-**Match and limits:** Pull-up includes hanging support; a passive/timed dead hang is not established.
+**Match and limits:** Physitrack instructions specify an overhead bar, straight arms, feet clear of the floor and a timed hanging position; sampled frames show this support configuration. The source adds buttock tension; the guide permits a comfortable dead hang and does not prescribe a universally passive or active shoulder position.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-dead-hang).
+
+**Additional component / retained earlier comparison:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=9yVGh3XbJ34) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v46c1f7ed68f4).
 
 
 <a id="downward-dog-to-plank"></a>
@@ -234,11 +250,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#downward-dog-to-plank).
 
-**Still / animation:** [Downward dog](https://i.vimeocdn.com/video/1421699712-4cde8d4d8a252df9800cc1a6efe58703162eb61dfca10d05c806765e1df812b2-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vd8340d1b83cf). Relationship: related-only.
+**Still / animation:** [Downward dog](https://i.vimeocdn.com/video/1421699712-4cde8d4d8a252df9800cc1a6efe58703162eb61dfca10d05c806765e1df812b2-d_1280) — video-poster; Physitrack; [provenance](sources.md#vd8340d1b83cf). Relationship: related-only.
 
-**Video:** [Downward dog](https://vimeo.com/703930703/4b096ba87b) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vaed07f9adc1f). Relationship: related-only.
+**Video:** [Prone push up to downward dog](https://media.physitrack.com/exercises/71659252-8636-401e-aa96-c1f3599b32bb/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v7614b54616c1). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: Downward dog. The full Downward dog to plank equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Physitrack's prone-push-up-to-downward-dog instructions explicitly pass through a straight-arm plank, push the hips up/back and reverse the transition. Sampled frames show that floor-supported inverted-V phase. Only its plank-to-downward-dog transition matches this guide. The separate push-up phase is not added to the guide repetition.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-downward-dog-to-plank).
+
+**Additional component / retained earlier comparison:** [Downward dog](https://vimeo.com/703930703/4b096ba87b) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vaed07f9adc1f).
 
 
 <a id="explosive-push-ups"></a>
@@ -258,11 +278,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#fast-bodyweight-squats).
 
-**Still / animation:** [Bodyweight squat](https://i.vimeocdn.com/video/1421684151-55ccfc79f9e20f0c8e954d49df2a06071c593573b2af651fbd6866d61261ce76-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v2c05a92e2a55). Relationship: related-only.
+**Still / animation:** [Bodyweight squat](https://i.vimeocdn.com/video/1421684151-55ccfc79f9e20f0c8e954d49df2a06071c593573b2af651fbd6866d61261ce76-d_1280) — video-poster; Physitrack; [provenance](sources.md#v2c05a92e2a55). Relationship: related-only.
 
-**Video:** [Bodyweight squat](https://vimeo.com/703924489/8941013a35) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v1b7ca9492a57). Relationship: related-only.
+**Video:** [Bodyweight squat](https://vimeo.com/703924489/8941013a35) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v1b7ca9492a57). Relationship: related-only.
 
-**Match and limits:** Comparator: Bodyweight squat. The full Fast bodyweight squats equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Bodyweight squat. The full Fast bodyweight squats equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-fast-bodyweight-squats).
 
 
 <a id="fast-incline-push-ups"></a>
@@ -270,11 +292,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#fast-incline-push-ups).
 
-**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
+**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
 
-**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
+**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
 
-**Match and limits:** Incline push-up reference; support type and explosive/fast pace may differ.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Incline push-up reference; support type and explosive/fast pace may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-fast-incline-push-ups).
 
 
 <a id="glute-bridges"></a>
@@ -294,11 +318,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#half-kneeling-hip-flexor-stretch-with-reach).
 
-**Still / animation:** [Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647698003362-YG3E85O988I2F7Y1F9E2/Lunge%252BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/lunge-stretch); [provenance](sources.md#v3a6a153546af). Relationship: related-only.
+**Still / animation:** [Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647698003362-YG3E85O988I2F7Y1F9E2/Lunge%252BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#v3a6a153546af). Relationship: related-only.
 
-**Video:** [Lunge Stretch](https://www.youtube.com/watch?v=VRUpNw-jfWk) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/lunge-stretch); [provenance](sources.md#vc2b9e9b6441d). Relationship: related-only.
+**Video:** [Lunge Stretch](https://www.youtube.com/watch?v=VRUpNw-jfWk) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vc2b9e9b6441d). Relationship: related-only.
 
-**Match and limits:** Hip-flexor lunge stretch; overhead reach is not established.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Hip-flexor lunge stretch; overhead reach is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-half-kneeling-hip-flexor-stretch-with-reach).
 
 
 <a id="high-knee-marches"></a>
@@ -306,11 +332,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#high-knee-marches).
 
-**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
+**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
 
-**Video:** No accepted full-video reference; explicit format gap. Relationship: not-found.
+**Video:** [A Marches - Running warm up drill](https://www.youtube.com/watch?v=PUua5i6DzgE) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v996475f0a606). Relationship: configuration-matched.
 
-**Match and limits:** Published standing-march GIF inspected at three sample frames: arms forward and alternating knee lift. Full video metadata unavailable. Knee height and arm pattern differ between march/high-knee variants.
+**Match and limits:** Rehab Hero describes alternating a knee and the opposite arm to roughly hip/shoulder height from standing. Public previews show the in-place A-march with opposite arm coordination. This fills the high-knee-march video gap. The running-drill name A March is a naming equivalence; no running or skipping phase is implied.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-high-knee-marches).
 
 
 <a id="hip-circles"></a>
@@ -318,11 +346,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#hip-circles).
 
-**Still / animation:** [Hip Circles](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/fe3acc2c-92e0-4084-b97f-326c95bb13f4/hip+circles.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/hip-circles); [provenance](sources.md#vdb3b42cf9e9a). Relationship: related-only.
+**Still / animation:** [Hip Circles](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/fe3acc2c-92e0-4084-b97f-326c95bb13f4/hip+circles.jpg) — image; Rehab Hero; [provenance](sources.md#vdb3b42cf9e9a). Relationship: related-only.
 
-**Video:** [Hip Circles](https://www.youtube.com/watch?v=juriF6mPWv4) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/hip-circles); [provenance](sources.md#vda50430b58f4). Relationship: related-only.
+**Video:** [Hip circles](https://hw.qld.gov.au/wp-content/uploads/2026/08/HWQld-Exercise-HipCircles-FacingSide.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#v16661add3275). Relationship: configuration-matched.
 
-**Match and limits:** Written section is quadruped, not standing hip circles.
+**Match and limits:** Queensland instructions specify standing with hands on hips and circling the pelvis in both directions; sampled frames show that standing setup. This replaces quadruped hip circles. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-hip-circles).
+
+**Additional component / retained earlier comparison:** [Hip Circles](https://www.youtube.com/watch?v=juriF6mPWv4) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vda50430b58f4).
 
 
 <a id="hug-yourself-twists"></a>
@@ -330,11 +362,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#hug-yourself-twists).
 
-**Still / animation:** [Sitting active trunk rotations](https://i.vimeocdn.com/video/1421663005-3041c9d9d124a1b78b23922c4000558bf99c31b7b8d3456bab60c1342d8da727-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v69e993f6c373). Relationship: related-only.
+**Still / animation:** [Sitting active trunk rotations](https://i.vimeocdn.com/video/1421663005-3041c9d9d124a1b78b23922c4000558bf99c31b7b8d3456bab60c1342d8da727-d_1280) — video-poster; Physitrack; [provenance](sources.md#v69e993f6c373). Relationship: related-only.
 
-**Video:** [Sitting active trunk rotations](https://vimeo.com/703911315/f43827c8e5) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vd77cf509df0d). Relationship: related-only.
+**Video:** [Trunk rotations](https://hw.qld.gov.au/wp-content/uploads/2026/07/HWQld-Exercise-TrunkRotations-FacingFront.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#v2afe8fb42ee2). Relationship: configuration-matched.
 
-**Match and limits:** Seated trunk rotation is related only to the standing hug-yourself drill.
+**Match and limits:** Queensland instructions and sampled frames show standing with folded arms and turning the upper torso left/right. This replaces the seated trunk-rotation comparison. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-hug-yourself-twists).
+
+**Additional component / retained earlier comparison:** [Sitting active trunk rotations](https://vimeo.com/703911315/f43827c8e5) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vd77cf509df0d).
 
 
 <a id="inchworms"></a>
@@ -354,11 +390,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#incline-push-ups-on-a-bench).
 
-**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
+**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
 
-**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
+**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
 
-**Match and limits:** Incline push-up reference; support type and explosive/fast pace may differ.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Incline push-up reference; support type and explosive/fast pace may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-incline-push-ups-on-a-bench).
 
 
 <a id="incline-push-ups"></a>
@@ -378,11 +416,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#lat-stretch-holding-a-post).
 
-**Still / animation:** [How to Do a Static Latissimus Dorsi Ball Stretch](https://i.ytimg.com/vi/kEH6jatSVSw/hqdefault.jpg) — video-poster; NASM; [source page](https://www.nasm.org/resource-center/exercise-library/static-latissimus-dorsi-ball-stretch); [provenance](sources.md#v3d8e7d885b8a). Relationship: related-only.
+**Still / animation:** [How to Do a Static Latissimus Dorsi Ball Stretch](https://i.ytimg.com/vi/kEH6jatSVSw/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v3d8e7d885b8a). Relationship: related-only.
 
-**Video:** [How to Do a Static Latissimus Dorsi Ball Stretch](https://www.youtube.com/watch?v=kEH6jatSVSw) — video; NASM; credited video creator: National Academy of Sports Medicine (NASM); [source page](https://www.nasm.org/resource-center/exercise-library/static-latissimus-dorsi-ball-stretch); [provenance](sources.md#v304ee1d6aa54). Relationship: related-only.
+**Video:** [How to Do a Static Latissimus Dorsi Ball Stretch](https://www.youtube.com/watch?v=kEH6jatSVSw) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v304ee1d6aa54). Relationship: related-only.
 
-**Match and limits:** Ball lat stretch is related only to holding a post.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Ball lat stretch is related only to holding a post. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-lat-stretch-holding-a-post).
 
 
 <a id="lateral-shuffles"></a>
@@ -390,11 +430,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#lateral-shuffles).
 
-**Still / animation:** [Agility – change of direction - acceleration - deceleration](https://i.vimeocdn.com/video/1421677492-6996fcaa60d696e30785ff2da6993ad1fa879a62458b64ed54fd9b0429427372-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vc97854a45908). Relationship: related-only.
+**Still / animation:** [Agility – change of direction - acceleration - deceleration](https://i.vimeocdn.com/video/1421677492-6996fcaa60d696e30785ff2da6993ad1fa879a62458b64ed54fd9b0429427372-d_1280) — video-poster; Physitrack; [provenance](sources.md#vc97854a45908). Relationship: related-only.
 
-**Video:** [Agility – change of direction - acceleration - deceleration](https://vimeo.com/703920017/c14e5db6bf) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v629dd6644cbd). Relationship: related-only.
+**Video:** [DYNAMIC WARM UP Side Shuffles updated](https://www.youtube.com/watch?v=P6bTrTSnitc) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#v4d220727154b). Relationship: configuration-matched.
 
-**Match and limits:** Agility change-of-direction reference; a continuous lateral shuffle is not established.
+**Match and limits:** Special Olympics labels the drill Side Shuffles; public previews show a standing athletic stance with sideways steps and uncrossed legs. This establishes the lateral shuffle rather than an unspecified change-of-direction drill. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-lateral-shuffles).
+
+**Additional component / retained earlier comparison:** [Agility – change of direction - acceleration - deceleration](https://vimeo.com/703920017/c14e5db6bf) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v629dd6644cbd).
 
 
 <a id="leg-swings-front-to-back-and-side-to-side"></a>
@@ -402,11 +446,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#leg-swings-front-to-back-and-side-to-side).
 
-**Still / animation:** [Front Leg Swing](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629833467071-HJ94C2YWN9R9C8K6BUIR/Front%2BLeg%2BSwing.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/front-leg-swing); [provenance](sources.md#vca44a095522a). Relationship: related-only.
+**Still / animation:** [Front Leg Swing](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629833467071-HJ94C2YWN9R9C8K6BUIR/Front%2BLeg%2BSwing.jpg) — image; Rehab Hero; [provenance](sources.md#vca44a095522a). Relationship: related-only.
 
-**Video:** [Front Leg Swing](https://www.youtube.com/watch?v=NYn9R3WyKzI) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/front-leg-swing); [provenance](sources.md#v61bcb4bde0f1). Relationship: related-only.
+**Video:** [DYNAMIC WARM UP Forward and Lateral Leg Swings updated](https://www.youtube.com/watch?v=sHKx2FRVQcQ) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#v37c3808bc364). Relationship: configuration-matched.
 
-**Match and limits:** Forward swing shown; side-to-side direction requires a separate comparison.
+**Match and limits:** Special Olympics publishes a combined forward and lateral leg-swing demonstration. Public previews show a standing person using a chair for support and swinging the free leg in the two named directions. The updated combined clip is selected. Full sequencing, cadence and comfortable range still need playback review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-leg-swings-front-to-back-and-side-to-side).
+
+**Additional component / retained earlier comparison:** [Front Leg Swing](https://www.youtube.com/watch?v=NYn9R3WyKzI) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v61bcb4bde0f1).
 
 
 <a id="leg-swings-front-to-back"></a>
@@ -414,11 +462,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#leg-swings-front-to-back).
 
-**Still / animation:** [Front Leg Swing](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629833467071-HJ94C2YWN9R9C8K6BUIR/Front%2BLeg%2BSwing.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/front-leg-swing); [provenance](sources.md#vca44a095522a). Relationship: related-only.
+**Still / animation:** [Front Leg Swing](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629833467071-HJ94C2YWN9R9C8K6BUIR/Front%2BLeg%2BSwing.jpg) — image; Rehab Hero; [provenance](sources.md#vca44a095522a). Relationship: related-only.
 
-**Video:** [Front Leg Swing](https://www.youtube.com/watch?v=NYn9R3WyKzI) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/front-leg-swing); [provenance](sources.md#v61bcb4bde0f1). Relationship: related-only.
+**Video:** [DYNAMIC WARM UP Forward and Lateral Leg Swings updated](https://www.youtube.com/watch?v=sHKx2FRVQcQ) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#v37c3808bc364). Relationship: configuration-matched.
 
-**Match and limits:** Forward swing shown; side-to-side direction requires a separate comparison.
+**Match and limits:** Special Olympics combined leg-swing demonstration includes the supported front-to-back component; public previews show the chair-supported forward swing. Only its forward-swing section is relevant here; the separate lateral component is not part of this guide repetition.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-leg-swings-front-to-back).
+
+**Additional component / retained earlier comparison:** [Front Leg Swing](https://www.youtube.com/watch?v=NYn9R3WyKzI) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v61bcb4bde0f1).
 
 
 <a id="low-box-jumps"></a>
@@ -426,11 +478,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#low-box-jumps).
 
-**Still / animation:** [How To Do Box Jumps](https://i.ytimg.com/vi/k7dmYdknbac/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/plyometrics/jumps/box-jumps/); [provenance](sources.md#ve5d1c07d1577). Relationship: related-only.
+**Still / animation:** [How To Do Box Jumps](https://i.ytimg.com/vi/k7dmYdknbac/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve5d1c07d1577). Relationship: related-only.
 
-**Video:** [How To Do Box Jumps](https://www.youtube.com/watch?v=k7dmYdknbac) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/plyometrics/jumps/box-jumps/); [provenance](sources.md#v1e59409bf9d7). Relationship: related-only.
+**Video:** [How To Do Box Jumps](https://www.youtube.com/watch?v=k7dmYdknbac) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v1e59409bf9d7). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: How To Do Box Jumps. The full Low box jumps equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** PureGym box-jump previews show a low box in front of the athlete and a two-foot reception onto its top. This establishes the forward low-box task rather than lateral or single-leg jumping. Full landing mechanics and deliberate step-down behaviour remain unreviewed in motion.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-low-box-jumps).
 
 
 <a id="marching-knee-lifts"></a>
@@ -438,11 +492,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#marching-knee-lifts).
 
-**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
+**Still / animation:** [Marching on spot with arms](https://cdn.prod.website-files.com/622a2493e852641b8fd6d827/62998eb6a6cdac7b99540812_629959621b962e624607c1d8_2.%2520Marching%2520on%2520spot%2520with%2520arms.gif) — animated-image; Physitrack; [provenance](sources.md#v809f467b7d2f). Relationship: related-only.
 
-**Video:** No accepted full-video reference; explicit format gap. Relationship: not-found.
+**Video:** [Marching on the spot](https://hw.qld.gov.au/wp-content/uploads/2026/08/HWQld-Exercise-MarchingOnTheSpot-FacingSide.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#v66ba207ac309). Relationship: configuration-matched.
 
-**Match and limits:** Published standing-march GIF inspected at three sample frames: arms forward and alternating knee lift. Full video metadata unavailable. Knee height and arm pattern differ between march/high-knee variants.
+**Match and limits:** Queensland written instructions and sampled frames show standing alternating knee lifts with coordinated opposite arm movement. This supplies a direct full-video reference rather than a GIF alone. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-marching-knee-lifts).
 
 
 <a id="medicine-ball-chest-pass"></a>
@@ -486,11 +542,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#prone-y-t-w-raises).
 
-**Still / animation:** [How To Do Y Raises (Incline)](https://i.ytimg.com/vi/gDHQX1iend4/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/y-raises/); [provenance](sources.md#v810561aa51b8). Relationship: related-only.
+**Still / animation:** [How To Do Y Raises (Incline)](https://i.ytimg.com/vi/gDHQX1iend4/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v810561aa51b8). Relationship: related-only.
 
-**Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/y-raises/); [provenance](sources.md#vb458d949a62c). Relationship: related-only.
+**Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Y-raise component shown; the full Y-T-W sequence/support is not established.
+**Match and limits:** Physitrack provides a prone shoulder-series video; its complete written sequence includes extension, T, Y and a bent-elbow L with extra forearm rotations. The source explicitly names L rather than the catalog W and adds other phases. That sequence and arm-angle difference need comparison before treating it as the exact Y-T-W guide.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-prone-y-t-w-raises).
 
 
 <a id="push-up-to-downward-dog"></a>
@@ -498,11 +556,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#push-up-to-downward-dog).
 
-**Still / animation:** [How To Do Press Ups](https://i.ytimg.com/vi/Env8gAr_QnE/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/push-ups/); [provenance](sources.md#v267ea0d824b3). Relationship: related-only.
+**Still / animation:** [How To Do Press Ups](https://i.ytimg.com/vi/Env8gAr_QnE/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v267ea0d824b3). Relationship: related-only.
 
-**Video:** [How To Do Press Ups](https://www.youtube.com/watch?v=Env8gAr_QnE) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/push-ups/); [provenance](sources.md#v003ad3ae3192). Relationship: related-only.
+**Video:** [Prone push up to downward dog](https://media.physitrack.com/exercises/71659252-8636-401e-aa96-c1f3599b32bb/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v7614b54616c1). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: How To Do Press Ups. The full Push-up to downward dog equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Physitrack instructions describe pressing from prone into a straight-arm plank and then pushing back to downward dog; sampled frames show the floor support and raised-hip phase. The complete transition timing and spinal control remain unreviewed in motion.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-push-up-to-downward-dog).
+
+**Additional component / retained earlier comparison:** [How To Do Press Ups](https://www.youtube.com/watch?v=Env8gAr_QnE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v003ad3ae3192).
 
 
 <a id="push-ups"></a>
@@ -522,11 +584,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#reach-and-pull).
 
-**Still / animation:** [Row, seated' Shoulder extension strengthening, with weight machine; 01](https://i.vimeocdn.com/video/1420230338-74959e477b6b7de5849afec83800a5fd446e9862348192dd26d9c8b0dd884bfc-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vf63a8dad9976). Relationship: related-only.
+**Still / animation:** [Row, seated' Shoulder extension strengthening, with weight machine; 01](https://i.vimeocdn.com/video/1420230338-74959e477b6b7de5849afec83800a5fd446e9862348192dd26d9c8b0dd884bfc-d_1280) — video-poster; Physitrack; [provenance](sources.md#vf63a8dad9976). Relationship: related-only.
 
-**Video:** [Row, seated' Shoulder extension strengthening, with weight machine; 01](https://vimeo.com/703011088/968144d7c0) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v3e0fa7b19816). Relationship: related-only.
+**Video:** [Row, seated' Shoulder extension strengthening, with weight machine; 01](https://vimeo.com/703011088/968144d7c0) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v3e0fa7b19816). Relationship: related-only.
 
-**Match and limits:** Machine row is a related comparison; unloaded reach-and-pull differs.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Machine row is a related comparison; unloaded reach-and-pull differs. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-reach-and-pull).
 
 
 <a id="reverse-arm-swings"></a>
@@ -534,11 +598,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#reverse-arm-swings).
 
-**Still / animation:** [Shoulder circles](https://i.vimeocdn.com/video/1421662931-bbcd5f046e8d19551a10d2bf702e3966878b0069f02a4f11a4ee2fd35daaf0f4-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v6c0df92bec45). Relationship: related-only.
+**Still / animation:** [Shoulder circles](https://i.vimeocdn.com/video/1421662931-bbcd5f046e8d19551a10d2bf702e3966878b0069f02a4f11a4ee2fd35daaf0f4-d_1280) — video-poster; Physitrack; [provenance](sources.md#v6c0df92bec45). Relationship: related-only.
 
-**Video:** [Shoulder circles](https://vimeo.com/703911259/6b59f087e9) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vaef72809657a). Relationship: related-only.
+**Video:** [Shoulder circles](https://vimeo.com/703911259/6b59f087e9) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vaef72809657a). Relationship: related-only.
 
-**Match and limits:** Shoulder-circle reference; reverse arm swings are a different arc/sequence.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Shoulder-circle reference; reverse arm swings are a different arc/sequence. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-reverse-arm-swings).
 
 
 <a id="reverse-lunges-in-place"></a>
@@ -546,11 +612,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#reverse-lunges-in-place).
 
-**Still / animation:** [How To Reverse Lunge](https://i.ytimg.com/vi/xrPteyQLGAo/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/lunges/reverse-lunges/); [provenance](sources.md#vaa40acb36577). Relationship: related-only.
+**Still / animation:** [How To Reverse Lunge](https://i.ytimg.com/vi/xrPteyQLGAo/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vaa40acb36577). Relationship: related-only.
 
-**Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/lunges/reverse-lunges/); [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
+**Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
 
-**Match and limits:** Comparator: How To Reverse Lunge. The full Reverse lunges in place equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Reverse Lunge. The full Reverse lunges in place equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-reverse-lunges-in-place).
 
 
 <a id="scap-pull-ups"></a>
@@ -570,11 +638,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#scap-push-ups).
 
-**Still / animation:** [Scapular push up using desk](https://hw.qld.gov.au/wp-content/uploads/2026/06/HWQld-Exercise-ScapularPushUpsWithDesk-620x375px.jpg) — image; Health and Wellbeing Queensland; [source page](https://hw.qld.gov.au/physical-activity/scapular-push-up-using-desk/); [provenance](sources.md#vb642e1b0c9c2). Relationship: related-only.
+**Still / animation:** [Scapular push up using desk](https://hw.qld.gov.au/wp-content/uploads/2026/06/HWQld-Exercise-ScapularPushUpsWithDesk-620x375px.jpg) — image; Health and Wellbeing Queensland; [provenance](sources.md#vb642e1b0c9c2). Relationship: related-only.
 
-**Video:** [Scapular push-up using desk](https://hw.qld.gov.au/wp-content/uploads/2026/03/HWQld-Exercise-ScapularPushUpUsingDesk2.webm) — video; Health and Wellbeing Queensland; [source page](https://hw.qld.gov.au/physical-activity/scapular-push-up-using-desk/); [provenance](sources.md#v4dbba3d8777f). Relationship: related-only.
+**Video:** [Scapular push-up using desk](https://hw.qld.gov.au/wp-content/uploads/2026/03/HWQld-Exercise-ScapularPushUpUsingDesk2.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#v4dbba3d8777f). Relationship: configuration-matched.
 
-**Match and limits:** Government health-service elevated scapular push-up; floor height is an adaptation.
+**Match and limits:** Queensland explicitly demonstrates elevated scapular push-ups and permits lowering the support to the floor. The internal guide also permits a stable incline, so this is an allowed support configuration. This does not mean the desk clip is direct evidence of floor execution.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-scap-push-ups).
 
 
 <a id="side-lunges"></a>
@@ -594,11 +664,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#bodyweight-good-mornings).
 
-**Still / animation:** [How to Do the Good Mornings](https://i.ytimg.com/vi/Daq-wJMUnes/hqdefault.jpg) — video-poster; NASM; [source page](https://www.nasm.org/resource-center/exercise-library/good-mornings); [provenance](sources.md#vb429e6c7a7d2). Relationship: related-only.
+**Still / animation:** [How to Do the Good Mornings](https://i.ytimg.com/vi/Daq-wJMUnes/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#vb429e6c7a7d2). Relationship: related-only.
 
-**Video:** [How to Do the Good Mornings](https://www.youtube.com/watch?v=Daq-wJMUnes) — video; NASM; credited video creator: National Academy of Sports Medicine (NASM); [source page](https://www.nasm.org/resource-center/exercise-library/good-mornings); [provenance](sources.md#v93718da50334). Relationship: related-only.
+**Video:** [Bodyweight Good Mornings (Exercise Library)](https://www.youtube.com/watch?v=61zbhuRiwQg) — video; Horton Barbell; credited creator: Horton Barbell; [provenance](sources.md#vcd6e456a275c). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: How to Do the Good Mornings. The full Bodyweight good mornings equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Horton Barbell public previews show standing with no external load, hands beside the head and a hip hinge to/from a forward torso angle. This resolves the loaded-barbell comparison. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-bodyweight-good-mornings).
+
+**Additional component / retained earlier comparison:** [How to Do the Good Mornings](https://www.youtube.com/watch?v=Daq-wJMUnes) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v93718da50334).
 
 
 <a id="calf-raises"></a>
@@ -618,11 +692,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#deep-squat-hold).
 
-**Still / animation:** [Deep Squat Rotations](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647641374580-I1C4M33N3ZR71W9GBMJI/Deep%252BSquat%252BRotations.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/deep-squat-rotations); [provenance](sources.md#vf447810e00e5). Relationship: related-only.
+**Still / animation:** [Deep Squat Rotations](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647641374580-I1C4M33N3ZR71W9GBMJI/Deep%252BSquat%252BRotations.jpg) — image; Rehab Hero; [provenance](sources.md#vf447810e00e5). Relationship: related-only.
 
-**Video:** [Deep Squat Rotations](https://www.youtube.com/watch?v=FGnx6WECOH8) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/deep-squat-rotations); [provenance](sources.md#v5fb96162249b). Relationship: related-only.
+**Video:** [Deep Squat Rotations](https://www.youtube.com/watch?v=FGnx6WECOH8) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v5fb96162249b). Relationship: related-only.
 
-**Match and limits:** Comparator: Deep Squat Rotations. The full Deep squat hold equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Deep Squat Rotations. The full Deep squat hold equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-deep-squat-hold).
 
 
 <a id="bodyweight-squats"></a>
@@ -690,11 +766,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#spiderman-lunge-with-reach).
 
-**Still / animation:** [Spiderman Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647641248893-57M9LR5XGEXMLR4GVNFS/Spiderman%2BLunge.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/spiderman-lunge-stretch); [provenance](sources.md#vd21322c3b4a4). Relationship: related-only.
+**Still / animation:** [Spiderman Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647641248893-57M9LR5XGEXMLR4GVNFS/Spiderman%2BLunge.jpg) — image; Rehab Hero; [provenance](sources.md#vd21322c3b4a4). Relationship: related-only.
 
-**Video:** [Spiderman Lunge Stretch](https://www.youtube.com/watch?v=30kKZnF9XTc) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/spiderman-lunge-stretch); [provenance](sources.md#vf430b0bd7a5e). Relationship: related-only.
+**Video:** [Spiderman Lunge Stretch](https://www.youtube.com/watch?v=30kKZnF9XTc) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vf430b0bd7a5e). Relationship: related-only.
 
-**Match and limits:** Spiderman lunge shown; compare the added thoracic/arm reach.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Spiderman lunge shown; compare the added thoracic/arm reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-spiderman-lunge-with-reach).
 
 
 <a id="cossack-squats"></a>
@@ -714,11 +792,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#goblet-squat-pry).
 
-**Still / animation:** [How To Do A Goblet squat](https://i.ytimg.com/vi/zBV3ceGyAxw/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/squats/goblet-squat/); [provenance](sources.md#vcbdb8da1f558). Relationship: related-only.
+**Still / animation:** [How To Do A Goblet squat](https://i.ytimg.com/vi/zBV3ceGyAxw/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vcbdb8da1f558). Relationship: related-only.
 
-**Video:** [How To Do A Goblet squat](https://www.youtube.com/watch?v=zBV3ceGyAxw) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/squats/goblet-squat/); [provenance](sources.md#v55859f5a4aa3). Relationship: related-only.
+**Video:** [How To Do A Goblet squat](https://www.youtube.com/watch?v=zBV3ceGyAxw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v55859f5a4aa3). Relationship: related-only.
 
-**Match and limits:** Comparator: How To Do A Goblet squat. The full Goblet squat pry equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Goblet squat. The full Goblet squat pry equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-goblet-squat-pry).
 
 
 <a id="kettlebell-halos"></a>
@@ -738,11 +818,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#band-face-pulls).
 
-**Still / animation:** [Face Pulls](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1646928014319-D3V2IJCAQ3Z41QC7VJZU/Banded%2BFace%2BPulls.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/face-pulls); [provenance](sources.md#vba514d0abf72). Relationship: related-only.
+**Still / animation:** [Face Pulls](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1646928014319-D3V2IJCAQ3Z41QC7VJZU/Banded%2BFace%2BPulls.jpg) — image; Rehab Hero; [provenance](sources.md#vba514d0abf72). Relationship: related-only.
 
-**Video:** [Face Pulls](https://www.youtube.com/watch?v=e8APCEYbpVY) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/face-pulls); [provenance](sources.md#v41c3701b352e). Relationship: related-only.
+**Video:** [Face Pulls](https://www.youtube.com/watch?v=e8APCEYbpVY) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v41c3701b352e). Relationship: related-only.
 
-**Match and limits:** Comparator: Face Pulls. The full Band face pulls equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Face Pulls. The full Band face pulls equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-band-face-pulls).
 
 
 <a id="ankle-rocks-against-a-wall"></a>
@@ -750,11 +832,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#ankle-rocks-against-a-wall).
 
-**Still / animation:** [Ankle Rocks](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1648058350917-DN720O0M3A8VCSIUM2EW/Ankle%2BRocks.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/ankle-rocks); [provenance](sources.md#v7990239db5c5). Relationship: related-only.
+**Still / animation:** [Ankle Rocks](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1648058350917-DN720O0M3A8VCSIUM2EW/Ankle%2BRocks.jpg) — image; Rehab Hero; [provenance](sources.md#v7990239db5c5). Relationship: related-only.
 
-**Video:** [Ankle Rocks](https://www.youtube.com/watch?v=dr1FYumuGC4) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/ankle-rocks); [provenance](sources.md#vb3e284b43d4e). Relationship: related-only.
+**Video:** [Ankle Rocks](https://www.youtube.com/watch?v=dr1FYumuGC4) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb3e284b43d4e). Relationship: related-only.
 
-**Match and limits:** Ankle dorsiflexion reference; confirm the actual wall/support setup.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Ankle dorsiflexion reference; confirm the actual wall/support setup. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-ankle-rocks-against-a-wall).
 
 
 <a id="hip-airplanes"></a>
@@ -786,11 +870,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#quadruped-t-spine-reach).
 
-**Still / animation:** [“Thread the needle”](https://i.vimeocdn.com/video/1421649674-2d64c74bda9d06fd41ace7318e8288bead37f12530483b184c8c882857b9bd1c-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v5f70722f2cd8). Relationship: related-only.
+**Still / animation:** [“Thread the needle”](https://i.vimeocdn.com/video/1421649674-2d64c74bda9d06fd41ace7318e8288bead37f12530483b184c8c882857b9bd1c-d_1280) — video-poster; Physitrack; [provenance](sources.md#v5f70722f2cd8). Relationship: related-only.
 
-**Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
+**Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
 
-**Match and limits:** Quadruped thread-the-needle rotation is related to the open-hand thoracic reach.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Quadruped thread-the-needle rotation is related to the open-hand thoracic reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-quadruped-t-spine-reach).
 
 
 <a id="seated-twists"></a>
@@ -834,11 +920,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#shoulder-taps-on-the-wall).
 
-**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
+**Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
 
-**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/chest/press-up/incline-push-ups/); [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
+**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
 
-**Match and limits:** Elevated push-up support is related; wall contact/tapping is not established.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Elevated push-up support is related; wall contact/tapping is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-shoulder-taps-on-the-wall).
 
 
 <a id="sit-to-stands-from-a-chair"></a>
@@ -858,11 +946,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#split-squat-holds).
 
-**Still / animation:** [How To Do A Split Squat](https://i.ytimg.com/vi/rlvpaDkc76g/hqdefault.jpg) — video-poster; PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/squats/split-squats/); [provenance](sources.md#v1d203075314d). Relationship: related-only.
+**Still / animation:** [How To Do A Split Squat](https://i.ytimg.com/vi/rlvpaDkc76g/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v1d203075314d). Relationship: related-only.
 
-**Video:** [How To Do A Split Squat](https://www.youtube.com/watch?v=rlvpaDkc76g) — video; PureGym; credited video creator: PureGym; [source page](https://www.puregym.com/exercises/legs/quad-exercises/squats/split-squats/); [provenance](sources.md#vcd4859771e13). Relationship: related-only.
+**Video:** [How To Do A Split Squat](https://www.youtube.com/watch?v=rlvpaDkc76g) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vcd4859771e13). Relationship: related-only.
 
-**Match and limits:** Comparator: How To Do A Split Squat. The full Split squat holds equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Split Squat. The full Split squat holds equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-split-squat-holds).
 
 
 <a id="standing-back-arch-and-round"></a>
@@ -882,11 +972,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#standing-hip-extensions).
 
-**Still / animation:** [Extension of the hip](https://i.vimeocdn.com/video/1421674811-346ee43e26f4556dc2fd68b4a570d4d0d77823fc0f91c5fee3b3ec4c50f47550-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v8d3681e6c11c). Relationship: related-only.
+**Still / animation:** [Extension of the hip](https://i.vimeocdn.com/video/1421674811-346ee43e26f4556dc2fd68b4a570d4d0d77823fc0f91c5fee3b3ec4c50f47550-d_1280) — video-poster; Physitrack; [provenance](sources.md#v8d3681e6c11c). Relationship: related-only.
 
-**Video:** [Extension of the hip](https://vimeo.com/703917890/cf33efd114) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v15028201423a). Relationship: related-only.
+**Video:** [Extension of the hip](https://vimeo.com/703917890/cf33efd114) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v15028201423a). Relationship: related-only.
 
-**Match and limits:** Comparator: Extension of the hip. The full Standing hip extensions equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Extension of the hip. The full Standing hip extensions equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-standing-hip-extensions).
 
 
 <a id="standing-knee-hugs"></a>
@@ -894,11 +986,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#standing-knee-hugs).
 
-**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vb297b837b65c). Relationship: related-only.
+**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c). Relationship: related-only.
 
-**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v65c6141493f8). Relationship: related-only.
+**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
 
-**Match and limits:** Supine knee hug is related only; standing support and walking transitions are not shown.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only; standing support and walking transitions are not shown. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-standing-knee-hugs).
 
 
 <a id="walking-knee-hugs"></a>
@@ -906,11 +1000,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#walking-knee-hugs).
 
-**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vb297b837b65c). Relationship: related-only.
+**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c). Relationship: related-only.
 
-**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v65c6141493f8). Relationship: related-only.
+**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
 
-**Match and limits:** Supine knee hug is related only; standing support and walking transitions are not shown.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only; standing support and walking transitions are not shown. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-walking-knee-hugs).
 
 
 <a id="thoracic-rotations-on-hands-and-knees"></a>
@@ -918,11 +1014,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#thoracic-rotations-on-hands-and-knees).
 
-**Still / animation:** [“Thread the needle”](https://i.vimeocdn.com/video/1421649674-2d64c74bda9d06fd41ace7318e8288bead37f12530483b184c8c882857b9bd1c-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v5f70722f2cd8). Relationship: related-only.
+**Still / animation:** [“Thread the needle”](https://i.vimeocdn.com/video/1421649674-2d64c74bda9d06fd41ace7318e8288bead37f12530483b184c8c882857b9bd1c-d_1280) — video-poster; Physitrack; [provenance](sources.md#v5f70722f2cd8). Relationship: related-only.
 
-**Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
+**Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
 
-**Match and limits:** Quadruped thread-the-needle rotation is related to the open-hand thoracic reach.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Quadruped thread-the-needle rotation is related to the open-hand thoracic reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-thoracic-rotations-on-hands-and-knees).
 
 
 <a id="thread-the-needle"></a>
@@ -978,11 +1076,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#wall-slides).
 
-**Still / animation:** [Serratus Wall Slide](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/27b5040e-7fe8-44c2-905c-38f3cfdcd5e2/Serratus+Wall+Slide.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/serratus-wall-slide); [provenance](sources.md#v33c94128b5bf). Relationship: related-only.
+**Still / animation:** [Serratus Wall Slide](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/27b5040e-7fe8-44c2-905c-38f3cfdcd5e2/Serratus+Wall+Slide.jpg) — image; Rehab Hero; [provenance](sources.md#v33c94128b5bf). Relationship: related-only.
 
-**Video:** [Serratus Wall Slide](https://www.youtube.com/watch?v=7kS0RFd9g0M) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/serratus-wall-slide); [provenance](sources.md#v57ba96a3c411). Relationship: related-only.
+**Video:** [Forearm wall slides](https://media.physitrack.com/exercises/1c3e6f30-4ab4-4461-b3f5-153799df6a29/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v5648dcdd87cd). Relationship: configuration-matched.
 
-**Match and limits:** Forearm wall slide includes a band; compare resistance and arm contact.
+**Match and limits:** Physitrack instructions and sampled frames show forearms on a wall and sliding the arms upward without a band. The guide permits a forearm-supported version. Back-to-wall arm slides are a different wall-contact arrangement; this reference is specifically face-to-wall forearm support.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-wall-slides).
+
+**Additional component / retained earlier comparison:** [Serratus Wall Slide](https://www.youtube.com/watch?v=7kS0RFd9g0M) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v57ba96a3c411).
 
 
 <a id="world-s-greatest-stretch"></a>
@@ -1002,11 +1104,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#biceps-wall-stretch).
 
-**Still / animation:** [Biceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1646698258460-1CHW7MGYY6K53U5GKLCI/Biceps%2BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/biceps-stretch); [provenance](sources.md#ve2a89a0055b0). Relationship: related-only.
+**Still / animation:** [Biceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1646698258460-1CHW7MGYY6K53U5GKLCI/Biceps%2BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#ve2a89a0055b0). Relationship: related-only.
 
-**Video:** [Biceps Stretch](https://www.youtube.com/watch?v=TTLQXT9MS1g) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/biceps-stretch); [provenance](sources.md#vd78f383570c2). Relationship: related-only.
+**Video:** [Biceps Stretch](https://www.youtube.com/watch?v=TTLQXT9MS1g) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vd78f383570c2). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: Biceps Stretch. The full Biceps wall stretch equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Rehab Hero explicitly describes an arm around shoulder height with the hand supported against a wall, doorframe or rack and turning the trunk away. The exercise still identifies that supported biceps-stretch configuration. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-biceps-wall-stretch).
 
 
 <a id="butterfly-stretch"></a>
@@ -1050,11 +1154,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#cobra-stretch).
 
-**Still / animation:** [Cobra pose](https://i.vimeocdn.com/video/1421695249-fde4af159cdd56efc662a00bfae0a35db3131dfc43587ae99ea5576f3e1dbb4d-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vdc25e70c5e84). Relationship: related-only.
+**Still / animation:** [Cobra pose](https://i.vimeocdn.com/video/1421695249-fde4af159cdd56efc662a00bfae0a35db3131dfc43587ae99ea5576f3e1dbb4d-d_1280) — video-poster; Physitrack; [provenance](sources.md#vdc25e70c5e84). Relationship: related-only.
 
-**Video:** [Cobra pose](https://vimeo.com/703931112/eda00b70fd) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v74b2a2a9b581). Relationship: related-only.
+**Video:** [Cobra stretch](https://media.physitrack.com/exercises/b7fa9688-e340-4f84-bbca-9b4b404e9b26/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#vc6dda1e1d573). Relationship: configuration-matched.
 
-**Match and limits:** Cobra pose reference.
+**Match and limits:** Physitrack instructions and sampled frames show lying prone with hands beside the shoulders and lifting the chest into a cobra-style supported extension. The internal guide permits a low version; this is not evidence that everyone should reach full elbow extension.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-cobra-stretch).
+
+**Additional component / retained earlier comparison:** [Cobra pose](https://vimeo.com/703931112/eda00b70fd) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v74b2a2a9b581).
 
 
 <a id="cross-body-shoulder-stretch"></a>
@@ -1062,11 +1170,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#cross-body-shoulder-stretch).
 
-**Still / animation:** [Crossover Arm Stretch](https://www.orthoinfo.org/contentassets/8a7cd4f2d9d54605b7f875489feca90c/compr_a00071f06_crossover-kh.jpg) — image; AAOS OrthoInfo; [source page](https://www.orthoinfo.org/bodypart/shoulder/rotator-cuff-and-shoulder-conditioning-program/); [provenance](sources.md#v8637c372872a). Relationship: same-labelled-movement.
+**Still / animation:** [Crossover Arm Stretch](https://www.orthoinfo.org/contentassets/8a7cd4f2d9d54605b7f875489feca90c/compr_a00071f06_crossover-kh.jpg) — image; AAOS OrthoInfo; [provenance](sources.md#v8637c372872a). Relationship: same-labelled-movement.
 
-**Video:** No accepted full-video reference; explicit format gap. Relationship: not-found.
+**Video:** [COOL DOWN Cross Body Shoulder Stretch updated](https://www.youtube.com/watch?v=mMOzQRRZI0k) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#v2400f0a9b538). Relationship: configuration-matched.
 
-**Match and limits:** AAOS cross-body figure is the accepted static reference. General overhead stretch video was rejected as a different shoulder direction.
+**Match and limits:** Special Olympics publishes this as its cross-body shoulder cool-down demonstration. Public clip previews show one arm brought across the chest and supported by the opposite arm; the credited video channel is Special Olympics. This fills the video gap; the existing AAOS illustration remains independently credited.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-cross-body-shoulder-stretch).
 
 
 <a id="doorway-chest-stretch"></a>
@@ -1098,11 +1208,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#half-kneeling-hip-flexor-stretch).
 
-**Still / animation:** [Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647698003362-YG3E85O988I2F7Y1F9E2/Lunge%252BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/lunge-stretch); [provenance](sources.md#v3a6a153546af). Relationship: related-only.
+**Still / animation:** [Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647698003362-YG3E85O988I2F7Y1F9E2/Lunge%252BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#v3a6a153546af). Relationship: related-only.
 
-**Video:** [Lunge Stretch](https://www.youtube.com/watch?v=VRUpNw-jfWk) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/lunge-stretch); [provenance](sources.md#vc2b9e9b6441d). Relationship: related-only.
+**Video:** [Half-kneeling hip flexor stretch](https://media.physitrack.com/exercises/b8e86696-68c8-4962-adeb-e03bc73af5ec/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#vab2a8c1e92f4). Relationship: configuration-matched.
 
-**Match and limits:** Hip-flexor lunge stretch; overhead reach is not established.
+**Match and limits:** Physitrack written instructions and sampled frames show one knee down, the opposite foot forward and a controlled hip-flexor lunge stretch. No overhead reach is required by this guide. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-half-kneeling-hip-flexor-stretch).
+
+**Additional component / retained earlier comparison:** [Lunge Stretch](https://www.youtube.com/watch?v=VRUpNw-jfWk) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vc2b9e9b6441d).
 
 
 <a id="hands-behind-back-chest-opener"></a>
@@ -1122,11 +1236,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#kneeling-shin-stretch).
 
-**Still / animation:** No accepted static reference; explicit format gap. Relationship: not-found.
+**Still / animation:** No accepted static reference. Relationship: not-found.
 
-**Video:** [Shin stretch (Tibialis anterior)](https://media.physitrack.com/exercises/b9b333a4-7565-46b7-9e29-9e6044a6d0dc/en/video_1280x720.mp4) — video; Physitrack; [source page](https://us.physitrack.com/home-exercise-video/shin-stretch-%2528tibialis-anterior%2529); [provenance](sources.md#v90d446c4fa1e). Relationship: related-only.
+**Video:** [Shin stretch (Tibialis anterior)](https://media.physitrack.com/exercises/b9b333a4-7565-46b7-9e29-9e6044a6d0dc/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v90d446c4fa1e). Relationship: configuration-matched.
 
-**Match and limits:** Comparator: Shin stretch (Tibialis anterior). The full Kneeling shin stretch equipment, support, load, direction or sequence is not established by this reference.
+**Match and limits:** Physitrack exercise-specific instructions specify kneeling on the floor and settling back onto the heels to stretch the front of the shin. This is the kneeling shin stretch, not a standing toe-drag stretch. The direct publisher video link returned video content. Motion and individual knee/ankle tolerance remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-kneeling-shin-stretch).
 
 
 <a id="lying-cross-body-glute-stretch"></a>
@@ -1134,11 +1250,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#lying-cross-body-glute-stretch).
 
-**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#vb297b837b65c). Relationship: related-only.
+**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c). Relationship: related-only.
 
-**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited video creator: Physitrack; [source page](https://www.physitrack.com/en-gb/exercise-library); [provenance](sources.md#v65c6141493f8). Relationship: related-only.
+**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
 
-**Match and limits:** Supine knee hug is related only to the cross-body glute-stretch direction.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only to the cross-body glute-stretch direction. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-lying-cross-body-glute-stretch).
 
 
 <a id="neck-side-stretch"></a>
@@ -1146,11 +1264,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#neck-side-stretch).
 
-**Still / animation:** [Upper Trapezius Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1648063271407-RULRXTC49T0IAKU5FWSI/Upper%2BTrapezius%2BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/upper-trapezius-stretch); [provenance](sources.md#va4d99f338346). Relationship: related-only.
+**Still / animation:** [Upper Trapezius Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1648063271407-RULRXTC49T0IAKU5FWSI/Upper%2BTrapezius%2BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#va4d99f338346). Relationship: related-only.
 
-**Video:** [Upper Trapezius Stretch](https://www.youtube.com/watch?v=RqLNtrOJjmw) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/upper-trapezius-stretch); [provenance](sources.md#vbb8884cdda27). Relationship: related-only.
+**Video:** [COOL DOWN Side to Side Neck Stretch updated](https://www.youtube.com/watch?v=SqA2S9_0SRY) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#vf99c4af4b461). Relationship: configuration-matched.
 
-**Match and limits:** Side-bending neck stretch comparator includes hand assistance; compare the guide gentle unassisted option.
+**Match and limits:** Special Olympics public previews show standing with arms relaxed and gently side-bending the neck without pulling on the head. This resolves the prior hand-assisted variation difference. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-neck-side-stretch).
+
+**Additional component / retained earlier comparison:** [Upper Trapezius Stretch](https://www.youtube.com/watch?v=RqLNtrOJjmw) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vbb8884cdda27).
 
 
 <a id="overhead-triceps-stretch"></a>
@@ -1158,11 +1280,13 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#overhead-triceps-stretch).
 
-**Still / animation:** [Triceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1619788009999-FH34QGEHKP43L1FGJ2NQ/Triceps%2BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/triceps-stretch); [provenance](sources.md#vfe8f3b4c299c). Relationship: related-only.
+**Still / animation:** [Triceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1619788009999-FH34QGEHKP43L1FGJ2NQ/Triceps%2BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#vfe8f3b4c299c). Relationship: related-only.
 
-**Video:** [Triceps Stretch](https://www.youtube.com/watch?v=xuN74WUuXqU) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/triceps-stretch); [provenance](sources.md#vfde8832aeb06). Relationship: related-only.
+**Video:** [Triceps Stretch](https://www.youtube.com/watch?v=xuN74WUuXqU) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vfde8832aeb06). Relationship: configuration-matched.
 
-**Match and limits:** Compare overhead elbow position.
+**Match and limits:** Rehab Hero explicitly specifies one arm overhead, the elbow bent with the hand on the upper back and the opposite hand supporting the elbow. The inspected exercise still matches that overhead triceps stretch. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-overhead-triceps-stretch).
 
 
 <a id="seated-hamstring-stretch"></a>
@@ -1170,11 +1294,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#seated-hamstring-stretch).
 
-**Still / animation:** [Hamstring Reach Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/45d66836-7841-4a6b-88ca-5308ac26abb2/Hamstring+Reach+Stretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/hamstring-reach-stretch); [provenance](sources.md#v27810d372627). Relationship: related-only.
+**Still / animation:** [Hamstring Reach Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/45d66836-7841-4a6b-88ca-5308ac26abb2/Hamstring+Reach+Stretch.jpg) — image; Rehab Hero; [provenance](sources.md#v27810d372627). Relationship: related-only.
 
-**Video:** [Hamstring Reach Stretch](https://www.youtube.com/watch?v=WfNQvNTbg_Y) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/hamstring-reach-stretch); [provenance](sources.md#vb5e68c25bd73). Relationship: related-only.
+**Video:** [COOL DOWN Modified Hurdler's Stretch updated](https://www.youtube.com/watch?v=l81JEc6FEQw) — video; Special Olympics; credited creator: Special Olympics; [provenance](sources.md#vda7326379286). Relationship: configuration-matched.
 
-**Match and limits:** Standing hamstring reach with raised support. The seated guide needs a separate posture comparison.
+**Match and limits:** Special Olympics Modified Hurdler Stretch public previews show sitting on the floor with one leg extended and the other folded, reaching toward the straight leg. This supplies the seated hamstring-stretch posture absent from the standing comparator. Full video motion and professional technique approval remain unreviewed.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-seated-hamstring-stretch).
+
+**Additional component / retained earlier comparison:** [Hamstring Reach Stretch](https://www.youtube.com/watch?v=WfNQvNTbg_Y) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb5e68c25bd73).
 
 
 <a id="standing-quad-stretch"></a>
@@ -1182,11 +1310,15 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#standing-quad-stretch).
 
-**Still / animation:** [Quadriceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1625427101094-3BEZZQELNS8ODT3VALC1/Quadriceps%2BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/quadriceps-stretch); [provenance](sources.md#v6648a009efac). Relationship: related-only.
+**Still / animation:** [Quadriceps Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1625427101094-3BEZZQELNS8ODT3VALC1/Quadriceps%2BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#v6648a009efac). Relationship: related-only.
 
-**Video:** [Quadriceps Stretch](https://www.youtube.com/watch?v=xgnCefIx7N8) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/quadriceps-stretch); [provenance](sources.md#v5cede71874da). Relationship: related-only.
+**Video:** [Standing quadriceps stretch](https://hw.qld.gov.au/wp-content/uploads/2026/05/HWQld-Exercise-StandingHipFlexorStretch2.webm) — video; Health and Wellbeing Queensland; [provenance](sources.md#vecc8ac71f16b). Relationship: configuration-matched.
 
-**Match and limits:** Side-lying quadriceps stretch. Standing balance and hand-to-foot setup are not demonstrated.
+**Match and limits:** Queensland written instructions and sampled frames show standing on one leg and holding the opposite ankle behind the body. This establishes the standing quadriceps stretch. The media filename says StandingHipFlexorStretch, but the actual inspected frames and written exercise are the hand-to-ankle quadriceps stretch; the filename conflict is retained.
+
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-standing-quad-stretch).
+
+**Additional component / retained earlier comparison:** [Quadriceps Stretch](https://www.youtube.com/watch?v=xgnCefIx7N8) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v5cede71874da).
 
 
 <a id="wrist-flexor-and-extensor-stretch"></a>
@@ -1194,10 +1326,12 @@ Reviewed November 13, 2026. [Scope, relationship definitions and limits](README.
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#wrist-flexor-and-extensor-stretch).
 
-**Still / animation:** [Wrist Extensor Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629121154526-5PY60PCSAO3LYF4FV6BN/Wrist%2BExtensor%2BStretch.jpg) — image; Rehab Hero; [source page](https://www.rehabhero.ca/exercise/wrist-extensor-stretch); [provenance](sources.md#v2358498b978a). Relationship: related-only.
+**Still / animation:** [Wrist Extensor Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1629121154526-5PY60PCSAO3LYF4FV6BN/Wrist%2BExtensor%2BStretch.jpg) — image; Rehab Hero; [provenance](sources.md#v2358498b978a). Relationship: related-only.
 
-**Video:** [Wrist Extensor Stretch](https://www.youtube.com/watch?v=MIC1_EwABCI) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/wrist-extensor-stretch); [provenance](sources.md#vb3b89f100a8d). Relationship: related-only.
+**Video:** [Wrist Extensor Stretch](https://www.youtube.com/watch?v=MIC1_EwABCI) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb3b89f100a8d). Relationship: related-only.
 
-**Match and limits:** Extensor component shown. Separate flexor component is linked below.
+**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Extensor component shown. Separate flexor component is linked below. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
 
-**Additional component:** [Common Wrist Flexor Stretch](https://www.youtube.com/watch?v=ElPT-rx5Vds) — video; Rehab Hero; credited video creator: Rehab Hero; [source page](https://www.rehabhero.ca/exercise/common-wrist-flexor-stretch); [provenance](sources.md#v4a36d6c8b660).
+[Follow-up evidence, previous comparison and candidate trail](research.md#guide-wrist-flexor-and-extensor-stretch).
+
+**Additional component / retained earlier comparison:** [Common Wrist Flexor Stretch](https://www.youtube.com/watch?v=ElPT-rx5Vds) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v4a36d6c8b660).

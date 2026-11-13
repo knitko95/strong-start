@@ -17,7 +17,7 @@ const expected=[...technique('catalog.json').exercises,...technique('guides.json
 assert.deepEqual(entries.map(({id,name,kind})=>({id,name,kind})),expected.map(({id,name,kind})=>({id,name,kind})),'Every technique inventory entry in order, with unchanged names and IDs');
 assert.equal(new Set(entries.map(e=>e.kind+':'+e.id)).size,entries.length,'Unique IDs within each exercise/guide/cardio namespace');
 const count=values=>Object.fromEntries(values.reduce((m,k)=>m.set(k,(m.get(k)||0)+1),new Map()));
-const relationships=['same-labelled-movement','related-only','not-found'];
+const relationships=['same-labelled-movement','configuration-matched','related-only','not-found'];
 const used=new Set();
 for(const [i,e] of entries.entries()){
   assert.equal(e.checkedOn,'2026-11-13');
@@ -54,6 +54,18 @@ for(const [k,m] of Object.entries(media)){
     assert.equal(m.visualReview,'not-viewed','No unperformed motion inspection claims');
     if(m.providerMetadata){assert.equal(m.providerMetadata.status,200);assert.ok(m.providerMetadata.title);assert.ok(m.providerMetadata.author_name);}
     else {assert.equal(m.linkCheck?.status,200);assert.match(m.linkCheck.contentType,/^video\//);}
+    if(m.configurationInspection){
+      const q=m.configurationInspection;assert.equal(q.fullMotionReviewed,false);
+      assert.equal(q.checkedOn,'2026-11-13');assert.ok(q.scope.length>50);
+      if(q.method==='sampled-publisher-video-frames'){
+        assert.equal(q.sampleSeconds.length,3);assert.ok(q.durationSeconds>0);
+        assert.ok(q.sampleSeconds.every((t,i)=>t>0&&t<q.durationSeconds&&(i===0||t>q.sampleSeconds[i-1])));
+      }else{
+        assert.equal(q.method,'public-provider-preview-stills');assert.equal(q.imageUrls.length,3);
+        for(const u of q.imageUrls)assert.equal(new URL(u).protocol,'https:');
+        assert.ok(!q.sampleSeconds,'No invented timestamps for provider preview stills');
+      }
+    }
   }
   if(m.type==='image'){assert.equal(m.linkCheck?.status,200);assert.equal(m.visualReview,'contact-sheet-identity-only');}
   if(m.type==='video-poster'){assert.equal(media[m.videoId]?.type,'video');assert.ok(sourceMd.includes(`](#${m.videoId})`));}
@@ -64,6 +76,38 @@ for(const [id,s] of Object.entries(sources)){
   assert.equal(new URL(s.url).protocol,'https:');assert.ok(publishers[s.publisherId]);assert.ok(s.factsChecked.length>40&&s.accessScope.length>40);
 }
 for(const p of Object.values(publishers)){assert.ok(p.basis.length>50&&p.limitations.length>50);for(const u of p.evidenceUrls)assert.equal(new URL(u).protocol,'https:');}
+// The follow-up keeps the complete baseline, weaker discovery-only results and unselected candidates explicit.
+const research=json('research.json'),candidates=json('research-candidates.json').candidates;
+const audit=research.entries,pages=json('research-pages.json').pages,researchMd=read(path.join(dir,'research.md'));
+assert.equal(audit.length,237);assert.equal(research.baselineRelated,233);assert.equal(research.baselineWithoutVideo,4);
+assert.equal(research.fullMotionReviewed,false);assert.equal(new Set(audit.map(a=>a.index)).size,237);
+assert.equal(audit.filter(a=>a.previousRelationship==='related-only').length,233);
+assert.equal(audit.filter(a=>a.previousRelationship==='not-found').length,4);
+assert.equal(entries.filter(e=>e.videoRelationship==='same-labelled-movement').length,187,'Earlier discovery rows are not silently upgraded');
+for(const a of audit){
+  const e=entries[a.index];assert.equal(a.id,e.id);assert.equal(a.kind,e.kind);assert.equal(a.name,e.name);
+  assert.equal(a.decision,e.videoRelationship);assert.equal(a.selectedVideo,e.video);assert.equal(a.fullMotionReviewed,false);
+  assert.equal(e.followupAudit.decision,a.decision);assert.equal(e.followupAudit.document,`research.md#${e.kind}-${e.id}`);
+  assert.ok(researchMd.includes(`id="${e.kind}-${e.id}"`));assert.ok(researchMd.includes(a.evidence));assert.ok(researchMd.includes(a.limits));
+  assert.ok(a.evidence.length>60&&a.limits.length>30&&a.sourceUrls.length);
+  assert.ok(['source-specific-configuration-comparison','discovery-and-provenance-screening; no-new-configuration-acceptance'].includes(a.reviewDepth));
+  if(a.decision==='configuration-matched')assert.equal(a.reviewDepth,'source-specific-configuration-comparison');
+  if(a.previousVideo){assert.ok(media[a.previousVideo]);assert.ok(e.video===a.previousVideo||(e.additionalMedia||[]).includes(a.previousVideo),'Earlier comparison retained');}
+  for(const u of a.sourceUrls)assert.equal(new URL(u).protocol,'https:');
+  for(const id of a.candidateIds)assert.ok(candidates[id]);
+}
+assert.equal(new Set(Object.values(candidates).map(c=>c.url)).size,Object.keys(candidates).length);
+for(const [id,c] of Object.entries(candidates)){
+  assert.equal(id,'c'+createHash('sha256').update(c.url).digest('hex').slice(0,12));
+  assert.equal(new URL(c.url).protocol,'https:');assert.ok(c.scope.length>50);
+  for(const u of c.originPages)assert.equal(new URL(u).protocol,'https:');
+  if(c.registeredMediaId)assert.equal(media[c.registeredMediaId]?.url,c.url);
+}
+for(const p of pages){assert.equal(new URL(p.url).protocol,'https:');assert.ok(Number.isInteger(p.status));assert.ok(p.scope.length>50);}
+assert.deepEqual(summary.followupDecisions,count(audit.map(a=>a.decision)));
+assert.deepEqual(summary.followupReviewDepth,count(audit.map(a=>a.reviewDepth)));
+assert.equal(summary.consultedCandidateUrls,Object.keys(candidates).length);assert.equal(summary.retrievedPageRecords,pages.length);
+assert.equal(summary.configurationInspectedVideos,Object.values(media).filter(m=>m.configurationInspection).length);
 assert.deepEqual(summary.videoRelationships,count(entries.map(e=>e.videoRelationship)));
 assert.deepEqual(summary.stillFormatsByEntry,count(entries.map(e=>e.image?media[e.image].type:'not-found')));
 assert.deepEqual(summary.uniqueMediaTypes,count(Object.values(media).map(m=>m.type)));
