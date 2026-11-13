@@ -38,8 +38,8 @@ const reviewed=['dumbbell-romanian-deadlift','hammer-curl','standing-dumbbell-sh
   'goblet-squat','incline-dumbbell-press','dumbbell-floor-press','seated-dumbbell-shoulder-press','dumbbell-lateral-raise','single-arm-dumbbell-bench-press'];
 assert.deepEqual(Object.keys(data.guides).sort(),reviewed.sort(),'Only the eleven reviewed exercise mappings belong in this candidate');
 assert(!Object.hasOwn(data.guides,'squat'));assert.deepEqual(Object.keys(data.characters),['instructor-rose-v1']);
-assert(Object.values(data.guides).every(g=>JSON.stringify(g.enabledEnvironments)==='["development"]'),'This candidate is development-only');
+assert(Object.values(data.guides).every(g=>JSON.stringify(g.enabledEnvironments)==='["development","production"]'),'Reviewed demos must be enabled in development and production');
 assert.deepEqual(new Set(readdirSync(path.join(directory,'models')).filter(p=>p.endsWith('.glb')).map(p=>'models/'+p)),assets);
 new vm.Script(readFileSync(path.join(directory,'guides.js'),'utf8'),{filename:'exercise-guides/guides.js'});
 assert(statSync(path.join(directory,'vendor/model-viewer-4.4.0.min.js')).size>100000);
-console.log('Exercise registry: eleven valid IDs, reviewed assets/versions/hashes, embedded GLBs, dev-only routing; bodyweight squat reference excluded.');
+console.log('Exercise registry: eleven valid IDs, reviewed assets/versions/hashes, embedded GLBs, development/production routing; bodyweight squat reference excluded.');

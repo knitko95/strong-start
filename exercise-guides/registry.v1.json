@@ -194,7 +194,8 @@
       "animationId": "dumbbell-romanian-deadlift",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -214,7 +215,8 @@
       "animationId": "hammer-curl",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -234,7 +236,8 @@
       "animationId": "standing-dumbbell-shoulder-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -254,7 +257,8 @@
       "animationId": "dumbbell-bench-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "floor",
@@ -274,7 +278,8 @@
       "animationId": "plank",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "floor",
@@ -294,7 +299,8 @@
       "animationId": "goblet-squat",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -314,7 +320,8 @@
       "animationId": "incline-dumbbell-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "floor",
@@ -334,7 +341,8 @@
       "animationId": "dumbbell-floor-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "floor",
@@ -354,7 +362,8 @@
       "animationId": "seated-dumbbell-shoulder-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -374,7 +383,8 @@
       "animationId": "dumbbell-lateral-raise",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "standing",
@@ -394,7 +404,8 @@
       "animationId": "single-arm-dumbbell-bench-press",
       "defaultCharacter": "instructor-rose-v1",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "presentation": {
         "layout": "floor",

@@ -191,3 +191,7 @@ See [architecture](ARCHITECTURE.md) for permission boundaries and [the review](R
 ## Dialog accessibility
 
 Dialogs have accessible names, place focus inside on opening, keep Tab/Shift+Tab within the dialog, and close with Escape. Closing restores focus to the opening control (or a nearby page heading if it no longer exists). The underlying page is temporarily inert. Confirmation dialogs initially focus Cancel. Touch zoom restrictions and safe-area layout are preserved.
+
+### November 13 publication
+
+The owner approved promoting the latest development app to production. All eleven reviewed 3D demonstrations are now enabled in both environments; their assets, instructions, movement mappings and fallback behavior are unchanged. Earlier development-only notes describe the pre-release state. See the November 13 release entry in FEEDBACK_LOG.md for publication and verification status.

@@ -212,3 +212,7 @@ Rest timer alerts while in other apps, exercise photos and videos, a quick-worko
 - Nov 11: test app and separate test database; shared agent rules and app documents; Home Screen prompt (#20).
 - Nov 10: own hosting, accounts with Google sign-in, coach view, privacy page, in-app feedback (#13), invite-only beta (#16), disable/delete accounts (#17), old Coach section removed (#18).
 - Nov 9: first-tester notes addressed (change one setup answer, reorder exercises, plain warm-up how-tos, Skip exercise, Edit a set, exercise variety, library filters, swap from library, warm-ups matched to the workout); real workout length, compact cardio timer, go back to previous program, jumps setting, goal-based cardio after lifting.
+
+## November 13 release
+
+Owner explicitly requested promoting the latest dev branch to main, publishing, and performing required database changes. Candidate starts at `2819c93`. The eleven existing visually accepted demonstrations are enabled for production as part of publication; assets and movement mappings are unchanged. Production already has all thirteen migrations, with the six known production version aliases recorded in RELEASE-CANDIDATE-2026-11-11.md; none need replaying. This release does not repair historical migration IDs. Local checks: 100 workout/persistence scenarios, six offline scenarios, media lifecycle and asset/environment checks pass. Headless Chromium startup is blocked by socket permissions; physical-phone and authenticated-account checks remain unverified. Publication verification is pending.
