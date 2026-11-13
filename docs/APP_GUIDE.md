@@ -8,6 +8,8 @@ Use [the testing app](https://dev.strongstart.app/) to review changes from `dev`
 
 Changes are built and tested on dev first. The agent will provide the tested changes, results, and any database changes for your review. The live app is updated only after you explicitly approve that release. Asking for a feature or fix, or approving a previous release, does not approve a new live release. See [the release process](ENVIRONMENTS.md).
 
+Independent experience experiments are available at https://dev1.strongstart.app/ and https://dev2.strongstart.app/. Both share the testing app’s accounts and saved data, but have separate sign-ins and can develop different visuals, prompts and flows. Edits made with the same test account affect that account across all three test apps.
+
 ## Joining and signing in
 
 The public sign-in page describes workout planning, exercise instructions, tracking and coach messages before sign-in. **Privacy policy** and **Terms of Service** stay visible in a footer at the bottom of the screen while the sign-in content scrolls; the account card in Settings also links to both. These pages were approved and published November 11; Google branding is verified; publishing the approved branding is pending. This update adds no age gate, consent checkbox or change to account access.
