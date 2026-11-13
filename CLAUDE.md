@@ -8,6 +8,7 @@ All changes must be made and tested on `dev` first. Deploy and verify the test v
 
 For task-specific context, read:
 
+- [Feedback workflow](docs/FEEDBACK_WORKFLOW.md): private tracker access, triage, issue claims, handoffs and intake from both apps. Read the private tracker at session start; the public feedback log is historical only.
 - [App guide](docs/APP_GUIDE.md): member, coach, and owner workflows.
 - [Architecture and operations](docs/ARCHITECTURE.md): code map, saving, permissions, testing, deployment, and recovery.
 - [Environments and releases](docs/ENVIRONMENTS.md): dev hosting/database, validation, and the explicit production approval step.
