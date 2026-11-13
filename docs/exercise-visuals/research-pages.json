@@ -2340,6 +2340,2310 @@
       "checkedOn": "2026-11-13",
       "mediaUrls": [],
       "scope": "Public-page retrieval record; retrieval alone is not exercise validation. Selected-source facts are in the exercise audit."
+    },
+    {
+      "url": "https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html",
+      "status": 200,
+      "title": "Functionally Fit: Single-Leg Stability Ball Bridge",
+      "finalUrl": "https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.jacobzemer.com/video-post/how-to-leaning-dumbbell-lateral-raise/",
+      "status": 403,
+      "title": "403 Forbidden",
+      "finalUrl": "https://www.jacobzemer.com/video-post/how-to-leaning-dumbbell-lateral-raise/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.muscleandstrength.com/exercises/all.html",
+      "status": 403,
+      "title": "Just a moment...",
+      "finalUrl": "https://www.muscleandstrength.com/exercises/all.html",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.rehabhero.ca/exercise/pallof-press",
+      "status": 200,
+      "title": "Pallof Press",
+      "finalUrl": "https://www.rehabhero.ca/exercise/pallof-press",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.fit-pro.com",
+      "status": 200,
+      "title": "",
+      "finalUrl": "https://fit-pro.com/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.acefitness.org/resources/everyone/exercise-library/65/russian-twist/",
+      "status": 403,
+      "title": "Azure WAF",
+      "finalUrl": "https://www.acefitness.org/resources/everyone/exercise-library/65/russian-twist/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.setforset.com/blogs/news/kettlebell-deadlifts",
+      "status": 200,
+      "title": "",
+      "finalUrl": "https://www.setforset.com/blogs/news/kettlebell-deadlifts",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.rehabhero.ca/exercise/spiderman-rotations",
+      "status": 200,
+      "title": "Spiderman Rotations",
+      "finalUrl": "https://www.rehabhero.ca/exercise/spiderman-rotations",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.keiser.com/fitness-equipment/functional-training/functional-trainer",
+      "status": 404,
+      "title": "MADE IN USA",
+      "finalUrl": "https://www.keiser.com/fitness-equipment/functional-training/functional-trainer",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.balancepersonaltraining.com/personal-trainer/",
+      "status": 200,
+      "title": "About",
+      "finalUrl": "https://www.balancepersonaltraining.com/personal-trainer/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.muscleandstrength.com/exercises/ez-bar-curl.html",
+      "status": 403,
+      "title": "Just a moment...",
+      "finalUrl": "https://www.muscleandstrength.com/exercises/ez-bar-curl.html",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.muscleandstrength.com/exercises/cable-crunch.html",
+      "status": 403,
+      "title": "Just a moment...",
+      "finalUrl": "https://www.muscleandstrength.com/exercises/cable-crunch.html",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.befittrainingphysio.com.au",
+      "status": 0,
+      "title": "",
+      "finalUrl": "https://www.befittrainingphysio.com.au",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.balancepersonaltraining.com",
+      "status": 200,
+      "title": "Safety, Fun, and Results",
+      "finalUrl": "https://www.balancepersonaltraining.com/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://eat-move-save.extension.illinois.edu/move/exercise/wall-shoulder-taps",
+      "status": 200,
+      "title": "Wall Shoulder Taps",
+      "finalUrl": "https://eat-move-save.extension.illinois.edu/move/exercise/wall-shoulder-taps",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://ie.physitrack.com/home-exercise-video/standing-hip-extension%252c-supported",
+      "status": 200,
+      "title": "Standing hip extension, supported",
+      "finalUrl": "https://ie.physitrack.com/home-exercise-video/standing-hip-extension%252c-supported",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [
+        "https://media.physitrack.com/exercises/b1f9c5cc-8e08-45ab-a8f9-0b9ce5b74174/en/video_1280x720.mp4"
+      ],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=w5PUa6QYpe0",
+      "status": 200,
+      "title": "Single Leg Box Jump - YouTube",
+      "finalUrl": "https://www.youtube.com/watch?v=w5PUa6QYpe0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.dvidshub.net/video/551850/walking-knee-hug",
+      "status": 200,
+      "title": "Walking Knee Hug",
+      "finalUrl": "https://www.dvidshub.net/video/551850/walking-knee-hug",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [
+        "https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104849868/DOD_104849868-1024x576-1769k.mp4"
+      ],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.jensinkler.com",
+      "status": 0,
+      "title": "",
+      "finalUrl": "https://www.jensinkler.com",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.westrive.com",
+      "status": 200,
+      "title": "The #1 personal training software to grow your business",
+      "finalUrl": "https://www.westrive.com/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://befittrainingphysio.com/team/",
+      "status": 403,
+      "title": "",
+      "finalUrl": "https://befittrainingphysio.com/team/",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "publisher-html",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-4LVK1crLSw",
+      "status": 200,
+      "title": "The ULTIMATE Bulgarian Split Squat Tutorial",
+      "finalUrl": "https://www.youtube.com/watch?v=-4LVK1crLSw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-gVgJSDY8is",
+      "status": 200,
+      "title": "Half Knee Pallof Press - Core exercise for back pain",
+      "finalUrl": "https://www.youtube.com/watch?v=-gVgJSDY8is",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-j0bDidNYLk",
+      "status": 200,
+      "title": "Squat Movement - Medicine Ball Vertical Toss (Ballistics Plyometric) Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=-j0bDidNYLk",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-nbJbHMLB00",
+      "status": 200,
+      "title": "Hanging Windshield Wipers Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=-nbJbHMLB00",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-NUW2i5yHbg",
+      "status": 200,
+      "title": "Exercise technique video showing how to perform the Banded Push up",
+      "finalUrl": "https://www.youtube.com/watch?v=-NUW2i5yHbg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-ooNS30xQ1Q",
+      "status": 200,
+      "title": "Incline Push Ups on Bench",
+      "finalUrl": "https://www.youtube.com/watch?v=-ooNS30xQ1Q",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=-pv7zHNzg08",
+      "status": 200,
+      "title": "MEDICINE BALL: Lunge with rotation",
+      "finalUrl": "https://www.youtube.com/watch?v=-pv7zHNzg08",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=099rt7KePMY",
+      "status": 200,
+      "title": "Split-Squat Hold [At-Home Workout Tips]",
+      "finalUrl": "https://www.youtube.com/watch?v=099rt7KePMY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=0d4nwdOeORI",
+      "status": 200,
+      "title": "Medicine Ball vertical toss with countermovement",
+      "finalUrl": "https://www.youtube.com/watch?v=0d4nwdOeORI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=0VWnOjUO7ks",
+      "status": 200,
+      "title": "Standing Cable Chop",
+      "finalUrl": "https://www.youtube.com/watch?v=0VWnOjUO7ks",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=1poLHq0Zfxo",
+      "status": 200,
+      "title": "Skater Squats (Exercise Library)",
+      "finalUrl": "https://www.youtube.com/watch?v=1poLHq0Zfxo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2HYAeF6o7Bc",
+      "status": 200,
+      "title": "How To Do Chest Dips",
+      "finalUrl": "https://www.youtube.com/watch?v=2HYAeF6o7Bc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+      "status": 200,
+      "title": "Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab",
+      "finalUrl": "https://www.youtube.com/watch?v=2ISWPJg8IKA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=30kKZnF9XTc",
+      "status": 200,
+      "title": "Spiderman Lunge - Hip Mobility Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=30kKZnF9XTc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=3he4fr8tjg8",
+      "status": 200,
+      "title": "Double Kettlebell Deadlift",
+      "finalUrl": "https://www.youtube.com/watch?v=3he4fr8tjg8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=48qvCvJJr8Y",
+      "status": 200,
+      "title": "Kettlebell Clean and Press - a Primer on basic technique",
+      "finalUrl": "https://www.youtube.com/watch?v=48qvCvJJr8Y",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=5FpDi3cWbr4",
+      "status": 200,
+      "title": "Medicine Ball Rotational Scoop Toss",
+      "finalUrl": "https://www.youtube.com/watch?v=5FpDi3cWbr4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=6ZOy8wu5qKg",
+      "status": 200,
+      "title": "Band Face Pull | Exercise Demo | Female",
+      "finalUrl": "https://www.youtube.com/watch?v=6ZOy8wu5qKg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7bez4q1aecE",
+      "status": 200,
+      "title": "Battle Rope Side to Side Waves",
+      "finalUrl": "https://www.youtube.com/watch?v=7bez4q1aecE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7HHDcG_Gps4",
+      "status": 200,
+      "title": "Y Raise on Stability Ball",
+      "finalUrl": "https://www.youtube.com/watch?v=7HHDcG_Gps4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7MY2agzydDw",
+      "status": 200,
+      "title": "Medicine Ball V-Up",
+      "finalUrl": "https://www.youtube.com/watch?v=7MY2agzydDw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=7p-Ma0eksaY",
+      "status": 200,
+      "title": "How To Perform Shoulder Dislocates | Resistance Band",
+      "finalUrl": "https://www.youtube.com/watch?v=7p-Ma0eksaY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8fURQlBUtTY",
+      "status": 200,
+      "title": "Box Step Up Knee Drive | Lunge | Strength and Conditioning Exercises",
+      "finalUrl": "https://www.youtube.com/watch?v=8fURQlBUtTY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8NDyPgEy84E",
+      "status": 200,
+      "title": "How To: Assisted Dip Machine",
+      "finalUrl": "https://www.youtube.com/watch?v=8NDyPgEy84E",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8ohhG1Y4tzU",
+      "status": 200,
+      "title": "How To Do A SEATED PLATE RUSSIAN TWIST | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=8ohhG1Y4tzU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=8qL2Z_APTvc",
+      "status": 200,
+      "title": "AHF Online - Half Kneeling Hip Flexor Stretch with Reach",
+      "finalUrl": "https://www.youtube.com/watch?v=8qL2Z_APTvc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=90AQHJSo6qY",
+      "status": 200,
+      "title": "Rotational Medicine Ball Slam",
+      "finalUrl": "https://www.youtube.com/watch?v=90AQHJSo6qY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=91eINjZpk_E",
+      "status": 200,
+      "title": "Medicine Ball Woodchop - How To workout | With the WeStrive App",
+      "finalUrl": "https://www.youtube.com/watch?v=91eINjZpk_E",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=99T1EfpMwPA",
+      "status": 200,
+      "title": "How To Do A Russian Twist",
+      "finalUrl": "https://www.youtube.com/watch?v=99T1EfpMwPA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=9sz2RAbyfrM",
+      "status": 200,
+      "title": "Heel Elevated Dumbbell Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=9sz2RAbyfrM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=9yVGh3XbJ34",
+      "status": 200,
+      "title": "How to do a Pull-Up | Proper Form & Technique | NASM",
+      "finalUrl": "https://www.youtube.com/watch?v=9yVGh3XbJ34",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=aa0ZKe_ndHo",
+      "status": 200,
+      "title": "Dumbbell Incline Rear Delt Row",
+      "finalUrl": "https://www.youtube.com/watch?v=aa0ZKe_ndHo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=aBd6T01PBqw",
+      "status": 200,
+      "title": "How to PROPERLY Perform A Cable Crunch to Shape Your Abs (Kneeling Cable Abdominal Crunch)",
+      "finalUrl": "https://www.youtube.com/watch?v=aBd6T01PBqw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=AbzDPqZXsg0",
+      "status": 200,
+      "title": "08 Wall Shoulder Taps",
+      "finalUrl": "https://www.youtube.com/watch?v=AbzDPqZXsg0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=AeBvpCCYpGI",
+      "status": 200,
+      "title": "Archer pull up technique",
+      "finalUrl": "https://www.youtube.com/watch?v=AeBvpCCYpGI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=aPUtiouhcQQ",
+      "status": 200,
+      "title": "Dumbbell Lying Leg Curl | How To | Proper Form & Technique",
+      "finalUrl": "https://www.youtube.com/watch?v=aPUtiouhcQQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=arDUVmCzyhc",
+      "status": 200,
+      "title": "How To: Hanging Windshield Wiper",
+      "finalUrl": "https://www.youtube.com/watch?v=arDUVmCzyhc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=aweBS7K71l8",
+      "status": 200,
+      "title": "How To Do A Barbell Hip Thrust",
+      "finalUrl": "https://www.youtube.com/watch?v=aweBS7K71l8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=B4RznoFvTl4",
+      "status": 200,
+      "title": "How To Do Hammer Curls",
+      "finalUrl": "https://www.youtube.com/watch?v=B4RznoFvTl4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=B5jWFuPb0xg",
+      "status": 200,
+      "title": "Goblet Squat Pry to Hip Internal Rotation",
+      "finalUrl": "https://www.youtube.com/watch?v=B5jWFuPb0xg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Ba-HmYol59U",
+      "status": 200,
+      "title": "How To Do a Leaning Single-arm Barbell Lateral Raise | Exercise Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=Ba-HmYol59U",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Bd7l1scw1dA",
+      "status": 200,
+      "title": "Battle Rope Rotational Slams",
+      "finalUrl": "https://www.youtube.com/watch?v=Bd7l1scw1dA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=BeN9ZcYY5iM",
+      "status": 200,
+      "title": "How to Do a Perfect Step-Up | Warrior Fitness",
+      "finalUrl": "https://www.youtube.com/watch?v=BeN9ZcYY5iM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=bhWJO7ROhpY",
+      "status": 200,
+      "title": "Banded Push Up - Exercise Demo",
+      "finalUrl": "https://www.youtube.com/watch?v=bhWJO7ROhpY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Bp8rKgpa6WA",
+      "status": 200,
+      "title": "【マシン不要】自宅でハムを追い込む！ダンベル1個でレッグカール | ダンベルレッグカール",
+      "finalUrl": "https://www.youtube.com/watch?v=Bp8rKgpa6WA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=BRfxI2Es2lE",
+      "status": 200,
+      "title": "How To Jump Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=BRfxI2Es2lE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=bXsbK9UPu3c",
+      "status": 200,
+      "title": "How to Do an Incline Push-Up | Chest Workout",
+      "finalUrl": "https://www.youtube.com/watch?v=bXsbK9UPu3c",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=B_VkNQS5YLs",
+      "status": 200,
+      "title": "How to do a Band Assisted Pull-Up | Proper Form & Technique | NASM",
+      "finalUrl": "https://www.youtube.com/watch?v=B_VkNQS5YLs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=c2LBofIzUqs",
+      "status": 200,
+      "title": "How To Do Pogo Hops | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=c2LBofIzUqs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=c3dKJRVMRHw",
+      "status": 200,
+      "title": "Toes to Bar | Exercise Technique Library",
+      "finalUrl": "https://www.youtube.com/watch?v=c3dKJRVMRHw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=C3mmDEZ-5gI",
+      "status": 200,
+      "title": "In-and-Out Waves Battle Ropes Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=C3mmDEZ-5gI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=C5uWN9FIU9E",
+      "status": 200,
+      "title": "Single Leg Box Jump Tutorial - Proper Form and Technique",
+      "finalUrl": "https://www.youtube.com/watch?v=C5uWN9FIU9E",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=c6TvkYWqJq8",
+      "status": 200,
+      "title": "Medicine Ball 1/2 Kneeling Rotational Scoop Toss",
+      "finalUrl": "https://www.youtube.com/watch?v=c6TvkYWqJq8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=CIykDiF4sfg",
+      "status": 200,
+      "title": "How To Do A Seated Chest Press",
+      "finalUrl": "https://www.youtube.com/watch?v=CIykDiF4sfg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Cp7pEghPpnk",
+      "status": 200,
+      "title": "Kettlebell Goblet reverse lunge",
+      "finalUrl": "https://www.youtube.com/watch?v=Cp7pEghPpnk",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=cSCyyfBti7U",
+      "status": 200,
+      "title": "How To Do A V Sit Up",
+      "finalUrl": "https://www.youtube.com/watch?v=cSCyyfBti7U",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=cXd4_fUwRG8",
+      "status": 200,
+      "title": "Smith Machine Hip Thrust",
+      "finalUrl": "https://www.youtube.com/watch?v=cXd4_fUwRG8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Dq5y4WEcqqo",
+      "status": 200,
+      "title": "How to Use a Lying Leg Curl | Proper Form & Technique | NASM",
+      "finalUrl": "https://www.youtube.com/watch?v=Dq5y4WEcqqo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=dr1FYumuGC4",
+      "status": 200,
+      "title": "Ankle Rocks - Ankle mobility exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=dr1FYumuGC4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=DxUNi119Qzs",
+      "status": 200,
+      "title": "How To Do A Dumbbell Step Up",
+      "finalUrl": "https://www.youtube.com/watch?v=DxUNi119Qzs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=E330irrSGFE",
+      "status": 200,
+      "title": "How To Do A Kettlebell Clean and Press",
+      "finalUrl": "https://www.youtube.com/watch?v=E330irrSGFE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=e8APCEYbpVY",
+      "status": 200,
+      "title": "Face Pulls - Banded Shoulder and Upper Back Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=e8APCEYbpVY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=e9zTRB622dc",
+      "status": 200,
+      "title": "How-To: Rotational Medicine Ball Slam",
+      "finalUrl": "https://www.youtube.com/watch?v=e9zTRB622dc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=edI3q6U20a4",
+      "status": 200,
+      "title": "Band Assisted Archer Pull-Up",
+      "finalUrl": "https://www.youtube.com/watch?v=edI3q6U20a4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Env8gAr_QnE",
+      "status": 200,
+      "title": "How To Do Press Ups",
+      "finalUrl": "https://www.youtube.com/watch?v=Env8gAr_QnE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ENZjCX9HjVI",
+      "status": 200,
+      "title": "How to: Single leg Box Jump",
+      "finalUrl": "https://www.youtube.com/watch?v=ENZjCX9HjVI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=eTCBSFlCJ_s",
+      "status": 200,
+      "title": "How to do a Face Pull | Proper Form & Technique | NASM",
+      "finalUrl": "https://www.youtube.com/watch?v=eTCBSFlCJ_s",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EtSJ8rwm5M8",
+      "status": 200,
+      "title": "How To Do Donkey Kicks",
+      "finalUrl": "https://www.youtube.com/watch?v=EtSJ8rwm5M8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EXKwLxnzHUw",
+      "status": 200,
+      "title": "Half Kneeling Hip Flexor Stretch with Reach and Lean",
+      "finalUrl": "https://www.youtube.com/watch?v=EXKwLxnzHUw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=f5fHXV5sfbU",
+      "status": 200,
+      "title": "Bosu Lateral Step Over",
+      "finalUrl": "https://www.youtube.com/watch?v=f5fHXV5sfbU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fbF4_pn_0xc",
+      "status": 200,
+      "title": "How To Do A CABLE PULL THROUGH | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=fbF4_pn_0xc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fGIKnkrBOcs",
+      "status": 200,
+      "title": "Kneeling band lat pulldown",
+      "finalUrl": "https://www.youtube.com/watch?v=fGIKnkrBOcs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FGnx6WECOH8",
+      "status": 200,
+      "title": "Deep Squat Rotations - Squat Mobility",
+      "finalUrl": "https://www.youtube.com/watch?v=FGnx6WECOH8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fHosYka3SrQ",
+      "status": 200,
+      "title": "Proper Commando Pull Ups",
+      "finalUrl": "https://www.youtube.com/watch?v=fHosYka3SrQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FKxkTiq-W6s",
+      "status": 200,
+      "title": "Sandbag Squat - OPEX Exercise Library",
+      "finalUrl": "https://www.youtube.com/watch?v=FKxkTiq-W6s",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fOFIT8JCe8M",
+      "status": 200,
+      "title": "Ankle Weight Glute Kickback",
+      "finalUrl": "https://www.youtube.com/watch?v=fOFIT8JCe8M",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fs-Y4chFBG8",
+      "status": 200,
+      "title": "HOW TO SQUAT: Heel Elevated Dumbbell Goblet Squats. TECHNIQUE TUESDAY!",
+      "finalUrl": "https://www.youtube.com/watch?v=fs-Y4chFBG8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=FwdMc2kP1pg",
+      "status": 200,
+      "title": "How To Do The Landmine Rainbow for Core Training",
+      "finalUrl": "https://www.youtube.com/watch?v=FwdMc2kP1pg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=GcZJhNi2yOM",
+      "status": 200,
+      "title": "BEST Exercises for Runners (Strength Training | Plyometrics | Power Exercises)",
+      "finalUrl": "https://www.youtube.com/watch?v=GcZJhNi2yOM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=gDHQX1iend4",
+      "status": 200,
+      "title": "How To Do Y Raises (Incline)",
+      "finalUrl": "https://www.youtube.com/watch?v=gDHQX1iend4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=gEXB2iWhoIM",
+      "status": 200,
+      "title": "How To Do a TRX Fallout",
+      "finalUrl": "https://www.youtube.com/watch?v=gEXB2iWhoIM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=GGPXs7JbH5o",
+      "status": 200,
+      "title": "Dumbbell Jump Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=GGPXs7JbH5o",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=GpRp25pOmOM",
+      "status": 200,
+      "title": "How To Do A Standing Hip Extension Properly | Improve Strength | Doctor of Physical Therapy's Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=GpRp25pOmOM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=GtytyYHmrNM",
+      "status": 200,
+      "title": "Official BOSU Pulse Squat Jump",
+      "finalUrl": "https://www.youtube.com/watch?v=GtytyYHmrNM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=gXE-gVzYD9w",
+      "status": 200,
+      "title": "Shoulder Dislocations - how to do an assisted shoulder mobility exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=gXE-gVzYD9w",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=H0dtbu_Bi8c",
+      "status": 200,
+      "title": "How to do Ez-Bar Curl",
+      "finalUrl": "https://www.youtube.com/watch?v=H0dtbu_Bi8c",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=H1TnL418mCQ",
+      "status": 200,
+      "title": "Band Face Pulls: Exercise Demonstration",
+      "finalUrl": "https://www.youtube.com/watch?v=H1TnL418mCQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=HfK9uB78g78",
+      "status": 200,
+      "title": "Single Leg Barbell Calf Raise Tutorial - Proper Form and Technique",
+      "finalUrl": "https://www.youtube.com/watch?v=HfK9uB78g78",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=HGBLUXX-tfo",
+      "status": 200,
+      "title": "Medicine Ball Overhead Wall Throw",
+      "finalUrl": "https://www.youtube.com/watch?v=HGBLUXX-tfo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hk80eAoQshc",
+      "status": 200,
+      "title": "How To Do A Single Leg Deadlift",
+      "finalUrl": "https://www.youtube.com/watch?v=hk80eAoQshc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Hkum-kPTtrw",
+      "status": 200,
+      "title": "Lying Cross Body Glute Stretch",
+      "finalUrl": "https://www.youtube.com/watch?v=Hkum-kPTtrw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=hVH9Gd1dOpE",
+      "status": 200,
+      "title": "BOSU Lateral Step Overs",
+      "finalUrl": "https://www.youtube.com/watch?v=hVH9Gd1dOpE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=HXrLaqNIkTs",
+      "status": 200,
+      "title": "How To Do A Pallof Press",
+      "finalUrl": "https://www.youtube.com/watch?v=HXrLaqNIkTs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=HY2OkjgJlmY",
+      "status": 200,
+      "title": "Bosu Reverse Lunge",
+      "finalUrl": "https://www.youtube.com/watch?v=HY2OkjgJlmY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ihRozd9hafw",
+      "status": 200,
+      "title": "Introduction to the StrongFirst One-Arm Kettlebell Military Press | StrongFirst",
+      "finalUrl": "https://www.youtube.com/watch?v=ihRozd9hafw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ioJzeP9zT_A",
+      "status": 200,
+      "title": "Lying Cross Body Glute Stretch",
+      "finalUrl": "https://www.youtube.com/watch?v=ioJzeP9zT_A",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=IphGZ8OlfYg",
+      "status": 200,
+      "title": "How To Do A Single Leg Calf Raise",
+      "finalUrl": "https://www.youtube.com/watch?v=IphGZ8OlfYg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=iszktbsU8nE",
+      "status": 200,
+      "title": "Landmine Rotation",
+      "finalUrl": "https://www.youtube.com/watch?v=iszktbsU8nE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=iUCQpuXjcf0",
+      "status": 200,
+      "title": "Lateral Step Up - Glute and Quad strengthening exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=iUCQpuXjcf0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=IzqruWJtOwM",
+      "status": 200,
+      "title": "Plate Russian Twist",
+      "finalUrl": "https://www.youtube.com/watch?v=IzqruWJtOwM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=j4OBP2_-11M",
+      "status": 200,
+      "title": "Straight Bar Cable Curl - arm strengthening exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=j4OBP2_-11M",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=JGeRYIZdojU",
+      "status": 200,
+      "title": "How To Do A Lat Pulldown",
+      "finalUrl": "https://www.youtube.com/watch?v=JGeRYIZdojU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=JL1CZxwYo-k",
+      "status": 200,
+      "title": "Cable Y Raise - Proper Form & Technique [4K]",
+      "finalUrl": "https://www.youtube.com/watch?v=JL1CZxwYo-k",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=JQ9qHUKYrug",
+      "status": 200,
+      "title": "Medicine Ball V Up | Exercise Demo | Male",
+      "finalUrl": "https://www.youtube.com/watch?v=JQ9qHUKYrug",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=jQvvTmKApno",
+      "status": 200,
+      "title": "Prone Back Extension - erector spinae strengthening exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=jQvvTmKApno",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=k7dmYdknbac",
+      "status": 200,
+      "title": "How To Do Box Jumps",
+      "finalUrl": "https://www.youtube.com/watch?v=k7dmYdknbac",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=kEH6jatSVSw",
+      "status": 200,
+      "title": "How to Do a Static Latissimus Dorsi Ball Stretch",
+      "finalUrl": "https://www.youtube.com/watch?v=kEH6jatSVSw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KH4tHHvqGis",
+      "status": 200,
+      "title": "Side Step Lunge | Lunge Matrix",
+      "finalUrl": "https://www.youtube.com/watch?v=KH4tHHvqGis",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KKw3Pueff0I",
+      "status": 200,
+      "title": "How to use the Nautilus Glute Drive | Setup & Movements",
+      "finalUrl": "https://www.youtube.com/watch?v=KKw3Pueff0I",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KL7dbn5H1Hc",
+      "status": 200,
+      "title": "Home Stair Climber Exercise | Slim Legs & Weight Loss 爬楼机健身",
+      "finalUrl": "https://www.youtube.com/watch?v=KL7dbn5H1Hc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=kmXCyN_KlIw",
+      "status": 200,
+      "title": "Elite Wellness DMV - Bosu Single Leg Romanian Deadlift",
+      "finalUrl": "https://www.youtube.com/watch?v=kmXCyN_KlIw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KPzecWXsF9o",
+      "status": 200,
+      "title": "CABLE PULL THROUGH - Naturvitia - #8",
+      "finalUrl": "https://www.youtube.com/watch?v=KPzecWXsF9o",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=KY3DF7G8Eig",
+      "status": 200,
+      "title": "Dumbbell Jump Squat | Exercise Demo | Male",
+      "finalUrl": "https://www.youtube.com/watch?v=KY3DF7G8Eig",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LA6Uc5yIV1c",
+      "status": 200,
+      "title": "How To Do a Pallof Press | Band & Cable Anti-Rotation Core Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=LA6Uc5yIV1c",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LlE_ZnUNvGQ",
+      "status": 200,
+      "title": "How To Do: Walking Knee Hug Exercise and It's Benefits",
+      "finalUrl": "https://www.youtube.com/watch?v=LlE_ZnUNvGQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LnIMaf-XOpM",
+      "status": 200,
+      "title": "How to do a Kettlebell Deadlift  | Proper Form & Technique | NASM",
+      "finalUrl": "https://www.youtube.com/watch?v=LnIMaf-XOpM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=lo8aD81jwCw",
+      "status": 200,
+      "title": "Hip Thrust (B-Stance)",
+      "finalUrl": "https://www.youtube.com/watch?v=lo8aD81jwCw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=lOu8tA1i7NQ",
+      "status": 200,
+      "title": "Banded Glute Pull Through - exercise for strengthening the posterior chain at home",
+      "finalUrl": "https://www.youtube.com/watch?v=lOu8tA1i7NQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Lq1yUL6Tv-o",
+      "status": 200,
+      "title": "Spiderman Lunge With Reach",
+      "finalUrl": "https://www.youtube.com/watch?v=Lq1yUL6Tv-o",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=m1wGr3O-nzo",
+      "status": 200,
+      "title": "Bayesian Cable Curls",
+      "finalUrl": "https://www.youtube.com/watch?v=m1wGr3O-nzo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=mCViD-Ui-4o",
+      "status": 200,
+      "title": "How To Do A SEATED MEDICINE BALL RUSSIAN TWIST | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=mCViD-Ui-4o",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=MIC1_EwABCI",
+      "status": 200,
+      "title": "Wrist Extensor Stretch - Tennis Elbow stretch",
+      "finalUrl": "https://www.youtube.com/watch?v=MIC1_EwABCI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=MpNe1ZN2-9E",
+      "status": 200,
+      "title": "How to Do a Banded Pallof Press | Core Exercise with a Resistance Band",
+      "finalUrl": "https://www.youtube.com/watch?v=MpNe1ZN2-9E",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=MWj1-mjajEA",
+      "status": 200,
+      "title": "Battle Rope Side to Side Waves",
+      "finalUrl": "https://www.youtube.com/watch?v=MWj1-mjajEA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=N5x5M1x1Gd0",
+      "status": 200,
+      "title": "How To Do A Barbell Bicep Curl",
+      "finalUrl": "https://www.youtube.com/watch?v=N5x5M1x1Gd0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=N7hf1_vcX5w",
+      "status": 200,
+      "title": "How To Do Decline Sit Ups",
+      "finalUrl": "https://www.youtube.com/watch?v=N7hf1_vcX5w",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=N7t9BX-DExI",
+      "status": 200,
+      "title": "Standing Overhead Medicine Ball Slam",
+      "finalUrl": "https://www.youtube.com/watch?v=N7t9BX-DExI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Nfj95QABIdI",
+      "status": 200,
+      "title": "Exercise Demo: Skater Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=Nfj95QABIdI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=nikVq2pMVg4",
+      "status": 200,
+      "title": "Shoulder Dislocatations / Passthroughs with a Resistance Band! An exercise you dont want to miss.",
+      "finalUrl": "https://www.youtube.com/watch?v=nikVq2pMVg4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=NnVhqMQRvmM",
+      "status": 200,
+      "title": "AB EXERCISE - How to do an abdominal crunch (ab crunch)",
+      "finalUrl": "https://www.youtube.com/watch?v=NnVhqMQRvmM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Nx0TzjgsI-0",
+      "status": 200,
+      "title": "How To Do An Incline Dumbbell Row",
+      "finalUrl": "https://www.youtube.com/watch?v=Nx0TzjgsI-0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=O22D_lsIDgA",
+      "status": 200,
+      "title": "Counterbalanced Skater Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=O22D_lsIDgA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=OC_7QIo0uk4",
+      "status": 200,
+      "title": "Cable Single-Arm Single-Leg Romanian Deadlift | Exercise Demo",
+      "finalUrl": "https://www.youtube.com/watch?v=OC_7QIo0uk4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Oe9Tp9SvTCE",
+      "status": 200,
+      "title": "How To Do A Side Plank",
+      "finalUrl": "https://www.youtube.com/watch?v=Oe9Tp9SvTCE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=oGMAoLWDnLQ",
+      "status": 200,
+      "title": "How To Master Toes to Bar Technique for CrossFit",
+      "finalUrl": "https://www.youtube.com/watch?v=oGMAoLWDnLQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=opORJh0O4oU",
+      "status": 200,
+      "title": "Deep Knee Bend Step Up - Quadriceps Strengthening Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=opORJh0O4oU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ovgnoeaaZRI",
+      "status": 200,
+      "title": "How To Do STANDING KNEE HUGS | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=ovgnoeaaZRI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ovzFOjgrhls",
+      "status": 200,
+      "title": "BOSU Side Plank Hold | Exercise Demo | Coaching Software | QuickCoach",
+      "finalUrl": "https://www.youtube.com/watch?v=ovzFOjgrhls",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=p8eMhRdeX4g",
+      "status": 200,
+      "title": "Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)",
+      "finalUrl": "https://www.youtube.com/watch?v=p8eMhRdeX4g",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PdhY2bCMJgQ",
+      "status": 200,
+      "title": "Pogo Hops | Exercise Demo (Form and Technique)",
+      "finalUrl": "https://www.youtube.com/watch?v=PdhY2bCMJgQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=poKi7JPfuxE",
+      "status": 200,
+      "title": "Deep Squat Hold",
+      "finalUrl": "https://www.youtube.com/watch?v=poKi7JPfuxE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pomi-NOseBw",
+      "status": 200,
+      "title": "Strengthen your core and obliques with this functional stability exercise - Pallof Press",
+      "finalUrl": "https://www.youtube.com/watch?v=pomi-NOseBw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=pP_13DqLLjU",
+      "status": 200,
+      "title": "Peso muerto a doble kettlebell",
+      "finalUrl": "https://www.youtube.com/watch?v=pP_13DqLLjU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PTn6icEeH3Y",
+      "status": 200,
+      "title": "Standing single leg dumbbell calf raises",
+      "finalUrl": "https://www.youtube.com/watch?v=PTn6icEeH3Y",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=PWXWIh5c8L4",
+      "status": 200,
+      "title": "How To Do A COMMANDO PULL UP | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=PWXWIh5c8L4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Q1xgiM8BJX8",
+      "status": 200,
+      "title": "Panturrilha com Barra (Burrico Sentado)",
+      "finalUrl": "https://www.youtube.com/watch?v=Q1xgiM8BJX8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Qe2dGicUEUA",
+      "status": 200,
+      "title": "Keiser Exercise of the Day: Standing Cable Rotation",
+      "finalUrl": "https://www.youtube.com/watch?v=Qe2dGicUEUA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=QgVHiNqPAeU",
+      "status": 200,
+      "title": "BOSU Squat Jump | Nicole Murphy Fitness",
+      "finalUrl": "https://www.youtube.com/watch?v=QgVHiNqPAeU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=qKz4Va7GkUI",
+      "status": 200,
+      "title": "Smith Machine Hip Thrust | Set Up | Demonstration",
+      "finalUrl": "https://www.youtube.com/watch?v=qKz4Va7GkUI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=QmG8ZxN0T4Q",
+      "status": 200,
+      "title": "Kneeling band lat pulldown",
+      "finalUrl": "https://www.youtube.com/watch?v=QmG8ZxN0T4Q",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=QoXuPSX6U3A",
+      "status": 200,
+      "title": "Bosu single leg Romanian deadlift (flat side down)",
+      "finalUrl": "https://www.youtube.com/watch?v=QoXuPSX6U3A",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=q_dWktkxdyw",
+      "status": 200,
+      "title": "Band Face Pulls",
+      "finalUrl": "https://www.youtube.com/watch?v=q_dWktkxdyw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=RA0JTWx_lwE",
+      "status": 200,
+      "title": "Medicine Ball Woodchop",
+      "finalUrl": "https://www.youtube.com/watch?v=RA0JTWx_lwE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=rhDIbhHvK9E",
+      "status": 200,
+      "title": "Battling Ropes (Power Slam)",
+      "finalUrl": "https://www.youtube.com/watch?v=rhDIbhHvK9E",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=rlvpaDkc76g",
+      "status": 200,
+      "title": "How To Do A Split Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=rlvpaDkc76g",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=rTRcKPPH8pk",
+      "status": 200,
+      "title": "BOSU Reverse Lunge",
+      "finalUrl": "https://www.youtube.com/watch?v=rTRcKPPH8pk",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SBO5aFR09D4",
+      "status": 200,
+      "title": "How To Do Ab Wheel Roll Outs",
+      "finalUrl": "https://www.youtube.com/watch?v=SBO5aFR09D4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SkNsa3eBwLA",
+      "status": 200,
+      "title": "How to do the BULGARIAN SPLIT SQUAT! | 2 Minute Tutorial",
+      "finalUrl": "https://www.youtube.com/watch?v=SkNsa3eBwLA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=skXsFN8NfqU",
+      "status": 200,
+      "title": "Back Extension | Olympic Weightlifting Exercise Library",
+      "finalUrl": "https://www.youtube.com/watch?v=skXsFN8NfqU",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SWmRa-YgONs",
+      "status": 200,
+      "title": "Sled Push",
+      "finalUrl": "https://www.youtube.com/watch?v=SWmRa-YgONs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=sxDOHH-r4EM",
+      "status": 200,
+      "title": "EZ-BAR CURL (How To)",
+      "finalUrl": "https://www.youtube.com/watch?v=sxDOHH-r4EM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=SZXOPRVP1Oc",
+      "status": 200,
+      "title": "Eccentric Step Downs",
+      "finalUrl": "https://www.youtube.com/watch?v=SZXOPRVP1Oc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=t1YQ9bvcfVg",
+      "status": 200,
+      "title": "Heel Elevated Squat - Squat Regression Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=t1YQ9bvcfVg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=TEXl2b3__S4",
+      "status": 200,
+      "title": "How To Do Bulgarian Split Squats",
+      "finalUrl": "https://www.youtube.com/watch?v=TEXl2b3__S4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=tQgNAIzcjlk",
+      "status": 200,
+      "title": "How to do a cable crunch",
+      "finalUrl": "https://www.youtube.com/watch?v=tQgNAIzcjlk",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=u1-A9KsKtnw",
+      "status": 200,
+      "title": "Wrist Flexor and Extensor Stretch",
+      "finalUrl": "https://www.youtube.com/watch?v=u1-A9KsKtnw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=U1oarHmUKrY",
+      "status": 200,
+      "title": "Single-leg stability ball bridge",
+      "finalUrl": "https://www.youtube.com/watch?v=U1oarHmUKrY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=u5vDWl1kUm8",
+      "status": 200,
+      "title": "Exercise of The Week – TRX Fallout",
+      "finalUrl": "https://www.youtube.com/watch?v=u5vDWl1kUm8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=UKP3NlUCSHI",
+      "status": 200,
+      "title": "Ankle weight glute kickback",
+      "finalUrl": "https://www.youtube.com/watch?v=UKP3NlUCSHI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=uMYYdhbCkEw",
+      "status": 200,
+      "title": "Exercise How-To: Sandbag Squat",
+      "finalUrl": "https://www.youtube.com/watch?v=uMYYdhbCkEw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=uUl9jEElbOM",
+      "status": 200,
+      "title": "Battling Ropes (Alternating Small Waves)",
+      "finalUrl": "https://www.youtube.com/watch?v=uUl9jEElbOM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=UVp1Np_79Ig",
+      "status": 200,
+      "title": "Exercise Tutorial: Assisted Dip Machine",
+      "finalUrl": "https://www.youtube.com/watch?v=UVp1Np_79Ig",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=V0FueWLtMTg",
+      "status": 200,
+      "title": "How To: Incline Dumbbell Rear Delt Raise",
+      "finalUrl": "https://www.youtube.com/watch?v=V0FueWLtMTg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=v2gBgwGa5nI",
+      "status": 200,
+      "title": "Battle Rope Lateral Shuffle Waves",
+      "finalUrl": "https://www.youtube.com/watch?v=v2gBgwGa5nI",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vh2RFZWIUvc",
+      "status": 200,
+      "title": "Medicine Ball Lunges with Rotation",
+      "finalUrl": "https://www.youtube.com/watch?v=vh2RFZWIUvc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VIJPZ8m0EDM",
+      "status": 200,
+      "title": "How To Do Kneeling Lat Pulldowns",
+      "finalUrl": "https://www.youtube.com/watch?v=VIJPZ8m0EDM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vJJ6rHle0EY",
+      "status": 200,
+      "title": "Swiss Ball Straight Leg Bridge - Posterior chain proprioception and strengthening exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=vJJ6rHle0EY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vQXKCVCDM7Y",
+      "status": 200,
+      "title": "【背中の自重筋トレ】「バックエクステンション」の正しいやり方を解説！",
+      "finalUrl": "https://www.youtube.com/watch?v=vQXKCVCDM7Y",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=VRUpNw-jfWk",
+      "status": 200,
+      "title": "Lunge Stretch - Hip flexor stretching",
+      "finalUrl": "https://www.youtube.com/watch?v=VRUpNw-jfWk",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=vxUHrPxlbQs",
+      "status": 200,
+      "title": "Single Leg Cable RDL (Romanian Deadlift)",
+      "finalUrl": "https://www.youtube.com/watch?v=vxUHrPxlbQs",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=w0CTy_eIIcM",
+      "status": 200,
+      "title": "Medicine Ball Russian Twist | Exercise Demo",
+      "finalUrl": "https://www.youtube.com/watch?v=w0CTy_eIIcM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=w5PUa6QYpe0",
+      "status": 200,
+      "title": "Single Leg Box Jump",
+      "finalUrl": "https://www.youtube.com/watch?v=w5PUa6QYpe0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=W86Sj_sUqR8",
+      "status": 200,
+      "title": "Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions",
+      "finalUrl": "https://www.youtube.com/watch?v=W86Sj_sUqR8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=wesbC-HUJWg",
+      "status": 200,
+      "title": "Stability Ball Single Leg Bridge",
+      "finalUrl": "https://www.youtube.com/watch?v=wesbC-HUJWg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=WobMJQ4v5k4",
+      "status": 200,
+      "title": "Glute Drive: How To",
+      "finalUrl": "https://www.youtube.com/watch?v=WobMJQ4v5k4",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=WWQxCJ4TcKc",
+      "status": 200,
+      "title": "How To Do the Deep Squat Hold",
+      "finalUrl": "https://www.youtube.com/watch?v=WWQxCJ4TcKc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=wZ86ng7FlvQ",
+      "status": 200,
+      "title": "Medball Russian Twist - Exercise Demonstration",
+      "finalUrl": "https://www.youtube.com/watch?v=wZ86ng7FlvQ",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=wzfI21q3Xu0",
+      "status": 200,
+      "title": "How to Do the Standing Single Leg Cable Hamstring Curl 😍",
+      "finalUrl": "https://www.youtube.com/watch?v=wzfI21q3Xu0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=W_N5vEM-U18",
+      "status": 200,
+      "title": "Air Squat - how to do a basic body weight squat",
+      "finalUrl": "https://www.youtube.com/watch?v=W_N5vEM-U18",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=X1DRecdyYwE",
+      "status": 200,
+      "title": "Shoulder and core stability exercise Suitcase Carry",
+      "finalUrl": "https://www.youtube.com/watch?v=X1DRecdyYwE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Xj0vKjvuWhM",
+      "status": 200,
+      "title": "Cable Y-Raise Form",
+      "finalUrl": "https://www.youtube.com/watch?v=Xj0vKjvuWhM",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=XPPfnSEATJA",
+      "status": 200,
+      "title": "How to do a Dumbbell Lateral Raise",
+      "finalUrl": "https://www.youtube.com/watch?v=XPPfnSEATJA",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=xrPteyQLGAo",
+      "status": 200,
+      "title": "How To Reverse Lunge",
+      "finalUrl": "https://www.youtube.com/watch?v=xrPteyQLGAo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=yAbg3_pJKvw",
+      "status": 200,
+      "title": "How To Do An Incline Push Up",
+      "finalUrl": "https://www.youtube.com/watch?v=yAbg3_pJKvw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=YKJyUkMfjjE",
+      "status": 200,
+      "title": "Kettlebell Goblet Reverse Lunge",
+      "finalUrl": "https://www.youtube.com/watch?v=YKJyUkMfjjE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Yrtvs-nEnk0",
+      "status": 200,
+      "title": "How To Do Hanging Leg Raises",
+      "finalUrl": "https://www.youtube.com/watch?v=Yrtvs-nEnk0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=YSXsKvYgSyw",
+      "status": 200,
+      "title": "How To Do A MACHINE FRONT LAT PULLDOWN (Hammer Strength) | Exercise Demonstration Video and Guide",
+      "finalUrl": "https://www.youtube.com/watch?v=YSXsKvYgSyw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=z6MvXsikOk0",
+      "status": 200,
+      "title": "How To Do Dumbbell Hamstring Curls",
+      "finalUrl": "https://www.youtube.com/watch?v=z6MvXsikOk0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zBV3ceGyAxw",
+      "status": 200,
+      "title": "How To Do A Goblet squat",
+      "finalUrl": "https://www.youtube.com/watch?v=zBV3ceGyAxw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ziIHMzpT0Lg",
+      "status": 200,
+      "title": "How to do the Wrist Flexor and Extensor Stretch- Oakville Physiotherapy",
+      "finalUrl": "https://www.youtube.com/watch?v=ziIHMzpT0Lg",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zMFoYi3ZPto",
+      "status": 200,
+      "title": "Bodyweight B-Stance Hip Thrust | Glute Strength & Stability",
+      "finalUrl": "https://www.youtube.com/watch?v=zMFoYi3ZPto",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZRSGpBUVcNw",
+      "status": 200,
+      "title": "How To Do Single Arm Dumbbell Rows",
+      "finalUrl": "https://www.youtube.com/watch?v=ZRSGpBUVcNw",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZUsGZi4HGwE",
+      "status": 200,
+      "title": "SpiderMan Rotations - Thoracic Mobility Exercise",
+      "finalUrl": "https://www.youtube.com/watch?v=ZUsGZi4HGwE",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=ZWuKCiRI8g0",
+      "status": 200,
+      "title": "How To Do ViPR Lateral Side Step Lunge | Exercise Demo",
+      "finalUrl": "https://www.youtube.com/watch?v=ZWuKCiRI8g0",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_LGLKUiQH5k",
+      "status": 200,
+      "title": "How-To: Archer Pull-Up [5 Progressions Tutorial]",
+      "finalUrl": "https://www.youtube.com/watch?v=_LGLKUiQH5k",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_MAgLZyCnM8",
+      "status": 200,
+      "title": "Lunge Slider",
+      "finalUrl": "https://www.youtube.com/watch?v=_MAgLZyCnM8",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_mzQAwGzfKY",
+      "status": 200,
+      "title": "Bosu Side Plank | Exercise Demo | Female",
+      "finalUrl": "https://www.youtube.com/watch?v=_mzQAwGzfKY",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_V0Y9YFAyFo",
+      "status": 200,
+      "title": "Standing Cable Leg Curl",
+      "finalUrl": "https://www.youtube.com/watch?v=_V0Y9YFAyFo",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_Z8Afknw_Fc",
+      "status": 200,
+      "title": "How to do Bayesian cable curls",
+      "finalUrl": "https://www.youtube.com/watch?v=_Z8Afknw_Fc",
+      "checkedOn": "2026-11-13",
+      "accessMethod": "public-watch-page-published-details",
+      "mediaUrls": [],
+      "scope": "Public retrieval record only; an HTTP response, published description or video title does not establish exact movement, professional provenance, full playback or reuse permission."
     }
   ]
 }

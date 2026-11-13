@@ -44,7 +44,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Dumbbell Lateral Raise](#dumbbell-lateral-raise) | image | same-labelled-movement |
 | [Cable Lateral Raise](#cable-lateral-raise) | image | configuration-matched |
 | [Machine Lateral Raise](#machine-lateral-raise) | video-poster | configuration-matched |
-| [Leaning Single-Arm Lateral Raise](#leaning-single-arm-lateral-raise) | video-poster | related-only |
+| [Leaning Single-Arm Lateral Raise](#leaning-single-arm-lateral-raise) | video-poster | configuration-matched |
 | [Lu Raise](#lu-raise) | image | same-labelled-movement |
 | [Cable Y-Raise](#cable-y-raise) | video-poster | related-only |
 | [Y-Raise on Stability Ball](#y-raise-on-stability-ball) | video-poster | related-only |
@@ -65,7 +65,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Cable Lift Low to High](#cable-lift-low-to-high) | video-poster | configuration-matched |
 | [Pallof Press](#pallof-press) | image | same-labelled-movement |
 | [Half-Kneeling Pallof Press](#half-kneeling-pallof-press) | image | related-only |
-| [Cable Trunk Rotation](#cable-trunk-rotation) | video-poster | related-only |
+| [Cable Trunk Rotation](#cable-trunk-rotation) | video-poster | configuration-matched |
 | [Landmine Rainbow](#landmine-rainbow) | video-poster | related-only |
 | [Landmine Rotational Push Press](#landmine-rotational-push-press) | video-poster | configuration-matched |
 | [Ball Russian Twist](#ball-russian-twist) | video-poster | related-only |
@@ -83,7 +83,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Ball Crunch](#ball-crunch) | image | same-labelled-movement |
 | [TRX Body Saw](#trx-body-saw) | video-poster | configuration-matched |
 | [TRX Pike](#trx-pike) | video-poster | configuration-matched |
-| [TRX Fallout](#trx-fallout) | video-poster | related-only |
+| [TRX Fallout](#trx-fallout) | video-poster | configuration-matched |
 | [Hanging Leg Raise](#hanging-leg-raise) | image | same-labelled-movement |
 | [Cable Crunch](#cable-crunch) | video-poster | related-only |
 | [Machine Ab Crunch](#machine-ab-crunch) | video-poster | configuration-matched |
@@ -107,7 +107,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Lat Pulldown](#lat-pulldown) | image | same-labelled-movement |
 | [Close-Grip Lat Pulldown](#close-grip-lat-pulldown) | image | same-labelled-movement |
 | [Single-Arm Lat Pulldown](#single-arm-lat-pulldown) | image | configuration-matched |
-| [Machine Pulldown](#machine-pulldown) | image | related-only |
+| [Machine Pulldown](#machine-pulldown) | image | configuration-matched |
 | [Barbell Bent-Over Row](#barbell-bent-over-row) | image | same-labelled-movement |
 | [Pendlay Row](#pendlay-row) | image | same-labelled-movement |
 | [Seal Row](#seal-row) | image | same-labelled-movement |
@@ -158,7 +158,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Smith Machine Squat](#smith-machine-squat) | image | configuration-matched |
 | [Goblet Squat](#goblet-squat) | image | same-labelled-movement |
 | [Double Kettlebell Front Squat](#double-kettlebell-front-squat) | video-poster | same-labelled-movement |
-| [Heel-Elevated Dumbbell Squat](#heel-elevated-dumbbell-squat) | image | related-only |
+| [Heel-Elevated Dumbbell Squat](#heel-elevated-dumbbell-squat) | image | configuration-matched |
 | [Stability Ball Wall Squat](#stability-ball-wall-squat) | image | same-labelled-movement |
 | [Conventional Deadlift](#conventional-deadlift) | image | same-labelled-movement |
 | [Sumo Deadlift](#sumo-deadlift) | image | same-labelled-movement |
@@ -172,9 +172,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Barbell Hip Thrust](#barbell-hip-thrust) | image | same-labelled-movement |
 | [B-Stance Hip Thrust](#b-stance-hip-thrust) | image | related-only |
 | [Dumbbell Hip Thrust](#dumbbell-hip-thrust) | video-poster | same-labelled-movement |
-| [Glute Drive Machine](#glute-drive-machine) | image | related-only |
+| [Glute Drive Machine](#glute-drive-machine) | image | configuration-matched |
 | [Single-Leg Hip Thrust](#single-leg-hip-thrust) | video-poster | same-labelled-movement |
-| [Stability Ball Single-Leg Bridge](#stability-ball-single-leg-bridge) | image | related-only |
+| [Stability Ball Single-Leg Bridge](#stability-ball-single-leg-bridge) | image | configuration-matched |
 | [Cable Glute Kickback](#cable-glute-kickback) | video-poster | same-labelled-movement |
 | [Bulgarian Split Squat](#bulgarian-split-squat) | image | same-labelled-movement |
 | [Barbell Reverse Lunge](#barbell-reverse-lunge) | video-poster | configuration-matched |
@@ -186,7 +186,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Single-Leg Leg Press](#single-leg-leg-press) | image | same-labelled-movement |
 | [TRX Single-Leg Squat](#trx-single-leg-squat) | video-poster | same-labelled-movement |
 | [Pistol Squat to Bench](#pistol-squat-to-bench) | image | same-labelled-movement |
-| [Skater Squat](#skater-squat) | video-poster | related-only |
+| [Skater Squat](#skater-squat) | video-poster | configuration-matched |
 | [Single-Leg Romanian Deadlift](#single-leg-romanian-deadlift) | video-poster | configuration-matched |
 | [Kettlebell Single-Leg Deadlift](#kettlebell-single-leg-deadlift) | image | same-labelled-movement |
 | [Landmine Single-Leg Romanian Deadlift](#landmine-single-leg-romanian-deadlift) | video-poster | configuration-matched |
@@ -203,7 +203,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Skater Bound](#skater-bound) | video-poster | configuration-matched |
 | [Lying Leg Curl](#lying-leg-curl) | image | same-labelled-movement |
 | [Seated Leg Curl](#seated-leg-curl) | image | same-labelled-movement |
-| [Standing Cable Leg Curl](#standing-cable-leg-curl) | video-poster | related-only |
+| [Standing Cable Leg Curl](#standing-cable-leg-curl) | video-poster | configuration-matched |
 | [Dumbbell Leg Curl](#dumbbell-leg-curl) | video-poster | related-only |
 | [Stability Ball Hamstring Curl](#stability-ball-hamstring-curl) | image | same-labelled-movement |
 | [Single-Leg Ball Hamstring Curl](#single-leg-ball-hamstring-curl) | image | same-labelled-movement |
@@ -224,7 +224,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Standing Calf Raise Machine](#standing-calf-raise-machine) | video-poster | configuration-matched |
 | [Seated Calf Raise](#seated-calf-raise) | image | same-labelled-movement |
 | [Leg Press Calf Raise](#leg-press-calf-raise) | image | same-labelled-movement |
-| [Single-Leg Dumbbell Calf Raise](#single-leg-dumbbell-calf-raise) | video-poster | related-only |
+| [Single-Leg Dumbbell Calf Raise](#single-leg-dumbbell-calf-raise) | video-poster | configuration-matched |
 | [Barbell Calf Raise](#barbell-calf-raise) | video-poster | related-only |
 | [Tibialis Raise](#tibialis-raise) | video-poster | same-labelled-movement |
 | [Box Step-Up](#box-step-up) | video-poster | configuration-matched |
@@ -238,7 +238,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Seated Box Jump](#seated-box-jump) | image | same-labelled-movement |
 | [Depth Jump](#depth-jump) | image | same-labelled-movement |
 | [Lateral Box Jump](#lateral-box-jump) | video-poster | configuration-matched |
-| [Single-Leg Box Jump](#single-leg-box-jump) | video-poster | related-only |
+| [Single-Leg Box Jump](#single-leg-box-jump) | video-poster | configuration-matched |
 | [Broad Jump](#broad-jump) | image | same-labelled-movement |
 | [Squat Jump](#squat-jump) | image | same-labelled-movement |
 | [Approach Vertical Jump](#approach-vertical-jump) | video-poster | related-only |
@@ -248,14 +248,14 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [180 Degree Rotational Jump](#180-degree-rotational-jump) | video-poster | related-only |
 | [Single-Leg Lateral Hop](#single-leg-lateral-hop) | image | same-labelled-movement |
 | [Pogo Hops](#pogo-hops) | image | related-only |
-| [Dumbbell Jump Squat](#dumbbell-jump-squat) | video-poster | related-only |
+| [Dumbbell Jump Squat](#dumbbell-jump-squat) | video-poster | configuration-matched |
 | [Side Step Lunge](#side-step-lunge) | image | related-only |
 | [Side Step Lunge to Balance](#side-step-lunge-to-balance) | image | related-only |
 | [Hanging Knee Raise](#hanging-knee-raise) | image | same-labelled-movement |
 | [Band Pull-Apart](#band-pull-apart) | video-poster | same-labelled-movement |
-| [Band Face Pull](#band-face-pull) | video-poster | related-only |
+| [Band Face Pull](#band-face-pull) | video-poster | configuration-matched |
 | [Band-Assisted Archer Pull-Up](#band-assisted-archer-pull-up) | video-poster | related-only |
-| [Kneeling Band Lat Pulldown](#kneeling-band-lat-pulldown) | video-poster | related-only |
+| [Kneeling Band Lat Pulldown](#kneeling-band-lat-pulldown) | video-poster | configuration-matched |
 | [Band Seated Row](#band-seated-row) | image | same-labelled-movement |
 | [Tube Single-Arm Row](#tube-single-arm-row) | video-poster | related-only |
 | [Anchored Band Chest Press](#anchored-band-chest-press) | image | related-only |
@@ -264,7 +264,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Band Lateral Raise](#band-lateral-raise) | image | same-labelled-movement |
 | [Band Triceps Pushdown](#band-triceps-pushdown) | image | configuration-matched |
 | [Band Biceps Curl](#band-biceps-curl) | image | same-labelled-movement |
-| [Band Pallof Press](#band-pallof-press) | video-poster | related-only |
+| [Band Pallof Press](#band-pallof-press) | video-poster | configuration-matched |
 | [Band Woodchop](#band-woodchop) | video-poster | configuration-matched |
 | [Mini-Band Lateral Walk](#mini-band-lateral-walk) | video-poster | same-labelled-movement |
 | [Mini-Band Monster Walk](#mini-band-monster-walk) | image | same-labelled-movement |
@@ -285,22 +285,22 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Medicine Ball Chest Pass](#medicine-ball-chest-pass) | video-poster | same-labelled-movement |
 | [Medicine Ball Overhead Wall Throw](#medicine-ball-overhead-wall-throw) | video-poster | related-only |
 | [Medicine Ball Vertical Toss](#medicine-ball-vertical-toss) | video-poster | related-only |
-| [Medicine Ball Russian Twist](#medicine-ball-russian-twist) | video-poster | related-only |
+| [Medicine Ball Russian Twist](#medicine-ball-russian-twist) | video-poster | configuration-matched |
 | [Medicine Ball V-Up](#medicine-ball-v-up) | video-poster | related-only |
 | [Medicine Ball Push-Up](#medicine-ball-push-up) | image | same-labelled-movement |
 | [Medicine Ball Lunge with Rotation](#medicine-ball-lunge-with-rotation) | video-poster | related-only |
-| [Medicine Ball Woodchop](#medicine-ball-woodchop) | video-poster | related-only |
+| [Medicine Ball Woodchop](#medicine-ball-woodchop) | video-poster | configuration-matched |
 | [BOSU Squat](#bosu-squat) | video-poster | configuration-matched |
 | [BOSU Push-Up](#bosu-push-up) | image | same-labelled-movement |
 | [BOSU Mountain Climber](#bosu-mountain-climber) | image | configuration-matched |
 | [BOSU Single-Leg Romanian Deadlift](#bosu-single-leg-romanian-deadlift) | video-poster | related-only |
 | [BOSU Lateral Step-Over](#bosu-lateral-step-over) | image | related-only |
 | [BOSU Reverse Lunge](#bosu-reverse-lunge) | video-poster | related-only |
-| [BOSU Side Plank](#bosu-side-plank) | video-poster | related-only |
+| [BOSU Side Plank](#bosu-side-plank) | video-poster | configuration-matched |
 | [BOSU Squat Jump](#bosu-squat-jump) | video-poster | related-only |
 | [Monkey Bar Traverse](#monkey-bar-traverse) | video-poster | related-only |
-| [Toes-to-Bar](#toes-to-bar) | video-poster | related-only |
-| [Hanging Windshield Wiper](#hanging-windshield-wiper) | video-poster | related-only |
+| [Toes-to-Bar](#toes-to-bar) | video-poster | configuration-matched |
+| [Hanging Windshield Wiper](#hanging-windshield-wiper) | video-poster | configuration-matched |
 | [Commando Pull-Up](#commando-pull-up) | video-poster | related-only |
 | [Archer Pull-Up](#archer-pull-up) | video-poster | related-only |
 | [Plate Front Raise](#plate-front-raise) | image | configuration-matched |
@@ -866,13 +866,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-presses.md#leaning-single-arm-lateral-raise).
 
-**Still / animation:** [How to do a Dumbbell Lateral Raise](https://i.ytimg.com/vi/XPPfnSEATJA/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v0918e762b818). Relationship: related-only.
+**Still / animation:** [Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration) — provider poster](https://i.ytimg.com/vi/p8eMhRdeX4g/hqdefault.jpg) — video-poster; KB Fitness / Kurtis Ackerman; [provenance](sources.md#v78aff146317a). Relationship: same-labelled-movement.
 
-**Video:** [How to do a Dumbbell Lateral Raise](https://www.youtube.com/watch?v=XPPfnSEATJA) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#vc600028248e9). Relationship: related-only.
+**Video:** [Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)](https://www.youtube.com/watch?v=p8eMhRdeX4g) — video; KB Fitness / Kurtis Ackerman; credited creator: KB Fitness - Kurtis Ackerman; [provenance](sources.md#vd71f200b599e). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Dumbbell lateral raise is related only when cable, machine or leaning support differs. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Kurtis Ackerman identifies the original demonstration as a leaning unilateral dumbbell raise. The three inspected public previews show one hand supported on a post, an inclined body and the other arm raising a dumbbell sideways. His published biography lists graduate kinesiology training and CSCS. Publisher-reported qualifications are not a renewal audit. The amount of lean and shoulder range are individual; complete repetitions remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-leaning-single-arm-lateral-raise).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-leaning-single-arm-lateral-raise).
+
+**Additional component / retained earlier comparison:** [How to do a Dumbbell Lateral Raise](https://www.youtube.com/watch?v=XPPfnSEATJA) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#vc600028248e9).
+
+**Additional component / retained earlier comparison:** [How to do a Dumbbell Lateral Raise](https://i.ytimg.com/vi/XPPfnSEATJA/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v0918e762b818).
 
 
 <a id="lu-raise"></a>
@@ -896,7 +902,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Y Raises (Incline). The full Cable Y-Raise equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Mike Doyle’s previews show standing cable Y positions; the Steev candidate uses a rendered demonstrator. The current PureGym reference instead supports the chest on an incline bench with dumbbells. A source with established professional provenance and a confirmed low-cable Y setup is still needed; the rendered candidate is not accepted as human technique evidence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-cable-y-raise).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-cable-y-raise).
 
@@ -910,7 +918,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Y Raises (Incline). The full Y-Raise on Stability Ball equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Training by Tatum supplies a ball-based candidate with reaching phases in its previews. The current PureGym video is explicitly an incline-bench dumbbell Y raise. Physitrack’s misleading y-raise slug resolves to a pregnancy leg-raise exercise. Chest support on the ball, the complete Y action and the new creator’s professional basis remain insufficiently established together. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-y-raise-on-stability-ball).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-y-raise-on-stability-ball).
 
@@ -1146,7 +1156,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Half Kneel Pallof Press](https://www.youtube.com/watch?v=-gVgJSDY8is) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vd5099e0d1c51). Relationship: related-only.
 
-**Match and limits:** Half-kneeling anti-rotation setup is documented, but the selected reference still shows a resistance band. A filmed cable implementation is still needed for an exact cable-only match.
+**Match and limits:** Rehab Hero’s written half-kneeling Pallof instructions permit band or cable, but the linked demonstrations use elastic resistance. The written page also puts the anchor-side leg forward, whereas the catalog puts that knee down. Cable footage with the catalog inside-knee-down arrangement remains unresolved. Permission to use a cable in prose does not establish the filmed implementation. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-half-kneeling-pallof-press).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-half-kneeling-pallof-press).
 
@@ -1156,13 +1168,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#cable-trunk-rotation).
 
-**Still / animation:** [Standing Cable Chop](https://i.ytimg.com/vi/0VWnOjUO7ks/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v113fd21131cb). Relationship: related-only.
+**Still / animation:** [Keiser Exercise of the Day: Standing Cable Rotation — provider poster](https://i.ytimg.com/vi/Qe2dGicUEUA/hqdefault.jpg) — video-poster; Keiser Europe; [provenance](sources.md#vc3ef272c895e). Relationship: same-labelled-movement.
 
-**Video:** [Standing Cable Chop](https://www.youtube.com/watch?v=0VWnOjUO7ks) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7f54874be8c5). Relationship: related-only.
+**Video:** [Keiser Exercise of the Day: Standing Cable Rotation](https://www.youtube.com/watch?v=Qe2dGicUEUA) — video; Keiser Europe; credited creator: Keiser Europe; [provenance](sources.md#v100cfbbb0f47). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Standing Cable Chop. The full Cable Trunk Rotation equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Keiser Europe’s original standing cable-rotation demonstration shows two hands in front of the chest, a standing staggered stance and a roughly horizontal cable line. This replaces the diagonal cable-chop comparison. Manufacturer exercise context supports the configuration; hip restraint, exact range and all narrated cues still require complete-motion review. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-cable-trunk-rotation).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-cable-trunk-rotation).
+
+**Additional component / retained earlier comparison:** [Standing Cable Chop](https://www.youtube.com/watch?v=0VWnOjUO7ks) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7f54874be8c5).
+
+**Additional component / retained earlier comparison:** [Standing Cable Chop](https://i.ytimg.com/vi/0VWnOjUO7ks/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v113fd21131cb).
 
 
 <a id="landmine-rainbow"></a>
@@ -1174,7 +1192,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Landmine Rotation](https://www.youtube.com/watch?v=iszktbsU8nE) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v093a95ae71e6). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Landmine rotation reference. Article emphasizes a relatively stationary pelvis; catalog rainbow allows a controlled foot pivot. Preserve this technique distinction. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rippel Effect’s original description distinguishes a limited rainbow from a more dynamic version with a pivot. The previews show a landmine arc, but do not reliably establish the complete foot-pivot sequence. Muscle & Strength’s rotation page describes a different restraint strategy. The catalog requires a foot pivot through the hip-to-hip arc. Do not merge the fixed-body and pivoting variants or infer a pivot from the exercise title. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-landmine-rainbow).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-landmine-rainbow).
 
@@ -1204,7 +1224,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do A Russian Twist](https://www.youtube.com/watch?v=99T1EfpMwPA) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vd2d79cc38795). Relationship: related-only.
 
-**Match and limits:** Targeted searches returned seated medicine-ball twists, which do not establish the shoulders-on-stability-ball version with a dumbbell. Keep the unsupported upper-back-on-ball configuration explicit rather than substituting a medicine-ball seated twist.
+**Match and limits:** ACE’s Russian-twist page supplies the missing shoulders-on-stability-ball posture with raised hips and grounded feet, but uses joined empty hands. The seated medicine-ball candidates place the person on the floor. The dumbbell load in the shoulders-on-ball version remains a video gap. ACE is a credible closer posture reference, not a loaded exact match. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ball-russian-twist).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ball-russian-twist).
 
@@ -1406,13 +1428,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#trx-fallout).
 
-**Still / animation:** [How To Do Ab Wheel Roll Outs](https://i.ytimg.com/vi/SBO5aFR09D4/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#veb248c3bb81f). Relationship: related-only.
+**Still / animation:** [How To Do a TRX Fallout — provider poster](https://i.ytimg.com/vi/gEXB2iWhoIM/hqdefault.jpg) — video-poster; Swift Movement Academy; [provenance](sources.md#vfa91d4f62153). Relationship: same-labelled-movement.
 
-**Video:** [How To Do Ab Wheel Roll Outs](https://www.youtube.com/watch?v=SBO5aFR09D4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vfea2d48ba2b8). Relationship: related-only.
+**Video:** [How To Do a TRX Fallout](https://www.youtube.com/watch?v=gEXB2iWhoIM) — video; Swift Movement Academy; credited creator: Swift Movement Academy; [provenance](sources.md#v8c47a8340ab3). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Ab Wheel Roll Outs. The full TRX Fallout equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Swift Movement Academy identifies David Adamo as an accredited exercise physiologist in its original TRX-fallout description. Public previews show standing feet, hands in suspension handles and the arms extended overhead as the body leans forward. This establishes a standing suspension fallout rather than a kneeling wheel rollout. Accreditation is publisher-reported; full motion and all spinal-position cues remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-trx-fallout).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-trx-fallout).
+
+**Additional component / retained earlier comparison:** [How To Do Ab Wheel Roll Outs](https://www.youtube.com/watch?v=SBO5aFR09D4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vfea2d48ba2b8).
+
+**Additional component / retained earlier comparison:** [How To Do Ab Wheel Roll Outs](https://i.ytimg.com/vi/SBO5aFR09D4/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#veb248c3bb81f).
 
 
 <a id="hanging-leg-raise"></a>
@@ -1436,7 +1464,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [AB EXERCISE - How to do an abdominal crunch (ab crunch)](https://www.youtube.com/watch?v=NnVhqMQRvmM) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb0f18c5f9b4f). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: AB EXERCISE - How to do an abdominal crunch (ab crunch). The full Cable Crunch equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Muscle & Strength explicitly describes kneeling under a high rope pulley and flexing the torso. Its embedded Vimeo identifier was discovered on the primary page, but public metadata were redacted and the standalone viewing page was unavailable. Colossus previews show a kneeling cable candidate. The exact written setup is supported; the M&S video identity/playback and the alternative creator’s professional basis remain unresolved. The floor-crunch comparison is not upgraded. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-cable-crunch).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-cable-crunch).
 
@@ -1482,7 +1512,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Decline Sit Ups](https://www.youtube.com/watch?v=N7hf1_vcX5w) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v9cfe199366e7). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Decline Sit Ups. The full Weighted Decline Sit-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s original decline-sit-up description establishes the declined bench and secured feet, but does not establish an external plate held at the chest. The closer weighted search result did not supply a verified professional demonstration. The catalog’s plate-at-chest loading remains unverified; an unloaded decline sit-up is still only a comparison. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-weighted-decline-sit-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-weighted-decline-sit-up).
 
@@ -1626,7 +1658,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Suitcase Carry](https://www.youtube.com/watch?v=X1DRecdyYwE) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v67c9d1c1f3c2). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Suitcase Carry. The full Mixed Rack and Suitcase Carry equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s suitcase-carry description and reference establish a weight hanging beside one hip while walking. They do not establish a second kettlebell in the opposite front rack at the same time. Need simultaneous rack-plus-suitcase loading and a side change. Separate suitcase and rack carries do not demonstrate the mixed carry. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-mixed-rack-and-suitcase-carry).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-mixed-rack-and-suitcase-carry).
 
@@ -1732,11 +1766,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [How To Do A Lat Pulldown](https://www.puregym.com/media/pbcpmxhf/lat-pulldown.jpg?quality=80) — image; PureGym; [provenance](sources.md#vb395266b0668). Relationship: related-only.
 
-**Video:** [How To Do A Lat Pulldown](https://www.youtube.com/watch?v=JGeRYIZdojU) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vcab5cc1ed5e2). Relationship: related-only.
+**Video:** [Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions](https://www.youtube.com/watch?v=W86Sj_sUqR8) — video; Life Fitness / Hammer Strength; credited creator: Life Fitness / Hammer Strength; [provenance](sources.md#v6a859534ec47). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Lat Pulldown. The full Machine Pulldown equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The original Life Fitness/Hammer Strength instruction video and its previews show a seated plate-loaded front pulldown with overhead lever handles, chest support and thigh restraint. The manufacturer’s product page independently specifies the overhead pivot and underhand lever grip. This is the Signature plate-loaded implementation. Model-specific adjustments and the full return to the top are not individually approved. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-machine-pulldown).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-machine-pulldown).
+
+**Additional component / retained earlier comparison:** [How To Do A Lat Pulldown](https://www.youtube.com/watch?v=JGeRYIZdojU) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vcab5cc1ed5e2).
+
+**Additional component / retained earlier comparison:** [Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions — provider poster](https://i.ytimg.com/vi/W86Sj_sUqR8/hqdefault.jpg) — video-poster; Life Fitness / Hammer Strength; [provenance](sources.md#vf1ab4f40343f).
 
 
 <a id="barbell-bent-over-row"></a>
@@ -2002,7 +2042,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do An Incline Dumbbell Row](https://www.youtube.com/watch?v=Nx0TzjgsI-0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v538d00cacc02). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do An Incline Dumbbell Row. The full Ball-Supported Dumbbell Row equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s original incline-row description places the chest on an inclined bench, with a dumbbell in each hand. This supports the rowing action but supplies a rigid support rather than a stability ball. Need chest-on-ball support with a sufficiently stable foot position and the dumbbell rowing action together; bench support is not silently substituted. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ball-supported-dumbbell-row).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ball-supported-dumbbell-row).
 
@@ -2068,7 +2110,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Cable machine rear deltoid row](https://vimeo.com/703924303/19ba6a5fb3) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vc7dbd981420e). Relationship: related-only.
 
-**Match and limits:** The inspected Live Lean candidate is a bent-over rear-delt raise; it does not show chest support on an incline bench or a bent-elbow rear-delt row. A chest-supported incline dumbbell row with outward elbows remains a direct-video gap.
+**Match and limits:** Alex Thieme’s candidate previews show incline chest support and a bent-elbow dumbbell row. The Live Lean video inspected here is a standing bent-over rear-delt raise despite its title. The existing Physitrack reference is cable loaded. The closer incline-row candidate needs a stronger documented professional provenance and an elbow-path check. Neither a straight-arm fly nor a cable row establishes the full target. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-incline-dumbbell-rear-delt-row).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-incline-dumbbell-rear-delt-row).
 
@@ -2098,7 +2142,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Y-raise component shown; the full Y-T-W sequence/support is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current PureGym demonstration performs Y raises on a bench with dumbbells. Simone Sports Performance’s primary article lists a ring/TRX Y-T-W complex, while the other named search result is a workout listing rather than inspected sequence evidence. Need an attributed suspension-trainer demonstration covering Y, T and W; a Y-only clip or a plan listing does not resolve all three phases. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-trx-y-t-w).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-trx-y-t-w).
 
@@ -2112,7 +2158,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Y-raise component shown; the full Y-T-W sequence/support is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The International Tennis Performance Association workbook explicitly describes prone Y, T and bent-elbow W raises on a ball or bench. This improves written configuration support over the current bench Y-only video. An individually checked ball-supported Y-T-W video is still needed. The workbook’s unrelated lateral-step sentence is not adopted as part of the shoulder sequence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ball-prone-y-t-w).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ball-prone-y-t-w).
 
@@ -2206,7 +2254,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Straight Bar Cable Curl](https://www.youtube.com/watch?v=j4OBP2_-11M) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v357ec38cea47). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Cable curl comparator; behind-body Bayesian arm position is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Tristan Hand’s original description specifies a low single cable, facing away from the stack and maintaining the elbow behind the torso. Previews are consistent with that arrangement. The current Rehab Hero straight-bar cable curl instead faces the resistance. Configuration appears promising, but the new creator’s professional provenance has not been established sufficiently for acceptance. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bayesian-cable-curl).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bayesian-cable-curl).
 
@@ -2272,7 +2322,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Hammer Curls](https://www.youtube.com/watch?v=B4RznoFvTl4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v4af21b974419). Relationship: related-only.
 
-**Match and limits:** The new OriGym candidate was inspected: it curls two separate kettlebells with one per hand. Rejected as an exact match to the catalog one-bell, two-hand horns grip.
+**Match and limits:** PureGym demonstrates two dumbbells with neutral grips. The OriGym kettlebell candidate inspected previously uses one bell in each hand, rather than a single bell held by both horns. A two-hand, one-kettlebell horns curl remains unresolved; neither pair of separate implements establishes that grip. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-kettlebell-hammer-curl).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-kettlebell-hammer-curl).
 
@@ -2416,11 +2468,15 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Heel Elevated Squat](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1626040753075-3N3T5HEYE5JZKV3CJEE0/Heel%2BElevated%2BSquat.jpg) — image; Rehab Hero; [provenance](sources.md#v98474b8e62e3). Relationship: related-only.
 
-**Video:** [Heel Elevated Squat](https://www.youtube.com/watch?v=t1YQ9bvcfVg) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#ve9640b0a7158). Relationship: related-only.
+**Video:** [Heel elevated dumbbell squat](https://media.physitrack.com/exercises/b8dae74a-615d-4f67-8fcc-656e9bccfd97/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v3001141d7696). Relationship: configuration-matched.
 
-**Match and limits:** The Physitrack heel-elevated squat page and sampled video use two dumbbells hanging at the sides. The internal notes specify a goblet dumbbell near the chest; the two load positions are not silently equated.
+**Match and limits:** Physitrack’s exercise-specific page and sampled public video show raised heels, toes on the floor, a dumbbell in each hand and a squat. The catalog requires dumbbells and elevated heels, but does not mandate a goblet grip. The filmed support is a low wedge/ledge rather than a loose plate. The internal notes choose a goblet load; that difference remains explicit and those notes are not validated by the side-loaded clip. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-heel-elevated-dumbbell-squat).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-heel-elevated-dumbbell-squat).
+
+**Additional component / retained earlier comparison:** [Heel Elevated Squat](https://www.youtube.com/watch?v=t1YQ9bvcfVg) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#ve9640b0a7158).
 
 
 <a id="stability-ball-wall-squat"></a>
@@ -2494,7 +2550,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How to do a Kettlebell Deadlift  / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=LnIMaf-XOpM) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v7fa865732f61). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Kettlebell Deadlift  | Proper Form & Technique | NASM. The full Double Kettlebell Deadlift equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** SET FOR SET’s original double-deadlift video is correctly credited, but two of the three previews are end cards and the remaining view does not firmly resolve bell placement. Its linked article says its demonstrated variations use one bell. NASM’s old clip also has a mismatched published description. Confirm two bells starting between the feet in the original double-deadlift footage. The one-bell article cannot independently validate the paired-bell setup. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-double-kettlebell-deadlift).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-double-kettlebell-deadlift).
 
@@ -2534,7 +2592,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Banded Glute Pull Through](https://www.youtube.com/watch?v=lOu8tA1i7NQ) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v5d8004a765fd). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Band-resisted hip hinge comparator. The similarly titled lumbar pull-through deliberately rounds the lumbar spine and was rejected for this cable hip hinge. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Live Lean’s original cable pull-through description and previews show a rope from a low stack passing between the legs. Rehab Hero’s current reference uses an anchored band. The cable candidate is closer, but its professional credential basis remains unverified here. Its claim of no spinal loading is not adopted. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-cable-pull-through).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-cable-pull-through).
 
@@ -2548,7 +2608,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Prone Back Extension](https://www.youtube.com/watch?v=jQvvTmKApno) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v063f7dedd304). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Prone floor back-extension reference. This does not establish a hip-hinge extension over a Roman-chair pad, its setup or external loading. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Muscle & Strength’s weighted-hyperextension instructions explicitly use a hip pad, secured feet and a plate held at the chest. Catalyst Athletics previews instead show a different back-extension loading arrangement; the current Rehab Hero comparison is prone floor extension. A directly identified and inspected plate-at-chest video is still needed. Do not substitute a floor extension or adopt the source’s separate globally arched variant. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-weighted-back-extension).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-weighted-back-extension).
 
@@ -2574,7 +2636,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do A Barbell Hip Thrust](https://www.youtube.com/watch?v=aweBS7K71l8) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v9201d78bf18a). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Barbell Hip Thrust. The full B-Stance Hip Thrust equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Aubin Grove/Kwinana/Harrisdale Physiotherapy describes the staggered foot arrangement and bench support, and its public previews show the bodyweight B-stance hip thrust. The BeFit candidate is also explicitly bodyweight. The catalog requires barbell loading as well as B-stance and bench support. No barbell is established by these closer clips. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-b-stance-hip-thrust).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-b-stance-hip-thrust).
 
@@ -2598,11 +2662,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [How To Do A Barbell Hip Thrust](https://www.puregym.com/media/z2rjhbj2/barbell-hip-thrust.jpg?quality=80) — image; PureGym; [provenance](sources.md#v4a63ba0a233d). Relationship: related-only.
 
-**Video:** [How To Do A Barbell Hip Thrust](https://www.youtube.com/watch?v=aweBS7K71l8) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v9201d78bf18a). Relationship: related-only.
+**Video:** [Glute Drive Sizzle Video](https://vimeo.com/322120209) — video; Core Health & Fitness / Nautilus; credited creator: Core Health & Fitness; [provenance](sources.md#v9f4f9ccd64a2). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Barbell Hip Thrust. The full Glute Drive Machine equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The manufacturer’s public Nautilus Glute Drive video was inspected through the visible player. At the displayed 0:35 and 0:40 positions it shows the plate-loaded hip-thrust machine, supported back, feet on the platform and the belt across the hips. A manufacturer marketing video supports machine identity and operating position. Those isolated player positions do not validate all repetition mechanics, belt adjustment or the promotional safety claims. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-glute-drive-machine).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-glute-drive-machine).
+
+**Additional component / retained earlier comparison:** [How To Do A Barbell Hip Thrust](https://www.youtube.com/watch?v=aweBS7K71l8) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v9201d78bf18a).
+
+**Additional component / retained earlier comparison:** [Glute Drive Sizzle Video — provider poster](https://i.vimeocdn.com/video/788678279-7c2812ce3c8db028de0429367aeb3d54d257c07d17507eb9f85c4b22673308ba-d_640?region=us) — video-poster; Core Health & Fitness / Nautilus; [provenance](sources.md#vf494f4caecb8).
 
 
 <a id="single-leg-hip-thrust"></a>
@@ -2624,11 +2694,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Swiss Ball Straight Leg Bridge](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/d41ddd55-1de0-404d-9c33-cd6f7a3fdb49/Swiss+Ball+Straight+Leg+Bridge.jpg) — image; Rehab Hero; [provenance](sources.md#v4df8c2b87d00). Relationship: related-only.
 
-**Video:** [Swiss Ball Straight Leg Bridge](https://www.youtube.com/watch?v=vJJ6rHle0EY) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v6b2882af7f55). Relationship: related-only.
+**Video:** [Single-leg stability ball bridge](https://www.youtube.com/watch?v=U1oarHmUKrY) — video; PFP / Brian Schiff; credited creator: PFP media; [provenance](sources.md#v2cece7867181). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Swiss Ball Straight Leg Bridge. The full Stability Ball Single-Leg Bridge equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Brian Schiff’s authored PFP article embeds the credited PFP media video and explicitly describes supine support, one heel/lower leg on the ball, the opposite leg lifted and hip extension. The inspected public previews show the single-leg ball bridge. The article offers arm-position and tempo progressions; these are optional variants, not extra catalog requirements. Full-motion and individual prescription remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-stability-ball-single-leg-bridge).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-stability-ball-single-leg-bridge).
+
+**Additional component / retained earlier comparison:** [Swiss Ball Straight Leg Bridge](https://www.youtube.com/watch?v=vJJ6rHle0EY) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v6b2882af7f55).
+
+**Additional component / retained earlier comparison:** [Single-leg stability ball bridge — provider poster](https://i.ytimg.com/vi/U1oarHmUKrY/hqdefault.jpg) — video-poster; PFP / Brian Schiff; [provenance](sources.md#vd7c793bf4b01).
 
 
 <a id="cable-glute-kickback"></a>
@@ -2708,7 +2784,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Reverse Lunge. The full Kettlebell Goblet Reverse Lunge equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Vie Athletics’ description specifies a single kettlebell at the chest and alternating reverse lunges; previews are consistent with a goblet hold. The other candidate cups an inverted bell, a distinct grip detail. The Vie candidate’s professional publishing basis remains insufficiently documented here. The unloaded or dumbbell reverse-lunge comparison is retained without upgrading it. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-kettlebell-goblet-reverse-lunge).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-kettlebell-goblet-reverse-lunge).
 
@@ -2782,13 +2860,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-legs.md#skater-squat).
 
-**Still / animation:** [Counterbalanced Skater Squat](https://i.ytimg.com/vi/O22D_lsIDgA/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v8bfa760eb4d8). Relationship: related-only.
+**Still / animation:** [Exercise Demo: Skater Squat — provider poster](https://i.ytimg.com/vi/Nfj95QABIdI/hqdefault.jpg) — video-poster; Jen Sinkler; [provenance](sources.md#vdf26ec2e4b76). Relationship: same-labelled-movement.
 
-**Video:** [Counterbalanced Skater Squat](https://www.youtube.com/watch?v=O22D_lsIDgA) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v6671f32ecf3c). Relationship: related-only.
+**Video:** [Exercise Demo: Skater Squat](https://www.youtube.com/watch?v=Nfj95QABIdI) — video; Jen Sinkler; credited creator: Jen Sinkler; [provenance](sources.md#v971d952e4eeb). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Counterbalance changes the bodyweight skater squat; keep the distinction explicit. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Jen Sinkler’s original instructions describe a one-legged squat with the free knee descending behind the body to the floor or a pad. Inspected previews show an unloaded version with a padded target, unlike the existing dumbbell-counterbalanced reference. Her first-person Girls Gone Strong interview supplies a bodyweight-coaching background; it is historical and does not verify current certification renewal or every repetition. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-skater-squat).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-skater-squat).
+
+**Additional component / retained earlier comparison:** [Counterbalanced Skater Squat](https://www.youtube.com/watch?v=O22D_lsIDgA) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v6671f32ecf3c).
+
+**Additional component / retained earlier comparison:** [Counterbalanced Skater Squat](https://i.ytimg.com/vi/O22D_lsIDgA/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v8bfa760eb4d8).
 
 
 <a id="single-leg-romanian-deadlift"></a>
@@ -2844,7 +2928,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do A Single Leg Deadlift](https://www.youtube.com/watch?v=hk80eAoQshc) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v6160d14de113). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Single Leg Deadlift. The full Cable Single-Leg Romanian Deadlift equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Red Dot Fitness describes facing a low cable stack and allows either hand relative to the stance leg. Its previews show a forward-facing low cable hinge. The catalog specifically calls for a cable pulling across the body while resisting turn. The cross-body resistance direction is not established by the frontal setup. Contralateral hand selection alone does not prove the catalog lateral cable geometry. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-cable-single-leg-romanian-deadlift).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-cable-single-leg-romanian-deadlift).
 
@@ -2872,7 +2958,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Step up](https://vimeo.com/703917541/c59d66c44e) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v512fda172144). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Step up. The full High Step-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Physitrack offers a high step-up with a barbell and a separate high step-up with arms overhead. The existing step-up reference does not establish the requested high box and dumbbell loading together. Need a high dumbbell step-up with controlled pelvis and no push from the trailing foot; extra overhead or knee-drive phases remain separate. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-high-step-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-high-step-up).
 
@@ -3018,13 +3106,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-legs.md#standing-cable-leg-curl).
 
-**Still / animation:** [How to Use a Lying Leg Curl / Proper Form & Technique / NASM](https://i.ytimg.com/vi/Dq5y4WEcqqo/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v53bc1691a7f8). Relationship: related-only.
+**Still / animation:** [Standing Cable Leg Curl — provider poster](https://i.ytimg.com/vi/_V0Y9YFAyFo/hqdefault.jpg) — video-poster; Andrew Heming; [provenance](sources.md#v5fda73533e56). Relationship: same-labelled-movement.
 
-**Video:** [How to Use a Lying Leg Curl / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=Dq5y4WEcqqo) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v8ed0ef85285b). Relationship: related-only.
+**Video:** [Standing Cable Leg Curl](https://www.youtube.com/watch?v=_V0Y9YFAyFo) — video; Andrew Heming; credited creator: Andrew Heming; [provenance](sources.md#vb1a9744716e2). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to Use a Lying Leg Curl | Proper Form & Technique | NASM. The full Standing Cable Leg Curl equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Andrew Heming’s original standing cable-leg-curl video and public previews show standing support at a cable station with an ankle attachment and knee flexion. His university profile identifies exercise-science education and strength/personal-training certifications. This replaces the lying machine comparison. The exact cuff fit, cable clearance and complete return range remain for full playback review. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-standing-cable-leg-curl).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-standing-cable-leg-curl).
+
+**Additional component / retained earlier comparison:** [How to Use a Lying Leg Curl / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=Dq5y4WEcqqo) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v8ed0ef85285b).
+
+**Additional component / retained earlier comparison:** [How to Use a Lying Leg Curl / Proper Form & Technique / NASM](https://i.ytimg.com/vi/Dq5y4WEcqqo/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#v53bc1691a7f8).
 
 
 <a id="dumbbell-leg-curl"></a>
@@ -3036,7 +3130,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Dumbbell Hamstring Curls](https://www.youtube.com/watch?v=z6MvXsikOk0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#va966a719ac1f). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Dumbbell Hamstring Curls. The full Dumbbell Leg Curl equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s original instructions explicitly place the person face down on the floor with one dumbbell between both feet. FITTR’s description also specifies the ground. The bodybuilding candidate mentions a bench only as an alternative in its description. The catalog requires face-down bench support with the dumbbell between the feet. Written permission to use a bench does not establish the filmed bench setup. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-dumbbell-leg-curl).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-dumbbell-leg-curl).
 
@@ -3300,13 +3396,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-legs.md#single-leg-dumbbell-calf-raise).
 
-**Still / animation:** [How To Do A Single Leg Calf Raise](https://i.ytimg.com/vi/IphGZ8OlfYg/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v66f677636145). Relationship: related-only.
+**Still / animation:** [Standing single leg dumbbell calf raises — provider poster](https://i.ytimg.com/vi/PTn6icEeH3Y/hqdefault.jpg) — video-poster; FITTR; [provenance](sources.md#v74ef819934de). Relationship: same-labelled-movement.
 
-**Video:** [How To Do A Single Leg Calf Raise](https://www.youtube.com/watch?v=IphGZ8OlfYg) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v89e688edb3f9). Relationship: related-only.
+**Video:** [Standing single leg dumbbell calf raises](https://www.youtube.com/watch?v=PTn6icEeH3Y) — video; FITTR; credited creator: FITTR; [provenance](sources.md#v51730d02f78a). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Single Leg Calf Raise. The full Single-Leg Dumbbell Calf Raise equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** FITTR’s original instructions specify one dumbbell at the side, a single forefoot on a raised block, the other leg lifted and hand support for balance. The three public previews show that loaded supported single-leg arrangement. FITTR identifies its coaching staff as certified; the unnamed model’s individual credential is not independently checked. A controlled individual ankle range still needs full-motion review. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-single-leg-dumbbell-calf-raise).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-single-leg-dumbbell-calf-raise).
+
+**Additional component / retained earlier comparison:** [How To Do A Single Leg Calf Raise](https://www.youtube.com/watch?v=IphGZ8OlfYg) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v89e688edb3f9).
+
+**Additional component / retained earlier comparison:** [How To Do A Single Leg Calf Raise](https://i.ytimg.com/vi/IphGZ8OlfYg/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v66f677636145).
 
 
 <a id="barbell-calf-raise"></a>
@@ -3318,7 +3420,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Calf raise holding on](https://vimeo.com/703907118/1653d44566) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v095519673d84). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Standing supported heel raise is related to the loaded machine/barbell version. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Runna’s candidate is explicitly single-legged with a barbell. MyTrainingPRO’s published preparation is seated with the bar on the thighs and flexed knees; its previews show that seated configuration. Neither establishes the catalog bilateral standing straight-knee calf raise with the forefeet elevated on a plate. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-barbell-calf-raise).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-barbell-calf-raise).
 
@@ -3388,7 +3492,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Deep Knee Bend Step Up](https://www.youtube.com/watch?v=opORJh0O4oU) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v6a78ac7b33d5). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Deep Knee Bend Step Up. The full Box Step-Up with Knee Drive equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab My Patient’s original description establishes stepping onto a box and lifting the trailing knee, but its previews show no kettlebell. The Physitrack knee-drive step-up is barbell loaded. Need the catalog kettlebell load and pause at the high-knee position together; unloaded and barbell versions remain distinct. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-box-step-up-with-knee-drive).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-box-step-up-with-knee-drive).
 
@@ -3402,7 +3508,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do A Dumbbell Step Up](https://www.youtube.com/watch?v=DxUNi119Qzs) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vef1bb50f61dd). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Dumbbell Step Up. The full Eccentric Box Step-Down equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Made Possible’s original eccentric-step-down instructions lower the nonworking leg behind the box for a toe touch. Physitrack’s stepdowns also reach the rear foot down and add trunk/leg-reaching phases. The catalog calls for a three-second descent to a heel tap. A rear toe tap and unspecified lowering duration are unresolved differences. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-eccentric-box-step-down).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-eccentric-box-step-down).
 
@@ -3416,7 +3524,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Bulgarian Split Squats](https://www.youtube.com/watch?v=TEXl2b3__S4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v5e94c9bdf02f). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Bulgarian Split Squats. The full Box Bulgarian Split Squat equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Squat University’s tutorial discusses rear-support height and split-squat stance, but the inspected previews do not establish the catalog pair of dumbbells with a box supporting the rear foot. PureGym’s generic Bulgarian clip remains the earlier comparison. Need the rear-foot box support and dumbbell loading in the actual selected demonstration; a generic Bulgarian-squat name is insufficient. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-box-bulgarian-split-squat).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-box-bulgarian-split-squat).
 
@@ -3490,13 +3600,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/catalog-power-and-conditioning.md#single-leg-box-jump).
 
-**Still / animation:** [How To Do Box Jumps](https://i.ytimg.com/vi/k7dmYdknbac/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve5d1c07d1577). Relationship: related-only.
+**Still / animation:** [How to: Single leg Box Jump — provider poster](https://i.ytimg.com/vi/ENZjCX9HjVI/hqdefault.jpg) — video-poster; SATS Nordic; [provenance](sources.md#vc0af92924a14). Relationship: same-labelled-movement.
 
-**Video:** [How To Do Box Jumps](https://www.youtube.com/watch?v=k7dmYdknbac) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v1e59409bf9d7). Relationship: related-only.
+**Video:** [How to: Single leg Box Jump](https://www.youtube.com/watch?v=ENZjCX9HjVI) — video; SATS Nordic; credited creator: SATS Nordic; [provenance](sources.md#v675cb25cf7bf). Relationship: configuration-matched.
 
-**Match and limits:** OPEX and SATS offer named single-leg box-jump candidates and their public previews show unilateral takeoff/box positions. The same-leg landing requirement is not confidently established by the limited preview stills; do not treat a single-leg takeoff with two-foot landing as equivalent.
+**Match and limits:** SATS’s original description specifies using one leg. Visible-player positions around 0:01, 0:03 and 0:04 were compared: a unilateral floor stance is followed by same-leg support on the box with the other leg lifted. OPEX’s description explicitly instructs a two-foot landing and is rejected for this target. The SATS evidence supports the takeoff/landing configuration. The catalog step-down exit, every landing and continuous movement have not been validated. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-single-leg-box-jump).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-single-leg-box-jump).
+
+**Additional component / retained earlier comparison:** [How To Do Box Jumps](https://www.youtube.com/watch?v=k7dmYdknbac) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v1e59409bf9d7).
+
+**Additional component / retained earlier comparison:** [How To Do Box Jumps](https://i.ytimg.com/vi/k7dmYdknbac/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve5d1c07d1577).
 
 
 <a id="broad-jump"></a>
@@ -3532,7 +3648,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Jump Squat](https://www.youtube.com/watch?v=BRfxI2Es2lE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v44c6375f72d0). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Jump Squat. The full Approach Vertical Jump equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s original jump-squat instructions start from a stationary bilateral squat. They contain no two- or three-step approach. A credible approach-jump demonstration with the approach, arm swing and vertical takeoff sequence remains missing. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-approach-vertical-jump).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-approach-vertical-jump).
 
@@ -3586,7 +3704,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Jump Squat](https://www.youtube.com/watch?v=BRfxI2Es2lE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v44c6375f72d0). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Jump Squat. The full 180 Degree Rotational Jump equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The selected PureGym clip is a stationary vertical jump squat; its original description does not include a turn. Physitrack’s X-jump candidate is a directional drill rather than an established half-turn jump. Need a deliberate 180-degree airborne turn and controlled landing. A vertical or quarter-turn jump is not an exact reference. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-180-degree-rotational-jump).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-180-degree-rotational-jump).
 
@@ -3612,7 +3732,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [BEST Exercises for Runners (Strength Training / Plyometrics / Power Exercises)](https://www.youtube.com/watch?v=GcZJhNi2yOM) — video; E3 Rehab; credited creator: E3 Rehab; [provenance](sources.md#v7360c021e19f). Relationship: related-only.
 
-**Match and limits:** The Physitrack pogo pages and sampled videos are single-leg or alternating hops. The catalog uses two-foot in-place ankle hops; the earlier E3 diagonal component remains related.
+**Match and limits:** Live Lean’s published instructions explicitly describe small quick bilateral ankle hops, and previews show a two-foot hopping posture. Physitrack’s similarly named pages instead contain single-leg or alternating hops. The Live Lean creator’s professional qualification basis remains unverified here; the earlier E3 diagonal component is not reclassified as an in-place two-foot demonstration. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-pogo-hops).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-pogo-hops).
 
@@ -3624,13 +3746,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-power-and-conditioning.md#dumbbell-jump-squat).
 
-**Still / animation:** [How To Jump Squat](https://i.ytimg.com/vi/BRfxI2Es2lE/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vaa8ae53d0d6a). Relationship: related-only.
+**Still / animation:** [Dumbbell Jump Squat — provider poster](https://i.ytimg.com/vi/GGPXs7JbH5o/hqdefault.jpg) — video-poster; Annie Miller; [provenance](sources.md#v79d09a085c8e). Relationship: same-labelled-movement.
 
-**Video:** [How To Jump Squat](https://www.youtube.com/watch?v=BRfxI2Es2lE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v44c6375f72d0). Relationship: related-only.
+**Video:** [Dumbbell Jump Squat](https://www.youtube.com/watch?v=GGPXs7JbH5o) — video; Annie Miller; credited creator: Annie Miller; [provenance](sources.md#v5deee15ae161). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Jump Squat. The full Dumbbell Jump Squat equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Annie Miller’s original exercise description identifies the jump-squat version with dumbbells at the sides; inspected public previews show the two side-held dumbbells and the squat/jump setup. Her primary education page lists an exercise-science degree and CSCS background. This supports implement and action identity. Load choice, landing quality and complete repetitions remain unreviewed; no universal loading percentage is adopted. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-dumbbell-jump-squat).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-dumbbell-jump-squat).
+
+**Additional component / retained earlier comparison:** [How To Jump Squat](https://www.youtube.com/watch?v=BRfxI2Es2lE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v44c6375f72d0).
+
+**Additional component / retained earlier comparison:** [How To Jump Squat](https://i.ytimg.com/vi/BRfxI2Es2lE/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vaa8ae53d0d6a).
 
 
 <a id="side-step-lunge"></a>
@@ -3642,7 +3770,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Side Lunge Slider](https://www.youtube.com/watch?v=_MAgLZyCnM8) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb91547c03ac6). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Side Lunge Slider. The full Side Step Lunge equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Stryd’s side-step lunge explicitly places the hands on the hips, and OriGym’s candidate uses a ViPR. The current Rehab Hero clip uses a slider rather than stepping out with dumbbells. A dumbbell-loaded side step with a return and alternating sides remains unresolved; unloaded, ViPR and sliding versions are kept distinct. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-side-step-lunge).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-side-step-lunge).
 
@@ -3656,7 +3786,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Side Lunge Slider](https://www.youtube.com/watch?v=_MAgLZyCnM8) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb91547c03ac6). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Side Lunge Slider. The full Side Step Lunge to Balance equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The selected Rehab Hero lunge-slider keeps a foot on a sliding surface. Stryd’s unweighted stepping lunge is closer to the first phase but does not establish the high-knee balance finish. Need a lateral step/lunge followed by an upright knee-drive balance; neither a slider nor an ordinary return to two feet covers the sequence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-side-step-lunge-to-balance).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-side-step-lunge-to-balance).
 
@@ -3690,13 +3822,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-pulls.md#band-face-pull).
 
-**Still / animation:** [How to do a Face Pull / Proper Form & Technique / NASM](https://i.ytimg.com/vi/eTCBSFlCJ_s/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#vb0eea9dc4410). Relationship: related-only.
+**Still / animation:** [Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab — provider poster](https://i.ytimg.com/vi/2ISWPJg8IKA/hqdefault.jpg) — video-poster; BeFit Training Physiotherapy; [provenance](sources.md#v5da633391cac). Relationship: same-labelled-movement.
 
-**Video:** [How to do a Face Pull / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=eTCBSFlCJ_s) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#ve5aece20515e). Relationship: related-only.
+**Video:** [Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab](https://www.youtube.com/watch?v=2ISWPJg8IKA) — video; BeFit Training Physiotherapy; credited creator: The BeFit Physio Method; [provenance](sources.md#v563751a0877b). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Face Pull | Proper Form & Technique | NASM. The full Band Face Pull equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Only the band face-pull setup is adopted. The publisher’s broad rehabilitation/condition claims are not adopted; no individual licence-renewal or complete-motion audit was performed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-band-face-pull).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-band-face-pull).
+
+**Additional component / retained earlier comparison:** [How to do a Face Pull / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=eTCBSFlCJ_s) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#ve5aece20515e).
+
+**Additional component / retained earlier comparison:** [How to do a Face Pull / Proper Form & Technique / NASM](https://i.ytimg.com/vi/eTCBSFlCJ_s/hqdefault.jpg) — video-poster; NASM; [provenance](sources.md#vb0eea9dc4410).
 
 
 <a id="band-assisted-archer-pull-up"></a>
@@ -3708,7 +3846,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How to do a Band Assisted Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=B_VkNQS5YLs) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v17ede1055cc9). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Band Assisted Pull-Up | Proper Form & Technique | NASM. The full Band-Assisted Archer Pull-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Pullup & Dip publishes a band-assisted archer section beginning at 0:47. At the inspected 0:51 player position a band is visible below the bar and the feet are together, but single-foot engagement is unclear. The NASM comparison is a conventional bilateral assisted pull-up. The catalog specifies the band under one foot and lateral archer loading with the other arm straight. That complete arrangement remains unverified. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-band-assisted-archer-pull-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-band-assisted-archer-pull-up).
 
@@ -3718,13 +3858,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-pulls.md#kneeling-band-lat-pulldown).
 
-**Still / animation:** [How To Do Kneeling Lat Pulldowns](https://i.ytimg.com/vi/VIJPZ8m0EDM/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve1d303f87ea0). Relationship: related-only.
+**Still / animation:** [Kneeling band lat pulldown — provider poster](https://i.ytimg.com/vi/fGIKnkrBOcs/hqdefault.jpg) — video-poster; Steph Dorworth; [provenance](sources.md#v926ed3e49888). Relationship: same-labelled-movement.
 
-**Video:** [How To Do Kneeling Lat Pulldowns](https://www.youtube.com/watch?v=VIJPZ8m0EDM) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v000caeffab9b). Relationship: related-only.
+**Video:** [Kneeling band lat pulldown](https://www.youtube.com/watch?v=fGIKnkrBOcs) — video; Steph Dorworth; credited creator: Steph Dorworth; [provenance](sources.md#v0340d79cf6fe). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Kneeling Lat Pulldowns. The full Kneeling Band Lat Pulldown equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Steph Dorworth’s original nine-second demonstration and its previews show kneeling support, bands from high anchors and bent elbows pulling downward. Her authored PostureMedic manual identifies her physiotherapy and strength-coaching background. High-anchor band loading replaces the cable comparator. The manual supports author identity, not this particular video’s complete technique or a current licensing check. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-kneeling-band-lat-pulldown).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-kneeling-band-lat-pulldown).
+
+**Additional component / retained earlier comparison:** [How To Do Kneeling Lat Pulldowns](https://www.youtube.com/watch?v=VIJPZ8m0EDM) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v000caeffab9b).
+
+**Additional component / retained earlier comparison:** [How To Do Kneeling Lat Pulldowns](https://i.ytimg.com/vi/VIJPZ8m0EDM/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve1d303f87ea0).
 
 
 <a id="band-seated-row"></a>
@@ -3748,7 +3894,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Resisted single arm row standing ("Row" Shoulder extension/scapular retraction strengthening, with band (mid), (unilateral), standing)](https://media.physitrack.com/exercises/2e7d8ca9-653b-4a46-be1a-9d7fad5a6214/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v2a39aac2f6e8). Relationship: related-only.
 
-**Match and limits:** Physitrack instructions and sampled frames show a standing single-arm row using a flat elastic band fixed in front. This is closer than the original dumbbell comparison, but an exact tube-with-handle demonstration is still needed for the catalog equipment.
+**Match and limits:** The existing Physitrack direct video was rechecked: its visible setup uses a flat band, a low-to-mid anchor and a parallel stance. MD Health’s single-arm-row page adds a clinical source, but the target remains more specific. Need a tube with handles anchored at chest height, staggered support and resistance to torso turn. The low-anchor flat-band demonstration is not silently equated. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-tube-single-arm-row).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-tube-single-arm-row).
 
@@ -3764,7 +3912,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A Seated Chest Press](https://www.youtube.com/watch?v=CIykDiF4sfg) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v26001c4b40ba). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Seated Chest Press. The full Anchored Band Chest Press equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current PureGym original description uses seated machine support and machine handles. The catalog instead uses an elastic band anchored behind the chest while standing in a staggered stance. A credible anchored-band standing press demonstration remains unresolved; wrapping a band behind the back is also a different anchor arrangement. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-anchored-band-chest-press).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-anchored-band-chest-press).
 
@@ -3778,7 +3928,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do Press Ups](https://www.youtube.com/watch?v=Env8gAr_QnE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v003ad3ae3192). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Press Ups. The full Banded Push-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Modern Athlete’s previews show a band crossing the upper back during a floor push-up. The AFL performance-channel candidate also presents a banded version, but the previews are largely title/end cards. The upper-back band route appears promising; secure ends beneath both hands and a sufficiently documented original professional publisher still need confirmation. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-banded-push-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-banded-push-up).
 
@@ -3844,13 +3996,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#band-pallof-press).
 
-**Still / animation:** [How To Do A Pallof Press](https://i.ytimg.com/vi/HXrLaqNIkTs/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vf52df0c8bbb7). Relationship: related-only.
+**Still / animation:** [Strengthen your core and obliques with this functional stability exercise - Pallof Press — provider poster](https://i.ytimg.com/vi/pomi-NOseBw/hqdefault.jpg) — video-poster; Rehab Hero; [provenance](sources.md#vcec4c2f96617). Relationship: same-labelled-movement.
 
-**Video:** [How To Do A Pallof Press](https://www.youtube.com/watch?v=HXrLaqNIkTs) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vf65d6e651acb). Relationship: related-only.
+**Video:** [Strengthen your core and obliques with this functional stability exercise - Pallof Press](https://www.youtube.com/watch?v=pomi-NOseBw) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#ve54b02e56ade). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Pallof Press. The full Band Pallof Press equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s Pallof page explicitly describes an elastic band anchored to the side, hands starting at the chest and a forward press while resisting turn. Its original video previews show the standing band version, replacing PureGym’s cable demonstration. The source suggests longer holds than the catalog two-second pause. Hold duration remains a programming difference; the equipment and anti-rotation configuration are supported. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-band-pallof-press).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-band-pallof-press).
+
+**Additional component / retained earlier comparison:** [How To Do A Pallof Press](https://www.youtube.com/watch?v=HXrLaqNIkTs) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vf65d6e651acb).
+
+**Additional component / retained earlier comparison:** [How To Do A Pallof Press](https://i.ytimg.com/vi/HXrLaqNIkTs/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#vf52df0c8bbb7).
 
 
 <a id="band-woodchop"></a>
@@ -3978,7 +4136,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [In-and-Out Waves Battle Ropes Exercise](https://www.youtube.com/watch?v=C3mmDEZ-5gI) — video; Onnit; credited creator: Onnit Academy; [provenance](sources.md#vc4a5b4c2a1d7). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. In-and-out rope wave comparator only. Horizontal side-to-side rotational pattern remains a direct-variant gap. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PluriMetrics and Austin Van Buskirk have original side-to-side-wave candidates whose previews show horizontal rope travel. Onnit’s current in-and-out waves instead separate and reunite the hands. Need hands moving together across the torso with the intended trunk turn, plus stronger documented professional provenance for the closer candidates. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-battle-rope-side-to-side-waves).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-battle-rope-side-to-side-waves).
 
@@ -3992,7 +4152,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Battling Ropes (Power Slam)](https://www.youtube.com/watch?v=rhDIbhHvK9E) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v387c7b96ffd8). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Straight overhead slam component only. Rotation, side target and foot pivot remain a direct-variant gap. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The BENSUEKTRAINING previews show a large rope arc, while Muscle & Strength’s current power-slam reference is a bilateral central slam. A credible source must establish an overhead-to-one-side slam with alternating sides; a central power slam does not demonstrate the rotational sequence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-battle-rope-rotational-slams).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-battle-rope-rotational-slams).
 
@@ -4020,7 +4182,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Battling Ropes (Alternating Small Waves)](https://www.youtube.com/watch?v=uUl9jEElbOM) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#va330a5770a60). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Alternating wave component only; lateral shuffle and travel are not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PluriMetrics’ original lateral-shuffle previews show rope waves with a wide travelling stance. The current Muscle & Strength alternating-wave reference does not establish side travel. Continuous waves during actual lateral displacement and the new publisher’s professional provenance remain to be established together. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-battle-rope-lateral-shuffle-waves).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-battle-rope-lateral-shuffle-waves).
 
@@ -4050,7 +4214,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Standing Overhead Medicine Ball Slam](https://www.youtube.com/watch?v=N7t9BX-DExI) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#ve81ab3eaf893). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Straight overhead slam component only. Rotation, side target and foot pivot remain a direct-variant gap. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** JS FIT’s original description specifies raising the ball overhead and slamming to one side; its previews show the low side finish. The current Muscle & Strength comparison slams centrally. Onnit’s article separately discusses rotational slams. The outside-foot placement and a sufficiently attributed exact video remain unresolved. A central slam does not establish the rotational finish. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-rotational-medicine-ball-slam).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-rotational-medicine-ball-slam).
 
@@ -4064,7 +4230,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Half kneeling medicine ball lateral throw – inside leg up](https://vimeo.com/703920056/3f184f364c) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v4a0710c7de50). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Half-kneeling lateral throw is related only to the standing low scoop toss. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Simone Sports Performance’s candidate previews show standing rotational medicine-ball work at a wall, unlike Victor Lopez’s explicitly half-kneeling video and the existing kneeling comparator. Need to establish the low scoop release, back-hip loading and standing side-on sequence in the closer source; standing chest passes must remain distinct. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-rotational-scoop-toss).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-rotational-scoop-toss).
 
@@ -4104,7 +4272,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Medicine ball overhead toss](https://vimeo.com/703924364/c4e433be70) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vb111929031ec). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Medicine ball overhead toss. The full Medicine Ball Overhead Wall Throw equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** NeuStrength describes a medicine ball lifted overhead for a wall throw and its previews show an overhead stance facing a wall. The existing Physitrack overhead-toss label does not establish the required step-in wall-directed sequence. The step-in soccer-throw action, wall target and the new publisher’s professional basis remain unresolved together. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-overhead-wall-throw).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-overhead-wall-throw).
 
@@ -4118,7 +4288,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Medicine ball overhead toss](https://vimeo.com/703924364/c4e433be70) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vb111929031ec). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Medicine ball overhead toss. The full Medicine Ball Vertical Toss equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Michael Jeanfavre and Billyduke Physio supply named vertical-toss candidates; public previews show a ball lifted overhead. This is closer in direction than the generic overhead toss. The catalog requires a squat, jump, vertical release and allowing the ball to bounce. The preview evidence does not establish all four phases or the exit. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-vertical-toss).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-vertical-toss).
 
@@ -4128,13 +4300,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#medicine-ball-russian-twist).
 
-**Still / animation:** [How To Do A Russian Twist](https://i.ytimg.com/vi/99T1EfpMwPA/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v74a114fa2933). Relationship: related-only.
+**Still / animation:** [Medicine Ball Russian Twist / Exercise Demo — provider poster](https://i.ytimg.com/vi/w0CTy_eIIcM/hqdefault.jpg) — video-poster; Red Dot Fitness; [provenance](sources.md#v05f81e2b1915). Relationship: same-labelled-movement.
 
-**Video:** [How To Do A Russian Twist](https://www.youtube.com/watch?v=99T1EfpMwPA) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vd2d79cc38795). Relationship: related-only.
+**Video:** [Medicine Ball Russian Twist / Exercise Demo](https://www.youtube.com/watch?v=w0CTy_eIIcM) — video; Red Dot Fitness; credited creator: Red Dot Fitness; [provenance](sources.md#v62d132db3d2c). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Russian Twist. The full Medicine Ball Russian Twist equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Red Dot Fitness’s original medicine-ball Russian-twist previews show seated floor support, a medicine ball held in both hands and rotation beside the hips. The primary staff page documents a professional strength-coaching and athletic-training team. The catalog medicine-ball load is supported; grounded versus lifted feet and the individual rotation range remain variants. Team qualifications are not attributed to the unnamed model. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-russian-twist).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-russian-twist).
+
+**Additional component / retained earlier comparison:** [How To Do A Russian Twist](https://www.youtube.com/watch?v=99T1EfpMwPA) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vd2d79cc38795).
+
+**Additional component / retained earlier comparison:** [How To Do A Russian Twist](https://i.ytimg.com/vi/99T1EfpMwPA/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v74a114fa2933).
 
 
 <a id="medicine-ball-v-up"></a>
@@ -4146,7 +4324,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A V Sit Up](https://www.youtube.com/watch?v=cSCyyfBti7U) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v8377682e1ba2). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A V Sit Up. The full Medicine Ball V-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** LivestrongWoman’s medicine-ball V-up previews keep the ball in the hands as the torso and legs rise. Exercise Library’s similarly named candidate also does not establish a transfer between hands and feet. The catalog specifically passes the ball from hands to feet. A weighted V-up without a transfer remains related, regardless of the shared name. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-v-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-v-up).
 
@@ -4172,7 +4352,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Reverse Lunge. The full Medicine Ball Lunge with Rotation equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Nicole Dudas and Shuichi Take show medicine-ball lunge/rotation candidates in their previews. The current PureGym reference is a reverse lunge without the medicine-ball turn. Need a forward lunge with rotation over the front knee and documented professional provenance for the selected exact clip; reverse-lunge and opposite-direction turns remain different. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-lunge-with-rotation).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-lunge-with-rotation).
 
@@ -4182,13 +4364,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#medicine-ball-woodchop).
 
-**Still / animation:** [Standing Cable Chop](https://i.ytimg.com/vi/0VWnOjUO7ks/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v113fd21131cb). Relationship: related-only.
+**Still / animation:** [Medicine Ball Woodchop - How To workout / With the WeStrive App — provider poster](https://i.ytimg.com/vi/91eINjZpk_E/hqdefault.jpg) — video-poster; WeStrive; [provenance](sources.md#v78e33734baf1). Relationship: same-labelled-movement.
 
-**Video:** [Standing Cable Chop](https://www.youtube.com/watch?v=0VWnOjUO7ks) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7f54874be8c5). Relationship: related-only.
+**Video:** [Medicine Ball Woodchop - How To workout / With the WeStrive App](https://www.youtube.com/watch?v=91eINjZpk_E) — video; WeStrive; credited creator: WeStrive App; [provenance](sources.md#v3041503e40a2). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Cable chop shows a related diagonal; ball grip/load and release intent differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** WeStrive’s original clip credits featured trainer David Miguens and identifies its library as trainer-made. Its public previews show a held medicine ball travelling on a diagonal between a high shoulder position and the opposite low side, rather than a cable or released throw. This is a professional coaching-software publisher’s attribution, not independent verification of the featured trainer’s current certification. Complete motion and foot pivot remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-medicine-ball-woodchop).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-medicine-ball-woodchop).
+
+**Additional component / retained earlier comparison:** [Standing Cable Chop](https://www.youtube.com/watch?v=0VWnOjUO7ks) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7f54874be8c5).
+
+**Additional component / retained earlier comparison:** [Standing Cable Chop](https://i.ytimg.com/vi/0VWnOjUO7ks/hqdefault.jpg) — video-poster; Muscle & Strength; [provenance](sources.md#v113fd21131cb).
 
 
 <a id="bosu-squat"></a>
@@ -4244,7 +4432,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A Single Leg Deadlift](https://www.youtube.com/watch?v=hk80eAoQshc) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v6160d14de113). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Single Leg Deadlift. The full BOSU Single-Leg Romanian Deadlift equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Totus Fitness explicitly identifies its candidate as flat-side-down, and previews show a single-leg hinge standing on the dome. Elite Wellness’s other candidate shows a different balance-surface arrangement. The dome-up hinge is a promising closer match, but the creator’s professional provenance and complete support/control remain unresolved. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bosu-single-leg-romanian-deadlift).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bosu-single-leg-romanian-deadlift).
 
@@ -4258,7 +4448,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Lateral Step Up](https://www.youtube.com/watch?v=iUCQpuXjcf0) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v1871661b7a62). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Lateral Step Up. The full BOSU Lateral Step-Over equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Be Fitness Training’s original description specifies stepping laterally over a BOSU and its previews show the dome-supported transfer. Ames Elite has a similar named candidate. The current Rehab Hero comparison is a lateral step-up. Need a sufficiently established professional original publisher and complete side-to-side over-dome sequence; stepping onto a rigid box alone is insufficient. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bosu-lateral-step-over).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bosu-lateral-step-over).
 
@@ -4272,7 +4464,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
 
-**Match and limits:** Official BOSU reverse-lunge public previews show the rear foot supported on the dome during a split-stance movement. The catalog calls for the front foot on the dome and the other foot stepping backward; orientation remains different.
+**Match and limits:** The official BOSU reverse-lunge previews keep the rear foot on the dome. Fredericksburg Fitness’s closer candidate appears to put the front foot on the dome while the other leg moves back. The catalog front-foot-on-dome arrangement differs from the official clip. The closer candidate’s professional basis and exact stepping sequence remain unresolved. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bosu-reverse-lunge).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bosu-reverse-lunge).
 
@@ -4282,13 +4476,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#bosu-side-plank).
 
-**Still / animation:** [How To Do A Side Plank](https://i.ytimg.com/vi/Oe9Tp9SvTCE/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v6d7ef7bcad14). Relationship: related-only.
+**Still / animation:** [BOSU Side Plank Hold / Exercise Demo / Coaching Software / QuickCoach — provider poster](https://i.ytimg.com/vi/ovzFOjgrhls/hqdefault.jpg) — video-poster; QuickCoach; [provenance](sources.md#v68b9ac699831). Relationship: same-labelled-movement.
 
-**Video:** [How To Do A Side Plank](https://www.youtube.com/watch?v=Oe9Tp9SvTCE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v7056fa50e3f0). Relationship: related-only.
+**Video:** [BOSU Side Plank Hold / Exercise Demo / Coaching Software / QuickCoach](https://www.youtube.com/watch?v=ovzFOjgrhls) — video; QuickCoach; credited creator: QuickCoach; [provenance](sources.md#v673b02137bc0). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Side Plank. The full BOSU Side Plank equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** QuickCoach’s original instructions explicitly place a forearm on the dome with the flat base on the floor, stack the feet and hold a raised side plank. The inspected public previews show that support arrangement. A professional coaching-software reference supports setup identity, not an individual medical credential, a suitable hold duration or approval of continuous execution. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bosu-side-plank).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bosu-side-plank).
+
+**Additional component / retained earlier comparison:** [How To Do A Side Plank](https://www.youtube.com/watch?v=Oe9Tp9SvTCE) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v7056fa50e3f0).
+
+**Additional component / retained earlier comparison:** [How To Do A Side Plank](https://i.ytimg.com/vi/Oe9Tp9SvTCE/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v6d7ef7bcad14).
 
 
 <a id="bosu-squat-jump"></a>
@@ -4300,7 +4500,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Official BOSU Pulse Squat Jump](https://www.youtube.com/watch?v=GtytyYHmrNM) — video; BOSU; credited creator: BOSU; [provenance](sources.md#vd024194048fb). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Manufacturer pulse squat-jump variation; check whether the catalog starts/lands on the same surface. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** BOSU’s official Pulse Squat Jump begins and continues on top of the balance trainer. Nicole Murphy’s candidate previews also show the exerciser already on the dome. The catalog starts on the floor, jumps onto the dome and steps down. An on-dome jump sequence is not an exact entry/exit reference. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-bosu-squat-jump).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-bosu-squat-jump).
 
@@ -4314,7 +4516,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=9yVGh3XbJ34) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v46c1f7ed68f4). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Pull-Up | Proper Form & Technique | NASM. The full Monkey Bar Traverse equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The NASM original pull-up description fixes both hands on a single bar and raises/lowers the torso. It does not describe releasing one hand and progressing to the next rung. A credible rung-to-rung traverse demonstration remains missing; a pull-up or dead hang validates neither travel nor hand-release sequencing. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-monkey-bar-traverse).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-monkey-bar-traverse).
 
@@ -4324,13 +4528,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#toes-to-bar).
 
-**Still / animation:** [How To Do Hanging Leg Raises](https://i.ytimg.com/vi/Yrtvs-nEnk0/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve9ef6bcd69ac). Relationship: related-only.
+**Still / animation:** [Toes to Bar / Exercise Technique Library — provider poster](https://i.ytimg.com/vi/c3dKJRVMRHw/hqdefault.jpg) — video-poster; Jacob Goodin; [provenance](sources.md#v23313ecdb50e). Relationship: same-labelled-movement.
 
-**Video:** [How To Do Hanging Leg Raises](https://www.youtube.com/watch?v=Yrtvs-nEnk0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v8078a7481a73). Relationship: related-only.
+**Video:** [Toes to Bar / Exercise Technique Library](https://www.youtube.com/watch?v=c3dKJRVMRHw) — video; Jacob Goodin; credited creator: Dr. Jacob Goodin; [provenance](sources.md#vb099be7673fe). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Hanging Leg Raises. The full Toes-to-Bar equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Jacob Goodin’s original toes-to-bar description explicitly identifies a hanging bar setup, raising the toes to the bar and limiting swing. Public previews show the hanging raised-leg implementation. This replaces the less specific hanging-leg-raise comparison. The anti-swing instruction supports the intended controlled variant; repeated toe contact and all repetitions have not been inspected. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-toes-to-bar).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-toes-to-bar).
+
+**Additional component / retained earlier comparison:** [How To Do Hanging Leg Raises](https://www.youtube.com/watch?v=Yrtvs-nEnk0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v8078a7481a73).
+
+**Additional component / retained earlier comparison:** [How To Do Hanging Leg Raises](https://i.ytimg.com/vi/Yrtvs-nEnk0/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve9ef6bcd69ac).
 
 
 <a id="hanging-windshield-wiper"></a>
@@ -4338,15 +4548,19 @@ The earlier article supplied a section start time; it remains unverified by play
 
 [Internal technique notes](../exercise-technique/catalog-core-and-carries.md#hanging-windshield-wiper).
 
-**Still / animation:** [How To Do Hanging Leg Raises](https://i.ytimg.com/vi/Yrtvs-nEnk0/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve9ef6bcd69ac). Relationship: related-only.
+**Still / animation:** [How To: Hanging Windshield Wiper — provider poster](https://i.ytimg.com/vi/arDUVmCzyhc/hqdefault.jpg) — video-poster; Scott Herman / Muscular Strength; [provenance](sources.md#ve49d54627cc2). Relationship: same-labelled-movement.
 
-**Video:** [How To: Hanging Windshield Wiper](https://www.youtube.com/watch?v=arDUVmCzyhc) — video; Scott Herman / Muscular Strength; credited creator: ScottHermanFitness; [provenance](sources.md#v985005c201a2). Relationship: related-only.
+**Video:** [How To: Hanging Windshield Wiper](https://www.youtube.com/watch?v=arDUVmCzyhc) — video; Scott Herman / Muscular Strength; credited creator: ScottHermanFitness; [provenance](sources.md#v985005c201a2). Relationship: configuration-matched.
 
-**Match and limits:** Scott Herman's specifically named hanging-windshield-wiper preview shows a hanging raised-leg setup. The clip demonstrates an advanced straight-leg version; the internal notes begin with bent knees and a modest arc. It is a closer progression reference, not validation of that regression.
+**Match and limits:** Scott Herman’s specifically named hanging-windshield-wiper video and inspected previews establish a hanging raised-leg implementation. The catalog says to sweep raised legs side to side and does not require bent knees. The video is the advanced straight-leg configuration. The internal notes deliberately begin with bent knees and a small arc; that regression is not presented as the filmed variant. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-hanging-windshield-wiper).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-hanging-windshield-wiper).
 
 **Additional component / retained earlier comparison:** [How To Do Hanging Leg Raises](https://www.youtube.com/watch?v=Yrtvs-nEnk0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v8078a7481a73).
+
+**Additional component / retained earlier comparison:** [How To Do Hanging Leg Raises](https://i.ytimg.com/vi/Yrtvs-nEnk0/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#ve9ef6bcd69ac).
 
 
 <a id="commando-pull-up"></a>
@@ -4358,7 +4572,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=9yVGh3XbJ34) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v46c1f7ed68f4). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Pull-Up | Proper Form & Technique | NASM. The full Commando Pull-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Live Lean’s original description explicitly identifies a hands-together front/back grip and alternating head positions; BecomingBamboo has another original commando candidate. These are closer than the bilateral NASM pull-up. The new creators’ professional publishing basis remains insufficiently established here; the front/back grip and alternate-side sequence need an accepted exact source. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-commando-pull-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-commando-pull-up).
 
@@ -4372,7 +4588,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How to do a Pull-Up / Proper Form & Technique / NASM](https://www.youtube.com/watch?v=9yVGh3XbJ34) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v46c1f7ed68f4). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How to do a Pull-Up | Proper Form & Technique | NASM. The full Archer Pull-Up equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Pullup & Dip’s original tutorial separates typewriter, ring, band-assisted and unassisted archer phases. Player positions at 0:46, 0:51, 1:01 and 1:06 were inspected; some contain overlays or different progressions. The complete unassisted bar archer repetition with the other arm straight is not established by the selected positions. Do not treat ring or assisted phases as the target. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-archer-pull-up).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-archer-pull-up).
 
@@ -4434,7 +4652,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A Russian Twist](https://www.youtube.com/watch?v=99T1EfpMwPA) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vd2d79cc38795). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Russian Twist. The full Plate Russian Twist equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Live Lean’s plate-twist description names a plate and its previews show one held during seated rotation, but the prose mistakenly calls it a medicine ball in one step. Black Lion has another plate-specific candidate. Professional provenance for the closer original clip remains unverified here; keep the plate/medicine-ball wording conflict explicit rather than copying it. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-plate-russian-twist).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-plate-russian-twist).
 
@@ -4460,7 +4680,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Introduction to the StrongFirst One-Arm Kettlebell Military Press / StrongFirst](https://www.youtube.com/watch?v=ihRozd9hafw) — video; StrongFirst; credited creator: StrongFirst; [provenance](sources.md#vb7129cfaf145). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Military-press component only; clean transition is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Mark Wildman has an original clean-and-press primer, but the inspected preview stills show explanation rather than the complete combination. Nuffield’s named clean-and-press page is gated. The existing StrongFirst video covers the military press. The clean into rack and subsequent overhead press must be established together in accessible original footage. A press-only clip does not cover the clean. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-kettlebell-clean-and-press).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-kettlebell-clean-and-press).
 
@@ -4486,7 +4708,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A Barbell Hip Thrust](https://www.youtube.com/watch?v=aweBS7K71l8) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v9201d78bf18a). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Barbell Hip Thrust. The full Smith Machine Hip Thrust equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** NeuStrength’s original description and previews show upper-back bench support with a Smith bar over the hips; Keren Zumba has a similar setup tutorial. PureGym’s current video instead uses a free barbell. The closer Smith candidate needs a stronger professional provenance and verification of padding, safety stops and rail-specific setup; free-bar support is not equivalent. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-smith-machine-hip-thrust).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-smith-machine-hip-thrust).
 
@@ -4524,7 +4748,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do A Barbell Bicep Curl](https://www.youtube.com/watch?v=N5x5M1x1Gd0) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vfeb33ca255ca). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Barbell curl is related only to the angled EZ-bar grip. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Muscle & Strength’s EZ-bar page explicitly describes the angled bar and a standing supinated curl. Its embedded Vimeo ID was discovered, but provider metadata were redacted and standalone access was unavailable. Other previews show EZ bars without an established professional basis. An accessible, individually identified original EZ-bar demonstration remains unresolved. The existing straight-bar curl is retained as a comparison. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ez-bar-curl).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ez-bar-curl).
 
@@ -4550,7 +4776,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do Chest Dips](https://www.youtube.com/watch?v=2HYAeF6o7Bc) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vd6e8484e3944). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Chest Dips. The full Assisted Dip Machine equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** DVIDS has a specifically titled assisted-dip machine feature, but the inspected samples mainly show equipment and the presenter. Fitness Lab’s previews show an assisted station, without firmly establishing the catalog kneeling-pad arrangement. Need the knee-pad counterweight support during the actual dip. An ordinary dip and a standing foot-platform model are not silently equated. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-assisted-dip-machine).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-assisted-dip-machine).
 
@@ -4602,7 +4830,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Squat](https://www.youtube.com/watch?v=W_N5vEM-U18) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v9e136ac790f7). Relationship: related-only.
 
-**Match and limits:** The OPEX sandbag-squat candidate uses the bag over the shoulders; the original selected Rehab Hero Squat clip is unloaded. Neither establishes the catalog sandbag bear-hug load position.
+**Match and limits:** UTSA Campus Recreation’s original sandbag-squat previews hold a handled bag in front of the shoulders. OPEX’s original description puts the bag across the traps. Neither shows the catalog arms-wrapped bear hug at the chest. A true bear-hug sandbag squat remains unresolved. Handle-held front-rack and shoulder-loaded positions are distinct. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-sandbag-squat).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-sandbag-squat).
 
@@ -4630,7 +4860,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [How To Do Donkey Kicks](https://www.youtube.com/watch?v=EtSJ8rwm5M8) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v880e24c772e8). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do Donkey Kicks. The full Ankle-Weight Glute Kickback equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Kiana Loomis’s original candidate previews show quadruped support and an ankle weight during a rear leg lift. Hart Athletics instead shows a standing weighted kickback. PureGym’s current donkey-kick comparison is unloaded. The quadruped candidate is closer, but its original professional provenance and the hip-extension path remain unverified together. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ankle-weight-glute-kickback).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ankle-weight-glute-kickback).
 
@@ -4644,7 +4876,9 @@ The earlier article supplied a section start time; it remains unverified by play
 
 **Video:** [Hip abduction - side lying](https://vimeo.com/703902551/396f5f5268) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#va43e8d773c89). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Hip abduction - side lying. The full Ankle-Weight Side-Lying Leg Raise equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current Physitrack side-lying hip-abduction reference establishes side support and a top-leg raise, but the linked reference set does not establish an ankle cuff weight. Need visible ankle-weight loading and controlled top-leg abduction; bodyweight technique alone does not verify the loaded variant. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#catalog-ankle-weight-side-lying-leg-raise).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#catalog-ankle-weight-side-lying-leg-raise).
 

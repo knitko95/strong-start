@@ -7534,3 +7534,734 @@ Technique clips illustrate the AirBike Classic. Saddle locks, controls and monit
 - Configuration inspection: public-provider-preview-stills. Visible equipment, support and configuration only; preview positions are not known timestamps.
 - Public preview stills: [preview 1](https://i.ytimg.com/vi/y7_ODbEIixY/1.jpg), [preview 2](https://i.ytimg.com/vi/y7_ODbEIixY/2.jpg), [preview 3](https://i.ytimg.com/vi/y7_ODbEIixY/3.jpg).
 - Reference link only; reproduction permission not established.
+
+## Second-pass publisher context
+
+[Latest 107 comparisons and limits](research-round2.md). Previous publisher/media records above remain historical.
+
+<a id="publisher-kbfitness"></a>
+### KB Fitness / Kurtis Ackerman
+
+Original exercise publisher; his published video biography lists an MS in kinesiology/rehabilitative science and NSCA CSCS.
+
+Primary identity/context: [source](https://www.kbfitnesstrainingstudio.com), [source](https://www.youtube.com/watch?v=p8eMhRdeX4g).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-keiser"></a>
+### Keiser Europe
+
+Equipment manufacturer publishing its own exercise demonstration through the credited Keiser Europe channel.
+
+Primary identity/context: [source](https://www.youtube.com/watch?v=Qe2dGicUEUA).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-swift"></a>
+### Swift Movement Academy
+
+Original movement-education channel identifies this presenter, David Adamo, as an accredited exercise physiologist. This is a publisher-reported qualification.
+
+Primary identity/context: [source](https://www.youtube.com/watch?v=gEXB2iWhoIM).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-core"></a>
+### Core Health & Fitness / Nautilus
+
+Equipment manufacturer primary page embeds the original Core Health & Fitness Glute Drive video; provider credit agrees with the primary publication.
+
+Primary identity/context: [source](https://info.corehandf.com/glute-drive), [source](https://vimeo.com/322120209).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-pfp"></a>
+### PFP / Brian Schiff
+
+Professional fitness publication; Brian Schiff authors the exercise-specific article embedding the credited PFP media demonstration. The article explains the exact supported bridge configuration.
+
+Primary identity/context: [source](https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-sinkler"></a>
+### Jen Sinkler
+
+Original bodyweight demonstration; a first-person interview published by Girls Gone Strong identifies her PCC bodyweight and other strength-coaching qualifications.
+
+Primary identity/context: [source](https://www.girlsgonestrong.com/blog/articles/jen-sinkler/).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-heming"></a>
+### Andrew Heming
+
+University-hosted professional profile identifies exercise-science education, strength-and-conditioning certification and personal-training certification. Original video credits Andrew Heming.
+
+Primary identity/context: [source](https://www.twu.ca/profile/andrew-heming).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-fittr"></a>
+### FITTR
+
+Professional coaching and exercise-library publisher; its primary FAQ states that its coaches are certified. The original instruction clip is credited to FITTR.
+
+Primary identity/context: [source](https://usa.fittr.com/faq).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-sats"></a>
+### SATS Nordic
+
+Gym operator’s original exercise channel, supported by its primary description of trainer education, profiles and professional coaching responsibilities.
+
+Primary identity/context: [source](https://careers.sats.com/pages/work-as-a-personal-trainer).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-anniemiller"></a>
+### Annie Miller
+
+Original strength-exercise demonstration; her primary professional-education page reports exercise/sport-science education and CSCS background.
+
+Primary identity/context: [source](https://learn.anniemiller.co/pure-programming/).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-befit"></a>
+### BeFit Training Physiotherapy
+
+Original channel identifies BeFit clinics in Edgecliff and Coogee; the primary clinic team page documents a physiotherapy practice in those locations.
+
+Primary identity/context: [source](https://befittrainingphysio.com/team/), [source](https://www.youtube.com/watch?v=2ISWPJg8IKA).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-dorworth"></a>
+### Steph Dorworth
+
+Original demonstration is credited to Steph Dorworth; an authored manufacturer manual identifies her physiotherapy and strength-coaching qualifications.
+
+Primary identity/context: [source](https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-reddot"></a>
+### Red Dot Fitness
+
+Original coaching demonstration; the primary staff page lists strength-and-conditioning, athletic-training and other professional exercise backgrounds.
+
+Primary identity/context: [source](https://reddotfitness.net/staff).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-westrive"></a>
+### WeStrive
+
+Professional coaching-software publisher; original video credits featured trainer David Miguens and identifies its demonstration library as made by certified personal trainers.
+
+Primary identity/context: [source](https://www.westrive.com), [source](https://www.youtube.com/watch?v=91eINjZpk_E).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-quickcoach"></a>
+### QuickCoach
+
+Professional coaching-software publisher supplies its original exercise instructions and demonstration; its primary history identifies its Personal Trainer Development Center origins.
+
+Primary identity/context: [source](https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html), [source](https://www.youtube.com/watch?v=ovzFOjgrhls).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-stick"></a>
+### Stick Mobility
+
+Movement-equipment and professional-education publisher; its primary identity page names the founders and explains its movement-training system. Original demonstration credits Stick Mobility.
+
+Primary identity/context: [source](https://stickmobility.com/pages/about-stick-mobility).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-foxman"></a>
+### Eric Foxman / Balance Personal Training
+
+Original bench-push-up demonstration; the author’s primary biography reports ACE personal-training certification and a longstanding professional training practice.
+
+Primary identity/context: [source](https://www.balancepersonaltraining.com/personal-trainer/).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-sanford"></a>
+### Sanford Health / Sanford Sports
+
+Original health-system sports-training channel names certified strength-and-conditioning coaches in the description of this split-squat-hold demonstration.
+
+Primary identity/context: [source](https://www.youtube.com/watch?v=099rt7KePMY).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+<a id="publisher-neeld"></a>
+### Kevin Neeld
+
+Original exercise channel; the author’s primary coaching page reports strength-and-conditioning certifications and professional hockey strength-coaching work.
+
+Primary identity/context: [source](https://kevinneeld.com/ultimate-hockey-transformation-2-0/).
+
+Publisher/context verification is not independent certification renewal, medical licensing, individual prescription or approval of the complete video. Team credentials are not assigned to an unnamed model.
+
+## Second-pass video references
+
+<a id="vd71f200b599e"></a>
+### Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration) — vd71f200b599e
+
+- Media: [video](https://www.youtube.com/watch?v=p8eMhRdeX4g).
+- Publisher: [KB Fitness / Kurtis Ackerman](#publisher-kbfitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=p8eMhRdeX4g), [source page](https://www.kbfitnesstrainingstudio.com).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration)”; credited creator [KB Fitness - Kurtis Ackerman](https://www.youtube.com/channel/UCyghv979KQRTKkPBlMjrdHQ).
+- Configuration inspection: public-provider-preview-stills. Kurtis Ackerman identifies the original demonstration as a leaning unilateral dumbbell raise. The three inspected public previews show one hand supported on a post, an inclined body and the other arm raising a dumbbell sideways. His published biography lists graduate kinesiology training and CSCS. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/p8eMhRdeX4g/1.jpg), [preview 2](https://i.ytimg.com/vi/p8eMhRdeX4g/2.jpg), [preview 3](https://i.ytimg.com/vi/p8eMhRdeX4g/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v78aff146317a"></a>
+### Leaning Single Arm Dumbbell Lateral Raise (Quick Demonstration) — provider poster — v78aff146317a
+
+- Media: [video-poster](https://i.ytimg.com/vi/p8eMhRdeX4g/hqdefault.jpg).
+- Publisher: [KB Fitness / Kurtis Ackerman](#publisher-kbfitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=p8eMhRdeX4g), [source page](https://www.kbfitnesstrainingstudio.com).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vd71f200b599e). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v100cfbbb0f47"></a>
+### Keiser Exercise of the Day: Standing Cable Rotation — v100cfbbb0f47
+
+- Media: [video](https://www.youtube.com/watch?v=Qe2dGicUEUA).
+- Publisher: [Keiser Europe](#publisher-keiser).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Qe2dGicUEUA).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Keiser Exercise of the Day: Standing Cable Rotation”; credited creator [Keiser Europe](https://www.youtube.com/channel/UCNbkzS_KdMewueZMgsp27uQ).
+- Configuration inspection: public-provider-preview-stills. Keiser Europe’s original standing cable-rotation demonstration shows two hands in front of the chest, a standing staggered stance and a roughly horizontal cable line. This replaces the diagonal cable-chop comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Qe2dGicUEUA/1.jpg), [preview 2](https://i.ytimg.com/vi/Qe2dGicUEUA/2.jpg), [preview 3](https://i.ytimg.com/vi/Qe2dGicUEUA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vc3ef272c895e"></a>
+### Keiser Exercise of the Day: Standing Cable Rotation — provider poster — vc3ef272c895e
+
+- Media: [video-poster](https://i.ytimg.com/vi/Qe2dGicUEUA/hqdefault.jpg).
+- Publisher: [Keiser Europe](#publisher-keiser).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Qe2dGicUEUA).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v100cfbbb0f47). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v8c47a8340ab3"></a>
+### How To Do a TRX Fallout — v8c47a8340ab3
+
+- Media: [video](https://www.youtube.com/watch?v=gEXB2iWhoIM).
+- Publisher: [Swift Movement Academy](#publisher-swift).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=gEXB2iWhoIM).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “How To Do a TRX Fallout”; credited creator [Swift Movement Academy](https://www.youtube.com/channel/UCrt--VTax4ZSz9kpJbWBYkw).
+- Configuration inspection: public-provider-preview-stills. Swift Movement Academy identifies David Adamo as an accredited exercise physiologist in its original TRX-fallout description. Public previews show standing feet, hands in suspension handles and the arms extended overhead as the body leans forward. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/gEXB2iWhoIM/1.jpg), [preview 2](https://i.ytimg.com/vi/gEXB2iWhoIM/2.jpg), [preview 3](https://i.ytimg.com/vi/gEXB2iWhoIM/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vfa91d4f62153"></a>
+### How To Do a TRX Fallout — provider poster — vfa91d4f62153
+
+- Media: [video-poster](https://i.ytimg.com/vi/gEXB2iWhoIM/hqdefault.jpg).
+- Publisher: [Swift Movement Academy](#publisher-swift).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=gEXB2iWhoIM).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v8c47a8340ab3). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v6a859534ec47"></a>
+### Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions — v6a859534ec47
+
+- Media: [video](https://www.youtube.com/watch?v=W86Sj_sUqR8).
+- Publisher: [Life Fitness / Hammer Strength](#publisher-lifefitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=W86Sj_sUqR8).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions”; credited creator [Life Fitness / Hammer Strength](https://www.youtube.com/channel/UCG39tIfVJWu5jJvfrwq-ZEQ).
+- Configuration inspection: public-provider-preview-stills. The original Life Fitness/Hammer Strength instruction video and its previews show a seated plate-loaded front pulldown with overhead lever handles, chest support and thigh restraint. The manufacturer’s product page independently specifies the overhead pivot and underhand lever grip. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/W86Sj_sUqR8/1.jpg), [preview 2](https://i.ytimg.com/vi/W86Sj_sUqR8/2.jpg), [preview 3](https://i.ytimg.com/vi/W86Sj_sUqR8/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vf1ab4f40343f"></a>
+### Life Fitness Signature Series Plate-Loaded Front Pulldown Instructions — provider poster — vf1ab4f40343f
+
+- Media: [video-poster](https://i.ytimg.com/vi/W86Sj_sUqR8/hqdefault.jpg).
+- Publisher: [Life Fitness / Hammer Strength](#publisher-lifefitness).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=W86Sj_sUqR8).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v6a859534ec47). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v3001141d7696"></a>
+### Heel elevated dumbbell squat — v3001141d7696
+
+- Media: [video](https://media.physitrack.com/exercises/b8dae74a-615d-4f67-8fcc-656e9bccfd97/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://na.physitrack.com/home-exercise-video/heel-elevated-dumbbell-squat).
+- Checked: 2026-11-13; public-video-http-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Physitrack’s exercise-specific page and sampled public video show raised heels, toes on the floor, a dumbbell in each hand and a squat. The catalog requires dumbbells and elevated heels, but does not mandate a goblet grip. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Decoded sample times: 3.933 s, 9.833 s, 15.733 s.
+- Reference link only; reproduction permission not established.
+
+<a id="v9f4f9ccd64a2"></a>
+### Glute Drive Sizzle Video — v9f4f9ccd64a2
+
+- Media: [video](https://vimeo.com/322120209).
+- Publisher: [Core Health & Fitness / Nautilus](#publisher-core).
+- Origin / corroboration: [source page](https://info.corehandf.com/glute-drive), [source page](https://vimeo.com/322120209).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Glute Drive Sizzle Video”; credited creator [Core Health & Fitness](https://vimeo.com/corehealthandfitness).
+- Configuration inspection: public-player-position-inspection. The manufacturer’s public Nautilus Glute Drive video was inspected through the visible player. At the displayed 0:35 and 0:40 positions it shows the plate-loaded hip-thrust machine, supported back, feet on the platform and the belt across the hips. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Reference link only; reproduction permission not established.
+
+<a id="vf494f4caecb8"></a>
+### Glute Drive Sizzle Video — provider poster — vf494f4caecb8
+
+- Media: [video-poster](https://i.vimeocdn.com/video/788678279-7c2812ce3c8db028de0429367aeb3d54d257c07d17507eb9f85c4b22673308ba-d_640?region=us).
+- Publisher: [Core Health & Fitness / Nautilus](#publisher-core).
+- Origin / corroboration: [source page](https://info.corehandf.com/glute-drive), [source page](https://vimeo.com/322120209).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v9f4f9ccd64a2). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v2cece7867181"></a>
+### Single-leg stability ball bridge — v2cece7867181
+
+- Media: [video](https://www.youtube.com/watch?v=U1oarHmUKrY).
+- Publisher: [PFP / Brian Schiff](#publisher-pfp).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=U1oarHmUKrY), [source page](https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Single-leg stability ball bridge”; credited creator [PFP media](https://www.youtube.com/channel/UCrBBr3Y1jQm8wQRAfrPMqbw).
+- Configuration inspection: public-provider-preview-stills. Brian Schiff’s authored PFP article embeds the credited PFP media video and explicitly describes supine support, one heel/lower leg on the ball, the opposite leg lifted and hip extension. The inspected public previews show the single-leg ball bridge. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/U1oarHmUKrY/1.jpg), [preview 2](https://i.ytimg.com/vi/U1oarHmUKrY/2.jpg), [preview 3](https://i.ytimg.com/vi/U1oarHmUKrY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vd7c793bf4b01"></a>
+### Single-leg stability ball bridge — provider poster — vd7c793bf4b01
+
+- Media: [video-poster](https://i.ytimg.com/vi/U1oarHmUKrY/hqdefault.jpg).
+- Publisher: [PFP / Brian Schiff](#publisher-pfp).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=U1oarHmUKrY), [source page](https://fit-pro.com/article-4404-Functionally-Fit-Single-Leg-Stability-Ball-Bridge.html).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v2cece7867181). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v971d952e4eeb"></a>
+### Exercise Demo: Skater Squat — v971d952e4eeb
+
+- Media: [video](https://www.youtube.com/watch?v=Nfj95QABIdI).
+- Publisher: [Jen Sinkler](#publisher-sinkler).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Nfj95QABIdI), [source page](https://www.girlsgonestrong.com/blog/articles/jen-sinkler/).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Exercise Demo: Skater Squat”; credited creator [Jen Sinkler](https://www.youtube.com/channel/UCklhTm3JQXn4-mQ8rrLUieA).
+- Configuration inspection: public-provider-preview-stills. Jen Sinkler’s original instructions describe a one-legged squat with the free knee descending behind the body to the floor or a pad. Inspected previews show an unloaded version with a padded target, unlike the existing dumbbell-counterbalanced reference. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Nfj95QABIdI/1.jpg), [preview 2](https://i.ytimg.com/vi/Nfj95QABIdI/2.jpg), [preview 3](https://i.ytimg.com/vi/Nfj95QABIdI/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vdf26ec2e4b76"></a>
+### Exercise Demo: Skater Squat — provider poster — vdf26ec2e4b76
+
+- Media: [video-poster](https://i.ytimg.com/vi/Nfj95QABIdI/hqdefault.jpg).
+- Publisher: [Jen Sinkler](#publisher-sinkler).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Nfj95QABIdI), [source page](https://www.girlsgonestrong.com/blog/articles/jen-sinkler/).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v971d952e4eeb). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="vb1a9744716e2"></a>
+### Standing Cable Leg Curl — vb1a9744716e2
+
+- Media: [video](https://www.youtube.com/watch?v=_V0Y9YFAyFo).
+- Publisher: [Andrew Heming](#publisher-heming).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=_V0Y9YFAyFo), [source page](https://www.twu.ca/profile/andrew-heming).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Standing Cable Leg Curl”; credited creator [Andrew Heming](https://www.youtube.com/channel/UCvzpUUpym8ln65jhGsQuFkg).
+- Configuration inspection: public-provider-preview-stills. Andrew Heming’s original standing cable-leg-curl video and public previews show standing support at a cable station with an ankle attachment and knee flexion. His university profile identifies exercise-science education and strength/personal-training certifications. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/_V0Y9YFAyFo/1.jpg), [preview 2](https://i.ytimg.com/vi/_V0Y9YFAyFo/2.jpg), [preview 3](https://i.ytimg.com/vi/_V0Y9YFAyFo/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v5fda73533e56"></a>
+### Standing Cable Leg Curl — provider poster — v5fda73533e56
+
+- Media: [video-poster](https://i.ytimg.com/vi/_V0Y9YFAyFo/hqdefault.jpg).
+- Publisher: [Andrew Heming](#publisher-heming).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=_V0Y9YFAyFo), [source page](https://www.twu.ca/profile/andrew-heming).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vb1a9744716e2). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v51730d02f78a"></a>
+### Standing single leg dumbbell calf raises — v51730d02f78a
+
+- Media: [video](https://www.youtube.com/watch?v=PTn6icEeH3Y).
+- Publisher: [FITTR](#publisher-fittr).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=PTn6icEeH3Y), [source page](https://usa.fittr.com/faq).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Standing single leg dumbbell calf raises”; credited creator [FITTR](https://www.youtube.com/channel/UCANHPTFjTMoL45WjQ2qaokg).
+- Configuration inspection: public-provider-preview-stills. FITTR’s original instructions specify one dumbbell at the side, a single forefoot on a raised block, the other leg lifted and hand support for balance. The three public previews show that loaded supported single-leg arrangement. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/PTn6icEeH3Y/1.jpg), [preview 2](https://i.ytimg.com/vi/PTn6icEeH3Y/2.jpg), [preview 3](https://i.ytimg.com/vi/PTn6icEeH3Y/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v74ef819934de"></a>
+### Standing single leg dumbbell calf raises — provider poster — v74ef819934de
+
+- Media: [video-poster](https://i.ytimg.com/vi/PTn6icEeH3Y/hqdefault.jpg).
+- Publisher: [FITTR](#publisher-fittr).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=PTn6icEeH3Y), [source page](https://usa.fittr.com/faq).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v51730d02f78a). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v675cb25cf7bf"></a>
+### How to: Single leg Box Jump — v675cb25cf7bf
+
+- Media: [video](https://www.youtube.com/watch?v=ENZjCX9HjVI).
+- Publisher: [SATS Nordic](#publisher-sats).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ENZjCX9HjVI), [source page](https://careers.sats.com/pages/work-as-a-personal-trainer).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “How to: Single leg Box Jump”; credited creator [SATS Nordic](https://www.youtube.com/channel/UCqhskBVX4e4henE1Wcgh5cg).
+- Configuration inspection: public-player-position-inspection. SATS’s original description specifies using one leg. Visible-player positions around 0:01, 0:03 and 0:04 were compared: a unilateral floor stance is followed by same-leg support on the box with the other leg lifted. OPEX’s description explicitly instructs a two-foot landing and is rejected for this target. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Reference link only; reproduction permission not established.
+
+<a id="vc0af92924a14"></a>
+### How to: Single leg Box Jump — provider poster — vc0af92924a14
+
+- Media: [video-poster](https://i.ytimg.com/vi/ENZjCX9HjVI/hqdefault.jpg).
+- Publisher: [SATS Nordic](#publisher-sats).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ENZjCX9HjVI), [source page](https://careers.sats.com/pages/work-as-a-personal-trainer).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v675cb25cf7bf). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v5deee15ae161"></a>
+### Dumbbell Jump Squat — v5deee15ae161
+
+- Media: [video](https://www.youtube.com/watch?v=GGPXs7JbH5o).
+- Publisher: [Annie Miller](#publisher-anniemiller).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=GGPXs7JbH5o), [source page](https://learn.anniemiller.co/pure-programming/).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Dumbbell Jump Squat”; credited creator [Annie Miller](https://www.youtube.com/channel/UCYjozDABNdFcNISPqs7p5dw).
+- Configuration inspection: public-provider-preview-stills. Annie Miller’s original exercise description identifies the jump-squat version with dumbbells at the sides; inspected public previews show the two side-held dumbbells and the squat/jump setup. Her primary education page lists an exercise-science degree and CSCS background. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/GGPXs7JbH5o/1.jpg), [preview 2](https://i.ytimg.com/vi/GGPXs7JbH5o/2.jpg), [preview 3](https://i.ytimg.com/vi/GGPXs7JbH5o/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v79d09a085c8e"></a>
+### Dumbbell Jump Squat — provider poster — v79d09a085c8e
+
+- Media: [video-poster](https://i.ytimg.com/vi/GGPXs7JbH5o/hqdefault.jpg).
+- Publisher: [Annie Miller](#publisher-anniemiller).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=GGPXs7JbH5o), [source page](https://learn.anniemiller.co/pure-programming/).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v5deee15ae161). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v563751a0877b"></a>
+### Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab — v563751a0877b
+
+- Media: [video](https://www.youtube.com/watch?v=2ISWPJg8IKA).
+- Publisher: [BeFit Training Physiotherapy](#publisher-befit).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=2ISWPJg8IKA), [source page](https://befittrainingphysio.com/team/).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab”; credited creator [The BeFit Physio Method](https://www.youtube.com/channel/UCuyRuwucVQ-X2FwwEydF1rA).
+- Configuration inspection: public-provider-preview-stills. BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/2ISWPJg8IKA/1.jpg), [preview 2](https://i.ytimg.com/vi/2ISWPJg8IKA/2.jpg), [preview 3](https://i.ytimg.com/vi/2ISWPJg8IKA/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v5da633391cac"></a>
+### Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab — provider poster — v5da633391cac
+
+- Media: [video-poster](https://i.ytimg.com/vi/2ISWPJg8IKA/hqdefault.jpg).
+- Publisher: [BeFit Training Physiotherapy](#publisher-befit).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=2ISWPJg8IKA), [source page](https://befittrainingphysio.com/team/).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v563751a0877b). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v0340d79cf6fe"></a>
+### Kneeling band lat pulldown — v0340d79cf6fe
+
+- Media: [video](https://www.youtube.com/watch?v=fGIKnkrBOcs).
+- Publisher: [Steph Dorworth](#publisher-dorworth).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=fGIKnkrBOcs), [source page](https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Kneeling band lat pulldown”; credited creator [Steph Dorworth](https://www.youtube.com/channel/UCxANSpXQjICB1pPAibkM9xg).
+- Configuration inspection: public-provider-preview-stills. Steph Dorworth’s original nine-second demonstration and its previews show kneeling support, bands from high anchors and bent elbows pulling downward. Her authored PostureMedic manual identifies her physiotherapy and strength-coaching background. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/fGIKnkrBOcs/1.jpg), [preview 2](https://i.ytimg.com/vi/fGIKnkrBOcs/2.jpg), [preview 3](https://i.ytimg.com/vi/fGIKnkrBOcs/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v926ed3e49888"></a>
+### Kneeling band lat pulldown — provider poster — v926ed3e49888
+
+- Media: [video-poster](https://i.ytimg.com/vi/fGIKnkrBOcs/hqdefault.jpg).
+- Publisher: [Steph Dorworth](#publisher-dorworth).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=fGIKnkrBOcs), [source page](https://www.posturemedic.com/pdfs/User-Manual-June-2020-ENGLISH.pdf).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v0340d79cf6fe). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="ve54b02e56ade"></a>
+### Strengthen your core and obliques with this functional stability exercise - Pallof Press — ve54b02e56ade
+
+- Media: [video](https://www.youtube.com/watch?v=pomi-NOseBw).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=pomi-NOseBw).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Strengthen your core and obliques with this functional stability exercise - Pallof Press”; credited creator [Rehab Hero](https://www.youtube.com/channel/UCNBaCaOlUrhrm8MeTv_O1FQ).
+- Configuration inspection: public-provider-preview-stills. Rehab Hero’s Pallof page explicitly describes an elastic band anchored to the side, hands starting at the chest and a forward press while resisting turn. Its original video previews show the standing band version, replacing PureGym’s cable demonstration. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/pomi-NOseBw/1.jpg), [preview 2](https://i.ytimg.com/vi/pomi-NOseBw/2.jpg), [preview 3](https://i.ytimg.com/vi/pomi-NOseBw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vcec4c2f96617"></a>
+### Strengthen your core and obliques with this functional stability exercise - Pallof Press — provider poster — vcec4c2f96617
+
+- Media: [video-poster](https://i.ytimg.com/vi/pomi-NOseBw/hqdefault.jpg).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=pomi-NOseBw).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#ve54b02e56ade). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v62d132db3d2c"></a>
+### Medicine Ball Russian Twist / Exercise Demo — v62d132db3d2c
+
+- Media: [video](https://www.youtube.com/watch?v=w0CTy_eIIcM).
+- Publisher: [Red Dot Fitness](#publisher-reddot).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=w0CTy_eIIcM), [source page](https://reddotfitness.net/staff).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Medicine Ball Russian Twist / Exercise Demo”; credited creator [Red Dot Fitness](https://www.youtube.com/channel/UCjoGZi0DJoZuw5LzO98WhNA).
+- Configuration inspection: public-provider-preview-stills. Red Dot Fitness’s original medicine-ball Russian-twist previews show seated floor support, a medicine ball held in both hands and rotation beside the hips. The primary staff page documents a professional strength-coaching and athletic-training team. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/w0CTy_eIIcM/1.jpg), [preview 2](https://i.ytimg.com/vi/w0CTy_eIIcM/2.jpg), [preview 3](https://i.ytimg.com/vi/w0CTy_eIIcM/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v05f81e2b1915"></a>
+### Medicine Ball Russian Twist / Exercise Demo — provider poster — v05f81e2b1915
+
+- Media: [video-poster](https://i.ytimg.com/vi/w0CTy_eIIcM/hqdefault.jpg).
+- Publisher: [Red Dot Fitness](#publisher-reddot).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=w0CTy_eIIcM), [source page](https://reddotfitness.net/staff).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v62d132db3d2c). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v3041503e40a2"></a>
+### Medicine Ball Woodchop - How To workout / With the WeStrive App — v3041503e40a2
+
+- Media: [video](https://www.youtube.com/watch?v=91eINjZpk_E).
+- Publisher: [WeStrive](#publisher-westrive).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=91eINjZpk_E), [source page](https://www.westrive.com).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Medicine Ball Woodchop - How To workout / With the WeStrive App”; credited creator [WeStrive App](https://www.youtube.com/channel/UChkGz9EDw-gJlRP46pSYTrw).
+- Configuration inspection: public-provider-preview-stills. WeStrive’s original clip credits featured trainer David Miguens and identifies its library as trainer-made. Its public previews show a held medicine ball travelling on a diagonal between a high shoulder position and the opposite low side, rather than a cable or released throw. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/91eINjZpk_E/1.jpg), [preview 2](https://i.ytimg.com/vi/91eINjZpk_E/2.jpg), [preview 3](https://i.ytimg.com/vi/91eINjZpk_E/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v78e33734baf1"></a>
+### Medicine Ball Woodchop - How To workout / With the WeStrive App — provider poster — v78e33734baf1
+
+- Media: [video-poster](https://i.ytimg.com/vi/91eINjZpk_E/hqdefault.jpg).
+- Publisher: [WeStrive](#publisher-westrive).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=91eINjZpk_E), [source page](https://www.westrive.com).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v3041503e40a2). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v673b02137bc0"></a>
+### BOSU Side Plank Hold / Exercise Demo / Coaching Software / QuickCoach — v673b02137bc0
+
+- Media: [video](https://www.youtube.com/watch?v=ovzFOjgrhls).
+- Publisher: [QuickCoach](#publisher-quickcoach).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ovzFOjgrhls), [source page](https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “BOSU Side Plank Hold / Exercise Demo / Coaching Software / QuickCoach”; credited creator [QuickCoach](https://www.youtube.com/channel/UCeO4CMoEoXdBjGN4gizdhww).
+- Configuration inspection: public-provider-preview-stills. QuickCoach’s original instructions explicitly place a forearm on the dome with the flat base on the floor, stack the feet and hold a raised side plank. The inspected public previews show that support arrangement. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ovzFOjgrhls/1.jpg), [preview 2](https://i.ytimg.com/vi/ovzFOjgrhls/2.jpg), [preview 3](https://i.ytimg.com/vi/ovzFOjgrhls/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v68b9ac699831"></a>
+### BOSU Side Plank Hold / Exercise Demo / Coaching Software / QuickCoach — provider poster — v68b9ac699831
+
+- Media: [video-poster](https://i.ytimg.com/vi/ovzFOjgrhls/hqdefault.jpg).
+- Publisher: [QuickCoach](#publisher-quickcoach).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ovzFOjgrhls), [source page](https://www.quickcoach.fit/es/quickcoach-app-2026-what-happened-next.html).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v673b02137bc0). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="vb099be7673fe"></a>
+### Toes to Bar / Exercise Technique Library — vb099be7673fe
+
+- Media: [video](https://www.youtube.com/watch?v=c3dKJRVMRHw).
+- Publisher: [Jacob Goodin](#publisher-goodin).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=c3dKJRVMRHw), [source page](https://www.pointloma.edu/file/15881/download).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Toes to Bar / Exercise Technique Library”; credited creator [Dr. Jacob Goodin](https://www.youtube.com/channel/UCYUNAfli7Uu0hOjj1D0Q6Cw).
+- Configuration inspection: public-provider-preview-stills. Jacob Goodin’s original toes-to-bar description explicitly identifies a hanging bar setup, raising the toes to the bar and limiting swing. Public previews show the hanging raised-leg implementation. This replaces the less specific hanging-leg-raise comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/c3dKJRVMRHw/1.jpg), [preview 2](https://i.ytimg.com/vi/c3dKJRVMRHw/2.jpg), [preview 3](https://i.ytimg.com/vi/c3dKJRVMRHw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v23313ecdb50e"></a>
+### Toes to Bar / Exercise Technique Library — provider poster — v23313ecdb50e
+
+- Media: [video-poster](https://i.ytimg.com/vi/c3dKJRVMRHw/hqdefault.jpg).
+- Publisher: [Jacob Goodin](#publisher-goodin).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=c3dKJRVMRHw), [source page](https://www.pointloma.edu/file/15881/download).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vb099be7673fe). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="ve49d54627cc2"></a>
+### How To: Hanging Windshield Wiper — provider poster — ve49d54627cc2
+
+- Media: [video-poster](https://i.ytimg.com/vi/arDUVmCzyhc/hqdefault.jpg).
+- Publisher: [Scott Herman / Muscular Strength](#publisher-scottherman).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=arDUVmCzyhc), [source page](https://muscularstrength.com/team).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v985005c201a2). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v36425fc397e8"></a>
+### How To Perform Shoulder Dislocates / Resistance Band — v36425fc397e8
+
+- Media: [video](https://www.youtube.com/watch?v=7p-Ma0eksaY).
+- Publisher: [Stick Mobility](#publisher-stick).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=7p-Ma0eksaY), [source page](https://stickmobility.com/pages/about-stick-mobility).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “How To Perform Shoulder Dislocates / Resistance Band”; credited creator [Stick Mobility](https://www.youtube.com/channel/UCHn2jmtK1fEsQgxMKEiTnUw).
+- Configuration inspection: public-provider-preview-stills. Stick Mobility’s original resistance-band dislocate/passthrough demonstration and previews show a wide two-hand band grip passing overhead to behind the body. Its own manufacturer/education page documents the movement-training publishing context. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/7p-Ma0eksaY/1.jpg), [preview 2](https://i.ytimg.com/vi/7p-Ma0eksaY/2.jpg), [preview 3](https://i.ytimg.com/vi/7p-Ma0eksaY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vb2d9432cd288"></a>
+### How To Perform Shoulder Dislocates / Resistance Band — provider poster — vb2d9432cd288
+
+- Media: [video-poster](https://i.ytimg.com/vi/7p-Ma0eksaY/hqdefault.jpg).
+- Publisher: [Stick Mobility](#publisher-stick).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=7p-Ma0eksaY), [source page](https://stickmobility.com/pages/about-stick-mobility).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v36425fc397e8). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v88158343d5e3"></a>
+### Incline Push Ups on Bench — v88158343d5e3
+
+- Media: [video](https://www.youtube.com/watch?v=-ooNS30xQ1Q).
+- Publisher: [Eric Foxman / Balance Personal Training](#publisher-foxman).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=-ooNS30xQ1Q), [source page](https://www.balancepersonaltraining.com/personal-trainer/).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Incline Push Ups on Bench”; credited creator [Eric Foxman](https://www.youtube.com/channel/UCQGkLWMIMxLrzZNmWafWRFQ).
+- Configuration inspection: public-provider-preview-stills. Eric Foxman’s original incline-push-up-on-bench video and previews show both hands supported on a stable bench and feet on the floor. His primary biography states ACE personal-training certification and a longstanding training practice. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/-ooNS30xQ1Q/1.jpg), [preview 2](https://i.ytimg.com/vi/-ooNS30xQ1Q/2.jpg), [preview 3](https://i.ytimg.com/vi/-ooNS30xQ1Q/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v8e83479ca924"></a>
+### Incline Push Ups on Bench — provider poster — v8e83479ca924
+
+- Media: [video-poster](https://i.ytimg.com/vi/-ooNS30xQ1Q/hqdefault.jpg).
+- Publisher: [Eric Foxman / Balance Personal Training](#publisher-foxman).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=-ooNS30xQ1Q), [source page](https://www.balancepersonaltraining.com/personal-trainer/).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#v88158343d5e3). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="vb1c1b1ac1bce"></a>
+### SpiderMan Rotations - Thoracic Mobility Exercise — vb1c1b1ac1bce
+
+- Media: [video](https://www.youtube.com/watch?v=ZUsGZi4HGwE).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ZUsGZi4HGwE).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “SpiderMan Rotations - Thoracic Mobility Exercise”; credited creator [Rehab Hero](https://www.youtube.com/channel/UCNBaCaOlUrhrm8MeTv_O1FQ).
+- Configuration inspection: public-provider-preview-stills. Rehab Hero’s separately named Spiderman Rotations page and original video previews show a long split-lunge support with the front-leg-side arm reaching upward and the other hand on the floor. This supplies the reach missing from the current lunge-only comparison. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/ZUsGZi4HGwE/1.jpg), [preview 2](https://i.ytimg.com/vi/ZUsGZi4HGwE/2.jpg), [preview 3](https://i.ytimg.com/vi/ZUsGZi4HGwE/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v65295c8e6d04"></a>
+### SpiderMan Rotations - Thoracic Mobility Exercise — provider poster — v65295c8e6d04
+
+- Media: [video-poster](https://i.ytimg.com/vi/ZUsGZi4HGwE/hqdefault.jpg).
+- Publisher: [Rehab Hero](#publisher-rehabhero).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=ZUsGZi4HGwE).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vb1c1b1ac1bce). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="vc73f685b0271"></a>
+### Split-Squat Hold (At-Home Workout Tips) — vc73f685b0271
+
+- Media: [video](https://www.youtube.com/watch?v=099rt7KePMY).
+- Publisher: [Sanford Health / Sanford Sports](#publisher-sanford).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=099rt7KePMY).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Split-Squat Hold (At-Home Workout Tips)”; credited creator [Sanford Health](https://www.youtube.com/channel/UCJCUSlIK0mlTlKnCMcikQOg).
+- Configuration inspection: public-provider-preview-stills. Sanford Health’s original description names its certified strength-and-conditioning coaches and explicitly identifies split-squat holds followed by mobility work. Its public previews show the held split stance. This adds the isometric phase missing from the ordinary split-squat comparator. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/099rt7KePMY/1.jpg), [preview 2](https://i.ytimg.com/vi/099rt7KePMY/2.jpg), [preview 3](https://i.ytimg.com/vi/099rt7KePMY/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="v9809aeaec9f3"></a>
+### Split-Squat Hold (At-Home Workout Tips) — provider poster — v9809aeaec9f3
+
+- Media: [video-poster](https://i.ytimg.com/vi/099rt7KePMY/hqdefault.jpg).
+- Publisher: [Sanford Health / Sanford Sports](#publisher-sanford).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=099rt7KePMY).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vc73f685b0271). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+<a id="v3468405c9279"></a>
+### Standing hip extension, supported — v3468405c9279
+
+- Media: [video](https://media.physitrack.com/exercises/b1f9c5cc-8e08-45ab-a8f9-0b9ce5b74174/en/video_1280x720.mp4).
+- Publisher: [Physitrack](#publisher-physitrack).
+- Origin / corroboration: [source page](https://ie.physitrack.com/home-exercise-video/standing-hip-extension%252c-supported).
+- Checked: 2026-11-13; public-video-http-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. Physitrack’s standing-hip-extension page specifies upright chair support and moving a straight leg backward without trunk lean. Three decoded samples of its public video show the supported standing unweighted setup. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Decoded sample times: 2.112 s, 5.28 s, 8.448 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vf3389861596c"></a>
+### Walking Knee Hug — vf3389861596c
+
+- Media: [video](https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104849868/DOD_104849868-1024x576-1769k.mp4).
+- Publisher: [Marine Corps Force Fitness / DVIDS](#publisher-dvids).
+- Origin / corroboration: [source page](https://www.dvidshub.net/video/551850/walking-knee-hug).
+- Checked: 2026-11-13; public-video-http-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Direct link check: 200; video/mp4.
+- Configuration inspection: sampled-publisher-video-frames. The U.S. Marine Corps Training and Education Command’s original DVIDS instructions explicitly describe a standing knee hug, stepping onto the released leg and repeating with the opposite leg. A decoded public-video sample shows the upright knee grasp. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Decoded sample times: 5.862 s, 14.656 s, 23.45 s.
+- Reference link only; reproduction permission not established.
+
+<a id="vd03d7d8eaba6"></a>
+### Lying Cross Body Glute Stretch — vd03d7d8eaba6
+
+- Media: [video](https://www.youtube.com/watch?v=Hkum-kPTtrw).
+- Publisher: [Kevin Neeld](#publisher-neeld).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Hkum-kPTtrw), [source page](https://kevinneeld.com/ultimate-hockey-transformation-2-0/).
+- Checked: 2026-11-13; provider-metadata-200; full-playback-not-reviewed; full-motion inspection: not-viewed.
+- Provider metadata: “Lying Cross Body Glute Stretch”; credited creator [Kevin Neeld](https://www.youtube.com/channel/UCr8pUbY0nY8UtDCYTSizldA).
+- Configuration inspection: public-provider-preview-stills. Kevin Neeld’s original lying-cross-body-glute-stretch previews show supine support and a bent knee guided across the body. This is more specific than the current straight-to-chest hug. His primary coaching page documents strength-and-conditioning credentials and professional hockey work. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.
+- Public preview stills: [preview 1](https://i.ytimg.com/vi/Hkum-kPTtrw/1.jpg), [preview 2](https://i.ytimg.com/vi/Hkum-kPTtrw/2.jpg), [preview 3](https://i.ytimg.com/vi/Hkum-kPTtrw/3.jpg).
+- Reference link only; reproduction permission not established.
+
+<a id="vffc5967f59a4"></a>
+### Lying Cross Body Glute Stretch — provider poster — vffc5967f59a4
+
+- Media: [video-poster](https://i.ytimg.com/vi/Hkum-kPTtrw/hqdefault.jpg).
+- Publisher: [Kevin Neeld](#publisher-neeld).
+- Origin / corroboration: [source page](https://www.youtube.com/watch?v=Hkum-kPTtrw), [source page](https://kevinneeld.com/ultimate-hockey-transformation-2-0/).
+- Checked: 2026-11-13; provider-thumbnail-metadata; pose-not-validated; full-motion inspection: not-viewed.
+- Poster parent: [credited video](#vd03d7d8eaba6). Thumbnail artwork is not a pose sequence.
+- Reference link only; reproduction permission not established.
+
+## Later comparisons for retained media
+
+- [Retained media](#v985005c201a2): Scott Herman’s specifically named hanging-windshield-wiper video and inspected previews establish a hanging raised-leg implementation. The catalog says to sweep raised legs side to side and does not require bent knees. Scope: equipment/support/action identity only; full continuous motion, narration and professional approval remain unreviewed.

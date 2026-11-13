@@ -6,7 +6,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | --- | --- | --- |
 | [A-skips](#a-skips) | image | same-labelled-movement |
 | [Arm circles](#arm-circles) | video-poster | configuration-matched |
-| [Band dislocates](#band-dislocates) | image | related-only |
+| [Band dislocates](#band-dislocates) | image | configuration-matched |
 | [Band pull-aparts](#band-pull-aparts) | video-poster | configuration-matched |
 | [Banded lateral walks](#banded-lateral-walks) | video-poster | same-labelled-movement |
 | [Lateral band walks](#lateral-band-walks) | video-poster | same-labelled-movement |
@@ -25,7 +25,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Hip circles](#hip-circles) | image | configuration-matched |
 | [Hug-yourself twists](#hug-yourself-twists) | video-poster | configuration-matched |
 | [Inchworms](#inchworms) | image | same-labelled-movement |
-| [Incline push-ups on a bench](#incline-push-ups-on-a-bench) | image | related-only |
+| [Incline push-ups on a bench](#incline-push-ups-on-a-bench) | image | configuration-matched |
 | [Incline push-ups](#incline-push-ups) | image | same-labelled-movement |
 | [Lat stretch holding a post](#lat-stretch-holding-a-post) | video-poster | related-only |
 | [Lateral shuffles](#lateral-shuffles) | video-poster | configuration-matched |
@@ -53,11 +53,11 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Bird dogs](#bird-dogs) | video-poster | same-labelled-movement |
 | [Dead bugs](#dead-bugs) | image | same-labelled-movement |
 | [Plank shoulder taps](#plank-shoulder-taps) | image | same-labelled-movement |
-| [Spiderman lunge with reach](#spiderman-lunge-with-reach) | image | related-only |
+| [Spiderman lunge with reach](#spiderman-lunge-with-reach) | image | configuration-matched |
 | [Cossack squats](#cossack-squats) | image | same-labelled-movement |
 | [Goblet squat pry](#goblet-squat-pry) | video-poster | related-only |
 | [Kettlebell halos](#kettlebell-halos) | video-poster | same-labelled-movement |
-| [Band face pulls](#band-face-pulls) | image | related-only |
+| [Band face pulls](#band-face-pulls) | image | configuration-matched |
 | [Ankle rocks against a wall](#ankle-rocks-against-a-wall) | image | related-only |
 | [Hip airplanes](#hip-airplanes) | image | same-labelled-movement |
 | [Single-leg glute bridges](#single-leg-glute-bridges) | image | same-labelled-movement |
@@ -67,11 +67,11 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Shoulder rolls](#shoulder-rolls) | image | same-labelled-movement |
 | [Shoulder taps on the wall](#shoulder-taps-on-the-wall) | image | related-only |
 | [Sit-to-stands from a chair](#sit-to-stands-from-a-chair) | video-poster | same-labelled-movement |
-| [Split squat holds](#split-squat-holds) | video-poster | related-only |
+| [Split squat holds](#split-squat-holds) | video-poster | configuration-matched |
 | [Standing back arch and round](#standing-back-arch-and-round) | video-poster | same-labelled-movement |
-| [Standing hip extensions](#standing-hip-extensions) | video-poster | related-only |
+| [Standing hip extensions](#standing-hip-extensions) | video-poster | configuration-matched |
 | [Standing knee hugs](#standing-knee-hugs) | video-poster | related-only |
-| [Walking knee hugs](#walking-knee-hugs) | video-poster | related-only |
+| [Walking knee hugs](#walking-knee-hugs) | video-poster | configuration-matched |
 | [Thoracic rotations on hands and knees](#thoracic-rotations-on-hands-and-knees) | video-poster | related-only |
 | [Thread the needle](#thread-the-needle) | image | same-labelled-movement |
 | [Walking lunges](#walking-lunges) | image | same-labelled-movement |
@@ -90,7 +90,7 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 | [Half-kneeling hip flexor stretch](#half-kneeling-hip-flexor-stretch) | image | configuration-matched |
 | [Hands-behind-back chest opener](#hands-behind-back-chest-opener) | image | same-labelled-movement |
 | [Kneeling shin stretch](#kneeling-shin-stretch) | Gap | configuration-matched |
-| [Lying cross-body glute stretch](#lying-cross-body-glute-stretch) | video-poster | related-only |
+| [Lying cross-body glute stretch](#lying-cross-body-glute-stretch) | video-poster | configuration-matched |
 | [Neck side stretch](#neck-side-stretch) | image | configuration-matched |
 | [Overhead triceps stretch](#overhead-triceps-stretch) | image | configuration-matched |
 | [Seated hamstring stretch](#seated-hamstring-stretch) | image | configuration-matched |
@@ -132,11 +132,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Shoulder Dislocations](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/79c6d5e2-b2e5-4bf5-ac43-5f83b8608d51/shoulder+dislocation.jpg) — image; Rehab Hero; [provenance](sources.md#vd40c3ef73228). Relationship: related-only.
 
-**Video:** [Shoulder Dislocations](https://www.youtube.com/watch?v=gXE-gVzYD9w) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v0346e6d011b9). Relationship: related-only.
+**Video:** [How To Perform Shoulder Dislocates / Resistance Band](https://www.youtube.com/watch?v=7p-Ma0eksaY) — video; Stick Mobility; credited creator: Stick Mobility; [provenance](sources.md#v36425fc397e8). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Dowel pass-through reference; band/towel implementation is a related implement adaptation. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Stick Mobility’s original resistance-band dislocate/passthrough demonstration and previews show a wide two-hand band grip passing overhead to behind the body. Its own manufacturer/education page documents the movement-training publishing context. Only the comfortable passthrough phase is relevant. Extra band-wrapping phases, forced end range and broad benefit claims are not adopted. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-band-dislocates).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-band-dislocates).
+
+**Additional component / retained earlier comparison:** [Shoulder Dislocations](https://www.youtube.com/watch?v=gXE-gVzYD9w) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v0346e6d011b9).
+
+**Additional component / retained earlier comparison:** [How To Perform Shoulder Dislocates / Resistance Band — provider poster](https://i.ytimg.com/vi/7p-Ma0eksaY/hqdefault.jpg) — video-poster; Stick Mobility; [provenance](sources.md#vb2d9432cd288).
 
 
 <a id="band-pull-aparts"></a>
@@ -188,7 +194,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Sit to stand without arms](https://vimeo.com/703902658/d04fa85f0c) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v043e0da325f9). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Sit-to-stand reference; target height and degree of seated rest may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The Physitrack sit-to-stand reference uses a seat; the internal guide permits a controlled touch or supported seated start on a bench. That is closer than the earlier blanket distinction between all sit-to-stands and bench squats. The sampled reference still does not establish the specific stable bench and chosen contact strategy. Keep the chair/bench and touch-versus-seated-start differences visible. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-bodyweight-squats-to-a-bench).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-bodyweight-squats-to-a-bench).
 
@@ -282,7 +290,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Bodyweight squat](https://vimeo.com/703924489/8941013a35) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v1b7ca9492a57). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Bodyweight squat. The full Fast bodyweight squats equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current Physitrack bodyweight-squat reference supports an unloaded bilateral squat, but no brisk repetition cadence was established in this pass. The guide’s fast-but-controlled pace remains unverified. A standard squat reference does not independently validate faster execution or suitability for an interval. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-fast-bodyweight-squats).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-fast-bodyweight-squats).
 
@@ -296,7 +306,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Incline push-up reference; support type and explosive/fast pace may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s incline-push-up source establishes raised-hand pressing, but not the guide’s brisk cadence. The guide does not require an airborne plyometric push-up. Need a controlled fast incline press demonstration; do not invent a flight requirement or use an ordinary cadence as evidence for the faster one. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-fast-incline-push-ups).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-fast-incline-push-ups).
 
@@ -322,7 +334,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Lunge Stretch](https://www.youtube.com/watch?v=VRUpNw-jfWk) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vc2b9e9b6441d). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Hip-flexor lunge stretch; overhead reach is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Steady State Health’s original description adds the same-side overhead reach to a half-kneeling hip-flexor stretch, and its previews show that reach. It also adds a side lean. A stronger documented professional basis and a clear distinction between the catalog reach and the optional added side bend remain needed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-half-kneeling-hip-flexor-stretch-with-reach).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-half-kneeling-hip-flexor-stretch-with-reach).
 
@@ -392,11 +406,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [How To Do An Incline Push Up](https://www.puregym.com/media/4k3evb2a/inclinepushup.jpg?quality=80) — image; PureGym; [provenance](sources.md#vbf8a7a461760). Relationship: related-only.
 
-**Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
+**Video:** [Incline Push Ups on Bench](https://www.youtube.com/watch?v=-ooNS30xQ1Q) — video; Eric Foxman / Balance Personal Training; credited creator: Eric Foxman; [provenance](sources.md#v88158343d5e3). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Incline push-up reference; support type and explosive/fast pace may differ. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Eric Foxman’s original incline-push-up-on-bench video and previews show both hands supported on a stable bench and feet on the floor. His primary biography states ACE personal-training certification and a longstanding training practice. Bench support is established, replacing the generic incline comparison. The amount of incline and complete repetitions remain unreviewed; certification renewal was not checked. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-incline-push-ups-on-a-bench).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-incline-push-ups-on-a-bench).
+
+**Additional component / retained earlier comparison:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186).
+
+**Additional component / retained earlier comparison:** [Incline Push Ups on Bench — provider poster](https://i.ytimg.com/vi/-ooNS30xQ1Q/hqdefault.jpg) — video-poster; Eric Foxman / Balance Personal Training; [provenance](sources.md#v8e83479ca924).
 
 
 <a id="incline-push-ups"></a>
@@ -420,7 +440,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How to Do a Static Latissimus Dorsi Ball Stretch](https://www.youtube.com/watch?v=kEH6jatSVSw) — video; NASM; credited creator: National Academy of Sports Medicine (NASM); [provenance](sources.md#v304ee1d6aa54). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Ball lat stretch is related only to holding a post. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** NASM’s current original lat-stretch instructions use kneeling support with a forearm on a ball. Rehab Hero’s lat-stretch-row instead uses a resistance band and adds rowing. The target is a standing hip hinge while holding a post. Neither a ball-supported stretch nor an active band row establishes that support/action combination. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-lat-stretch-holding-a-post).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-lat-stretch-holding-a-post).
 
@@ -546,7 +568,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do Y Raises (Incline)](https://www.youtube.com/watch?v=gDHQX1iend4) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb458d949a62c). Relationship: related-only.
 
-**Match and limits:** Physitrack provides a prone shoulder-series video; its complete written sequence includes extension, T, Y and a bent-elbow L with extra forearm rotations. The source explicitly names L rather than the catalog W and adds other phases. That sequence and arm-angle difference need comparison before treating it as the exact Y-T-W guide.
+**Match and limits:** Physitrack’s prone series includes extension, T, Y and an explicitly named L with additional forearm rotation. The ITPA workbook separately describes the requested Y-T-W shapes on a bench or ball. An inspected floor/bench Y-T-W video with a true W remains missing. Do not count L or additional rotation phases as a literal W sequence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-prone-y-t-w-raises).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-prone-y-t-w-raises).
 
@@ -588,7 +612,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Row, seated' Shoulder extension strengthening, with weight machine; 01](https://vimeo.com/703011088/968144d7c0) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v3e0fa7b19816). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Machine row is a related comparison; unloaded reach-and-pull differs. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current Physitrack comparison is a seated machine row. The guide asks for unloaded arms reaching overhead and elbows then pulling down beside the ribs. A search result mentioned the phrase within a longer warm-up without an inspected original segment. Unloaded overhead reach-to-pull sequence remains unresolved; a resisted horizontal row is not the same direction or support. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-reach-and-pull).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-reach-and-pull).
 
@@ -602,7 +628,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Shoulder circles](https://vimeo.com/703911259/6b59f087e9) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#vaef72809657a). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Shoulder-circle reference; reverse arm swings are a different arc/sequence. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current reference performs shoulder circles. The guide specifies bilateral forward/backward arm swings, which do not require a complete circular path. Need the intended forward/back swing action from a credible original demonstration, rather than relabelling circumduction. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-reverse-arm-swings).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-reverse-arm-swings).
 
@@ -616,7 +644,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Reverse Lunge](https://www.youtube.com/watch?v=xrPteyQLGAo) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v88f7d14dadf2). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Reverse Lunge. The full Reverse lunges in place equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** PureGym’s original reverse-lunge description establishes stepping backward and returning, but allows loading and does not itself prove the unloaded guide implementation. Confirm an unloaded in-place reverse-lunge demonstration; the catalog’s loaded reverse-lunge variants are not automatically valid for the bodyweight warm-up. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-reverse-lunges-in-place).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-reverse-lunges-in-place).
 
@@ -696,7 +726,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Deep Squat Rotations](https://www.youtube.com/watch?v=FGnx6WECOH8) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v5fb96162249b). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Deep Squat Rotations. The full Deep squat hold equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Jayd Harrison and SHRP have deep-squat-hold candidates whose public previews show a low held squat. The existing Rehab Hero clip adds repeated torso rotations. Physitrack’s weighted deep-squat page adds a plate. An ordinary held squat allows support or a counterbalance in the guide, but heel contact, hold rather than repeated movement, and publisher provenance for the new candidates remain unresolved together. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-deep-squat-hold).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-deep-squat-hold).
 
@@ -768,11 +800,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Spiderman Lunge Stretch](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1647641248893-57M9LR5XGEXMLR4GVNFS/Spiderman%2BLunge.jpg) — image; Rehab Hero; [provenance](sources.md#vd21322c3b4a4). Relationship: related-only.
 
-**Video:** [Spiderman Lunge Stretch](https://www.youtube.com/watch?v=30kKZnF9XTc) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vf430b0bd7a5e). Relationship: related-only.
+**Video:** [SpiderMan Rotations - Thoracic Mobility Exercise](https://www.youtube.com/watch?v=ZUsGZi4HGwE) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb1c1b1ac1bce). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Spiderman lunge shown; compare the added thoracic/arm reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s separately named Spiderman Rotations page and original video previews show a long split-lunge support with the front-leg-side arm reaching upward and the other hand on the floor. This supplies the reach missing from the current lunge-only comparison. The source’s generic mobility-benefit statements are not individual outcome evidence. The rear-knee-supported regression and full repetition sequence remain distinct from the extended-leg implementation. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-spiderman-lunge-with-reach).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-spiderman-lunge-with-reach).
+
+**Additional component / retained earlier comparison:** [Spiderman Lunge Stretch](https://www.youtube.com/watch?v=30kKZnF9XTc) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vf430b0bd7a5e).
+
+**Additional component / retained earlier comparison:** [SpiderMan Rotations - Thoracic Mobility Exercise — provider poster](https://i.ytimg.com/vi/ZUsGZi4HGwE/hqdefault.jpg) — video-poster; Rehab Hero; [provenance](sources.md#v65295c8e6d04).
 
 
 <a id="cossack-squats"></a>
@@ -796,7 +834,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do A Goblet squat](https://www.youtube.com/watch?v=zBV3ceGyAxw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#v55859f5a4aa3). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Goblet squat. The full Goblet squat pry equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Theory of Motion’s candidate combines a goblet-squat pry with hip internal rotation. PureGym’s original goblet-squat clip is a repeated squat, while StrongFirst search material discusses prying without an individually inspected exact segment. Need the light kettlebell chest hold and small bottom-position shifts; extra hip-rotation work and ordinary squat repetitions remain separate. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-goblet-squat-pry).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-goblet-squat-pry).
 
@@ -820,11 +860,17 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Face Pulls](https://images.squarespace-cdn.com/content/v1/5f5e8592d2b0854b18af6975/1646928014319-D3V2IJCAQ3Z41QC7VJZU/Banded%2BFace%2BPulls.jpg) — image; Rehab Hero; [provenance](sources.md#vba514d0abf72). Relationship: related-only.
 
-**Video:** [Face Pulls](https://www.youtube.com/watch?v=e8APCEYbpVY) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v41c3701b352e). Relationship: related-only.
+**Video:** [Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab](https://www.youtube.com/watch?v=2ISWPJg8IKA) — video; BeFit Training Physiotherapy; credited creator: The BeFit Physio Method; [provenance](sources.md#v563751a0877b). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Face Pulls. The full Band face pulls equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** BeFit’s original band-face-pull description specifies an upper-face anchor, outward/high elbows and the hands finishing beside the ears. Its previews show a standing band exercise. The primary clinic team page establishes physiotherapy publishing context. Goodin’s separate video was checked at the displayed 0:13 and uses a much lower anchor. Only the band face-pull setup is adopted. The publisher’s broad rehabilitation/condition claims are not adopted; no individual licence-renewal or complete-motion audit was performed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-band-face-pulls).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-band-face-pulls).
+
+**Additional component / retained earlier comparison:** [Face Pulls](https://www.youtube.com/watch?v=e8APCEYbpVY) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#v41c3701b352e).
+
+**Additional component / retained earlier comparison:** [Band Face Pull: Physio Exercise for Rear Deltoid, Rotator Cuff & Shoulder Posture Rehab — provider poster](https://i.ytimg.com/vi/2ISWPJg8IKA/hqdefault.jpg) — video-poster; BeFit Training Physiotherapy; [provenance](sources.md#v5da633391cac).
 
 
 <a id="ankle-rocks-against-a-wall"></a>
@@ -836,7 +882,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Ankle Rocks](https://www.youtube.com/watch?v=dr1FYumuGC4) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb3e284b43d4e). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Ankle dorsiflexion reference; confirm the actual wall/support setup. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s original ankle-rock instructions support the hands on a squat rack or door frame and keep the heels down while the knees advance. The guide instead uses the knee-to-wall target. The wall target and controlled knee contact remain unverified in the current video. A rack-supported ankle rock is related mobility evidence. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-ankle-rocks-against-a-wall).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-ankle-rocks-against-a-wall).
 
@@ -874,7 +922,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Quadruped thread-the-needle rotation is related to the open-hand thoracic reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s hand-behind-back rotation uses hands-and-knees support but fixes the working hand behind the low back. Its other thoracic-rotation page sits back onto the heels with a hand behind the head. The guide’s quadruped reach or head-hand arrangement is not established by those different arm/base positions. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-quadruped-t-spine-reach).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-quadruped-t-spine-reach).
 
@@ -924,7 +974,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [How To Do An Incline Push Up](https://www.youtube.com/watch?v=yAbg3_pJKvw) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vb9ffe26f0186). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Elevated push-up support is related; wall contact/tapping is not established. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** University of Illinois Extension supplies a specifically titled wall-shoulder-tap video and a page saying to place the hands on the wall. The inspected video previews instead show forearms supported against the wall. Credible publisher, but a palms-on-wall demonstration matching the guide remains unresolved. The written/filmed support-position discrepancy is retained. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-shoulder-taps-on-the-wall).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-shoulder-taps-on-the-wall).
 
@@ -946,13 +998,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#split-squat-holds).
 
-**Still / animation:** [How To Do A Split Squat](https://i.ytimg.com/vi/rlvpaDkc76g/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v1d203075314d). Relationship: related-only.
+**Still / animation:** [Split-Squat Hold (At-Home Workout Tips) — provider poster](https://i.ytimg.com/vi/099rt7KePMY/hqdefault.jpg) — video-poster; Sanford Health / Sanford Sports; [provenance](sources.md#v9809aeaec9f3). Relationship: same-labelled-movement.
 
-**Video:** [How To Do A Split Squat](https://www.youtube.com/watch?v=rlvpaDkc76g) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vcd4859771e13). Relationship: related-only.
+**Video:** [Split-Squat Hold (At-Home Workout Tips)](https://www.youtube.com/watch?v=099rt7KePMY) — video; Sanford Health / Sanford Sports; credited creator: Sanford Health; [provenance](sources.md#vc73f685b0271). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: How To Do A Split Squat. The full Split squat holds equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Sanford Health’s original description names its certified strength-and-conditioning coaches and explicitly identifies split-squat holds followed by mobility work. Its public previews show the held split stance. This adds the isometric phase missing from the ordinary split-squat comparator. Only the hold phase is relevant; the subsequent mobility work is not added to the guide. The exact hold depth and duration are not universally prescribed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-split-squat-holds).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-split-squat-holds).
+
+**Additional component / retained earlier comparison:** [How To Do A Split Squat](https://www.youtube.com/watch?v=rlvpaDkc76g) — video; PureGym; credited creator: PureGym; [provenance](sources.md#vcd4859771e13).
+
+**Additional component / retained earlier comparison:** [How To Do A Split Squat](https://i.ytimg.com/vi/rlvpaDkc76g/hqdefault.jpg) — video-poster; PureGym; [provenance](sources.md#v1d203075314d).
 
 
 <a id="standing-back-arch-and-round"></a>
@@ -974,11 +1032,15 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Extension of the hip](https://i.vimeocdn.com/video/1421674811-346ee43e26f4556dc2fd68b4a570d4d0d77823fc0f91c5fee3b3ec4c50f47550-d_1280) — video-poster; Physitrack; [provenance](sources.md#v8d3681e6c11c). Relationship: related-only.
 
-**Video:** [Extension of the hip](https://vimeo.com/703917890/cf33efd114) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v15028201423a). Relationship: related-only.
+**Video:** [Standing hip extension, supported](https://media.physitrack.com/exercises/b1f9c5cc-8e08-45ab-a8f9-0b9ce5b74174/en/video_1280x720.mp4) — video; Physitrack; [provenance](sources.md#v3468405c9279). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Comparator: Extension of the hip. The full Standing hip extensions equipment, support, load, direction or sequence is not established by this reference. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Physitrack’s standing-hip-extension page specifies upright chair support and moving a straight leg backward without trunk lean. Three decoded samples of its public video show the supported standing unweighted setup. This is the unweighted supported version. Full pelvic control, every repetition and suitability for an individual remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-standing-hip-extensions).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-standing-hip-extensions).
+
+**Additional component / retained earlier comparison:** [Extension of the hip](https://vimeo.com/703917890/cf33efd114) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v15028201423a).
 
 
 <a id="standing-knee-hugs"></a>
@@ -990,7 +1052,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only; standing support and walking transitions are not shown. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Live Lean’s original standing-knee-hug description specifies upright single-leg balance and drawing one bent knee toward the chest. Its previews show the standing hug, unlike the supine comparison. A stronger verified professional publishing basis remains needed before adopting this closer candidate. The supine clip is not reclassified as standing. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-standing-knee-hugs).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-standing-knee-hugs).
 
@@ -1002,11 +1066,15 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c). Relationship: related-only.
 
-**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
+**Video:** [Walking Knee Hug](https://d34w7g4gy10iej.cloudfront.net/video/1709/DOD_104849868/DOD_104849868-1024x576-1769k.mp4) — video; Marine Corps Force Fitness / DVIDS; [provenance](sources.md#vf3389861596c). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only; standing support and walking transitions are not shown. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The U.S. Marine Corps Training and Education Command’s original DVIDS instructions explicitly describe a standing knee hug, stepping onto the released leg and repeating with the opposite leg. A decoded public-video sample shows the upright knee grasp. The published step sequence supports walking rather than supine knee hugs. Three samples do not validate every travelling step, pace or repetition. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-walking-knee-hugs).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-walking-knee-hugs).
+
+**Additional component / retained earlier comparison:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8).
 
 
 <a id="thoracic-rotations-on-hands-and-knees"></a>
@@ -1018,7 +1086,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [“Thread the needle”](https://vimeo.com/703902818/95ed196fc2) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v89fa8b05bdb0). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Quadruped thread-the-needle rotation is related to the open-hand thoracic reach. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Rehab Hero’s hand-behind-head rotation sits the hips back on the heels, whereas its neutral quadruped page puts the hand behind the low back. E3’s published quadruped option also sits back on the heels. Need the guide’s hands-and-knees base with a hand behind the head and an elbow rotating toward the opposite forearm. Thread-the-needle and different hand positions remain separate. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-thoracic-rotations-on-hands-and-knees).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-thoracic-rotations-on-hands-and-knees).
 
@@ -1250,13 +1320,19 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 [Internal technique notes](../exercise-technique/warmups-and-stretches.md#lying-cross-body-glute-stretch).
 
-**Still / animation:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c). Relationship: related-only.
+**Still / animation:** [Lying Cross Body Glute Stretch — provider poster](https://i.ytimg.com/vi/Hkum-kPTtrw/hqdefault.jpg) — video-poster; Kevin Neeld; [provenance](sources.md#vffc5967f59a4). Relationship: same-labelled-movement.
 
-**Video:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8). Relationship: related-only.
+**Video:** [Lying Cross Body Glute Stretch](https://www.youtube.com/watch?v=Hkum-kPTtrw) — video; Kevin Neeld; credited creator: Kevin Neeld; [provenance](sources.md#vd03d7d8eaba6). Relationship: configuration-matched.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Supine knee hug is related only to the cross-body glute-stretch direction. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Kevin Neeld’s original lying-cross-body-glute-stretch previews show supine support and a bent knee guided across the body. This is more specific than the current straight-to-chest hug. His primary coaching page documents strength-and-conditioning credentials and professional hockey work. The nonworking leg is bent/supported in the preview rather than forced straight. Individual stretch range and continuous technique remain unreviewed. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-lying-cross-body-glute-stretch).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-lying-cross-body-glute-stretch).
+
+**Additional component / retained earlier comparison:** [Supine knee hugs](https://vimeo.com/703902988/c29beb154a) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v65c6141493f8).
+
+**Additional component / retained earlier comparison:** [Supine knee hugs](https://i.vimeocdn.com/video/1421649838-f00c597dfe3b62a50e5a6cf72b7d5ae69f35bf444b5d2d14d3325c795626d935-d_1280) — video-poster; Physitrack; [provenance](sources.md#vb297b837b65c).
 
 
 <a id="neck-side-stretch"></a>
@@ -1330,7 +1406,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Wrist Extensor Stretch](https://www.youtube.com/watch?v=MIC1_EwABCI) — video; Rehab Hero; credited creator: Rehab Hero; [provenance](sources.md#vb3b89f100a8d). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Extensor component shown. Separate flexor component is linked below. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** Glen Abbey Physiotherapy’s original description includes both assisted wrist-bending directions, but reverses the flexor/extensor labels. The three public previews do not independently establish both phases. The current Rehab Hero reference covers only the extensor stretch. Need both correctly attributed wrist-stretch phases. The clinic’s naming conflict is recorded and is not copied into the technique notes. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#guide-wrist-flexor-and-extensor-stretch).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#guide-wrist-flexor-and-extensor-stretch).
 

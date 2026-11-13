@@ -40,7 +40,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Running in place](https://vimeo.com/703197974/38f47c9176) — video; Physitrack; credited creator: Physitrack; [provenance](sources.md#v983a597bfe13). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Running in place is related only to overground/treadmill running. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The existing Physitrack video is explicitly running in place. The NHS return-to-running pages found in this pass contain rehabilitation drills, not an individually checked treadmill or overground running demonstration. Actual forward/treadmill running remains unresolved. Rehabilitation progressions and running-in-place are not exact evidence for all six running labels. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#cardio-jogging-and-running).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#cardio-jogging-and-running).
 
@@ -134,7 +136,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Matrix Fitness / How to Use the C7xe ClimbMill](https://www.youtube.com/watch?v=4dVJoIAOYPQ) — video; Matrix Fitness; credited creator: Matrix Fitness; [provenance](sources.md#v74f7008a178b). Relationship: related-only.
 
-**Match and limits:** Matrix Fitness publishes a C7xe ClimbMill operation demonstration; public previews show the touchscreen and hand control. This improves the machine-operation reference, but the inspected previews do not establish foot placement on the moving stairs. A stepping-form demonstration remains desirable.
+**Match and limits:** The Physitrack stairs-climber video was rechecked: its sampled images show separate reciprocating pedals, not a continuous moving staircase. Matrix’s C7xe video is the correct machine category, but the existing inspected previews mainly show controls. Need moving-stair foot placement and hand support. A pedal stepper or console-operation view is not a complete stair-climbing technique reference. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#cardio-stair-climber).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#cardio-stair-climber).
 
@@ -198,7 +202,9 @@ Reviewed November 13, 2026. [Scope and interpretation](README.md). Configuration
 
 **Video:** [Sled Push](https://www.youtube.com/watch?v=SWmRa-YgONs) — video; Muscle & Strength; credited creator: Muscle & Strength; [provenance](sources.md#v7380188ab3db). Relationship: related-only.
 
-**Match and limits:** Targeted exercise-name discovery and provider-identity screening did not produce a newly accepted configuration-specific reference in this pass. Sled push is one equipment pattern; use the separate rope entries for ropes. The full target setup remains unresolved. Search candidates are retained without endorsement; their configuration and/or professional provenance still need review.
+**Match and limits:** The current Muscle & Strength source covers a sled push. Separate rope-wave sources cover rope actions, but the single selected video does not establish the rope half of this shared cardio category. The category includes alternative implements and timing/intensity labels. Keep sled and rope technique references separate; no single drill validates every prescription. Full continuous motion and professional technique approval remain unreviewed.
+
+[Latest comparison and unresolved differences](research-round2.md#cardio-sled-and-battle-rope-cardio).
 
 [Follow-up evidence, previous comparison and candidate trail](research.md#cardio-sled-and-battle-rope-cardio).
 
