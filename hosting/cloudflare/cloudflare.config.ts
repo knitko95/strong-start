@@ -10,7 +10,6 @@ export default defineConfig({
     name: 'strong-start',
     entrypoint:'../feedback-worker.mjs',
     assets:{...sharedWorker.assets,runWorkerFirst:['/api/feedback','/api/feedback/*']},
-    placement:{mode:'smart',hint:'enam'},
     exports:{FeedbackOutbox:exports.durableObject({storage:'sqlite'})},
     env:{FEEDBACK_ENVIRONMENT:bindings.text('production'),GITHUB_FEEDBACK_TOKEN:bindings.secret()},
   }
