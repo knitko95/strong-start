@@ -29,7 +29,7 @@ if (!html.includes('const IS_PRODUCTION = false;') || html.includes('aybtxqsneyw
 }
 const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root);
 if(target !== 'dev'){
-  stamped.html=stamped.html.replace('Strong Start · Testing','Strong Start · '+target.toUpperCase()).replace('TESTING · Separate test accounts and data',target.toUpperCase()+' · Shared test data');
+  stamped.html=stamped.html.replace('Strong Start \u00b7 Testing','Strong Start \u00b7 '+target.toUpperCase()).replace('TESTING \u00b7 Separate test accounts and data',target.toUpperCase()+' \u00b7 Shared test data');
   const manifest=JSON.parse(readFileSync(path.join(out,'manifest.dev.webmanifest'),'utf8'));
   manifest.name='Strong Start '+target.toUpperCase(); manifest.short_name='SS '+target.toUpperCase();
   writeFileSync(path.join(out,'manifest.dev.webmanifest'),JSON.stringify(manifest,null,2)+'\n');
