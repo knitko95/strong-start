@@ -67,6 +67,15 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 ## Exercise demonstrations
 
+The test app's demonstration gallery also has a **Character** selector. Choose
+**Rose athlete · realistic draft** to compare the clothed female candidate with
+the anatomical instructor while preserving the paused pose and camera. The
+selection lasts for the page session; a fresh app session starts with the
+anatomical instructor. Muscle highlighting is available on that instructor.
+[Character studio](https://dev.strongstart.app/exercise-guides/character-lab.html)
+opens the new draft directly. Appearance, contact fit and physical-phone
+performance remain under review; see [comparison notes](CHARACTER-COMPARISON-2026-11-13.md).
+
 The development exercise text has undergone a NASM reference audit with corrections to six cues and shared instructions for timed movement, power exercises and warm-ups. Reference coverage is incomplete and some NASM pages contain conflicting information; this is not professional technique certification. See the [audit, sources and remaining limits](EXERCISE-AUDIT-2026-11-11.md).
 
 On the test app, all 320 strength exercises have 3D demonstrations using the shared muscular character. New demonstrations are drafts for owner review; the eighteen earlier animations are retained. **Library > Review all 3D demonstrations** opens the searchable full set, including warm-up/stretch, cardio, recovery and the original squat reference. Drag to rotate, pause, choose half speed, scrub the movement, use Front/Side/Back, or toggle muscle highlights. Library how-to cards and swap previews open the matching strength demonstration; guided warm-up/cool-down how-to sheets open their matching movement or cardio/recovery variant. The same character and skeleton are reused while motion, role maps and missing equipment load on demand. Cached demonstrations can be selected without a connection; full offline library availability is not promised. Written instructions remain available if media fails. This complete draft set is enabled only in development; see [coverage, authoring and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md).

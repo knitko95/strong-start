@@ -1,5 +1,19 @@
 # Strong Start architecture and operations
 
+## Development character comparison
+
+`exercise-guides/shared/characters.json` describes optional character geometry
+and color textures independently of the accepted exercise library. The gallery
+selector and separate `exercise-guides/character-lab.html` use the existing
+renderer. The default anatomical character is unchanged. Selecting a model
+preserves paused time, camera and the existing skeleton/equipment node matrices.
+Model choice is page-session UI state and never enters profile or cloud state.
+Candidate geometry is fitted to each accepted bind frame from its source inverse
+binds; no animation, skeleton hierarchy or inverse bind is rewritten. Two fitted
+geometries are cached, and the original body loads only when needed. Candidate
+muscle highlighting is unavailable because the anatomical map is not validated
+for that surface. See [the dated comparison](CHARACTER-COMPARISON-2026-11-13.md).
+
 ## Complete animation drafts on development
 
 `exercise-guides/shared-guides.js` owns the workout/modal media surfaces and

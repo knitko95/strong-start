@@ -4,6 +4,8 @@ const readJSON=p=>JSON.parse(read(p,'utf8')),manifest=readJSON(path.join(directo
 function asset(a){assert(/^assets\/[a-z0-9-]+[.-][a-f0-9]{16}\.(?:json|png|bin\.gz)$/.test(a.url),a.url);if(checked.has(a.url))return checked.get(a.url);const file=path.resolve(directory,a.url);assert(file.startsWith(directory+path.sep));const b=read(file);assert.equal(b.length,a.bytes,a.url+' length');assert.equal(createHash('sha256').update(b).digest('hex'),a.sha256,a.url+' hash');assert(a.url.includes(a.sha256.slice(0,16)));assert(b.length<25*1024*1024);reached.add(a.url);checked.set(a.url,b);return b;}
 function deps(value){if(!value||typeof value!=='object')return;if(value.url&&value.sha256){asset(value);return;}for(const v of Object.values(value))deps(v);}
 deps(manifest.library);const library=JSON.parse(asset(manifest.library));deps(library);
+const characters=readJSON(path.join(directory,'characters.json'));assert.equal(characters.schemaVersion,1);deps(characters);
+for(const c of characters.candidates){assert.deepEqual(c.jointNames,library.jointNames);assert.equal(c.sourceInverseBindMatrices.length,55);assert(c.vertices<35000&&c.triangles<60000);assert.equal(c.reviewStatus,'draft');}
 const original=readJSON(path.join(root,'animation-authoring/accepted-manifest.json')),acceptedLibrary=readJSON(path.join(root,'animation-authoring/accepted-library.json'));
 assert.deepEqual(library.character,acceptedLibrary.character,'Character geometry must remain unchanged');assert.deepEqual(library.jointNames,acceptedLibrary.jointNames);assert.equal(library.jointNames.length,55);
 const byId=new Map(manifest.exercises.map(e=>[e.id,e]));assert.equal(byId.size,manifest.exercises.length);assert.equal(byId.size,445);
