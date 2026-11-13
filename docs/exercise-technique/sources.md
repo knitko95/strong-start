@@ -2876,7 +2876,7 @@ Reviewed 2026-11-13. Movement sections and limitations are recorded below. A sou
 
 **Review scope:** Video metadata only; no motion inspection or written setup.
 
-**Limits/conflicts:** Video motion not inspected. Exact suspension configuration remains unresolved; the separate Millett article supplies limited written stance/trunk cues.
+**Limits/conflicts:** Video motion not inspected. This source alone does not establish the suspension configuration. Initial gap and later written-source resolution are retained in the dated TRX follow-up; the separate Millett article supplies limited stance/trunk cues.
 
 **Direct-request observation:** 200; HTTP status alone is not content verification. Some publishers block direct requests while the browser research tool exposes readable page text.
 
@@ -3377,3 +3377,58 @@ Reviewed 2026-11-13. Movement sections and limitations are recorded below. A sou
 **Limits/conflicts:** Youth exercise example provides movement identity; adult warm-up pace and step-out regression are adaptations.
 
 **Direct-request observation:** 403; HTTP status alone is not content verification. Some publishers block direct requests while the browser research tool exposes readable page text.
+
+<a id="xtrxgentilcore"></a>
+## xtrxgentilcore: Exercises You Should Be Doing: TRX Anti-Rotation Press
+
+[Tony Gentilcore](https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/) — reviewed 2026-11-13.
+
+**Checked:** Direct reference for the chest-level suspension variation, split stance/rear inside foot, slow press and adjustment through body angle.
+
+**Review scope:** Written exercise section inspected; embedded video URL identified but motion not inspected.
+
+**Limits/conflicts:** Same movement. Numerical angle is not a universal target; no fixed strap length or installation method provided. Sets/reps and general spine claims not adopted.
+
+<a id="xtrxworkbook"></a>
+## xtrxworkbook: TRX Trainer Basics Digital Course Workbook: Six Procedures
+
+[TRX / Fitness Anywhere](https://trxtraining.inspire360.com/files/resources/1117569.pdf) — reviewed 2026-11-13.
+
+**Checked:** Equipment reference for the two-pass single-handle arrangement, locking and a test-load before use.
+
+**Review scope:** Parsed PDF text inspected, especially PDF page 11, Six Procedures, plus anchoring checklist; diagrams not treated as observed motion.
+
+**Limits/conflicts:** Related equipment evidence only. Training workbook has fill-in blanks; no guessed answers used. Not a dedicated anti-rotation tutorial or a guarantee for every trainer model/anchor.
+
+<a id="xtrxsingle"></a>
+## xtrxsingle: Single Handle Mode
+
+[TRX Training](https://www.trxtraining.com/blogs/news/single-handle-mode) — reviewed 2026-11-13.
+
+**Checked:** Manufacturer explains why correct single-handle configuration matters and identifies its use in unilateral/anti-rotation tasks.
+
+**Review scope:** Written manufacturer page inspected; linked Vimeo player identified, not visually inspected.
+
+**Limits/conflicts:** Related equipment context. The written page alone does not provide the threading steps or establish this press's stance; workbook text supplies the former.
+
+<a id="xtrxpallofretailer"></a>
+## xtrxpallofretailer: TRX Pallof Press
+
+[Suspension Exercise (Australian retailer)](https://suspensionexercise.com.au/exercises/trx-pallof-press) — reviewed 2026-11-13.
+
+**Checked:** Side-facing chest-height press, sideways body lean and easier upright geometry; its anchor-side foot is forward.
+
+**Review scope:** Written steps, progression paragraph and site identity inspected; linked videos not visually inspected.
+
+**Limits/conflicts:** Retailer, not assumed to be the manufacturer or an independent clinical authority. Foot order conflicts with Gentilcore. Feet-in-cradles paragraph describes another configuration and is excluded; no fixed angle or dosage adopted.
+
+<a id="xantipressbruno"></a>
+## xantipressbruno: How to Do the Anti-Press
+
+[Ben Bruno / Testosterone Nation](https://www.youtube.com/watch?v=mN_NZ7Vu2fk) — reviewed 2026-11-13.
+
+**Checked:** Side-on suspension press followed by an overhead arm phase, distinguishing a longer anti-press sequence from the catalog chest-level press.
+
+**Review scope:** Written description retrieved through the search tool; direct video fetch failed and motion was not visually inspected.
+
+**Limits/conflicts:** Related variant only. Description's 60% angle has ambiguous units and is not adopted. No claim that its overhead phase belongs in this catalog exercise.

@@ -338,27 +338,29 @@ Movement relationship describes reference relevance, not professional validation
 <a id="trx-anti-rotation-press"></a>
 ## TRX Anti-Rotation Press
 
-Reference relationship: **unresolved**. Status: internal research draft.
+Reference relationship: **same-movement**. Status: internal research draft.
 
-**Setup.** The written coaching reference specifies a tandem stance. Confirm anchor placement, strap length and the model's single-handle arrangement with a qualified demonstrator before attempting this configuration.
+**Setup.** Use a secure suspension anchor and nonslip floor, following the equipment model's installation instructions. Set the trainer to its approved single-handle mode and test-load before leaning. In the documented two-pass TRX arrangement, place handle A above B, thread B through A's webbing triangle, then A through B's triangle; draw A tight to lock. Check against the manufacturer diagram rather than gripping one unsecured strap. Stand side-on, anchor-side foot behind the other in a close stagger. Hold the working handle with both hands at the sternum. Adjust strap length and foot position for a small sideways whole-body lean away from the anchor with tension maintained.
 
-**How to perform.** The intended task is to press while keeping the trunk from turning or bending sideways, then return and practise the other side. Exact hand path and body lean remain unverified; this is not a complete setup recipe.
+**How to perform.** Brace gently and extend the elbows to move the hands straight ahead of the chest. Pause with shoulders and pelvis facing forward, then bend the elbows to return without losing strap tension. Repeat slowly; turn around and reset to train the other side. The hands travel forward relative to the chest, rather than toward the anchor.
 
-**Alignment and range.** Resist rotation rather than creating it. Use only the reach that preserves level shoulders, a stable pelvis and normal breathing.
+**Alignment and range.** Keep head, ribs and pelvis aligned along the deliberately tilted body; avoid adding a bend at the waist, trunk twist or back arch. Shoulders and hips keep the same orientation during the press. Extend only as far as the trunk and shoulder position remain controlled. Both feet stay supported. The sideways lean loads this suspension version and is distinct from a compensation during a cable Pallof press.
 
-**Breathing and pace.** Exhale as the arms extend; keep breathing during pauses. Return slowly.
+**Breathing and pace.** Exhale gently while reaching and inhale while returning, maintaining enough trunk support to breathe throughout. Use a smooth press, a short still pause and a controlled return. Do not jerk the handle or hold the breath to sustain an angle that is too demanding.
 
-**Common mistakes.** Trunk rotation, side bending, loss of foot contact or attempting an uncertain handle configuration. The exact suspension mechanics still require direct demonstration review.
+**Common mistakes.** An unlatched handle arrangement, slack or sliding straps, feet slipping, the hip dropping sideways, torso turning toward the anchor, ribs flaring, or arms travelling overhead. End the repetition if the handle or anchor shifts; regain an upright supported position before readjusting.
 
-**Easier version.** Use a light standing cable or band Pallof press with a secure anchor and a comfortable broad stance while the suspension configuration remains unresolved.
+**Easier version.** Begin almost upright with a short arm reach. Reposition the feet and readjust straps between attempts so the lean becomes smaller, rather than trying to finish with waist bending. If tension or balance cannot be controlled, practise a light standing cable/band Pallof press with a broad base first.
 
-**Variation details and limits.** Written stance and trunk-control cues are available, but the embedded motion was not inspected. Do not substitute cable geometry for an unverified suspension setup.
+**Variation details and limits.** This entry follows Gentilcore's chest-level suspension press with the anchor-side foot back. Millett specifies tandem feet without selecting a rear foot. The Australian retailer places the anchor-side foot forward; that alternative is not merged into this setup. Bruno's anti-press adds an overhead phase and is a separate progression. A fixed strap setting, measured lean angle and universal anchor height are not prescribed here: fit the model and the person while preserving the stated movement. The handle procedure comes from TRX equipment guidance, not an anti-rotation-specific manufacturer tutorial.
 
-**When to stop or regress.** End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment.
+**When to stop or regress.** Stop for slipping feet, strap/handle movement, loss of trunk control, sharp pain, pinching, numbness or tingling. Return upright before releasing the handle. Equipment condition and installation require an actual check; research notes cannot verify an individual anchor or replace supervised technique review.
 
-**References reviewed.** [Andrew Millett / Mike Reinold: Working Core Training in 360 Degrees](https://mikereinold.com/working-core-training-in-360-degrees/) ([review limits](sources.md#xcore360)); [Dan John: TRX Anti Rotation Press](https://www.youtube.com/watch?v=muDVnbs3MkI) ([review limits](sources.md#xtrxanti)); [PureGym: Pallof Press](https://www.puregym.com/exercises/abs/pallof-press/) ([review limits](sources.md#p9)).
+**References reviewed.** [Tony Gentilcore: Exercises You Should Be Doing: TRX Anti-Rotation Press](https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/) ([review limits](sources.md#xtrxgentilcore)); [TRX / Fitness Anywhere: TRX Trainer Basics Digital Course Workbook: Six Procedures](https://trxtraining.inspire360.com/files/resources/1117569.pdf) ([review limits](sources.md#xtrxworkbook)); [TRX Training: Single Handle Mode](https://www.trxtraining.com/blogs/news/single-handle-mode) ([review limits](sources.md#xtrxsingle)); [Andrew Millett / Mike Reinold: Working Core Training in 360 Degrees](https://mikereinold.com/working-core-training-in-360-degrees/) ([review limits](sources.md#xcore360)); [Dan John: TRX Anti Rotation Press](https://www.youtube.com/watch?v=muDVnbs3MkI) ([review limits](sources.md#xtrxanti)); [Suspension Exercise (Australian retailer): TRX Pallof Press](https://suspensionexercise.com.au/exercises/trx-pallof-press) ([review limits](sources.md#xtrxpallofretailer)); [Ben Bruno / Testosterone Nation: How to Do the Anti-Press](https://www.youtube.com/watch?v=mN_NZ7Vu2fk) ([review limits](sources.md#xantipressbruno)); [PureGym: Pallof Press](https://www.puregym.com/exercises/abs/pallof-press/) ([review limits](sources.md#p9)).
 
-Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.
+The initial metadata-only setup gap was resolved by a directly inspected written exercise section and separate manufacturer equipment procedures. Same-movement means a direct movement reference, not professional approval, observed video validation or an individually checked installation. Stance choices and related variants remain explicit; see the dated TRX follow-up record.
+
+[Dated setup resolution and source conflicts](../TRX-ANTI-ROTATION-2026-11-13.md).
 
 <a id="machine-torso-rotation"></a>
 ## Machine Torso Rotation

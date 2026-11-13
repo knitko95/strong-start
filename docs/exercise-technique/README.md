@@ -23,18 +23,18 @@ Machine-readable equivalents are [catalog.json](catalog.json), [guides.json](gui
 
 ## What the research establishes
 
-Research included current publisher exercise pages, original coaching articles, manufacturer instructions, clinical exercise descriptions and selected research/manual excerpts. Sources include NASM, ACE, PureGym, Catalyst Athletics, TRX, Physitrack, NHS services, AAOS, NSCA, Concept2 and other identified authors. The 257 source URLs are a reference inventory, not 256 equally strong or independent validations.
+Research included current publisher exercise pages, original coaching articles, manufacturer instructions, clinical exercise descriptions and selected research/manual excerpts. Sources include NASM, ACE, PureGym, Catalyst Athletics, TRX, Physitrack, NHS services, AAOS, NSCA, Concept2 and other identified authors. The 262 source URLs are a reference inventory; they differ in strength and independence. Five references were added in the [TRX setup follow-up](../TRX-ANTI-ROTATION-2026-11-13.md).
 
 | Relationship | Catalog | Warm-up/stretch guides |
 | --- | ---: | ---: |
-| Same movement | 163 | 41 |
+| Same movement | 164 | 41 |
 | Related only | 156 | 51 |
-| Unresolved exact configuration | 1 | 0 |
+| Unresolved exact configuration | 0 | 0 |
 | Total | 320 | 92 |
 
 **Same movement** means an inspected written reference describes that movement or a named section matching it. It does not mean that every cue in this independently written synthesis appears in the source, that multiple references agree, or that a professional has approved the entry. **Related only** explicitly preserves the gap when equipment, support, load, direction or sequence is adapted. **Unresolved** identifies an exact setup that could not be established adequately.
 
-The exact suspension setup for **TRX Anti-Rotation Press** remains unresolved. Andrew Millett's written key points describe tandem stance and resisting trunk turn/sidebend. They do not specify the anchor geometry, strap length or single-handle arrangement, and the referenced videos were not visually inspected. The draft distinguishes it from a cable Pallof press and needs a directly inspected suspension tutorial or qualified coach review before demonstration authoring.
+The initial **TRX Anti-Rotation Press** setup gap was resolved through a directly inspected coaching article and separate TRX equipment instructions. The [follow-up record](../TRX-ANTI-ROTATION-2026-11-13.md) distinguishes the selected chest-level variation, conflicting foot arrangements, single-handle procedure and excluded overhead progression. No video motion was inspected and no universal strap length or measured lean angle is asserted. Same-movement coverage remains a source relationship, not observed technique approval.
 
 Additional limits remain even where the relationship is not unresolved: the reverse-Nordic paper was available only as an abstract because its manuscript download timed out; some PDF references were available through exercise-specific indexed excerpts; the trap-bar and A-skip videos were not visually inspected; several uncommon variants use related movement evidence. Every source records its scope and limitations. HTTP 200, a recognizable publisher or a matching page title alone did not count as technique verification.
 

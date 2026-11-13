@@ -3532,7 +3532,7 @@
       "reviewDate": "2026-11-13",
       "reviewScope": "Video metadata only; no motion inspection or written setup.",
       "factsChecked": "Named exercise identity only; public video metadata retrieved.",
-      "limitations": "Video motion not inspected. Exact suspension configuration remains unresolved; the separate Millett article supplies limited written stance/trunk cues.",
+      "limitations": "Video motion not inspected. This source alone does not establish the suspension configuration. Initial gap and later written-source resolution are retained in the dated TRX follow-up; the separate Millett article supplies limited stance/trunk cues.",
       "retrieval": {
         "httpStatus": 200,
         "finalUrl": "https://www.youtube.com/watch?v=muDVnbs3MkI",
@@ -4149,6 +4149,56 @@
         "observedTitle": "Azure WAF",
         "note": "HTTP status alone is not content verification. Some publishers block direct requests while the browser research tool exposes readable page text."
       }
+    },
+    "xtrxgentilcore": {
+      "id": "xtrxgentilcore",
+      "publisher": "Tony Gentilcore",
+      "title": "Exercises You Should Be Doing: TRX Anti-Rotation Press",
+      "url": "https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/",
+      "reviewDate": "2026-11-13",
+      "reviewScope": "Written exercise section inspected; embedded video URL identified but motion not inspected.",
+      "factsChecked": "Direct reference for the chest-level suspension variation, split stance/rear inside foot, slow press and adjustment through body angle.",
+      "limitations": "Same movement. Numerical angle is not a universal target; no fixed strap length or installation method provided. Sets/reps and general spine claims not adopted."
+    },
+    "xtrxworkbook": {
+      "id": "xtrxworkbook",
+      "publisher": "TRX / Fitness Anywhere",
+      "title": "TRX Trainer Basics Digital Course Workbook: Six Procedures",
+      "url": "https://trxtraining.inspire360.com/files/resources/1117569.pdf",
+      "reviewDate": "2026-11-13",
+      "reviewScope": "Parsed PDF text inspected, especially PDF page 11, Six Procedures, plus anchoring checklist; diagrams not treated as observed motion.",
+      "factsChecked": "Equipment reference for the two-pass single-handle arrangement, locking and a test-load before use.",
+      "limitations": "Related equipment evidence only. Training workbook has fill-in blanks; no guessed answers used. Not a dedicated anti-rotation tutorial or a guarantee for every trainer model/anchor."
+    },
+    "xtrxsingle": {
+      "id": "xtrxsingle",
+      "publisher": "TRX Training",
+      "title": "Single Handle Mode",
+      "url": "https://www.trxtraining.com/blogs/news/single-handle-mode",
+      "reviewDate": "2026-11-13",
+      "reviewScope": "Written manufacturer page inspected; linked Vimeo player identified, not visually inspected.",
+      "factsChecked": "Manufacturer explains why correct single-handle configuration matters and identifies its use in unilateral/anti-rotation tasks.",
+      "limitations": "Related equipment context. The written page alone does not provide the threading steps or establish this press's stance; workbook text supplies the former."
+    },
+    "xtrxpallofretailer": {
+      "id": "xtrxpallofretailer",
+      "publisher": "Suspension Exercise (Australian retailer)",
+      "title": "TRX Pallof Press",
+      "url": "https://suspensionexercise.com.au/exercises/trx-pallof-press",
+      "reviewDate": "2026-11-13",
+      "reviewScope": "Written steps, progression paragraph and site identity inspected; linked videos not visually inspected.",
+      "factsChecked": "Side-facing chest-height press, sideways body lean and easier upright geometry; its anchor-side foot is forward.",
+      "limitations": "Retailer, not assumed to be the manufacturer or an independent clinical authority. Foot order conflicts with Gentilcore. Feet-in-cradles paragraph describes another configuration and is excluded; no fixed angle or dosage adopted."
+    },
+    "xantipressbruno": {
+      "id": "xantipressbruno",
+      "publisher": "Ben Bruno / Testosterone Nation",
+      "title": "How to Do the Anti-Press",
+      "url": "https://www.youtube.com/watch?v=mN_NZ7Vu2fk",
+      "reviewDate": "2026-11-13",
+      "reviewScope": "Written description retrieved through the search tool; direct video fetch failed and motion was not visually inspected.",
+      "factsChecked": "Side-on suspension press followed by an overhead arm phase, distinguishing a longer anti-press sequence from the catalog chest-level press.",
+      "limitations": "Related variant only. Description's 60% angle has ambiguous units and is not adopted. No claim that its overhead phase belongs in this catalog exercise."
     }
   }
 }

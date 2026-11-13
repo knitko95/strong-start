@@ -9,15 +9,16 @@
     "guides": 92,
     "cardioTypes": 12,
     "cardioLabels": 67,
-    "sources": 257,
+    "sources": 262,
     "catalogRelationships": {
-      "same-movement": 163,
+      "same-movement": 164,
       "related-only": 156,
-      "unresolved": 1
+      "unresolved": 0
     },
     "guideRelationships": {
       "related-only": 51,
       "same-movement": 41
     }
-  }
+  },
+  "followUp": "../TRX-ANTI-ROTATION-2026-11-13.md: written setup/equipment gap resolved; no video motion or professional certification claimed."
 }

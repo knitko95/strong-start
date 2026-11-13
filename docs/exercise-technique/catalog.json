@@ -2210,23 +2210,28 @@
       "pattern": "antirotation",
       "reviewDate": "2026-11-13",
       "status": "internal-research-draft",
-      "sourceRelationship": "unresolved",
+      "sourceRelationship": "same-movement",
       "notes": {
-        "alignmentAndRange": "Resist rotation rather than creating it. Use only the reach that preserves level shoulders, a stable pelvis and normal breathing.",
-        "breathingAndTempo": "Exhale as the arms extend; keep breathing during pauses. Return slowly.",
-        "commonFaults": "Trunk rotation, side bending, loss of foot contact or attempting an uncertain handle configuration. The exact suspension mechanics still require direct demonstration review.",
-        "regression": "Use a light standing cable or band Pallof press with a secure anchor and a comfortable broad stance while the suspension configuration remains unresolved.",
-        "setup": "The written coaching reference specifies a tandem stance. Confirm anchor placement, strap length and the model's single-handle arrangement with a qualified demonstrator before attempting this configuration.",
-        "execution": "The intended task is to press while keeping the trunk from turning or bending sideways, then return and practise the other side. Exact hand path and body lean remain unverified; this is not a complete setup recipe.",
-        "variantNotes": "Written stance and trunk-control cues are available, but the embedded motion was not inspected. Do not substitute cable geometry for an unverified suspension setup.",
-        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+        "setup": "Use a secure suspension anchor and nonslip floor, following the equipment model's installation instructions. Set the trainer to its approved single-handle mode and test-load before leaning. In the documented two-pass TRX arrangement, place handle A above B, thread B through A's webbing triangle, then A through B's triangle; draw A tight to lock. Check against the manufacturer diagram rather than gripping one unsecured strap. Stand side-on, anchor-side foot behind the other in a close stagger. Hold the working handle with both hands at the sternum. Adjust strap length and foot position for a small sideways whole-body lean away from the anchor with tension maintained.",
+        "execution": "Brace gently and extend the elbows to move the hands straight ahead of the chest. Pause with shoulders and pelvis facing forward, then bend the elbows to return without losing strap tension. Repeat slowly; turn around and reset to train the other side. The hands travel forward relative to the chest, rather than toward the anchor.",
+        "alignmentAndRange": "Keep head, ribs and pelvis aligned along the deliberately tilted body; avoid adding a bend at the waist, trunk twist or back arch. Shoulders and hips keep the same orientation during the press. Extend only as far as the trunk and shoulder position remain controlled. Both feet stay supported. The sideways lean loads this suspension version and is distinct from a compensation during a cable Pallof press.",
+        "breathingAndTempo": "Exhale gently while reaching and inhale while returning, maintaining enough trunk support to breathe throughout. Use a smooth press, a short still pause and a controlled return. Do not jerk the handle or hold the breath to sustain an angle that is too demanding.",
+        "commonFaults": "An unlatched handle arrangement, slack or sliding straps, feet slipping, the hip dropping sideways, torso turning toward the anchor, ribs flaring, or arms travelling overhead. End the repetition if the handle or anchor shifts; regain an upright supported position before readjusting.",
+        "regression": "Begin almost upright with a short arm reach. Reposition the feet and readjust straps between attempts so the lean becomes smaller, rather than trying to finish with waist bending. If tension or balance cannot be controlled, practise a light standing cable/band Pallof press with a broad base first.",
+        "variantNotes": "This entry follows Gentilcore's chest-level suspension press with the anchor-side foot back. Millett specifies tandem feet without selecting a rear foot. The Australian retailer places the anchor-side foot forward; that alternative is not merged into this setup. Bruno's anti-press adds an overhead phase and is a separate progression. A fixed strap setting, measured lean angle and universal anchor height are not prescribed here: fit the model and the person while preserving the stated movement. The handle procedure comes from TRX equipment guidance, not an anti-rotation-specific manufacturer tutorial.",
+        "stopOrRegress": "Stop for slipping feet, strap/handle movement, loss of trunk control, sharp pain, pinching, numbness or tingling. Return upright before releasing the handle. Equipment condition and installation require an actual check; research notes cannot verify an individual anchor or replace supervised technique review."
       },
       "sourceIds": [
+        "xtrxgentilcore",
+        "xtrxworkbook",
+        "xtrxsingle",
         "xcore360",
         "xtrxanti",
+        "xtrxpallofretailer",
+        "xantipressbruno",
         "p9"
       ],
-      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "evidenceBoundary": "The initial metadata-only setup gap was resolved by a directly inspected written exercise section and separate manufacturer equipment procedures. Same-movement means a direct movement reference, not professional approval, observed video validation or an individually checked installation. Stance choices and related variants remain explicit; see the dated TRX follow-up record.",
       "previousNasmAudit": {
         "reviewDate": "2026-11-11",
         "referenceLevel": "related-only",
