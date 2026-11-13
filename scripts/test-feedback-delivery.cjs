@@ -27,6 +27,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
    sb={auth:{getSession:async()=>({data:{session:{access_token:'synthetic-session'}}})},from:()=>{throw Error('Unexpected database feedback inbox access');}};
    ui.tab='settings';render();
   });
+  assert.equal(await page.getByText('App feedback',{exact:true}).count(),0,'Duplicate owner inbox is retired');
   await page.locator('#fbbtn').click();const dialog=page.getByRole('dialog');
   await dialog.getByRole('tab',{name:'About the app'}).waitFor();
   assert.match(await dialog.innerText(),/private feedback tracker/);
@@ -51,6 +52,9 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.evaluate(()=>{window.coachOpened=false;cmOpen=()=>{window.coachOpened=true;};});
   await page.locator('#fbbtn').click();await dialog.getByRole('tab',{name:'To my coach'}).click();
   assert.equal(await page.evaluate(()=>window.coachOpened),true);assert.equal(reports.length,2);
+  await page.evaluate(()=>{closeModal();AUTH.coach=true;CM.summary={inbox:[]};ui.tab='people';render();});
+  await page.locator('[data-action="msginbox"][data-k="coach"]').click();
+  await page.getByRole('heading',{name:'Messages',exact:true}).waitFor();
   assert.deepEqual(errors,[]);console.log(JSON.stringify({width,failedDraftKept:true,retryDeduplicated:true,queuedReceipt:true,coachRouting:true,errors}));await page.close();
  }}finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});

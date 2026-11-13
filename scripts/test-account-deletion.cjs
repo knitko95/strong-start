@@ -18,7 +18,7 @@ const server=http.createServer((req,res)=>{try{const p=req.url.split('?')[0];con
    SYNC={owner:AUTH.user.id,base:null,conflict:null,recovery:null};CLOUD.ok=true;clearTimeout(CLOUD.t);
    window.calls=[];window.deleteError=null;
    sb={rpc:async(name,p)=>{window.calls.push({name,p});if(name==='delete_my_account')return {error:window.deleteError};return {data:false};},auth:{signOut:async()=>{throw Error('Synthetic already-deleted Auth session');}}};
-   lsSet(ACCT_KEY,JSON.stringify(AUTH.user));lsSet('strongstart_owner',AUTH.user.id);ui.tab='settings';ui.open={account:true};persistLocal();render();
+   lsSet(ACCT_KEY,JSON.stringify(AUTH.user));lsSet('strongstart_owner',AUTH.user.id);ui.tab='settings';ui.settingsGroup='account';ui.open={account:true};persistLocal();render();
   });
   assert.ok(await page.getByText('Testing',{exact:false}).count());
   await page.getByRole('button',{name:'Delete my account',exact:true}).click();
