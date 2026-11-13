@@ -21,4 +21,4 @@ No exercise catalogue, planned duration, working-set/progression, schema, storag
 - Existing cool-down browser suite passes all six journeys and 54 layouts with the shared renderer.
 - Real rendered phone screenshots inspected. Physical phones, actual device suspension and authenticated real-account flows remain unverified.
 
-Hosted publication and verification are pending the dev push.
+Runtime commit `9265ba72974b095f88c1bf31ae623ea20d278bc6` deployed successfully to dev through Workers Build `2fe0c6d4-9e51-43e4-b913-1979c477cd9c`. Hosted entry checks at 1280/390/320 px confirm exact tested HTML, the Testing banner, development backend and no browser errors. All six hosted warm-up journeys / 42 layouts and six hosted cooldown journeys / 54 layouts pass without console or page errors. Production was not changed.
