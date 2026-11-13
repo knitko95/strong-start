@@ -22,4 +22,6 @@ Local verification passed:
 
 No new account, database, signed-in browser or physical-phone tests were run for this documentation-only change. These checks establish completeness, links and packaging; they do not establish professional technique approval or observed movement performance.
 
-Development publication and exact-commit deployment verification are pending. Production publication is not approved and no production mutation is required. Hosted deployment success will verify publication of the documentation commit, not exercise technique or real-device movement performance.
+Development commit `219795b0b919efc791d4112778481f3c7ba06149` was pushed to `dev` and deployed successfully by Workers Build `b1c27403-c0fa-4486-b7cc-9f49caceac89` (completed November 13 at 17:46 UTC). The public repository reference was readable at that commit. HTTP checks at `https://dev.strongstart.app/` verified the exact commit in version metadata, matching build identity in HTML/service worker, Testing banner markup and the isolated development backend. The runtime files contain no internal-note reference. This verifies publication of the documentation candidate, not exercise technique or observed movement performance.
+
+No production publication or database/configuration mutation was performed or is required for these references. This record and the feedback status are a documentation follow-up to the tested candidate; the reference content and app runtime remain unchanged.
