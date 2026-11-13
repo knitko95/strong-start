@@ -2,6 +2,12 @@
 
 The shared list of what the owner has asked for, what was decided, and where each item stands. Every assistant working on this app (Claude, ChatGPT or any other) reads this at the start of a session and updates it after each decision or release. Started November 11, 2026, from the owner's earlier private log.
 
+## November 13 animation request
+
+| # | Item | Status | Decision / notes |
+|---|---|---|---|
+| 95 | Complete every remaining exercise animation and supporting equipment | Built, not published | Requested November 13. Owner authorized the full remaining set without intermediate reviews, using the optimized shared character and small reusable assets; review will happen inside the app. Includes all 320 strength exercises and the full named guide/cardio/recovery set, 445 demonstrations total. Eighteen existing clips/character assets retained; 427 new drafts are explicitly awaiting owner review. [Coverage, authoring and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md). Development deployment authorized; production release is not authorized. No database or saved-data changes. |
+
 ## How to use this log
 
 - **Nothing is added to the app until the owner says so.** Items are discussed one at a time. "To discuss" means not approved to build.

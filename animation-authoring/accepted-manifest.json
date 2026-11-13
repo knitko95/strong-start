@@ -1,0 +1,558 @@
+{
+  "schemaVersion": 1,
+  "revision": "animation-authoring-17",
+  "skinning": "dual-quaternion-with-local-shoulder-and-elbow-linear-blend",
+  "library": {
+    "url": "assets/library.a6c2ca90d3544f27.json",
+    "bytes": 111163,
+    "sha256": "a6c2ca90d3544f2753f078426bfdea00c6014694fec5512fa42ae7d02c5683ac"
+  },
+  "exercises": [
+    {
+      "id": "bodyweight-squat",
+      "name": "Bodyweight Squat",
+      "mainLabel": "Quads & glutes",
+      "supportingLabel": "Trunk, hips & calves",
+      "target": "0m .78m 0m",
+      "radius": 3.9,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "scene": {
+        "url": "assets/bodyweight-squat.23c6ff5e289a97be.json",
+        "bytes": 62128,
+        "sha256": "23c6ff5e289a97be99d791bf52be460cfc0de2f564d0170e5e88c008c927e0da"
+      },
+      "main": [
+        "rectus_femoris",
+        "vastus_medialis",
+        "vastus_lateralis",
+        "gluteus_maximus"
+      ],
+      "supporting": [
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique",
+        "erectors",
+        "gluteus_medius",
+        "gastrocnemius_medial",
+        "gastrocnemius_lateral",
+        "soleus"
+      ]
+    },
+    {
+      "id": "dumbbell-romanian-deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "main": [
+        "biceps_femoris",
+        "medial_hamstrings",
+        "gluteus_maximus"
+      ],
+      "supporting": [
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique",
+        "erectors",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Hamstrings & glutes",
+      "supportingLabel": "Trunk & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 3.8457616052962886,
+      "orbit": "145deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-romanian-deadlift.bd42f7106f2b3377.json",
+        "bytes": 66564,
+        "sha256": "bd42f7106f2b337744f3fc78c84db5e70ad7fccd9c22b232176065c49c0c400d"
+      }
+    },
+    {
+      "id": "hammer-curl",
+      "name": "Hammer Curl",
+      "main": [
+        "biceps",
+        "brachialis",
+        "brachioradialis"
+      ],
+      "supporting": [
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Elbow flexors",
+      "supportingLabel": "Trunk & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 3.8457616052962886,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/hammer-curl.4bb4478470dbf219.json",
+        "bytes": 66350,
+        "sha256": "4bb4478470dbf219c09a382c8faab661a09d9ecbde0ef3088597dd6beb51b76e"
+      }
+    },
+    {
+      "id": "standing-dumbbell-shoulder-press",
+      "name": "Standing Dumbbell Shoulder Press",
+      "main": [
+        "deltoid_front",
+        "deltoid_middle"
+      ],
+      "supporting": [
+        "triceps",
+        "traps_upper",
+        "serratus",
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique"
+      ],
+      "mainLabel": "Shoulders",
+      "supportingLabel": "Triceps, shoulder girdle & trunk",
+      "activeSide": null,
+      "target": "0.0000m 0.9614m 0.0000m",
+      "radius": 4.837247019161738,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/standing-dumbbell-shoulder-press.3b9410f10e402da1.json",
+        "bytes": 66525,
+        "sha256": "3b9410f10e402da1fd8c091cfe94a072b9e2a26a4a50e7e391cf4ec0a4e40fd1"
+      }
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "main": [
+        "pec",
+        "pec_upper"
+      ],
+      "supporting": [
+        "deltoid_front",
+        "triceps"
+      ],
+      "mainLabel": "Chest",
+      "supportingLabel": "Front shoulders & triceps",
+      "activeSide": null,
+      "target": "0.0000m 0.5769m -0.2163m",
+      "radius": 3.485221454799761,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-bench-press.921943ad376a4d48.json",
+        "bytes": 68402,
+        "sha256": "921943ad376a4d4863d96e593562307bcade049bc6915cf0041dc9b68325d31e"
+      }
+    },
+    {
+      "id": "plank",
+      "name": "Plank",
+      "main": [
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique"
+      ],
+      "supporting": [
+        "serratus",
+        "deltoid_front",
+        "gluteus_maximus",
+        "rectus_femoris",
+        "vastus_medialis",
+        "vastus_lateralis"
+      ],
+      "mainLabel": "Abdominals & obliques",
+      "supportingLabel": "Shoulders, hips & thighs",
+      "activeSide": null,
+      "target": "0.0000m 0.2404m 0.0000m",
+      "radius": 3.365041404634252,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/plank.edb0cfced9455d23.json",
+        "bytes": 63498,
+        "sha256": "edb0cfced9455d2309a31d812b2a0496e55e5e76e0f387f770b28d749e3c5b37"
+      }
+    },
+    {
+      "id": "goblet-squat",
+      "name": "Goblet Squat",
+      "main": [
+        "rectus_femoris",
+        "vastus_medialis",
+        "vastus_lateralis",
+        "gluteus_maximus"
+      ],
+      "supporting": [
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique",
+        "erectors",
+        "gluteus_medius",
+        "gastrocnemius_medial",
+        "gastrocnemius_lateral",
+        "soleus",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Quads & glutes",
+      "supportingLabel": "Trunk, hips, calves & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 3.8457616052962886,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/goblet-squat.d00fb76a63017f7a.json",
+        "bytes": 64279,
+        "sha256": "d00fb76a63017f7aa4d8dafe9143031cdc77afa889ea80699617f832ee83c739"
+      }
+    },
+    {
+      "id": "incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "main": [
+        "pec",
+        "pec_upper"
+      ],
+      "supporting": [
+        "deltoid_front",
+        "triceps"
+      ],
+      "mainLabel": "Chest",
+      "supportingLabel": "Front shoulders & triceps",
+      "activeSide": null,
+      "target": "0.0000m 0.7571m -0.1803m",
+      "radius": 3.7255815551307796,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/incline-dumbbell-press.34a00ea6f5a033e7.json",
+        "bytes": 68811,
+        "sha256": "34a00ea6f5a033e7a274bf11aa22358cb88a33d84fd882580bd8ba649ec38721"
+      }
+    },
+    {
+      "id": "dumbbell-floor-press",
+      "name": "Dumbbell Floor Press",
+      "main": [
+        "pec",
+        "pec_upper"
+      ],
+      "supporting": [
+        "deltoid_front",
+        "triceps"
+      ],
+      "mainLabel": "Chest",
+      "supportingLabel": "Front shoulders & triceps",
+      "activeSide": null,
+      "target": "0.0000m 0.3605m -0.2404m",
+      "radius": 3.60540150496527,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-floor-press.3589bbcd574eab78.json",
+        "bytes": 66880,
+        "sha256": "3589bbcd574eab7872fc33353b211ede293a39d45421390323f6e5b1b7a9b019"
+      }
+    },
+    {
+      "id": "seated-dumbbell-shoulder-press",
+      "name": "Seated Dumbbell Shoulder Press",
+      "main": [
+        "deltoid_front",
+        "deltoid_middle"
+      ],
+      "supporting": [
+        "triceps",
+        "traps_upper",
+        "serratus"
+      ],
+      "mainLabel": "Shoulders",
+      "supportingLabel": "Triceps & shoulder girdle",
+      "activeSide": null,
+      "target": "0.0000m 0.8052m 0.0000m",
+      "radius": 4.284418788400396,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/seated-dumbbell-shoulder-press.ba06691392c24e0d.json",
+        "bytes": 68873,
+        "sha256": "ba06691392c24e0d2da29287c5297a4e08bacd7c0aaa9a53a1b59681eedee0d3"
+      }
+    },
+    {
+      "id": "dumbbell-lateral-raise",
+      "name": "Dumbbell Lateral Raise",
+      "main": [
+        "deltoid_middle"
+      ],
+      "supporting": [
+        "deltoid_front",
+        "traps_upper",
+        "serratus",
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique"
+      ],
+      "mainLabel": "Side deltoids",
+      "supportingLabel": "Shoulder girdle & trunk",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 4.206301755792816,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": true,
+      "scene": {
+        "url": "assets/dumbbell-lateral-raise.c3cb14b65d0f50b4.json",
+        "bytes": 66445,
+        "sha256": "c3cb14b65d0f50b460815ca92bf172a709aeac7e7c43ac3353fb69622b61a8d8"
+      }
+    },
+    {
+      "id": "single-arm-dumbbell-bench-press",
+      "name": "Single-Arm Dumbbell Bench Press",
+      "main": [
+        "pec",
+        "pec_upper"
+      ],
+      "supporting": [
+        "deltoid_front",
+        "triceps",
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique"
+      ],
+      "mainLabel": "Working-side chest",
+      "supportingLabel": "Working arm & trunk",
+      "activeSide": "l",
+      "target": "0.0000m 0.5769m -0.2163m",
+      "radius": 3.485221454799761,
+      "orbit": "45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/single-arm-dumbbell-bench-press.9d6a52d61d639946.json",
+        "bytes": 66772,
+        "sha256": "9d6a52d61d639946c762035b395e1f559306b5af6788760373efc2997e2d49e2"
+      }
+    },
+    {
+      "id": "dumbbell-front-raise",
+      "name": "Dumbbell Front Raise",
+      "main": [
+        "deltoid_front"
+      ],
+      "supporting": [
+        "deltoid_middle",
+        "pec_upper",
+        "traps_upper",
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique"
+      ],
+      "mainLabel": "Front deltoids",
+      "supportingLabel": "Shoulder girdle & trunk",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 3.8457616052962886,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-front-raise.2f305d948b7c0827.json",
+        "bytes": 66333,
+        "sha256": "2f305d948b7c0827db5ebb0038148c743cecc9a783d7b7a1cc940efc0b5872ac"
+      }
+    },
+    {
+      "id": "dumbbell-shrug",
+      "name": "Dumbbell Shrug",
+      "main": [
+        "traps_upper"
+      ],
+      "supporting": [
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Upper trapezius",
+      "supportingLabel": "Grip",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 3.8457616052962886,
+      "orbit": "145deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-shrug.0f733e106e07280d.json",
+        "bytes": 66284,
+        "sha256": "0f733e106e07280d45f927b74f0bf80ae5d41fc7fa06e3fd0fc2077a63e65da4"
+      }
+    },
+    {
+      "id": "incline-dumbbell-curl",
+      "name": "Incline Dumbbell Curl",
+      "main": [
+        "biceps"
+      ],
+      "supporting": [
+        "brachialis",
+        "brachioradialis",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Biceps",
+      "supportingLabel": "Other elbow flexors & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.7692m 0.0601m",
+      "radius": 3.8457616052962886,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/incline-dumbbell-curl.76edbdce188e6c9f.json",
+        "bytes": 68623,
+        "sha256": "76edbdce188e6c9f4ef6ab48adedef9b16cd725a561450c13e384989746700b1"
+      }
+    },
+    {
+      "id": "dumbbell-spider-curl",
+      "name": "Dumbbell Spider Curl",
+      "main": [
+        "biceps"
+      ],
+      "supporting": [
+        "brachialis",
+        "brachioradialis",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Biceps",
+      "supportingLabel": "Other elbow flexors & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.7692m 0.0601m",
+      "radius": 3.8457616052962886,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/dumbbell-spider-curl.b2485cacacc275ac.json",
+        "bytes": 68334,
+        "sha256": "b2485cacacc275ac23fa575270734591e615400d5f3669cd456056e9823f8ccd"
+      }
+    },
+    {
+      "id": "bent-over-dumbbell-reverse-fly",
+      "name": "Bent-Over Dumbbell Reverse Fly",
+      "main": [
+        "deltoid_rear"
+      ],
+      "supporting": [
+        "traps_middle",
+        "traps_lower",
+        "rhomboids",
+        "erectors",
+        "rectus_abdominis_upper",
+        "rectus_abdominis_middle",
+        "rectus_abdominis_lower",
+        "rectus_abdominis_inferior",
+        "external_oblique",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Rear deltoids",
+      "supportingLabel": "Upper back, trunk & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.8893m 0.0000m",
+      "radius": 4.206301755792816,
+      "orbit": "145deg 60deg",
+      "floor": false,
+      "wide": true,
+      "scene": {
+        "url": "assets/bent-over-dumbbell-reverse-fly.6f122c993fb97490.json",
+        "bytes": 66510,
+        "sha256": "6f122c993fb97490491d4953e56ec553fd71540f1f0793ef5f8b2594c7b1302f"
+      }
+    },
+    {
+      "id": "chest-supported-dumbbell-row",
+      "name": "Chest-Supported Dumbbell Row",
+      "main": [
+        "lats",
+        "traps_middle",
+        "rhomboids"
+      ],
+      "supporting": [
+        "deltoid_rear",
+        "biceps",
+        "brachialis",
+        "forearm_flexors",
+        "forearm_extensors"
+      ],
+      "mainLabel": "Lats & upper back",
+      "supportingLabel": "Rear shoulders, elbow flexors & grip",
+      "activeSide": null,
+      "target": "0.0000m 0.7692m 0.0601m",
+      "radius": 3.8457616052962886,
+      "orbit": "-45deg 50deg",
+      "floor": true,
+      "wide": false,
+      "scene": {
+        "url": "assets/chest-supported-dumbbell-row.a8d24a6a82cdcb9e.json",
+        "bytes": 68479,
+        "sha256": "a8d24a6a82cdcb9e802cce946035bf9e4b280580a5cd2cd8d20c26ae0db81333"
+      }
+    }
+  ],
+  "persistentCacheBudgetBytes": 41943040,
+  "sourceHashes": {
+    "bodyweight-squat": "c688dec21e74423408a026db162870d49664093854d51c8eb5affb3ed6747d70",
+    "dumbbell-romanian-deadlift": "e8dd96b076c28fb8b78e5ccec8234cb579781a536e0983f859575a37880f444a",
+    "hammer-curl": "7c95b3f72853f6e731f6a8ff4b844c63260146f3d599f515b0fe98575f0c6be0",
+    "standing-dumbbell-shoulder-press": "95fd82338cd47fa86103c1e9337ded153627f00fc594bb49e3e7f96e1b0669b3",
+    "dumbbell-bench-press": "e33e62ebb8aad21437b3c9fcedfd15eea14c1c19c44fde4168fec6ca2e56ded8",
+    "plank": "cfb2f87bea6e6e7adf7bf770a9161575ff6529664f8dedd6c245b8a4842fb63a",
+    "goblet-squat": "361fa3326c5dd1f6885f2401b25cb035170603ca6ff3b118b436b94d18f452a0",
+    "incline-dumbbell-press": "3beedc4c5875f35ed7ceb4a6e0013df154ddd86d681bfc9fd7cdc771a853c7ec",
+    "dumbbell-floor-press": "203240ed2f8fd710bba8e3c82d5e6bc470e023b6757a769a475bf02f92c6646c",
+    "seated-dumbbell-shoulder-press": "d2fbfaa52cca33321d45b52a8ebf0aa0c4633a0a2873ded9463f30ae6df75214",
+    "dumbbell-lateral-raise": "2dca7368a8b48a1e2807e7cb8886e646fac3217b5d8e713e8e2bbaad5d0fca15",
+    "single-arm-dumbbell-bench-press": "42987092664dceff0d1b8168950841c06591ed8ac007c712b2abde64d72d6093",
+    "dumbbell-front-raise": "a39ab8b2a14941e1940be2c48fe4a01434fc4bd455b7ed40f86bcf8ba44b0e1d",
+    "dumbbell-shrug": "b41050139ff7abe085055446134b7c4e1899f4e28afc6d39937163215068f922",
+    "incline-dumbbell-curl": "95251632ded46d3c62140705a1497fc1404396a67f0334d461f7549628b2a440",
+    "dumbbell-spider-curl": "9bdedae1c741d747cd7308fbb887baa57e01cf0523eb09d8152821d537fd7db1",
+    "bent-over-dumbbell-reverse-fly": "b127a90db5012d51afce51fdd69707d6dc29a02087eee7bd06ea24f741d618ba",
+    "chest-supported-dumbbell-row": "6e5698576059ad175e3578dab2d84b36c25312731098e00d4c183b3f481075c7"
+  }
+}

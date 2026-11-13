@@ -1,12 +1,13 @@
 /* Only public application files belong here. Never cache Auth/API responses. */
-const VERSION = '2026-11-12-demo-first-1';
+const VERSION = '2026-11-13-complete-exercise-drafts-1';
 const BASE = new URL('./', self.location.href);
 const PREFIX = 'strong-start-shell-' + encodeURIComponent(BASE.href) + '-';
 const CACHE = PREFIX + VERSION;
 const SDK = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
 const FILES = ['index.html', 'offline.js', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
   'icons/favicon-64.png', 'icons/icon-180.png', 'icons/icon-192.png', 'icons/icon-512.png',
-  'exercise-guides/guides.js', 'exercise-guides/guides.css', 'exercise-guides/registry.v1.json'];
+  'exercise-guides/guides.js', 'exercise-guides/guides.css', 'exercise-guides/registry.v1.json',
+  'exercise-guides/shared-guides.js', 'exercise-guides/shared/player.css'];
 const URLS = FILES.map(p => new URL(p, BASE).href).concat(SDK);
 async function prepare() {
   const cache = await caches.open(CACHE);

@@ -1,5 +1,32 @@
 # Strong Start architecture and operations
 
+## Complete animation drafts on development
+
+`exercise-guides/shared-guides.js` owns the workout/modal media surfaces and
+lazily imports one persistent renderer from `shared/player.js`. Moving its DOM
+canvas between a workout and a swap/review sheet preserves the character,
+skeleton and GPU resources. Closing a media sheet restores the prior workout
+selection and its playback preference. Ordinary workout instructions continue
+to cover/pause the inline player. Media code handles public assets only; it
+does not read or write account/workout storage.
+
+`shared/manifest.json` includes all 320 strength IDs and the named guide/cardio/
+recovery set. Entries remain development-only. Earlier schema-1 scenes are
+retained; new schema-2 scenes reference one shared schema-1 rig setup plus
+compressed motion, appended equipment nodes and a shared role map. Attachments
+name an existing bone or become scene roots. All channels target the final node
+indices. The original character, two bind fits, inverse binds and 55 joint names
+are retained. Geometry/materials, downloaded bytes and bounded decoded maps are
+reused; the persistent public asset cache pins the current library/character.
+
+`animation-authoring/` holds editable recipes, frozen original setups, region
+fields and deterministic exporters. New shapes use five content-addressed unit
+geometries, instanced with transforms. `check-all-exercise-animations.mjs` checks
+coverage, transitive hashes, byte lengths, motion/timing, quaternion norms and
+original-asset preservation during the development build. See the
+[authoring workflow](../animation-authoring/README.md) and
+[scope and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md).
+
 Baseline review: November 11, 2026, production frontend commit `149f807bd8e67c7c95204157e07e33e1202763a7`. Environment operations below were updated after development setup at `2e4f071b7c4361cb387e5f14bfcbdd7ff76cd6b1`. Production database metadata came from `aybtxqsneywuqxzjwoek`; no production mutations were needed. Follow [AGENTS.md](../AGENTS.md) for the required dev-first workflow and explicit release approval.
 
 ## Runtime and deployment

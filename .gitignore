@@ -7,3 +7,4 @@ node_modules/
 .wrangler/
 supabase/.temp/
 test-results/
+output/animation-verification/

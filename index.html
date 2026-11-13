@@ -14,7 +14,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="exercise-guides/guides.css">
-<script defer src="exercise-guides/guides.js"></script>
+<link rel="stylesheet" href="exercise-guides/shared/player.css">
+<script defer src="exercise-guides/shared-guides.js"></script>
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3302,6 +3303,7 @@ function renderLibrary(){
   const list = LIB.filter(e=>(ui.libShowAll||available(e)) && (!ui.libEasy||allowed(e)) && libMatch(e,F));
   const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${v===k?'selected':''}>${l}</option>`).join('');
   return `<section class="stack"><div><div class="eyebrow">${LIB.length-hidden} exercises for your gym · ${LIB.filter(allowed).length} fit your level</div><h1>Exercise library</h1></div>
+    ${APP_ENV==='development'?'<button class="btn" data-action="animationgallery">Review all 3D demonstrations</button>':''}
     <div class="filters">
       ${libFilters(F,{q:'libq',eq:'libeq',body:'libbody',move:'libmove'})}
     </div>
@@ -4895,6 +4897,14 @@ const MOVE_HOW = {
  'Standing quad stretch':['Beside a wall or rail to hold','Hold on and pull one heel toward your glute.','Keep your knees together.','Switch sides.'],
  'Wrist flexor and extensor stretch':['Anywhere','Arm straight, gently pull your fingers back.','Then point them down and pull gently.','Switch hands.'],
 };
+function guideAnimationId(it){
+  if(it.ramp){const match=LIB.find(e=>it.t.endsWith(e.n));if(match)return match.id;}
+  if(/^Foam roll:|^Massage ball:/i.test(it.t)){const [tool,areas]=it.t.split(':');return slugify(tool+' '+areas.split(/,| and /)[0].trim());}
+  const title=it.t.toLowerCase();
+  if(MOVE_HOW[it.t])return slugify(it.t);
+  if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
+  return slugify(it.t);
+}
 function gHowTo(it){
   const G=state.draft.guide, cool=G&&G.ph==='cool';
   const tips = it.k==='foam' ? ['Place the roller under the spot named on screen and support yourself with your hands.','Roll slowly, about an inch a second. Pause and breathe on tight spots.','Stay off joints and your lower back.']
@@ -4906,6 +4916,7 @@ function gHowTo(it){
   return `<div class="stack" style="gap:12px">${G&&G.mode==='paused'?`<div class="card row" style="background:var(--accent-soft);box-shadow:none;padding:10px 14px"><span style="font-weight:900">❚❚</span><span class="small"><b>Paused.</b> Tap Resume to keep going.</span></div>`:''}
     <div><div class="eyebrow">How to</div><h2>${esc(it.t)}</h2>${it.d?`<div class="small muted">${esc(it.d)}</div>`:''}</div>
     ${mh?`<div class="card row" style="box-shadow:none;background:var(--sunk);padding:10px 14px"><span class="small"><b>Where:</b> ${esc(mh[0])}</span></div>`:''}
+    <div class="exercise-guide-mount"></div>
     <ol class="howto">${tipsF.map(t=>`<li>${esc(t)}</li>`).join('')}</ol>
     <button class="btn primary block" data-action="gresume">${G&&G.mode==='paused'?'Resume':'Got it'}</button></div>`;
 }
@@ -4979,7 +4990,7 @@ function gAction(a,b){
     case 'gprev': {const it=gItems(G.ph)[G.i],mode=G.mode==='paused'?G.pmode:G.mode;if(it?.phases&&mode==='run')gAdjustTime(-15);else gChooseMove(Math.max(0,G.i-1));save();render();return true;}
     case 'gpause': gPauseMove();save();render();return true;
     case 'gresume': closeModal(); if(G.mode==='paused'){ G.mode=G.pmode; G.end=Date.now()+G.left; save(); } render(); return true;
-    case 'ghowto': { const it=gItems(G.ph)[G.i]; if(!it) return true; if(['run','gap'].includes(G.mode)){gPauseMove();save();render();}modal(gHowTo(it)); return true; }
+    case 'ghowto': { const it=gItems(G.ph)[G.i]; if(!it) return true; if(['run','gap'].includes(G.mode)){gPauseMove();save();render();}modal(gHowTo(it)); window.StrongStartExerciseGuides?.attach({exerciseId:guideAnimationId(it),mount:$('#modal .exercise-guide-mount'),environment:APP_ENV}); return true; }
     case 'gmute': state.settings.sound = state.settings.sound===false; save(); render(); return true;
     case 'glist': gStoreMove();d.listView=true;save();render();return true;
     case 'gguide': d.listView=false;if(!d.guide||d.guide.ph!==d.step.ph)gStart(d.step.ph);else{const items=gItems(G.ph),it=items[G.i];if(it&&d[it.g]?.[it.k]){const next=items.findIndex(move=>!d[move.g]?.[move.k]);if(next>=0)gChooseMove(next);}for(const move of items)if(d[move.g]?.[move.k])delete G.positions?.[gMoveKey(move)];}save();render();return true;
@@ -5804,6 +5815,7 @@ document.addEventListener('click', e=>{
     case 'newblock': newBlock(); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Your next program started. Changed your mind? Go back anytime in Settings.'); break;
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
     case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.block.sequenceResetAt=Date.now(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
+    case 'animationgallery': if(APP_ENV==='development'){modal('<div><div class="eyebrow">Exercise library</div><h2>All 3D demonstrations</h2><p class="small muted">New animations are drafts ready for your review.</p></div><div class="exercise-guide-mount"></div>');window.StrongStartExerciseGuides?.attach({mount:$('#modal .exercise-guide-mount'),environment:APP_ENV,gallery:true});} break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'histview': case 'histarea': case 'histfilter': {
