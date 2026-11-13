@@ -8,7 +8,7 @@ The anatomical instructor remains the default in a fresh application session.
 
 The candidate has 25,471 vertices, 48,296 triangles, four influences per vertex,
 one skinned draw, one 1024 × 1024 color atlas, and no hair simulation. Geometry
-and texture total 1,622,056 bytes. This is an asset budget, not a measured mobile
+and texture total 1,623,372 bytes. This is an asset budget, not a measured mobile
 frame rate. Existing exercise equipment adds its own draws. The original body is
 loaded only when selected. At most two candidate bind fits are retained.
 

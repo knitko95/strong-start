@@ -1056,9 +1056,9 @@
       ],
       "geometry": {
         "asset": {
-          "url": "assets/rose-athlete.eced5aaf43fe2aed.bin.gz",
-          "bytes": 980032,
-          "sha256": "eced5aaf43fe2aeda3637fb54b95e97f69c815426e9e77245d10d58c204f8f84"
+          "url": "assets/rose-athlete.47894fcf7bdd0af8.bin.gz",
+          "bytes": 981470,
+          "sha256": "47894fcf7bdd0af81ca484b797706449e7cc091b9afcd7cddd9b4ae6fd3fab85"
         },
         "arrays": {
           "POSITION": {
@@ -1113,9 +1113,9 @@
         "decodedBytes": 2005928
       },
       "texture": {
-        "url": "assets/rose-athlete-color.445cd1a3f33781bf.png",
-        "bytes": 642024,
-        "sha256": "445cd1a3f33781bf64a7f178088762c9aeaecffa0e8290361ef16a53abaad796"
+        "url": "assets/rose-athlete-color.1fff13c1ac1857ba.png",
+        "bytes": 641902,
+        "sha256": "1fff13c1ac1857ba1992554306c8ca450926d8d17b1fa5faa5ac8bd9dc91ed0b"
       },
       "vertices": 25471,
       "triangles": 48296,

@@ -153,7 +153,13 @@ for s in [-1,1]:
             hit,normal,_,_=hair_surface.find_nearest(point)
             pts.append(tuple(hit+normal*.0004))
         line('Swept hair strand',pts,.00055,strandmat,'head')
-    line('Loose temple strand',[(s*(.060+.006*math.sin(t*math.pi*1.8)),-.068-.021*math.sin(t*math.pi*.7),1.374-.074*t) for t in [k/18 for k in range(19)]],.00125,hairmat,'head')
+    temple=[]
+    for k in range(19):
+        t=k/18;desired=Vector((s*(.054+.005*math.sin(t*math.pi*1.5)),-.5,1.387-.055*t))
+        hit,normal,_,_=face_surface.ray_cast(desired,Vector((0,1,0)))
+        if hit is not None:temple.append(tuple(hit+normal*.002))
+    lock=line('Face framing hair lock',temple,.0010,hairmat,'head')
+    for k,p in enumerate(lock.data.splines[0].points):p.radius=1-.75*k/max(1,len(temple)-1)
     # Tapered brows and a fine upper lash line give the eyes a natural frame.
     points=[]
     for k in range(12):

@@ -17,7 +17,7 @@ unchanged. Muscle highlighting stays on the anatomical instructor.
 
 The candidate contains 25,471 vertices and 48,296 triangles, one 1024px atlas,
 four weights per vertex and one skinned draw. Compressed geometry plus texture
-is 1,622,056 bytes. The anatomical body is loaded lazily if selected; fitted
+is 1,623,372 bytes. The anatomical body is loaded lazily if selected; fitted
 candidate geometries are bounded to two cached bind frames. Package size is
 not a physical-phone performance measurement.
 
