@@ -796,6 +796,8 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .guide-timer{display:flex;justify-content:center;align-items:center;min-height:150px}.guide-timer .gringw{width:150px;height:150px}.guide-timer .gclock{font-size:42px}.guide-hint{margin:0;text-align:center;font-size:13px;color:var(--muted)}
 .guide-reps{min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--muted);font-size:14px}.guide-reps .num{font:600 48px var(--display);color:var(--ink)}
 .guide-parts summary{min-height:44px;padding:10px 0;font-size:13px;color:var(--muted);cursor:pointer}.guide-parts .gchips{padding:8px 0}.guide-focus .ffoot{margin-top:4px;padding-top:0}.guide-next{min-height:19px;margin-top:2px;text-align:center;font-size:13px;line-height:19px;color:var(--muted)}.guide-next span{color:var(--ink)}.guide-path .path-stop{margin:0 3px}
+.guide-groups .path-track{align-items:flex-start;gap:12px}.guide-groups .path-track:before{top:auto;bottom:22px;left:0;right:0}.guide-group{flex:none;min-width:0;display:flex;flex-direction:column;gap:8px}.guide-group+.guide-group{border-left:1px solid var(--line);padding-left:12px}.guide-group-label{font:800 11px var(--body);color:var(--muted);letter-spacing:.02em;position:sticky;left:4px;width:max-content;max-width:100%;padding:0 4px}.guide-group.current .guide-group-label{color:var(--accent)}.guide-group-stops{display:flex}.guide-groups .path-stop{width:68px}.guide-groups .path-arrow{align-self:end;height:44px}.guide-groups .path-scroll{padding-top:0}.cool-guide .atimer .gclock{font-size:clamp(32px,10vw,42px);white-space:nowrap}.guide-seek-hidden{visibility:hidden}
+@media(max-width:359px){.guide-groups .path-stop{width:60px}.guide-groups .path-stop button{font-size:11px}}
 
 .workout-overlay{background:color-mix(in srgb,var(--bg) 40%,#0006);padding:12px}
 .workout-menu-sheet.sheet,.workout-info-sheet.sheet{border-radius:26px;padding:24px 22px calc(24px + var(--safe-bottom));max-width:520px;max-height:calc(100dvh - 32px - env(safe-area-inset-top,0px));gap:18px;box-shadow:none}
@@ -4519,7 +4521,59 @@ function gChooseMove(i){
   G.i=i;G.s=0;G.mode='ready';G.end=null;
   if(saved)Object.assign(G,saved);gPrepareMove(G,items);return true;
 }
+// Cool-down steps share one rail; cardio parts stay within their original timed item.
+function guideSteps(G,items){
+  const steps=[];
+  items.forEach((it,i)=>{
+    const group=it.phases?'Cardio':it.stretch?'Stretches':it.k==='w'?'Walk':'Recovery';
+    if(it.phases)segsFor(it).segs.forEach((part,s)=>steps.push({i,s,group,label:guidePartLabel(part),title:guidePartTitle(it,part)}));
+    else steps.push({i,s:0,group,label:it.stretch?guideStretchLabel(it.t):it.k==='w'?'Walk':it.k==='foam'?'Roll':`Move ${i+1}`,title:it.t});
+  });
+  return steps;
+}
+function guidePartLabel(part){
+  if(part.round)return `${part.round} ${part.hard?'Hard':'Easy'}`;
+  const t=part.label||'Cardio';
+  if(/^cool off/i.test(t))return 'Cool off';
+  if(/^brisk/i.test(t))return 'Brisk';
+  if(/^easy/i.test(t))return 'Easy';
+  if(part.hard)return 'Push';
+  return t.replace(/ (walk|bike|rower|elliptical|stair climber)$/i,'');
+}
+function guidePartTitle(it,part){
+  const t=part?.label||it.t;
+  return /^(easy|steady|moderate|hard|harder|faster)$/i.test(t)&&C_NAME[it.mode]?`${cap1(t)} ${C_NAME[it.mode]}`:cap1(t);
+}
+function guideStretchLabel(t){
+  const match=t.match(/quad|hamstring|chest|calf|glute|hip flexor|shoulder|triceps|biceps|neck|wrist|child|cobra|butterfly/i);
+  return match?cap1(match[0]):'Stretch';
+}
+function gChooseStep(i,s){
+  const G=state.draft?.guide,items=G&&gItems(G.ph),it=items?.[i];
+  if(!it||!Number.isInteger(i)||!Number.isInteger(s)||!['ready','reps','run','gap','paused'].includes(G.mode))return false;
+  if(!it.phases)return s===0&&gChooseMove(i);
+  const part=segsFor(it).segs[s];if(!part)return false;
+  const moved=i!==G.i;
+  if(moved&&!gChooseMove(i))return false;
+  if(G.s===s)return moved;
+  G.s=s;G.tot=part.sec;G.lastBeep=null;
+  // Jumping within running cardio does not introduce another Ready screen.
+  if(G.mode==='run')G.end=Date.now()+part.sec*1000;
+  else if(G.mode==='paused'){G.pmode='run';G.left=part.sec*1000;G.end=null;}
+  else {G.mode='ready';G.end=null;}
+  return true;
+}
 function guidePath(d,G,items){
+  if(G.ph==='cool'){
+    const groups=[];
+    for(const step of guideSteps(G,items)){
+      let group=groups[groups.length-1];if(!group||group.name!==step.group){group={name:step.group,steps:[]};groups.push(group);}group.steps.push(step);
+    }
+    const current=step=>step.i===G.i&&(!items[step.i].phases||step.s===G.s);
+    const stop=step=>{const it=items[step.i],on=current(step),done=!!d[it.g]?.[it.k]||step.i===G.i&&!!it.phases&&step.s<G.s;
+      return `<div class="path-stop"><button class="path-set ${done?'done':''} ${on?'current':''}" data-action="gstep" data-i="${step.i}" data-s="${step.s}" data-path-id="g${step.i}s${step.s}" aria-pressed="${on}" ${on?'aria-current="step"':''} aria-label="${esc(step.group+': '+step.title)}${done?', completed':on?', current':', remaining'}"><span>${esc(step.label)}</span></button><span class="path-status">${on?'Current':''}</span></div>`;};
+    return `<div class="workout-path guide-path guide-groups" data-workout="${esc(d.startedAt)}" data-pks="guide:cool"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier moves">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="Cardio and cool-down steps">${groups.map(group=>`<div class="guide-group ${group.steps.some(current)?'current':''}"><div class="guide-group-label">${esc(group.name)}</div><div class="guide-group-stops">${group.steps.map(stop).join('')}</div></div>`).join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later moves">›</button></div>`;
+  }
   return `<div class="workout-path guide-path" data-workout="${esc(d.startedAt)}" data-pks="guide:${G.ph}"><button class="path-arrow" data-action="fpathscroll" data-dir="-1" aria-label="Show earlier moves">‹</button><div class="path-scroll"><div class="path-track" role="group" aria-label="${G.ph==='warm'?'Warm-up':'Cool-down'} moves">${items.map((it,i)=>{const done=!!d[it.g]?.[it.k],current=i===G.i;return `<div class="path-stop"><button class="path-set ${done?'done':''} ${current?'current':''}" data-action="gmove" data-i="${i}" data-path-id="g${i}" aria-pressed="${current}" ${current?'aria-current="step"':''} aria-label="Move ${i+1}: ${esc(it.t)}${done?', completed':current?', current':', remaining'}"><span>Move ${i+1}</span></button><span class="path-status">${current?'Current':''}</span></div>`;}).join('')}</div></div><button class="path-arrow" data-action="fpathscroll" data-dir="1" aria-label="Show later moves">›</button></div>`;
 }
 function gNextItem(markDone){
@@ -4553,7 +4607,7 @@ function gAdvance(){
     if(G.s+1<S.segs.length){
       beep(); buzz([120,80,120]);
       if(S.gap){ G.mode='gap'; G.tot=S.gap; G.end=Date.now()+S.gap*1000; G.s++; G.lastBeep=null; }
-      else { G.s++; G.tot=S.segs[G.s].sec; G.end=Date.now()+G.tot*1000; }
+      else { const start=it.phases&&G.ph==='cool'?G.end:Date.now();G.s++; G.tot=S.segs[G.s].sec; G.end=start+G.tot*1000; }
       return;
     }
     beep(); buzz([200,100,200]);
@@ -4763,24 +4817,28 @@ function renderGuide(){
   const it=items[G.i]; if(!it){gFinishPhase();return renderFocus();}
   gPrepareMove(G,items);
   const S=segsFor(it),paused=G.mode==='paused',pm=paused?G.pmode:G.mode,ready=pm==='ready',inGap=pm==='gap',seg=S.segs?.[G.s]||S.segs?.[0];
-  const name0=it.fin?'Cardio':name,progress=items.map((move,i)=>i===G.i?'c':d[move.g]?.[move.k]?'d':'');
-  const header=fTop(d,slots,`${name0} ${G.i+1} of ${items.length}`,progress);
+  const grouped=G.ph==='cool',steps=grouped?guideSteps(G,items):null;
+  const progress=grouped?steps.map(step=>step.i===G.i&&(!it.phases||step.s===G.s)?'c':d[items[step.i].g]?.[items[step.i].k]||step.i===G.i&&!!it.phases&&step.s<G.s?'d':''):items.map((move,i)=>i===G.i?'c':d[move.g]?.[move.k]?'d':'');
+  const stretches=items.filter(move=>move.stretch),label0=!grouped?`${name} ${G.i+1} of ${items.length}`:it.phases?`Cardio · Part ${G.s+1} of ${S.segs.length}`:it.stretch?`Stretches · ${stretches.indexOf(it)+1} of ${stretches.length}`:it.k==='w'?'Cool-down walk':'Recovery';
+  const header=fTop(d,slots,label0,progress);
   const n=(it.d.match(/^(\d+(?:–\d+)?)\s*(.*)$/)||[]),total=ready?(seg?.sec||0):Math.max(1,G.tot||(inGap?S.gap:seg?.sec)||1);
   const left=ready?total:paused?Math.ceil((G.left||0)/1000):Math.max(0,Math.ceil((G.end-Date.now())/1000));
-  const title=paused?'Paused':ready?'Ready':pm==='reps'?'At your pace':inGap?(S.gapLabel||'Get ready'):(seg?.label||'Time left');
-  const goal=seg?.round?`Round ${seg.round} of ${seg.of} · ${seg.label}`:[it.d,S.segs?.length>1?seg?.label:''].filter(Boolean).join(' · ');
+  const title=paused?'Paused':ready?'Ready':pm==='reps'?'At your pace':inGap?(S.gapLabel||'Get ready'):grouped?'Time left':(seg?.label||'Time left');
+  const goal=grouped&&it.phases?`${seg.sec%60===0?seg.sec/60+' min':mmss(seg.sec)}${seg.round?` · Round ${seg.round} of ${seg.of}`:''}`:seg?.round?`Round ${seg.round} of ${seg.of} · ${seg.label}`:[it.d,S.segs?.length>1?seg?.label:''].filter(Boolean).join(' · ');
   const pause=!ready&&pm!=='reps'?`<button class="guide-pause" data-action="${paused?'gresume':'gpause'}" aria-label="${paused?'Resume timer':'Pause timer'}">${paused?ICON.play:ICON.pause}</button>`:'';
-  const fine=!!it.phases&&pm==='run';
+  const fine=!!it.phases&&(grouped||pm==='run'),seekable=pm==='run';
   const ring=S.timer?gRing(left,total,'',inGap):`<div class="guide-reps"><span class="num">${esc(n[1]||'')}</span><span>${esc(n[1]?(n[2]||'reps'):it.d)}</span></div>`;
-  const timer=fine?`<div class="atimer"><button class="aside" data-action="gprev" aria-label="Back 15 seconds"><b>−</b><span>15 s</span></button>${ring}<button class="aside" data-action="gskip" aria-label="Ahead 15 seconds"><b>+</b><span>15 s</span></button></div>`:`<div class="guide-timer">${ring}</div>`;
+  const timer=fine?`<div class="atimer"><button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gprev" aria-label="Back 15 seconds"><b>−</b><span>15 s</span></button>${ring}<button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gskip" aria-label="Ahead 15 seconds"><b>+</b><span>15 s</span></button></div>`:`<div class="guide-timer">${ring}</div>`;
   const hint=it.k==='foam'?'Grab a foam roller. About 30 seconds each spot.':it.phases&&seg?effortHint(seg.label):'';
   const act=paused?'gresume':ready||inGap?'gnow':'gdone',label=paused?'Resume':ready||inGap?'Ready':'Done';
   const next=items[G.i+1],first=G.ph==='warm'?nextGroupStart(d,slots,-1):-1;
-  const nextLabel=next?next.t:G.ph==='warm'?(first>=0?EX[slots[first].id].n:'Cool-down'):'Finish workout';
-  return `<div class="focus guide-focus">${header}<div class="ahead"><h1>${esc(it.t)}</h1><div class="guide-meta"><span class="small muted">${esc(goal)}</span><button class="howbtn" data-action="ghowto">${ICON.play}How to</button></div></div>
+  const nextPart=grouped&&it.phases&&S.segs[G.s+1];
+  const nextLabel=nextPart?guidePartTitle(it,nextPart):next?next.t:G.ph==='warm'?(first>=0?EX[slots[first].id].n:'Cool-down'):'Finish workout';
+  const moveTitle=grouped&&it.phases?guidePartTitle(it,seg):it.t;
+  return `<div class="focus guide-focus${grouped?' cool-guide':''}">${header}<div class="ahead"><h1>${esc(moveTitle)}</h1><div class="guide-meta"><span class="small muted">${esc(goal)}</span><button class="howbtn" data-action="ghowto">${ICON.play}How to</button></div></div>
     <section class="card acard"><div class="ach"><b>${esc(title)}</b>${pause}</div>${timer}
       ${hint?`<p class="guide-hint">${esc(hint)}</p>`:''}
-      ${it.phases?`<details class="guide-parts"><summary>Cardio parts</summary>${phaseChips(S,G.s)}</details>`:''}
+      ${it.phases&&!grouped?`<details class="guide-parts"><summary>Cardio parts</summary>${phaseChips(S,G.s)}</details>`:''}
       ${guidePath(d,G,items)}<div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${label}</button></div><div class="guide-next">Next: <span>${esc(nextLabel)}</span></div></div></section></div>`;
 
 }
@@ -4788,15 +4846,17 @@ function gAction(a,b){
   const d=state.draft, G=d&&d.guide; if(!d) return false;
   unlockAudio();
   switch(a){
+    case 'gstep': if(gChooseStep(Number(b.dataset.i),Number(b.dataset.s))){save();render();}return true;
     case 'gmove': if(gChooseMove(Number(b.dataset.i))){save();render();}return true;
     case 'gcfeelpick': if(G?.mode==='cfeel'&&['easy','good','hard'].includes(b.dataset.v)){G.feelChoice=b.dataset.v;save();render();}return true;
     case 'gcfeelconfirm': if(G?.mode==='cfeel'&&['easy','good','hard'].includes(G.feelChoice)){cardioFeel(G.feelChoice);delete G.feelChoice;gNextItem(false);save();render();window.scrollTo(0,0);}return true;
     case 'gcfeel': cardioFeel(b.dataset.v); gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
     case 'gcmin': d.cmin=+b.dataset.v; d._x=null; save(); render(); return true;
-    case 'gfin': G.fin=b.dataset.v; G.mode='ready'; G.i=0; G.end=null;gPrepareMove(G);save(); render(); return true;
+    case 'gfin': if(!G||G.mode!=='finq'||!['yes','no'].includes(b.dataset.v))return true;G.fin=b.dataset.v; G.mode='ready'; G.i=0;G.s=0; G.end=null;gPrepareMove(G);if(G.fin==='yes')gAdvance();save(); render(); return true;
     case 'gnow': if(!G||!['ready','gap'].includes(G.mode))return true;G.end=Date.now();gAdvance();save();render();return true;
     case 'gdone': if(!G||!['run','reps'].includes(G.mode))return true;if(G.mode==='run'){G.end=Date.now();gAdvance();}else gCompleteMove();save();render();window.scrollTo(0,0);return true;
     case 'gseg': { closeModal(); const it=gItems(G.ph)[G.i], S=it&&segsFor(it), n=+b.dataset.n; if(!S||!S.segs[n]) return true;
+      if(G.ph==='cool'){if(gChooseStep(G.i,n)){save();render();}return true;}
       G.mode='ready'; G.s=n; G.tot=S.segs[n].sec; G.end=null;delete G.pmode;delete G.left; save(); render(); return true; }
     case 'gskipall': if(G.mode==='paused') G.mode=G.pmode; gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
     case 'gskip': {const it=gItems(G.ph)[G.i],mode=G.mode==='paused'?G.pmode:G.mode;if(it?.phases&&mode==='run')gAdjustTime(15);else gNextItem(false);save();render();return true;}

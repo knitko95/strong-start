@@ -92,6 +92,25 @@ await test('cardio part selection waits for Ready and paused time adjustment sta
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};");h.click('gseg',{n:'1'});assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gnow');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.tot'),120);
   h.click('gpause');const left=h.run('state.draft.guide.left');h.click('gprev');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),0);assert(h.run('state.draft.guide.left')>14000);h.click('gskip');assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.s'),1);assert(Math.abs(h.run('state.draft.guide.left')-left)<1000);
 });
+await test('post-lift cardio starts once and runs continuously through its parts',()=>{
+  const h=guidedWorkout('cool');h.run("guideMoves[0]={g:'cool',k:'f',t:'Steady walk',d:'10 min',fin:true,cardio:'after',ctype:'steady',min:10,mode:'walk',phases:[{sec:60,label:'Easy walk'},{sec:480,label:'Brisk walk'},{sec:60,label:'Cool off: easy walk'}]};state.draft.guide.mode='finq';needCardioFeel=()=>false;");
+  h.click('gfin',{v:'yes'});assert.equal(h.run('state.draft.guide.mode'),'run');const end=h.run('state.draft.guide.end');h.click('gfin',{v:'yes'});assert.equal(h.run('state.draft.guide.end'),end);
+  h.run('state.draft.guide.end=Date.now()-10000;gTick()');assert.equal(h.run('state.draft.guide.s'),1);assert.equal(h.run('state.draft.guide.mode'),'run');assert(h.run('state.draft.guide.end-Date.now()')<=470000);assert(h.run('state.draft.guide.end-Date.now()')>469000);
+  h.click('gstep',{i:'0',s:'2'});assert.equal(h.run('state.draft.guide.mode'),'run');h.click('gdone');assert.equal(h.run('state.draft.cardioDone.min'),10);assert.equal(h.run('state.draft.cool.f'),true);assert.equal(h.run('state.draft.guide.i'),1);
+});
+await test('continuous cool-down path keeps cardio checkpoints while navigating across groups',()=>{
+  const h=guidedWorkout('cool');h.run("guideMoves[0]={g:'cool',k:'f',t:'Steady walk',d:'3 min',phases:[{sec:60,label:'Easy walk'},{sec:120,label:'Brisk walk'}]};guideMoves[1]={g:'cool',k:'w',t:'Easy walk',d:'2 min'};guideMoves[2].stretch=true;");
+  h.click('gnow');h.click('gstep',{i:'0',s:'1'});assert.equal(h.run('state.draft.guide.mode'),'run');assert.equal(h.run('state.draft.guide.s'),1);
+  const before=h.run('JSON.stringify(state.draft)');h.click('gstep',{i:'0',s:'99'});assert.equal(h.run('JSON.stringify(state.draft)'),before);
+  h.click('gpause');h.click('gstep',{i:'0',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'paused');assert.equal(h.run('state.draft.guide.left'),60000);
+  h.click('gresume');h.click('gstep',{i:'1',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'ready');h.click('gstep',{i:'0',s:'0'});assert.equal(h.run('state.draft.guide.mode'),'paused');assert(h.run('state.draft.guide.left')>59000);
+  h.run('state=migrate(JSON.parse(localStorage.getItem(LS)).state);');assert.equal(h.run('state.draft.guide.mode'),'paused');
+  const out=h.run('renderFocus()');for(const group of ['Cardio','Walk','Stretches'])assert(out.includes('guide-group-label">'+group));assert.doesNotMatch(out,/guide-parts|Move 1/);assert.match(out,/data-action="gstep"/);
+  h.run("coachMode={uid:'preview'}");const saved=h.run('JSON.stringify(state.draft)');h.click('gstep',{i:'2',s:'0'});assert.equal(h.run('JSON.stringify(state.draft)'),saved);
+});
+await test('cardio catches up through every expired part and still waits before the walk',()=>{
+  const h=guidedWorkout('cool');h.run("guideMoves[0]={g:'cool',k:'f',t:'Steady walk',d:'3 min',cardio:'after',ctype:'steady',min:3,phases:[{sec:60,label:'Easy'},{sec:60,label:'Steady'},{sec:60,label:'Cool off'}]};guideMoves[1]={g:'cool',k:'w',t:'Easy walk',d:'2 min'};needCardioFeel=()=>false;");h.click('gnow');h.run('state.draft.guide.end=Date.now()-125000;gTick()');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'ready');assert.equal(h.run('state.draft.guide.end'),null);assert.equal(h.run('state.draft.cool.f'),true);
+});
 await test('Done preserves the cardio effort check-in before the next Ready screen',()=>{
   const h=guidedWorkout();h.run("guideMoves[0]={g:'warm',k:'nav1',t:'Brisk walk',d:'30 s',cardio:'after',ctype:'steady',min:10,mode:'walk'};needCardioFeel=()=>true;");h.click('gnow');h.click('gdone');assert.equal(h.run('state.draft.guide.mode'),'cfeel');assert.equal(h.run('state.draft.warm.nav1'),true);assert.equal(h.run('state.draft.cardioDone.min'),10);h.click('gmove',{i:'2'});assert.equal(h.run('state.draft.guide.mode'),'cfeel');
   h.click('gcfeelpick',{v:'good'});h.click('gcfeelconfirm');assert.equal(h.run('state.draft.guide.i'),1);assert.equal(h.run('state.draft.guide.mode'),'reps');
