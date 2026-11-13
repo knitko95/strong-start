@@ -126,6 +126,8 @@ The existing optional-cardio choice, effort check-in, working-set start and Fini
 
 ## Progress and programs
 
+On the test app, **History > Sessions** lists each workout's date, name, duration and exercise count. Partial workouts retain their partial label and completed/planned set counts. Tap **View session** or anywhere on its header to open it; **Hide session** closes it. Each exercise shows numbered sets with labeled weight and reps or seconds. Bodyweight exercises distinguish added weight, and applicable exercises identify per-hand weights and per-side results. **Plan & progression** keeps the original targets, program/week and progression notes available without mixing them into the recorded results. Members can delete a session after confirmation; coach preview remains read-only. The progress chart remains above the session list.
+
 Programs last six weeks, measured from the program start date. Targets depend on experience, goals, completed work, and difficulty feedback. Beginner/returning users have easier introductory weeks; older beginners can have a longer easing period. The app offers later check-ins and suggestions to adjust workload.
 
 At the end of a program, Today offers **Start the next program**. Settings also lets the person start early, restart week 1, or return to a stored previous program when available. Starting a new program carries exercise progression forward; the variety setting governs which exercises change. It is a user action, not an automatic calendar reset.
