@@ -1,4 +1,4 @@
-import {defineConfig} from 'cf/config';
+import {bindings,defineConfig,exports} from 'cf/config';
 import {sharedWorker} from '../shared-worker.ts';
 
 // No custom domain, route, Git release trigger or production binding is
@@ -8,5 +8,9 @@ export default defineConfig({
   worker: {
     ...sharedWorker,
     name: 'strong-start',
+    entrypoint:'../feedback-worker.mjs',
+    assets:{...sharedWorker.assets,runWorkerFirst:['/api/feedback','/api/feedback/*']},
+    exports:{FeedbackOutbox:exports.durableObject({storage:'sqlite'})},
+    env:{FEEDBACK_ENVIRONMENT:bindings.text('production'),GITHUB_FEEDBACK_TOKEN:bindings.secret()},
   }
 });

@@ -9,7 +9,7 @@ const source=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map
 function harness(){
   const storage=new Map(), elements=new Map(), timers=new Map(), handlers=new Map(); let nextTimer=0;
   const element=()=>({style:{},dataset:{},classList:{add(){},remove(){},toggle(){}},setAttribute(){},innerHTML:'',querySelector(){return null;},focus(){}});
-  const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,
+  const context=vm.createContext({console,URL,URLSearchParams,Date,Math,Promise,Map,Set,JSON,crypto,AbortSignal,
     location:new URL('http://localhost:8731/'),history:{replaceState(){}},
     navigator:{onLine:true,userAgent:'Test'},matchMedia:()=>({matches:false,addEventListener(){}}),
     document:{body:{...element(),insertBefore(){}},documentElement:element(),visibilityState:'visible',addEventListener(type,fn){ if(!handlers.has(type)) handlers.set(type,[]); handlers.get(type).push(fn); },createElement:element,
@@ -31,6 +31,62 @@ function harness(){
 let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
+
+await test('feedback captures the running version without a database inbox',async()=>{
+  const h=harness();
+  h.run(`AUTH.user={id:'synthetic-owner'};AUTH.access='ok';AUTH.coach=false;FB.owner=true;refreshUnread=()=>{};closeModal=()=>{};
+    var sentFeedback=null;
+    sb={auth:{getSession:async()=>({data:{session:{access_token:'synthetic-session'}}})},from:()=>{throw Error('App feedback must not access the database');}};
+    fetch=async(url,options)=>{sentFeedback=JSON.parse(options.body);return {ok:true,json:async()=>({id:sentFeedback.id,status:'delivered'})};};
+    FBS={side:'app',tag:'bug',text:'Synthetic bug',screen:'Settings',device:'Synthetic phone'};`);
+  h.elements.set('#fbtext',{value:'Synthetic bug'});
+  assert.equal(h.run('appVersionLabel()'),'v'+h.run('APP_VERSION')+'-dev');
+  assert.equal(h.run('appVersionLabel(APP_VERSION,"main")'),'v'+h.run('APP_VERSION'));
+  assert.equal(h.run('appVersionLabel(APP_VERSION,"dev-noir")'),'v'+h.run('APP_VERSION')+'-dev-noir');
+  h.run('fbRender()');assert(h.run('lastModal').includes('v'+h.run('APP_VERSION')+'-dev'));
+  assert.doesNotMatch(h.run('lastModal'),/Sent with:|Settings|Synthetic phone|source ·/);
+  const settings=h.run('renderSettings()');assert.doesNotMatch(settings,/<b>App version<\/b>/);
+  assert.doesNotMatch(settings,/data-action="releasenotes"/);
+
+
+  await h.run('fbSend()');
+  assert.equal(h.run('sentFeedback.version'),h.run('APP_VERSION'));
+  assert.equal(h.run('sentFeedback.build'),h.run('APP_BUILD.id'));
+  assert.equal(h.run('sentFeedback.app_environment'),undefined,'Origin must be determined by the server');
+  assert.equal(h.run('sentFeedback.workout'),undefined,'No workout payload is sent to GitHub');
+  assert.equal(h.run('inboxCards()'),'');
+  await h.run('refreshUnread()');
+
+});
+
+await test('failed feedback keeps its ID and original context across reopening and retry',async()=>{
+  const h=harness();h.elements.set('#fbtext',{value:'Synthetic retry'});
+  h.run(`AUTH.user={id:'synthetic-member'};AUTH.access='ok';closeModal=()=>{};
+    FBS={owner:AUTH.user.id,side:'app',tag:'bug',text:'Synthetic retry',screen:'Original screen',device:'Original device'};
+    sb={auth:{getSession:async()=>({data:{session:{access_token:'synthetic-session'}}})}};
+    var sent=[],failFeedback=true;fetch=async(u,o)=>{const p=JSON.parse(o.body);sent.push(p);return {ok:!failFeedback,json:async()=>failFeedback?{error:'temporarily-unavailable'}:{id:p.id,status:'queued'}};};
+    fbDevice=()=> 'New device';fbScreen=()=> 'New screen';`);
+  await h.run('fbSend()');assert.equal(h.run('FBS.text'),'Synthetic retry');
+  h.run('fbOpen("app");failFeedback=false;');await h.run('fbSend()');
+  assert.equal(h.run('JSON.stringify(sent[0])'),h.run('JSON.stringify(sent[1])'));
+  assert.equal(h.run('sent[1].screen'),'Original screen');assert.equal(h.run('FBS.text'),'');
+  assert.match(h.run('lastToast'),/saved for delivery/);
+});
+await test('late feedback responses cannot clear another account or newly edited text',async()=>{
+  for(const accountSwitch of [false,true]){
+    const h=harness();h.elements.set('#fbtext',{value:'Original synthetic report'});
+    h.run(`AUTH.user={id:'synthetic-member'};AUTH.access='ok';closeModal=()=>{};
+      FBS={owner:AUTH.user.id,side:'app',tag:'bug',text:'Original synthetic report',screen:'Settings',device:'Synthetic'};
+      sb={auth:{getSession:async()=>({data:{session:{access_token:'synthetic-session'}}})}};
+      var completeFeedback;fetch=async(u,o)=>{const p=JSON.parse(o.body);return new Promise(done=>{completeFeedback=()=>done({ok:true,json:async()=>({id:p.id,status:'delivered'})});});};`);
+    const pending=h.run('fbSend()');await Promise.resolve();await Promise.resolve();
+    if(accountSwitch)h.run(`AUTH.user={id:'other-member'};FBS={owner:AUTH.user.id,side:'app',tag:'',text:'Other account draft'};`);
+    else h.run(`FBS.text='Newly edited draft';`);
+    h.run('completeFeedback()');await pending;
+    assert.equal(h.run('FBS.text'),accountSwitch?'Other account draft':'Newly edited draft');
+    assert.equal(h.run('FBS.busy')||false,false);
+  }
+});
 
 await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);

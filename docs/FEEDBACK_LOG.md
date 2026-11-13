@@ -1,4 +1,7 @@
-# Strong Start: feedback log
+# Strong Start: historical feedback log
+
+The authoritative feedback backlog is now the private [GitHub tracker](https://github.com/knitko95/strong-start-feedback). Read [the agent workflow](FEEDBACK_WORKFLOW.md) for priorities, claims and deployment evidence. Existing entries below are historical; do not maintain a second current backlog here. Original database reports are preserved; ongoing triage belongs in private issues.
+
 
 The shared list of what the owner has asked for, what was decided, and where each item stands. Every assistant working on this app (Claude, ChatGPT or any other) reads this at the start of a session and updates it after each decision or release. Started November 11, 2026, from the owner's earlier private log.
 

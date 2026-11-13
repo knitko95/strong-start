@@ -1,6 +1,7 @@
 import { cpSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import {stampApp} from './app-version.mjs';
 import {assetHeaders, assetRedirects} from './hosting-assets.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -21,7 +22,10 @@ const html = readFileSync(path.join(out, 'index.html'), 'utf8')
 if (!html.includes('const IS_PRODUCTION = false;') || html.includes('aybtxqsneywuqxzjwoek')) {
   throw new Error('Development database isolation check failed.');
 }
-writeFileSync(path.join(out, 'index.html'), html);
+const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root);
+writeFileSync(path.join(out, 'index.html'), stamped.html);
+writeFileSync(path.join(out,'sw.js'),stamped.sw);
+writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'development'},null,2)+'\n');
 writeFileSync(path.join(out, '_headers'), assetHeaders.replace('/*\n', '/*\n  X-Robots-Tag: noindex, nofollow\n'));
 writeFileSync(path.join(out, '_redirects'), assetRedirects);
 writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');

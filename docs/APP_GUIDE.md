@@ -158,7 +158,11 @@ App feedback remains to help improve the app, with its profile link and workout 
 
 ## Feedback and coach tools
 
-On dev, signed-in users can choose **About the app** (owner inbox) or **To my coach** (their assigned coach's conversation) in Feedback. Coaching threads are visible only to the member and the coach who invited them; other coaches and app owners without that assignment cannot read them. Accounts without an inviting coach show that no coach is linked; the app does not choose one automatically. App feedback retains its separate owner-only inbox and includes screen/device context.
+On dev, approved signed-in users can choose **About the app** (the private feedback tracker) or **To my coach** (their assigned coach's conversation). App feedback includes the loaded version/build and screen/device type, with no attached account identity or workout record. Leave out personal, health and login details. A failed send keeps its draft during the current page session; an unchanged retry reuses its report ID. **Saved for delivery** means the server has retained it and will continue delivery even after the app closes. Unsaved drafts do not survive reload/sign-out.
+
+The duplicate app-feedback admin inbox and its unread/done controls are retired. Review, label, prioritize and organize reports in the private [GitHub tracker](https://github.com/knitko95/strong-start-feedback) or [review board](https://github.com/users/knitko95/projects/1). The approved feedback release uses the same delivery contract on production.
+
+Coaching threads are visible only to the member and the coach who invited them; other coaches and app owners without that assignment cannot read them. Accounts without an inviting coach show that no coach is linked; the app does not choose one automatically.
 
 The compact **Your coach** card in Settings is the everyday entry to messages. Today shows a coach card only while there are unread incoming messages, including new plan-update notes. Opening the conversation clears its unread badge; **×** also marks the currently shown messages read without deleting them. Older notes are kept in the conversation. Existing imported plan notes start as read. The former always-on Today plan-note card is replaced for signed-in users.
 
@@ -182,7 +186,7 @@ For a coach, **Settings > Your people > Open** shows approved people's activity,
 - **Open their app** loads a person's plan/history into a temporary coach view. The banner identifies whose app is being viewed. Edits are not saved automatically.
 - Change exercise choices, set/rep/rest/recovery targets, or level, then **Send changes** with an optional note. Profile, schedule, equipment, and working weights are view-only. Coach view does not offer workout recording, history deletion, backup restore, or program restarts. **Preview at** changes the displayed location only; it is not sent to the member.
 - The recipient applies pending updates after opening/syncing when a plan exists and no draft is active. A paused draft also postpones application. On dev, the changed plan and its acknowledgement are saved together; an interrupted save is retried without consuming an unsaved update. **Back to my app** restores the coach's view and discards unsent preview edits.
-- App feedback supports marking entries done and marks loaded entries read. Coaching unread status clears when an individual thread is opened, while reply status stays separate.
+- App feedback status and priority are managed in GitHub. Coaching unread status clears when an individual thread is opened, while reply status stays separate.
 
 App owners can manage eligible non-staff accounts from Your people. **Disable** preserves data and pauses access; **Turn back on** reverses it. **Delete** permanently removes the account and related workout/plan data after typing the person's name/email. Staff/self-deletion are guarded. App feedback remains with its profile reference removed and workout reference cleared; its free text can still identify someone. Do not use deletion as a test.
 
@@ -191,3 +195,5 @@ See [architecture](ARCHITECTURE.md) for permission boundaries and [the review](R
 ## Dialog accessibility
 
 Dialogs have accessible names, place focus inside on opening, keep Tab/Shift+Tab within the dialog, and close with Escape. Closing restores focus to the opening control (or a nearby page heading if it no longer exists). The underlying page is temporarily inert. Confirmation dialogs initially focus Cancel. Touch zoom restrictions and safe-area layout are preserved.
+
+Feedback preserves the loaded version/build for diagnosis. The production release includes this feedback metadata only; unrelated Settings version/release-note UI and development animation/reference work are excluded.

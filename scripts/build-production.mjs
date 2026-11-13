@@ -4,6 +4,7 @@ import {cpSync, mkdirSync, readFileSync, writeFileSync, rmSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import assert from 'node:assert/strict';
+import {stampApp} from './app-version.mjs';
 import {assetHeaders, assetRedirects} from './hosting-assets.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const out = path.join(root, 'dist-production');
@@ -20,6 +21,10 @@ for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webman
 const html = readFileSync(path.join(out,'index.html'),'utf8');
 assert.ok(html.includes("location.origin === 'https://strongstart.app'"));
 assert.ok(!html.includes('const IS_PRODUCTION = false;'), 'Do not publish the isolated dev build');
+const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root,{channel:'main'});
+writeFileSync(path.join(out,'index.html'),stamped.html);
+writeFileSync(path.join(out,'sw.js'),stamped.sw);
+writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'production'},null,2)+'\n');
 // Revalidate mutable shell files while retaining deliberate offline caches.
 writeFileSync(path.join(out,'_headers'), assetHeaders);
 // Internal root rewrite, with no browser redirect or change to invite/Auth URLs.

@@ -1,0 +1,8 @@
+{
+  "name": "strong-start-feedback-tests",
+  "main": "../feedback-worker.mjs",
+  "compatibility_date": "2026-11-11",
+  "vars": {"FEEDBACK_ENVIRONMENT":"development","GITHUB_FEEDBACK_TOKEN":"synthetic-test-credential"},
+  "durable_objects": {"bindings":[{"name":"TEST_OUTBOX","class_name":"FeedbackOutbox"}]},
+  "migrations": [{"tag":"test-v1","new_sqlite_classes":["FeedbackOutbox"]}]
+}
