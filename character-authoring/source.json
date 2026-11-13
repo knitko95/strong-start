@@ -6,9 +6,9 @@
   "skinSHA256": "b2a6ac8cd4f9febdb447368e29c76cd68410bb66e46d9dcfa2d5f75126eea8fc",
   "licenseRegister": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html",
   "styling": "Independently authored fitted colors, hair strands, pupils, trainers and laces; reference pixels not used",
-  "runtimeBytes": 1600435,
-  "vertices": 24936,
-  "triangles": 47264,
+  "runtimeBytes": 1622056,
+  "vertices": 25471,
+  "triangles": 48296,
   "textureSize": [1024, 1024],
   "runtimeBones": 55,
   "reviewStatus": "draft"

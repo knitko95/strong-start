@@ -1,0 +1,20 @@
+{
+  "name": "strong-start-dev1-hosting",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^22.23.0 || ^24.22.0 || ^26.12.0"
+  },
+  "scripts": {
+    "build": "node ../../scripts/build-preview.mjs dev1 && cf build",
+    "deploy": "cf deploy --prebuilt --worker strong-start-dev1"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "1.8.2",
+    "@msw/cloudflare": "0.2.0",
+    "cf": "1.0.0-beta.30",
+    "msw": "3.0.5",
+    "vitest": "4.1.12",
+    "wrangler": "4.160.1"
+  }
+}
