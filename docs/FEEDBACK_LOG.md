@@ -201,6 +201,8 @@ November 12 follow-up to #86: owner selected mockup A and authorized implementat
 
 ## Later (needs a bigger decision)
 
+| 88 | History progress graphs, searchable exercises and direct breakdown navigation | On the test app | Owner approved implementing the reviewed Overall/Upper body/Lower body mockup on the test app with scores from real workout history. Equal-weight per-exercise indices use first-two-session baselines and median recent-three performance, requiring four comparable completed sessions; partial/unsupported results remain in recorded history. Search/filters and matching expandable set tiles retained; score links reveal the exercise in the existing list. Local build, 100 workout/persistence scenarios, media checks, six offline scenarios, six existing History browser journeys and six score/navigation journeys pass at 1280/390/320 px in light/dark. Exact-SHA hosted verification is pending this push. No saved-data, database or configuration changes. [Calculation and verification](HISTORY-PROGRESS-2026-11-12.md). Production is not approved. |
+
 Rest timer alerts while in other apps, exercise photos and videos, a quick-workout option, a custom domain, a real email sender for password resets, a fold-down rig step as equipment.
 
 ## Done

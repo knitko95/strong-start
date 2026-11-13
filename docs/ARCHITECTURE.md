@@ -20,6 +20,8 @@ The published [domain transition](DOMAIN-TRANSITION-2026-11-11.md) adds exact-ro
 
 ## Source map
 
+History progress is derived on demand from the currently loaded `logs` by `historyData()` / `historyProgress()`. It does not persist scores or change account sync, roles, storage keys or schema. `histView`, `histArea`, `histQuery`, `histFilter` and `histExercise` are temporary UI state; all history browsing actions remain available in read-only coach preview. See [score definitions and limits](HISTORY-PROGRESS-2026-11-12.md).
+
 Mobile layout uses a device-width viewport with `viewport-fit=cover`, viewport zoom restrictions, and `touch-action:pan-y` on the document and scrolling sheets. Browser accessibility overrides can still permit zoom. Safe-area insets protect all four edges; `--nav-height` shares the fixed tab bar's height and bottom clearance with document padding and the floating timer. Setup/focus views retain bottom safe-area padding while hiding navigation. Phone form fields have a 16px minimum font size to prevent focus auto zoom. Validate both narrow portrait and landscape layouts; browser emulation does not establish native iOS/Android safe-area or keyboard behavior.
 
 Navigate by section/function names rather than depending on these approximate line anchors.

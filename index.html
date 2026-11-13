@@ -194,6 +194,17 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 .history-context summary{cursor:pointer;min-height:36px;padding-top:8px;color:var(--accent);font-size:12px}
 .history-context p{margin:8px 0;overflow-wrap:anywhere}
 svg text{fill:var(--muted);font-family:var(--body);font-size:11px}
+.history-tabs{display:flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.history-tabs button{flex:1;min-width:0;min-height:44px;border:0;border-radius:10px;background:transparent;color:var(--muted);font:600 13px var(--body);padding:0 4px;cursor:pointer}
+.history-tabs button[aria-pressed=true]{background:var(--accent);color:#fff}
+.history-tabs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.history-score{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.history-score strong{font-size:38px;line-height:1.2;font-variant-numeric:tabular-nums}.history-change{color:var(--accent);font-size:14px;font-weight:600}
+.history-breakdown{border-top:1px solid var(--line);padding-top:4px}.history-breakdown summary{color:var(--accent);cursor:pointer;min-height:44px;display:flex;align-items:center;font-size:13px;font-weight:600}
+.history-breakdown summary::before{content:'▸';margin-right:6px}.history-breakdown[open]>summary::before{content:'▾'}
+.history-score-link{display:flex;justify-content:space-between;gap:12px;width:100%;text-align:left;padding:14px 0;border:0;border-top:1px solid var(--line);background:transparent;color:var(--ink);font:13px var(--body);cursor:pointer}.history-score-link span{flex:none;color:var(--accent)}
+.history-record{padding:14px 0;border-top:1px solid var(--line)}.history-record:first-child{border:0}.history-record .history-exercise{border:0;padding:0}.history-record .history-exercise h4{display:none}.history-record-heading{display:grid;gap:4px;margin-bottom:10px}
+.history-exercise-toggle{scroll-margin-top:24px}.history-exercise-trend{border-top:1px solid var(--line);padding-top:8px}.history-exercise-trend summary{min-height:44px;display:flex;align-items:center;color:var(--accent);font-size:13px;cursor:pointer}
+.history-exercise-trend summary::before{content:'▸';margin-right:6px}.history-exercise-trend[open]>summary::before{content:'▾'}
 /* Settings */
 .toggle{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
 .toggle:first-of-type{border-top:0}
@@ -1746,7 +1757,7 @@ const STRETCH = {
 const LS = storageKey('strongstart_state_v3');
 let state = null, logs = [];
 let SYNC={owner:null,base:null,conflict:null,recovery:null};
-let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histEx:'', histOpen:null, planMode:'ppl3', timer:null, musSel:null};
+let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histView:'sessions', histArea:'overall', histFilter:'all', histQuery:'', histExercise:null, histOpen:null, planMode:'ppl3', timer:null, musSel:null};
 
 
 function dayStart(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
@@ -3318,23 +3329,85 @@ function historySession(l,i){
         ${l.entries.filter(e=>e.plan||e.msg).map(e=>`<p><b>${esc(e.name)}</b>${e.plan?`<br>Planned: ${esc(e.plan)}${e.planned!=null?' at '+esc(fmtW(e.planned)):''}`:''}${e.msg?`<br>${esc(e.msg)}`:''}</p>`).join('')}
       </details>${coachMode?'':`<button class="btn sm ghost" data-action="dellog" data-id="${esc(l.id)}" aria-label="Delete session">Delete</button>`}</div></div>`:''}</div></div>`;
 }
-function renderHistory(){
-  const exIds=[...new Set(logs.flatMap(l=>l.entries.map(e=>e.ex)))].filter(id=>EX[id]);
-  if(!exIds.includes(ui.histEx)) ui.histEx = exIds[0]||null;
-  let chart='';
-  if(ui.histEx){
-    const ex=EX[ui.histEx];
-    const pts = logs.slice().reverse().map(l=>{ const en=l.entries.find(e=>e.ex===ui.histEx); if(!en||!en.sets.length) return null;
-      const v = usesLoad(ex) ? Math.max(...en.sets.map(s=>e1rm(+s.w||0,+s.r||0))) : Math.max(...en.sets.map(s=>+s.r||0));
-      return {d:new Date(l.date), v}; }).filter(Boolean);
-    chart = sparkChart(pts, usesLoad(ex)?`Est. 1-rep max (${state.settings.units})`:(ex.mode==='T'?'Best hold (sec)':'Best set (reps)'));
+function historyArea(id){
+  const muscles=EXM[id]?.p||[], upper=['chest','front_delts','side_delts','rear_delts','traps','upper_back','lats','biceps','triceps','forearms'];
+  const low=muscles.some(m=>LOWER.has(m)), up=muscles.some(m=>upper.includes(m));
+  return low&&!up?'lower':up&&!low?'upper':'other';
+}
+function historyMedian(values){const a=values.slice().sort((a,b)=>a-b),m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2;}
+function historyMetric(entry,log){
+  const ex=EX[entry.ex],sets=entry.sets||[];
+  if(!ex||ex.req?.some(group=>group.includes('assist'))||ex.mode==='P') return null;
+  const timed=/\bsec\b/.test(entry.plan||'')||(!entry.plan&&ex.mode==='T');
+  // Added bodyweight load cannot be compared without historical body weight.
+  if(ex.mode==='B'&&sets.some(s=>s.w!=null&&s.w!==''&&Number(s.w)!==0)) return null;
+  if(ex.mode==='L'&&timed) return null;
+  const kind=ex.mode==='L'?'load':timed?'time':'reps';
+  const values=sets.map(s=>{
+    const r=Number(s.r);if(!Number.isFinite(r)||r<=0) return null;
+    if(kind!=='load')return r;
+    const w=Number(s.w);if(!Number.isFinite(w)||w<=0||r>30) return null;
+    return e1rm(w,r)*((log.units||state.settings.units)==='lb'?0.45359237:1);
+  }).filter(v=>v!=null&&Number.isFinite(v)&&v>0);
+  return values.length?{kind,v:Math.max(...values)}:null;
+}
+function historyData(){
+  const groups=new Map();
+  const chronological=logs.slice().filter(l=>Number.isFinite(Date.parse(l.date))).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)||String(a.id).localeCompare(String(b.id)));
+  for(const l of chronological){
+    const entries=new Map();
+    for(const e of l.entries||[]){if(!entries.has(e.ex))entries.set(e.ex,{...e,sets:[]});entries.get(e.ex).sets.push(...(e.sets||[]));}
+    for(const [id,e] of entries){
+      if(!groups.has(id))groups.set(id,{id,name:EX[id]?.n||e.name,area:historyArea(id),records:[],metrics:[]});
+      const g=groups.get(id),metric=historyMetric(e,l);g.records.push({l,e,metric});
+      if(metric&&l.status!=='partial')g.metrics.push({d:new Date(l.date),...metric});
+    }
   }
-  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?"":"s"} logged</div><h1>History</h1></div></section>
-  <section class="card stack"><h3>Progress by exercise</h3>
-    ${exIds.length?`<select id="histex" aria-label="Exercise" style="height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px">${exIds.map(id=>`<option value="${id}" ${id===ui.histEx?'selected':''}>${esc(EX[id].n)}</option>`).join('')}</select>${chart}`:'<p class="muted small" style="margin:0">Finish your first workout to see progress charts here.</p>'}
-  </section>
-  <section class="card"><h3 style="margin-bottom:6px">Sessions</h3>
-  <div>${logs.map(historySession).join('')||'<p class="muted small" style="margin:0">No sessions yet.</p>'}</div></section>`;
+  for(const g of groups.values()){
+    // A changed measurement type starts a new comparable series.
+    const kind=g.metrics.at(-1)?.kind;g.points=g.metrics.filter(p=>p.kind===kind);
+    g.ready=g.points.length>=4;
+    if(g.ready){g.baseline=historyMedian(g.points.slice(0,2).map(p=>p.v));g.ratio=historyMedian(g.points.slice(-3).map(p=>p.v))/g.baseline;}
+  }
+  return [...groups.values()].sort((a,b)=>Date.parse(b.records.at(-1).l.date)-Date.parse(a.records.at(-1).l.date)||a.name.localeCompare(b.name));
+}
+function historyProgress(groups,area){
+  const eligible=groups.filter(g=>g.ready&&(area==='overall'||g.area===area));
+  if(!eligible.length)return {eligible,points:[],score:null};
+  // Use the same current exercise cohort throughout the graph. Start only once
+  // all its two-session baselines exist; adding a new exercise is never a zero.
+  const start=Math.max(...eligible.map(g=>+g.points[1].d));
+  const dates=[...new Set(eligible.flatMap(g=>g.points.map(p=>+p.d)).filter(d=>d>=start))].sort((a,b)=>a-b);
+  const points=dates.map(d=>({d:new Date(d),v:eligible.reduce((sum,g)=>{
+    const past=g.points.filter(p=>+p.d<=d);return sum+historyMedian(past.slice(-3).map(p=>p.v))/g.baseline*100;
+  },0)/eligible.length}));
+  return {eligible,points,score:points.at(-1).v};
+}
+function historySwitch(items,selected,action,label){return `<div class="history-tabs" aria-label="${label}">${items.map(([id,name])=>`<button data-action="${action}" data-id="${id}" aria-pressed="${id===selected}">${name}</button>`).join('')}</div>`;}
+function historyProgressCard(groups){
+  const area=ui.histArea||'overall',p=historyProgress(groups,area),change=p.score==null?null:p.score-100;
+  const scored=p.eligible.map(g=>`<button class="history-score-link" data-action="histreveal" data-id="${esc(g.id)}">${esc(g.name)}<span>${g.ratio>=1?'+':''}${((g.ratio-1)*100).toFixed(1)}% ›</span></button>`).join('');
+  return `<section class="card stack"><h3>Your exercise progress</h3>${historySwitch([['overall','Overall'],['upper','Upper body'],['lower','Lower body']],area,'histarea','Progress area')}
+    ${p.score==null?`<div><h2>Building your baseline</h2><p class="small muted">${logs.length?'An exercise needs four comparable completed sessions before it contributes to this score.':'Finish your first workout to start your progress history.'}</p></div>`:`<div><div class="history-score"><strong>${p.score.toFixed(1)}</strong><span class="history-change">${change>0?'↑':change<0?'↓':'→'} ${Math.abs(change).toFixed(1)}% ${change<0?'below':'from'} baseline</span></div><p class="tiny muted">Personal progress index · Starting point: 100</p></div>${historyProgressChart(p.points)}<p class="tiny muted">Based on ${p.eligible.length} tracked exercise${p.eligible.length===1?'':'s'} · Compared with your own starting results.</p>`}
+    <details class="history-breakdown"><summary>Exercises behind this score</summary><p class="small muted">Each exercise has equal weight. Its baseline is the median of its first two comparable completed sessions; recent performance is the median of its latest three. Loaded lifts use estimated strength, reps-only moves use best reps, and timed holds use seconds. This tracks exercise performance, not overall fitness.</p><p class="tiny muted">Partial sessions, assisted moves, added-weight bodyweight sets, loaded holds and loaded sets over 30 reps do not contribute. Core and mixed movements appear in Overall and the All exercise filter. Adding or deleting history can change the contributing exercises and the graph.</p>${scored||'<p class="small muted">No exercises have enough comparable history here yet.</p>'}</details></section>`;
+}
+function historyProgressChart(points){
+  const W=320,H=155,L=34,R=10,T=12,B=26,vs=points.map(p=>p.v),lo=Math.min(100,...vs)-3,hi=Math.max(100,...vs)+3;
+  const x=i=>points.length===1?(L+W-R)/2:L+i*(W-L-R)/(points.length-1),y=v=>T+(hi-v)/(hi-lo)*(H-T-B);
+  const line=points.map((p,i)=>`${i?'L':'M'}${x(i)},${y(p.v)}`).join(' '),date=d=>d.toLocaleDateString([],{month:'short',day:'numeric',year:'2-digit'});
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Personal exercise progress over time, latest score ${points.at(-1).v.toFixed(1)}"><title>${points.map(p=>`${date(p.d)}: ${p.v.toFixed(1)}`).join('; ')}</title>${[lo,100,hi].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" ${v===100?'stroke-dasharray="4 4"':''}/><text x="${L-5}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`).join('')}<path d="${line} L${x(points.length-1)},${H-B} L${x(0)},${H-B} Z" fill="var(--accent)" opacity=".08"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>${points.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.v)}" r="${i===points.length-1?4:2.5}" fill="var(--accent)"><title>${date(p.d)}: ${p.v.toFixed(1)}</title></circle>`).join('')}<text x="${L}" y="${H-5}">${date(points[0].d)}</text>${points.length>1?`<text x="${W-R}" y="${H-5}" text-anchor="end">${date(points.at(-1).d)}</text>`:''}</svg>`;
+}
+function historyExerciseGroup(g,i){
+  const open=ui.histExercise===g.id,records=g.records.slice().reverse();
+  const metric=g.points.at(-1),factor=metric?.kind==='load'&&state.settings.units==='lb'?1/0.45359237:1;
+  const label=metric?.kind==='load'?`Est. 1-rep max (${state.settings.units})`:metric?.kind==='time'?'Best hold (sec)':'Best set (reps)';
+  return `<div class="hist"><button class="history-toggle history-exercise-toggle" data-action="histexopen" data-id="${esc(g.id)}" aria-expanded="${open}" aria-controls="history-exercise-${i}"><span class="history-heading"><b>${esc(g.name)}</b><span class="tiny muted">Last ${new Date(records[0].l.date).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})} · ${records.length} session${records.length===1?'':'s'}</span></span><span class="history-action">${open?'Hide':'View'} <span class="history-arrow" aria-hidden="true">›</span></span></button><div id="history-exercise-${i}" ${open?'':'hidden'}>${open?records.map(({l,e})=>`<div class="history-record"><div class="history-record-heading"><b class="small">${new Date(l.date).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}</b><span class="tiny muted">${esc(l.name)}${l.status==='partial'?' · Partial':''}</span></div>${historyExercise(e)}</div>`).join('')+`<details class="history-exercise-trend"><summary>View exercise trend</summary>${metric?sparkChart(g.points.map(p=>({d:p.d,v:p.v*factor})),label):'<p class="small muted">Recorded sets are shown above. No comparable trend is available for this exercise yet.</p>'}</details>`:''}</div></div>`;
+}
+function renderHistory(){
+  const groups=historyData(),view=ui.histView||'sessions';
+  if(!groups.some(g=>g.id===ui.histExercise))ui.histExercise=null;
+  const query=(ui.histQuery||'').trim().toLowerCase(),filter=ui.histFilter||'all',matches=groups.filter(g=>g.name.toLowerCase().includes(query)&&(filter==='all'||g.area===filter));
+  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?'':'s'} logged</div><h1>History</h1></div></section>${historyProgressCard(groups)}${historySwitch([['sessions','Sessions'],['exercises','Exercises']],view,'histview','History views')}${view==='sessions'?`<section class="card"><h3 style="margin-bottom:6px">Sessions</h3><div>${logs.map(historySession).join('')||'<p class="muted small">No sessions yet.</p>'}</div></section>`:`<input class="search" type="search" id="histquery" aria-label="Search all logged exercises" placeholder="Search all logged exercises" value="${esc(ui.histQuery||'')}">${historySwitch([['all','All'],['upper','Upper body'],['lower','Lower body']],filter,'histfilter','Exercise filters')}<section class="card"><h3 style="margin-bottom:6px">Exercises</h3>${matches.map(historyExerciseGroup).join('')||'<p class="small muted" role="status">No exercises match. Try another search or filter.</p>'}</section>`}`;
 }
 function sparkChart(pts,label){
   if(pts.length<1) return '<p class="muted small">No sets logged yet.</p>';
@@ -5518,7 +5591,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 document.addEventListener('click', e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
@@ -5697,6 +5770,17 @@ document.addEventListener('click', e=>{
     case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.block.sequenceResetAt=Date.now(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
+    case 'histview': case 'histarea': case 'histfilter': {
+      const key={histview:'histView',histarea:'histArea',histfilter:'histFilter'}[a];ui[key]=b.dataset.id;render();
+      [...document.querySelectorAll(`[data-action="${a}"]`)].find(el=>el.dataset.id===b.dataset.id)?.focus({preventScroll:true});break;
+    }
+    case 'histexopen': case 'histreveal': {
+      const id=b.dataset.id;
+      if(a==='histreveal'){ui.histView='exercises';ui.histQuery='';ui.histFilter='all';ui.histExercise=id;}
+      else ui.histExercise=ui.histExercise===id?null:id;
+      render();const button=[...document.querySelectorAll('[data-action="histexopen"]')].find(el=>el.dataset.id===id);
+      button?.focus({preventScroll:true});if(a==='histreveal')button?.scrollIntoView({block:'start'});break;
+    }
     case 'histopen': { const id=b.dataset.id; ui.histOpen = ui.histOpen===id?null:id; render(); [...document.querySelectorAll('[data-action="histopen"]')].find(el=>el.dataset.id===id)?.focus({preventScroll:true}); break; }
     case 'dellog': { const id=b.dataset.id; confirmBox('Delete this session?','It is removed from history. Working weights are not rolled back.','Delete',()=>{ logs=logs.filter(l=>l.id!==id); save(); deleteRemoteLog(id); render(); }); break; }
     case 'setunits': changeUnits(b.dataset.u); save(); render(); toast('Weights converted to '+state.settings.units+'.'); break;
@@ -5710,7 +5794,8 @@ document.addEventListener('click', e=>{
 document.addEventListener('submit', e=>{ const f=e.target.closest('[data-authform]'); if(!f) return; e.preventDefault(); authSubmit(f.dataset.authform); });
 document.addEventListener('input', e=>{
   const t=e.target;
-  if(coachMode && !['libq','lpq','swapq'].includes(t.id)) return;
+  if(coachMode && !['libq','lpq','swapq','histquery'].includes(t.id)) return;
+  if(t.id==='histquery'){const start=t.selectionStart,end=t.selectionEnd;ui.histQuery=t.value;render();const input=$('#histquery');input?.focus({preventScroll:true});if(input&&start!=null)input.setSelectionRange(start,end);return;}
   if(t.id==='au-email'){ AUTH.email=t.value; return; } if(t.id==='au-pw'){ AUTH.pw=t.value; return; }
   if(t.dataset.f && state.draft){ const slot=dSlots().find(x=>x.pk===t.dataset.pk); if(!slot) return; const s=t.dataset.ramp?rampSet(state.draft,slot,+t.dataset.i):state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
   if(t.id==='swapq'&&ui.swap){ui.swap.q=t.value;ui.swap.limit=12;const pos=t.selectionStart;renderSwapPicker();const n=$('#swapq');n.focus();if(pos!=null)n.setSelectionRange(pos,pos);return;}
@@ -5718,7 +5803,7 @@ document.addEventListener('input', e=>{
 });
 document.addEventListener('change', e=>{
   const t=e.target;
-  if(coachMode && !['libeasy','libeq','libbody','libmove','swapeq','swapbody','lpq','lpeq','lpbody','lpmove','histex'].includes(t.id)) return;
+  if(coachMode && !['libeasy','libeq','libbody','libmove','swapeq','swapbody','lpq','lpeq','lpbody','lpmove'].includes(t.id)) return;
   if(t.dataset.check && state.draft){ state.draft[t.dataset.check][t.dataset.k]=t.checked; save(); return; }
   if(t.dataset.set){ state.settings[t.dataset.set]=t.checked; save(); return; }
   if(t.id==='set-age'){ const v=parseInt(t.value,10); state.settings.age=isFinite(v)&&v>10&&v<110?v:null; save(); render(); return; }
@@ -5736,7 +5821,7 @@ document.addEventListener('change', e=>{
   if(['swapeq','swapbody'].includes(t.id)&&ui.swap){ui.swap[t.id==='swapeq'?'eq':'body']=t.value;ui.swap.limit=12;renderSwapPicker();return;}
   if(t.id==='lpq'){ ui.lp.q=t.value; const pos=t.selectionStart; libPickSheet(); const n=$('#lpq'); n.focus(); n.setSelectionRange(pos,pos); }
   if(['lpeq','lpbody','lpmove'].includes(t.id)){ ui.lp[{lpeq:'eq',lpbody:'body',lpmove:'move'}[t.id]]=t.value; libPickSheet(); }
-  if(t.id==='histex'){ ui.histEx=t.value; render(); }
+
 });
 
 /* ---------------- Boot ---------------- */

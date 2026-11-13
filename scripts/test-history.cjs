@@ -27,7 +27,7 @@ const server=http.createServer((req,res)=>{
     {ex:body.id,name:body.n,sets:[{w:0,r:8},{w:5,r:6},{w:null,r:4}]},
     {ex:'archived-exercise',name:'Archived <exercise>',sets:[{w:null,r:12}],msg:'<img src=x onerror=alert(1)>'}
    ]},{id:'partial-test',date:'2025-11-12T15:00:00Z',name:'A longer workout name that wraps on small phones',status:'partial',completed:2,planned:9,entries:[]}];
-   ui.histOpen=null;ui.histEx=null;ui.tab='history';render();
+   ui.histOpen=null;ui.histExercise=null;ui.tab='history';render();
   },theme);
   assert.equal(await page.evaluate(()=>APP_ENV),'development');assert.match(await page.locator('#environment-banner').innerText(),/TESTING/);
   const before=await page.evaluate(()=>JSON.stringify({state,logs,storage:{...localStorage}}));
@@ -62,7 +62,7 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('[data-action="dellog"]').count(),0);
   await page.evaluate(()=>{coachMode=null;logs=[logs[0]];ui.histOpen='history-test';render();});
   await page.locator('[data-action="dellog"]').click();await page.locator('[data-action="confirmok"]').click();
-  assert.match(await page.locator('#app').innerText(),/No sessions yet/);assert.equal(await page.evaluate(()=>ui.histEx),null);
+  assert.match(await page.locator('#app').innerText(),/No sessions yet/);assert.equal(await page.evaluate(()=>ui.histExercise),null);
   await page.evaluate(()=>{logs=[{id:'legacy',date:'2024-01-01',name:'Legacy session',entries:[]}];ui.histOpen='legacy';render();});
   assert.doesNotMatch(await page.locator('[data-action="histopen"]').innerText(),/undefined|\? min/);
   assert.deepEqual(errors,[]);results.push({width,theme,exactBuild:true,keyboard:true,readOnly:true,sets:true,partial:true,delete:true,coach:true});await context.close();
