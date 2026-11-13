@@ -65,7 +65,32 @@ buffers share URLs. These figures exclude the renderer, licenses, older rose-top
 fallback assets and authoring/evidence files. They are stored package sizes,
 not measured mobile transfer times. The full library is never prefetched.
 
-Hosted deployment and exact-build checks are recorded below once complete.
+## Development publication
+
+Runtime candidate `5aa6ce4c8148c25d3474b7380487c037d9c305df` is deployed at
+<https://dev.strongstart.app/>. Workers Build
+`6fc84382-7f74-476c-95ed-0bd256036497` succeeded for that exact SHA. The automatic
+push build did not start during the initial wait; the existing development-only
+trigger was started manually for that exact commit. No trigger settings, tokens,
+database configuration or production deployment were changed.
+
+Hosted entry checks confirm exact candidate HTML, the development backend and
+no captured page/console errors at 1280, 390 and 320 px. The complete hosted
+animation suite then passes all **445 entries / 1,335 sampled poses**, controls,
+selected desktop/narrow views, shared body/skeleton identity and unchanged
+synthetic workout/account state. Exactly one character asset request occurs;
+warm reload reuses the protected cached character. Workout cover/restore,
+rapid selection, expansion, cached offline selection, storage/decompression
+fallback and initial download failure/retry all pass. The measured maximum
+source-to-browser joint-position difference remains 0.986 mm at sampled frames.
+Per-exercise evidence is retained in
+[`animation-authoring/browser-verification.json`](../animation-authoring/browser-verification.json).
+The hosted suite uses isolated synthetic browser state and blocks account/API
+requests; it does not verify real signed-in account or physical-device behavior.
+
+The subsequent publication record changes documentation/evidence only; runtime
+assets remain the exact candidate above. No migrations or production
+configuration changes are pending for this development-only draft set.
 
 Movement recipes are editable in [the authoring folder](../animation-authoring/README.md).
 They are catalogue-based draft illustrations; the existing external exercise
