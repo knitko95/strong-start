@@ -21,7 +21,7 @@ for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webman
 const html = readFileSync(path.join(out,'index.html'),'utf8');
 assert.ok(html.includes("location.origin === 'https://strongstart.app'"));
 assert.ok(!html.includes('const IS_PRODUCTION = false;'), 'Do not publish the isolated dev build');
-const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root);
+const stamped=stampApp(html,readFileSync(path.join(out,'sw.js'),'utf8'),root,{channel:'main'});
 writeFileSync(path.join(out,'index.html'),stamped.html);
 writeFileSync(path.join(out,'sw.js'),stamped.sw);
 writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'production'},null,2)+'\n');

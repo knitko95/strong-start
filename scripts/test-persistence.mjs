@@ -39,6 +39,16 @@ await test('feedback captures the running version and resolution links preserve 
     sb={from:()=>({insert:async row=>{sentFeedback=row;return {error:feedbackFailure?{message:'offline'}:null};},update:values=>({eq:()=>({select:async()=>{updatedFeedback=values;return {data:[{id:1}],error:feedbackFailure?{message:'offline'}:null};}})})})};
     FBS={side:'app',tag:'bug',text:'Synthetic bug',screen:'Settings',device:'Synthetic phone'};`);
   h.elements.set('#fbtext',{value:'Synthetic bug'});
+  assert.equal(h.run('appVersionLabel()'),'v'+h.run('APP_VERSION')+'-dev');
+  assert.equal(h.run('appVersionLabel(APP_VERSION,"main")'),'v'+h.run('APP_VERSION'));
+  assert.equal(h.run('appVersionLabel(APP_VERSION,"dev-noir")'),'v'+h.run('APP_VERSION')+'-dev-noir');
+  h.run('fbRender()');assert(h.run('lastModal').includes('v'+h.run('APP_VERSION')+'-dev'));
+  assert.doesNotMatch(h.run('lastModal'),/Sent with:|Settings|Synthetic phone|source ·/);
+  const settings=h.run('renderSettings()');assert.doesNotMatch(settings,/<b>App version<\/b>/);
+  assert.match(settings,/<button class="app-version" data-action="releasenotes"[^>]*>v[0-9.]+-dev<\/button>\s*$/);
+
+  assert.equal(h.run('feedbackVariant({app_build:"dev-noir--abcdef012345-abcdef012345",app_environment:"development"})'),'dev-noir');
+
   await h.run('fbSend()');
   assert.equal(h.run('sentFeedback.app_version'),h.run('APP_VERSION'));
   assert.equal(h.run('sentFeedback.app_build'),h.run('APP_BUILD.id'));
@@ -48,7 +58,7 @@ await test('feedback captures the running version and resolution links preserve 
   await h.run('markDone(1,true,APP_VERSION)');
   assert.equal(h.run('FB.box.list[0].resolved_version'),h.run('APP_VERSION'));
   assert.equal(h.run('FB.box.list[0].app_build'),'old-tab-build');
-  assert.match(h.run('renderInbox()'),/Addressed in v0.1.0/);
+  assert(h.run('renderInbox()').includes('Addressed in v'+h.run('APP_VERSION')));
   h.run('feedbackFailure=true');await h.run('markDone(1,false)');
   assert(h.run('FB.box.list[0].done_at'),'Failed update must not clear resolution');
   h.run('feedbackFailure=false');await h.run('markDone(1,false)');

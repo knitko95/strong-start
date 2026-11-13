@@ -21,13 +21,16 @@ export function releasesFromHTML(html){
   return releases;
 }
 
-export function stampApp(html,sw,root){
+export function stampApp(html,sw,root,{channel='dev',variant=process.env.STRONG_START_VARIANT||channel}={}){
+  assert(['main','dev'].includes(channel),'Unknown build channel');
+  assert(typeof variant==='string'&&variant.length<=32&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(variant),'Variant must be a lowercase name, up to 32 characters, using letters, digits and single hyphens');
+  assert(channel!=='dev'||variant!=='main','The main variant is reserved for production builds');
   const releases=releasesFromHTML(html);
   // Git is the actual checked-out source, rather than a user-supplied version label.
   const commit=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
   assert(/^[a-f0-9]{40}$/.test(commit),'Build requires a full source commit');
   const digest=createHash('sha256').update(html).update(sw).digest('hex').slice(0,12);
-  const build={id:commit.slice(0,12)+'-'+digest,commit};
+  const build={id:(variant==='main'?'':variant+'--')+commit.slice(0,12)+'-'+digest,commit,variant};
   assert(/const APP_BUILD = \{[^\n]*\};/.test(html),'Build stamp marker missing');
   html=html.replace(/const APP_BUILD = \{[^\n]*\};/,'const APP_BUILD = '+JSON.stringify(build)+';');
   sw=sw.replace(/const VERSION = '[^']+';/,`const VERSION = '${build.id}';`);
