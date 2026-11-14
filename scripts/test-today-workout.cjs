@@ -69,7 +69,11 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.evaluate(()=>JSON.stringify(state.prep)),prepBefore);
   await exercises.locator('[data-id="mobility"]').click();await page.locator('#prep-target-0').fill('0');await page.locator('[data-action="prepsave"]').click();
   assert.match(await page.locator('#prep-error').innerText(),/whole number/);assert.equal(await page.evaluate(()=>JSON.stringify(state.prep)),prepBefore);
-  await page.locator('#prep-target-0').fill('14');await page.locator('#prep-include-1').uncheck();await page.locator('[data-action="prepsave"]').click();
+  if(await page.locator('#prep-choice-0 option').count()>1)await page.locator('#prep-choice-0').selectOption({index:1});
+  await page.locator('#prep-target-0').fill('14');await page.locator('#prep-include-1').uncheck();
+  assert.equal(await page.locator('#modal .sheet').evaluate(e=>e.scrollWidth<=e.clientWidth+1),true,'editor fits phone width');
+  if(width===390)await page.screenshot({path:path.resolve(__dirname,`../test-results/today-prep-editor-${theme}.png`),fullPage:true});
+  await page.locator('[data-action="prepsave"]').click();
   assert.equal(await page.evaluate(()=>state.draft),null,'prep editing does not start a workout');
   await exercises.locator('[data-id="warm-cardio"]').click();await page.locator('#prep-target-0').fill('180');await page.locator('[data-action="prepsave"]').click();
   await exercises.locator('[data-id="stretches"]').click();await page.locator('#prep-target-0').fill('100');await page.locator('[data-action="prepsave"]').click();
