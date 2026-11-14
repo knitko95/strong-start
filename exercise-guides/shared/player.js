@@ -11,7 +11,7 @@ const stats={networkBytes:0,networkRequests:0,persistentHits:0,characterLoads:0}
 const pinnedAssets=new Set();
 $('.ss-notices').href=new URL('NOTICES.html',assetBase).href;
 const modelCache=new Map();let candidates=[],selectedCharacter='anatomical',currentModel,anatomicalGeometry;
-async function model(id){if(id==='anatomical')return null;if(!modelCache.has(id)){const spec=candidates.find(c=>c.id===id);if(!spec)throw Error('Unknown character');if(JSON.stringify(spec.jointNames)!==JSON.stringify(library.jointNames))throw Error('Incompatible character skeleton');const promise=Promise.all([unpack(spec.geometry),texture(spec.texture)]).then(([arrays,map])=>{stats.characterLoads++;return {spec,geometry:geometry(arrays),map};});modelCache.set(id,promise);promise.catch(()=>modelCache.delete(id));}return modelCache.get(id);}
+async function model(id){if(id==='anatomical')return null;if(!modelCache.has(id)){const spec=candidates.find(c=>c.id===id);if(!spec)throw Error('Unknown character');if(JSON.stringify(spec.jointNames)!==JSON.stringify(library.jointNames))throw Error('Incompatible character skeleton');const promise=Promise.all([unpack(spec.geometry),texture(spec.texture),spec.roughnessTexture?texture(spec.roughnessTexture,false):Promise.resolve(null)]).then(([arrays,map,roughnessMap])=>{stats.characterLoads++;return {spec,geometry:geometry(arrays),map,roughnessMap};});modelCache.set(id,promise);promise.catch(()=>modelCache.delete(id));}return modelCache.get(id);}
 
 let cacheWrites=Promise.resolve();
 async function bytes(asset){
@@ -69,13 +69,13 @@ function characterAttribute(key){const item=characterArrays[key];return item.att
 const semantics={POSITION:'position',NORMAL:'normal',TEXCOORD_0:'uv',JOINTS_0:'skinIndex',WEIGHTS_0:'skinWeight'};
 function geometry(arrays){const g=new THREE.BufferGeometry();for(const [name,item] of Object.entries(arrays))if(name==='index')g.setIndex(attribute(item));else if(semantics[name])g.setAttribute(semantics[name],attribute(item));return g;}
 async function propGeometry(id){if(!geometryCache.has(id)){const promise=unpack(library.geometries[id]).then(arrays=>{const result=geometry(arrays);resolvedGeometry.set(id,result);return result;});geometryCache.set(id,promise);promise.catch(()=>geometryCache.delete(id));}return geometryCache.get(id);}
-async function texture(asset){
+async function texture(asset,color=true){
  if(textureCache.has(asset.url)){const value=textureCache.get(asset.url);textureCache.delete(asset.url);textureCache.set(asset.url,value);return value;}
- const raw=await bytes(asset),blobUrl=URL.createObjectURL(new Blob([raw],{type:'image/png'}));
+ const raw=await bytes(asset),blobUrl=URL.createObjectURL(new Blob([raw],{type:asset.mimeType||'image/png'}));
  let map;try{map=await new THREE.TextureLoader().loadAsync(blobUrl);}finally{URL.revokeObjectURL(blobUrl);}
- map.flipY=false;map.colorSpace=THREE.SRGBColorSpace;map.anisotropy=renderer.capabilities.getMaxAnisotropy();textureCache.set(asset.url,map);
+ map.flipY=false;map.colorSpace=color?THREE.SRGBColorSpace:THREE.NoColorSpace;map.anisotropy=renderer.capabilities.getMaxAnisotropy();textureCache.set(asset.url,map);
  // Keep at most two decoded 2048px role maps, plus the currently displayed one.
- for(const [key,value] of textureCache){if(textureCache.size<=2)break;if(value!==body?.material.map&&value!==map&&!candidates.some(c=>c.texture.url===key)){textureCache.delete(key);value.dispose();}}
+ for(const [key,value] of textureCache){if(textureCache.size<=2)break;if(value!==body?.material.map&&value!==map&&!candidates.some(c=>[c.texture,c.roughnessTexture].some(a=>a?.url===key))){textureCache.delete(key);value.dispose();}}
  return map;
 }
 function material(spec,map=null){
@@ -104,13 +104,13 @@ async function load(id,{force=false,preserve=false}={}){
  try{
   let data=await json(spec.scene);if(data.schemaVersion===2){const delta=data;data=structuredClone(await json(delta.base));data.id=delta.id;data.animation=delta.animation;data.tracks=delta.tracks;data.nodes[data.bodyNode].parts[0].material.pbrMetallicRoughness.baseColorTexture.asset=delta.roleMap;for(const prop of delta.props){const node=structuredClone(prop),index=data.nodes.length;delete node.parent;data.nodes.push(node);if(prop.parent){const parent=data.nodes.find(n=>n.name===prop.parent);if(!parent)throw Error('Invalid attachment');(parent.children??=[]).push(index);}else data.roots.push(index);}}if(data.schemaVersion!==1||data.id!==id)throw Error('Incompatible exercise configuration');
   const bodyPart=data.nodes[data.bodyNode].parts[0];
-  const [tracks,map,candidate]=await Promise.all([unpack(data.animation),texture(bodyPart.material.pbrMetallicRoughness.baseColorTexture.asset),model(requestedCharacter),requestedCharacter==='anatomical'?loadAnatomical():Promise.resolve(),...data.nodes.flatMap(n=>(n.parts||[]).filter(p=>!p.character).map(p=>propGeometry(p.geometry)))]);
+  const [tracks,map,candidate]=await Promise.all([unpack(data.animation),requestedCharacter==='anatomical'?texture(bodyPart.material.pbrMetallicRoughness.baseColorTexture.asset):Promise.resolve(null),model(requestedCharacter),requestedCharacter==='anatomical'?loadAnatomical():Promise.resolve(),...data.nodes.flatMap(n=>(n.parts||[]).filter(p=>!p.character).map(p=>propGeometry(p.geometry)))]);
   if(token!==generation)return;
   mixer?.stopAllAction();if(mixer&&exerciseRoot)mixer.uncacheRoot(exerciseRoot);
   if(exerciseRoot)scene.remove(exerciseRoot);body.removeFromParent();for(const bone of bones.values()){bone.removeFromParent();bone.clear();}
   currentModel=candidate;body.geometry=candidate?fittedGeometry(candidate,data):anatomicalGeometry;
   if(!candidate)for(const [semantic,key] of Object.entries(data.bodyAttributes)){if(semantic==='index')body.geometry.setIndex(characterAttribute(key));else body.geometry.setAttribute(semantics[semantic],characterAttribute(key));}
-  if(bodyMaterial)bodyMaterial.dispose();roleMap=map;bodyMaterial=material(candidate?{pbrMetallicRoughness:{metallicFactor:0,roughnessFactor:.72},doubleSided:true}:bodyPart.material,candidate?.map||map);body.material=bodyMaterial;
+  if(bodyMaterial)bodyMaterial.dispose();roleMap=map;bodyMaterial=material(candidate?{alphaMode:'MASK',alphaCutoff:candidate.spec.alphaCutoff??.28,pbrMetallicRoughness:{metallicFactor:0,roughnessFactor:1},doubleSided:true}:bodyPart.material,candidate?.map||map);bodyMaterial.roughnessMap=candidate?.roughnessMap||null;bodyMaterial.alphaToCoverage=!!candidate;body.material=bodyMaterial;
   nodes=data.nodes.map((node,i)=>{
    const obj=i===data.bodyNode?body:node.bone?bones.get(node.name):new THREE.Group();obj.name=node.name||'node-'+i;transform(obj,node);
    if(!node.bone&&i!==data.bodyNode)for(const p of node.parts||[])obj.add(new THREE.Mesh(resolvedGeometry.get(p.geometry),propMaterial(p.material)));

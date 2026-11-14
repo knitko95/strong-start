@@ -4,7 +4,7 @@
     {
       "schemaVersion": 1,
       "id": "rose-athlete-v1",
-      "name": "Rose athlete \u00b7 realistic draft",
+      "name": "Rose athlete \u00b7 detailed face & hair",
       "jointNames": [
         "Root",
         "pelvis",
@@ -1056,72 +1056,87 @@
       ],
       "geometry": {
         "asset": {
-          "url": "assets/rose-athlete.47894fcf7bdd0af8.bin.gz",
-          "bytes": 981470,
-          "sha256": "47894fcf7bdd0af81ca484b797706449e7cc091b9afcd7cddd9b4ae6fd3fab85"
+          "url": "assets/rose-athlete.570ef5ce40c37700.bin.gz",
+          "bytes": 1073976,
+          "sha256": "570ef5ce40c377002dfdc8d5287ce28b8d40c257b52f676f835fa5b314806e3c"
         },
         "arrays": {
           "POSITION": {
             "componentType": 5126,
             "size": 3,
-            "count": 25471,
+            "count": 30146,
             "normalized": false,
             "offset": 0,
-            "length": 305652
+            "length": 361752
           },
           "NORMAL": {
             "componentType": 5126,
             "size": 3,
-            "count": 25471,
+            "count": 30146,
             "normalized": false,
-            "offset": 305652,
-            "length": 305652
+            "offset": 361752,
+            "length": 361752
           },
           "TEXCOORD_0": {
             "componentType": 5126,
             "size": 2,
-            "count": 25471,
+            "count": 30146,
             "normalized": false,
-            "offset": 611304,
-            "length": 203768
+            "offset": 723504,
+            "length": 241168
           },
           "JOINTS_0": {
             "componentType": 5123,
             "size": 4,
-            "count": 25471,
+            "count": 30146,
             "normalized": false,
-            "offset": 815072,
-            "length": 203768
+            "offset": 964672,
+            "length": 241168
           },
           "WEIGHTS_0": {
             "componentType": 5126,
             "size": 4,
-            "count": 25471,
+            "count": 30146,
             "normalized": false,
-            "offset": 1018840,
-            "length": 407536
+            "offset": 1205840,
+            "length": 482336
           },
           "index": {
             "componentType": 5125,
             "size": 1,
-            "count": 144888,
+            "count": 168336,
             "normalized": false,
-            "offset": 1426376,
-            "length": 579552
+            "offset": 1688176,
+            "length": 673344
           }
         },
-        "decodedBytes": 2005928
+        "decodedBytes": 2361520
       },
       "texture": {
-        "url": "assets/rose-athlete-color.1fff13c1ac1857ba.png",
-        "bytes": 641902,
-        "sha256": "1fff13c1ac1857ba1992554306c8ca450926d8d17b1fa5faa5ac8bd9dc91ed0b"
+        "url": "assets/rose-athlete-color.7767f56e417e86a7.webp",
+        "bytes": 784190,
+        "sha256": "7767f56e417e86a7ace923a8e7fe40b90401387f341b8767e1156bcac1351536",
+        "mimeType": "image/webp"
       },
-      "vertices": 25471,
-      "triangles": 48296,
+      "roughnessTexture": {
+        "url": "assets/rose-athlete-roughness.073fdcbf9a73c61c.png",
+        "bytes": 15088,
+        "sha256": "073fdcbf9a73c61cef8a69b0766fcf2f3629c66e72d9c0e76dafe50a6e7cbd2f"
+      },
+      "alphaCutoff": 0.28,
+      "vertices": 30146,
+      "triangles": 56112,
       "commonRestBonesVerified": 53,
+      "textureSize": [
+        2048,
+        2048
+      ],
+      "roughnessSize": [
+        512,
+        512
+      ],
       "reviewStatus": "draft",
-      "license": "MakeHuman base skin and graphical assets CC0; independently authored styling. See CHARACTER-NOTICES.html."
+      "license": "MakeHuman base skin and graphical assets CC0; independent styling and generated strand/iris textures. See CHARACTER-NOTICES.html."
     }
   ]
 }

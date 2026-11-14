@@ -75,7 +75,7 @@ the anatomical instructor while preserving the paused pose and camera. The
 selection lasts for the page session; a fresh app session starts with the
 anatomical instructor. Muscle highlighting is available on that instructor.
 [Character studio](https://dev.strongstart.app/exercise-guides/character-lab.html)
-opens the new draft directly. Appearance, contact fit and physical-phone
+opens the draft directly. The current face/hair and covered-bust refinement is described in [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md). Appearance, contact fit and physical-phone
 performance remain under review; see [comparison notes](CHARACTER-COMPARISON-2026-11-13.md).
 
 The development exercise text has undergone a NASM reference audit with corrections to six cues and shared instructions for timed movement, power exercises and warm-ups. Reference coverage is incomplete and some NASM pages contain conflicting information; this is not professional technique certification. See the [audit, sources and remaining limits](EXERCISE-AUDIT-2026-11-11.md).

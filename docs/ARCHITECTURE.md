@@ -339,3 +339,9 @@ The scoped feedback delivery/admin-inbox release was approved and published as `
 ## Experience preview targets
 
 See ENVIRONMENTS.md for dev1/dev2: independent branches, Workers and browser origins sharing the existing development Supabase project and dev feedback outbox. The preview Worker forwards only feedback paths after validating the request Origin, preserving bearer authentication. It never forwards arbitrary application routes or uses production data. Branch builds stamp their variant; shared persisted state must remain compatible across experiences.
+
+The optional reference athlete uses one alpha-tested skinned draw, a shared
+2048px RGBA atlas and a 512px linear roughness map. Its hair ribbons, eyes and
+body share the existing skeleton. Role textures are fetched only for the
+anatomical instructor. Color atlas data is sRGB; roughness remains linear.
+See [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md).
