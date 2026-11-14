@@ -2182,7 +2182,7 @@ function coolFit(slots){ const B=budget(), short=(B.lift*60-liftSec(slots))/60; 
   return {cw:B.cw+ew, st:B.st+es, min:B.cool+ew+es}; }
 function totalMinutes(key){const sl=sessionSlots(key),X=sessionExtras({key,place:state.curPlace},sl);return X.min+Math.round(liftSec(sl)/60)+X.coolMin;}
 function afterMin(){ const cs=(typeof cSet==='function'&&cSet())||{}; return cs.after!=null ? cs.after : cAfterDefault(); }
-function lenText(key){ const a=afterMin(); return `~${totalMinutes(key)} min${a>0?` + ${a} min cardio`:''}`; }
+function lenText(key){const slots=sessionSlots(key),X=sessionExtras({key,place:state.curPlace},slots),a=X.finisher&&!X.finisher.prepSkipped?X.finisher.min:0;return `~${X.min+Math.round(liftSec(slots)/60)+X.coolMin} min${a>0?` + ${a} min cardio`:''}`;}
 
 /* ---------------- Saving (this browser only) ---------------- */
 let remote={status:'local'};   // replaced by the cloud block below
