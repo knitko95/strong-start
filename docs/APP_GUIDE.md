@@ -1,5 +1,13 @@
 # Using Strong Start
 
+## Optional usage analytics on testing
+
+The test app offers optional selected-interaction analytics through PostHog. It
+is off until you choose Allow analytics on Today/setup or Settings → Account &
+backups. Change the choice there anytime. The choice applies to this test browser
+and does not sync. Names, emails, entered text, health details and coach messages
+are excluded; there are no recordings. This version leaves live analytics off.
+
 Reviewed against source commit `149f807bd8e67c7c95204157e07e33e1202763a7` on November 11, 2026. This guide describes implemented behavior. See the dated review for what was actually exercised.
 
 ## Trying changes before release

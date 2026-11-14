@@ -16,11 +16,15 @@ if (branch && branch !== target) {
 mkdirSync(out, { recursive: true });
 await import('./check-exercise-guides.mjs');
 await import('./check-all-exercise-animations.mjs');
-for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'offline.js', 'sw.js', 'exercise-guides']) {
+for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'offline.js', 'sw.js', 'exercise-guides']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
 }
 // A test deployment cannot connect to production even if served at another URL.
+if(!process.env.POSTHOG_DEV_PROJECT_TOKEN && process.loadEnvFile){try{process.loadEnvFile(path.join(root,'.env.analytics.local'));}catch{}}
+const analytics={enabled:target==='dev',token:process.env.POSTHOG_DEV_PROJECT_TOKEN||'',host:process.env.POSTHOG_DEV_HOST||''};
+if(analytics.token && (!/^phc_[A-Za-z0-9_-]+$/.test(analytics.token)||!['https://us.i.posthog.com','https://eu.i.posthog.com'].includes(analytics.host)))throw new Error('Invalid development PostHog destination');
 const html = readFileSync(path.join(out, 'index.html'), 'utf8')
+  .replace(/const USAGE_CONFIG = [^;]+;/,()=> 'const USAGE_CONFIG = '+JSON.stringify(analytics)+';')
   .replace(/const IS_PRODUCTION = [\s\S]*?;\r?\n/, 'const IS_PRODUCTION = false;\n')
   .replaceAll('https://aybtxqsneywuqxzjwoek.supabase.co', 'https://gvyfgqhgqnfmtoytqpeo.supabase.co')
   .replaceAll('sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl', 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49');

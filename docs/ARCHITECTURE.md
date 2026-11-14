@@ -1,5 +1,14 @@
 # Strong Start architecture and operations
 
+## Development usage analytics
+
+The dev build injects public ingestion configuration from
+`POSTHOG_DEV_PROJECT_TOKEN` and `POSTHOG_DEV_HOST`. `analytics.js` sends explicit
+allowlisted events via the PostHog ingestion API after browser-local opt-in.
+Production and other preview variants remain disabled. Analytics lives outside
+workout persistence and account sync; no database migrations or Auth changes.
+See [contract, privacy boundaries and checks](ANALYTICS-2026-11-14.md).
+
 ## Development character comparison
 
 `exercise-guides/shared/characters.json` describes optional character geometry
