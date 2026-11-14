@@ -44,27 +44,17 @@ for m in list(body.modifiers):
     elif m.type=='SUBSURF':body.modifiers.remove(m)
 active(body)
 for m in list(body.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
-# A restrained adult facial refinement. These edits affect the head mesh only;
-# joint locations, the rest rig, limb lengths and exercise contacts are retained.
-def bell(value,center,width):return math.exp(-((value-center)/width)**2)
-lip_group=body.vertex_groups['lips'].index
-for v in body.data.vertices:
-    x,y,z=v.co
-    front=max(0,min(1,(-y-.035)/.035))
-    if z>1.21 and abs(x)<.075:
-        v.co.x*=1-.055*bell(z,1.265,.025)*front
-        v.co.x*=1+.025*bell(z,1.322,.014)*front
-        nose=bell(x,0,.017)*bell(z,1.315,.026)*front
-        v.co.x*=1-.10*nose
-        v.co.y-=.0015*bell(x,0,.010)*bell(z,1.310,.011)*front
-        v.co.z+=.0011*bell(abs(x),.043,.012)*bell(z,1.340,.012)*front
-    if any(g.group==lip_group and g.weight>.15 for g in v.groups):
-        v.co.z+=.0042*min(1,abs(x)/.025)**2
-        v.co.y-=.0007
-body.data.update()
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from reference_head import refine_face,refine_bust,make_hair
+refine_face(body)
+bust_review=refine_bust(body)
 sub=body.modifiers.new('Smooth face and silhouette','SUBSURF');sub.levels=1
 bpy.ops.object.modifier_apply(modifier=sub.name)
-dec=body.modifiers.new('Mobile surface budget','DECIMATE');dec.ratio=.31
+dec=body.modifiers.new('Mobile surface budget','DECIMATE');dec.ratio=.40
+# Protect the face and fingers while simplifying broad body surfaces.
+protect=body.vertex_groups.new(name='Mobile reduction allowance')
+for v in body.data.vertices:protect.add([v.index],0 if v.co.z>1.23 else 1,'REPLACE')
+dec.vertex_group=protect.name;dec.vertex_group_factor=20
 bpy.ops.object.modifier_apply(modifier=dec.name)
 body.name='Rose athlete — mobile candidate'
 for p in body.data.polygons:p.use_smooth=True
@@ -97,16 +87,26 @@ top=calc('MULTIPLY',calc('MULTIPLY',calc('GREATER_THAN',z,.975),calc('LESS_THAN'
 legs=calc('LESS_THAN',z,.87)
 top=calc('MULTIPLY',top,calc('LESS_THAN',arm_channel.outputs[0],.2))
 legs=calc('MULTIPLY',legs,calc('LESS_THAN',arm_channel.outputs[0],.2))
-color=skin_tone.outputs['Color']
+skin_match=nodes.new('ShaderNodeMixRGB');skin_match.blend_type='MULTIPLY';skin_match.inputs[0].default_value=1
+links.new(skin_tone.outputs['Color'],skin_match.inputs[1]);skin_match.inputs[2].default_value=(.8468,.6456,.4828,1)
+color=skin_match.outputs[0]
 for mask,c in [(top,(.31,.095,.14,1)),(legs,(.038,.034,.042,1))]:
     mix=nodes.new('ShaderNodeMixRGB');links.new(mask,mix.inputs[0]);links.new(color,mix.inputs[1]);mix.inputs[2].default_value=c;color=mix.outputs[0]
 emit=nodes.new('ShaderNodeEmission');links.new(color,emit.inputs[0]);out=nodes.new('ShaderNodeOutputMaterial');links.new(emit.outputs[0],out.inputs[0])
-image=bpy.data.images.new('Athlete base color',width=1024,height=1024,alpha=False)
+image=bpy.data.images.new('Athlete base color',width=2048,height=2048,alpha=False)
 target=nodes.new('ShaderNodeTexImage');target.image=image;nodes.active=target
 body.data.materials.clear();body.data.materials.append(mat)
 for p in body.data.polygons:p.material_index=0
 active(body);scene.render.engine='CYCLES';scene.cycles.samples=1;scene.render.bake.margin=8
 bpy.ops.object.bake(type='EMIT');image.filepath_raw=str(review/'body-baked.png');image.file_format='PNG';image.save()
+rough_value=nodes.new('ShaderNodeValue');rough_value.outputs[0].default_value=.55
+rough_color=rough_value.outputs[0]
+for mask,value in [(top,.86),(legs,.88)]:
+    mix=nodes.new('ShaderNodeMixRGB');links.new(mask,mix.inputs[0]);links.new(rough_color,mix.inputs[1]);mix.inputs[2].default_value=(value,value,value,1);rough_color=mix.outputs[0]
+for link in list(emit.inputs[0].links):links.remove(link)
+links.new(rough_color,emit.inputs[0]);rough_image=bpy.data.images.new('Body roughness',width=512,height=512,alpha=False)
+rough_image.colorspace_settings.name='Non-Color';target.image=rough_image;nodes.active=target
+bpy.ops.object.bake(type='EMIT');rough_image.filepath_raw=str(review/'body-rough.png');rough_image.file_format='PNG';rough_image.save()
 
 def material(name,color):
     m=bpy.data.materials.new(name);m.diffuse_color=(*color,1);return m
@@ -124,55 +124,9 @@ def line(name,points,radius,mat,bone):
     for p,v in zip(sp.points,points):p.co=(*v,1)
     o=bpy.data.objects.new(name,cu);collection.objects.link(o);o.data.materials.append(mat);bone_parent(o,bone);return o
 
-# Refine the existing fitted scalp, add swept strands and a textured coil bun.
-hair=bpy.data.objects['Sculpted pulled-back hair'];hair.data.materials.clear();hair.data.materials.append(hairmat)
-for mod in hair.modifiers:
-    if mod.type=='SUBSURF':mod.levels=1
-from mathutils.bvhtree import BVHTree
-bpy.context.view_layer.update();face_surface=BVHTree.FromObject(body,bpy.context.evaluated_depsgraph_get())
-for v in hair.data.vertices:
-    x,y,z=v.co
-    front=max(0,min(1,(-y-.025)/.065));edge=max(0,min(1,(1.425-z)/.04))
-    desired=v.co+Vector((0,0,-(.008+.004*bell(x,-.015,.035))*front*edge))
-    if front>.05:
-        hit,normal,_,_=face_surface.ray_cast(Vector((desired.x,-.5,desired.z)),Vector((0,1,0)))
-        if hit is not None:v.co=hit+normal*.006
-hair.data.update();bpy.context.view_layer.update()
-hair_surface=BVHTree.FromObject(hair,bpy.context.evaluated_depsgraph_get())
-bun=bpy.data.objects['Hair bun'];bun.data.materials.clear();bun.data.materials.append(hairmat)
-for v in bun.data.vertices:
-    q=v.co;angle=math.atan2(q.z,q.x);q*=1+.045*math.sin(angle*14)
-    q.x*=1.12;q.z*=.88
-for s in [-1,1]:
-    for j in range(9):
-        pts=[]
-        for k in range(20):
-            t=k/19;phi=-1.35+t*2.55;xx=s*(.008+j*.0065)*(1-.36*t)+.008*math.sin(math.pi*t)
-            # Elliptical swept lines follow the fitted scalp dome.
-            point=Vector((xx,-.032+.086*math.sin(phi),1.360+.083*math.cos(phi)-j*.0007))
-            hit,normal,_,_=hair_surface.find_nearest(point)
-            pts.append(tuple(hit+normal*.0004))
-        line('Swept hair strand',pts,.00055,strandmat,'head')
-    temple=[]
-    for k in range(19):
-        t=k/18;desired=Vector((s*(.054+.005*math.sin(t*math.pi*1.5)),-.5,1.387-.055*t))
-        hit,normal,_,_=face_surface.ray_cast(desired,Vector((0,1,0)))
-        if hit is not None:temple.append(tuple(hit+normal*.002))
-    lock=line('Face framing hair lock',temple,.0010,hairmat,'head')
-    for k,p in enumerate(lock.data.splines[0].points):p.radius=1-.75*k/max(1,len(temple)-1)
-    # Tapered brows and a fine upper lash line give the eyes a natural frame.
-    points=[]
-    for k in range(12):
-        t=k/11;desired=Vector((s*(.012+.038*t),-.108+.013*t,1.350+.0028*math.sin(math.pi*t)+.001*t))
-        hit,normal,_,_=face_surface.ray_cast(Vector((desired.x,-.5,desired.z)),Vector((0,1,0)))
-        if hit is not None:points.append(tuple(hit+normal*.0008))
-    brow=line('Sculpted eyebrow',points,.0015,hairmat,'head')
-    for k,p in enumerate(brow.data.splines[0].points):p.radius=.2+.8*math.sin(math.pi*(k+.5)/12)**.6
-    eye=bpy.data.objects['Eye '+('l' if s==1 else 'r')].matrix_world.translation.copy()
-    line('Fine upper eyelashes',[(eye.x+.010*math.cos(a),eye.y-.0105,eye.z+.0044*math.sin(a)+.0013) for a in [math.pi*k/16 for k in range(17)]],.00045,dark,'head')
-
+face_surface=make_hair(body,rig,collection,hairmat)
 for side in ['l','r']:
-    eye=bpy.data.objects['Eye '+side];o=bpy.data.objects['Iris '+side];o.data.materials.clear();o.data.materials.append(iris)
+    eye=bpy.data.objects['Eye '+side];o=bpy.data.objects['Iris '+side];o.data.materials.clear();o.data.materials.append(iris);o['texture_kind']='iris'
     for v in o.data.vertices:v.co.x*=.84;v.co.z*=.84
     loc=o.matrix_world.translation.copy();bpy.ops.mesh.primitive_uv_sphere_add(segments=16,ring_count=8,location=loc+Vector((0,-.002,0)))
     pupil=bpy.context.object;pupil.name='Pupil '+side;pupil.scale=(.0022,.001,.0022);pupil.data.materials.append(dark);active(pupil);bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);bone_parent(pupil,'head')
@@ -209,20 +163,41 @@ for o in list(bpy.data.objects):
         active(o)
         for m in list(o.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
 
+body.data.calc_loop_triangles()
+face_loops=[li for tri in body.data.loop_triangles if all(body.data.vertices[vi].co.z>1.245 for vi in tri.vertices) and all(body.data.uv_layers.active.data[j].uv.x>.65 for j in tri.loops) for li in tri.loops]
+face_uv=[body.data.uv_layers.active.data[li].uv for li in face_loops]
+u0=min(v.x for v in face_uv)-.001;u1=max(v.x for v in face_uv)+.001;v0=min(v.y for v in face_uv)-.001;v1=max(v.y for v in face_uv)+.001
 for o in [body]+[o for o in bpy.data.objects if o.type=='MESH' and o!=body and o.parent==rig and o.parent_type=='BONE']:
     me=o.data;me.calc_loop_triangles();me.update();world=o.matrix_world;normal_matrix=world.to_3x3().inverted().transposed();offset=len(positions)
     for tri in me.loop_triangles:
+        is_head=o==body and all(me.vertices[vi].co.z>1.245 for vi in tri.vertices) and all(me.uv_layers.active.data[j].uv.x>.65 for j in tri.loops)
         for li in tri.loops:
             loop=me.loops[li];v=me.vertices[loop.vertex_index];p=world@v.co;n=(normal_matrix@v.normal).normalized()
+            if 'bun' in o.name.lower():n=(p-Vector((-.004,.055,1.407))).normalized()
+            elif o.get('texture_kind') in ['hair','hair_base']:
+                nearest=face_surface.find_nearest(p)
+                if nearest[1] is not None:n=nearest[1]
             positions.append((p.x,p.z,-p.y));normals.append((n.x,n.z,-n.y));indices.append(len(indices))
             if o==body:
-                uv=me.uv_layers.active.data[li].uv;uvs.append((float(uv.x)*.875,1-float(uv.y)))
+                uv=me.uv_layers.active.data[li].uv
+                uvs.append((.5+.5*(uv.x-u0)/(u1-u0),.5*(1-(uv.y-v0)/(v1-v0))) if is_head else (float(uv.x)*.5,1-float(uv.y)))
                 inf=sorted([(joint_index[body.vertex_groups[g.group].name],g.weight) for g in v.groups if body.vertex_groups[g.group].name in joint_index and g.weight>0],key=lambda x:-x[1])[:4]
                 assert inf,'Unweighted vertex';total=sum(w for _,w in inf);inf+=[(0,0)]*(4-len(inf));joints.append([j for j,w in inf]);weights.append([w/total for j,w in inf])
             else:
-                c=tuple(o.data.materials[0].diffuse_color[:3]);
-                if c not in palette:palette.append(c)
-                uvs.append((.94,(palette.index(c)+.5)/16));joints.append([joint_index[o.parent_bone],0,0,0]);weights.append([1,0,0,0])
+                if o.get('texture_kind')=='hair':
+                    uv=me.uv_layers.active.data[li].uv;uvs.append((.5+.5*uv.x,.5+.5*(1-uv.y)))
+                elif o.get('texture_kind')=='iris':
+                    u=.5+.5*v.co.x/.00588;vv=.5+.5*v.co.z/.00588
+                    uvs.append((.875+.125*u,.5+.125*(1-vv)))
+                elif o.get('texture_kind') in ['hair_base','bun_base']:
+                    center=Vector((-.004,.055,1.407)) if o.get('texture_kind')=='bun_base' else Vector((0,-.02,1.340))
+                    q=p-center;theta=math.atan2(q.x,q.y);phi=math.acos(max(-1,min(1,q.z/max(q.length,1e-8))))
+                    uvs.append((.875+.125*(theta/(2*math.pi)+.5),.8125+.1875*phi/math.pi))
+                else:
+                    c=tuple(o.data.materials[0].diffuse_color[:3])
+                    if c not in palette:palette.append(c)
+                    uvs.append((.94,.625+.1875*(palette.index(c)+.5)/16))
+                joints.append([joint_index[o.parent_bone],0,0,0]);weights.append([1,0,0,0])
 unique={};new=[[],[],[],[],[]];new_indices=[]
 for p,n,uv,j,w in zip(positions,normals,uvs,joints,weights):
     key=tuple(p)+tuple(n)+tuple(uv)+tuple(j)+tuple(w)
@@ -241,13 +216,16 @@ for name in joint_names:
     bone=rig.data.bones[name.replace('lowerarm_proximal_','lowerarm_')]
     inv=bone.matrix_local.inverted()@conversion.inverted()
     source_inverse.append([inv[r][c] for c in range(4) for r in range(4)])
-(review/'candidate-geometry.json').write_text(json.dumps({'arrays':arrays,'decodedBytes':len(binary),'jointNames':joint_names,'sourceInverseBindMatrices':source_inverse,'paletteLinear':palette,'vertices':len(positions),'triangles':len(indices)//3,'sourceBodyVertices':len(body.data.vertices),'commonRestBonesVerified':len(rest)},indent=2))
+(review/'candidate-geometry.json').write_text(json.dumps({'arrays':arrays,'decodedBytes':len(binary),'jointNames':joint_names,'sourceInverseBindMatrices':source_inverse,'headUVBounds':[u0,v0,u1,v1],'paletteLinear':palette,'vertices':len(positions),'triangles':len(indices)//3,'sourceBodyVertices':len(body.data.vertices),'commonRestBonesVerified':len(rest),'bustRefinement':bust_review},indent=2))
 # Save a self-contained editable model on the exact accepted 55-bone rest rig.
 nodes.clear();image.pack();texture_node=nodes.new('ShaderNodeTexImage');texture_node.image=image
 principled=nodes.new('ShaderNodeBsdfPrincipled');principled.inputs['Roughness'].default_value=.72
 principled.inputs['Subsurface Weight'].default_value=.035
 output=nodes.new('ShaderNodeOutputMaterial');links.new(texture_node.outputs['Color'],principled.inputs['Base Color']);links.new(principled.outputs[0],output.inputs[0])
 active(body);am=body.modifiers.new('Existing rig deformation','ARMATURE');am.object=rig;am.use_deform_preserve_volume=True
+# Pack the source strand/iris textures for an editable, self-contained scene.
+for material_name,file_name in [(hairmat,'chestnut-hair-source.png'),(iris,'brown-iris-neutral.png')]:
+    material_name.use_nodes=True;ns=material_name.node_tree.nodes;ls=material_name.node_tree.links;bs=ns.get('Principled BSDF');tx=ns.new('ShaderNodeTexImage');tx.image=bpy.data.images.load(str(Path(__file__).parent/'textures'/file_name));tx.image.pack();ls.new(tx.outputs['Color'],bs.inputs['Base Color']);bs.inputs['Roughness'].default_value=.45 if material_name==hairmat else .16
 rig.data.pose_position='POSE';bpy.context.preferences.filepaths.save_version=0
 bpy.ops.wm.save_as_mainfile(filepath=str(review/'rose-athlete.blend'))
 print('CANDIDATE_READY',len(positions),len(indices)//3,len(rest),flush=True)

@@ -6,10 +6,27 @@
   "skinSHA256": "b2a6ac8cd4f9febdb447368e29c76cd68410bb66e46d9dcfa2d5f75126eea8fc",
   "licenseRegister": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html",
   "styling": "Independently authored fitted colors, hair strands, pupils, trainers and laces; reference pixels not used",
-  "runtimeBytes": 1623372,
-  "vertices": 25471,
-  "triangles": 48296,
-  "textureSize": [1024, 1024],
+  "runtimeBytes": 1873254,
+  "vertices": 30146,
+  "triangles": 56112,
+  "textureSize": [
+    2048,
+    2048
+  ],
   "runtimeBones": 55,
-  "reviewStatus": "draft"
+  "reviewStatus": "draft",
+  "roughnessSize": [
+    512,
+    512
+  ],
+  "generatedTextures": {
+    "mode": "built-in image_gen",
+    "record": "TEXTURES.md",
+    "files": [
+      "textures/chestnut-hair-source.png",
+      "textures/brown-iris-neutral.png",
+      "textures/reference-face-uv.png"
+    ]
+  },
+  "coveredBustRefinement": true
 }

@@ -6,9 +6,9 @@ athlete draft directly and uses the same application renderer and exercise asset
 Selection lasts for that page session; no profile, plan or account data changes.
 The anatomical instructor remains the default in a fresh application session.
 
-The candidate has 25,471 vertices, 48,296 triangles, four influences per vertex,
-one skinned draw, one 1024 × 1024 color atlas, and no hair simulation. Geometry
-and texture total 1,623,372 bytes. This is an asset budget, not a measured mobile
+The candidate has 30,146 vertices, 56,112 triangles, four influences per vertex,
+one skinned draw, one 2048 × 2048 RGBA WebP atlas and a 512px roughness map, and no hair simulation. Geometry
+and texture total 1,873,254 bytes. This is an asset budget, not a measured mobile
 frame rate. Existing exercise equipment adds its own draws. The original body is
 loaded only when selected. At most two candidate bind fits are retained.
 
@@ -23,8 +23,8 @@ cloth. The anatomical model's muscle texture is not projected onto this model.
 The local build uses Blender 5.3 and the existing source scenes. From the app root:
 
 ```powershell
-& 'C:/Program Files/Blender Foundation/Blender 5.3/blender.exe' -b --python-exit-code 1 --python character-authoring/build_candidate.py -- 'C:/Passion/Strong Start' 'C:/Passion/Strong Start/output/realistic-character-review'
-python character-authoring/package_candidate.py 'C:/Passion/Strong Start/output/realistic-character-review'
+& 'C:/Program Files/Blender Foundation/Blender 5.3/blender.exe' -b --python-exit-code 1 --python character-authoring/build_candidate.py -- 'C:/Passion/Strong Start' 'C:/Passion/Strong Start/output/realistic-character-review-v2'
+python character-authoring/package_candidate.py 'C:/Passion/Strong Start/output/realistic-character-review-v2'
 node scripts/check-all-exercise-animations.mjs --prune
 node scripts/build-dev.mjs
 node scripts/test-character-models.cjs http://127.0.0.1:8742/exercise-guides/character-lab.html
@@ -38,8 +38,8 @@ The [official system assets register](https://static.makehumancommunity.org/asse
 records the CC0 graphical assets. Runtime attribution and distinctions from the
 separate anatomical model are in
 [`CHARACTER-NOTICES.html`](../exercise-guides/shared/CHARACTER-NOTICES.html).
-`rose-athlete.blend` is the self-contained editable output, with the color map
-packed. The runtime uses `characters.json` and two content-addressed assets.
+`rose-athlete-final.blend` is the self-contained editable output, with the color map
+packed. Run `finalize_source.py` in Blender after packaging to write the final source with the runtime atlas packed. The runtime uses `characters.json` and three content-addressed assets.
 
 Verification covers 12 representative movements at 1000, 390 and 320 pixels,
 model switching with identical bone/equipment matrices and paused time, finite
@@ -49,3 +49,11 @@ Front/back/side and press/support screenshots are retained locally. This is a
 first realistic-style character draft; it does not reproduce the reference's
 photorealism. Body/equipment fit and contacts require visual review. Physical
 phones, low-end performance and professional movement review remain unverified.
+
+The current reference-based head/hair and covered-bust change, source assets,
+mobile budget and desktop-proxy results are recorded in
+[the dated review](../docs/REFERENCE-CHARACTER-2026-11-13.md).
+[Texture sources and exact prompts](TEXTURES.md) identify built-in image generation
+separately from the actual rigged geometry. `reference_head.py` owns the head
+sculpt and economical ribbon geometry; `profile-character-mobile.cjs` records
+frame intervals without presenting them as physical-phone results.
