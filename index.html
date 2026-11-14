@@ -454,6 +454,16 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 }
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
+.today-plan-phase{border-top:1px solid var(--line);padding:14px 0 2px}
+.today-plan-phase:first-child{border-top:0;padding-top:0}
+.today-plan-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font:600 15px var(--body)}
+.today-plan-heading>span{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.today-plan-heading small{font:400 12px var(--body);color:var(--muted);white-space:nowrap}
+.today-plan-items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.today-plan-items b{display:block;font-size:14px;font-weight:600}
+.today-plan-items .skipped{opacity:.65}
+.today-plan-time{margin:10px 0 0}
+.today-location .where{margin:0}
 .today-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .today-len{display:inline-flex;align-items:center;gap:5px;flex:none;font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap}
 .today-len svg{color:var(--muted)}
@@ -872,6 +882,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.4.0",
+    "date": "2026-11-14",
+    "title": "Your full workout plan on Today",
+    "notes": ["Choose your training location above the workout card.", "Expand Show workout plan to see warm-up, exercises, optional cardio and cool-down in session order."]
+  },
   {
     "version": "0.3.2",
     "date": "2026-11-14",
@@ -5164,6 +5180,19 @@ function todayResumeNext(d,slots){
   if(!Object.values(d.sets||{}).flat().some(r=>r.done)) return 'Warm-up';
   const n=nextGroupStart(d,slots,-1); return n>=0?EX[slots[n].id].n:'Cool-down';
 }
+function renderTodayPlan(key, slots, draft, mins){
+  const d=draft||{key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}}, X=draft?draft._x||sessionExtras(d,slots):sessionExtras(d,slots);
+  const items=(group,list)=>`<ul class="today-plan-items">${list.map(it=>{
+    const sub=d.wsub?.[group+it.k], move=sub!=null&&it.alts?.[sub]?it.alts[sub]:it;
+    const skipped=!!d.wskip?.[group+it.k], done=!!d[group]?.[it.k];
+    return `<li${skipped?' class="skipped"':''}><b>${esc(move.t)}</b><span class="tiny muted">${esc(move.d)}${skipped?' · Skipped':done?' · Done':''}</span></li>`;
+  }).join('')}</ul>`;
+  const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${name}</span><small>${time}</small></h2>${body}</section>`;
+  return phase('Warm-up',`~${X.min} min`,items('warm',X.warm))
+    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots))
+    +(X.finisher?`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>Cardio <span class="chip acc">Optional</span></span><small>+${X.finisher.min} min</small></h2><div class="today-plan-items"><div><b>${esc(X.finisher.t)}</b><span class="tiny muted">${esc(X.finisher.d)}</span></div></div><p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p></section>`:'')
+    +phase('Cool-down',`${X.coolMin} min`,items('cool',X.cool));
+}
 function renderToday(){
   if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
   const w=weekNum(), L=PROGRAM.blockLen, keys=weekKeys(), wl=weekLogs(w);
@@ -5179,14 +5208,16 @@ function renderToday(){
     const count=(finished.entries||[]).length, recap=[finished.name,finished.dur!=null?finished.dur+' min':null,count?count+' exercise'+(count===1?'':'s'):null].filter(Boolean).join(' · ');
     h+=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
   } else if(restDay) h+=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
-  const mins=totalMinutes(mainKey), cardio=afterMin();
+  const mins=totalMinutes(mainKey);
+  const location=placeSwitch();
+  if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
   h+=`<section class="card stack today-workout"><div class="today-head"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div><h1>${esc(t.name)}</h1>
     <p class="muted" style="margin:0">${esc(t.focus)}</p>
-    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+esc(planned)}</span>${cardio>0?`<span>· + ${cardio} min cardio</span>`:''}</div>
-    ${placeSwitch()}${placeNote([mainKey])}
+    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+esc(planned)}</span></div>
+    ${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
-    <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide exercises':`Show ${slots.length} exercise${slots.length===1?'':'s'}`}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
-    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderPlanExercises(slots):''}</div>
+    <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
+    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderTodayPlan(mainKey,slots,draft,mins):''}</div>
     ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">${restDay?'Train today':'Start workout'}</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
   h+=cmCoachCard(true);
@@ -5202,7 +5233,7 @@ function renderToday(){
   reminders+=checkinCard(w)+addDayBanner(w);
   if(pendingQs().length) reminders+=`<section class="card row between"><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><button class="btn sm" data-action="cqopen">Answer</button></section>`;
   if(!coachMode && state.setup && state.setup.paused) reminders+=`<section class="card row between"><b>Finish setting up</b><button class="btn sm" data-action="suresume">Continue</button></section>`;
-  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>Tap Show exercises to look ahead, or Start workout when you’re ready.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
+  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>Tap Show workout plan to look ahead, or Start workout when you’re ready.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
   reminders+=hsCard();
   if(reminders) h+=`<section class="stack today-reminders" aria-label="Reminders">${reminders}</section>`;
   return h;
