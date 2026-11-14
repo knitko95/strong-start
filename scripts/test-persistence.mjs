@@ -278,10 +278,10 @@ await test('six-set path alternates sets and rests, preserves current while brow
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var pathPk=dSlots()[0].pk;state.draft.rampDone=99;
     state.draft.sets[pathPk]=Array.from({length:6},(_,i)=>({w:'40',r:'10',done:i<3}));state.draft.step={ph:'ex',pk:pathPk,i:3};`);
   const pk=h.run('pathPk'),out=h.run('renderFocus()');
-  assert.equal((out.match(/class="path-set /g)||[]).length,6);assert.equal((out.match(/class="path-rest /g)||[]).length,5);
+  assert.equal((out.match(/class="ledger-button /g)||[]).length,6);assert.equal((out.match(/class="ledger-rest"/g)||[]).length,5);
   assert.deepEqual([...out.matchAll(/data-path-id="([sr]\d+)"/g)].map(m=>m[1]),['s0','r0','s1','r1','s2','r2','s3','r3','s4','r4','s5']);
-  assert.match(out,/Show earlier sets/);assert.match(out,/Show later sets/);assert.doesNotMatch(out,/arest-link|Back to current/);
-  const path=h.run('workoutPath(state.draft,dSlots(),dSlots().find(s=>s.pk===pathPk))');assert.doesNotMatch(path,/<small|data-path-countdown|◷/);assert.equal((path.match(/class="path-clock"/g)||[]).length,5);assert.match(path,/, completed/);assert.match(path,/, current/);assert.match(path,/, remaining/);
+  assert.match(out,/class="set-ledger"/);assert.match(out,/Weight/);assert.match(out,/Reps/);assert.doesNotMatch(out,/arest-link|Back to current/);
+  const path=h.run('workoutPath(state.draft,dSlots(),dSlots().find(s=>s.pk===pathPk))');assert.equal((path.match(/class="ledger-rest"/g)||[]).length,5);assert.match(path,/, completed/);assert.match(path,/>Now</);assert.match(path,/>Done</);
   h.click('fset',{pk,i:'0'});assert.equal(h.run('state.draft.pathCurrent.i'),3);
   const edit=h.run('renderFocus()');assert.match(edit,/data-path-id="s3"[^>]*aria-current="step"/);assert.match(edit,/data-path-id="s0"[^>]*aria-pressed="true"/);
   h.click('fbump',{pk,i:'0',f:'r',dir:'1'});h.run(`state=JSON.parse(localStorage.getItem(LS)).state;`);h.click('fdone',{pk,i:'0'});
@@ -301,8 +301,8 @@ await test('path rest selection distinguishes a preview from another running res
 await test('paired set paths retain every A/B stop and unequal set counts',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};
     state.draft.sets[A]=Array.from({length:4},(_,i)=>({w:'20',r:'10',done:i<2}));state.draft.sets[B]=Array.from({length:2},()=>({w:'20',r:'10',done:true}));state.draft.step={ph:'ex',pk:A,i:2};`);
-  const out=h.run('renderFocus()');assert.equal((out.match(/class="path-set /g)||[]).length,6);assert.equal((out.match(/class="path-rest /g)||[]).length,3);
-  const path=out.slice(out.indexOf('class="workout-path"'));assert.doesNotMatch(path,/✓/);assert.match(path,/Set 4A/);assert.doesNotMatch(path,/Set 3B|Set 4B|Round/);
+  const out=h.run('renderFocus()');assert.equal((out.match(/class="ledger-button /g)||[]).length,6);assert.equal((out.match(/class="ledger-rest"/g)||[]).length,3);
+  const path=out.slice(out.indexOf('class="set-ledger"'));assert.doesNotMatch(path,/✓/);assert.match(path,/Go to set 4A/);assert.doesNotMatch(path,/Set 3B|Set 4B|Round/);
   assert.match(out,/data-path-id="s2a"[^>]*aria-current="step"/);
   h.click('fset',{pk:h.run('B'),i:'0'});h.click('fdone',{pk:h.run('B'),i:'0'});
   assert.equal(h.run('state.draft.step.pk'),h.run('A'));assert.equal(h.run('state.draft.step.i'),2);
@@ -311,7 +311,7 @@ await test('paired set paths retain every A/B stop and unequal set counts',()=>{
 await test('paired A/B timeline tracks completion independently and preserves rest while editing either move',()=>{
   const h=pairedWorkout();h.run(`startWorkout(K);state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};for(const pk of [A,B])state.draft.sets[pk]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));state.draft.step={ph:'ex',pk:A,i:0};`);
   const out=h.run('renderFocus()');assert.deepEqual([...out.matchAll(/data-path-id="([sr]\d+[ab]?)"/g)].map(m=>m[1]),['s0a','s0b','r0','s1a','s1b','r1','s2a','s2b']);assert.match(out,/<b>Set 1A <span>of 3/);assert.doesNotMatch(out,/pair-link|Paired exercises|<span>Round/);
-  h.click('fdone',{pk:h.run('A'),i:'0'});assert.equal(h.run('state.draft.step.pk'),h.run('B'));const b=h.run('renderFocus()');assert.match(b,/<b>Set 1B <span>of 3/);assert.match(b,/class="path-set done [^"]*"[^>]*data-path-id="s0a"/);assert.match(b,/data-path-id="s0b"[^>]*aria-current="step"/);assert.equal(h.run('state.draft.sets[B][0].done'),false);
+  h.click('fdone',{pk:h.run('A'),i:'0'});assert.equal(h.run('state.draft.step.pk'),h.run('B'));const b=h.run('renderFocus()');assert.match(b,/<b>Set 1B <span>of 3/);assert.match(b,/class="ledger-button done"[^>]*data-path-id="s0a"/);assert.match(b,/data-path-id="s0b"[^>]*aria-current="step"/);assert.equal(h.run('state.draft.sets[B][0].done'),false);
   h.click('fdone',{pk:h.run('B'),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');const end=h.run('ui.timer.end');
   for(const move of ['A','B']){h.click('fset',{pk:h.run(move),i:'0'});h.click('fbump',{pk:h.run(move),i:'0',f:'r',dir:'1'});h.click('fdone',{pk:h.run(move),i:'0'});assert.equal(h.run('state.draft.step.ph'),'rest');assert.equal(h.run('ui.timer.end'),end);}
   h.run(`state=JSON.parse(localStorage.getItem(LS)).state;ui.timer=null;fRestoreTimer();`);assert.equal(h.run('ui.timer.end'),end);assert.match(h.run('renderFocus()'),/data-path-id="r0"[^>]*aria-current="step"/);
@@ -375,7 +375,7 @@ await test('set navigation from rest and paired edit saving preserve completed r
 await test('rest link previews the planned duration without logging or starting a timer',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var restPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:restPk};`);
   const pk=h.run('restPk');
-  const out=h.run('renderFocus()'),sets=h.run('JSON.stringify(state.draft.sets)');assert.match(out,/class="workout-path"/);assert(out.indexOf('class="workout-path"')>out.indexOf('class="asteps"'));
+  const out=h.run('renderFocus()'),sets=h.run('JSON.stringify(state.draft.sets)');assert.match(out,/class="set-ledger"/);assert(out.indexOf('class="set-ledger"')>out.indexOf('class="asteps"'));
   const planned=h.run('fRestSeconds(dSlots()[0],dSlots())');h.click('frest',{pk});
   assert.equal(h.run('ui.timer'),null);assert.equal(h.run('state.draft.step.restPreview'),true);
   assert.match(h.run('renderFocus()'),/Start rest/);assert.match(h.run('renderFocus()'),new RegExp(h.run('mmss('+planned+')')));
@@ -673,7 +673,7 @@ await test('superset introduction preserves every set and stays acknowledged aft
   assert.equal(h.run('JSON.stringify(state.draft.sets)'),before);
   h.run(`const cached=JSON.parse(localStorage.getItem(LS));state=migrate(cached.state);`);
   assert.doesNotMatch(h.run('renderFocus()'),/Two moves, then rest/);
-  assert.match(h.run('renderFocus()'),/Paired set sequence/);
+  assert.match(h.run('renderFocus()'),/Paired sets: tap a row to edit/);
   assert.match(h.run('renderFocus()'),/>Log set<\/button>/);
   assert.equal(h.run('logs.length'),0);
 });
