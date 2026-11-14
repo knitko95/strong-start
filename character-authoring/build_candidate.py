@@ -224,8 +224,8 @@ principled.inputs['Subsurface Weight'].default_value=.035
 output=nodes.new('ShaderNodeOutputMaterial');links.new(texture_node.outputs['Color'],principled.inputs['Base Color']);links.new(principled.outputs[0],output.inputs[0])
 active(body);am=body.modifiers.new('Existing rig deformation','ARMATURE');am.object=rig;am.use_deform_preserve_volume=True
 # Pack the source strand/iris textures for an editable, self-contained scene.
-for material_name,file_name in [(hairmat,'chestnut-hair-source.png'),(iris,'brown-iris-neutral.png')]:
-    material_name.use_nodes=True;ns=material_name.node_tree.nodes;ls=material_name.node_tree.links;bs=ns.get('Principled BSDF');tx=ns.new('ShaderNodeTexImage');tx.image=bpy.data.images.load(str(Path(__file__).parent/'textures'/file_name));tx.image.pack();ls.new(tx.outputs['Color'],bs.inputs['Base Color']);bs.inputs['Roughness'].default_value=.45 if material_name==hairmat else .16
+for material_name,file_name in [(hairmat,'soft-chestnut-strands.png'),(iris,'brown-iris-neutral.png')]:
+    material_name.use_nodes=True;ns=material_name.node_tree.nodes;ls=material_name.node_tree.links;bs=ns.get('Principled BSDF');tx=ns.new('ShaderNodeTexImage');tx.image=bpy.data.images.load(str(Path(__file__).parent/'textures'/file_name));tx.image.pack();ls.new(tx.outputs['Color'],bs.inputs['Base Color']);ls.new(tx.outputs['Alpha'],bs.inputs['Alpha']);bs.inputs['Roughness'].default_value=.78 if material_name==hairmat else .16
 rig.data.pose_position='POSE';bpy.context.preferences.filepaths.save_version=0
 bpy.ops.wm.save_as_mainfile(filepath=str(review/'rose-athlete.blend'))
 print('CANDIDATE_READY',len(positions),len(indices)//3,len(rest),flush=True)

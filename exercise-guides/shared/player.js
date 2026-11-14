@@ -110,7 +110,7 @@ async function load(id,{force=false,preserve=false}={}){
   if(exerciseRoot)scene.remove(exerciseRoot);body.removeFromParent();for(const bone of bones.values()){bone.removeFromParent();bone.clear();}
   currentModel=candidate;body.geometry=candidate?fittedGeometry(candidate,data):anatomicalGeometry;
   if(!candidate)for(const [semantic,key] of Object.entries(data.bodyAttributes)){if(semantic==='index')body.geometry.setIndex(characterAttribute(key));else body.geometry.setAttribute(semantics[semantic],characterAttribute(key));}
-  if(bodyMaterial)bodyMaterial.dispose();roleMap=map;bodyMaterial=material(candidate?{alphaMode:'MASK',alphaCutoff:candidate.spec.alphaCutoff??.28,pbrMetallicRoughness:{metallicFactor:0,roughnessFactor:1},doubleSided:true}:bodyPart.material,candidate?.map||map);bodyMaterial.roughnessMap=candidate?.roughnessMap||null;bodyMaterial.alphaToCoverage=!!candidate;body.material=bodyMaterial;
+  if(bodyMaterial)bodyMaterial.dispose();roleMap=map;bodyMaterial=material(candidate?{alphaMode:'MASK',alphaCutoff:candidate.spec.alphaCutoff??.28,pbrMetallicRoughness:{metallicFactor:0,roughnessFactor:1},doubleSided:true}:bodyPart.material,candidate?.map||map);bodyMaterial.roughnessMap=candidate?.roughnessMap||null;bodyMaterial.alphaToCoverage=false;body.material=bodyMaterial;
   nodes=data.nodes.map((node,i)=>{
    const obj=i===data.bodyNode?body:node.bone?bones.get(node.name):new THREE.Group();obj.name=node.name||'node-'+i;transform(obj,node);
    if(!node.bone&&i!==data.bodyNode)for(const p of node.parts||[])obj.add(new THREE.Mesh(resolvedGeometry.get(p.geometry),propMaterial(p.material)));

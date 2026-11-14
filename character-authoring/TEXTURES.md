@@ -1,8 +1,10 @@
 # Texture assets and generation record
 
-The final selected sources are `textures/chestnut-hair-source.png`,
+The current selected sources are `textures/soft-chestnut-strands.png`,
 `textures/brown-iris-neutral.png` and `textures/reference-face-uv.png`.
-All were generated with the built-in `image_gen` tool on November 13, 2026.
+The face and iris were generated with the built-in `image_gen` tool on November
+13, 2026; the softer hair atlas was generated on November 14. The previous dense
+`textures/chestnut-hair-source.png` is retained as an earlier source.
 No API/CLI fallback was used. These are actual model texture inputs, not renders
 presented as a finished 3D model. Runtime delivery uses their UV-packed WebP atlas.
 
@@ -14,7 +16,21 @@ Standard UV packing, linear skin-color matching, opaque scalp filling, alpha-edg
 RGB dilation and WebP encoding are implemented in the authoring scripts. Hair
 alpha is retained; the RGB dilation avoids pale mipmap fringes.
 
-## Hair atlas prompt
+## Softer dense/sparse strand atlas — November 14
+
+Selected source: `textures/soft-chestnut-strands.png`.
+Built-in `image_gen` generate mode, true transparent background; no CLI/API fallback.
+Original output: `exec-81cb401c-e0ff-444c-ae2d-b627186139f6.png`.
+The alpha channel is preserved during RGB edge dilation and UV packing. The first
+four columns supply close crown/side/bun layers; columns five and six supply loose
+wisps and baby hairs. Separate narrow modelled filaments keep continuous strands
+visible after mipmapping. All geometry shares the existing head bone and draw.
+
+Exact prompt:
+
+Use case: photorealistic-natural. Asset type: technical PBR albedo and alpha hair-card texture atlas for a mobile 3D adult brunette character. Generate a square texture ONLY, with real transparent background. EXACTLY EIGHT evenly spaced vertical slots, each one eighth of the square width, with no fibers crossing between slots. First FOUR slots from left: softly separated medium-fine chestnut hair clumps, dense roots at the top 5%, fibers mainly vertical, upper 60% softly full, then individually separated long wispy ends. Last FOUR slots: very sparse bundles of 6 to 15 individual fine flyaway hairs, thin separated brown strands running vertically with slight organic waviness, lots of transparent space between fibers from root to tip. All strands run from near top to near bottom of their own slot. Root near top, tapered tips near bottom, transparent gutters on both sides. Natural muted dark-to-medium brown, very subtle color variation; keep tips equally brown, no bleached or light ends. Flat diffuse UNLIT texture, low contrast, no glossy streaks, no white edge outlines, no baked specular highlights, no background shadows. Fine photographic hair fibers rather than thick opaque ribbons. No head, scalp, face, person, accessories, text, guides, grid, border, watermark or checkerboard. Atlas viewed flat, not a hairstyle illustration.
+
+## Earlier dense hair atlas prompt
 
 Use case: photorealistic-natural. Asset type: technical hair-card texture atlas
 for a mobile 3D female character. Generate ONLY a square 1024x1024 texture atlas

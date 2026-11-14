@@ -6,9 +6,9 @@ athlete draft directly and uses the same application renderer and exercise asset
 Selection lasts for that page session; no profile, plan or account data changes.
 The anatomical instructor remains the default in a fresh application session.
 
-The candidate has 30,146 vertices, 56,112 triangles, four influences per vertex,
+The candidate has 32,353 vertices, 58,704 triangles, four influences per vertex,
 one skinned draw, one 2048 × 2048 RGBA WebP atlas and a 512px roughness map, and no hair simulation. Geometry
-and texture total 1,873,254 bytes. This is an asset budget, not a measured mobile
+and texture total 1,889,149 bytes. This is an asset budget, not a measured mobile
 frame rate. Existing exercise equipment adds its own draws. The original body is
 loaded only when selected. At most two candidate bind fits are retained.
 
@@ -23,8 +23,8 @@ cloth. The anatomical model's muscle texture is not projected onto this model.
 The local build uses Blender 5.3 and the existing source scenes. From the app root:
 
 ```powershell
-& 'C:/Program Files/Blender Foundation/Blender 5.3/blender.exe' -b --python-exit-code 1 --python character-authoring/build_candidate.py -- 'C:/Passion/Strong Start' 'C:/Passion/Strong Start/output/realistic-character-review-v2'
-python character-authoring/package_candidate.py 'C:/Passion/Strong Start/output/realistic-character-review-v2'
+& 'C:/Program Files/Blender Foundation/Blender 5.3/blender.exe' -b --python-exit-code 1 --python character-authoring/build_candidate.py -- 'C:/Passion/Strong Start' 'C:/Passion/Strong Start/output/realistic-character-review-v3'
+python character-authoring/package_candidate.py 'C:/Passion/Strong Start/output/realistic-character-review-v3'
 node scripts/check-all-exercise-animations.mjs --prune
 node scripts/build-dev.mjs
 node scripts/test-character-models.cjs http://127.0.0.1:8742/exercise-guides/character-lab.html
@@ -52,8 +52,14 @@ phones, low-end performance and professional movement review remain unverified.
 
 The current reference-based head/hair and covered-bust change, source assets,
 mobile budget and desktop-proxy results are recorded in
-[the dated review](../docs/REFERENCE-CHARACTER-2026-11-13.md).
+[the latest dated review](../docs/HAIR-SILHOUETTE-2026-11-14.md).
 [Texture sources and exact prompts](TEXTURES.md) identify built-in image generation
 separately from the actual rigged geometry. `reference_head.py` owns the head
 sculpt and economical ribbon geometry; `profile-character-mobile.cjs` records
 frame intervals without presenting them as physical-phone results.
+
+Blender MCP was used for the adjustable bust and initial loose-hair draft. The
+separate local `rose-athlete-mcp-edit.blend` retains that shape key; the final
+packed source is `output/realistic-character-review-v3/rose-athlete-final.blend`.
+All 55 bones remain unchanged. The final hair has 89 textured cards and 14 fine
+modelled filaments, consolidated into the existing single runtime draw.

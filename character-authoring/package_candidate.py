@@ -15,7 +15,7 @@ face=face_crop(body).resize((1024,1024),Image.Resampling.LANCZOS)
 face.save(review/'face-uv-template.png')
 face=Image.open(textures/'reference-face-uv.png').convert('RGBA').resize((1024,1024),Image.Resampling.LANCZOS)
 atlas.paste(face,(1024,0))
-hair_pixels=np.array(Image.open(textures/'chestnut-hair-source.png').convert('RGBA'))
+hair_pixels=np.array(Image.open(textures/'soft-chestnut-strands.png').convert('RGBA'))
 # Standard atlas alpha-edge color dilation prevents pale fringes after mipmap
 # filtering. Strand alpha is retained exactly; only hidden/partial RGB bleeds.
 opaque=hair_pixels[:,:,3]>220;nearest=distance_transform_edt(~opaque,return_distances=False,return_indices=True)
@@ -34,7 +34,7 @@ rough=Image.new('L',(512,512),round(.55*255));rdraw=ImageDraw.Draw(rough)
 br=Image.open(review/'body-rough.png').convert('L')
 rough.paste(br.resize((256,512),Image.Resampling.BILINEAR),(0,0))
 rough.paste(face_crop(br).resize((256,256),Image.Resampling.BILINEAR),(256,0))
-rdraw.rectangle((256,256,511,511),fill=round(.66*255));rdraw.rectangle((448,256,511,319),fill=round(.13*255))
+rdraw.rectangle((256,256,511,511),fill=round(.78*255));rdraw.rectangle((448,256,511,319),fill=round(.13*255))
 for i,c in enumerate(meta['paletteLinear']):
     draw.rectangle((1792,1280+i*24,2047,1280+(i+1)*24-1),fill=(*map(srgb,c),255))
     value=.66 if c[0]<.1 else .74
