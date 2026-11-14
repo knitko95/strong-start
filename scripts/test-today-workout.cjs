@@ -39,8 +39,12 @@ const server=http.createServer((req,res)=>{
   assert.equal(await page.locator('.today-workout > .row.small.muted').innerText(), 'Planned Today');
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),before,'expansion does not create a draft or save data');
   const rows=await exercises.locator('.slotrow').allTextContents();assert.ok(rows.length>0);
-  const planRows=await page.evaluate(()=>{ui.open={['plan-'+nextWorkoutKey()]:true};const doc=new DOMParser().parseFromString(renderPlan(),'text/html');return [...doc.querySelectorAll('.sec-body .slotrow')].map(e=>e.textContent);});
-  assert.deepEqual(rows,planRows,'same exercise targets as Plan');
+  assert.equal(await exercises.locator('.today-plan-heading svg').count(),4);
+  assert.equal(await exercises.locator('.chip.S,.chip.F,.chip.T').count(),0,'movement plane labels omitted from Today');
+  const expectedTargets=await page.evaluate(()=>sessionSlots(nextWorkoutKey()).map(s=>{const t=target(s),e=EX[s.id];return `${t.sets} sets × ${t.unit==='sec'?t.r:t.lo+'–'+t.hi} ${t.unit}${e.uni?' per side':''}`;}));
+  assert.deepEqual(await exercises.locator('.slotrow>div:nth-child(2)>.tiny.muted:last-child').allTextContents(),expectedTargets,'Today shows only sets and reps or timed targets');
+  const planRows=await page.evaluate(()=>{ui.open={['plan-'+nextWorkoutKey()]:true};const doc=new DOMParser().parseFromString(renderPlan(),'text/html');return [...doc.querySelectorAll('.sec-body [data-action="adjust"]')].map(e=>e.dataset.pk);});
+  assert.deepEqual(await exercises.locator('[data-action="adjust"]').evaluateAll(es=>es.map(e=>e.dataset.pk)),planRows,'same exercise slots as Plan');
   await page.evaluate(()=>{state.places.push({k:'home',n:'Home',eq:PLACE_TYPES.home.eq.split(' ')});render();});
   assert.equal(await page.locator('.today-workout .where').count(),0);
   assert.equal(await page.locator('.today-location + .today-workout').count(),1);

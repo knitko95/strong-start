@@ -459,6 +459,7 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-plan-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font:600 15px var(--body)}
 .today-plan-heading>span{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .today-plan-heading small{font:400 12px var(--body);color:var(--muted);white-space:nowrap}
+.today-plan-heading svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .today-plan-items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .today-plan-items b{display:block;font-size:14px;font-weight:600}
 .today-plan-items .skipped{opacity:.65}
@@ -882,6 +883,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.4.1",
+    "date": "2026-11-14",
+    "title": "Simpler Today plan details",
+    "notes": ["Workout plan sections have warm-up, exercise, cardio and cool-down icons.", "Exercise descriptions on Today show sets and reps or time, without movement-direction labels or suggested weights."]
+  },
   {
     "version": "0.4.0",
     "date": "2026-11-14",
@@ -3323,13 +3330,13 @@ function startWorkout(key){
   USAGE.capture('workout_started');
 }
 
-function renderPlanExercises(slots){
+function renderPlanExercises(slots, simple=false){
   const planes = {S:0,F:0,T:0}; slots.forEach(s=>planes[EX[s.id].pl]++);
-  return `<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>
+  return `${simple?'':`<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>`}
       <div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
         return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div style="font-weight:600">${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
-        <div class="tiny muted">${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}</div></div>
+        <div class="tiny muted">${simple?`${tg.sets} sets × ${tg.unit==='sec'?tg.r:tg.lo+'–'+tg.hi} ${tg.unit}${ex.uni?' per side':''}`:`${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}`}</div></div>
         <div class="row" style="flex-wrap:nowrap"><button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
 }
 
@@ -5187,10 +5194,17 @@ function renderTodayPlan(key, slots, draft, mins){
     const skipped=!!d.wskip?.[group+it.k], done=!!d[group]?.[it.k];
     return `<li${skipped?' class="skipped"':''}><b>${esc(move.t)}</b><span class="tiny muted">${esc(move.d)}${skipped?' · Skipped':done?' · Done':''}</span></li>`;
   }).join('')}</ul>`;
-  const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${name}</span><small>${time}</small></h2>${body}</section>`;
+  const icons={
+    'Warm-up':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    'Exercises':'<path d="M6.5 6.5v11M17.5 6.5v11M3 9.5v5M21 9.5v5M6.5 12h11"/>',
+    'Cardio':'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>',
+    'Cool-down':'<path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 0-3-3M4 16h9a3 3 0 1 1-3 3"/>'
+  };
+  const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
+  const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><small>${time}</small></h2>${body}</section>`;
   return phase('Warm-up',`~${X.min} min`,items('warm',X.warm))
-    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots))
-    +(X.finisher?`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>Cardio <span class="chip acc">Optional</span></span><small>+${X.finisher.min} min</small></h2><div class="today-plan-items"><div><b>${esc(X.finisher.t)}</b><span class="tiny muted">${esc(X.finisher.d)}</span></div></div><p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p></section>`:'')
+    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true))
+    +(X.finisher?`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>${icon('Cardio')}Cardio <span class="chip acc">Optional</span></span><small>+${X.finisher.min} min</small></h2><div class="today-plan-items"><div><b>${esc(X.finisher.t)}</b><span class="tiny muted">${esc(X.finisher.d)}</span></div></div><p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p></section>`:'')
     +phase('Cool-down',`${X.coolMin} min`,items('cool',X.cool));
 }
 function renderToday(){
