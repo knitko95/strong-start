@@ -2,6 +2,7 @@
 import {readFileSync as read,writeFileSync as write,existsSync,mkdirSync,copyFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';import {gzipSync} from 'node:zlib';import {fileURLToPath}from'node:url';import path from'node:path';
 import {Rig,T,V,Q,M,clone}from'./rig.mjs';import {pose}from'./poses.mjs';import {Equipment}from'./equipment.mjs';import {recipeList}from'./recipes.mjs';
+import {repairReviewedGrips}from'./repair-reviewed-grips.mjs';
 const here=path.dirname(fileURLToPath(import.meta.url)),root=path.dirname(here),out=path.join(root,'exercise-guides/shared');
 const load=p=>JSON.parse(read(p,'utf8')),save=(p,o)=>write(p,JSON.stringify(o,null,2)+'\n'),hash=b=>createHash('sha256').update(b).digest('hex');
 if(!existsSync(path.join(here,'accepted-manifest.json')))copyFileSync(path.join(out,'manifest.json'),path.join(here,'accepted-manifest.json'));
@@ -16,7 +17,7 @@ function jsonAsset(label,data){return asset(label,Buffer.from(JSON.stringify(dat
 function pack(label,arrays){let size=0;const descriptions={},parts=[];for(const [key,{array,width,componentType}]of Object.entries(arrays)){const b=Buffer.from(array.buffer,array.byteOffset,array.byteLength);descriptions[key]={componentType,size:width,count:array.length/width,normalized:false,offset:size,length:b.length};size+=b.length;parts.push(b);}return {asset:asset(label,gzipSync(Buffer.concat(parts),{level:9,mtime:0}),'bin.gz'),arrays:descriptions,decodedBytes:size};}
 if(!existsSync(path.join(here,'accepted-library.json')))copyFileSync(path.join(out,accepted.library.url),path.join(here,'accepted-library.json'));
 const library=load(path.join(here,'accepted-library.json'));const geometry={};
-const shapes={box:new T.BoxGeometry(1,1,1),cylinder:new T.CylinderGeometry(1,1,1,16,1,false),sphere:new T.SphereGeometry(1,24,16),torus:new T.TorusGeometry(1,.13,8,24),dome:new T.SphereGeometry(1,24,12,0,Math.PI*2,0,Math.PI/2)};
+const shapes={box:new T.BoxGeometry(1,1,1),cylinder:new T.CylinderGeometry(1,1,1,16,1,false),hex:new T.CylinderGeometry(1,1,1,6,1,false),sphere:new T.SphereGeometry(1,24,16),torus:new T.TorusGeometry(1,.13,8,24),dome:new T.SphereGeometry(1,24,12,0,Math.PI*2,0,Math.PI/2)};
 for(const [name,g]of Object.entries(shapes)){const arrays={};for(const [key,attr]of Object.entries({POSITION:g.attributes.position,NORMAL:g.attributes.normal,TEXCOORD_0:g.attributes.uv,index:g.index})){arrays[key]={array:attr.array,width:attr.itemSize,componentType:attr.array instanceof Float32Array?5126:attr.array instanceof Uint16Array?5123:5125};}const p=pack('shared-'+name,arrays),id='primitive-'+name;library.geometries[id]=p;geometry[name]=id;}
 const manifest={...clone(accepted),revision:'complete-exercise-drafts-2026-11-13',library:jsonAsset('library',library),enabledEnvironments:['development'],exercises:[]};
 const base=clone(setups.templates['dumbbell-romanian-deadlift'].clip);delete base.sourceSHA256;delete base.templateSourceSHA256;delete base.authoring;delete base.id;
@@ -32,7 +33,7 @@ function simplify(times,values,width,path){
  const indices=[...keep].sort((a,b)=>a-b);return {times:indices.map(i=>times[i]),values:indices.flatMap(i=>values.slice(i*width,i*width+width))};
 }
 for(const spec of recipes){
- const original=accepted.exercises.find(e=>e.id===spec.id);if(original){manifest.exercises.push({...original,category:'strength',reviewStatus:'previously-reviewed',enabledEnvironments:['development']});continue;}
+ const original=accepted.exercises.find(e=>e.id===spec.id);if(original){const repaired=repairReviewedGrips(original,{out,canonical:base,geometry,pack:(label,arrays)=>pack(label,arrays),jsonAsset});manifest.exercises.push({...repaired,category:'strength',reviewStatus:repaired.reviewStatus||'previously-reviewed',enabledEnvironments:['development']});continue;}
  const rig=new Rig(base),duration=spec.family==='getup'?14:/jump|medThrow/.test(spec.family)?5:spec.category==='cardio'?3.2:5;
  const count=Math.round(duration*20)+1,times=Array.from({length:count},(_,i)=>i/20),tracks=[],values=new Map(),arrays={};
  const first=pose(rig,spec,0),equipment=new Equipment(spec,rig,first,geometry,setups);equipment.sample(first,0);const props=clone(equipment.props),dynamic=new Set(equipment.dynamic.map(e=>e.i));

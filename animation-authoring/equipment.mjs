@@ -11,7 +11,7 @@ export class Equipment{
  sphere(name,p,size,kind='ball'){return this.add(name,'sphere',p,size,kind);}
  line(name,a,b,radius=.025,kind='metal',dynamic=null){const d=b.clone().sub(a);const i=this.add(name,'cylinder',a.clone().add(b).multiplyScalar(.5),V(radius,d.length(),radius),kind,Q().setFromUnitVectors(V(0,1,0),d.normalize()));if(dynamic)this.dynamic.push({i,fn:dynamic,type:'line',radius});return i;}
  animate(i,fn){this.dynamic.push({i,fn,type:'matrix'});}
- socket(side){return this.rig.palmPoint(side);}
+ socket(side){return this.rig.gripPoint(side);}
  build(setups){
   const s=this.spec,n=s.name.toLowerCase(),f=s.family,m=this.meta,eq=new Set(s.eq);const both=fn=>{for(const [side,sign]of [['l',1],['r',-1]])if(!s.unilateral||side==='l')fn(side,sign);};
   const grip=side=>this.socket(side),center=()=>grip('l').add(grip('r')).multiplyScalar(.5);
@@ -54,7 +54,9 @@ export class Equipment{
    const width=/close-grip/.test(n)?1.45:1.80;
    this.line('Reusable barbell shaft',V(-width/2,0,0),V(width/2,0,0),.014,'chrome',()=>{const p=position();return [p.clone().add(V(-width/2,0,0)),p.clone().add(V(width/2,0,0))];});
    for(const sign of [-1,1]){
-    const plate=this.add('Reusable barbell plate','cylinder',V(),V(.18,.055,.18),'rubber',Q().setFromAxisAngle(V(0,0,1),Math.PI/2));this.animate(plate,()=>M().compose(position().add(V(sign*.68,0,0)),Q().setFromAxisAngle(V(0,0,1),Math.PI/2),V(.18,.055,.18)));
+    const radius=/conventional|sumo|pendlay/.test(n)?.22:.18;
+    const plate=this.add('Reusable barbell plate','cylinder',V(),V(radius,.055,radius),'rubber',Q().setFromAxisAngle(V(0,0,1),Math.PI/2));this.animate(plate,()=>M().compose(position().add(V(sign*.68,0,0)),Q().setFromAxisAngle(V(0,0,1),Math.PI/2),V(radius,.055,radius)));
+    const collar=this.add('Barbell safety collar','cylinder',V(),V(.025,.035,.025),'chrome');this.animate(collar,()=>M().compose(position().add(V(sign*.727,0,0)),Q().setFromAxisAngle(V(0,0,1),Math.PI/2),V(.025,.035,.025)));
    }
   };
   if(eq.has('bb')&&!eq.has('lm')&&!/inverted|rollout|trap bar/.test(n))bar();

@@ -320,7 +320,9 @@ export function pose(r,s,t){
   if(!hand[side]){const shoulder=r.point('upperarm_'+side);hand[side]=shoulder.clone().add(V(sign*.07,-.47,.035));}
   // Unilateral demos keep the non-working arm quiet; supports and asymmetrical poses retain explicit targets.
   if(un&&side==='r'&&s.category==='strength'&&!meta.handModes?.r&&['standingPress','overhead','raise','curl','pulldown'].includes(f))hand[side]=r.point('upperarm_'+side).add(V(-.07,-.47,.02));
-  meta[side]=r.arm(side,hand[side],pole[side]||V(sign,-.3,.1),grip);
+  const bend=meta.explicitArmHinge?(pole[side]||V(sign,-.3,.1)):r.bendPole(side,hand[side]);let handGrip=meta.grips?.[side]||grip;
+  if(s.eq.includes('db')&&['bar','underhand'].includes(handGrip)){const sh=r.point('upperarm_'+side),[el,end]=r.solve(sh,hand[side],r.length('upperarm_'+side,'lowerarm_'+side),r.length('lowerarm_'+side,'hand_'+side),bend),fore=end.clone().sub(el).normalize(),axis=r.gripAxis(side,handGrip,fore);handGrip=axis.addScaledVector(fore,-axis.dot(fore)).normalize();}
+  meta[side]=r.arm(side,hand[side],bend,handGrip);
  });
  finishPose(r,s,t,meta,corrected);
  meta.floor=floor;meta.bench=bench;meta.seated=seated;meta.prone=prone;meta.hip=hip;meta.pitch=pitch;meta.yaw=yaw;meta.grip=grip;

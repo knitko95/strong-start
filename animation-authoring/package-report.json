@@ -4,13 +4,13 @@
   "namedGuideEntries": 92,
   "previouslyAuthored": 18,
   "newClips": 428,
-  "reachableAssets": 1137,
-  "assetBytes": 23981131,
+  "reachableAssets": 1173,
+  "assetBytes": 26945416,
   "characterBytes": 5610566,
-  "motionBytes": 3605696,
-  "configBytes": 5386110,
-  "motionMinimum": 201,
-  "motionMaximum": 55236,
-  "tracks": 17363,
-  "unusedRemoved": 0
+  "motionBytes": 4573762,
+  "configBytes": 6063965,
+  "motionMinimum": 199,
+  "motionMaximum": 61328,
+  "tracks": 19235,
+  "unusedRemoved": 16
 }

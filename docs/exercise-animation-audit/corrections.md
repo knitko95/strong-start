@@ -1,5 +1,7 @@
 # Animation corrections for test-app review
 
+Historical engineering pass. The later [detailed form, grip and joint-motion review](form-detail.md) supersedes broad technique-clearance implications below; these original results remain an evidence snapshot.
+
 November 13, 2026. This is the correction candidate following the [frozen 296-entry audit](README.md). The original audit findings and counts remain historical; they have not been overwritten with automatic pass labels.
 
 The candidate addresses the 193 correction-required entries, reviews all 40 closer-review entries and adds the missing matching air-bike model. The 62 entries with no additional sampled discrepancy were included in the recheck. Every candidate remains an owner-review draft. The [per-finding and per-exercise record](corrections.json) retains each original finding ID, source URL, correction and candidate scene hash. It also records source-variant differences rather than silently clearing them.

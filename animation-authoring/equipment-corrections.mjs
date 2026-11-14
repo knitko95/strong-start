@@ -12,6 +12,9 @@ export function refineEquipment(e,setups){
  const post=(x,z,height=2.14)=>{box('Rated station post',V(x,height/2,z),V(.055,height,.055));box('Station stabilizer',V(x,.03,z),V(.40,.06,.50));};
  const pad=(name,p,size,angle=0)=>box(name,p,size,'pad',angle);
  const dumbbell=(position,rotation=()=>Q())=>{moving('Rigid dumbbell shaft','cylinder',V(.014,.17,.014),'chrome',position,(m,t)=>rotation(m,t).clone().multiply(Q().setFromAxisAngle(V(0,0,1),Math.PI/2)));for(const k of [-1,1])moving('Rigid dumbbell head','cylinder',V(.065,.065,.065),'rubber',(m,t)=>position(m,t).add(V(k*.105,0,0).applyQuaternion(rotation(m,t))),rotation);};
+ if(eq.has('db')&&!/pullover|russian twist|overhead triceps|hip thrust|glute bridge|dumbbell leg curl/.test(n)){
+  remove(/^Dumbbell /);each(ss=>{const axis=m=>m[ss].axis.clone(),p=()=>grip(ss);line('Grasped dumbbell handle',m=>p().addScaledVector(axis(m),-.085),m=>p().addScaledVector(axis(m),.085),.014,'chrome');for(const k of [-1,1])moving('Grasped dumbbell hex head','hex',V(.065,.065,.065),'rubber',m=>p().addScaledVector(axis(m),k*.11),m=>Q().setFromUnitVectors(V(0,1,0),axis(m)));});
+ }
  // Benches use one correctly oriented load surface rather than a reversed slab.
  if(f==='inclinePress'){remove(/Reusable bench pad|Bench frame|Bench floor foot/);pad('Incline seat',V(0,.43,.10),V(.30,.07,.32));pad('Incline backrest',V(0,.61,-.42),V(.30,.07,.94),30);for(const z of [.08,-.63])box('Bench support',V(0,.22,z),V(.08,.44,.08));}
  if(e.meta.wallPlane!==undefined){remove(/Open support wall|Support wall rail/);const z=e.meta.wallPlane,side=e.meta.wallAxis==='x',i=box('Support wall contact panel',side?V(z,.95,0):V(0,.95,z),side?V(.025,1.9,1.10):V(1.10,1.9,.025),'pad');const mat=e.props[i].parts[0].material;mat.alphaMode='BLEND';mat.pbrMetallicRoughness.baseColorFactor=[.35,.44,.43,.20];}
@@ -27,11 +30,11 @@ export function refineEquipment(e,setups){
  if(eq.has('cb')){
   remove(/Shared station|Station foot|Station top|Weight stack|^Cable$|Cable handle/);
   const rear=/press|bayesian|pull-through|kickback/.test(n)&&!/pallof/.test(n),side=/pallof|rotation|woodchop|woodchop|lift|hip ab|hip ad/.test(n),high=/pulldown|pushdown|crunch|high.to.low|overhead.*triceps/.test(n),low=/curl|lateral raise|low.to.high|pull-through|glute kick|hip ab|hip ad/.test(n);
-  const z=rear?-.85:side?.10:.95,height=high?1.95:low?.12:1.22,one=/rope|face pull|woodchop|lift|pallof|crunch|pull-through|triceps extension|trunk rotation|lat pulldown/.test(n)||s.unilateral;
+  const z=rear?-.85:side?.10:.95,height=n==='half-kneeling single-arm cable press'?.88:high?1.95:low?.12:1.22,one=/rope|face pull|woodchop|lift|pallof|crunch|pull-through|triceps extension|trunk rotation|lat pulldown/.test(n)||s.unilateral;
   const anchors=one?[V(side?.76:0,height,z)]:[V(.55,height,z),V(-.55,height,z)];
   for(const anchor of anchors){post(anchor.x,anchor.z);e.add('Working cable pulley','torus',anchor,V(.055,.055,.055),'chrome',Q().setFromAxisAngle(V(0,1,0),Math.PI/2));box('Cable weight stack',V(anchor.x,.55,anchor.z+.13),V(.20,.90,.18),'rubber');line('Stack return cable',()=>anchor,()=>V(anchor.x,.90,anchor.z+.13),.004,'chrome');}
   const cuff=/leg curl|hip abduction|hip adduction|glute kickback/.test(n);
-  const endpoint=()=>cuff?r.point('foot_l').add(V(0,.04,0)):one?center():grip('l');
+  const endpoint=()=>cuff?r.point('foot_l').add(V(0,.04,0)):s.unilateral?grip('l'):one?center():grip('l');
   if(one){line('Working cable',()=>anchors[0],endpoint,.004,'chrome');}
   else each((ss,k)=>line('Working cable',()=>anchors[k>0?0:1],()=>grip(ss),.004,'chrome'));
   if(cuff){moving('Fitted ankle cuff','torus',V(.055,.055,.055),'pad',endpoint,()=>r.rotation('foot_l'));}
@@ -49,6 +52,7 @@ export function refineEquipment(e,setups){
  if(eq.has('lm')){
   remove(/Landmine/);const lm=e.meta.landmine;box('Anchored landmine base',lm.pivot.clone().setY(.025),V(.26,.05,.26),'rubber');
   const end=m=>m.landmine.end,p=m=>m.landmine.pivot,dir=m=>end(m).clone().sub(p(m)).normalize();line('Rigid landmine shaft',p,end,.019,'chrome');
+  line('Landmine loading sleeve',m=>end(m).clone().addScaledVector(dir(m),-.36),end,.026,'chrome');
   moving('Landmine load plate','cylinder',V(.17,.055,.17),'rubber',m=>end(m).clone().addScaledVector(dir(m),-.23),m=>Q().setFromUnitVectors(V(0,1,0),dir(m)));
  }
  if(e.meta.bodyBar){remove(/Reusable barbell/);line('Body-supported squat shaft',m=>m.bodyBar.clone().add(V(-.90,0,0)),m=>m.bodyBar.clone().add(V(.90,0,0)),.014,'chrome');for(const k of [-1,1])roller('Squat load plate',m=>m.bodyBar.clone().add(V(k*.72,0,0)),.045,.18);}
@@ -58,9 +62,12 @@ export function refineEquipment(e,setups){
   box('Machine floor frame',V(0,.035,-.05),V(.90,.07,1.05));post(-.50,-.30,1.7);post(.50,-.30,1.7);
   if(e.meta.levers){for(const ss of Object.keys(e.meta.levers)){
    const pivot=m=>m.levers[ss].pivot,end=m=>m.levers[ss].end;
-   line('Rigid pivoting machine arm',pivot,end,.027,'metal');moving('Lever bearing','sphere',V(.06,.06,.06),'chrome',pivot);line('Machine handle',m=>end(m).clone().add(V(-.055,0,0)),m=>end(m).clone().add(V(.055,0,0)),.016,'rubber');
+   line('Rigid pivoting machine arm',pivot,end,.027,'metal');moving('Lever bearing','sphere',V(.06,.06,.06),'chrome',pivot);line('Machine handle',m=>end(m).clone().addScaledVector(m[ss].axis,-.055),m=>end(m).clone().addScaledVector(m[ss].axis,.055),.016,'rubber');
    moving('Lever resistance plate','cylinder',V(.16,.04,.16),'rubber',m=>pivot(m).clone().lerp(end(m),.22),()=>Q().setFromAxisAngle(V(0,0,1),Math.PI/2));
   }}
+  if(e.meta.padLevers)for(const ss of Object.keys(e.meta.padLevers)){
+   const p=m=>m.padLevers[ss];line('Lateral-raise shoulder-pivot lever',m=>p(m).pivot,m=>p(m).end,.025);moving('Lateral-raise upper-arm contact pad','box',V(.075,.17,.18),'pad',m=>p(m).end,m=>Q().setFromAxisAngle(V(0,0,1),p(m).angle));line('Lateral-raise handle support',m=>p(m).end,()=>grip(ss),.016,'metal');line('Lateral-raise hand grip',m=>grip(ss).addScaledVector(m[ss].axis,-.055),m=>grip(ss).addScaledVector(m[ss].axis,.055),.014,'rubber');
+  }
   if(f==='pulldown'){roller('Lever pulldown thigh restraint',()=>V(0,.59,.25));pad('Lever pulldown chest support',V(0,.90,.16),V(.28,.28,.08));}
   if(f==='legPress'){
    remove(/Shared seat|Shared back|Seat frame|Leg press/);pad('Leg press seat',V(0,.33,-.26),V(.42,.08,.36));pad('Leg press supported back',V(0,.65,-.39),V(.42,.72,.07),-25);
@@ -72,6 +79,7 @@ export function refineEquipment(e,setups){
    if(/seated/.test(n))roller('Thigh hold-down',()=>V(0,.59,.22));
    each((ss,k)=>{const pivot=m=>m.kneePivots?.[ss]?.clone().setX(k*.28)||r.point('calf_'+ss),ankle=m=>(m.kneePivots?.[ss]?.clone()||r.point('calf_'+ss)).lerp(r.point('foot_'+ss),.90).setX(k*.28);line('Rigid knee machine lever',pivot,ankle,.025,'metal');roller('Fitted lower-leg roller',ankle,s.unilateral?.24:.28,.055);});
   }
+  if(['legPress','legCurl','legExtension','hipMachine','calf'].includes(f))each(ss=>{const p=grip(ss),axis=e.meta[ss].axis.clone();e.line('Machine side safety grip',p.clone().addScaledVector(axis,-.065),p.clone().addScaledVector(axis,.065),.016,'rubber');});
   if(f==='hipMachine')each((ss,k)=>{const inside=/adduction/.test(n)?-1:1;moving('Fitted knee contact pad','box',V(.065,.16,.13),'pad',()=>r.point('calf_'+ss).add(V(k*.065*inside,0,0)));line('Hip pad swing arm',()=>r.point('thigh_'+ss),()=>r.point('calf_'+ss),.024);moving('Hip machine foot support','box',V(.19,.025,.18),'rubber',()=>r.point('foot_'+ss).add(V(0,-.06,0)));});
   if(/calf raise machine/.test(n)){pad('Calf forefoot platform',V(0,.025,.15),V(.55,.05,.16));for(const k of [-1,1])moving('Loaded calf shoulder pad','box',V(.15,.10,.27),'pad',m=>m.hip.clone().add(V(k*.20,.47,0)));}
   if(e.meta.ghd){remove(/Knee support|Heel anchor/);pad('GHD rounded knee pad',V(0,.60,.05),V(.53,.24,.40));pad('GHD footplate',V(0,.65,-.55),V(.50,.42,.07));roller('GHD ankle restraint',()=>V(0,.60,-.46));}
@@ -82,29 +90,37 @@ export function refineEquipment(e,setups){
  if(eq.has('kb')){
   remove(/Shared .*kettlebell/);
   const shared=/goblet|halo|swing/.test(n),around=/around-the-world/.test(n),list=shared||around?['l']:s.unilateral||/windmill/.test(n)?['l']:['l','r'];
-  for(const ss of list){const pos=(m,t)=>around?grip(Math.cos(2*Math.PI*t)>=0?'l':'r'):shared?center():grip(ss),direction=(m,t)=>/bottoms-up/.test(n)?V(0,1,0):/rack|overhead|press|windmill|snatch/.test(n)?V(ss==='l'?.45:-.45,-.30,-.84).normalize():f==='swing'?V(0,-Math.cos(rad(80*phase(t))),Math.sin(rad(80*phase(t)))):V(0,-1,0),rotation=(m,t)=>Q().setFromUnitVectors(V(0,-1,0),direction(m,t));
-   moving('Rigid kettlebell handle','torus',V(.065,.065,.065),'chrome',(m,t)=>pos(m,t).addScaledVector(direction(m,t),.015),rotation);
-   moving('Rigid kettlebell body','sphere',V(.085,.085,.085),'rubber',(m,t)=>pos(m,t).addScaledVector(direction(m,t),.12),rotation);
+  for(const ss of list){const pos=(m,t)=>around?grip(Math.cos(2*Math.PI*t)>=0?'l':'r'):shared?center():grip(ss),direction=(m,t)=>/bottoms-up/.test(n)?V(0,1,0):/rack|overhead|press|windmill|snatch/.test(n)?r.handFrames[ss].z.clone().transformDirection(r.world(r.ids['hand_'+ss])).multiplyScalar(-.7).addScaledVector(r.point('hand_'+ss).sub(r.point('lowerarm_'+ss)).normalize(),-.7).normalize():f==='swing'?V(0,-Math.cos(rad(80*phase(t))),Math.sin(rad(80*phase(t)))):V(0,-1,0);
+   if(shared&&/halo|goblet/.test(n)){
+    const up=m=>m.l.axis;for(const side of ['l','r'])line('Grasped kettlebell horn',m=>grip(side).addScaledVector(up(m),-.065),m=>grip(side).addScaledVector(up(m),.065),.014,'chrome');line('Kettlebell handle crown',m=>grip('l').addScaledVector(up(m),.065),m=>grip('r').addScaledVector(up(m),.065),.014,'chrome');
+   }else{
+    const axis=(m,t)=>shared?V(1,0,0):m[around?(Math.cos(2*Math.PI*t)>=0?'l':'r'):ss].axis;
+    line('Grasped kettlebell crossbar',(m,t)=>pos(m,t).addScaledVector(axis(m,t),-.075),(m,t)=>pos(m,t).addScaledVector(axis(m,t),.075),.014,'chrome');for(const k of [-1,1])line('Kettlebell handle side',(m,t)=>pos(m,t).addScaledVector(axis(m,t),k*.075),(m,t)=>pos(m,t).addScaledVector(axis(m,t),k*.065).addScaledVector(direction(m,t),.11),.014,'chrome');
+   }
+   moving('Rigid kettlebell body','sphere',V(.085,.085,.085),'rubber',(m,t)=>pos(m,t).addScaledVector(shared&&/halo|goblet/.test(n)?m.l.axis.clone().negate():direction(m,t),shared&&/halo|goblet/.test(n)?.12:.15));
   }
  }
  if(eq.has('pl')){
   remove(/Shared grip plate/);const pinch=/pinch/.test(n),sides=pinch?['l','r']:['l'];
-  for(const ss of sides){const p=()=>pinch?grip(ss).add(V(0,-.16,0)):center();moving('Rigid rim-gripped plate','cylinder',V(.18,.035,.18),'rubber',p,()=>Q().setFromAxisAngle(V(1,0,0),Math.PI/2));}
+  for(const ss of sides){const p=()=>pinch?grip(ss).add(V(0,-.16,0)):center();moving('Rigid rim-gripped plate','cylinder',V(.18,.035,.18),'rubber',p,m=>pinch?Q().setFromAxisAngle(V(1,0,0),Math.PI/2):Q().setFromUnitVectors(V(0,1,0),grip('l').sub(grip('r')).normalize().cross(m.l.axis).normalize()));}
  }
  if(eq.has('db')&&/pullover|russian twist|overhead triceps|hip thrust|glute bridge/.test(n)){
   remove(/Dumbbell |Two-hand dumbbell|Hip dumbbell/);const endHeld=/pullover|overhead triceps/.test(n);dumbbell(()=>/hip thrust|glute bridge/.test(n)?r.point('pelvis').add(V(0,.10,0)):center().add(V(0,endHeld?-.10:0,0)),()=>endHeld?Q().setFromAxisAngle(V(0,0,1),Math.PI/2):Q());
  }
  if(f==='bridge'&&(eq.has('bb')||eq.has('db')))moving('Hip load cushion','box',V(.42,.075,.15),'pad',()=>r.point('pelvis').add(V(0,.055,0)));
  if(eq.has('trx')){
-  remove(/Reusable suspension|Suspension handle/);post(-.7,.67,2.14);post(.7,.67,2.14);e.line('Suspension anchor beam',V(-.7,2.14,.67),V(.7,2.14,.67),.028);
+  remove(/Reusable suspension|Suspension handle/);
+  if(e.meta.singleSuspension){const a=e.meta.singleSuspension.anchor;post(a.x,a.z,2.14);line('Single-mode suspension strap',m=>m.singleSuspension.anchor,m=>m.singleSuspension.join,.008,'band');line('Single-mode two-hand grip',m=>m.singleSuspension.center.clone().add(V(0,-.08,0)),m=>m.singleSuspension.center.clone().add(V(0,.08,0)),.014,'rubber');line('Locked handle webbing',m=>m.singleSuspension.join,m=>m.singleSuspension.center,.012,'band');}
+  else {const z=Object.values(e.meta.suspension||{})[0]?.anchor.z??.67;post(-.7,z,2.14);post(.7,z,2.14);e.line('Suspension anchor beam',V(-.7,2.14,z),V(.7,2.14,z),.028);}
   for(const ss of Object.keys(e.meta.suspension||{})){const a=m=>m.suspension[ss].anchor,endpoint=m=>a(m).clone().add((m.suspension[ss].feet?r.point('foot_'+ss):grip(ss)).clone().sub(a(m)).setLength(m.suspension[ss].length));
-   line('Fixed-length suspension strap',a,endpoint,.008,'band');if(e.meta.suspension[ss].feet){moving('Suspension foot cradle','torus',V(.075,.035,.10),'band',endpoint,()=>r.rotation('foot_'+ss));}else line('Suspension hand grip',m=>endpoint(m).clone().add(V(-.055,0,0)),m=>endpoint(m).clone().add(V(.055,0,0)),.014,'rubber');
+   line('Fixed-length suspension strap',a,endpoint,.008,'band');if(e.meta.suspension[ss].feet){moving('Suspension foot cradle','torus',V(.075,.035,.10),'band',endpoint,()=>r.rotation('foot_'+ss));}else line('Suspension hand grip',m=>endpoint(m).clone().addScaledVector(m[ss].axis,-.055),m=>endpoint(m).clone().addScaledVector(m[ss].axis,.055),.014,'rubber');
   }
  }
  if(n==='inverted row'){
   remove(/Reusable suspension|Suspension handle/);for(const k of [-1,1])post(k*.6,.36,1.05);e.line('Fixed inverted-row bar',V(-.6,1.05,.36),V(.6,1.05,.36),.016,'chrome');
  }
  if(n==='neutral-grip pull-up')for(const k of [-1,1])e.line('Parallel neutral handle',V(k*.34,1.91,-.04),V(k*.34,1.91,.17),.016,'rubber');
+ if(['pullup','hanging'].includes(f)){remove(/^Pull-up bar$/);e.line('Fitted overhead bar',V(-.63,1.91,.04),V(.63,1.91,.04),.019,'chrome');}
  if(eq.has('abwheel')||n==='barbell rollout'){
   remove(/Reusable rollout|Ab wheel handle/);const radius=.12,p=()=>center().setY(radius),positions=n==='barbell rollout'?[-.5,.5]:[0];
   for(const x of positions)roller('Ground-contact rolling plate',()=>p().add(V(x,0,0)),.055,radius);line('Rollout axle',()=>p().add(V(-.60,0,0)),()=>p().add(V(.60,0,0)),.014,'chrome');

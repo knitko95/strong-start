@@ -21,7 +21,19 @@ for(const e of manifest.exercises){
  for(const [key,d]of Object.entries(packed.arrays)){assert.equal(d.componentType,5126);assert.equal(d.length,d.count*d.size*4);assert(d.offset+d.length<=buf.length);const vals=Array.from({length:d.length/4},(_,i)=>buf.readFloatLE(d.offset+i*4));assert(vals.every(Number.isFinite),e.id+' non-finite samples');arrays[key]=vals;}
  assert(c.tracks.length);for(const t of c.tracks){assert(nodes[t.node]);assert(['translation','rotation','scale'].includes(t.path));const times=arrays[t.input],values=arrays[t.output],size=t.path==='rotation'?4:3;assert.equal(values.length,times.length*size);assert(times.every((n,i)=>n>=0&&(i===0||n>times[i-1])));if(t.path==='rotation')for(let i=0;i<values.length;i+=4)assert(Math.abs(Math.hypot(...values.slice(i,i+4))-1)<.00001,e.id+' quaternion norm');tracks++;}
 }
-for(const e of original.exercises)assert.deepEqual(byId.get(e.id).scene,e.scene,'Reviewed clip changed: '+e.id);
+// Retain source assets for deterministic repairs of the earlier reviewed clips.
+// Their body animation is immutable here; open fingers and implements are not
+// grandfathered in as correct technique merely because a scene was accepted.
+for(const e of original.exercises){const old=JSON.parse(asset(e.scene));deps(old);const next=JSON.parse(asset(byId.get(e.id).scene));if(e.scene.sha256===byId.get(e.id).scene.sha256)continue;
+ assert.equal(next.authoring.originalSceneSHA256,e.scene.sha256,e.id+' repair source');
+ const digit=n=>/^(index|middle|ring|pinky|thumb)_/.test(n.name);
+ for(let i=0;i<old.nodes.length;i++)if(old.nodes[i].bone&&!digit(old.nodes[i]))assert.deepEqual(next.nodes[i],old.nodes[i],e.id+' changed original body node');
+ const oldBuf=gunzipSync(asset(old.animation.asset)),newBuf=gunzipSync(asset(next.animation.asset));
+ for(const track of old.tracks)if(old.nodes[track.node].bone&&!digit(old.nodes[track.node])){
+  assert(next.tracks.some(t=>JSON.stringify(t)===JSON.stringify(track)),e.id+' changed original body track');
+  for(const key of [track.input,track.output]){const a=old.animation.arrays[key],b=next.animation.arrays[key];assert.deepEqual(newBuf.subarray(b.offset,b.offset+b.length),oldBuf.subarray(a.offset,a.offset+a.length),e.id+' changed original body samples');}
+ }
+}
 const unused=readdirSync(path.join(directory,'assets')).filter(n=>!reached.has('assets/'+n));
 if(process.argv.includes('--prune'))for(const n of unused){const file=path.resolve(directory,'assets',n),base=path.resolve(directory,'assets')+path.sep;assert(file.startsWith(base)&&lstatSync(file).isFile());unlinkSync(file);}
 const report={exercises:byId.size,strength:catalogue.exercises.length,namedGuideEntries:catalogue.moves.length,previouslyAuthored:original.exercises.length,newClips,reachableAssets:reached.size,assetBytes:[...checked.values()].reduce((n,b)=>n+b.length,0),characterBytes:library.character.asset.bytes,motionBytes,configBytes,motionMinimum:Math.min(...motionSizes),motionMaximum:Math.max(...motionSizes),tracks,unusedRemoved:process.argv.includes('--prune')?unused.length:0};

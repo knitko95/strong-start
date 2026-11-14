@@ -1,5 +1,6 @@
 // Reference-guided targets. Distances are authoring geometry, not clinical limits.
 import {V,Q,M,rad,T} from './rig.mjs';
+import {detailTargets,detailPose} from './detailed-form.mjs';
 const mix=T.MathUtils.lerp,clamp=T.MathUtils.clamp,phase=t=>{const u=t<.5?t*2:(1-t)*2;return u*u*(3-2*u);};
 export function correctTargets(r,s,t,o,meta){
  const n=s.name.toLowerCase(),f=s.family,q=phase(t),a=t*Math.PI*2;
@@ -123,8 +124,8 @@ export function correctTargets(r,s,t,o,meta){
  if(s.eq.includes('mc')&&['seatedPress','overhead','raise','fly','rearFly','seatedRow','pushdown','curl','pulldown'].includes(f)){
   meta.levers={};each((ss,k)=>{if(s.unilateral&&ss==='r')return;let p=V(k*.35,1.35,-.02),v=V(k*.01,-.36,.18),axis=V(1,0,0),angle=-45*q;
    if(f==='overhead'){p=V(k*.30,1.06,-.10);v=V(k*.01,.12,.36);angle=-60*q;}
-   if(f==='seatedPress'&&/incline/.test(n)){p=V(k*.31,1.26,-.16);v=V(k*.01,-.30,.14);angle=-55*q;}
-   if(f==='pulldown'){p=V(k*.36,1.08,-.10);v=V(k*.01,.38,.14);angle=65*q;}
+   if(f==='seatedPress'){p.x=k*.31;v.z=.23;if(/incline/.test(n)){p=V(k*.31,1.26,-.16);v=V(k*.01,-.30,.19);angle=-55*q;}}
+   if(f==='pulldown'){p=V(k*.33,1.08,-.10);v=V(k*.01,.38,.14);angle=65*q;}
    if(f==='raise'){p=V(k*.164,.98,0);v=V(k*.09,-.42,0);axis=V(0,0,1);angle=k*80*q;}
    if(f==='fly'){p=V(k*.10,.97,-.08);v=V(k*.38,0,.05);axis=V(0,1,0);angle=-k*70*q;}
    if(f==='rearFly'){p=V(k*.10,.98,.08);v=V(k*.08,0,.40);axis=V(0,1,0);angle=k*75*q;}
@@ -134,7 +135,7 @@ export function correctTargets(r,s,t,o,meta){
    const len=v.length();hand[ss]=p.clone().add(v.applyAxisAngle(axis,rad(angle)));meta.levers[ss]={pivot:p,length:len,end:hand[ss].clone()};});
  }
  if(s.eq.includes('lm')){
-  const p=V(0,.05,1.34),len=/row/.test(n)?1.65:1.75;meta.landmine={pivot:p,length:len};const target=s.unilateral?hand.l:hand.l.clone().add(hand.r).multiplyScalar(.5);if(/rainbow/.test(n))target.y=Math.max(target.y,hip.y+.12);const end=target.clone().sub(p).setLength(len).add(p);const delta=end.clone().sub(target);hand.l.add(delta);if(!s.unilateral)hand.r.add(delta);meta.landmine.end=end;
+  const p=V(0,.05,/single-leg.*romanian/.test(n)?1.80:1.34),len=/row/.test(n)?1.65:1.75;meta.landmine={pivot:p,length:len};const target=s.unilateral?hand.l:hand.l.clone().add(hand.r).multiplyScalar(.5);if(/rainbow/.test(n))target.y=Math.max(target.y,hip.y+.12);const end=target.clone().sub(p).setLength(len).add(p);const delta=end.clone().sub(target);hand.l.add(delta);if(!s.unilateral)hand.r.add(delta);meta.landmine.end=end;
  }
  if(/smith/.test(n)){meta.smithZ=/bench/.test(n)?-.47:/split/.test(n)?-.065:-.04;each(ss=>hand[ss].z=meta.smithZ);}
  if(s.eq.includes('trx')){
@@ -172,7 +173,7 @@ export function correctTargets(r,s,t,o,meta){
  if(f==='carry'&&/sled/.test(n)){hands(.28,1.08,.64);meta.handModes={};meta.close={l:1,r:1};}
  if(f==='legSwing'){meta.supportPost=V(-.44,1.23,.10);hand.r=V(-.44,1.23,.10);if(/side to side/.test(n)){const u=Math.sin(4*Math.PI*t);feet.l=t<.5?V(.17,.074+.16*Math.abs(u),.025+.35*u):V(.17+.30*u,.074+.12*Math.abs(u),.025);footPitch.l=t<.5?-25*u:0;}}
  if(f==='cycle'&&/air/.test(n)){meta.close={l:1,r:1};meta.levers={};each((ss,k)=>{const pivot=V(k*.27,.38,.40),z=.47+k*.10*Math.sin(a);hand[ss]=V(k*.27,.38+Math.sqrt(.70**2-(z-.40)**2),z);meta.levers[ss]={pivot,length:.70,end:hand[ss].clone()};});}
- return reviewedTargets(r,s,t,o,meta);
+ return detailTargets(r,s,t,reviewedTargets(r,s,t,o,meta),meta);
 }
 // Second-pass source/configuration review: use connected body lines and fitted
 // support surfaces, rather than allowing IK to hide an unreachable setup.
@@ -295,22 +296,22 @@ function reviewedThrow(s,t,o,meta){
  }
  meta.ballPath=ball;meta.release=held?0:1;meta.close={l:held?.25:0,r:held?.25:0};meta.footYaw={l:o.yaw*.75,r:o.yaw*.75};
  for(const [ss,k]of [['l',1],['r',-1]])o.hand[ss]=targets.clone().add(shot&&ss==='l'?V(0,0,-.115):V(k*.08,0,-.09));
- if(shot&&u>.18&&u<.79)o.hand.r.lerp(V(-.18,1.22,.15),clamp((u-.18)/.12,0,1));
- meta.graspTargets=held?{l:o.hand.l.clone(),r:o.hand.r.clone()}:{};
- if(shot&&u>.18&&u<.79)delete meta.graspTargets.r;
+ if(shot&&u>.18&&u<.79)o.hand.r.lerp(V(-.18,1.22,.15),clamp((u-.18)/.12,0,1)*(1-clamp((u-.67)/.12,0,1)));
+ meta.graspTargets={l:o.hand.l.clone(),r:o.hand.r.clone()};
 }
 function eqMachine(s){return s.eq.includes('mc');}
 export function finishPose(r,s,t,meta,o){
- const socket=ss=>r.palmPoint(ss);
+ const socket=ss=>r.gripPoint(ss);
  for(const ss of ['l','r']){
   let target=meta.graspTargets?.[ss]?.clone()||meta.levers?.[ss]?.end?.clone();
-  if(meta.landmine&&(!s.unilateral||ss==='l'))target=meta.landmine.end.clone().add(V(s.unilateral?0:ss==='l'?.055:-.055,0,0));
+  const sleeve=meta.landmine?.end.clone().sub(meta.landmine.pivot).normalize(),landmineRow=/row/i.test(s.name);
+  if(meta.landmine&&(!s.unilateral||ss==='l'))target=meta.landmine.end.clone().add(landmineRow?V(s.unilateral?0:ss==='l'?.055:-.055,0,0):sleeve.clone().multiplyScalar(s.unilateral?-.045:ss==='l'?-.04:-.12));
   if(meta.suspension?.[ss]&&!meta.suspension[ss].feet){const a=meta.suspension[ss];target=o.hand[ss].clone();}
   if(meta.smithZ!==undefined)target=socket(ss).setZ(meta.smithZ);
   if(meta.fixedBar)target=socket(ss).setY(meta.fixedBar.y).setZ(meta.fixedBar.z);
   if(s.family==='bridge'&&s.eq.some(x=>['bb','db'].includes(x)))target=r.point('pelvis').add(V(ss==='l'?.16:-.16,.10,0));
   if(target&&meta.smithZ!==undefined)target.z=meta.smithZ;
-  if(target)meta[ss]=r.grasp(ss,target,o.pole[ss]||V(ss==='l'?1:-1,-.3,.1),o.grip);
+  if(target){const shelf=meta.bodyBar&&/back squat|box squat|good morning/i.test(s.name),endCup=meta.landmine&&!landmineRow&&!/single-leg.*romanian/i.test(s.name);if(endCup){const k=ss==='l'?1:-1,radial=V(1,0,0).addScaledVector(sleeve,-sleeve.x).normalize();target=meta.landmine.end.clone().addScaledVector(radial,s.unilateral?0:k*.032);meta[ss]=r.cup(ss,target,sleeve.clone().multiplyScalar(-.2).addScaledVector(radial,-k*.95));}else meta[ss]=r.grasp(ss,target,o.pole[ss]||V(ss==='l'?1:-1,-.3,.1),meta.landmine&&!landmineRow?sleeve:shelf?V(1,0,0):meta.grips?.[ss]||o.grip);if(meta.landmine)meta.landmineContacts={...meta.landmineContacts,[ss]:target};}
  }
  // Pose-specific palms keep their surface tangent to the loaded support.
  for(const ss of ['l','r']){const mode=meta.handModes?.[ss];if(!mode)continue;let target=o.hand[ss]?.clone();if(!target)continue;
@@ -318,7 +319,7 @@ export function finishPose(r,s,t,meta,o){
    const sh=r.point('upperarm_'+ss),el=V(sh.x,meta.forearm?.height??.047,meta.forearm?.z??.443);target=el.clone().add(V(0,0,r.length('lowerarm_'+ss,'hand_'+ss)));meta[ss]=r.arm(ss,target,el.clone().sub(sh),'bar',V(0,0,1));
   }else if(mode==='palm'||mode==='wall'||mode==='wallSide'){const direction=mode==='wall'?V(0,1,0):mode==='wallSide'?V(0,0,-1):V(0,0,1);meta[ss]=r.arm(ss,target.addScaledVector(direction,-.04),o.pole[ss]||V(ss==='l'?1:-1,0,-1),'bar',direction);}
   else if(mode==='grip')meta[ss]=r.grasp(ss,target,o.pole[ss]||V(ss==='l'?1:-1,0,-1),o.grip);
-  else if(mode==='rack')meta[ss]=r.arm(ss,target.add(V(0,-.04,0)),V(0,0,1),'underhand',V(0,1,0));
+  else if(mode==='rack'){const scale=r.scales[r.ids['hand_'+ss]].y;meta[ss]=r.arm(ss,target.add(V(0,-.022*scale,-.076*scale)),V(0,0,1),'underhand',V(0,0,1));}
  }
  if(meta.gripTurn!==undefined){for(const ss of ['l','r']){const fore=r.point('hand_'+ss).sub(r.point('lowerarm_'+ss)).normalize(),rot=Q().setFromAxisAngle(fore,meta.gripTurn);r.orient('hand_'+ss,r.point('hand_'+ss),rot.multiply(r.rotation('hand_'+ss)));meta[ss].axis.applyQuaternion(Q().setFromAxisAngle(fore,meta.gripTurn));}}
  if(meta.wristStretch!==undefined){r.orient('hand_l',r.point('hand_l'),Q().setFromAxisAngle(V(1,0,0),meta.wristStretch).multiply(r.rotation('hand_l')));}
@@ -326,5 +327,6 @@ export function finishPose(r,s,t,meta,o){
  if(s.family==='deadbug'||s.family==='figure4'||s.family==='flatPress'&&/floor/i.test(s.name)){const p=r.point('head');p.y=.112;r.orient('head',p,r.rotation('head'));}
  if(meta.backContact){const p=r.point('head');p.y=/thrust|glute drive/i.test(s.name)?.586:.112;r.orient('head',p,r.rotation('head'));}
  if(meta.kneeHug){const {side,amount}=meta.kneeHug,knee=r.point('calf_'+side);for(const [ss,k]of [['l',1],['r',-1]]){const target=o.hand[ss].clone().lerp(knee.clone().add(V(k*.055,.015,.055)),amount);meta[ss]=r.grasp(ss,target,V(k,0,1),'neutral');}}
+ detailPose(r,s,t,meta,o);
  r.closeHands(meta.close);
 }
