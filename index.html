@@ -454,6 +454,9 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 }
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
+.today-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.today-len{display:inline-flex;align-items:center;gap:5px;flex:none;font-size:14px;font-weight:700;color:var(--ink);white-space:nowrap}
+.today-len svg{color:var(--muted)}
 .today-exercises-toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:44px;border:0;border-top:1px solid var(--line);padding:6px 0 0;background:none;color:var(--accent);font-weight:600;text-align:left}
 .today-exercises .slotrow.mrow3{grid-template-columns:38px minmax(0,1fr);gap:8px}
 .today-exercises .slotrow.mrow3>div:last-child{grid-column:2}
@@ -869,6 +872,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.3.2",
+    "date": "2026-11-14",
+    "title": "Workout length in the corner",
+    "notes": ["Today's workout card shows the workout length in its top-right corner."]
+  },
   {
     "version": "0.3.1",
     "date": "2026-11-13",
@@ -5170,9 +5179,10 @@ function renderToday(){
     const count=(finished.entries||[]).length, recap=[finished.name,finished.dur!=null?finished.dur+' min':null,count?count+' exercise'+(count===1?'':'s'):null].filter(Boolean).join(' · ');
     h+=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
   } else if(restDay) h+=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
-  h+=`<section class="card stack today-workout"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><h1>${esc(t.name)}</h1>
+  const mins=totalMinutes(mainKey), cardio=afterMin();
+  h+=`<section class="card stack today-workout"><div class="today-head"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div><h1>${esc(t.name)}</h1>
     <p class="muted" style="margin:0">${esc(t.focus)}</p>
-    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):esc(lenText(mainKey))}</span>${draft?'':`<span>· ${isFlex()?'Any day':'Planned '+planned}</span>`}</div>
+    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+esc(planned)}</span>${cardio>0?`<span>· + ${cardio} min cardio</span>`:''}</div>
     ${placeSwitch()}${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
     <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide exercises':`Show ${slots.length} exercise${slots.length===1?'':'s'}`}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
