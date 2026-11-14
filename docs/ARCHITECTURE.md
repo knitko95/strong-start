@@ -211,6 +211,31 @@ Timed preparation uses `mode:ready,end:null`. `gPrepareMove()` sends untimed rep
 
 ## Database structure
 
+### Today preparation edits on dev (November 14, 2026)
+
+`state.prep` is an additive map keyed by program number, workout key and training
+place. Each entry stores optional cardio minutes and movement overrides keyed
+by phase plus generated movement key. Overrides retain the generated base name,
+an available alternative name, inclusion, and optional reps or movement seconds.
+`applyPrepExtras()` applies an override only when its base still matches and its
+choice remains available; equipment/preferences changes cannot inject an
+unavailable move. `migrate()` initializes missing maps without resetting plans,
+logs or drafts; the state remains v6 with the same local storage keys.
+
+`startWorkout()` copies these preferences into `draft.prep`; later plan edits
+cannot change that started session. `sessionExtras()` applies the snapshot to
+the actual guide and lighter sets. Timed overrides scale movement segments while
+preserving side-switch gaps and labels. The grouped Today overview hides the
+individual movements until Edit. Strength targets retain Adjust/Swap and gain
+right-aligned primary muscle groups from the existing anatomy map.
+
+Editor saves validate whole-number targets, account/state/session ownership and
+available choices. Completed movements, timer checkpoints and the active started
+movement are locked. Editing upcoming movements preserves the guide's current
+item by key when its list changes. `save()` retains existing local/cloud ownership
+guards; coach preview has no preparation edit capability. Preparation settings
+are not added to `planCode()` or coach delivery. No database migration is needed.
+
 The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
 
 | Table | Key/data | Purpose |

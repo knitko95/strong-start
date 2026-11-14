@@ -460,6 +460,16 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-plan-heading>span{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .today-plan-heading small{font:400 12px var(--body);color:var(--muted);white-space:nowrap}
 .today-plan-heading svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.today-exercise-name{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.today-exercise-name>span:first-child{min-width:0}
+.today-muscle{flex:none;max-width:45%;white-space:normal;text-align:right;border-radius:6px;padding:2px 7px;background:var(--accent-soft);color:var(--accent);font-size:12px;font-weight:600}
+.today-plan-group{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.today-plan-group>div{min-width:0}
+.today-plan-group b{display:block;font-size:14px;font-weight:600}
+.today-plan-group .tiny{display:block;margin-top:3px}
+.today-plan-group>.btn{flex:none;white-space:nowrap}
+.prep-edit-row{border-top:1px solid var(--line);padding-top:14px;display:grid;gap:10px}
+.prep-edit-row select,.prep-edit-row input{width:100%;min-height:44px;font-size:16px}
 .today-plan-items{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .today-plan-items b{display:block;font-size:14px;font-weight:600}
 .today-plan-items .skipped{opacity:.65}
@@ -883,6 +893,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.5.0",
+    "date": "2026-11-14",
+    "title": "Editable workout preparation",
+    "notes": ["Main muscle labels sit beside exercise names on Today.", "Warm-up and cool-down show compact groups with Edit controls for movement choices, inclusion, reps and time.", "Preparation edits save for each workout and location and carry into the workout. Started movements keep their saved progress."]
+  },
   {
     "version": "0.4.1",
     "date": "2026-11-14",
@@ -1875,7 +1891,7 @@ let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', li
 function dayStart(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
 function defaults(){
   return {v:6, weightUnits:'lb', settings:{units:'lb', days:[1,3,5], mins:45, bw:null, name:'', age:null, gender:'', color:'blush', goals:[], level:'start', comfort:'machines', pain:[]},
-    places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, weekModes:{}, draft:null, levelDismiss:null,
+    places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, prep:{}, weekModes:{}, draft:null, levelDismiss:null,
     weigh:{on:false, day:1, hide:false, list:[]}, coach:{note:''}, checkin:null, easeExtra:0, updatedAt:0};
 }
 function loadLocal(){
@@ -2164,7 +2180,7 @@ function estMinutes(key){ return Math.round(liftSec(sessionSlots(key))/60); }
 // Real start-to-finish: warm-up + lifting + cool-down (optional cardio after is shown separately)
 function coolFit(slots){ const B=budget(), short=(B.lift*60-liftSec(slots))/60; const ew=short>=3?Math.min(2,Math.floor(short/3)):0, es=short>=4?Math.min(3,Math.floor((short-ew)/1.5)):0;
   return {cw:B.cw+ew, st:B.st+es, min:B.cool+ew+es}; }
-function totalMinutes(key){ const b=budget(), sl=sessionSlots(key); return b.warm+Math.round(liftSec(sl)/60)+coolFit(sl).min; }
+function totalMinutes(key){const sl=sessionSlots(key),X=sessionExtras({key,place:state.curPlace},sl);return X.min+Math.round(liftSec(sl)/60)+X.coolMin;}
 function afterMin(){ const cs=(typeof cSet==='function'&&cSet())||{}; return cs.after!=null ? cs.after : cAfterDefault(); }
 function lenText(key){ const a=afterMin(); return `~${totalMinutes(key)} min${a>0?` + ${a} min cardio`:''}`; }
 
@@ -3319,6 +3335,7 @@ function resumePartial(){
 function startWorkout(key){
   const w=weekNum();
   state.draft = {key, week:Math.min(w,PROGRAM.blockLen), block:state.block.n, mode:splitN(), place:curPlace().k, startedAt:Date.now(), warm:{}, cool:{}, sets:{}, planCounts:{}, subs:{}, feel:{}};
+  state.draft.prep=JSON.parse(JSON.stringify(savedPrep(key,curPlace().k)));
   for(const s of sessionSlots(key)){
     const t=target(s);
     state.draft.planned=state.draft.planned||{}; state.draft.planned[s.pk]=usesLoad(t.ex)?(t.w ?? t.sug ?? null):null;
@@ -3330,12 +3347,16 @@ function startWorkout(key){
   USAGE.capture('workout_started');
 }
 
+function mainMuscleLabel(id){
+  const groups={front_delts:'Shoulders',side_delts:'Shoulders',rear_delts:'Shoulders',traps:'Back',upper_back:'Back',lats:'Back',lower_back:'Lower back',abs:'Core',obliques:'Core',hip_flexors:'Hip flexors',abductors:'Glutes',adductors:'Inner thighs'};
+  return [...new Set((EXM[id]?.p||[]).map(m=>groups[m]||MUSCLES[m]).filter(Boolean))].join(' · ');
+}
 function renderPlanExercises(slots, simple=false){
   const planes = {S:0,F:0,T:0}; slots.forEach(s=>planes[EX[s.id].pl]++);
   return `${simple?'':`<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>`}
       <div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
-        return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div style="font-weight:600">${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
+        return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div ${simple?'class="today-exercise-name"':'style="font-weight:600"'}><span>${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</span>${simple?`<span class="today-muscle" aria-label="Main muscles: ${esc(mainMuscleLabel(ex.id))}">${esc(mainMuscleLabel(ex.id))}</span>`:''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
         <div class="tiny muted">${simple?`${tg.sets} sets × ${tg.unit==='sec'?tg.r:tg.lo+'–'+tg.hi} ${tg.unit}${ex.uni?' per side':''}`:`${SLOT_NAMES[s.cfg.s]} · ${s.cfg.sets} × ${tg.lo}–${tg.hi} ${tg.unit}${ex.uni?' per side':''} · ${usesLoad(ex)?(tg.w!=null?fmtW(tg.w):tg.sug!=null?'start ~'+fmtW(tg.sug):'start light'):ex.mode==='P'?'quick and springy':'target '+tg.r}`}</div></div>
         <div class="row" style="flex-wrap:nowrap"><button class="btn sm ghost" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="btn sm" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
 }
@@ -3924,7 +3945,7 @@ function sessionExtras(d, slots){
   if(first){ const tg=target(first), w=tg.w??tg.sug, ex=EX[first.id];
     const n=rampN(), plan = n===1 ? [[0.6,6]] : n===2 ? [[0.5,8],[0.75,4]] : [[0.5,5],[0.7,3],[0.85,1]];
     plan.forEach(([f,r],i)=>warm.push({k:'r'+i, t:`Ramp-up set ${i+1}: ${ex.n}`, d: w ? `${fmtW(snap(ex, (kgU()?w*2.2046:w)*f))} × ${r}` : `${Math.round(f*100)}% of your working weight × ${r}`, ramp:true})); }
-  const cs=cSet()||{}, D = d.cmin!=null ? d.cmin : (cs.after!=null ? cs.after : cAfterDefault()); const finisher = D>0 ? cAfterItem(d.key,eq,D) : null;
+  const cs=cSet()||{}, prep=d.prep||savedPrep(d.key,d.place), D = d.cmin!=null ? d.cmin : prep.cardioMin!=null?prep.cardioMin:(cs.after!=null ? cs.after : cAfterDefault()); const finisher = D>0 ? cAfterItem(d.key,eq,D) : null;
   const CF=coolFit(slots), walk=pickList(COOL_WALK,eq).map(x=>({...x, d:x.d.replace('3–5 min',CF.cw+' min')})); cool.push({k:'w', t:walk[0].t, d:walk[0].d, alts:walk.slice(1)});
   const worked={}; slots.forEach(s=>{ const m=EXM[s.id]; if(!m) return; m.p.forEach(x=>worked[x]=(worked[x]||0)+2); m.s.forEach(x=>worked[x]=(worked[x]||0)+1); });
   // Foam roll: name the exact spots from what was trained (owner's pick, Nov 9)
@@ -3937,10 +3958,10 @@ function sessionExtras(d, slots){
   else if(eq.has('mball') && ball.length) cool.push({k:'foam', t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.', alts:[]});
   const hasRoll=cool.some(x=>x.k==='foam'), seen=new Set(), str=STRETCH_BY_MUSCLE.filter(([m])=>worked[m]).sort((a,b)=>worked[b[0]]-worked[a[0]]).filter(([,t])=>!seen.has(t)&&seen.add(t)).slice(0, CF.st+(hasRoll?0:1));
   str.forEach(([m,t,dd],i)=>cool.push({k:'s'+i, t, d:dd, stretch:true}));
-  return {warm, cool, finisher, min:Math.round(cw.phases.reduce((t,x)=>t+x.sec,0)/60 + warm.filter(x=>!x.ramp&&x.k!=='c').length*0.75), coolMin:CF.min, rampPk: first?first.pk:null};
+  return applyPrepExtras({warm, cool, finisher, min:Math.round(cw.phases.reduce((t,x)=>t+x.sec,0)/60 + warm.filter(x=>!x.ramp&&x.k!=='c').length*0.75), coolMin:CF.min, rampPk: first?first.pk:null},prep);
 }
 function xRow(group, it, d){
-  const sub=(d.wsub||{})[group+it.k], cur = sub!=null && it.alts && it.alts[sub] ? it.alts[sub] : it, skip=(d.wskip||{})[group+it.k], done=d[group][it.k];
+  const sub=(d.wsub||{})[group+it.k], cur = sub!=null && it.alts && it.alts[sub] ? it.alts[sub] : it, skip=it.prepSkipped||(d.wskip||{})[group+it.k], done=d[group][it.k];
   const id=`${group}-${it.k}`;
   return `<div class="check xrow ${skip?'skipped':''}"><input type="checkbox" id="${id}" data-check="${group}" data-k="${it.k}" ${done?'checked':''} ${skip?'disabled':''}>
     <label for="${id}"><b>${esc(cur.t)}</b>${cur.d?`<span class="xd muted">${esc(cur.d)}</span>`:''}</label>
@@ -4229,7 +4250,7 @@ function renderFocus(){
       ${aFoot(`<button class="btn primary fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button>`)}</div>`;
   }
   // lighter warm-up sets before the first lift
-  if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp).length) return renderRamp(d,s,X);
+  if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp&&!x.prepSkipped).length) return renderRamp(d,s,X);
   // exercise screen
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
   const cur=sets[kk],lastTxt=workoutSetHint(tg);
@@ -4658,6 +4679,7 @@ function cAction(a,b){
 // Turns an item's description into timed segments. Rep-based items return {timer:false} and get a Done button.
 const cap1 = s => s ? s.charAt(0).toUpperCase()+s.slice(1) : s;
 function segsFor(it){
+  if(it.prepSegments)return {timer:true,segs:it.prepSegments.segs.map(s=>({...s})),gap:it.prepSegments.gap,gapLabel:it.prepSegments.gapLabel};
   if(it.phases) return {timer:true, segs:it.phases.map(p=>({...p})), gap:0};
   const d=(it.d||'').trim(); let m;
   if(it.k==='foam'){
@@ -4687,10 +4709,10 @@ function segsFor(it){
 function gItems(ph){
   const d=state.draft, X=d._x || sessionExtras(d,dSlots()), wsub=d.wsub||{}, wskip=d.wskip||{};
   const cur=(g,it)=>{ const i=wsub[g+it.k]; return i!=null && it.alts && it.alts[i] ? {...it, ...it.alts[i], k:it.k, alts:it.alts} : it; };
-  if(ph==='warm') return X.warm.filter(it=>!it.ramp && !wskip['warm'+it.k]).map(it=>({...cur('warm',it), g:'warm'}));
+  if(ph==='warm') return X.warm.filter(it=>!it.ramp && !it.prepSkipped && !wskip['warm'+it.k]).map(it=>({...cur('warm',it), g:'warm'}));
   const list=[];
-  if(X.finisher && d.guide && d.guide.fin==='yes' && !wskip['cool'+X.finisher.k]) list.push({...cur('cool',X.finisher), g:'cool', fin:true});
-  X.cool.filter(it=>!wskip['cool'+it.k]).forEach(it=>list.push({...cur('cool',it), g:'cool'}));
+  if(X.finisher && !X.finisher.prepSkipped && d.guide && d.guide.fin==='yes' && !wskip['cool'+X.finisher.k]) list.push({...cur('cool',X.finisher), g:'cool', fin:true});
+  X.cool.filter(it=>!it.prepSkipped&&!wskip['cool'+it.k]).forEach(it=>list.push({...cur('cool',it), g:'cool'}));
   return list;
 }
 function gPrepareMove(G,items=gItems(G.ph)){
@@ -4699,8 +4721,8 @@ function gPrepareMove(G,items=gItems(G.ph)){
 }
 function gStart(ph){
   const d=state.draft, X=d._x||sessionExtras(d,dSlots());
-  d.guide={ph, i:0, s:0, mode:'ready', end:null, positions:{}, fin: ph==='cool' && X.finisher ? null : 'no'};
-  if(ph==='cool' && X.finisher) d.guide.mode='finq';
+  d.guide={ph, i:0, s:0, mode:'ready', end:null, positions:{}, fin: ph==='cool' && X.finisher&&!X.finisher.prepSkipped ? null : 'no'};
+  if(ph==='cool' && X.finisher&&!X.finisher.prepSkipped) d.guide.mode='finq';
   else {const i=gItems(ph).findIndex(it=>!d[it.g]?.[it.k]);if(i>=0)d.guide.i=i;gPrepareMove(d.guide);}
 }
 function beepShort(){ tone(660,.18,.15); }
@@ -5086,13 +5108,13 @@ function rampSet(d,s,k){
   d.rampSets=d.rampSets||{};
   const rows=d.rampSets[key]=d.rampSets[key]||[];
   if(!rows[k]){
-    const r=d._x.warm.filter(x=>x.ramp)[k], m=(r?.d||'').match(/^([\d.]+) (?:lb|kg) × \d+$/);
+    const r=d._x.warm.filter(x=>x.ramp&&!x.prepSkipped)[k], m=(r?.d||'').match(/^([\d.]+) (?:lb|kg) × \d+$/);
     rows[k]={w:m?m[1]:''};
   }
   return rows[k];
 }
 function renderRamp(d,s,X){
-  const ramps=X.warm.filter(x=>x.ramp), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
+  const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
   const m=(r.d||'').match(/^(.*?) × (\d+)$/), row=rampSet(d,s,k);
   const each=(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   return `<div class="focus">${fTop(d,dSlots(),`Warm-up set ${k+1} of ${ramps.length}`)}
@@ -5187,12 +5209,109 @@ function todayResumeNext(d,slots){
   if(!Object.values(d.sets||{}).flat().some(r=>r.done)) return 'Warm-up';
   const n=nextGroupStart(d,slots,-1); return n>=0?EX[slots[n].id].n:'Cool-down';
 }
+function prepKey(key,place){return `${state.block?.n||0}:${key}:${place||state.curPlace||homeBase()}`;}
+function savedPrep(key,place){return state.prep?.[prepKey(key,place)]||{items:{}};}
+function prepBuckets(X){return [
+  {id:'warm-cardio',name:'Warm-up cardio',group:'warm',items:X.warm.filter(x=>x.k==='c')},
+  {id:'mobility',name:'Mobility',group:'warm',items:X.warm.filter(x=>!x.ramp&&x.k!=='c')},
+  {id:'ramps',name:'Lighter sets',group:'warm',items:X.warm.filter(x=>x.ramp)},
+  {id:'cardio',name:'Cardio',group:'cool',items:X.finisher?[X.finisher]:[]},
+  {id:'walk',name:'Easy movement',group:'cool',items:X.cool.filter(x=>x.k==='w')},
+  {id:'recovery',name:'Muscle recovery',group:'cool',items:X.cool.filter(x=>!x.stretch&&x.k!=='w')},
+  {id:'stretches',name:'Stretches',group:'cool',items:X.cool.filter(x=>x.stretch)}
+];}
+function prepSeconds(it){const s=segsFor(it);return s.timer?s.segs.reduce((n,x)=>n+x.sec,0):it.ramp?0:45;}
+function applyPrepExtras(X,prep){
+  const change=(it,group)=>{
+    const options=[{...it},...(it.alts||[]).map(x=>({...it,...x,k:it.k}))], o=prep.items?.[group+it.k];
+    let move={...it};
+    if(o?.base===it.t){
+      const chosen=options.find(x=>x.t===o.choice);if(chosen)move={...chosen};
+      if(Number.isInteger(o.seconds)&&o.seconds>=5&&o.seconds<=3600){
+        const s=segsFor(move);if(s.timer&&o.seconds>=s.segs.length){let left=o.seconds;const total=s.segs.reduce((n,p)=>n+p.sec,0);
+          const segments=s.segs.map((p,i)=>{const sec=i===s.segs.length-1?left:Math.max(1,Math.min(left-(s.segs.length-i-1),Math.round(p.sec*o.seconds/total)));left-=sec;return {...p,sec};});
+          if(move.phases)move.phases=segments;else move.prepSegments={segs:segments,gap:s.gap,gapLabel:s.gapLabel};
+          move.d=`${o.seconds} s total${s.segs.length>1?' across '+s.segs.length+' parts':''}`;
+        }
+      }
+      if(Number.isInteger(o.reps)&&o.reps>=1&&o.reps<=100&&!segsFor(move).timer)move.d=it.ramp?move.d.replace(/× \d+$/,`× ${o.reps}`):move.d.replace(/\d+/g,String(o.reps));
+      move.prepSkipped=!!o.skip;
+    }
+    return {...move,_prepBase:it.t,_prepOptions:options};
+  };
+  const beforeWarm=X.warm.filter(x=>!x.ramp).reduce((n,x)=>n+prepSeconds(x),0),beforeCool=X.cool.reduce((n,x)=>n+prepSeconds(x),0);
+  X.warm=X.warm.map(x=>change(x,'warm'));X.cool=X.cool.map(x=>change(x,'cool'));if(X.finisher)X.finisher=change(X.finisher,'cool');
+  X.min=Math.max(0,Math.round(X.min+(X.warm.filter(x=>!x.ramp&&!x.prepSkipped).reduce((n,x)=>n+prepSeconds(x),0)-beforeWarm)/60));
+  X.coolMin=Math.max(0,Math.round(X.coolMin+(X.cool.filter(x=>!x.prepSkipped).reduce((n,x)=>n+prepSeconds(x),0)-beforeCool)/60));
+  return X;
+}
+function todayPrepContext(key){
+  const draft=state.draft?.key===key?state.draft:null,slots=draft?dSlots():sessionSlots(key);
+  const d=draft||{key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}};
+  return {draft,d,slots,X:sessionExtras(d,slots)};
+}
+function prepLocked(draft,group,it){
+  if(!draft)return false;
+  if(draft[group]?.[it.k])return true;
+  if(it.ramp)return (draft.rampDone||0)>0;
+  const G=draft.guide,sub=draft.wsub?.[group+it.k],cur=sub!=null&&it.alts?.[sub]?{...it,...it.alts[sub]}:it;
+  if(G?.positions?.[group+':'+it.k+':'+cur.t])return true;
+  const current=G?.ph===group?gItems(group)[G.i]:null;
+  return current?.k===it.k&&(G.mode!=='ready'||G.s>0);
+}
+function prepEditSheet(key,id){
+  if(coachMode)return;
+  const C=todayPrepContext(key),bucket=prepBuckets(C.X).find(b=>b.id===id);if(!bucket)return;
+  ui.prepEditor={key,id,place:C.d.place,started:C.draft?.startedAt||null,state,account:AUTH.user?.id||null};
+  modal(`<div><div class="eyebrow">Edit workout plan</div><h2>${bucket.name}</h2><p class="small muted">${C.draft?'Changes apply to unstarted movements in this workout.':'Saved for this workout at '+esc(curPlace().n)+'. You can change them again before starting.'}</p></div>
+    ${id==='cardio'?`<label class="field2"><span>Cardio length</span><select id="prep-cardio-min">${[0,5,10,15,20,30].map(n=>`<option value="${n}" ${(C.X.finisher?.min||0)===n?'selected':''}>${n?n+' min':'Off'}</option>`).join('')}</select></label>`:''}
+    ${bucket.items.map((it,i)=>{const sub=C.d.wsub?.[bucket.group+it.k],cur=sub!=null&&it.alts?.[sub]?it.alts[sub]:it,locked=prepLocked(C.draft,bucket.group,it),timed=segsFor(cur).timer,match=(cur.d||'').match(it.ramp?/× (\d+)$/:/\d+/),value=timed?prepSeconds(cur):match?+(match[1]||match[0]):null;
+      return `<div class="prep-edit-row" data-prep-index="${i}"><b>${esc(cur.t)}</b>${locked?'<p class="small muted">Already started or completed. Its saved progress is kept.</p>':`<label class="field2"><span>Movement</span><select id="prep-choice-${i}">${it._prepOptions.map(o=>`<option value="${esc(o.t)}" ${o.t===cur.t?'selected':''}>${esc(o.t)}</option>`).join('')}</select></label><p class="tiny muted">${esc(cur.d)}</p>${value!=null&&id!=='cardio'?`<label class="field2"><span>${timed?'Movement time (seconds, all parts)':it.ramp?'Reps':'Reps'}</span><input id="prep-target-${i}" type="number" min="${timed?5:1}" max="${timed?3600:100}" value="${value}"></label>`:''}<label class="toggle"><span>Include this movement</span><input id="prep-include-${i}" type="checkbox" ${!it.prepSkipped&&!C.d.wskip?.[bucket.group+it.k]?'checked':''}></label>`}</div>`;
+    }).join('')}
+    <p class="small" id="prep-error" role="alert"></p><button class="btn primary block" data-action="prepsave">Save changes</button><button class="btn ghost block" data-action="closemodal">Cancel</button>`);
+  bucket.items.forEach((it,i)=>{
+    const select=$('#prep-choice-'+i);if(!select)return;
+    select.addEventListener('change',()=>{const move=it._prepOptions.find(o=>o.t===select.value),input=$('#prep-target-'+i);if(!move||!input)return;
+      const timed=segsFor(move).timer,m=(move.d||'').match(it.ramp?/× (\d+)$/:/\d+/);
+      input.value=timed?prepSeconds(move):m?+(m[1]||m[0]):10;input.min=timed?5:1;input.max=timed?3600:100;
+      input.previousElementSibling.textContent=timed?'Movement time (seconds, all parts)':it.ramp?'Reps':'Reps';
+    });
+  });
+}
+function savePrepEditor(){
+  const E=ui.prepEditor;if(!E||coachMode)return;
+  const C=todayPrepContext(E.key);
+  if(E.state!==state||E.account!==(AUTH.user?.id||null)||C.d.place!==E.place||(C.draft?.startedAt||null)!==E.started){closeModal();toast('The workout changed. Open Edit again.');return;}
+  const bucket=prepBuckets(C.X).find(b=>b.id===E.id),prep=JSON.parse(JSON.stringify(C.draft?.prep||savedPrep(E.key,E.place)));prep.items=prep.items||{};
+  const updates=[];
+  for(const [i,it] of bucket.items.entries()){
+    if(prepLocked(C.draft,bucket.group,it))continue;
+    const choice=$('#prep-choice-'+i)?.value,option=it._prepOptions.find(o=>o.t===choice);if(!option)continue;
+    const targetEl=$('#prep-target-'+i),timed=segsFor(option).timer,n=targetEl?Number(targetEl.value):null;
+    if(targetEl&&(!Number.isInteger(n)||n<(timed?Math.max(5,segsFor(option).segs.length):1)||n>(timed?3600:100))){$('#prep-error').textContent='Enter a whole number within the shown limits.';return;}
+    const o={base:it._prepBase,choice,skip:!$('#prep-include-'+i).checked};
+    if(targetEl)o[timed?'seconds':'reps']=n;
+    updates.push([bucket.group+it.k,o]);
+  }
+  const cm=$('#prep-cardio-min');if(cm){const n=Number(cm.value);if(![0,5,10,15,20,30].includes(n))return;
+    if(C.draft&&C.X.finisher&&prepLocked(C.draft,'cool',C.X.finisher)&&n!==C.X.finisher.min){$('#prep-error').textContent='Cardio has already started. Keep its saved length.';return;}
+    prep.cardioMin=n;
+  }
+  for(const [k,o] of updates)prep.items[k]=o;
+  if(C.draft){
+    const G=C.draft.guide,current=G?gItems(G.ph)[G.i]:null;
+    C.draft.prep=prep;for(const [k,o] of updates){delete C.draft.wsub?.[k];if(C.draft.wskip)delete C.draft.wskip[k];}if(cm)delete C.draft.cmin;delete C.draft._x;
+    if(G&&current){const items=gItems(G.ph),i=items.findIndex(it=>it.k===current.k);if(i>=0)G.i=i;else{G.i=Math.min(G.i,Math.max(0,items.length-1));G.s=0;G.mode='ready';G.end=null;gPrepareMove(G,items);}}
+  }
+  else{state.prep=state.prep||{};state.prep[prepKey(E.key,E.place)]=prep;}
+  ui.prepEditor=null;save();closeModal();render();toast('Workout plan updated.');
+}
 function renderTodayPlan(key, slots, draft, mins){
   const d=draft||{key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}}, X=draft?draft._x||sessionExtras(d,slots):sessionExtras(d,slots);
-  const items=(group,list)=>`<ul class="today-plan-items">${list.map(it=>{
-    const sub=d.wsub?.[group+it.k], move=sub!=null&&it.alts?.[sub]?it.alts[sub]:it;
-    const skipped=!!d.wskip?.[group+it.k], done=!!d[group]?.[it.k];
-    return `<li${skipped?' class="skipped"':''}><b>${esc(move.t)}</b><span class="tiny muted">${esc(move.d)}${skipped?' · Skipped':done?' · Done':''}</span></li>`;
+  const buckets=prepBuckets(X),edit=b=>coachMode?'':`<button class="btn sm ghost" data-action="prepedit" data-key="${key}" data-id="${b.id}" aria-label="Edit ${b.name.toLowerCase()}">Edit</button>`;
+  const items=group=>`<ul class="today-plan-items">${buckets.filter(b=>b.group===group&&b.id!=='cardio'&&b.items.length).map(b=>{
+    const active=b.items.filter(it=>!it.prepSkipped&&!d.wskip?.[group+it.k]);
+    return `<li class="today-plan-group"><div><b>${b.name}</b><span class="tiny muted">${active.length?b.id==='ramps'?active.length+' lighter set'+(active.length===1?'':'s'):b.id==='warm-cardio'||b.id==='walk'?esc(active[0].t):active.length+' movement'+(active.length===1?'':'s'):'Not included'}</span></div>${edit(b)}</li>`;
   }).join('')}</ul>`;
   const icons={
     'Warm-up':'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
@@ -5202,10 +5321,10 @@ function renderTodayPlan(key, slots, draft, mins){
   };
   const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
   const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><small>${time}</small></h2>${body}</section>`;
-  return phase('Warm-up',`~${X.min} min`,items('warm',X.warm))
+  return phase('Warm-up',`~${X.min} min`,items('warm'))
     +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true))
-    +(X.finisher?`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>${icon('Cardio')}Cardio <span class="chip acc">Optional</span></span><small>+${X.finisher.min} min</small></h2><div class="today-plan-items"><div><b>${esc(X.finisher.t)}</b><span class="tiny muted">${esc(X.finisher.d)}</span></div></div><p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p></section>`:'')
-    +phase('Cool-down',`${X.coolMin} min`,items('cool',X.cool));
+    +`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>${icon('Cardio')}Cardio <span class="chip acc">Optional</span></span><small>${X.finisher&&!X.finisher.prepSkipped?'+'+X.finisher.min+' min':'Off'}</small></h2><div class="today-plan-group"><div><b>${X.finisher?esc(X.finisher.t):'After lifting'}</b><span class="tiny muted">${X.finisher?esc(X.finisher.d):'No extra cardio included'}</span></div>${edit(buckets.find(b=>b.id==='cardio'))}</div>${X.finisher&&!X.finisher.prepSkipped?`<p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p>`:''}</section>`
+    +phase('Cool-down',`${X.coolMin} min`,items('cool'));
 }
 function renderToday(){
   if(!state.block && state.setup) return `<section class="card stack"><h1>Your setup is saved</h1><p>Continue where you left off.</p><button class="cta" data-action="suresume">Continue setup</button></section>`;
@@ -5222,7 +5341,7 @@ function renderToday(){
     const count=(finished.entries||[]).length, recap=[finished.name,finished.dur!=null?finished.dur+' min':null,count?count+' exercise'+(count===1?'':'s'):null].filter(Boolean).join(' · ');
     h+=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
   } else if(restDay) h+=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
-  const mins=totalMinutes(mainKey);
+  const X=draft?draft._x||sessionExtras(draft,slots):null,mins=X?X.min+Math.round(liftSec(slots)/60)+X.coolMin:totalMinutes(mainKey);
   const location=placeSwitch();
   if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
   h+=`<section class="card stack today-workout"><div class="today-head"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div><h1>${esc(t.name)}</h1>
@@ -5438,6 +5557,8 @@ function migrate(st){
   if((st.v||4)<5){ st.v=5; if(st.onboarded && st.settings && !st.settings.split){ const n=st.settings.flex?(+st.settings.nDays||3):(st.settings.days||[1,3,5]).length; st.settings.split={2:'ul2',3:'ppl3',4:'ul4',5:'pplul5'}[Math.max(2,Math.min(5,n))]; } }
   if((st.v||5)<6){ st.v=6; st.weightUnits=st.settings.units||'lb'; }
   st.weightUnits=st.weightUnits||st.settings.units||'lb';
+  st.prep=st.prep&&typeof st.prep==='object'&&!Array.isArray(st.prep)?st.prep:{};
+  if(st.draft&&!st.draft.prep)st.draft.prep={items:{}};
   const guide=st.draft?.guide;if(guide){guide.positions=guide.positions||{};if(guide.mode==='ready'||guide.mode==='paused'&&guide.pmode==='ready'){guide.mode='ready';guide.end=null;delete guide.pmode;delete guide.left;}}
   if(st.draft && !st.draft.planCounts) st.draft.planCounts=Object.fromEntries(Object.entries(st.draft.sets||{}).map(([k,v])=>[k,v.length]));
   return st;
@@ -5817,6 +5938,8 @@ document.addEventListener('click', e=>{
       ui.preview=key; ui.tab='preview'; render(); window.scrollTo(0,0); break;
     }
     case 'todayexercises': { const open=ui.todayExercises!==b.dataset.key;ui.todayExercises=open?b.dataset.key:null;render();document.querySelector('.today-exercises-toggle')?.focus({preventScroll:true});break; }
+    case 'prepedit': prepEditSheet(b.dataset.key,b.dataset.id);break;
+    case 'prepsave': savePrepEditor();break;
     case 'resume': resumePartial(); USAGE.capture('workout_resumed'); ui.tab='workout'; render(); window.scrollTo(0,0); break;
     case 'done': { const s=state.draft.sets[b.dataset.pk][+b.dataset.i];
       s.done=!s.done;
@@ -5881,7 +6004,9 @@ document.addEventListener('click', e=>{
     case 'openmap': ui.tab='plan'; render(); setTimeout(()=>{ const el=document.getElementById('musclemap'); el&&el.scrollIntoView({block:'start'}); window.scrollBy(0,-64); },30); break;
     case 'xswap': xSwapSheet(b.dataset.g,b.dataset.k); break;
     case 'xpick': { const d=state.draft; d.wsub=d.wsub||{}; const i=+b.dataset.i; if(i<0) delete d.wsub[b.dataset.g+b.dataset.k]; else d.wsub[b.dataset.g+b.dataset.k]=i; save(); closeModal(); render(); break; }
-    case 'xskip': { const d=state.draft; d.wskip=d.wskip||{}; const k=b.dataset.g+b.dataset.k; d.wskip[k]=!d.wskip[k]; if(d.wskip[k]) d[b.dataset.g][b.dataset.k]=false; save(); render(); break; }
+    case 'xskip': { const d=state.draft; d.wskip=d.wskip||{}; const k=b.dataset.g+b.dataset.k;
+      if(d.prep?.items?.[k]?.skip){d.prep.items[k].skip=false;delete d.wskip[k];delete d._x;}else d.wskip[k]=!d.wskip[k];
+      if(d.wskip[k]) d[b.dataset.g][b.dataset.k]=false; save(); render(); break; }
     case 'subtoday': applyExerciseSwap(b.dataset.pk,b.dataset.id,false); break;
     case 'unsub': applyExerciseSwap(b.dataset.pk,planId(b.dataset.pk),false); break;
     case 'adjust': adjustSheet(b.dataset.pk); break;

@@ -950,6 +950,41 @@ await test('legacy warm-up drafts retain suggestions and accept an unknown start
   assert.match(h.run('renderRamp(d,slot,d._x)'),/60% of your working weight/);
 });
 
+await test('preparation timing edits preserve side gaps and never create negative parts',()=>{
+  const h=harness();
+  h.run(`var X={warm:[],cool:[{k:'s0',t:'Synthetic stretch',d:'30 s per side',stretch:true}],finisher:null,min:0,coolMin:2};
+    var edited=applyPrepExtras(X,{items:{cools0:{base:'Synthetic stretch',choice:'Synthetic stretch',seconds:100}}});`);
+  assert.equal(h.run('segsFor(edited.cool[0]).gap'),5);
+  assert.deepEqual(JSON.parse(h.run('JSON.stringify(segsFor(edited.cool[0]).segs.map(x=>x.sec))')),[50,50]);
+  h.run(`var tiny=applyPrepExtras({warm:[],cool:[{k:'s0',t:'Ten parts',phases:Array.from({length:10},()=>({sec:10}))}],min:0,coolMin:2},{items:{cools0:{base:'Ten parts',choice:'Ten parts',seconds:5}}});`);
+  assert(h.run('segsFor(tiny.cool[0]).segs.every(x=>x.sec>0)'));
+});
+await test('saved preparation is location scoped, frozen on start and compatible with old saves',()=>{
+  const h=harness();
+  h.run(`var key=weekKeys()[0],slots=sessionSlots(key),X=sessionExtras({key,place:'gym'},slots),move=X.warm.find(x=>x.k==='c');
+    state.prep[prepKey(key,'gym')]={items:{warmc:{base:move.t,choice:move.t,seconds:180}}};startWorkout(key);
+    state.prep[prepKey(key,'gym')].items.warmc.seconds=300;`);
+  assert.equal(h.run(`segsFor(sessionExtras(state.draft,dSlots()).warm.find(x=>x.k==='c')).segs.reduce((n,x)=>n+x.sec,0)`),180);
+  assert.equal(h.run(`savedPrep(key,'home').items.warmc`),undefined);
+  h.run(`state=JSON.parse(JSON.stringify(state));migrate(state);`);
+  assert.equal(h.run(`state.draft.prep.items.warmc.seconds`),180);
+  h.run(`delete state.prep;delete state.draft.prep;migrate(state);`);
+  assert.equal(h.run('JSON.stringify(state.prep)'),'{}');assert.equal(h.run('JSON.stringify(state.draft.prep)'),'{"items":{}}');
+});
+await test('preparation skips and undo reach the real guide without changing strength sets',()=>{
+  const h=harness();
+  h.run(`var key=weekKeys()[0],X=sessionExtras({key,place:'gym'},sessionSlots(key));
+    state.prep[prepKey(key,'gym')]={items:Object.fromEntries(X.warm.map(x=>['warm'+x.k,{base:x.t,choice:x.t,skip:true}]))};
+    startWorkout(key);state.draft._x=sessionExtras(state.draft,dSlots());gStart('warm');var keepSets=JSON.stringify(state.draft.sets);`);
+  assert.equal(h.run(`gItems('warm').length`),0);
+  assert.equal(h.run(`state.draft._x.warm.filter(x=>x.ramp&&!x.prepSkipped).length`),0);
+  h.click('xskip',{g:'warm',k:'c'});
+  assert.equal(h.run(`gItems('warm').length`),1);assert.equal(h.run('JSON.stringify(state.draft.sets)'),h.run('keepSets'));
+  h.run(`coachMode={name:'Synthetic preview'};var beforePrep=JSON.stringify(state.prep);`);
+  h.click('prepedit',{key:h.run('key'),id:'mobility'});h.click('prepsave');
+  assert.equal(h.run('JSON.stringify(state.prep)'),h.run('beforePrep'));
+});
+
 console.log(`\n${passed} persistence/workout regression scenarios passed.`);
 if(process.argv.includes('--fixture')){
   const h=harness();
