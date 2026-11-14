@@ -9,6 +9,12 @@ Production and other preview variants remain disabled. Analytics lives outside
 workout persistence and account sync; no database migrations or Auth changes.
 See [contract, privacy boundaries and checks](ANALYTICS-2026-11-14.md).
 
+## Dev2 local demo (November 14, 2026)
+
+`scripts/build-preview.mjs dev2` enables the build-only `DEV2_DEMO_BUILD` flag. Regular dev, dev1 and production keep it false. Demo mode does not construct a Supabase client or adopt an existing Auth session. Boot seeds a synthetic member and generated gym plan only when its dedicated `dev2_demo_strongstart_state_v3` cache is empty. All app storage helpers use the `dev2_demo_` prefix; existing `dev_` caches and SDK tokens remain untouched. No schema changes, fake JWTs, shared credentials or staff roles are involved. Reset demo replaces only the local demo state. The usual save and workout flows persist locally without cloud delivery.
+
+`node scripts/test-dev2-demo.cjs [URL]` verifies real startup, navigation, workout/reload/history/reset, old account-cache preservation and absence of backend requests at desktop and narrow phone widths. Run after a dev2 build; an optional hosted URL must serve that exact build. Physical-device behavior and real-account features are outside this demo check.
+
 ## Development character comparison
 
 `exercise-guides/shared/characters.json` describes optional character geometry

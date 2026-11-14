@@ -931,12 +931,15 @@ function releaseNotes(version=APP_VERSION){
     <button class="btn" data-action="closemodal">Done</button>`);
 }
 
-const storageKey = key => IS_PRODUCTION ? key : 'dev_' + key;
+// Enabled only by the dev2 build; regular dev and production retain sign-in.
+const DEV2_DEMO_BUILD = false;
+const DEMO_MODE = DEV2_DEMO_BUILD && !IS_PRODUCTION;
+const storageKey = key => DEMO_MODE ? 'dev2_demo_' + key : IS_PRODUCTION ? key : 'dev_' + key;
 if (!IS_PRODUCTION) {
   document.title = 'Strong Start · Testing';
   const banner = document.createElement('div');
   banner.id = 'environment-banner';
-  banner.textContent = 'TESTING · Separate test accounts and data';
+  banner.textContent = DEMO_MODE ? 'DEV2 DEMO · Sample user · Saved in this browser only' : 'TESTING · Separate test accounts and data';
   banner.setAttribute('role', 'status');
   banner.style.cssText = 'background:#704000;color:#fff;text-align:center;padding:7px 12px;font:700 12px system-ui;';
   document.body.insertBefore(banner, document.body.firstChild);
@@ -2145,7 +2148,7 @@ function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
 const SB_URL = IS_PRODUCTION ? 'https://aybtxqsneywuqxzjwoek.supabase.co' : 'https://gvyfgqhgqnfmtoytqpeo.supabase.co';
 const SB_KEY = IS_PRODUCTION ? 'sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl' : 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49';
 const SITE_URL=location.origin+location.pathname;
-let sb=null; try{ if(window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}); }catch(e){ sb=null; }
+let sb=null; try{ if(!DEMO_MODE&&window.supabase&&window.supabase.createClient) sb=window.supabase.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}); }catch(e){ sb=null; }
 /* Beta: new accounts need a one-time invite link from a coach (?invite=CODE). The code is kept on the phone until it's used. */
 const INVITE_KEY='strongstart_invite';
 function inviteCode(){ return lsGet(INVITE_KEY)||''; }
@@ -2623,6 +2626,9 @@ async function signOut(){
   state=defaults(); state.updatedAt=0; logs=[]; ui.tab='today'; render(); window.scrollTo(0,0); setSync();
 }
 function accountCard(){
+  if(DEMO_MODE) return sec('account','Demo user','Exploring on this device',`
+    <p class="small muted" style="margin:0">Explore with a sample plan, or change the settings to try your own. Changes stay in this browser. Cloud sync, coach messages and account tools need a real account on the regular test app.</p>
+    <div class="row"><button class="btn sm" data-action="demoreset">Reset demo</button><a class="tiny" href="https://dev.strongstart.app/">Open test app with sign-in</a></div>`);
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
     <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
@@ -5942,10 +5948,28 @@ document.addEventListener('change', e=>{
 });
 
 /* ---------------- Boot ---------------- */
+function seedDemo(){
+  state=defaults(); logs=[];
+  state.setup=null; state.onboarded=true;
+  Object.assign(state.settings,{name:'Demo',goals:['muscle'],days:[1,3,5],split:'fb3',mins:45,comfort:'machines',tstyle:'machines',cardio:{style:'walk',jog:'none',after:0}});
+  state.places=[{k:'gym',n:'Demo gym',eq:PLACE_TYPES.gym.eq.split(' ')}];
+  state.curPlace='gym'; newBlock();
+  SYNC={owner:null,base:null,conflict:null,recovery:null};
+}
+document.addEventListener('click',e=>{
+  if(!DEMO_MODE || !e.target.closest('[data-action="demoreset"]')) return;
+  confirmBox('Reset demo?','This clears the demo plan, weights and workout history in this browser and creates a fresh sample plan.','Reset demo',()=>{
+    fClearTimer(); seedDemo(); ui.tab='today'; ui.qsLater=true; closeModal(); save(); render(); window.scrollTo(0,0);
+  });
+});
 (function boot(){
   const saved=loadLocal();
   if(saved && saved.state){ if(saved.sync) SYNC=saved.sync; state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
+  if(DEMO_MODE){
+    if(!saved || !saved.state) seedDemo();
+    AUTH.ready=true; ui.qsLater=true;
+  }
   if(state.block && state.places && state.places.length){ const rep=ensurePlan(); if(rep.length) save(); }
   persistLocal();
   if(state.draft && !state.setup && !state.draft.partialSaved){ ui.tab='workout'; fRestoreTimer(); }

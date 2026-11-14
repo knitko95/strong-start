@@ -8,6 +8,12 @@ backups. Change the choice there anytime. The choice applies to this test browse
 and does not sync. Names, emails, entered text, health details and coach messages
 are excluded; there are no recordings. This version leaves live analytics off.
 
+## Dev2 exploration demo
+
+[Dev2](https://dev2.strongstart.app/) opens automatically with a sample Demo user and gym plan using the regular development interface. No login is required. Explore the plan, exercise library, workout recording, history and settings. Workouts you record appear in History; changes persist in that browser only. Settings > Account & backups > Demo user > Reset demo clears the demo and creates a fresh sample plan.
+
+This local demo has no signed-in account, cloud sync, coach messages or staff tools. Use [the regular test app](https://dev.strongstart.app/) with a real test account for those features. Existing signed-in preview data is kept separately and is not loaded into the demo.
+
 Reviewed against source commit `149f807bd8e67c7c95204157e07e33e1202763a7` on November 11, 2026. This guide describes implemented behavior. See the dated review for what was actually exercised.
 
 ## Trying changes before release
@@ -16,7 +22,7 @@ Use [the testing app](https://dev.strongstart.app/) to review changes from `dev`
 
 Changes are built and tested on dev first. The agent will provide the tested changes, results, and any database changes for your review. The live app is updated only after you explicitly approve that release. Asking for a feature or fix, or approving a previous release, does not approve a new live release. See [the release process](ENVIRONMENTS.md).
 
-Independent experience experiments are available at https://dev1.strongstart.app/ and https://dev2.strongstart.app/. Both share the testing app�s accounts and saved data, but have separate sign-ins and can develop different visuals, prompts and flows. Edits made with the same test account affect that account across all three test apps.
+The independent [dev1 preview](https://dev1.strongstart.app/) shares test accounts and saved data with dev, with a separate sign-in. The [dev2 demo](https://dev2.strongstart.app/) uses browser-only sample data as described above.
 
 ## Joining and signing in
 
