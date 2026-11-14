@@ -17,6 +17,10 @@ for o in [o for o in bpy.data.objects if o.type=='MESH' and (o==body or o.parent
             v=me.vertices[me.loops[li].vertex_index];point=o.matrix_world@v.co
             if o==body:
                 uv=old[li];u,vv=(.5+.5*(uv.x-u0)/(u1-u0),.5*(1-(uv.y-v0)/(v1-v0))) if is_head else (uv.x*.5,1-uv.y)
+            elif o.get('texture_kind')=='authored_hair':
+                uv=old[li];u,vv=.5+.375*uv.x,.5+.5*(1-uv.y)
+            elif o.get('texture_kind')=='hair_wisp':
+                uv=old[li];u,vv=.875+.125*uv.x,.8125+.1875*(1-uv.y)
             elif o.get('texture_kind')=='hair':
                 uv=old[li];u,vv=.5+.5*uv.x,.5+.5*(1-uv.y)
             elif o.get('texture_kind')=='iris':u,vv=.875+.125*(.5+.5*v.co.x/.00588),.5+.125*(1-(.5+.5*v.co.z/.00588))

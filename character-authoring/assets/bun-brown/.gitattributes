@@ -1,0 +1,4 @@
+* -text
+*.mhclo whitespace=-blank-at-eof
+.gitattributes text eol=lf
+PROVENANCE.md text eol=lf

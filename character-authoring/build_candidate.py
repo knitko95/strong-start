@@ -45,15 +45,20 @@ for m in list(body.modifiers):
 active(body)
 for m in list(body.modifiers):bpy.ops.object.modifier_apply(modifier=m.name)
 sys.path.insert(0,str(Path(__file__).resolve().parent))
-from reference_head import refine_face,refine_bust,make_hair
+from reference_head import refine_face
+from supported_bust import refine_bust
+from authored_bun import make_hair
 refine_face(body)
 bust_review=refine_bust(body)
 sub=body.modifiers.new('Smooth face and silhouette','SUBSURF');sub.levels=1
 bpy.ops.object.modifier_apply(modifier=sub.name)
 dec=body.modifiers.new('Mobile surface budget','DECIMATE');dec.ratio=.40
-# Protect the face and fingers while simplifying broad body surfaces.
+# Protect the face and fitted chest while simplifying broad body surfaces.
 protect=body.vertex_groups.new(name='Mobile reduction allowance')
-for v in body.data.vertices:protect.add([v.index],0 if v.co.z>1.23 else 1,'REPLACE')
+for v in body.data.vertices:
+    x,y,z=v.co
+    fitted_chest=.985<z<1.16 and abs(x)<.14 and y<-.04
+    protect.add([v.index],0 if z>1.23 or fitted_chest else 1,'REPLACE')
 dec.vertex_group=protect.name;dec.vertex_group_factor=20
 bpy.ops.object.modifier_apply(modifier=dec.name)
 body.name='Rose athlete — mobile candidate'
@@ -173,7 +178,8 @@ for o in [body]+[o for o in bpy.data.objects if o.type=='MESH' and o!=body and o
         is_head=o==body and all(me.vertices[vi].co.z>1.245 for vi in tri.vertices) and all(me.uv_layers.active.data[j].uv.x>.65 for j in tri.loops)
         for li in tri.loops:
             loop=me.loops[li];v=me.vertices[loop.vertex_index];p=world@v.co;n=(normal_matrix@v.normal).normalized()
-            if 'bun' in o.name.lower():n=(p-Vector((-.004,.055,1.407))).normalized()
+            if o.get('normal_mode')=='geometry':pass
+            elif 'bun' in o.name.lower():n=(p-Vector((-.004,.055,1.407))).normalized()
             elif o.get('texture_kind') in ['hair','hair_base']:
                 nearest=face_surface.find_nearest(p)
                 if nearest[1] is not None:n=nearest[1]
@@ -184,7 +190,11 @@ for o in [body]+[o for o in bpy.data.objects if o.type=='MESH' and o!=body and o
                 inf=sorted([(joint_index[body.vertex_groups[g.group].name],g.weight) for g in v.groups if body.vertex_groups[g.group].name in joint_index and g.weight>0],key=lambda x:-x[1])[:4]
                 assert inf,'Unweighted vertex';total=sum(w for _,w in inf);inf+=[(0,0)]*(4-len(inf));joints.append([j for j,w in inf]);weights.append([w/total for j,w in inf])
             else:
-                if o.get('texture_kind')=='hair':
+                if o.get('texture_kind')=='authored_hair':
+                    uv=me.uv_layers.active.data[li].uv;uvs.append((.5+.375*uv.x,.5+.5*(1-uv.y)))
+                elif o.get('texture_kind')=='hair_wisp':
+                    uv=me.uv_layers.active.data[li].uv;uvs.append((.875+.125*uv.x,.8125+.1875*(1-uv.y)))
+                elif o.get('texture_kind')=='hair':
                     uv=me.uv_layers.active.data[li].uv;uvs.append((.5+.5*uv.x,.5+.5*(1-uv.y)))
                 elif o.get('texture_kind')=='iris':
                     u=.5+.5*v.co.x/.00588;vv=.5+.5*v.co.z/.00588
@@ -224,8 +234,8 @@ principled.inputs['Subsurface Weight'].default_value=.035
 output=nodes.new('ShaderNodeOutputMaterial');links.new(texture_node.outputs['Color'],principled.inputs['Base Color']);links.new(principled.outputs[0],output.inputs[0])
 active(body);am=body.modifiers.new('Existing rig deformation','ARMATURE');am.object=rig;am.use_deform_preserve_volume=True
 # Pack the source strand/iris textures for an editable, self-contained scene.
-for material_name,file_name in [(hairmat,'soft-chestnut-strands.png'),(iris,'brown-iris-neutral.png')]:
-    material_name.use_nodes=True;ns=material_name.node_tree.nodes;ls=material_name.node_tree.links;bs=ns.get('Principled BSDF');tx=ns.new('ShaderNodeTexImage');tx.image=bpy.data.images.load(str(Path(__file__).parent/'textures'/file_name));tx.image.pack();ls.new(tx.outputs['Color'],bs.inputs['Base Color']);ls.new(tx.outputs['Alpha'],bs.inputs['Alpha']);bs.inputs['Roughness'].default_value=.78 if material_name==hairmat else .16
+for material_name,file_path in [(hairmat,Path(__file__).parent/'assets/bun-brown/Hair_bun_brown.png'),(iris,Path(__file__).parent/'textures/brown-iris-neutral.png')]:
+    material_name.use_nodes=True;ns=material_name.node_tree.nodes;ls=material_name.node_tree.links;bs=ns.get('Principled BSDF');tx=ns.new('ShaderNodeTexImage');tx.image=bpy.data.images.load(str(file_path));tx.image.pack();ls.new(tx.outputs['Color'],bs.inputs['Base Color']);ls.new(tx.outputs['Alpha'],bs.inputs['Alpha']);bs.inputs['Roughness'].default_value=.78 if material_name==hairmat else .16
 rig.data.pose_position='POSE';bpy.context.preferences.filepaths.save_version=0
 bpy.ops.wm.save_as_mainfile(filepath=str(review/'rose-athlete.blend'))
 print('CANDIDATE_READY',len(positions),len(indices)//3,len(rest),flush=True)

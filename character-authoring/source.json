@@ -6,9 +6,9 @@
   "skinSHA256": "b2a6ac8cd4f9febdb447368e29c76cd68410bb66e46d9dcfa2d5f75126eea8fc",
   "licenseRegister": "https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html",
   "styling": "Independently authored fitted colors, hair strands, pupils, trainers and laces; reference pixels not used",
-  "runtimeBytes": 1889149,
-  "vertices": 32353,
-  "triangles": 58704,
+  "runtimeBytes": 1574895,
+  "vertices": 28824,
+  "triangles": 54248,
   "textureSize": [
     2048,
     2048
@@ -28,6 +28,20 @@
       "textures/reference-face-uv.png"
     ]
   },
-  "coveredBustRefinement": true,
-  "blenderMcpDraft": true
+  "coveredBustRefinement": "Rounded supported envelope, replacing earlier projection fields",
+  "blenderMcpDraft": true,
+  "authoredHair": {
+    "author": "Rehman Polanski / RehmanPolanski",
+    "asset": "rehmanpolanski_hair_bun_brown",
+    "officialRegister": "https://static.makehumancommunity.org/assets/assetpacks/hair01.html",
+    "releaseLicense": "CC0 as explicitly listed for this asset in the official register",
+    "legacyHeader": "Original OBJ/MHCLO retain legacy AGPL3 exporter text; see assets/bun-brown/PROVENANCE.md",
+    "record": "assets/bun-brown/PROVENANCE.md",
+    "sha256": {
+      "hair_bun_brown.mhmat": "4f5c86a531b73707505632b36507c30f8759cea2f001de06d794aa1c4e1be716",
+      "hair_bun_brown.obj": "87620ef37e13235c103415db778ae583b4f1abab21323ac1180bce57bef64856",
+      "Hair_bun_brown.png": "ebcf2d58a5f8dfe11db376e559d0308e57da00170cde1c1304871bab10d251fa",
+      "rehmanpolanski_hair_bun_brown.mhclo": "54f136555d516f940268881e75453305789ff430be85032f25864d773ebe9676"
+    }
+  }
 }

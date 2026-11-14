@@ -21,10 +21,16 @@ hair_pixels=np.array(Image.open(textures/'soft-chestnut-strands.png').convert('R
 opaque=hair_pixels[:,:,3]>220;nearest=distance_transform_edt(~opaque,return_distances=False,return_indices=True)
 edge=~opaque;hair_pixels[edge,:3]=hair_pixels[nearest[0][edge],nearest[1][edge],:3]
 hair=Image.fromarray(hair_pixels).resize((1024,1024),Image.Resampling.LANCZOS)
-atlas.paste(hair,(1024,1024))
-# A dense opaque underlayer keeps the scalp/bun solid under fine alpha wisps.
-base_hair=hair.crop((50,50,100,640)).convert('RGB').resize((256,384),Image.Resampling.LANCZOS)
-atlas.paste(base_hair,(1792,1664))
+authored=np.array(Image.open(root/'character-authoring/assets/bun-brown/Hair_bun_brown.png').convert('RGBA'))
+solid=authored[:,:,3]>220;near=distance_transform_edt(~solid,return_distances=False,return_indices=True)
+edge=~solid;authored[edge,:3]=authored[near[0][edge],near[1][edge],:3]
+atlas.paste(Image.fromarray(authored).resize((768,1024),Image.Resampling.LANCZOS),(1024,1024))
+# A single generated sparse column supplies only the added loose flyaways.
+wisp=np.array(hair.crop((512,0,640,1024)).resize((256,384),Image.Resampling.LANCZOS))
+# Native material tint: keep the generated strand alpha and match the authored
+# chestnut hair, including partial pixels that otherwise carry coloured fringes.
+wisp[:,:,:3]=(91,60,39)
+atlas.paste(Image.fromarray(wisp),(1792,1664))
 iris=Image.open(textures/'brown-iris-neutral.png').convert('RGBA');w,h=iris.size
 iris=iris.crop((round(w*.025),round(h*.025),round(w*.975),round(h*.975))).resize((256,256),Image.Resampling.LANCZOS)
 atlas.paste(iris,(1792,1024))
@@ -37,7 +43,7 @@ rough.paste(face_crop(br).resize((256,256),Image.Resampling.BILINEAR),(256,0))
 rdraw.rectangle((256,256,511,511),fill=round(.78*255));rdraw.rectangle((448,256,511,319),fill=round(.13*255))
 for i,c in enumerate(meta['paletteLinear']):
     draw.rectangle((1792,1280+i*24,2047,1280+(i+1)*24-1),fill=(*map(srgb,c),255))
-    value=.66 if c[0]<.1 else .74
+    value=.78 if c[0]<.1 else .74
     if abs(c[0]-.66)<.025:value=.16
     if c[0]<.01:value=.12
     rdraw.rectangle((448,320+i*6,511,320+(i+1)*6-1),fill=round(value*255))
@@ -49,7 +55,7 @@ def asset(label,data,suffix):
 geometry={'asset':asset('rose-athlete', (review/'candidate.bin.gz').read_bytes(),'bin.gz'),'arrays':meta['arrays'],'decodedBytes':meta['decodedBytes']}
 color=asset('rose-athlete-color',(review/'athlete-atlas.webp').read_bytes(),'webp');color['mimeType']='image/webp'
 roughness=asset('rose-athlete-roughness',(review/'athlete-roughness.png').read_bytes(),'png')
-candidate={'schemaVersion':1,'id':'rose-athlete-v1','name':'Rose athlete · detailed face & hair','jointNames':meta['jointNames'],'sourceInverseBindMatrices':meta['sourceInverseBindMatrices'],'geometry':geometry,'texture':color,'roughnessTexture':roughness,'alphaCutoff':.28,'vertices':meta['vertices'],'triangles':meta['triangles'],'commonRestBonesVerified':meta['commonRestBonesVerified'],'textureSize':[2048,2048],'roughnessSize':[512,512],'reviewStatus':'draft','license':'MakeHuman base skin and graphical assets CC0; independent styling and generated strand/iris textures. See CHARACTER-NOTICES.html.'}
+candidate={'schemaVersion':1,'id':'rose-athlete-v1','name':'Rose athlete · loose bun & supported fit','jointNames':meta['jointNames'],'sourceInverseBindMatrices':meta['sourceInverseBindMatrices'],'geometry':geometry,'texture':color,'roughnessTexture':roughness,'alphaCutoff':.28,'vertices':meta['vertices'],'triangles':meta['triangles'],'commonRestBonesVerified':meta['commonRestBonesVerified'],'textureSize':[2048,2048],'roughnessSize':[512,512],'reviewStatus':'draft','license':'MakeHuman base/skin and Rehman Polanski bun listed CC0; independent styling and generated face/iris/wisp inputs. See CHARACTER-NOTICES.html.'}
 (shared/'characters.json').write_text(json.dumps({'schemaVersion':1,'candidates':[candidate]},indent=2)+'\n')
 report={'vertices':meta['vertices'],'triangles':meta['triangles'],'geometryBytes':geometry['asset']['bytes'],'textureBytes':color['bytes'],'roughnessBytes':roughness['bytes'],'totalBytes':geometry['asset']['bytes']+color['bytes']+roughness['bytes'],'decodedGeometryBytes':geometry['decodedBytes'],'textureBytesWithMipmaps':round((2048**2+512**2)*4*4/3),'drawCallsForCharacter':1}
 (review/'size-report.json').write_text(json.dumps(report,indent=2));print(json.dumps(report,indent=2))

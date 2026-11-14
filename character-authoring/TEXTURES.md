@@ -1,12 +1,21 @@
 # Texture assets and generation record
 
-The current selected sources are `textures/soft-chestnut-strands.png`,
+The current generated inputs are `textures/soft-chestnut-strands.png` (flyaways only),
 `textures/brown-iris-neutral.png` and `textures/reference-face-uv.png`.
 The face and iris were generated with the built-in `image_gen` tool on November
 13, 2026; the softer hair atlas was generated on November 14. The previous dense
 `textures/chestnut-hair-source.png` is retained as an earlier source.
 No API/CLI fallback was used. These are actual model texture inputs, not renders
 presented as a finished 3D model. Runtime delivery uses their UV-packed WebP atlas.
+
+The main hair color is now the authored `assets/bun-brown/Hair_bun_brown.png`,
+adapted with its original mesh. It was not generated. See its
+[author and current license provenance](assets/bun-brown/PROVENANCE.md).
+The main hair occupies 768 × 1024 pixels in the atlas; the generated sparse
+flyaways use a separate 256 × 384 tile. The face/body/iris allocations and final
+2048px atlas size remain unchanged. No new image generation was used in this pass.
+The added wisps keep the generated alpha and receive a native chestnut material
+tint during atlas packing to match the authored hair and remove coloured fringes.
 
 MakeHuman's CC0 diffuse skin and the existing model's baked UV template remain
 the underlying source. The owner's supplied workout mockup was a visual reference

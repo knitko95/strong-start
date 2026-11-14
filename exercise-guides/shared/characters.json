@@ -4,7 +4,7 @@
     {
       "schemaVersion": 1,
       "id": "rose-athlete-v1",
-      "name": "Rose athlete \u00b7 detailed face & hair",
+      "name": "Rose athlete \u00b7 loose bun & supported fit",
       "jointNames": [
         "Root",
         "pelvis",
@@ -1056,76 +1056,76 @@
       ],
       "geometry": {
         "asset": {
-          "url": "assets/rose-athlete.e74d8890b55e1551.bin.gz",
-          "bytes": 1113036,
-          "sha256": "e74d8890b55e15511aa1c678cc6e7bf11555dcb7b77f1e67dc4babeda14bba07"
+          "url": "assets/rose-athlete.380b634b47aead5d.bin.gz",
+          "bytes": 1052965,
+          "sha256": "380b634b47aead5d14fe590dd19fb4d6702918705f5052868dc0821239c6ad1c"
         },
         "arrays": {
           "POSITION": {
             "componentType": 5126,
             "size": 3,
-            "count": 32353,
+            "count": 28824,
             "normalized": false,
             "offset": 0,
-            "length": 388236
+            "length": 345888
           },
           "NORMAL": {
             "componentType": 5126,
             "size": 3,
-            "count": 32353,
+            "count": 28824,
             "normalized": false,
-            "offset": 388236,
-            "length": 388236
+            "offset": 345888,
+            "length": 345888
           },
           "TEXCOORD_0": {
             "componentType": 5126,
             "size": 2,
-            "count": 32353,
+            "count": 28824,
             "normalized": false,
-            "offset": 776472,
-            "length": 258824
+            "offset": 691776,
+            "length": 230592
           },
           "JOINTS_0": {
             "componentType": 5123,
             "size": 4,
-            "count": 32353,
+            "count": 28824,
             "normalized": false,
-            "offset": 1035296,
-            "length": 258824
+            "offset": 922368,
+            "length": 230592
           },
           "WEIGHTS_0": {
             "componentType": 5126,
             "size": 4,
-            "count": 32353,
+            "count": 28824,
             "normalized": false,
-            "offset": 1294120,
-            "length": 517648
+            "offset": 1152960,
+            "length": 461184
           },
           "index": {
             "componentType": 5125,
             "size": 1,
-            "count": 176112,
+            "count": 162744,
             "normalized": false,
-            "offset": 1811768,
-            "length": 704448
+            "offset": 1614144,
+            "length": 650976
           }
         },
-        "decodedBytes": 2516216
+        "decodedBytes": 2265120
       },
       "texture": {
-        "url": "assets/rose-athlete-color.1882303e7c38510b.webp",
-        "bytes": 761002,
-        "sha256": "1882303e7c38510b41308c53c4063a2b97d170bfd69fe7088e746e9a141a77c9",
+        "url": "assets/rose-athlete-color.b0a5873bc50e9390.webp",
+        "bytes": 506682,
+        "sha256": "b0a5873bc50e9390615dfc667792eee2205a90258b7f267a3a631916b2a0e615",
         "mimeType": "image/webp"
       },
       "roughnessTexture": {
-        "url": "assets/rose-athlete-roughness.d68ac3ce21aff963.png",
-        "bytes": 15111,
-        "sha256": "d68ac3ce21aff963ef59b2737e13fecf77ae775e4dc9f4ef89d2176e51980ff6"
+        "url": "assets/rose-athlete-roughness.a3eaadf7b92ebc07.png",
+        "bytes": 15248,
+        "sha256": "a3eaadf7b92ebc07628c308fdb4137715e53f7a547cfc21ff4a450175fe6c738"
       },
       "alphaCutoff": 0.28,
-      "vertices": 32353,
-      "triangles": 58704,
+      "vertices": 28824,
+      "triangles": 54248,
       "commonRestBonesVerified": 53,
       "textureSize": [
         2048,
@@ -1136,7 +1136,7 @@
         512
       ],
       "reviewStatus": "draft",
-      "license": "MakeHuman base skin and graphical assets CC0; independent styling and generated strand/iris textures. See CHARACTER-NOTICES.html."
+      "license": "MakeHuman base/skin and Rehman Polanski bun listed CC0; independent styling and generated face/iris/wisp inputs. See CHARACTER-NOTICES.html."
     }
   ]
 }

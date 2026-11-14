@@ -9,7 +9,7 @@ const url=process.argv[2]||'http://127.0.0.1:8742/exercise-guides/character-lab.
  for(const rate of [1,4]){
   await dev.send('Emulation.setCPUThrottlingRate',{rate});
   for(const id of ['goblet-squat','dumbbell-bench-press','standing-dumbbell-shoulder-press']){
-   await p.selectOption('#exercise',id);await p.waitForFunction(id=>sharedExerciseDebug.state().loaded&&sharedExerciseDebug.state().id===id,id);await p.waitForTimeout(400);
+   await p.selectOption('#exercise',id);await p.waitForFunction(id=>sharedExerciseDebug.state().loaded&&sharedExerciseDebug.state().id===id,id);await p.evaluate(()=>sharedExerciseDebug.cacheSettled());await p.waitForTimeout(400);
    const sample=await p.evaluate(async()=>{const samples=[];let last;await new Promise(resolve=>{function tick(now){if(last!==undefined)samples.push(now-last);last=now;if(samples.length<120)requestAnimationFrame(tick);else resolve();}requestAnimationFrame(tick);});samples.sort((a,b)=>a-b);const canvas=document.querySelector('#person canvas'),gl=canvas.getContext('webgl2'),ext=gl.getExtension('WEBGL_debug_renderer_info');return {median:samples[60],p95:samples[114],maximum:samples.at(-1),renderer:ext?gl.getParameter(ext.UNMASKED_RENDERER_WEBGL):'undisclosed',drawingBuffer:[gl.drawingBufferWidth,gl.drawingBufferHeight],state:sharedExerciseDebug.state(),network:sharedExerciseDebug.stats};});
    cases.push({cpuSlowdown:rate,id,...sample});
   }
