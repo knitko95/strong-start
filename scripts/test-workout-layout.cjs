@@ -5,7 +5,7 @@ const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'dis
 const server=http.createServer((req,res)=>{
  const file=path.resolve(root,'dist','.'+(req.url==='/'?'/index.html':req.url.split('?')[0]));
  if(!file.startsWith(path.join(root,'dist')+path.sep)){res.writeHead(403);res.end();return;}
- try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.js')?'application/javascript':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}
+ try{res.setHeader('Content-Type',({'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.webp':'image/webp','.png':'image/png','.jpg':'image/jpeg','.svg':'image/svg+xml','.glb':'model/gltf-binary'})[path.extname(file)]||'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}
 });
 async function seed(page,screen,theme='light'){
  await page.evaluate(({screen,theme})=>{
@@ -56,11 +56,11 @@ async function seed(page,screen,theme='light'){
  await new Promise(r=>server.listen(0,'127.0.0.1',r));
  const url=process.argv[2]||`http://127.0.0.1:${server.address().port}`;
  const browser=await chromium.launch({executablePath:'C:/Program Files/Google/Chrome/Application/chrome.exe',headless:true});
- const results=[],errors=[];
+ const results=[],errors=[];let offlineWindow=false;
  try{
-  for(const [width,height] of [[390,844],[320,568],[844,390]]){
+  for(const [width,height] of [[390,844],[320,568],[844,390],[1280,800]]){
    const page=await browser.newPage({viewport:{width,height},serviceWorkers:'block',reducedMotion:'reduce'});
-   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error'&&!(offlineWindow&&/ERR_INTERNET_DISCONNECTED/.test(m.text())))errors.push(m.text());});
    await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(url).origin?r.continue():r.fulfill({status:200,body:''}));
    const response=await page.goto(url);assert.equal((await response.text()).replace(/\r\n/g,'\n'),html.replace(/\r\n/g,'\n'),'exact development build');
    assert.equal(await page.evaluate(()=>SB_URL),'https://gvyfgqhgqnfmtoytqpeo.supabase.co');
@@ -95,13 +95,14 @@ async function seed(page,screen,theme='light'){
    // Banner can wrap, resize or disappear; the layout must use its real height.
    await seed(page,'rest');
    // The notice must appear only when offline, without inheriting the app shell's flex sizing.
-   await page.context().setOffline(true);
+   // Demo assets requested during this deliberate offline window may fail to load.
+   offlineWindow=true;await page.context().setOffline(true);
    await page.waitForFunction(()=>document.getElementById('offline-notice').hidden===false);
    assert(await page.locator('#offline-notice').isVisible());
    assert.equal(await page.locator('#offline-notice').evaluate(el=>getComputedStyle(el).flexGrow),'0');
    await page.context().setOffline(false);
    await page.waitForFunction(()=>document.getElementById('offline-notice').hidden===true);
-   assert.equal(await page.locator('#offline-notice').isVisible(),false);
+   assert.equal(await page.locator('#offline-notice').isVisible(),false);await page.waitForTimeout(250);offlineWindow=false;
    for(const banner of ['TESTING · Separate accounts and data · This banner wraps on a small phone','']){
     await page.evaluate(text=>{const b=document.getElementById('environment-banner');b.textContent=text;b.hidden=!text;},banner);
     if(!process.env.WORKOUT_LAYOUT_AUDIT){
@@ -121,8 +122,9 @@ async function seed(page,screen,theme='light'){
    // and a More dialog must not strand the user or leave focus mode behind.
    await seed(page,'exercise');
    await page.evaluate(()=>{AUTH.user={id:'synthetic-layout-member',email:'layout@example.invalid'};AUTH.access='ok';render();});
-   assert.equal(await page.locator('.ftop [data-action="msgopen"]').count(),1);
-   await page.locator('.amore').click();assert.equal(await page.getByRole('dialog',{name:'More'}).count(),1);
+   await page.locator('.ftop [data-action="fmore"]').click();assert.equal(await page.locator('.workout-menu-sheet [data-action="fmoredo"][data-do="msgopen"]').count(),1,'signed-in Feedback stays in the workout menu');
+   await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
+   await page.locator('.ftop [data-action="fmore"]').click();assert.equal(await page.getByRole('dialog',{name:'Workout menu'}).count(),1);
    await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);
    // Follow real buttons through the new pair introduction and A -> B -> rest.
    await seed(page,'pair-intro');
@@ -135,15 +137,15 @@ async function seed(page,screen,theme='light'){
    const pair=await page.evaluate(()=>{const p=fPair(state.draft,dSlots(),state.draft.step.pk);return {a:p.moves[0].pk,b:p.moves[1].pk};});
    await page.locator('[data-action="fdone"]').click();assert.equal(await page.evaluate(()=>state.draft.step.pk),pair.b);assert.equal(await page.evaluate(()=>state.draft.step.ph),'ex');
    await page.locator('[data-action="fdone"]').click();assert.equal(await page.evaluate(()=>state.draft.step.ph),'rest');
-   assert.equal(await page.locator('.apair [aria-current="step"] .pair-label').innerText(),'A · NEXT');
+   assert.equal(await page.locator('.path-rest[aria-current="step"]').getAttribute('data-round'),'0','rest after round 1 is current');
    await page.locator('[data-action="fready"]').click();assert.equal(await page.evaluate(()=>state.draft.step.pk),pair.a);
-   assert.match(await page.locator('.acard .ach>b').innerText(),/Round 2/);
+   assert.equal(await page.locator('.path-set[aria-current="step"]').getAttribute('data-path-id'),await page.evaluate(a=>fPathSetId(fPair(state.draft,dSlots(),a).moves,a,1),pair.a),'set 2A is current');
    // Unequal targets after Adjust still retain both moves and logged sets.
-   await page.locator('.amore').click();await page.locator('[data-action="fmoredo"][data-do="adjust"]').click();
+   await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="adjust"]').click();
    await page.locator('#adj-sets').fill('4');await page.locator('[data-action="adjsave"]').click();
    assert(await page.evaluate(({a,b})=>dSlots().some(s=>s.pk===a)&&dSlots().some(s=>s.pk===b)&&state.draft.sets[a][0].done&&state.draft.sets[b][0].done,pair));
    // Existing list navigation keeps the workout draft and returns to its screen.
-   await page.locator('[data-action="flist"]').click();assert.equal(await page.locator('.workout-sheet .acard').count(),1);
+   await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="flist"]').click();assert.equal(await page.locator('.workout-sheet .acard').count(),1);
    await page.locator('[data-action="fjump"][data-to="'+pair.b+'"]').click();assert.equal(await page.evaluate(()=>state.draft.step.pk),pair.b);
    // Check-in choices apply once, after the explicit bottom Continue action.
    await seed(page,'cfeel');const cardioBefore=await page.evaluate(()=>JSON.stringify(state.settings.cardio));
@@ -152,7 +154,7 @@ async function seed(page,screen,theme='light'){
    assert.equal(await page.evaluate(()=>JSON.stringify(state.settings.cardio)),cardioBefore);
    await page.locator('[data-action="gcfeelconfirm"]').click();assert.equal(await page.evaluate(()=>state.settings.cardio.checks),1);
    // A checklist can still switch back to guided timers via More.
-   await seed(page,'warm-list');await page.locator('.amore').click();await page.locator('[data-action="fmoredo"][data-do="gguide"]').click();assert.equal(await page.evaluate(()=>!!state.draft.listView),false);
+   await seed(page,'warm-list');await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="gguide"]').click();assert.equal(await page.evaluate(()=>!!state.draft.listView),false);
    // Both saved summaries retain the underlying completion/resume behavior.
    for(const partial of [true,false]){
     await seed(page,'exercise');

@@ -844,7 +844,9 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 @media(max-width:600px){.sheet.coach-thread-sheet{top:var(--cm-sheet-top,0px);height:var(--cm-sheet-height,100dvh);max-height:var(--cm-sheet-height,100dvh)}.cm-head{padding-top:max(12px,var(--cm-safe-top,env(safe-area-inset-top,0px)))}.cm-keyboard-open .cm-head{padding-top:12px}}
 
 /* Demo-first exercise layout: transparent media, compact logging and existing workout path. */
-.demo-first{gap:12px}.demo-first .ahead{padding-bottom:0}.exercise-hero{position:relative;min-height:44px}
+.demo-first{gap:12px}.demo-first .ahead{padding-bottom:0}.exercise-hero{position:relative;min-height:44px;min-width:0}
+/* Demo media must never widen the page, even before or without the guide stylesheet. */
+:where(.exercise-hero) :where(img,canvas,model-viewer){max-width:100%;height:auto}
 .exercise-hero .hero-how{display:flex;margin:0 auto;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 12px;position:relative;z-index:1;font-size:var(--text-sm)}
 .exercise-hero .hero-how svg{width:16px;height:16px}.exercise-hero.has-demo .hero-how{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);margin:0}
 .demo-first .acard{border-radius:24px;padding:18px}.demo-first .asteps{gap:12px}.demo-first .asteps .fstep{background:var(--sunk);border-radius:14px;padding:10px 8px}
@@ -930,6 +932,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.5.7",
+    "date": "2026-11-15",
+    "title": "Exercise demos fit the screen",
+    "notes": ["Exercise demonstrations always stay within the screen width, so workout screens never scroll sideways on a phone."]
+  },
   {
     "version": "0.5.6",
     "date": "2026-11-15",
