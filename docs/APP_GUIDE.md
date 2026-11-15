@@ -1,5 +1,9 @@
 # Using Strong Start
 
+## Two-pose exercise demonstrations on testing
+
+Eighteen reviewed exercises use transparent two-pose demonstrations in the workout and How-to views on development. They switch between the approved positions every 0.9 seconds, with no play/pause or camera-rotation controls. Expand remains available during workouts; How-to also offers normal or half speed. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.
+
 ## Optional usage analytics on testing
 
 The test app offers optional selected-interaction analytics through PostHog. It

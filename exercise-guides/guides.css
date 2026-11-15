@@ -10,6 +10,13 @@
 .eg-demo model-viewer:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 @media(max-width:360px){.eg-view model-viewer{height:290px}.eg-controls{gap:8px}.eg-controls label{gap:6px}}
 .exercise-guide-mount:empty{display:none}
+.pose-stage{position:relative;height:320px;overflow:hidden;background:transparent}
+.pose-stage img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain}
+.pose-stage img[hidden]{display:none!important}
+.eg-inline .pose-stage{height:245px}.eg-inline.expanded .pose-stage{height:460px}
+.pose-speed{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:13px;color:var(--muted)}
+.pose-gallery-selection{display:grid;gap:8px;padding:10px 12px}.pose-gallery-selection input,.pose-gallery-selection select{width:100%;min-width:0;font:inherit;min-height:44px;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+@media(max-width:360px){.eg-inline .pose-stage{height:220px}.eg-inline.expanded .pose-stage{height:460px}}
 /* The character sits directly on the app surface; lighting has no visible skybox or floor. */
 .eg-view model-viewer{background:transparent;--poster-color:transparent}
 .eg-inline{background:transparent;border:0;border-radius:0;position:relative;overflow:visible}

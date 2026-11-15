@@ -1,0 +1,474 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-11-15-approved-18-v1",
+  "exercises": {
+    "barbell-bench-press": {
+      "name": "Barbell Bench Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/barbell-bench-press-0.5485f457a6e6.webp",
+          "bytes": 278110,
+          "sha256": "5485f457a6e6ec2a6f4d7845d05c74c8b56d3655a023031e88b12376686ba40a",
+          "sourceSha256": "53b21068405af23838cdcc43b173875975a7acc0ffbb1dc9a17cfc2e68cc3d46",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/barbell-bench-press-1.2add65536c77.webp",
+          "bytes": 334270,
+          "sha256": "2add65536c77529a316680e09a9d1778ce60e55c13c6720a9eeed59cddb4d803",
+          "sourceSha256": "8a83e48486490ee057031ebd6c3b7c40af6c10c674ef863d549cee1239d83170",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "goblet-squat": {
+      "name": "Goblet Squat",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/goblet-squat-0.9fcac224e8d4.webp",
+          "bytes": 182606,
+          "sha256": "9fcac224e8d4ff400251a7d533705e7ef01737288b6e2c47dd856ad5eb14dba2",
+          "sourceSha256": "456ba35a4fd273b7e3a2f97ea1960c96f004e66aefdde88eb0eedf8d3f03ad9e",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/goblet-squat-1.52b5a68a8581.webp",
+          "bytes": 168350,
+          "sha256": "52b5a68a8581be16992ef8dc44d51c3b394c97efc80ae1cb9f22a89ccb545289",
+          "sourceSha256": "1c59b4e7c13133322f003e9389a1258b9d363fd711f023f2be0c6768e5ece1f3",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dumbbell-romanian-deadlift": {
+      "name": "Dumbbell Romanian Deadlift",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dumbbell-romanian-deadlift-0.aab44df8bdc8.webp",
+          "bytes": 179000,
+          "sha256": "aab44df8bdc89897a2bce124d746ab1570d4fa28e8e85cccb94f345b695a4804",
+          "sourceSha256": "1434a8ea3bbca2caa94bdc20916102b1958a57d7fae3ff923149e4c1292fc467",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/dumbbell-romanian-deadlift-1.ebf0bde3883e.webp",
+          "bytes": 180684,
+          "sha256": "ebf0bde3883ec9596580e72fc20998816fe1516a37b3ed2acab252ae8e3f7173",
+          "sourceSha256": "a7853de124bfeb658db2e93919658992b425174a17169174d5c33d2d288a35ff",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "hammer-curl": {
+      "name": "Hammer Curl",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/hammer-curl-0.0b87c8d24c81.webp",
+          "bytes": 189370,
+          "sha256": "0b87c8d24c81d54ddf2ff5ffc81df716a2665b882183fe99dfcd043737045e03",
+          "sourceSha256": "37c8a81c84aaf9ac1b62aa6c5b3613f6f2e65939cf42a59e94c24f37f49a633e",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/hammer-curl-1.6c2f94a64460.webp",
+          "bytes": 183772,
+          "sha256": "6c2f94a64460ce3ff45b46a44d970f1a9f17e6f1b682500330e4fafa8261b38c",
+          "sourceSha256": "2fb8c89074d845a4f29b241f2da6d0dc17ac8c1c6404a4cf74af305602865b21",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dumbbell-lateral-raise": {
+      "name": "Dumbbell Lateral Raise",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dumbbell-lateral-raise-0.31d33759bfdf.webp",
+          "bytes": 186298,
+          "sha256": "31d33759bfdf75b3da1e782cd6b749345574894b5fa2e876a6032d5344d5ce8b",
+          "sourceSha256": "1e31e6d5afc51e88edee0439b692aaf2b95033c87cf3886ea5c5204d546ccf43",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/dumbbell-lateral-raise-1.07e88f57dbd0.webp",
+          "bytes": 203152,
+          "sha256": "07e88f57dbd07b0f35cc5bb2002544095fdbda5890d25fea57856240b36c766c",
+          "sourceSha256": "ad39ac2a368e0ec90924a3cde2309b8aa06180a51724a06ab1359f142b790d0d",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dumbbell-glute-bridge": {
+      "name": "Dumbbell Glute Bridge",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dumbbell-glute-bridge-0.46cd711148eb.webp",
+          "bytes": 164016,
+          "sha256": "46cd711148ebecb4ff31a54c3f41deeddc2f6550587609671421328ea6fd5b53",
+          "sourceSha256": "0e7f7453d6d0bd298a02599236064cbd8ddc53d3359c75364d8a1fbd5470b060",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/dumbbell-glute-bridge-1.6fd9b6cbe114.webp",
+          "bytes": 154322,
+          "sha256": "6fd9b6cbe114a6721f1a6f3a83f0191443c03e72f6fd3e9b5335eaf74832eaf2",
+          "sourceSha256": "8e6201de4c50f99ee286628d916f28e4a44e793c3cad4b9759d381658cc9418e",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "standing-dumbbell-shoulder-press": {
+      "name": "Standing Dumbbell Shoulder Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/standing-dumbbell-shoulder-press-0.42ba8bac43cb.webp",
+          "bytes": 209522,
+          "sha256": "42ba8bac43cb1ae75e5724fc3b5105cfc4d03be13270dd8f0f2c39ecb689af7f",
+          "sourceSha256": "4a320b8284fcfcc5562615e78a6f931dfabc6e32b76cf537071536c2fe77648c",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/standing-dumbbell-shoulder-press-1.d4adcf928a08.webp",
+          "bytes": 220094,
+          "sha256": "d4adcf928a08d2d2da2fc54bd8231b8fb528723745ca875a6d41bf82350833bb",
+          "sourceSha256": "7fd1d210545a97ea5e397ec62578f86c407449d9ee4e2d98340e3e2404a7e5a9",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "single-arm-dumbbell-row": {
+      "name": "Single-Arm Dumbbell Row",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/single-arm-dumbbell-row-0.169978ee817c.webp",
+          "bytes": 366208,
+          "sha256": "169978ee817c03e2b5f7695a81f170f7835206d709b001ef1abbb8a1b62b9d1a",
+          "sourceSha256": "e9cdbc2977295464ba5988f3320eaa4712ec363f45cfc2d4b964d261d59d6b95",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/single-arm-dumbbell-row-1.b65c6fa2d74b.webp",
+          "bytes": 346286,
+          "sha256": "b65c6fa2d74b25a0ca997f38961d63b1ceff9d5dd687476bdb7f81854292ded0",
+          "sourceSha256": "bc1ea20c12347d360bbb9c977d0d512e319fbacd13937185942b9f54699354d9",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "kettlebell-goblet-reverse-lunge": {
+      "name": "Kettlebell Goblet Reverse Lunge",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/kettlebell-goblet-reverse-lunge-0.eb09f367b0fe.webp",
+          "bytes": 185832,
+          "sha256": "eb09f367b0fe3e9a1658332b7ba849744f88e11a7d1423c31c1ae1444c68a724",
+          "sourceSha256": "d5a1deba2a6ddfe9345e04832e1c604ba76c1c62389e076cf9878d6242bab862",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/kettlebell-goblet-reverse-lunge-1.f0f6e09efcdb.webp",
+          "bytes": 183142,
+          "sha256": "f0f6e09efcdbcd28540399cac1e1da31689ee1c9a7c4c8037b68cd21ea95fd4b",
+          "sourceSha256": "a1f2e20dcb9c8902cd4fc5a2b6d0cc8100d29c2eb69c91f8ff946c0c60f3f425",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dumbbell-overhead-triceps-extension": {
+      "name": "Dumbbell Overhead Triceps Extension",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dumbbell-overhead-triceps-extension-0.e1eb70cb58b8.webp",
+          "bytes": 144300,
+          "sha256": "e1eb70cb58b8c4dd876ac1859e0ffe220ab46991d3a6008567efe679e9959247",
+          "sourceSha256": "fa0fdc718d6946da1eaa5dc60bd9694bc7b661d4e39d2ef24a5a27ca179e0f45",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/dumbbell-overhead-triceps-extension-1.cab166427bcd.webp",
+          "bytes": 155548,
+          "sha256": "cab166427bcd4be4fd8d130c9ef05acdc34732c9e73db60caf1d24f116b47ea6",
+          "sourceSha256": "e21cf835e248af5f02b2d53d137ef4307aeb638535cac0551f99337d20da6787",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "single-leg-dumbbell-calf-raise": {
+      "name": "Single-Leg Dumbbell Calf Raise",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/single-leg-dumbbell-calf-raise-0.b28150af07d9.webp",
+          "bytes": 204488,
+          "sha256": "b28150af07d95830e5d228c2485e2ed886c0a725fc586d625cee1231859e97f4",
+          "sourceSha256": "34d2e84c4a9a51bff5c5941f299a4fa300c2b875d0d1d39ecfac74048ef1dac0",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/single-leg-dumbbell-calf-raise-1.163c968aa65c.webp",
+          "bytes": 204896,
+          "sha256": "163c968aa65c5a5406e797e507878cea96cf16d6362edfba72b03dd082795a37",
+          "sourceSha256": "8919820791f5d2475cb82a8c637eb9b84c72674fedb075c0db158c1dc27a291f",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dead-bug": {
+      "name": "Dead Bug",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dead-bug-0.7ca9da45e082.webp",
+          "bytes": 148258,
+          "sha256": "7ca9da45e08247b11690355fba7be9d93e01f4c3889956dad8988b172dfe15b3",
+          "sourceSha256": "63ba90575094ad347897b7d71ee1f989aba7c30bb06f9b48db9fbb6b45da1250",
+          "width": 1024,
+          "height": 887
+        },
+        {
+          "asset": "assets/dead-bug-1.fe8c7db94ee8.webp",
+          "bytes": 170546,
+          "sha256": "fe8c7db94ee8fec354cfabdb2dccbcd26d4e1d67368d8e364794e953ea10cacb",
+          "sourceSha256": "0fe1908c318e55802e566b9033fe709a1c2d63b511b99746eb25d4626e406039",
+          "width": 1024,
+          "height": 887
+        }
+      ]
+    },
+    "lat-pulldown": {
+      "name": "Lat Pulldown",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/lat-pulldown-0.a30509fb9499.webp",
+          "bytes": 321134,
+          "sha256": "a30509fb94996153ea40e2fa697c2007c2e7f6f7ff94e05332dd6916cd0d2e60",
+          "sourceSha256": "c2c59b328aafc31e8a6bcd8317e6d9e99899cab79f457581e1cac1df7c065fea",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/lat-pulldown-1.9d7c3730d457.webp",
+          "bytes": 319560,
+          "sha256": "9d7c3730d4573a3512ef514e923f43233617990dea01e30577de316229f78673",
+          "sourceSha256": "b81ef03bff1e7f2453c5a2a7896d7e994057eb02f2beb794508d746cc9a1704f",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "seated-cable-row": {
+      "name": "Seated Cable Row",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/seated-cable-row-0.c336b98764eb.webp",
+          "bytes": 398722,
+          "sha256": "c336b98764eb1a62c7e74f336c9c99f6b2ebec77d5d00edadad0f4b560f7aea7",
+          "sourceSha256": "4d6b35e860c08870e81d6742f2cefb4230029c7fe5d867e16eaf2072fba97239",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/seated-cable-row-1.ab34a04caeb7.webp",
+          "bytes": 390600,
+          "sha256": "ab34a04caeb738cd69d7ec5254c5b789a4681b479b94a725c9421af536e281e1",
+          "sourceSha256": "35eccb26ed59948be86f997e59f84b92263e86ed001dda5f4c5886a66f15b009",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "leg-press": {
+      "name": "Leg Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/leg-press-0.1e4632dd9a48.webp",
+          "bytes": 410690,
+          "sha256": "1e4632dd9a48ae039bc06c515563be7b1d34e9a7ffe60f49b4357307ead2e06d",
+          "sourceSha256": "b65dda261076227cf8f63b4be00ed8cf0b0843bb082ad61bc866e6e79a3f3db1",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/leg-press-1.dc700e846328.webp",
+          "bytes": 430474,
+          "sha256": "dc700e84632896de91f19197fd32a0ca510166422d2bce72a4639f206029b761",
+          "sourceSha256": "502ad81abb696803d77e20245e3c61ce890c4d9290eef168395fb6f8a006247b",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "dumbbell-bench-press": {
+      "name": "Dumbbell Bench Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/dumbbell-bench-press-0.79002fdcaba0.webp",
+          "bytes": 312900,
+          "sha256": "79002fdcaba06eaed80e7eea4b7acd501fedddc6c612163f956b6265dce4f4a8",
+          "sourceSha256": "b009a9c5961fe5b0b0ea97fb6abd76e47a5b2c06b044320bf42dfad55e1535da",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/dumbbell-bench-press-1.e99a1b884056.webp",
+          "bytes": 339706,
+          "sha256": "e99a1b884056b2e5a438c2f43b3b0f8694856c91ab2dee7ef7be8752da1cf736",
+          "sourceSha256": "3fe378ca43b7e61af9c35864b0de3f792b4b1bab916af5b7070d9a3e519560cb",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "leg-extension": {
+      "name": "Leg Extension",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/leg-extension-0.5ba56533aed3.webp",
+          "bytes": 467538,
+          "sha256": "5ba56533aed3249ae59b5ec42d3a99f4fbe9c8bed4a06d66f4e68e157b25092a",
+          "sourceSha256": "9cd94908d6712455f793d493f4f81534acd6c006008b0122502f29063d839411",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/leg-extension-1.a9d4daf03545.webp",
+          "bytes": 441838,
+          "sha256": "a9d4daf03545b3a8d6faca7eb646eb584a04405c4fa8861f0ac6087ec946c444",
+          "sourceSha256": "4d758dbe3547fe7a994f9e6aa5c41ce109fc8fca52b883e6728e91c9dc53a610",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    },
+    "seated-leg-curl": {
+      "name": "Seated Leg Curl",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": 900,
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/seated-leg-curl-0.0eed335bc51a.webp",
+          "bytes": 473576,
+          "sha256": "0eed335bc51a993eefd37df3b5d109a6e16fa36509cdc15b4db068bebf6d300c",
+          "sourceSha256": "1e416cd8553fb7df9bd5ef4a6ad15bc7d4713266b182baf2561c501557bfba66",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/seated-leg-curl-1.9a6277961403.webp",
+          "bytes": 477318,
+          "sha256": "9a6277961403d84c33b0dbce7659ea746a2c3a61bd16f0d961023a4804a1239a",
+          "sourceSha256": "fa4321c526f2cda524ffaadaa4b9d8c3e60090fd2b28524287294dc66f6a1cec",
+          "width": 887,
+          "height": 887
+        }
+      ]
+    }
+  }
+}
