@@ -18,6 +18,10 @@ for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webman
   'icons', 'analytics.js', 'offline.js', 'sw.js', '.nojekyll', 'exercise-guides']) {
   cpSync(path.join(root,file), path.join(out,file), {recursive:true});
 }
+// The authoring dashboard is a development tool, separate from the member app.
+const reviewOutput=path.resolve(out,'exercise-guides/pose-review');
+assert(reviewOutput.startsWith(path.resolve(out)+path.sep));
+rmSync(reviewOutput,{recursive:true,force:true});
 const html = readFileSync(path.join(out,'index.html'),'utf8');
 assert.ok(html.includes("location.origin === 'https://strongstart.app'"));
 assert.ok(!html.includes('const IS_PRODUCTION = false;'), 'Do not publish the isolated dev build');

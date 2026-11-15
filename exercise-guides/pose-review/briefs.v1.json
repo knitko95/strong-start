@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "exercises": {
+    "barbell-bench-press": {
+      "constraints": ["Preserve the locked approved woman, bench, crop and camera.", "Head rests on the bench with neck and spine aligned; keep head, torso, bench and planted feet fixed between poses.", "Only the arms and bar move. Preserve natural shoulder attachments, closed grips and bar perspective."],
+      "references": [{"label": "Approved bench press pilot", "note": "Owner approved the head-supported revision. Prior artwork is a style/registration reference; no new independent technique audit is recorded."}]
+    },
+    "goblet-squat": {
+      "constraints": ["Preserve the approved instructor, equipment, crop and fixed camera.", "Keep the planted foot positions and kettlebell grip consistent while the hips, knees and torso move through the squat.", "Do not make the standing and lowered body the same height or recenter the lower pose."],
+      "references": [{"label": "Approved squat pilot", "note": "Preserve the existing approved pair. A new audit must identify an exact goblet-squat form reference and document what was checked."}]
+    },
+    "dumbbell-romanian-deadlift": {
+      "constraints": ["Preserve the approved hinge variation, camera and planted feet.", "Dumbbells remain naturally gripped and close to the legs, with consistent perspective and dimensions.", "Distinguish the intended hip hinge from a squat when checking the app's specific form notes."],
+      "references": [{"label": "Approved Romanian deadlift pilot", "note": "Imported artwork approval does not establish a new form audit. Match references to the dumbbell Romanian deadlift variation."}]
+    },
+    "hammer-curl": {
+      "constraints": ["Keep the head, torso, hips, legs, feet, camera and upper-arm placement registered.", "Show the intended elbow/forearm motion with the approved neutral grips.", "Check both closed hands and dumbbell axes; do not mirror a hand to repair the other side."],
+      "references": [{"label": "Approved hammer curl pilot", "note": "Use the locked pair as the visual anchor. Record a movement-specific source before claiming technique validation."}]
+    },
+    "dumbbell-lateral-raise": {
+      "constraints": ["Preserve the approved anatomical-left arm correction: shoulder pulled back into a readable T, continuous arm/wrist alignment and natural hand anatomy.", "Preserve the approved dumbbell orientation, including the visible end facing the camera according to perspective.", "Name anatomical and viewer sides in any correction; edit only the requested arm, wrist, hand and dumbbell."],
+      "references": [{"label": "Owner-supplied lateral raise reference", "note": "The owner used an anatomical lateral raise image to correct the left shoulder/wrist/hand. Keep supplied imagery in the private archive; inspect it before another change."}]
+    },
+    "dumbbell-glute-bridge": {
+      "constraints": ["Preserve the approved body, feet, head, camera and bridge motion.", "Center the similar-size dumbbell across the hip crease as in the approved revision; prevent either end drifting onto the pelvis/genital area.", "Hands stabilize the dumbbell in the approved placement; the far anatomical-left hand is largely occluded rather than prominently duplicated."],
+      "references": [{"label": "Owner-supplied photographic dumbbell bridge reference", "note": "The owner supplied a two-position photograph and approved targeted hip/dumbbell/hand corrections. Reference photo remains private; no redistribution is implied."}]
+    },
+    "standing-dumbbell-shoulder-press": {
+      "constraints": ["Preserve the standing variation, approved camera, instructor and planted stance.", "Only the pressing arm/shoulder articulation and dumbbells change as required; retain stable body registration.", "Check each wrist, thumb/finger grip and dumbbell perspective at the shoulder-height and overhead positions."],
+      "references": [{"label": "Owner-supplied standing shoulder press reference", "note": "Reference depicts the intended standing two-dumbbell start and overhead positions. Retrieve the private source before detailed form comparison."}]
+    },
+    "single-arm-dumbbell-row": {
+      "constraints": ["Preserve the approved bench-supported single-arm row variation and camera.", "Keep the bench, support hand, support knee, planted foot and body registration fixed as approved.", "Show the working elbow/arm and dumbbell moving together with a natural grip; avoid a whole-image shift."],
+      "references": [{"label": "Owner-supplied bench-supported single-arm row reference", "note": "Use the supplied two-position reference for the assigned support setup. The locked exports include a registration correction that must be preserved."}]
+    },
+    "kettlebell-goblet-reverse-lunge": {
+      "constraints": ["Preserve the kettlebell goblet hold, approved side direction and fixed camera.", "Keep the front planted foot registered while the other leg steps back into the intended reverse lunge.", "Body height and leg positions change through the movement; do not freeze the torso or duplicate a leg."],
+      "references": [{"label": "Owner-supplied kettlebell goblet reverse lunge reference", "note": "The approved finish was registered to its planted foot. Preserve this version and confirm the exact reference before a new form audit."}]
+    },
+    "dumbbell-overhead-triceps-extension": {
+      "constraints": ["Use the approved standing version from the rear three-quarter view; do not reintroduce a seat or bench.", "Preserve the head, torso, hips, legs, stance and camera while the elbows/forearms and single shared dumbbell move.", "Check that both hands contact the same dumbbell correctly and that upper-arm position matches the intended extension."],
+      "references": [{"label": "Owner-supplied seated extension reference, adapted to standing", "note": "Owner explicitly requested standing after supplying a seated reference. The reference supports the grip/elbow comparison only; seated posture must not replace the approved stance."}]
+    },
+    "single-leg-dumbbell-calf-raise": {
+      "constraints": ["Use the approved plain platform/weight-plate support and simple balance post; include no press machine.", "Preserve the single-leg variation, support geometry, dumbbell grip and fixed camera.", "Show the intended heel-height change with correct foot/platform contact and no platform drift."],
+      "references": [{"label": "Owner-supplied calf raise form reference", "note": "The supplied image used machine structure; owner authorized its form as a reference while explicitly excluding press machines from the mockup."}]
+    },
+    "dead-bug": {
+      "constraints": ["Preserve the approved wider canvas and full reaching-arm/extended-foot margins.", "Exactly two legs: in the extended pose, one knee remains bent and the opposite leg extends; no third leg or duplicate contour.", "Preserve head/torso registration and the reference's opposite arm/leg movement; do not shift the whole image."],
+      "references": [{"label": "Owner-supplied photographic dead bug restart reference", "note": "The owner supplied a second photographic reference after duplicate-leg errors; the approved restart follows that reference. Do not reuse the rejected extra-leg draft."}]
+    },
+    "lat-pulldown": {
+      "constraints": ["Preserve the approved seated machine setup, camera and instructor.", "Keep stationary machine frame, seat and supported lower-body placement registered; distinguish moving weight/cable parts from the frame.", "Check the bar-to-hands connection, wrist orientation and cable path in both positions."],
+      "references": [{"label": "Owner-supplied lat pulldown reference", "note": "Supplied reference shows the intended high-bar and pulled-down positions. Private reference imagery is not part of the public delivery assets."}]
+    },
+    "seated-cable-row": {
+      "constraints": ["Preserve the approved seated row variation, instructor, machine and camera.", "Retain stable seat, foot support and machine geometry; check body movement against the exact row form notes.", "Both hands hold the intended attachment and the cable remains connected with consistent perspective."],
+      "references": [{"label": "Owner-supplied seated cable row reference", "note": "Use the specific seated cable-row reference when auditing the torso and handle positions. Imported approval is not a newly completed audit."}]
+    },
+    "leg-press": {
+      "constraints": ["Preserve the approved horizontal sliding-seat machine, not a different sled variation.", "The frame, base, rails, rear stop and footplate keep identical geometry and extents across poses; the machine must not grow longer.", "Only the intended carriage/seat, supported body and legs travel; keep hips/back in contact with the pads."],
+      "references": [{"label": "Owner-supplied horizontal leg press reference", "note": "The locked pair uses the fixed-machine revision. Frame registration and mechanism distinction matter; the original growing-machine draft is not the approved version."}]
+    },
+    "dumbbell-bench-press": {
+      "constraints": ["Keep the head stationary and supported on the bench with the neck/spine aligned; preserve the repaired opaque neck.", "Keep the torso, bench, feet and camera fixed. Only the arms and dumbbells change for this movement.", "Preserve natural shoulder joins, both closed grips and correct dumbbell perspective; inspect neck alpha on light and dark backgrounds."],
+      "references": [{"label": "Owner-supplied dumbbell bench press reference", "note": "The approved pair includes the stationary-head and neck-transparency repairs. Earlier drafts must not replace those corrected exports."}]
+    },
+    "leg-extension": {
+      "constraints": ["Preserve the seated leg-extension variation, camera, seat/back support and machine frame.", "The intended lower legs and roller mechanism move while the torso, hands and stationary machine regions stay registered.", "Check the front lower-shin roller contact and continuous knee/ankle/foot anatomy in both poses."],
+      "references": [{"label": "Owner-supplied leg extension reference", "note": "Reference identifies the front shin roller and intended seated start/finish. Confirm the specific setup before claiming mechanical or form validation."}]
+    },
+    "seated-leg-curl": {
+      "constraints": ["Preserve the approved aligned seated leg-curl pair; no image translation between poses.", "Keep the head, torso, seat, thigh hold-down and stationary frame registered; distinguish the moving lower-leg/roller mechanism.", "Check the rear lower-calf roller and continuous legs/feet without changing the approved machine dimensions."],
+      "references": [{"label": "Owner-supplied seated leg curl reference", "note": "The locked exports include a no-shift alignment repair. Do not import an earlier unaligned draft when registering a new candidate."}]
+    }
+  }
+}

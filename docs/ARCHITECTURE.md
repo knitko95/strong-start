@@ -37,6 +37,14 @@ This change bounds sync transfers and disk writes; it does not add lazy history
 rendering, server summaries, retention or tombstone pruning. First import and
 download still scale with full history. See [verification and release limits](INCREMENTAL-SYNC-2026-11-15.md).
 
+## Exercise artwork authoring
+
+`exercise-guides/pose-review/` is a standalone development dashboard, with a sanitized immutable seed derived from the eighteen approved pose pairs. The production packager excludes this dashboard. It does not use member Auth, Supabase, plan state, logs or account sync. The hosted page stores browser-local drafts and transfers version-specific decisions through bounded JSON imports/exports. Private notes are never included in build inputs.
+
+`scripts/serve-pose-review.mjs` binds only to `127.0.0.1` and serves the same UI with an optional disk-backed workspace. It validates Host/Origin plus a session token for mutations; no general file API is exposed. `scripts/pose-review.mjs` is the local coordinator/agent CLI. Per-exercise locks and expected revisions reject stale writers. Registered frame fingerprints are immutable; candidate creation preserves the approved version and resets only the candidate's review. Audits record their target fingerprint and generator identity remains attached after claim release. Review imports preserve canonical assets, audit evidence and deployment pointers; owner decisions append history and never publish. Workspace assets are contained by real paths and verified against registered hashes when served. Filesystem operators remain trusted; these controls are not staff/account authorization.
+
+Keep the private workspace under an ignored `output/pose-review-workspace` directory, never under static/runtime output. Local supplied references and generation records stay there. See [workflow and limits](pose-authoring/README.md). A browser draft is neither a shared review queue nor an authenticated owner decision until the coordinator reconciles it; release approval still follows AGENTS.md.
+
 ## Development usage analytics
 
 The dev build injects public ingestion configuration from

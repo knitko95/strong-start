@@ -1,0 +1,22 @@
+# Generator instructions
+
+Your output is an unapproved candidate for the assigned exercise IDs. Do not change other exercises, mark your own work owner-approved, alter the runtime catalogue or publish a release.
+
+## Before producing images
+
+1. Read the assigned handoff, current record, prior approved version, exact correction notes and [visual spec](visual-spec.md). Confirm your claim and expected revision. Check whether another worker has changed the record.
+2. Match the reference to the app's actual variation. Record the intended start/finish poses, camera direction, grip and equipment. Separate reference facts from unresolved assumptions. Escalate a missing key reference rather than inventing form validation.
+3. Inspect the approved style anchors and every input image. Read the installed image-generation skill before generating or editing raster artwork and follow its current tool instructions. Do not reuse a stale tool recipe from a past chat.
+4. Write the fixed/moving-region brief. For a revision, name anatomical and viewer sides, exact editable regions and protected regions. Reuse the approved body/bench/machine where required; do not regenerate everything to fix a wrist.
+
+## Produce and register a candidate
+
+Save the actual prompt, input/reference hashes, untouched generated source, separate pose masters, extraction/registration notes and tool provenance in your assigned local exercise/version folder. Keep an exact before copy. Do not copy supplied reference photos into public assets.
+
+Before registration, inspect both poses at full size and as a direct 900ms loop. Check hands, dumbbell axes, joints, limb count, stable anchors, equipment size and alpha holes on light/dark backgrounds. Do not claim these self-checks are an independent audit.
+
+Register the two frame files using the CLI `candidate` command with the current expected revision and an active claim. The first candidate for a new exercise **must** supply `--brief FILE`, using [the brief template](templates/brief.json): constraints, references and a `generation` payload containing the actual tool, prompt, source hashes and provenance. Existing revisions may inherit constraints/references, but still supply generation provenance so the change can be reproduced. The store saves the generation payload privately under that version's `generation.json` and retains the supplied frame masters unchanged.
+
+The store records the generating worker on the content-addressed version and preserves the prior approved one. Releasing your claim later does not remove your generator identity or make you an independent reviewer of that version. If the store rejects a revision conflict, reread and coordinate; never edit the record directly to bypass it. A new version starts unreviewed even when it was derived from approved artwork.
+
+Hand the coordinator the exact exercise ID, version ID/fingerprint, source/prompt paths, references, intended changes, protected regions, your observed gaps and the next independent audit action. Release your claim when the coordinator confirms the handoff. Do not silently create a third frame; record why two poses are insufficient and request the needed scope/renderer decision.

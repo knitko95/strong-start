@@ -8,3 +8,5 @@ node_modules/
 supabase/.temp/
 test-results/
 output/animation-verification/
+output/pose-review-workspace/
+output/test-pose-review-scratch/

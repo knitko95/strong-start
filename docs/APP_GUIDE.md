@@ -14,6 +14,12 @@ a second copy, the app preserves both and offers a recovery backup; contact the
 owner before continuing. Personal backups remain `{state, logs}`. This update
 is for dev review; production is unchanged.
 
+## Exercise artwork review
+
+The separate [development review dashboard](https://dev.strongstart.app/exercise-guides/pose-review/) starts with the eighteen approved pose pairs. Search or filter the list, inspect individual poses, compare a candidate with its approved version, read reference/audit notes, and approve or request changes for an exact version. Review approval does not change the workout images or publish a release. Missing audits remain labelled as not audited.
+
+The hosted dashboard saves drafts in that browser, with JSON export/import for handoff. For shared subagent work, run the local authoring server: its dashboard saves private records directly to a disk workspace. Notes and supplied reference images are kept outside public runtime files. See [the authoring workflow](pose-authoring/README.md) for startup, generation, audit and fresh-chat handoffs.
+
 ## Two-pose exercise demonstrations on testing
 
 Eighteen reviewed exercises use transparent two-pose demonstrations in the workout and How-to views on development. They switch between the approved positions every 0.9 seconds, with no play/pause, speed or camera-rotation controls. Expand remains available during workouts. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.

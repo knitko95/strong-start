@@ -1,0 +1,32 @@
+{
+  "versionId": "REPLACE_WITH_EXACT_VERSION_ID",
+  "fingerprint": "REPLACE_WITH_EXACT_64_CHARACTER_FINGERPRINT",
+  "status": "not-recorded",
+  "reviewer": "REPLACE_WITH_INDEPENDENT_REVIEWER",
+  "reviewedAt": "REPLACE_WITH_ISO_DATE_TIME",
+  "references": [
+    {
+      "label": "Exact exercise variation reference",
+      "url": "",
+      "privateFile": "",
+      "sha256": "",
+      "reviewedAt": "",
+      "factsChecked": [],
+      "variationMatch": "not-checked",
+      "limitations": ""
+    }
+  ],
+  "checks": [
+    { "id": "variation", "label": "Exercise variation and start/finish match", "result": "not-checked", "note": "" },
+    { "id": "anatomy", "label": "Limb count, joints, occlusion and hand anatomy", "result": "not-checked", "note": "" },
+    { "id": "grip", "label": "Both hands, wrist alignment and equipment grip/contact", "result": "not-checked", "note": "" },
+    { "id": "form", "label": "Movement checked against specific form notes and references", "result": "not-checked", "note": "" },
+    { "id": "perspective", "label": "Equipment axes, plate foreshortening and camera consistency", "result": "not-checked", "note": "" },
+    { "id": "fixed-elements", "label": "Stable regions and intended moving regions", "result": "not-checked", "note": "" },
+    { "id": "transparency", "label": "Transparency, pinholes, clipping and identity consistency", "result": "not-checked", "note": "" },
+    { "id": "readability", "label": "Two poses explain the movement without clipped limbs or equipment", "result": "not-checked", "note": "" }
+  ],
+  "findings": [],
+  "limitations": ["AI visual audit is not professional exercise technique clearance."],
+  "evidence": []
+}
