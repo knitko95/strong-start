@@ -1,6 +1,6 @@
 # Exercise preview stills
 
-Today uses static 88px previews from the approved public pose catalogue on development.
+Today and the opened Other workouts preview use static 88px previews from the approved public pose catalogue on development.
 Tapping a preview opens the existing exercise instructions/demonstration. The list does
 not animate or load the 3D player. Exercises without approved stills, unavailable files
 or valid preview metadata retain a neutral demonstration button.
@@ -26,5 +26,5 @@ a narrow phone layout; metadata validation alone does not establish visual quali
 exercise technique. The Node build checks explicit frame selection, valid bounds,
 existing exercise IDs, approved environment, image dimensions/bytes/hashes and loader
 syntax. Image failure leaves the exercise name, targets, Swap and instructions usable.
-Only the expanded Today plan requests its thumbnails, with a bounded decoded-image cache.
+Only expanded workout plans request their thumbnails, with a bounded decoded-image cache.
 Preview metadata is public media configuration, never member plan or account state.

@@ -933,6 +933,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.5.9",
+    "date": "2026-11-15",
+    "title": "Matching workout previews",
+    "notes": ["Other workouts now use the same 88px exercise stills and expandable workout plan as Today, with matching preparation dropdowns and simple exercise details."]
+  },
+  {
     "version": "0.5.8",
     "date": "2026-11-15",
     "title": "Workout history storage and sync",
@@ -4525,20 +4531,23 @@ function reorderSheet(key){
 }
 function renderPreview(){
   const key=ui.preview; if(!key || !tplOf(key)){ ui.tab='today'; return renderToday(); }
-  const t=tplOf(key), slots=sessionSlots(key), X=sessionExtras({key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}},slots), j=weekKeys().indexOf(key);
-  const inProg = state.draft && state.draft.key===key;
-  const wu=X.warm.filter(x=>!x.ramp).map(x=>x.t.toLowerCase()).slice(0,2).join(', ')+(X.warm.some(x=>x.ramp)?', lighter sets':'');
-  return `<div class="focus">
+  const t=tplOf(key),inProg=state.draft&&state.draft.key===key,draft=inProg?state.draft:null;
+  const slots=draft?dSlots():sessionSlots(key),X=draft?draft._x||sessionExtras(draft,slots):sessionExtras({key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}},slots);
+  const mins=X.min+Math.round(liftSec(slots)/60)+X.coolMin,open=ui.previewPlanClosed!==key;
+  const reorder=!coachMode&&!(draft&&Object.values(draft.sets||{}).flat().some(x=>x.done)),location=placeSwitch();
+  return `<div class="focus workout-preview">
     ${aTop('Workout preview')}
-    <div class="ahead"><div class="eyebrow">${j>=0?esc(dayLabel(j,true))+' · ':''}${esc(t.focus)}</div><h1>${esc(t.name)}</h1><div class="small muted">${lenText(key)} · ${slots.length} exercises · ${esc(curPlace().n)}</div></div>
-    ${placeSwitch()}
-    <section class="card acard"><div class="ach"><b>Your session</b><span class="goal">${slots.length} exercises</span></div>
-      <div class="asection"><b>Warm-up · ${X.min} min</b><div class="small muted">${esc(wu)}</div></div>
-      <div class="asection"><div class="row between"><b>Exercises</b>${coachMode||inProg&&Object.values(state.draft.sets||{}).flat().some(x=>x.done)?'':`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`}</div><div>${slots.map((s,i)=>{ const tg=target(s), ex=EX[s.id], w=tg.w??tg.sug,pair=fPair(null,slots,s.pk),letter=pair?String.fromCharCode(65+pair.moves.findIndex(x=>x.pk===s.pk)):'';
-      return `<div class="prow"><span class="pnum">${i+1}</span><button class="pmain" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}"><b>${esc(ex.n)}</b>${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}<div class="tiny muted">${tg.sets} × ${usesLoad(ex)?`${tg.lo}–${tg.hi}`:tg.r}${tg.unit==='sec'?' sec':''}${ex.uni?' per side':''} · ${usesLoad(ex)?(w!=null?fmtW(w):'start light'):'Body weight'}${pair?` · Superset ${letter}`:''}</div><span class="pinfo">How to do it ›</span></button>${s.placeFrom?'':`<button class="linkbtn small" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`; }).join('')}</div>${fGroups(slots).some(g=>g.length>1)?'<p class="tiny muted">Paired moves go A → B → rest. You’ll meet each pair before it starts.</p>':''}</div>
-      <div class="asection"><b>${X.finisher?'Cardio &amp; cool-down':'Cool-down'} · ${X.coolMin} min</b><div class="small muted">${X.finisher?'Optional '+esc(X.finisher.t.toLowerCase())+' · ':''}${esc(X.cool[0].t.toLowerCase())} + ${X.cool.filter(x=>x.stretch).length} stretches</div>${coachMode||X.finisher?'':`<button class="linkbtn small" data-action="addcardio">+ Add 10 min of cardio</button>`}</div></section>
-    <div class="ffoot">${coachMode?'<p class="small muted">Plan preview. The member records workouts in their own app.</p>':`<div class="afoot"><button class="btn primary fbig" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button></div><div class="anext">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</div>`}</div></div>`;
+    ${location?`<div class="today-location" aria-label="Training location">${location}</div>`:''}
+    <section class="card stack today-workout workout-preview-card">
+      <div class="today-head"><div class="eyebrow">${inProg?'In progress':'Workout preview'}</div><span class="today-len num" aria-label="About ${mins} minutes">~${mins} min</span></div>
+      <h1>${esc(t.name)}</h1><p class="muted" style="margin:0">${esc(t.focus)}</p>
+      ${placeNote([key])}
+      <button class="today-exercises-toggle preview-plan-toggle" data-action="previewplan" data-key="${key}" aria-expanded="${open}" aria-controls="preview-exercises"><span>${open?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${open?'▴':'▾'}</span></button>
+      <div id="preview-exercises" class="today-exercises"${open?'':' hidden'}>${open?renderWorkoutPlan(key,slots,draft,{reorder,scope:'preview'}):''}</div>
+      ${coachMode?'<p class="small muted">Plan preview. The member records workouts in their own app.</p>':`<button class="btn primary block preview-start" data-action="fbegin" data-key="${key}">${inProg?'Resume workout':'Start workout'}</button><p class="tiny muted" style="margin:0;text-align:center">${inProg?'Pick up where you left off.':'Looking around doesn’t start anything.'}</p>`}
+    </section></div>`;
 }
+
 // Exercise photos: img/<id>-a.jpg (start) and img/<id>-b.jpg (finish), shipped as the artifact's own files.
 const EX_PHOTOS = new Set([]);   // e.g. 'dumbbell-bench-press' once its photos are in img/
 // Videos later, keyed by exercise id: {video:'...'}
@@ -5543,7 +5552,7 @@ function savePrepEditor(){
   else{state.prep=state.prep||{};state.prep[prepKey(E.key,E.place)]=prep;}
   ui.prepEditor=null;save();closeModal();render();toast('Workout plan updated.');
 }
-function renderTodayPlan(key, slots, draft, mins){
+function renderWorkoutPlan(key, slots, draft, {reorder=false,scope='today'}={}){
   const d=draft||{key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}}, X=draft?draft._x||sessionExtras(d,slots):sessionExtras(d,slots);
   const buckets=prepBuckets(X);
   const items=group=>`<ul class="today-plan-items">${buckets.filter(b=>b.group===group&&b.id!=='cardio'&&b.items.length).map(b=>{
@@ -5559,10 +5568,10 @@ function renderTodayPlan(key, slots, draft, mins){
     'Cool-down':'<path d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 0-3-3M4 16h9a3 3 0 1 1-3 3"/>'
   };
   const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
-  const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><small>${time}</small></h2>${body}</section>`;
-  const fold=(name,group,time,body=items(group))=>{const id=key+':'+group,open=!!ui.todayPrepOpen?.[id];return `<details class="today-plan-phase today-plan-fold${group==='cardio'?' today-plan-cardio':''}" data-prep-key="${id}" aria-label="${name}" ${open?'open':''}><summary class="today-plan-heading"><span>${icon(name)}${name}${group==='cardio'?' <span class="chip acc">Optional</span>':''}</span><span class="today-plan-fold-end"><small>${time}</small><span class="today-plan-caret" aria-hidden="true">▾</span></span></summary>${body}</details>`;};
+  const phase=(name,time,body,action='')=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><span><small>${time}</small>${action}</span></h2>${body}</section>`;
+  const fold=(name,group,time,body=items(group))=>{const id=(scope==='today'?'':'preview:')+key+':'+group,open=!!ui.todayPrepOpen?.[id];return `<details class="today-plan-phase today-plan-fold${group==='cardio'?' today-plan-cardio':''}" data-prep-key="${id}" aria-label="${name}" ${open?'open':''}><summary class="today-plan-heading"><span>${icon(name)}${name}${group==='cardio'?' <span class="chip acc">Optional</span>':''}</span><span class="today-plan-fold-end"><small>${time}</small><span class="today-plan-caret" aria-hidden="true">▾</span></span></summary>${body}</details>`;};
   return fold('Warm-up','warm',`${X.min} min`)
-    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true))
+    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true),reorder?`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`:'')
     +fold('Cardio','cardio',X.finisher&&!X.finisher.prepSkipped?X.finisher.min+' min':'Off',`<div class="today-plan-group"><div><b>${X.finisher?esc(X.finisher.t):'After lifting'}</b><span class="tiny muted">${X.finisher?esc(X.finisher.d):'No extra cardio included'}</span></div></div>`)
     +fold('Cool-down','cool',`${X.coolMin} min`);
 }
@@ -5590,7 +5599,7 @@ function renderToday(){
     ${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
     <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
-    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderTodayPlan(mainKey,slots,draft,mins):''}</div>
+    <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderWorkoutPlan(mainKey,slots,draft):''}</div>
     ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">${restDay?'Train today':'Start workout'}</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
   h+=cmCoachCard(true);
@@ -6106,7 +6115,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6186,6 +6195,7 @@ document.addEventListener('click', e=>{
       if(!coachMode && state.draft && state.draft.key===key){ resumePartial(); USAGE.capture('workout_resumed'); ui.tab='workout'; render(); window.scrollTo(0,0); break; }
       ui.preview=key; ui.tab='preview'; render(); window.scrollTo(0,0); break;
     }
+    case 'previewplan': { ui.previewPlanClosed=ui.previewPlanClosed===b.dataset.key?null:b.dataset.key;render();document.querySelector('.preview-plan-toggle')?.focus({preventScroll:true});break; }
     case 'todayexercises': { const open=ui.todayExercises!==b.dataset.key;ui.todayExercises=open?b.dataset.key:null;render();document.querySelector('.today-exercises-toggle')?.focus({preventScroll:true});break; }
     case 'prepedit': prepEditSheet(b.dataset.key,b.dataset.id);break;
     case 'prepsave': savePrepEditor();break;
