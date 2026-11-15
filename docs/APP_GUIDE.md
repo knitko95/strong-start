@@ -14,7 +14,7 @@ are excluded; there are no recordings. This version leaves live analytics off.
 
 ## Dev2 exploration demo
 
-[Dev2](https://dev2.strongstart.app/) opens automatically with a sample Demo user and gym plan using the regular development interface. No login is required. Explore the plan, exercise library, workout recording, history and settings. Workouts you record appear in Progress; changes persist in that browser only. Settings > Account & backups > Demo user > Reset demo clears the demo and creates a fresh sample plan.
+[Dev2](https://dev2.strongstart.app/) opens automatically with a sample Demo user and gym plan using the regular development interface. No login is required. Explore the plan, exercise library, workout recording, history and settings. Workouts you record appear in History; changes persist in that browser only. Settings > Account & backups > Demo user > Reset demo clears the demo and creates a fresh sample plan.
 
 This local demo has no signed-in account, cloud sync, coach messages or staff tools. Use [the regular test app](https://dev.strongstart.app/) with a real test account for those features. Existing signed-in preview data is kept separately and is not loaded into the demo.
 
