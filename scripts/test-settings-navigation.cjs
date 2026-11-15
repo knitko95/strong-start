@@ -18,12 +18,19 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
    state.settings.goals=['muscle'];state.settings.days=[1,3,5];state.settings.split='fb3';state.settings.sound=false;
    state.places=[{k:'gym',n:'Gym',eq:EQ_ALL}];state.curPlace='gym';newBlock();
    state.ex={synthetic:{w:25}};logs=[{id:'synthetic-history',entries:[],units:'lb',status:'complete'}];startWorkout(weekKeys()[0]);clearInterval(timerInt);clearInterval(gInt);
-   ui.tab='settings';ui.settingsGroup=null;render();
+   ui.tab='today';ui.settingsGroup=null;render();
   });
   assert.equal(await page.evaluate(()=>APP_ENV),'development');
   assert.match(await page.locator('#environment-banner').innerText(),/TESTING/);
   const baseline=await page.evaluate(()=>JSON.stringify({state,logs}));
   const progress=await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft}));
+  assert.deepEqual(await page.locator('#tabs button').evaluateAll(es=>es.map(e=>e.dataset.tab)),['today','plan','library','history']);
+  assert(await page.locator('#settings-shortcut').isVisible());
+  await page.locator('#settings-shortcut').focus();await page.keyboard.press('Enter');
+  assert.equal(await page.evaluate(()=>ui.tab),'settings');
+  assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-current'),'page');
+  assert.equal(await page.locator('#tabs [aria-current]').count(),0);
+  assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),baseline,'opening Settings preserves saved data');
   assert.equal(await page.locator('[data-action="settingsgroup"]').count(),4);
   if(width===390){fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await page.screenshot({path:path.join(root,'test-results/settings-home.png'),fullPage:true});}
   for(const [group,ids] of [['training',['goals','schedule','places','level','block']],['workout',['exch','cardio','timers']],['profile',['appearance','weigh']],['account',['backup']]]){
@@ -72,6 +79,24 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   assert(roles.member.indexOf('data-action="cmopen"')<roles.member.indexOf('settings-menu'),'coach messages precede settings categories');
   assert(await page.evaluate(()=>document.querySelector('.cm-card').getBoundingClientRect().bottom<document.querySelector('.settings-menu').getBoundingClientRect().top));
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert(!roles.preview.includes('settingsgroup'));assert(!roles.preview.includes('copybackup'));
+  await page.evaluate(()=>{sb=null;AUTH.user=null;coachMode=null;ui.tab='today';CM.summary={coach:{unread:102}};render();});
+  assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-label'),'Settings, 102 unread');
+  assert.equal(await page.locator('#settings-shortcut .tbadge').innerText(),'99+');
+  await page.evaluate(()=>{CM.summary=null;ui.tab='today';render();});
+  assert.equal(await page.locator('#settings-shortcut .tbadge').count(),0);
+  assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-current'),null);
+  // Include the signed-in feedback button when checking the narrow header.
+  await page.evaluate(()=>{$('#fbbtn').hidden=false;});
+  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'header fits with feedback and profile');
+  const header=await page.locator('#settings-shortcut').boundingBox();
+  assert(header.width>=44&&header.height>=44&&header.x+header.width<=width,'profile touch target fits');
+  await page.evaluate(()=>{coachMode={name:'Synthetic member'};ui.tab='today';render();});
+  await page.locator('#settings-shortcut').click();
+  assert.equal(await page.evaluate(()=>ui.tab),'settings','coach preview can still open view-only Settings');
+  await page.evaluate(()=>{coachMode=null;ui.tab='workout';render();});
+  assert.equal(await page.locator('#settings-shortcut').isVisible(),false,'focused workout hides shortcut');
+  await page.evaluate(()=>{ui.tab='today';AUTH.recovery=true;render();});
+  assert.equal(await page.locator('#settings-shortcut').isVisible(),false,'recovery hides shortcut');
   assert.deepEqual(errors,[]);await page.close();console.log(`PASS Settings categories, expanded controls, persistence, progress and role boundaries at ${width}px`);
  }}finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;server.close();});

@@ -16,6 +16,10 @@ This local demo has no signed-in account, cloud sync, coach messages or staff to
 
 Reviewed against source commit `149f807bd8e67c7c95204157e07e33e1202763a7` on November 11, 2026. This guide describes implemented behavior. See the dated review for what was actually exercised.
 
+## Opening Settings on dev
+
+Tap the profile icon in the top-right corner to open Settings. Its badge shows unread coach messages, and it stays highlighted in Settings and its related screens. The bottom navigation contains Today, Plan, Library and History. The existing Settings categories and controls are unchanged. The profile shortcut is hidden during sign-in, setup and focused workouts.
+
 ## Trying changes before release
 
 Use [the testing app](https://dev.strongstart.app/) to review changes from `dev`. Its Testing banner identifies the separate environment. Sign in separately; test accounts, plans, workouts, messages, and invites do not transfer to the [live app](https://strongstart.app/). Do not restore a real member's backup into testing.
