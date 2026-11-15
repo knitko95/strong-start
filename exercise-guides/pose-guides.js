@@ -27,20 +27,19 @@
   }return pairs.get(key);
  }
  async function preload(id,environment){try{const entry=await find(id,environment);if(entry)await loadPair(entry);}catch{}}
- async function mount(view,entry,{inline=false,suspended=false,isCurrent=()=>true}={}){
+ async function mount(view,entry,{suspended=false,isCurrent=()=>true}={}){
   // Both files are loaded and decoded before either pose enters the layout.
   const images=await loadPair(entry),abort=new AbortController(),motion=matchMedia('(prefers-reduced-motion: reduce)');
   if(!isCurrent())throw new DOMException('Cancelled pose mount','AbortError');
   const stage=document.createElement('div');stage.className='pose-stage';stage.setAttribute('role','img');stage.setAttribute('aria-label',entry.name+' demonstration, showing two exercise positions.');
   for(const source of images){const image=document.createElement('img');image.src=source.src;image.alt='';image.width=source.naturalWidth;image.height=source.naturalHeight;image.draggable=false;image.hidden=true;stage.append(image);}
-  let phase=0,timer,disposed=false,visible=true,paused=suspended,speed=1;const frames=[...stage.children];
+  let phase=0,timer,disposed=false,visible=true,paused=suspended;const frames=[...stage.children];
   function display(){frames.forEach((image,i)=>image.hidden=i!==phase);stage.dataset.pose=String(phase);}
-  function refresh(){clearTimeout(timer);if(disposed)return;if(motion.matches){phase=0;display();}const running=!motion.matches&&!document.hidden&&!paused&&visible;stage.dataset.playing=String(running);if(running)timer=setTimeout(()=>{phase=1-phase;display();refresh();},entry.timingMs/speed);}
+  function refresh(){clearTimeout(timer);if(disposed)return;if(motion.matches){phase=0;display();}const running=!motion.matches&&!document.hidden&&!paused&&visible;stage.dataset.playing=String(running);if(running)timer=setTimeout(()=>{phase=1-phase;display();refresh();},entry.timingMs);}
   display();view.replaceChildren(stage);
-  if(!inline){const label=document.createElement('label');label.className='pose-speed';label.append('Speed ');const select=document.createElement('select');select.setAttribute('aria-label','Demonstration speed');for(const [value,text] of [['1','Normal'],['0.5','Half speed']]){const option=document.createElement('option');option.value=value;option.textContent=text;select.append(option);}select.addEventListener('change',()=>{speed=Number(select.value);refresh();},{signal:abort.signal});label.append(select);view.append(label);}
   const observer=typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;refresh();}):null;observer?.observe(stage);
   document.addEventListener('visibilitychange',refresh,{signal:abort.signal});motion.addEventListener('change',refresh,{signal:abort.signal});refresh();
-  return {suspend(value){paused=!!value;refresh();},unmount(){disposed=true;clearTimeout(timer);observer?.disconnect();abort.abort();stage.remove();view.querySelector('.pose-speed')?.remove();}};
+  return {suspend(value){paused=!!value;refresh();},unmount(){disposed=true;clearTimeout(timer);observer?.disconnect();abort.abort();stage.remove();}};
  }
  window.StrongStartPoseDemos=Object.freeze({find,mount,preload});
 })();
