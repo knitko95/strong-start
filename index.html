@@ -473,7 +473,7 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-plan-caret{font-size:12px}
 .today-plan-movements{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
 .today-plan-movements .tiny{display:block;margin-top:2px}
-.today-strength-row{grid-template-columns:minmax(0,1fr) auto;padding:14px 0;gap:12px}
+.today-strength-row{grid-template-columns:24px minmax(0,1fr) auto;padding:14px 0;gap:10px}
 .today-strength-row>div{min-width:0}
 .today-strength-row .today-strength-name{font-size:14px;font-weight:600}
 .today-strength-meta{font-size:12px;color:var(--muted);margin:4px 0 0}
@@ -920,6 +920,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.5.4",
+    "date": "2026-11-15",
+    "title": "Aligned exercise numbers",
+    "notes": ["Today exercises use the same centered number column as workout previews, with names and targets aligned beside it."]
+  },
   {
     "version": "0.5.3",
     "date": "2026-11-15",
@@ -3405,8 +3411,8 @@ function mainMuscleLabel(id){
   return [...new Set((EXM[id]?.p||[]).map(m=>groups[m]||MUSCLES[m]).filter(Boolean))].join(' · ');
 }
 function renderPlanExercises(slots, simple=false){
-  if(simple)return `<div>${slots.map(s=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row"><div><div class="today-strength-name">${s.label}. ${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+  if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
+    return `<div class="slotrow today-strength-row"><span class="pnum">${i+1}</span><div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   const planes = {S:0,F:0,T:0}; slots.forEach(s=>planes[EX[s.id].pl]++);
   return `${simple?'':`<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>`}
