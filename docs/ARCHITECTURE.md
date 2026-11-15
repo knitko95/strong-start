@@ -1,5 +1,42 @@
 # Strong Start architecture and operations
 
+## Incremental sync and IndexedDB on dev — November 15, 2026
+
+This dev candidate replaces routine full-history transfers with
+`read_account_changes(p_since,p_after,p_expected)` and
+`commit_account_changes(p_revision,p_state,p_upserts,p_deletes,p_apply_coach)`.
+Workouts and deletion markers carry `sync_revision`, indexed by account and
+revision. Initial downloads use pages of at most 250 records; later downloads
+request changes since the persisted baseline revision. Writes between pages
+cause the incomplete download to be discarded and retried. Upload transactions
+contain at most 250 changed workouts and 250 explicit deletion IDs. Missing rows
+never mean deletion. State remains a whole-document save. Revision checks,
+profile locks, approval, tombstones, conflict recovery and coach draft deferral
+remain. Legacy snapshot RPCs remain compatible: triggers tag changed rows and
+skip unchanged legacy upserts. No client write grants or roles expand.
+
+`DeviceStore` names its IndexedDB database from the environment/variant's
+existing storage key plus `_indexed`. Local, baseline and conflict/recovery
+workouts are individual records. Changed records and metadata commit together;
+unchanged workouts are not rewritten. A generation check rejects stale writers
+in other tabs. `persistLocal()` starts saving immediately; `flushDevice()`
+drains queued writes before sync acknowledgement or conflict replacement.
+Pending writes and storage failures have distinct statuses. Coach preview never
+persists or uploads. Boot awaits storage before account initialization.
+
+Legacy `{state,logs,sync}` browser saves migrate without changing IDs, state
+version or ownership. The legacy copy is removed only after IndexedDB commits;
+failed migration keeps it. A second legacy copy from an older tab is preserved
+and reopening offers a recovery backup instead of discarding either version.
+Sign-out/deletion clear records and retain a generation marker against stale
+tabs. Without IndexedDB the app retains its limited localStorage fallback. A
+failed IndexedDB read stops boot instead of saving defaults over existing data.
+
+All history is still loaded into memory for existing progression/search/charts.
+This change bounds sync transfers and disk writes; it does not add lazy history
+rendering, server summaries, retention or tombstone pruning. First import and
+download still scale with full history. See [verification and release limits](INCREMENTAL-SYNC-2026-11-15.md).
+
 ## Development usage analytics
 
 The dev build injects public ingestion configuration from

@@ -1,5 +1,19 @@
 # Using Strong Start
 
+## Development storage update — November 15, 2026
+
+On the test app, history saves in IndexedDB and syncs only changed workouts after
+the initial download. Existing browser saves migrate automatically after a
+successful device write. Plans, weights, history and unfinished workouts are
+preserved. Keep the page open while **Saving on device…** appears; a save failure
+means the latest changes are not yet durable. Offline edits sync on reconnect.
+
+Use one active app tab per browser. If **Another tab saved changes** appears,
+copy a backup from Settings, close other tabs and reload. If an older tab leaves
+a second copy, the app preserves both and offers a recovery backup; contact the
+owner before continuing. Personal backups remain `{state, logs}`. This update
+is for dev review; production is unchanged.
+
 ## Two-pose exercise demonstrations on testing
 
 Eighteen reviewed exercises use transparent two-pose demonstrations in the workout and How-to views on development. They switch between the approved positions every 0.9 seconds, with no play/pause, speed or camera-rotation controls. Expand remains available during workouts. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.

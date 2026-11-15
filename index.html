@@ -1946,15 +1946,116 @@ function defaults(){
     places:[], curPlace:null, onboarded:false, setup:{step:'about', a:{quickSetup:true, units:'lb', color:'blush', goals:[], places:[], days:[1,3,5], mins:45, pain:[]}}, block:null, ex:{}, adj:{}, prep:{}, weekModes:{}, draft:null, levelDismiss:null,
     weigh:{on:false, day:1, hide:false, list:[]}, coach:{note:''}, checkin:null, easeExtra:0, updatedAt:0};
 }
+// Account-scoped metadata and workout records share one device transaction.
+// No dependency or network access is needed for offline saves.
+class DeviceStore {
+  constructor(name){ this.name=name; this.db=null; this.version=0; this.keys=new Map(); this.tail=Promise.resolve();this.legacy=null;try{this.legacy=localStorage.getItem(name);}catch{} }
+  async open(){
+    this.db=await new Promise((resolve,reject)=>{
+      const req=indexedDB.open(this.name+'_indexed',1);
+      req.onupgradeneeded=()=>{req.result.createObjectStore('meta');req.result.createObjectStore('logs');};
+      req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
+      req.onblocked=()=>reject(Error('Close the other app tab to open device storage'));
+    });
+    this.db.onversionchange=()=>{this.db.close();this.db=null;};
+    const saved=await new Promise((resolve,reject)=>{
+      const tx=this.db.transaction(['meta','logs'],'readonly'),m=tx.objectStore('meta').get('active'),r=tx.objectStore('logs').getAll();
+      tx.oncomplete=()=>resolve({meta:m.result,rows:r.result});tx.onerror=tx.onabort=()=>reject(tx.error||Error('Device read failed'));
+    });
+    if(!saved.meta)return null;
+    this.version=saved.meta.version;
+    const value=saved.meta.value;
+    for(const row of saved.rows){
+      this.keys.set(row.key,JSON.stringify(row.data));
+      const parts=row.key.split('/'),slot=parts.shift();
+      const dest=slot==='local'?value:slot==='base'?value.sync.base:slot==='conflict'?value.sync.conflict:slot==='device'?value.sync.recovery.device:value.sync.recovery.account;
+      if(dest)dest.logs.push(row.data);
+    }
+    // Preserve newest-first history after IndexedDB's key-ordered getAll().
+    for(const snapshot of [value,value?.sync.base,value?.sync.conflict,value?.sync.recovery?.device,value?.sync.recovery?.account]){
+      if(snapshot)snapshot.logs.sort((a,b)=>new Date(b.date)-new Date(a.date)||String(a.id).localeCompare(String(b.id)));
+    }
+    return value;
+  }
+  write(value){
+    // Capture now: later UI edits must not leak into this transaction's baseline.
+    const captured=structuredClone(value);
+    const task=this.tail.catch(()=>{}).then(()=>this.commit(captured));
+    this.tail=task;return task;
+  }
+  async commit(value){
+    const rows=new Map();
+    const split=(slot,snapshot)=>{if(!snapshot)return;for(const l of snapshot.logs||[])rows.set(slot+'/'+l.id,l);snapshot.logs=[];};
+    split('local',value);split('base',value.sync.base);split('conflict',value.sync.conflict);
+    if(value.sync.recovery){split('device',value.sync.recovery.device);split('account',value.sync.recovery.account);}
+    const signatures=new Map([...rows].map(([k,v])=>[k,JSON.stringify(v)]));
+    await new Promise((resolve,reject)=>{
+      const tx=this.db.transaction(['meta','logs'],'readwrite'),meta=tx.objectStore('meta'),records=tx.objectStore('logs'),req=meta.get('active');
+      let reason;
+      req.onsuccess=()=>{
+        if((req.result?.version||0)!==this.version){reason=Object.assign(Error('Another tab saved changes. Copy a backup and reload this tab.'),{code:'stale_device_copy'});tx.abort();return;}
+        for(const [key,data] of rows)if(this.keys.get(key)!==signatures.get(key))records.put({key,data},key);
+        for(const key of this.keys.keys())if(!rows.has(key))records.delete(key);
+        meta.put({version:this.version+1,value},'active');
+      };
+      tx.oncomplete=()=>{this.version++;this.keys=signatures;resolve();};
+      tx.onerror=tx.onabort=()=>reject(reason||tx.error||Error('Device save failed'));
+    });
+    // Remove the legacy copy only after the IndexedDB transaction has committed.
+    // An older still-open app may write its legacy cache during migration.
+    // Preserve that copy instead of deleting newer work from another tab.
+    try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}
+  }
+  clear(){
+    const task=this.tail.catch(()=>{}).then(()=>new Promise((resolve,reject)=>{
+      const tx=this.db.transaction(['meta','logs'],'readwrite');
+      // Keep a generation marker so an old tab cannot recreate a cleared account.
+      const req=tx.objectStore('meta').get('active');
+      req.onsuccess=()=>{
+        this.version=(req.result?.version||0)+1;
+        tx.objectStore('meta').put({version:this.version,value:null},'active');
+        tx.objectStore('logs').clear();
+      };
+      tx.oncomplete=()=>{this.keys.clear();resolve();};tx.onerror=tx.onabort=()=>reject(tx.error||Error('Device clear failed'));
+    }));this.tail=task;return task;
+  }
+}
+
+const DEVICE={store:null,flight:Promise.resolve(),pending:0,error:null};
 function loadLocal(){
   try{ const raw=localStorage.getItem(LS); if(raw){ const o=JSON.parse(raw); return o; } }catch(e){}
   return null;
 }
 let storageOk=true;
+async function openDevice(){
+  const legacy=loadLocal();
+  if(typeof indexedDB==='undefined')return legacy;
+  DEVICE.store=new DeviceStore(LS);
+  const saved=await DEVICE.store.open();
+  if(saved&&legacy?.state){
+    DEVICE.recovery={indexed:saved,legacy};
+    throw Error('Two device copies found');
+  }
+  return saved||legacy;
+}
+async function flushDevice(){
+  // Edits can queue another transaction while a previous one is finishing.
+  let flight;do{flight=DEVICE.flight;await flight;}while(flight!==DEVICE.flight);
+  return storageOk;
+}
+async function clearDevice(){
+  await DEVICE.flight;
+  if(DEVICE.store)await DEVICE.store.clear();
+  try{localStorage.removeItem(LS);}catch{}
+}
 function persistLocal(){
   if(typeof AUTH!=='undefined' && AUTH.deleting) return;
   if(typeof coachMode!=='undefined' && coachMode) return;
-  try{ localStorage.setItem(LS, JSON.stringify({state, logs, sync:SYNC})); storageOk=true; }catch(e){ storageOk=false; }
+  if(DEVICE.store){
+    DEVICE.pending++;DEVICE.error=null;
+    DEVICE.flight=DEVICE.store.write({state,logs,sync:SYNC}).then(()=>{storageOk=true;},e=>{storageOk=false;DEVICE.error=e;}).finally(()=>{DEVICE.pending--;setSync();});
+  }else try{ localStorage.setItem(LS, JSON.stringify({state, logs, sync:SYNC})); storageOk=true; }catch(e){ storageOk=false; }
+
   setSync();
 }
 
@@ -2265,6 +2366,8 @@ function needsAuth(){ return !!sb && !AUTH.user && !rememberedAcct() && !localOn
 function withTimeout(p,ms){ return Promise.race([p,new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),ms))]); }
 function saveStatus(){
   if(coachMode) return ['warn','Coach preview','Changes here are not saved until you send a plan update.'];
+  if(DEVICE.pending) return ['','Saving on device…','Keep this page open until your latest changes are saved.'];
+  if(DEVICE.error?.code==='stale_device_copy') return ['warn','Another tab saved changes','Copy a backup from Settings, close the other app tabs, then reload this tab before continuing.'];
   if(!storageOk) return ['warn','Device save failed','This browser could not save your latest changes. Keep this page open and copy a backup from Settings.'];
   const account=AUTH.user||rememberedAcct();
   if(!account) return ['ok','Saved on device','Saved in this browser only. It is not synced to an account.'];
@@ -2360,12 +2463,12 @@ function renderGate(){
     <div class="spacer"></div><button class="later" data-action="authgateout">Sign out</button>
     <a class="tiny muted" href="privacy.html" style="text-align:center;margin-top:-6px">Privacy policy</a></div>`;
 }
-// A baseline is stored in the same localStorage write as the editable copy.
+// The editable copy and its baseline commit in the same IndexedDB transaction.
 // Client timestamps are display metadata, never authority for overwriting data.
 const copySync = value => value==null?value:JSON.parse(JSON.stringify(value));
 function syncKey(value){
   if(Array.isArray(value)) return '['+value.map(syncKey).join(',')+']';
-  if(value && typeof value==='object') return '{'+Object.keys(value).filter(k=>k!=='updatedAt').sort().map(k=>JSON.stringify(k)+':'+syncKey(value[k])).join(',')+'}';
+  if(value && typeof value==='object') return '{'+Object.keys(value).filter(k=>k!=='updatedAt'&&value[k]!==undefined).sort().map(k=>JSON.stringify(k)+':'+syncKey(value[k])).join(',')+'}';
   return JSON.stringify(value);
 }
 const sameSync=(a,b)=>syncKey(a)===syncKey(b);
@@ -2373,6 +2476,7 @@ function deviceSnapshot(){ return copySync({state,logs}); }
 function normalizeSnapshot(s){
   s=copySync(s); s.logs=s.logs||[]; s.deleted=s.deleted||[]; s.revision=String(s.revision||'0');
   if(s.state){ s.state=migrate(s.state); normalizeLogs(s.logs,s.state.settings.units); }
+  s.logs.sort((a,b)=>new Date(b.date)-new Date(a.date)||String(a.id).localeCompare(String(b.id)));
   return s;
 }
 function mergeSnapshots(base,local,account,choice){
@@ -2433,6 +2537,7 @@ async function resolveSyncConflict(choice){
   const local=deviceSnapshot(), account=copySync(SYNC.conflict);
   // Persist recovery before replacing anything. Do not proceed if storage fails.
   SYNC.recovery={device:local,account,at:new Date().toISOString()}; persistLocal();
+  await flushDevice();
   if(!storageOk){ toast('Copy both versions first. This device cannot save the recovery copy.'); return; }
   const next=mergeSnapshots(SYNC.base,local,account,choice);
   adoptSnapshot(next,account); closeModal(); CLOUD.pending=true;
@@ -2491,6 +2596,29 @@ function queueCloud(){
   if(CLOUD.ok && AUTH.user && !SYNC.conflict) CLOUD.t=setTimeout(()=>{CLOUD.t=null;pushCloud();},1200);
   setSync();
 }
+// A null cursor bootstraps once. Every later pull requests only changed rows.
+async function readAccountChanges(base,current){
+  for(let restart=0;restart<4;restart++){
+    let account=copySync(base||{state:null,logs:[],deleted:[],revision:'0'}),after=null,revision=null;
+    const byId=new Map(account.logs.map(l=>[l.id,l])),deleted=new Set(account.deleted||[]);
+    do{
+      const {data,error}=await sb.rpc('read_account_changes',{p_since:base?base.revision:null,p_after:after,p_expected:revision});
+      if(!current())return null;
+      if(error)throw error;
+      if(!data)return null;
+      if(data.restart){revision=null;break;}
+      revision=data.revision;account.state=data.state;account.revision=revision;
+      for(const row of data.changes){if(row.deleted){byId.delete(row.id);deleted.add(row.id);}else{byId.set(row.id,row.data);}}
+      after=data.next;
+    }while(after!==null);
+    if(revision!==null){account.logs=[...byId.values()];account.deleted=[...deleted];return normalizeSnapshot(account);}
+  }
+  throw Error('Account changed during download; retry sync');
+}
+function workoutDelta(base,next){
+  const before=new Map((base.logs||[]).map(l=>[l.id,l])),after=new Map(next.logs.map(l=>[l.id,l]));
+  return {upserts:next.logs.filter(l=>!sameSync(l,before.get(l.id))).slice(0,250),deletes:[...before.keys()].filter(id=>!after.has(id)).slice(0,250)};
+}
 function pushCloud(){
   if(!CLOUD.ok || !AUTH.user || !sb || coachMode || AUTH.deleting) return Promise.resolve(false);
   clearTimeout(CLOUD.t); CLOUD.t=null;
@@ -2500,46 +2628,53 @@ function pushCloud(){
   CLOUD.flight=(async()=>{
     await Promise.resolve();
     try{
-      for(let attempt=0;attempt<8;attempt++){
+      if(!await flushDevice())throw Error('Device save failed');
+      for(let attempt=0;attempt<100;attempt++){
         CLOUD.again=false;
-        const {data,error}=await sb.rpc('read_account_snapshot');
-        if(!current()) return false;
-        if(!error && !data){
+        const account=await readAccountChanges(SYNC.base,current);
+        if(!current())return false;
+        if(!account){
           const status=await sb.rpc('account_status');
           if(current() && !status.error && status.data==='none'){
-            await clearDeletedAccount(); toast('This account is no longer available. Its saved copy was removed from this device.'); return false;
+            await clearDeletedAccount();toast('This account is no longer available. Its saved copy was removed from this device.');return false;
           }
+          throw Error('Account unavailable');
         }
-        if(error || !data) throw error||Error('Account unavailable');
-        const account=normalizeSnapshot(data), local=deviceSnapshot();
-        const merged=mergeSnapshots(SYNC.base,local,account);
-        if(merged.conflicts.length){ setSyncConflict(account); return false; }
+        const merged=mergeSnapshots(SYNC.base,deviceSnapshot(),account);
+        if(merged.conflicts.length){setSyncConflict(account);await flushDevice();return false;}
         adoptSnapshot(merged,account);
-        if(!storageOk) throw Error('Device save failed');
-        const sent=deviceSnapshot();
-        // First commit local changes; only a clean shared snapshot may receive
-        // coach changes. A retry after a lost response therefore remains safe.
+        if(!await flushDevice())throw Error('Device save failed');
+        if(!current())return false;
+        const sent=deviceSnapshot(),delta=workoutDelta(account,sent);
         const applyCoach=sameSync(sent.state,account.state)&&sameSync(sent.logs,account.logs);
-        const response=await sb.rpc('commit_account_snapshot',{
-          p_revision:account.revision,p_state:sent.state,p_logs:sent.logs,p_apply_coach:applyCoach
+        const response=await sb.rpc('commit_account_changes',{
+          p_revision:account.revision,p_state:sent.state,p_upserts:delta.upserts,p_deletes:delta.deletes,p_apply_coach:applyCoach
         });
-        if(!current()) return false;
-        if(response.error) throw response.error;
-        if(!response.data || !response.data.snapshot) throw Error('Invalid sync response');
-        if(!response.data.ok) continue; // Another device won the revision check. Read and reconcile again.
-        const committed=normalizeSnapshot(response.data.snapshot), latest=deviceSnapshot();
-        const after=mergeSnapshots(sent,latest,committed);
-        if(after.conflicts.length){ SYNC.base=sent; setSyncConflict(committed); return false; }
+        if(!current())return false;
+        if(response.error)throw response.error;
+        if(!response.data)throw Error('Invalid sync response');
+        if(!response.data.ok)continue;
+        let committed=copySync(account);const byId=new Map(committed.logs.map(l=>[l.id,l]));
+        for(const id of delta.deletes)byId.delete(id);
+        for(const l of delta.upserts)byId.set(l.id,l);
+        committed.logs=[...byId.values()];committed.deleted=[...new Set([...committed.deleted,...delta.deletes])];
+        committed.state=response.data.state;committed.revision=response.data.revision;
+        committed=normalizeSnapshot(committed);
+        // Only this batch has been acknowledged. Keep unsent rows and any edits
+        // made while the request was in flight as pending local changes.
+        const acknowledged={state:sent.state,logs:committed.logs};
+        const after=mergeSnapshots(acknowledged,deviceSnapshot(),committed);
+        if(after.conflicts.length){SYNC.base=sent;setSyncConflict(committed);await flushDevice();return false;}
         adoptSnapshot(after,committed);
-        if(!storageOk) throw Error('Device save failed');
-        if(response.data.applied) toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+        if(!await flushDevice())throw Error('Device save failed');
+        if(response.data.applied)toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
         if(!CLOUD.again && sameSync(after.state,committed.state)&&sameSync(after.logs,committed.logs) && applyCoach){
-          CLOUD.pending=false; return true;
+          CLOUD.pending=false;return true;
         }
       }
-      throw Error('Account changed repeatedly; retry sync');
-    }catch(e){ if(current()){ CLOUD.failed=true; CLOUD.pending=true; } return false; }
-    finally{ CLOUD.busy=false; CLOUD.flight=null; setSync(); }
+      throw Error('Too many account changes; retry sync');
+    }catch(e){if(current()){CLOUD.failed=true;CLOUD.pending=true;}return false;}
+    finally{CLOUD.busy=false;CLOUD.flight=null;setSync();}
   })();
   return CLOUD.flight;
 }
@@ -2720,7 +2855,7 @@ function authAction(a,b){
 async function signOut(){
   if(!await flushCloud()){ toast('Some changes haven’t synced. Keep this page open, retry sync, then sign out.'); return; }
   try{ const {error}=await sb.auth.signOut(); if(error) throw error; }catch(e){ toast('Couldn’t sign out. Your data is still on this device.'); return; }
-  try{ localStorage.removeItem(LS); }catch(e){}
+  await clearDevice();
   lsSet(ACCT_KEY,null); lsSet('strongstart_owner',null);
   cmReset();closeModal();
   AUTH.user=null; AUTH.access=null; AUTH.coach=false; FB.owner=false; ui.invites=null; FBS={side:'app',tag:'',text:'',busy:false}; AUTH.mode='signin'; CLOUD.ok=false; coachMode=null;
@@ -2763,6 +2898,7 @@ async function selfDeleteBackup(){
 async function clearDeletedAccount(){
   AUTH.deleting=true; CLOUD.ok=false; clearTimeout(CLOUD.t); CLOUD.t=null;
   try{ await sb.auth.signOut({scope:'local'}); }catch(e){}
+  await clearDevice();
   // Also clear locally if an already-deleted Auth user makes signOut fail.
   try{ const k='sb-'+new URL(SB_URL).hostname.split('.')[0]+'-auth-token'; localStorage.removeItem(k); localStorage.removeItem(k+'-code-verifier'); localStorage.removeItem(k+'-user'); localStorage.removeItem(LS); }catch(e){}
   for(const k of [ACCT_KEY,'strongstart_owner',LOCAL_ONLY_KEY,INVITE_KEY]) lsSet(k,null);
@@ -6215,8 +6351,14 @@ document.addEventListener('click',e=>{
     fClearTimer(); seedDemo(); ui.tab='today'; ui.qsLater=true; closeModal(); save(); render(); window.scrollTo(0,0);
   });
 });
-(function boot(){
-  const saved=loadLocal();
+(async function boot(){
+  let saved;
+  try{saved=await openDevice();}catch(e){
+    document.getElementById('app').innerHTML=DEVICE.recovery
+      ? '<div class="ob"><h1>Two device copies found</h1><p>An older app tab saved another copy. Both are preserved. Copy this recovery backup and contact the app owner before continuing.</p><textarea class="in" aria-label="Device recovery backup" readonly>'+esc(JSON.stringify(DEVICE.recovery))+'</textarea></div>'
+      : '<div class="ob"><h1>Device storage unavailable</h1><p>Your saved copy has been kept. Close other app tabs and reload to try again.</p></div>';
+    return;
+  }
   if(saved && saved.state){ if(saved.sync) SYNC=saved.sync; state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
   if(DEMO_MODE){

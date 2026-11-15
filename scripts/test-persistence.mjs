@@ -32,6 +32,14 @@ let passed=0;
 async function test(name,fn){await fn();passed++;console.log('PASS '+name);}
 const near=(a,b,tol=0.000001)=>assert.ok(Math.abs(a-b)<tol,`${a} != ${b}`);
 
+await test('sync comparisons ignore optional undefined fields removed by JSON transport',()=>{
+  const h=harness();assert.equal(h.run("sameSync({sets:[],planned:undefined},{sets:[]})"),true);
+  assert.equal(h.run("workoutDelta({logs:[{id:'one',entries:[{sets:[],planned:undefined}]}]},{logs:[{id:'one',entries:[{sets:[]}]}]}).upserts.length"),0);
+});
+await test('paged account snapshots normalize history order before comparing sync baselines',()=>{
+  const h=harness();assert.equal(h.run("normalizeSnapshot({revision:'1',logs:[{id:'old',date:'2020-01-01'},{id:'new',date:'2026-01-01'}]}).logs[0].id"),'new');
+});
+
 await test('feedback captures the running version without a database inbox',async()=>{
   const h=harness();
   h.run(`AUTH.user={id:'synthetic-owner'};AUTH.access='ok';AUTH.coach=false;FB.owner=true;refreshUnread=()=>{};closeModal=()=>{};
@@ -531,8 +539,15 @@ function backend(h, shared){
   const writes=[], holds=[];let fail=false,hold=false,signedOut=false,loseResponse=false;
   const clone=x=>JSON.parse(JSON.stringify(x));
   h.context.fakeBackend={async rpc(name,p){
-    if(name==='read_account_snapshot')return {data:clone(server.snapshot),error:fail?Error('Simulated read failure'):null};
-    if(name!=='commit_account_snapshot')return {data:false,error:null};
+    if(name==='read_account_changes'){
+      server.seen ||= new Map();server.revisions ||= new Map();server.deletionRevisions ||= new Map();
+      for(const l of server.snapshot.logs){const key=JSON.stringify(l);if(server.seen.get(l.id)!==key){server.seen.set(l.id,key);server.revisions.set(l.id,server.snapshot.revision);}}
+      for(const id of server.snapshot.deleted)if(!server.deletionRevisions.has(id))server.deletionRevisions.set(id,server.snapshot.revision);
+      if(p.p_expected!==null&&p.p_expected!==server.snapshot.revision)return {data:{restart:true}};
+      const changes=[...server.snapshot.logs.filter(l=>p.p_since===null||BigInt(server.revisions.get(l.id))>BigInt(p.p_since)).map(l=>({id:l.id,data:clone(l),deleted:false})),...server.snapshot.deleted.filter(id=>p.p_since===null||BigInt(server.deletionRevisions.get(id))>BigInt(p.p_since)).map(id=>({id,deleted:true}))].filter(l=>p.p_after===null||l.id>p.p_after).sort((a,b)=>a.id.localeCompare(b.id));
+      return {data:{revision:server.snapshot.revision,state:clone(server.snapshot.state),changes:changes.slice(0,250),next:changes.length>250?changes[249].id:null},error:fail?Error('Simulated read failure'):null};
+    }
+    if(name!=='commit_account_changes')return {data:false,error:null};
     if(hold)await new Promise(resolve=>holds.push(resolve));
     if(fail)return {error:Error('Simulated upload failure')};
     if(p.p_revision!==server.snapshot.revision)return {data:{ok:false,snapshot:clone(server.snapshot)}};
@@ -543,14 +558,17 @@ function backend(h, shared){
         if(u.level)next.settings.level=u.level;u.applied=true;applied++;
       }
     }
-    for(const l of server.snapshot.logs)if(!p.p_logs.some(x=>x.id===l.id))server.snapshot.deleted.push(l.id);
+    const nextLogs=new Map(server.snapshot.logs.map(l=>[l.id,l]));
+    for(const id of p.p_deletes){nextLogs.delete(id);if(!server.snapshot.deleted.includes(id))server.snapshot.deleted.push(id);}
+    for(const l of p.p_upserts)nextLogs.set(l.id,clone(l));
+    p.p_logs=[...nextLogs.values()];
     if(p.p_logs.some(l=>server.snapshot.deleted.includes(l.id)))throw Error('Deleted ID reused');
     if(JSON.stringify(next)!==JSON.stringify(server.snapshot.state)||JSON.stringify(p.p_logs)!==JSON.stringify(server.snapshot.logs)||applied){
       writes.push({table:'app_state',row:{state:clone(next)}});
       server.snapshot={...server.snapshot,revision:String(+server.snapshot.revision+1),state:next,logs:clone(p.p_logs)};
     }
     if(loseResponse){loseResponse=false;return {error:Error('Response lost after commit')};}
-    return {data:{ok:true,applied,snapshot:clone(server.snapshot)},error:null};
+    return {data:{ok:true,applied,revision:server.snapshot.revision,state:clone(server.snapshot.state)},error:null};
   },auth:{async signOut(){signedOut=true;return {error:null};}}};
   h.run(`sb=fakeBackend;AUTH.user={id:'synthetic'};CLOUD.ok=true;SYNC.owner='synthetic';`);
   return {writes,holds,server,set fail(v){fail=v;},set hold(v){hold=v;},set loseResponse(v){loseResponse=v;},get signedOut(){return signedOut;}};
@@ -891,13 +909,13 @@ await test('deletion discards late sync responses and waits before deleting the 
   h.run(`AUTH.user={id:'delete-test',email:'delete@example.invalid'}; AUTH.access='ok'; ui.selfDeleteUser=AUTH.user.id; CLOUD.ok=true;
     lsSet(ACCT_KEY,JSON.stringify(AUTH.user));persistLocal();
     globalThis.deleteCalls=0;globalThis.releaseRead=null;
-    sb={rpc:async name=>{if(name==='read_account_snapshot')return await new Promise(resolve=>releaseRead=resolve);if(name==='delete_my_account'){deleteCalls++;return {error:{code:'network'}};}return {data:false};}};
+    sb={rpc:async name=>{if(name==='read_account_changes')return await new Promise(resolve=>releaseRead=resolve);if(name==='delete_my_account'){deleteCalls++;return {error:{code:'network'}};}return {data:false};}};
     globalThis.syncFlight=pushCloud();`);
   await new Promise(setImmediate);
   h.elements.set('#self-delete-confirm',{value:'DELETE'});
   h.run(`globalThis.deletionFlight=selfDeleteAccount({disabled:false,textContent:''});`);
   assert.equal(h.run('AUTH.deleting'),true);assert.equal(h.run('deleteCalls'),0);
-  h.run(`releaseRead({data:{state:{settings:{name:'Late response'}},logs:[],revision:'1',deleted:[]}});`);
+  h.run(`releaseRead({data:{state:{settings:{name:'Late response'}},changes:[],next:null,revision:'1'}});`);
   await h.run('deletionFlight');
   assert.equal(h.run('deleteCalls'),1);assert.notEqual(h.run('state.settings.name'),'Late response');
   assert.equal(h.run('AUTH.deleting'),false);assert.equal(h.run('AUTH.user.id'),'delete-test');
