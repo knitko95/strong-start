@@ -2953,7 +2953,7 @@ function fbScreen(){
       const sl=st.pk?dSlots().find(x=>x.pk===st.pk):null;
       return `Workout: ${nm} · ${st.ph==='warm'?'warm-up':st.ph==='cool'?'cool-down':sl?EX[sl.id].n:'in progress'}`; }
     if(ui.tab==='preview' && ui.preview) return 'Workout preview: '+tplOf(ui.preview).name;
-    return ({today:'Today',plan:'Plan',library:'Library',history:'History',settings:'Settings',people:'Your people',inbox:'Inbox',weigh:'Weigh-in',equip:'Equipment'})[ui.tab]||ui.tab;
+    return ({today:'Today',plan:'Plan',library:'Library',history:'Progress',settings:'Settings',people:'Your people',inbox:'Inbox',weigh:'Weigh-in',equip:'Equipment'})[ui.tab]||ui.tab;
   }catch(e){ return ui.tab||''; }
 }
 function fbWorkout(side,logId){
@@ -3302,7 +3302,7 @@ const ICONS = {
   history:'<svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>',
   settings:'<svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg>',
 };
-const TABS=[['today','Today'],['plan','Plan'],['library','Library'],['history','History']];
+const TABS=[['today','Today'],['plan','Plan'],['library','Library'],['history','Progress']];
 function planeChip(p){ return `<span class="chip ${p}" title="Direction of movement: ${PLANES[p].toLowerCase()}">${PLANES[p]}</span>`; }
 function eqChips(ex){ const have=placeEq(state.curPlace||homeBase()); return ex.req.map(gr=>{ const k=gr.find(x=>have.has(x))||gr[0]; return `<span class="chip">${esc(EQ_NAME[k])}</span>`; }).join(''); }
 
@@ -3572,7 +3572,7 @@ function renderHistory(){
   const groups=historyData(),view=ui.histView||'sessions';
   if(!groups.some(g=>g.id===ui.histExercise))ui.histExercise=null;
   const query=(ui.histQuery||'').trim().toLowerCase(),filter=ui.histFilter||'all',matches=groups.filter(g=>g.name.toLowerCase().includes(query)&&(filter==='all'||g.area===filter));
-  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?'':'s'} logged</div><h1>History</h1></div></section>${historyProgressCard(groups)}${historySwitch([['sessions','Sessions'],['exercises','Exercises']],view,'histview','History views')}${view==='sessions'?`<section class="card"><h3 style="margin-bottom:6px">Sessions</h3><div>${logs.map(historySession).join('')||'<p class="muted small">No sessions yet.</p>'}</div></section>`:`<input class="search" type="search" id="histquery" aria-label="Search all logged exercises" placeholder="Search all logged exercises" value="${esc(ui.histQuery||'')}">${historySwitch([['all','All'],['upper','Upper body'],['lower','Lower body']],filter,'histfilter','Exercise filters')}<section class="card"><h3 style="margin-bottom:6px">Exercises</h3>${matches.map(historyExerciseGroup).join('')||'<p class="small muted" role="status">No exercises match. Try another search or filter.</p>'}</section>`}`;
+  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?'':'s'} logged</div><h1>Progress</h1></div></section>${historyProgressCard(groups)}${historySwitch([['sessions','Sessions'],['exercises','Exercises']],view,'histview','Progress views')}${view==='sessions'?`<section class="card"><h3 style="margin-bottom:6px">Sessions</h3><div>${logs.map(historySession).join('')||'<p class="muted small">No sessions yet.</p>'}</div></section>`:`<input class="search" type="search" id="histquery" aria-label="Search all logged exercises" placeholder="Search all logged exercises" value="${esc(ui.histQuery||'')}">${historySwitch([['all','All'],['upper','Upper body'],['lower','Lower body']],filter,'histfilter','Exercise filters')}<section class="card"><h3 style="margin-bottom:6px">Exercises</h3>${matches.map(historyExerciseGroup).join('')||'<p class="small muted" role="status">No exercises match. Try another search or filter.</p>'}</section>`}`;
 }
 function sparkChart(pts,label){
   if(pts.length<1) return '<p class="muted small">No sets logged yet.</p>';
@@ -6045,7 +6045,7 @@ document.addEventListener('click', e=>{
     case 'tskip': ui.timer=null; clearInterval(timerInt); renderTimer(); break;
     case 'finish': { const d=state.draft, all=Object.values(d.sets).flat(), open=all.filter(s=>!s.done).length;
       if(open) confirmBox('Finish workout?',`${open} set${open>1?'s are':' is'} not checked off. Unchecked sets aren't counted toward progression.`,'Finish',finishWorkout); else finishWorkout(); break; }
-    case 'discard': confirmBox('Discard this workout?',state.draft.logId?'Your saved partial session stays in History. Unsaved changes and the remaining sets are discarded.':'Nothing from this session will be saved.','Discard',()=>{ state.draft=null; ui.timer=null; clearInterval(timerInt); save(); ui.tab='today'; render(); }); break;
+    case 'discard': confirmBox('Discard this workout?',state.draft.logId?'Your saved partial session stays in Progress. Unsaved changes and the remaining sets are discarded.':'Nothing from this session will be saved.','Discard',()=>{ state.draft=null; ui.timer=null; clearInterval(timerInt); save(); ui.tab='today'; render(); }); break;
     case 'swap': swapSheet(b.dataset.pk); break;
     case 'swapmore': if(ui.swap&&['moreSimilar','moreSame'].includes(b.dataset.v)){ui.swap[b.dataset.v]=!ui.swap[b.dataset.v];renderSwapPicker();} break;
     case 'swapbrowse': if(ui.swap){ui.swap.browse=true;ui.swap.limit=12;renderSwapPicker();} break;
