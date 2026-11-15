@@ -3474,7 +3474,6 @@ function renderLibrary(){
   const list = LIB.filter(e=>(ui.libShowAll||available(e)) && (!ui.libEasy||allowed(e)) && libMatch(e,F));
   const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${v===k?'selected':''}>${l}</option>`).join('');
   return `<section class="stack"><div><div class="eyebrow">${LIB.length-hidden} exercises for your gym · ${LIB.filter(allowed).length} fit your level</div><h1>Exercise library</h1></div>
-    ${APP_ENV==='development'?'<button class="btn" data-action="animationgallery">Review all 3D demonstrations</button>':''}
     <div class="filters">
       ${libFilters(F,{q:'libq',eq:'libeq',body:'libbody',move:'libmove'})}
     </div>
