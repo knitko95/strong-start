@@ -1,0 +1,338 @@
+{
+  "types": [
+    {
+      "id": "walking-and-treadmill-walking",
+      "name": "Walking and treadmill walking",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Easy treadmill walk",
+        "Incline walk, picking up the pace",
+        "Brisk incline walk",
+        "Steady incline walk",
+        "Brisk walk outside",
+        "Incline walk with pushes",
+        "Incline sprint walks",
+        "Fast walk intervals outside",
+        "Easy walk",
+        "Treadmill walk",
+        "incline treadmill walk",
+        "brisk walk outside or around the block",
+        "Brisk walk",
+        "Fast incline walk",
+        "Walk"
+      ],
+      "notes": {
+        "setup": "Stand tall with feet supported, familiarise yourself with the start/stop controls and attach a treadmill's emergency cord before starting. Use the actual machine's mounting procedure.",
+        "execution": "Walk with a natural arm swing and comfortable stride. Adjust speed or incline gradually while keeping the body over the feet rather than hanging from the rails.",
+        "alignmentAndRange": "Reduce speed or grade if continuous handrail support, overstriding or backward lean is needed. Slow the belt to a stop before stepping off; do not jump onto the side rails to rest.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xtread",
+        "xnhsstrength"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "jogging-and-running",
+      "name": "Jogging and running",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Jog, hard the last minute",
+        "Treadmill or outdoor run intervals",
+        "Walk or jog",
+        "Easy run",
+        "Run fast",
+        "Easy jog"
+      ],
+      "notes": {
+        "setup": "Start on a clear outdoor route or a treadmill at an easy pace with the emergency cord attached and suitable footwear.",
+        "execution": "Use a comfortable repeatable stride with relaxed shoulders and arms. Build pace gradually and allow a controlled walk/jog recovery between harder efforts.",
+        "alignmentAndRange": "A fast label does not override technique. Shorten the effort or walk if balance, foot placement or breathing cannot be controlled; treadmill controls and outdoor terrain differ.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xtread"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "marching-and-high-knees",
+      "name": "Marching and high knees",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "March in place",
+        "Brisk march with arm swings",
+        "Brisk walk or march in place",
+        "High knees"
+      ],
+      "notes": {
+        "setup": "Use a clear nonslip space and a support nearby when balance is limited.",
+        "execution": "Lift alternate knees with opposite arm swings, placing each foot down under control. Progress from slow marches to brisk marches before a running high-knee version.",
+        "alignmentAndRange": "Knee height ends before pelvis hiking or leaning backward. A march is a valid low-impact option; do not turn it into jumping just to match a pace label.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xaskip"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "stationary-bike",
+      "name": "Stationary bike",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Easy bike",
+        "Bike, building the pace",
+        "Bike, sprint finish",
+        "Steady bike",
+        "Bike with pushes",
+        "Bike intervals",
+        "Easy bike ride",
+        "steady bike ride",
+        "Stationary bike"
+      ],
+      "notes": {
+        "setup": "Adjust and lock the saddle before mounting. At the bottom of the pedal stroke keep a slight knee bend without rocking the hips; secure the feet as the bike requires.",
+        "execution": "Pedal smoothly with knees following the foot direction, shoulders relaxed and a light supported handle grip. Increase resistance or cadence only while the pelvis remains steady.",
+        "alignmentAndRange": "Avoid an excessively low seat, locked knees, toe-only reaching or bouncing at high cadence. Stop pedalling and dismount deliberately; console and brake procedures vary by bike.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xbike"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "air-bike",
+      "name": "Air bike",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Easy air bike",
+        "easy air bike",
+        "Air bike"
+      ],
+      "notes": {
+        "setup": "Set and lock the saddle using the model's instructions, check foot straps and understand how the linked moving handles/pedals behave.",
+        "execution": "Coordinate arm push/pull and leg drive through a smooth rhythm without trunk rocking. Start gently because the flywheel resistance rises with effort.",
+        "alignmentAndRange": "The upright-bike source supports saddle fit only; linked-handle mechanics are an equipment adaptation. Keep hands and feet clear of moving parts and let the mechanism slow before leaving.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xbike"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "rowing-machine",
+      "name": "Rowing machine",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Rower, building the pace",
+        "Rower, hard finish",
+        "Rower with pushes",
+        "Rower intervals",
+        "Easy rowing",
+        "easy rowing",
+        "Rowing machine"
+      ],
+      "notes": {
+        "setup": "Set footrests and straps so the feet are secure, grip lightly with wrists flat and choose manageable resistance before increasing effort.",
+        "execution": "At the catch keep arms long and hinge from the hips. Drive legs first, then open the trunk and finish with the arms toward the lower ribs. Recover arms first, hinge forward, then bend the knees.",
+        "alignmentAndRange": "Do not bend the arms early, overcompress the catch, round the back or lean far backward at the finish. Faster pace should come from a cleaner stronger stroke rather than rushed recovery.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xrower"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "elliptical",
+      "name": "Elliptical",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Easy elliptical",
+        "Elliptical, building the pace",
+        "Elliptical, hard finish",
+        "Steady elliptical",
+        "Elliptical with pushes",
+        "Elliptical intervals",
+        "Slow elliptical",
+        "Elliptical",
+        "steady elliptical"
+      ],
+      "notes": {
+        "setup": "Use the stationary supports to mount, place both feet securely on the pedals and begin at low resistance; learn the stop behaviour before increasing pace.",
+        "execution": "Stand tall with ribs over the pelvis, follow the pedal path smoothly and use moving handles only while the trunk remains controlled.",
+        "alignmentAndRange": "Avoid hanging bodyweight on the rails, lifting the heels excessively to chase speed or looking down continuously. Keep hands on safe supports until the pedals settle for dismounting.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xelliptical"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "stair-climber",
+      "name": "Stair climber",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Stair climber",
+        "Stair climber, fast finish",
+        "Stair climber, slow pace",
+        "slow stair climber"
+      ],
+      "notes": {
+        "setup": "Identify the stop control, mount using stable rails and start at a low step rate with the feet securely placed.",
+        "execution": "Step one foot at a time with a controlled forward-facing posture and light rail contact for balance. Place enough of the foot on each tread for secure pressure.",
+        "alignmentAndRange": "Do not support most bodyweight through the rails, skip steps or add backward/sideways patterns in this baseline. Reduce speed before the tread depth becomes difficult to judge.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xstairs"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "jump-rope",
+      "name": "Jump rope",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Jump rope",
+        "Jump rope intervals",
+        "Easy jump rope with breaks",
+        "jump rope intervals (30 s on, 30 s off)"
+      ],
+      "notes": {
+        "setup": "Use a rope length and open area that allow a clear arc above and around the body; begin with isolated small jumps or rope-free rhythm practice.",
+        "execution": "Keep elbows near the sides and use small wrist-driven circles with low soft jumps, landing under the body with knees unlocked. Reset deliberately after a trip.",
+        "alignmentAndRange": "The retrieved ACE reference is a brief drill description, so exact rope fitting remains practical-review work. Avoid high tuck jumps or locked-knee landings merely to clear the rope.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xjumprope",
+        "xpogo"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "jumping-jacks",
+      "name": "Jumping jacks",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Jumping jacks and marching",
+        "Jumping jacks and high knees"
+      ],
+      "notes": {
+        "setup": "Begin in a clear space with feet together or hip-width and arms relaxed.",
+        "execution": "Make a small jump to widen the feet as the arms rise through a comfortable overhead arc, then return softly. For a step jack, move one foot out at a time without jumping.",
+        "alignmentAndRange": "Keep knees tracking with the feet and reduce arm height if overhead motion pinches. The step version preserves a lower-impact option without forcing a fast rebound.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xjacks"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "shadow-boxing",
+      "name": "Shadow boxing",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Shadow boxing, fast finish",
+        "Shadow boxing intervals"
+      ],
+      "notes": {
+        "setup": "Use clear space and a balanced staggered stance with soft knees, hands near the face and no external hand weights.",
+        "execution": "Practise relaxed controlled punches, returning to guard between actions and moving the feet without crossing. Let feet and hips turn together for a rotational punch.",
+        "alignmentAndRange": "Do not lock the elbows forcefully, swing punches through an exaggerated back twist or sacrifice guard/footwork to match a fast-finish label. This is noncontact practice.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xshadow"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    },
+    {
+      "id": "sled-and-battle-rope-cardio",
+      "name": "Sled and battle-rope cardio",
+      "kind": "cardio",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "appLabels": [
+        "Sled pushes",
+        "Battle rope intervals"
+      ],
+      "notes": {
+        "setup": "Use the equipment setup described in the catalog's Sled Push, Sled Pull and Battle Rope entries, with the lane and anchor checked before the interval.",
+        "execution": "Repeat the named movement with the same alignment and controlled return used outside a cardio interval; use the recovery period to restore clean technique.",
+        "alignmentAndRange": "A cardio label changes work/recovery timing, not the movement definition. Reduce load or interval length if the push or waves cannot be repeated with control.",
+        "breathingAndTempo": "Breathe continuously and reduce the effort before technique breaks down. Pace labels do not change the movement mechanics or establish a suitable intensity for a particular person.",
+        "regression": "Use an easier pace, shorter duration, lower resistance or stable low-impact option while keeping the movement controlled."
+      },
+      "sourceIds": [
+        "xsled",
+        "xropes"
+      ],
+      "sourceRelationship": "related-only",
+      "evidenceBoundary": "Movement-type reference only. App labels are aliases/pace prescriptions, not individually researched protocols; the app's interval durations are not changed or endorsed.",
+      "document": "cardio.md"
+    }
+  ]
+}

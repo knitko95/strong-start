@@ -15,7 +15,7 @@ rmSync(out, {recursive:true, force:true});
 mkdirSync(out, {recursive:true});
 await import('./check-exercise-guides.mjs');
 for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest',
-  'icons', 'offline.js', 'sw.js', '.nojekyll', 'exercise-guides']) {
+  'icons', 'analytics.js', 'offline.js', 'sw.js', '.nojekyll', 'exercise-guides']) {
   cpSync(path.join(root,file), path.join(out,file), {recursive:true});
 }
 const html = readFileSync(path.join(out,'index.html'),'utf8');

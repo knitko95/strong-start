@@ -1,0 +1,6 @@
+__pycache__/
+uv-raster.npz
+role.tmp.png
+*.log
+catalogue.json
+role-requests.json

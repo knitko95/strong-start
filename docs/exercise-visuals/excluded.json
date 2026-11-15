@@ -1,0 +1,117 @@
+{
+  "reviewDate": "2026-11-13",
+  "associations": [
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "March on spot",
+      "videoUrl": "https://vimeo.com/703319428/e91bbfb58ee",
+      "providerTitle": "1 Stationary cycle spin bike",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Thoracic extension in chair with towel",
+      "videoUrl": "https://vimeo.com/703911210/87e2c02f9e",
+      "providerTitle": "19 Chest and upper back stretch",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Scapular squeeze",
+      "videoUrl": "https://vimeo.com/703911183/886d9fc049",
+      "providerTitle": "18 Thoracic extension in chair with towel",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Hamstring stretch in stand",
+      "videoUrl": "https://vimeo.com/703911156/99c429d2a6",
+      "providerTitle": "17 Scapular squeeze",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Piriformis stretch in sitting",
+      "videoUrl": "https://vimeo.com/703911103/eca45cc88d",
+      "providerTitle": "14 Quadriceps stretch",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Quadriceps stretch",
+      "videoUrl": "https://vimeo.com/703911126/3d98c76e39",
+      "providerTitle": "15 PROM wrist flexion",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "PROM wrist flexion",
+      "videoUrl": "https://vimeo.com/703911139/43b824c85b",
+      "providerTitle": "16 Hamstring stretch in stand",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Sit to stand without arms",
+      "videoUrl": "https://vimeo.com/703911084/52959f8d98",
+      "providerTitle": "13 Piriformis stretch in sitting",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Thoracic side bending with hands behind head",
+      "videoUrl": "https://vimeo.com/703911055/2d3800f2dc",
+      "providerTitle": "12 Sit to stand without arms",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Toes and heel lift",
+      "videoUrl": "https://vimeo.com/703911036/2616f6cbbd",
+      "providerTitle": "11 Thoracic side bending with hands behind head",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Standing overhead lat stretch",
+      "videoUrl": "https://vimeo.com/703911019/c4a838d57f",
+      "providerTitle": "10 Toes and heel lift",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "General wrist and hand AROM",
+      "videoUrl": "https://vimeo.com/703910995/d5bdad148e",
+      "providerTitle": "9 Standing overhead lat stretch",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Physitrack",
+      "page": "https://www.physitrack.com/en-gb/exercise-library",
+      "cardLabel": "Seated functional low row",
+      "videoUrl": "https://vimeo.com/703910980/28db4b5bc6",
+      "providerTitle": "8 General wrist and hand AROM",
+      "decision": "Excluded from preferred references: publisher card label disagrees with credited video metadata; no silent relabelling of the paired preview."
+    },
+    {
+      "publisher": "Rehab Hero",
+      "page": "https://www.rehabhero.ca/exercise/low-cable-fly",
+      "cardLabel": "Low Cable Fly",
+      "videoUrl": "https://www.youtube.com/watch?v=NJjl3wHZUIw",
+      "providerTitle": "Cable Chest Press - chest strengthening exercise",
+      "decision": "Excluded video: article names a fly while embedded video metadata names a chest press. Primary still requires its own identity review."
+    }
+  ]
+}

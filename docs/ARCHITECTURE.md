@@ -1,10 +1,66 @@
 # Strong Start architecture and operations
 
+## Development usage analytics
+
+The dev build injects public ingestion configuration from
+`POSTHOG_DEV_PROJECT_TOKEN` and `POSTHOG_DEV_HOST`. `analytics.js` sends explicit
+allowlisted events via the PostHog ingestion API after browser-local opt-in.
+Production and other preview variants remain disabled. Analytics lives outside
+workout persistence and account sync; no database migrations or Auth changes.
+See [contract, privacy boundaries and checks](ANALYTICS-2026-11-14.md).
+
+## Dev2 local demo (November 14, 2026)
+
+`scripts/build-preview.mjs dev2` enables the build-only `DEV2_DEMO_BUILD` flag. Regular dev, dev1 and production keep it false. Demo mode does not construct a Supabase client or adopt an existing Auth session. Boot seeds a synthetic member and generated gym plan only when its dedicated `dev2_demo_strongstart_state_v3` cache is empty. All app storage helpers use the `dev2_demo_` prefix; existing `dev_` caches and SDK tokens remain untouched. No schema changes, fake JWTs, shared credentials or staff roles are involved. Reset demo replaces only the local demo state. The usual save and workout flows persist locally without cloud delivery.
+
+`node scripts/test-dev2-demo.cjs [URL]` verifies real startup, navigation, workout/reload/history/reset, old account-cache preservation and absence of backend requests at desktop and narrow phone widths. Run after a dev2 build; an optional hosted URL must serve that exact build. Physical-device behavior and real-account features are outside this demo check.
+
+## Development character comparison
+
+`exercise-guides/shared/characters.json` describes optional character geometry
+and color textures independently of the accepted exercise library. The gallery
+selector and separate `exercise-guides/character-lab.html` use the existing
+renderer. The default anatomical character is unchanged. Selecting a model
+preserves paused time, camera and the existing skeleton/equipment node matrices.
+Model choice is page-session UI state and never enters profile or cloud state.
+Candidate geometry is fitted to each accepted bind frame from its source inverse
+binds; no animation, skeleton hierarchy or inverse bind is rewritten. Two fitted
+geometries are cached, and the original body loads only when needed. Candidate
+muscle highlighting is unavailable because the anatomical map is not validated
+for that surface. See [the dated comparison](CHARACTER-COMPARISON-2026-11-13.md).
+
+## Complete animation drafts on development
+
+`exercise-guides/shared-guides.js` owns the workout/modal media surfaces and
+lazily imports one persistent renderer from `shared/player.js`. Moving its DOM
+canvas between a workout and a swap/review sheet preserves the character,
+skeleton and GPU resources. Closing a media sheet restores the prior workout
+selection and its playback preference. Ordinary workout instructions continue
+to cover/pause the inline player. Media code handles public assets only; it
+does not read or write account/workout storage.
+
+`shared/manifest.json` includes all 320 strength IDs and the named guide/cardio/
+recovery set. Entries remain development-only. Earlier schema-1 scenes are
+retained; new schema-2 scenes reference one shared schema-1 rig setup plus
+compressed motion, appended equipment nodes and a shared role map. Attachments
+name an existing bone or become scene roots. All channels target the final node
+indices. The original character, two bind fits, inverse binds and 55 joint names
+are retained. Geometry/materials, downloaded bytes and bounded decoded maps are
+reused; the persistent public asset cache pins the current library/character.
+
+`animation-authoring/` holds editable recipes, frozen original setups, region
+fields and deterministic exporters. New shapes use five content-addressed unit
+geometries, instanced with transforms. `check-all-exercise-animations.mjs` checks
+coverage, transitive hashes, byte lengths, motion/timing, quaternion norms and
+original-asset preservation during the development build. See the
+[authoring workflow](../animation-authoring/README.md) and
+[scope and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md).
+
 Baseline review: November 11, 2026, production frontend commit `149f807bd8e67c7c95204157e07e33e1202763a7`. Environment operations below were updated after development setup at `2e4f071b7c4361cb387e5f14bfcbdd7ff76cd6b1`. Production database metadata came from `aybtxqsneywuqxzjwoek`; no production mutations were needed. Follow [AGENTS.md](../AGENTS.md) for the required dev-first workflow and explicit release approval.
 
 ## Runtime and deployment
 
-The browser runs one HTML page with inline CSS/JavaScript. Rendering builds HTML strings and assigns them to `#app`, `#tabs`, and modal/timer containers. Delegated document click/input/change listeners dispatch using `data-action`. There is no bundler, dependency installation, application server, or router package. Development has a small Node build and checked-in syntax/environment checks; these do not replace application-flow tests.
+The browser runs one HTML page with inline CSS/JavaScript. Rendering builds HTML strings and assigns them to `#app`, `#tabs`, and modal/timer containers. Delegated document click/input/change listeners dispatch using `data-action`. The browser has no bundler, frontend dependencies or router package. On dev, a small Cloudflare Worker handles authenticated app-feedback delivery; static assets remain separately packaged. Development has a small Node build and checked-in syntax/environment checks; these do not replace application-flow tests.
 
 `index.html` loads Supabase JS v2 from jsDelivr's UMD path and fonts from Google Fonts. The SDK follows the v2 major rather than an exact patch. The manifest/mobile metadata provides standalone/Home Screen presentation. Development now includes the public-file service worker described below; it is separate from account sync. Legacy video/photo registries (`EX_PHOTOS`, `EX_MEDIA`) remain empty. The new versioned `exercise-guides/registry.v1.json` links eleven existing IDs to reviewed rose-top 3D demos, enabled in development only. Text instructions remain owned by the existing catalogue/`exHowTo()`. The isolated loader imports model-viewer and a hash/version-pinned GLB on demand, cleans up on modal replacement/close, and falls back to the unchanged written guide. No account state, persistence schema or permissions change. The small loader/CSS/registry join the offline shell; models and the viewer bundle are not precached. See [scope and verification](EXERCISE-GUIDES-2026-11-11.md).
 
@@ -37,7 +93,7 @@ Navigate by section/function names rather than depending on these approximate li
 | Progression | `target`, `suggestW`, `applyProgression` (~1501) |
 | Accounts/access/sync | `initRemote`, `checkAccess1`, `onSignedIn`, `pushCloud`, `pullCloud` (~1583-1711) |
 | Coach/invites/owner | `loadPeople`, `openPerson`, `coachSend`, `inviteCreate`, `acctSetDisabled`, `acctDelete` |
-| Feedback | `FB`, `fbSend`, `loadInbox`, `markDone` (~2040) |
+| Feedback | `FB`, `fbSend`, `hosting/feedback-worker.mjs`, `hosting/feedback-core.mjs` |
 | Rendering | `render` (~2194), `renderToday`, `renderPlan`, `renderLibrary`, `renderHistory`, `renderSettings` |
 | Setup | `SETUP_ORDER`, `setupSteps`, `applySetup`, `buildPlanFromSetup`, `setupAction` |
 | Current workout UI | `renderPreview`, `renderFocus`, `fAction`, `renderGuide`, `gAction`, `cAction` |
@@ -52,6 +108,8 @@ Navigate by section/function names rather than depending on these approximate li
 The 320 pipe-delimited rows describe name, equipment codes, movement slots, plane, muscles, tier, mode, unilateral flag, and cue. Modes include loaded (`L`), bodyweight with added load (`B`), reps (`R`), timed (`T`), and power (`P`). IDs are name-derived slugs persisted throughout the app.
 
 Equipment requirements are groups of alternatives: every group needs an available item. Selection combines equipment, experience, comfort, pain-area name filters, goals, jumps setting, equipment style, prior choices, and randomness. These are heuristic filters, not a clinical assessment. Preserve health wording/product decisions unless an approved change requires editing them.
+
+`PAIN_CAUTION_ONLY` adds ID-based cautions to `painConflicts()` without changing the exclusion patterns in `painRe()` / `allowed()`. Cable and band pull-throughs remain eligible when lower-back discomfort is selected, while the existing library, how-to and swap surfaces show the lower-back caution. This distinction does not establish individual suitability; further policy research with a qualified physiotherapist remains pending.
 
 Thirteen splits support two to five workouts weekly. Base `push`, `pull`, `legsA`, `legsB`, and `jump` slots combine into derived days. `fitSlots()` trims sets, pairs compatible supersets, reduces rests, and may remove smaller exercises to fit a time estimate. `finalize()` enforces shared-station rules. Optional post-lift cardio is outside the selected session length.
 
@@ -153,6 +211,31 @@ Timed preparation uses `mode:ready,end:null`. `gPrepareMove()` sends untimed rep
 
 ## Database structure
 
+### Today preparation edits on dev (November 14, 2026)
+
+`state.prep` is an additive map keyed by program number, workout key and training
+place. Each entry stores optional cardio minutes and movement overrides keyed
+by phase plus generated movement key. Overrides retain the generated base name,
+an available alternative name, inclusion, and optional reps or movement seconds.
+`applyPrepExtras()` applies an override only when its base still matches and its
+choice remains available; equipment/preferences changes cannot inject an
+unavailable move. `migrate()` initializes missing maps without resetting plans,
+logs or drafts; the state remains v6 with the same local storage keys.
+
+`startWorkout()` copies these preferences into `draft.prep`; later plan edits
+cannot change that started session. `sessionExtras()` applies the snapshot to
+the actual guide and lighter sets. Timed overrides scale movement segments while
+preserving side-switch gaps and labels. The grouped Today overview hides the
+individual movements until Edit. Strength targets retain Adjust/Swap and gain
+right-aligned primary muscle groups from the existing anatomy map.
+
+Editor saves validate whole-number targets, account/state/session ownership and
+available choices. Completed movements, timer checkpoints and the active started
+movement are locked. Editing upcoming movements preserves the guide's current
+item by key when its list changes. `save()` retains existing local/cloud ownership
+guards; coach preview has no preparation edit capability. Preparation settings
+are not added to `planCode()` or coach delivery. No database migration is needed.
+
 The baseline eight public tables had RLS enabled. Development adds the RLS-protected deletion table below. Auth identities live in managed `auth.users`. This is structural documentation, not an export of people's data.
 
 | Table | Key/data | Purpose |
@@ -164,7 +247,7 @@ The baseline eight public tables had RLS enabled. Development adds the RLS-prote
 | `plan_updates` | Identity id; user_id, created_by, JSONB update, created_at, applied_at | Coach update queue |
 | `coaches` | `user_id` -> Auth user | Coach membership |
 | `app_owners` | `user_id` -> Auth user | Owner membership |
-| `feedback` | Identity id; nullable user_id -> profile, kind/tag/message/context, read_at/done_at | App/coach inboxes |
+| `feedback` | Identity id; nullable user_id -> profile, kind/tag/message/context, read_at/done_at | Historical app/coach intake; stale-client compatibility |
 | `invites` | UUID id; unique code, creator/name/expiry/use/cancel fields | Single-use beta access |
 
 Messages are constrained to 1-4000 trimmed characters; context fields also have limits. Invite names are at most 80 characters; default expiry is 14 days.
@@ -271,12 +354,34 @@ The media loader owns separate `workout` and `modal` surfaces. A modal pauses th
 
 On a mid-exercise swap, optional `draft.completedSwaps` records the original frozen slot under a unique archive key. Its completed rows, planned load and effort remain in the draft's existing maps. Only remaining rows are initialized for the replacement; plan counts across both portions keep the same total. Archived slots are excluded from scheduling but included by `finishWorkout()` in history/progression under their original IDs. Existing unit conversion already covers all rows/planned loads. Fully completed exercises can update the future plan while retaining the original workout. This is an additive JSON field with no schema/key or database migration.
 
-## Private feedback delivery — approved scoped production release
+## Build versions and feedback provenance
 
-The same authenticated `/api/feedback` Worker and per-account SQLite durable outbox tested on dev handle app reports on production. Origin and Auth project come from server configuration; new forms disclose attaching only the server-saved display name and verified Auth account ID. The server uses the caller JWT and existing profile RLS to select only that account’s id/name; browser-supplied identity is ignored. Email, other profile fields and workout records are excluded. Older forms/queued reports remain unattributed with compatible receipt digests. Retries retain the original name/ID snapshot, purged from the outbox after delivery; GitHub retains attribution after account deletion unless removed/redacted. Feedback/name/version stay visible; account ID and diagnostics are collapsed. Agent handling guidance lives in the private tracker README. GitHub Issues read/write is restricted to the private tracker, and the destination is checked for privacy before delivery. Delivered text is purged; stable receipts preserve duplicate protection and alarms retry retained pending reports. Ambiguous creates are reconciled rather than blindly repeated.
+`APP_RELEASES` in the inline app is the single release-note source. Both Node packaging scripts use `scripts/app-version.mjs` to validate unique, descending semantic versions and required notes, then stamp `APP_BUILD` with the checked-out full Git commit and a commit/content build ID. A public `version.json` contains this identity, environment and release history. The content suffix distinguishes local changed builds; no clock or request-time latest-version lookup is involved. The same identity versions the service-worker shell cache. HTML embeds its history and identity, preserving offline/older-tab provenance. Unpackaged source explicitly reports `source` without a deployment commit.
 
-The duplicate app inbox, database polling and mark-read/done controls are removed; assigned-coach conversations remain. Existing database feedback is preserved for historical/stale-client reconciliation. No Supabase schema, policy, grant, account or Auth configuration change is required.
+Migration `20261113162156_feedback_app_versions.sql` added nullable report-version/build/environment and resolution fields to the historical feedback table. It remains compatible historical schema. The direct GitHub form and retired admin inbox no longer depend on those columns; this delivery change requires no new Supabase migration. Existing rows, grants and policies remain intact for old clients. Do not apply an unrelated pending migration to production merely to enable GitHub feedback.
 
-Both packaging scripts stamp only the feedback build provenance and shell-cache identity. The production candidate preserves the current production exercise loader/assets and Settings/sign-in UI. Newer development animations, visual/technique references and the unrelated release-note/version UI are excluded. Only the new feedback release appears in its internal metadata; development-only versions are not represented as published production history.
+### Private delivery and admin inbox retirement
 
-Canonical production calls stay same-origin. The legacy GitHub Pages app sends its authenticated feedback to `https://strongstart.app/api/feedback`; the Worker permits that exact origin with bounded preflight methods/headers. No wildcard CORS, cookies or anonymous writes are enabled. Other origins and dev-to-prod tokens are rejected. See [delivery operations](FEEDBACK-DELIVERY-2026-11-13.md).
+The current dev form sends a stable report UUID and allowlisted technical diagnostics to the same-origin `/api/feedback` Worker. Supabase Auth verifies the session against the Worker-selected project; the existing `account_status()` RPC enforces approval. The Worker fixes the destination to the private tracker, verifies repository privacy and creates issues through a server-only restricted credential. The form includes only the saved display name and verified account ID after disclosing attribution; no email, other profile fields or workout payload is attached. The owner approved production attribution and the cleaner report format after dev testing. Client-supplied fields and issue text never grant authority.
+
+`FeedbackOutbox` is a per-account SQLite Durable Object using an environment/account hash. It persists before attempting delivery, bounds per-account intake, schedules durable retries and returns a delivered or pending receipt. Delivered text is purged; a digest/minimal receipt preserves deduplication across eviction/retries. A lost create response is reconciled by exact source marker without blindly sending again. Ambiguity that cannot be reconciled requires operator review. See [the delivery runbook, credential handling, checks and limits](FEEDBACK-DELIVERY-2026-11-13.md).
+
+The old app-feedback list, unread polling and mark-read/done/resolution controls are removed. `inboxCards()` and `renderInbox()` retain only assigned-coach messaging. The `FB.owner` flag still supports account-management UI and is not a new permission boundary. Original database records are retained; cached older clients can still submit there. During transition, agents reconcile both source databases read-only into the private tracker. The duplicate inbox is also retired on production; publication evidence and verification limits live in the private tracker. The former `test-feedback-versions.sql` remains historical schema-test evidence; new delivery behavior is tested in the Workers runtime and app UI suites.
+
+### Named build variants
+
+`appVersionLabel()` formats the member-facing version: main is `v0.2.0`, standard development is `v0.2.0-dev`, and a named configuration can be `v0.2.0-dev-noir`. Settings uses only a tiny footer button; feedback uses a plain tiny label. Full diagnostic details stay in private tracker reports; release notes retain the loaded build identity.
+
+Both packaging scripts accept `STRONG_START_VARIANT` as an optional lowercase slug (letters/digits, single hyphens, maximum 32 characters). Defaults are `main` for production packaging and `dev` for isolated development packaging. The variant is embedded in `APP_BUILD` and public version metadata; non-main build IDs begin with `variant--`, preserving it in the tracker's reported build without a database schema change. Historical database reports retain their original `app_build` values. Main is reserved for production packaging. Names describe configurations independently of branch names; adding a variant does not create hosting, change environment routing, or apply any visual/configuration changes. New test deployments must use the isolated dev build and retain dev database isolation.
+
+The scoped feedback delivery/admin-inbox release was approved and published as `92bd527` on November 13, 2026. Production retains its previous exercise assets and UI; unrelated development version UI, animations and references stay on dev. The private tracker records live verification. Legacy Pages feedback uses the canonical authenticated API; dev retains its own backend, token and namespace. No Supabase migration or account/data mutation was applied.
+
+## Experience preview targets
+
+See ENVIRONMENTS.md for dev1/dev2: independent branches, Workers and browser origins sharing the existing development Supabase project and dev feedback outbox. The preview Worker forwards only feedback paths after validating the request Origin, preserving bearer authentication. It never forwards arbitrary application routes or uses production data. Branch builds stamp their variant; shared persisted state must remain compatible across experiences.
+
+The optional reference athlete uses one alpha-tested skinned draw, a shared
+2048px RGBA atlas and a 512px linear roughness map. Its hair ribbons, eyes and
+body share the existing skeleton. Role textures are fetched only for the
+anatomical instructor. Color atlas data is sRGB; roughness remains linear.
+See [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md).

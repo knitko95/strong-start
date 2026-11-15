@@ -1,0 +1,2680 @@
+{
+  "url": "https://dev.strongstart.app/",
+  "exercises": 445,
+  "total": 445,
+  "results": [
+    {
+      "id": "barbell-bench-press",
+      "family": "flatPress",
+      "poses": 3,
+      "textures": 3
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "close-grip-bench-press",
+      "family": "flatPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "smith-machine-bench-press",
+      "family": "flatPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-chest-press",
+      "family": "seatedPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-cable-chest-press",
+      "family": "standingPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-cable-chest-press",
+      "family": "standingPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-dumbbell-bench-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-floor-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-floor-press",
+      "family": "flatPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "weighted-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-chest-press",
+      "family": "suspensionPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-dumbbell-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-barbell-bench-press",
+      "family": "inclinePress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-machine-press",
+      "family": "seatedPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "weighted-dip",
+      "family": "dip",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-fly-high-to-low",
+      "family": "fly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-fly-low-to-high",
+      "family": "fly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pec-deck",
+      "family": "fly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-fly-on-stability-ball",
+      "family": "fly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-fly",
+      "family": "suspensionPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "deficit-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "push-up-on-stability-ball",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "feet-on-ball-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-squeeze-press",
+      "family": "flatPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-barbell-overhead-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "push-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "z-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-dumbbell-shoulder-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-dumbbell-shoulder-press",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-shoulder-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-landmine-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-kettlebell-overhead-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bottoms-up-kettlebell-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "arnold-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-single-arm-cable-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pike-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-lateral-raise",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-lateral-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-lateral-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leaning-single-arm-lateral-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lu-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-y-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "y-raise-on-stability-ball",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-front-raise",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-halo",
+      "family": "halo",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-rope-pushdown",
+      "family": "pushdown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "overhead-cable-triceps-extension",
+      "family": "tricepsOverhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-cable-kickback",
+      "family": "kickback",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-skull-crusher",
+      "family": "skull",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-skull-crusher",
+      "family": "skull",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-overhead-triceps-extension",
+      "family": "tricepsOverhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "tate-press",
+      "family": "skull",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-triceps-extension",
+      "family": "pushdown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bench-dip",
+      "family": "dip",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "diamond-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-triceps-extension",
+      "family": "suspensionPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-woodchop-high-to-low",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-lift-low-to-high",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pallof-press",
+      "family": "pallof",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-pallof-press",
+      "family": "pallof",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-trunk-rotation",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "landmine-rainbow",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "landmine-rotational-push-press",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ball-russian-twist",
+      "family": "russian",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-russian-twist",
+      "family": "russian",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-windmill",
+      "family": "windmill",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-around-the-world",
+      "family": "around",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-anti-rotation-press",
+      "family": "suspensionPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "renegade-row",
+      "family": "renegade",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-torso-rotation",
+      "family": "russian",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hanging-oblique-knee-raise",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-rollout",
+      "family": "rollout",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stir-the-pot",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-pike",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-jackknife",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ball-crunch",
+      "family": "crunch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-body-saw",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-pike",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-fallout",
+      "family": "suspensionPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hanging-leg-raise",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-crunch",
+      "family": "crunch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-ab-crunch",
+      "family": "crunch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-rollout",
+      "family": "rollout",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "weighted-decline-sit-up",
+      "family": "crunch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dead-bug",
+      "family": "deadbug",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plank",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "side-plank",
+      "family": "sidePlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "copenhagen-plank",
+      "family": "sidePlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hollow-body-hold",
+      "family": "hollow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-farmer-s-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-farmer-s-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "suitcase-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-front-rack-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "overhead-kettlebell-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "mixed-rack-and-suitcase-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "weighted-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "chin-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "neutral-grip-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "l-sit-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lat-pulldown",
+      "family": "pulldown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "close-grip-lat-pulldown",
+      "family": "pulldown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-lat-pulldown",
+      "family": "pulldown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-pulldown",
+      "family": "pulldown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-bent-over-row",
+      "family": "bentRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pendlay-row",
+      "family": "bentRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seal-row",
+      "family": "proneRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "chest-supported-dumbbell-row",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "landmine-t-bar-row",
+      "family": "bentRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-cable-row",
+      "family": "seatedRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-row",
+      "family": "seatedRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "inverted-row",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-row",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-gorilla-row",
+      "family": "bentRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-dumbbell-row",
+      "family": "singleRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-arm-rotational-cable-row",
+      "family": "singleRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "meadows-row",
+      "family": "bentRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-single-arm-row",
+      "family": "singleRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-single-arm-row",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-power-pull",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "straight-arm-cable-pulldown",
+      "family": "pullover",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-pullover",
+      "family": "pullover",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-single-arm-cable-row",
+      "family": "singleRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ball-supported-dumbbell-row",
+      "family": "proneRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-face-pull",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "reverse-pec-deck",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bent-over-dumbbell-reverse-fly",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-reverse-fly",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-dumbbell-rear-delt-row",
+      "family": "proneRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-face-pull",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-y-t-w",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ball-prone-y-t-w",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-external-rotation",
+      "family": "externalRotation",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-shrug",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-dumbbell-curl",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hammer-curl",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bayesian-cable-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "machine-preacher-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "concentration-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "zottman-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-spider-curl",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-hammer-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-biceps-curl",
+      "family": "suspensionRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-back-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "front-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "zercher-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "box-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hack-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leg-press",
+      "family": "legPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "smith-machine-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "goblet-squat",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "double-kettlebell-front-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "heel-elevated-dumbbell-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-wall-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "conventional-deadlift",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sumo-deadlift",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "romanian-deadlift",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-romanian-deadlift",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "double-kettlebell-deadlift",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-swing",
+      "family": "swing",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "good-morning",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-pull-through",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "weighted-back-extension",
+      "family": "backExtension",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-hip-thrust",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "b-stance-hip-thrust",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-hip-thrust",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "glute-drive-machine",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-hip-thrust",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-single-leg-bridge",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-glute-kickback",
+      "family": "gluteKick",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bulgarian-split-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-reverse-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-walking-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "front-foot-elevated-split-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-goblet-reverse-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "smith-machine-split-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-leg-press",
+      "family": "legPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-single-leg-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pistol-squat-to-bench",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "skater-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-romanian-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-single-leg-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "landmine-single-leg-romanian-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-single-leg-romanian-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "b-stance-romanian-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "high-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-lunge",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cossack-squat",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "landmine-lateral-lunge",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-lateral-lunge",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "curtsy-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "transverse-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "skater-bound",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lying-leg-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-leg-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-cable-leg-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-leg-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-hamstring-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-ball-hamstring-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trx-hamstring-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "nordic-curl",
+      "family": "nordic",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "glute-ham-raise",
+      "family": "nordic",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leg-extension",
+      "family": "legExtension",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-extension",
+      "family": "legExtension",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sissy-squat",
+      "family": "reverseNordic",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "reverse-nordic",
+      "family": "reverseNordic",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "peterson-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hip-adduction-machine",
+      "family": "hipMachine",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hip-abduction-machine",
+      "family": "hipMachine",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-hip-abduction",
+      "family": "hipCable",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cable-hip-adduction",
+      "family": "hipCable",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stability-ball-squeeze-bridge",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "side-lying-hip-abduction",
+      "family": "sideLeg",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-calf-raise-machine",
+      "family": "calf",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-calf-raise",
+      "family": "calf",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leg-press-calf-raise",
+      "family": "legPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-dumbbell-calf-raise",
+      "family": "calf",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "barbell-calf-raise",
+      "family": "calf",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "tibialis-raise",
+      "family": "tibialis",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "box-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-box-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "crossover-box-step-up",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "box-step-up-with-knee-drive",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "eccentric-box-step-down",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "box-bulgarian-split-squat",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "feet-on-box-decline-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "box-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-box-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "depth-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-box-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-box-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "broad-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "squat-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "approach-vertical-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "tuck-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "split-squat-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-bound",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "180-degree-rotational-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-lateral-hop",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "pogo-hops",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-jump-squat",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "side-step-lunge",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "side-step-lunge-to-balance",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hanging-knee-raise",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-pull-apart",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-face-pull",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-assisted-archer-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kneeling-band-lat-pulldown",
+      "family": "pulldown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-seated-row",
+      "family": "seatedRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "tube-single-arm-row",
+      "family": "singleRow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "anchored-band-chest-press",
+      "family": "standingPress",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "banded-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-overhead-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-lateral-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-triceps-pushdown",
+      "family": "pushdown",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-biceps-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-pallof-press",
+      "family": "pallof",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-woodchop",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "mini-band-lateral-walk",
+      "family": "bandWalk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "mini-band-monster-walk",
+      "family": "bandWalk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "banded-clamshell",
+      "family": "clamshell",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "banded-glute-bridge",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-pull-through",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-good-morning",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "prone-band-hamstring-curl",
+      "family": "legCurl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "battle-rope-alternating-waves",
+      "family": "ropes",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "battle-rope-side-to-side-waves",
+      "family": "ropes",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "battle-rope-rotational-slams",
+      "family": "ropes",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "battle-rope-double-slams",
+      "family": "ropes",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "battle-rope-lateral-shuffle-waves",
+      "family": "ropes",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-slam",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "rotational-medicine-ball-slam",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-rotational-scoop-toss",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-shot-put-throw",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-chest-pass",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-overhead-wall-throw",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-vertical-toss",
+      "family": "medThrow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-russian-twist",
+      "family": "russian",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-v-up",
+      "family": "crunch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-lunge-with-rotation",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "medicine-ball-woodchop",
+      "family": "chop",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-push-up",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-mountain-climber",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-single-leg-romanian-deadlift",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-lateral-step-over",
+      "family": "step",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-reverse-lunge",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-side-plank",
+      "family": "sidePlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bosu-squat-jump",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "monkey-bar-traverse",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "toes-to-bar",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hanging-windshield-wiper",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "commando-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "archer-pull-up",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plate-front-raise",
+      "family": "raise",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plate-halo",
+      "family": "halo",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plate-pinch-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plate-russian-twist",
+      "family": "russian",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "turkish-get-up",
+      "family": "getup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-clean-and-press",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-snatch",
+      "family": "overhead",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "smith-machine-hip-thrust",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dumbbell-glute-bridge",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "trap-bar-deadlift",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ez-bar-curl",
+      "family": "curl",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "assisted-pull-up-machine",
+      "family": "pullup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "assisted-dip-machine",
+      "family": "dip",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sled-push",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sled-pull",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sandbag-bear-hug-carry",
+      "family": "carry",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sandbag-squat",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ab-wheel-rollout",
+      "family": "rollout",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ankle-weight-glute-kickback",
+      "family": "gluteKick",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ankle-weight-side-lying-leg-raise",
+      "family": "sideLeg",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "back-extension",
+      "family": "backExtension",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "a-skips",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "arm-circles",
+      "family": "armCircle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-dislocates",
+      "family": "passThrough",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-pull-aparts",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "banded-lateral-walks",
+      "family": "bandWalk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-band-walks",
+      "family": "bandWalk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bodyweight-squats-to-a-bench",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "broad-jumps",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "broomstick-or-towel-pass-throughs",
+      "family": "passThrough",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cat-cow",
+      "family": "catcow",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dead-hang",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "downward-dog-to-plank",
+      "family": "downwardDog",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "explosive-push-ups",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "fast-bodyweight-squats",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "fast-incline-push-ups",
+      "family": "inclinePush",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "glute-bridges",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-hip-flexor-stretch-with-reach",
+      "family": "kneelingStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "high-knee-marches",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hip-circles",
+      "family": "hipCircle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hug-yourself-twists",
+      "family": "standingTwist",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "inchworms",
+      "family": "inchworm",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-push-ups-on-a-bench",
+      "family": "inclinePush",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-push-ups",
+      "family": "inclinePush",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lat-stretch-holding-a-post",
+      "family": "latStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lateral-shuffles",
+      "family": "shuffle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leg-swings-front-to-back-and-side-to-side",
+      "family": "legSwing",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "leg-swings-front-to-back",
+      "family": "legSwing",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "low-box-jumps",
+      "family": "jump",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "marching-knee-lifts",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "open-books-lying-on-your-side",
+      "family": "openBook",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "thoracic-open-books",
+      "family": "openBook",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "prone-y-t-w-raises",
+      "family": "proneYTW",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "push-up-to-downward-dog",
+      "family": "downwardDog",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "push-ups",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "reach-and-pull",
+      "family": "reachPull",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "reverse-arm-swings",
+      "family": "armCircle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "reverse-lunges-in-place",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "scap-pull-ups",
+      "family": "hanging",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "scap-push-ups",
+      "family": "pushup",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "side-lunges",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bodyweight-good-mornings",
+      "family": "hinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "calf-raises",
+      "family": "calf",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "deep-squat-hold",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bodyweight-squats",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "quadruped-hip-circles",
+      "family": "quadCircle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bird-dogs",
+      "family": "birdDog",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "dead-bugs",
+      "family": "deadbug",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "plank-shoulder-taps",
+      "family": "ballPlank",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "spiderman-lunge-with-reach",
+      "family": "worldStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cossack-squats",
+      "family": "lateral",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "goblet-squat-pry",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kettlebell-halos",
+      "family": "halo",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "band-face-pulls",
+      "family": "rearFly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "ankle-rocks-against-a-wall",
+      "family": "ankleRock",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hip-airplanes",
+      "family": "singleHinge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "single-leg-glute-bridges",
+      "family": "bridge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "quadruped-t-spine-reach",
+      "family": "thoracicQuad",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-twists",
+      "family": "seatedTwist",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-twist",
+      "family": "seatedTwist",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "shoulder-rolls",
+      "family": "shoulderRoll",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "shoulder-taps-on-the-wall",
+      "family": "wallPush",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "sit-to-stands-from-a-chair",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "split-squat-holds",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-back-arch-and-round",
+      "family": "standingCat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-hip-extensions",
+      "family": "gluteKick",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-knee-hugs",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "walking-knee-hugs",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "thoracic-rotations-on-hands-and-knees",
+      "family": "thoracicQuad",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "thread-the-needle",
+      "family": "threadNeedle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "walking-lunges",
+      "family": "lunge",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "wall-push-ups",
+      "family": "wallPush",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "wall-sit",
+      "family": "squat",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "wall-slides",
+      "family": "wallSlide",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "world-s-greatest-stretch",
+      "family": "worldStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "biceps-wall-stretch",
+      "family": "wallStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "butterfly-stretch",
+      "family": "butterfly",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "calf-stretch-on-a-wall",
+      "family": "wallStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "child-s-pose",
+      "family": "child",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cobra-stretch",
+      "family": "cobra",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "cross-body-shoulder-stretch",
+      "family": "shoulderStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "doorway-chest-stretch",
+      "family": "wallStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "figure-4-glute-stretch",
+      "family": "figure4",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "half-kneeling-hip-flexor-stretch",
+      "family": "kneelingStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "hands-behind-back-chest-opener",
+      "family": "shoulderStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "kneeling-shin-stretch",
+      "family": "shinStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "lying-cross-body-glute-stretch",
+      "family": "figure4",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "neck-side-stretch",
+      "family": "neckStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "overhead-triceps-stretch",
+      "family": "shoulderStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "seated-hamstring-stretch",
+      "family": "hamStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "standing-quad-stretch",
+      "family": "quadStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "wrist-flexor-and-extensor-stretch",
+      "family": "shoulderStretch",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "easy-walk",
+      "family": "walk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "easy-bike",
+      "family": "cycle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "easy-row",
+      "family": "rowErg",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "easy-elliptical",
+      "family": "elliptical",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "easy-marching",
+      "family": "march",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "brisk-walk",
+      "family": "walk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "incline-walk",
+      "family": "walk",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "jog",
+      "family": "jog",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stationary-bike",
+      "family": "cycle",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "rowing-machine",
+      "family": "rowErg",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "elliptical",
+      "family": "elliptical",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "stair-climber",
+      "family": "stairs",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "jump-rope",
+      "family": "jumpRope",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "shadow-boxing",
+      "family": "boxing",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "jumping-jacks",
+      "family": "jacks",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-quads",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-quads",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-glutes",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-glutes",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-hamstrings",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-hamstrings",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-calves",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-calves",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-inner-thighs",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-inner-thighs",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-upper-back",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-upper-back",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-lats",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-lats",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-chest",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-chest",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "foam-roll-shoulders",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "massage-ball-shoulders",
+      "family": "recovery",
+      "poses": 3,
+      "textures": 4
+    },
+    {
+      "id": "bodyweight-squat",
+      "family": "accepted",
+      "poses": 3,
+      "textures": 4
+    }
+  ],
+  "errors": [],
+  "maximumPlaybackPositionError": 0.0009859466671035108,
+  "characterRequests": 1
+}

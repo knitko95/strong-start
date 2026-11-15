@@ -1,0 +1,1550 @@
+{
+  "date": "2026-11-13",
+  "base": "d0c45f9ec91cf14f77456a1a9e9278689e2dc62e",
+  "manifestSHA256": "0a171a9b366b4dcb020afe26a48bbc00d337c5fc99e4970271ad4362dd519543",
+  "noteInventoryRead": 296,
+  "scope": "Specific form requirements, shared rig repairs and rendered evidence. Not blanket individual technique approval.",
+  "sourceHashes": {
+    "rig.mjs": "a0d4de1db39f743065b35f5a15e2ab11dbde78e45aa7afec86297ec4beb0d3d7",
+    "poses.mjs": "778e023b6db0e71d3cca02131e027bc16f8f1c48e48ed4fbea3d2931c6eb8599",
+    "corrections.mjs": "63db33c3bb425d34fc779e11f35495fe615f81154d9acdbc6129d8b59322be29",
+    "detailed-form.mjs": "2076353c262449bdf2707c61024fe9ec327fd93ebd98be58f46f4d7d25e003e7",
+    "equipment.mjs": "6dbcc1675c254689223e6b471be5840dfb46cf4f7c50180becc9bd9f233cadcf",
+    "equipment-corrections.mjs": "227d7b92fdb2fe1d552a117c1b53eafa2310fb5e614101670d602185ca8ae4e1",
+    "repair-reviewed-grips.mjs": "09ed8f741332fe2569d8532bdfd6fd48c914d1ec41233eecfaed5a4570894064",
+    "build.mjs": "9f2206246ccd3b574f60e927e7911ec3c52128f287c21d6a930d9fdd14d1468d"
+  },
+  "checks": {
+    "date": "2026-11-13",
+    "scope": "Specific note-backed geometric assertions; not full technique certification.",
+    "entries": [
+      {
+        "id": "barbell-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p23",
+          "ncurl"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "96a9981952b7387111f0e30a6d1632eb30e8392d78cc99826b3ceba86767f007",
+        "sources": [
+          {
+            "id": "p23",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/barbell-bicep-curls/",
+            "title": "Barbell Curls"
+          },
+          {
+            "id": "ncurl",
+            "url": "https://www.nasm.org/resource-center/exercise-library/barbell-bicep-curl",
+            "title": "Barbell Bicep Curl"
+          }
+        ]
+      },
+      {
+        "id": "cable-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p24"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "f2bb73df21e13417fea367124a49071f9e195fa1d10fbd420128f2445f2b810d",
+        "sources": [
+          {
+            "id": "p24",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/cable-bicep-curls/",
+            "title": "Cable Curls"
+          }
+        ]
+      },
+      {
+        "id": "bayesian-cable-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p24",
+          "p28"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "7aecfd3f595988779101d540f2c8797deedaf246af34243589b5d0c139919e6e",
+        "sources": [
+          {
+            "id": "p24",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/cable-bicep-curls/",
+            "title": "Cable Curls"
+          },
+          {
+            "id": "p28",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/incline-bicep-curls/",
+            "title": "How To Do Incline Bicep Curls"
+          }
+        ]
+      },
+      {
+        "id": "concentration-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p25"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "ea996581d2c1fbe8717baed138affdd8ceddabdbfdde753a2638c3895672823e",
+        "sources": [
+          {
+            "id": "p25",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/concentration-curls/",
+            "title": "Concentration Curls"
+          }
+        ]
+      },
+      {
+        "id": "zottman-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p32"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "be9f46e29120cbf4af91ee51b3eac3efdc1203b3b69f79bcc1ef55f20e2a865e",
+        "sources": [
+          {
+            "id": "p32",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/zottman-curls/",
+            "title": "Zottman Curls"
+          }
+        ]
+      },
+      {
+        "id": "kettlebell-hammer-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p27"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "3bf93c6046bf19fccec086007fb6ae6689da154b33b55317899a7fea76de7675",
+        "sources": [
+          {
+            "id": "p27",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/hammer-curls/",
+            "title": "Hammer Curls"
+          }
+        ]
+      },
+      {
+        "id": "band-biceps-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p24"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "e7c0617b6b53f0764be343c7caae16f43cb4f105848bf426cf99140c314829ec",
+        "sources": [
+          {
+            "id": "p24",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/cable-bicep-curls/",
+            "title": "Cable Curls"
+          }
+        ]
+      },
+      {
+        "id": "ez-bar-curl",
+        "fields": [
+          "execution",
+          "commonFaults"
+        ],
+        "checks": [
+          "fixed upper arm throughout curl",
+          "loaded hand follows forearm"
+        ],
+        "noteSourceIds": [
+          "p23"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "0d7e39ea2be71b5b335566187cfec76044711c14f1e13551acc25a310d667da0",
+        "sources": [
+          {
+            "id": "p23",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/bicep-curl/barbell-bicep-curls/",
+            "title": "Barbell Curls"
+          }
+        ]
+      },
+      {
+        "id": "cable-rope-pushdown",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p60"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "072480375680c98869d07dc3841d9f18c9001bb92548c110bf77cdf10cf63085",
+        "sources": [
+          {
+            "id": "p60",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/tricep-pushdowns/",
+            "title": "Tricep Pushdowns"
+          }
+        ]
+      },
+      {
+        "id": "band-triceps-pushdown",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p60"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "7966f149b49cef692dcd02bd280d55bed8a1ca49a19453f639c21406401b2d8f",
+        "sources": [
+          {
+            "id": "p60",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/tricep-pushdowns/",
+            "title": "Tricep Pushdowns"
+          }
+        ]
+      },
+      {
+        "id": "dumbbell-skull-crusher",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p57"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "5fcc3a6c15750531d04df5f990207f62d04af0c56f98b1686aabfaacb02b4e0d",
+        "sources": [
+          {
+            "id": "p57",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/skull-crushers/",
+            "title": "Skull Crushers"
+          }
+        ]
+      },
+      {
+        "id": "barbell-skull-crusher",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p57"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "cd79f4bb69448fe5d51e89cb4bdb8e2c187c0aa3875cf4a7153150ff8df8d27d",
+        "sources": [
+          {
+            "id": "p57",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/skull-crushers/",
+            "title": "Skull Crushers"
+          }
+        ]
+      },
+      {
+        "id": "dumbbell-overhead-triceps-extension",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p56"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "c9da7ba968cc89d94bdd6824598b782e06533031e9be54832631c33e5cf62685",
+        "sources": [
+          {
+            "id": "p56",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/overhead-tricep-extension/",
+            "title": "Overhead Tricep Extensions"
+          }
+        ]
+      },
+      {
+        "id": "single-arm-cable-kickback",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "quiet upper arm; elbow drives repetition"
+        ],
+        "noteSourceIds": [
+          "p59"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "c4c1780afeb188795db10d3c0975cc1cc23968a81156afde6d31c5cf5acbbbe1",
+        "sources": [
+          {
+            "id": "p59",
+            "url": "https://www.puregym.com/exercises/arms-and-shoulders/tricep-extension/tricep-kickbacks/",
+            "title": "Tricep Kickbacks"
+          }
+        ]
+      },
+      {
+        "id": "barbell-bench-press",
+        "fields": [
+          "execution",
+          "setup",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "lower chest to shoulder bar path",
+          "forearms under bar",
+          "closed-thumb grip"
+        ],
+        "noteSourceIds": [
+          "p83",
+          "nbench"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "0fd0378eacdd6010c4bac2cd11cdcfdae7fc9b358ec8a9e63367111dc7ffeb2e",
+        "sources": [
+          {
+            "id": "p83",
+            "url": "https://www.puregym.com/exercises/chest/bench-press/barbell-bench-press/",
+            "title": "Barbell Bench Press"
+          },
+          {
+            "id": "nbench",
+            "url": "https://www.nasm.org/resource-center/exercise-library/barbell-bench-press",
+            "title": "Barbell Bench Press"
+          }
+        ]
+      },
+      {
+        "id": "half-kneeling-single-arm-cable-press",
+        "fields": [
+          "setup",
+          "execution",
+          "variantNotes"
+        ],
+        "checks": [
+          "forward chest-height press, not overhead",
+          "rear-knee support"
+        ],
+        "noteSourceIds": [
+          "p9",
+          "p91"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "0723697aa92a359d6365b1022bfbc7ea9f879b12bafa39f9c840193394c85aff",
+        "sources": [
+          {
+            "id": "p9",
+            "url": "https://www.puregym.com/exercises/abs/pallof-press/",
+            "title": "Pallof Press"
+          },
+          {
+            "id": "p91",
+            "url": "https://www.puregym.com/exercises/chest/bench-press/seated-chest-press/",
+            "title": "Seated Chest Press (Machine Chest Press)"
+          }
+        ]
+      },
+      {
+        "id": "lying-leg-curl",
+        "fields": [
+          "setup",
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "fixed anatomical knee hinge",
+          "no hip lift to move roller"
+        ],
+        "noteSourceIds": [
+          "p149",
+          "nlying-curl"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "14f5b5540245e70ce1aa1fb5e4b8d77e4a6d008577bbcc40d3c0f9c0f9e72d66",
+        "sources": [
+          {
+            "id": "p149",
+            "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/lying-leg-curl/",
+            "title": "Lying Leg Curls"
+          },
+          {
+            "id": "nlying-curl",
+            "url": "https://www.nasm.org/resource-center/exercise-library/lying-leg-curl",
+            "title": "Lying Leg Curl"
+          }
+        ]
+      },
+      {
+        "id": "seated-leg-curl",
+        "fields": [
+          "setup",
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "fixed anatomical knee hinge",
+          "no hip lift to move roller"
+        ],
+        "noteSourceIds": [
+          "p151",
+          "nseated-curl"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "2f01fe91e154e047d115f9ae385040c6dba6573c44065451ed840f258dcad4ea",
+        "sources": [
+          {
+            "id": "p151",
+            "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/hamstring-curls/seated-leg-curl",
+            "title": "Seated Leg Curls"
+          },
+          {
+            "id": "nseated-curl",
+            "url": "https://www.nasm.org/resource-center/exercise-library/seated-leg-curl",
+            "title": "Seated Leg Curl"
+          }
+        ]
+      },
+      {
+        "id": "leg-extension",
+        "fields": [
+          "setup",
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "fixed anatomical knee hinge",
+          "no hip lift to move roller"
+        ],
+        "noteSourceIds": [
+          "xlegextension"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "c68207f4a9624ae00df356e08597eeb575cf2705439bd898304082b50f3f0547",
+        "sources": [
+          {
+            "id": "xlegextension",
+            "url": "https://www.muscleandstrength.com/exercises/leg-extension.html",
+            "title": "Leg Extension"
+          }
+        ]
+      },
+      {
+        "id": "front-squat",
+        "fields": [
+          "alignmentAndRange",
+          "setup"
+        ],
+        "checks": [
+          "planted feet",
+          "knee flexion towards toes",
+          "body-supported bar placement"
+        ],
+        "noteSourceIds": [
+          "p179"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "907afd233115fb393d182f8e648f93509ebb4e262dc6db4a040ea046e495f282",
+        "sources": [
+          {
+            "id": "p179",
+            "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/front-squat/",
+            "title": "Front Squats"
+          }
+        ]
+      },
+      {
+        "id": "barbell-back-squat",
+        "fields": [
+          "alignmentAndRange",
+          "setup"
+        ],
+        "checks": [
+          "planted feet",
+          "knee flexion towards toes",
+          "body-supported bar placement"
+        ],
+        "noteSourceIds": [
+          "p175"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "d466b2897f1e131df41d5557158dce5b08fbc7ba685f96963b6bdd85c2ffd1d2",
+        "sources": [
+          {
+            "id": "p175",
+            "url": "https://www.puregym.com/exercises/legs/quad-exercises/squats/barbell-back-squat/",
+            "title": "Barbell Back Squats"
+          }
+        ]
+      },
+      {
+        "id": "sumo-deadlift",
+        "fields": [
+          "alignmentAndRange",
+          "setup"
+        ],
+        "checks": [
+          "planted feet",
+          "knee flexion towards toes",
+          "body-supported bar placement"
+        ],
+        "noteSourceIds": [
+          "p143"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "476138cb42fd6f73587d06a53b2a485220fe4f0e4d18c0fa651ff3d2506e86a1",
+        "sources": [
+          {
+            "id": "p143",
+            "url": "https://www.puregym.com/exercises/legs/hamstring-exercises/deadlifts/sumo-deadlift/",
+            "title": "Sumo Deadlifts"
+          }
+        ]
+      },
+      {
+        "id": "side-lying-hip-abduction",
+        "fields": [
+          "setup",
+          "execution"
+        ],
+        "checks": [
+          "long upper leg",
+          "movement at hip, not a knee curl"
+        ],
+        "noteSourceIds": [
+          "p158"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "568eed977038bdcb3fe4c5694cbe78e118fc1df1530b44de6722b30b6de419fc",
+        "sources": [
+          {
+            "id": "p158",
+            "url": "https://www.puregym.com/exercises/legs/inner-outer-thigh/side-lying-hip-abduction/",
+            "title": "Side Lying Hip Abduction"
+          }
+        ]
+      },
+      {
+        "id": "cable-fly-high-to-low",
+        "fields": [
+          "execution",
+          "alignmentAndRange"
+        ],
+        "checks": [
+          "consistent soft elbow bend through shoulder arc"
+        ],
+        "noteSourceIds": [
+          "p93"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "679196e991f3b151ba6f12f4a24ede4e2cd9f0967a335da381b8259b75d37321",
+        "sources": [
+          {
+            "id": "p93",
+            "url": "https://www.puregym.com/exercises/chest/chest-fly/cable-flyes/",
+            "title": "Cable Flyes"
+          }
+        ]
+      },
+      {
+        "id": "trx-anti-rotation-press",
+        "fields": [
+          "setup",
+          "execution",
+          "variantNotes"
+        ],
+        "checks": [
+          "one two-hand handle",
+          "side-on whole-body lean",
+          "forward reach without overhead phase",
+          "fixed strap length"
+        ],
+        "noteSourceIds": [
+          "xtrxgentilcore",
+          "xtrxworkbook",
+          "xtrxsingle",
+          "xcore360",
+          "xtrxanti",
+          "xtrxpallofretailer",
+          "xantipressbruno",
+          "p9"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "c89424e8e2c1feb4bdff69157ae9f3d2c269bc914033114a59184233c56c5d03",
+        "sources": [
+          {
+            "id": "xtrxgentilcore",
+            "url": "https://tonygentilcore.com/2014/07/exercises-you-should-be-doing-trx-anti-rotation-press/",
+            "title": "Exercises You Should Be Doing: TRX Anti-Rotation Press"
+          },
+          {
+            "id": "xtrxworkbook",
+            "url": "https://trxtraining.inspire360.com/files/resources/1117569.pdf",
+            "title": "TRX Trainer Basics Digital Course Workbook: Six Procedures"
+          },
+          {
+            "id": "xtrxsingle",
+            "url": "https://www.trxtraining.com/blogs/news/single-handle-mode",
+            "title": "Single Handle Mode"
+          },
+          {
+            "id": "xcore360",
+            "url": "https://mikereinold.com/working-core-training-in-360-degrees/",
+            "title": "Working Core Training in 360 Degrees"
+          },
+          {
+            "id": "xtrxanti",
+            "url": "https://www.youtube.com/watch?v=muDVnbs3MkI",
+            "title": "TRX Anti Rotation Press"
+          },
+          {
+            "id": "xtrxpallofretailer",
+            "url": "https://suspensionexercise.com.au/exercises/trx-pallof-press",
+            "title": "TRX Pallof Press"
+          },
+          {
+            "id": "xantipressbruno",
+            "url": "https://www.youtube.com/watch?v=mN_NZ7Vu2fk",
+            "title": "How to Do the Anti-Press"
+          },
+          {
+            "id": "p9",
+            "url": "https://www.puregym.com/exercises/abs/pallof-press/",
+            "title": "Pallof Press"
+          }
+        ]
+      },
+      {
+        "id": "hanging-knee-raise",
+        "fields": [
+          "setup",
+          "execution"
+        ],
+        "checks": [
+          "finger-base grasp contacts actual rendered bar/parallel handle throughout repetition"
+        ],
+        "noteSourceIds": [
+          "p7"
+        ],
+        "sourceRelationship": "same-movement",
+        "notesSHA256": "59c4fa9429ff3c105a8832333b2222a8b4947dd0caa13ea54e997a0ee8540b6b",
+        "sources": [
+          {
+            "id": "p7",
+            "url": "https://www.puregym.com/exercises/abs/hanging-knee-raises/",
+            "title": "Hanging Knee Raises"
+          }
+        ]
+      },
+      {
+        "id": "toes-to-bar",
+        "fields": [
+          "setup",
+          "execution"
+        ],
+        "checks": [
+          "finger-base grasp contacts actual rendered bar/parallel handle throughout repetition"
+        ],
+        "noteSourceIds": [
+          "p8"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "b7cd804d38de9cb0ada3fe887800f7a7fc87d3693b73e39dba35de418a783c8f",
+        "sources": [
+          {
+            "id": "p8",
+            "url": "https://www.puregym.com/exercises/abs/hanging-leg-raises/",
+            "title": "Hanging Leg Raises"
+          }
+        ]
+      },
+      {
+        "id": "weighted-pull-up",
+        "fields": [
+          "setup",
+          "execution"
+        ],
+        "checks": [
+          "finger-base grasp contacts actual rendered bar/parallel handle throughout repetition"
+        ],
+        "noteSourceIds": [
+          "npull-up",
+          "p72"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "09826e041b0074be359f2f1b00d1365d073d335a4c7c40f0350077e21e448f44",
+        "sources": [
+          {
+            "id": "npull-up",
+            "url": "https://www.nasm.org/resource-center/exercise-library/pull-up",
+            "title": "Pull-Up"
+          },
+          {
+            "id": "p72",
+            "url": "https://www.puregym.com/exercises/back/pull-up/",
+            "title": "Pull Up Exercises"
+          }
+        ]
+      },
+      {
+        "id": "neutral-grip-pull-up",
+        "fields": [
+          "setup",
+          "execution"
+        ],
+        "checks": [
+          "finger-base grasp contacts actual rendered bar/parallel handle throughout repetition"
+        ],
+        "noteSourceIds": [
+          "npull-up"
+        ],
+        "sourceRelationship": "related-only",
+        "notesSHA256": "ea80bad19ada52c267e00b4ba262452df56b2eb3fdbc61447c027a7b5420efd6",
+        "sources": [
+          {
+            "id": "npull-up",
+            "url": "https://www.nasm.org/resource-center/exercise-library/pull-up",
+            "title": "Pull-Up"
+          }
+        ]
+      }
+    ],
+    "clips": 29,
+    "samplesPerClip": 121,
+    "manifestSHA256": "0a171a9b366b4dcb020afe26a48bbc00d337c5fc99e4970271ad4362dd519543"
+  },
+  "mechanical": {
+    "clips": 428,
+    "poses": 17548,
+    "maximumGripGap": 0.0005118235824546831,
+    "maximumObservedHandForearmAngle": 67.56317959992163,
+    "maximumRigidLengthDrift": 8.270784057629044e-11,
+    "maximumLimbLengthDrift": 1.7763568394002505e-15,
+    "maximumLoopDifference": 2.2093438190040615e-14,
+    "maximumFootTargetGap": 0
+  },
+  "continuity": {
+    "clips": 428,
+    "samplesPerClip": 241,
+    "maximumStep": 18.537705655139156,
+    "maximumJointStep": 0.0883087588216462,
+    "largestPositionStep": {
+      "id": "rotational-medicine-ball-slam",
+      "bone": "lowerarm_r",
+      "fraction": 0.6833333333333333
+    },
+    "failures": [],
+    "scope": "Numerical continuity screen at 241 phases; large steps are subdivided 32 times to distinguish fast continuous motion from a discontinuity. The 8-degree / 2-cm refined triggers are engineering checks, not anatomical range limits."
+  },
+  "rendered": [
+    {
+      "id": "barbell-bench-press",
+      "scene": "05cae88a291381d90d2934daec83da6fc2caf9e3b90e686867be132ba3d8db23",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "barbell-curl",
+      "scene": "399116ce38c301e5df433c2a5423b48c4205b7781711a32cb1f225090a186091",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "half-kneeling-single-arm-cable-press",
+      "scene": "d2b783cca440add9a501c95e52638f36697cea5284a4ceed68665da530acb4a4",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "front-squat",
+      "scene": "704338abd52541a01c0215c7f72a0a7e4a7b3c7ab26f56c043f97cd5a3477245",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "concentration-curl",
+      "scene": "5fb47cb69ac27d90a6a3d94ef6ff6c3646d1c4c996d6d8be5526bb4512f8ad1c",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "side-lying-hip-abduction",
+      "scene": "4c41e73cec6f34ef6bb5df9c48951eb27ace1de9229f1138384de0784f0ca34b",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "hammer-curl",
+      "scene": "157657c181ecb1607895b9ff309a4a6319ea362fe3f16dea0b7f841af844d777",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "goblet-squat",
+      "scene": "0d21688824eca461a2794d882389c6c4047e52dc5b1dcf723eff5bd8cd401b11",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "zottman-curl",
+      "scene": "4a4cff97f91e9e7574c39b77573d7907b2f700316b3211908c90bd0e47844853",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "arnold-press",
+      "scene": "86f1a5ce0365fe133562dca118e76c7a614a34c485d64487b553317a4780fa00",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "machine-lateral-raise",
+      "scene": "e2e6813ba120a5d5aa3e7f3a6c00893cd2395adf4cd600c1a0907be496154c58",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "lying-leg-curl",
+      "scene": "955ce7c78bc863bf3eb3139e85ed2c64308a84604e9a6259a8d4534a6bc4e4ce",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "seated-leg-curl",
+      "scene": "5fad91fef7fd23c0c9b921d3057c3ddd41d0602648ec12d178c978899480f0a9",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "leg-extension",
+      "scene": "a97916c47a215ab38b5de6b7cfed16eeeee3575a1a703ee18e24cc9f0c8ecae7",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "diamond-push-up",
+      "scene": "524eca48e57d202e1dcef22f9421f1d4a33ed29a5c9ad3bd2a667a1f77badf2b",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "cat-cow",
+      "scene": "1d4a60a871752b7984ec05e87bd3780ba5a7eb827c6fadad36699798253b363d",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "cable-rope-pushdown",
+      "scene": "1062db2f9d9d70e2b1aa16239cd8c4b8f53b1665ba0202fbbae3f3cda5360dd4",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "dumbbell-skull-crusher",
+      "scene": "12dbd7c583f37995617bea4ed9e1a38ee531c3f4333722e4e1d1de9885962130",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "trx-anti-rotation-press",
+      "scene": "6b38f139fb7e2d3954a3b76401ef1f7c991a4e2cb243b420f8bd340fb656136e",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "kettlebell-halo",
+      "scene": "cf42d9bcb233df3be9446ef7fe9fb66497c2716adbf1ce66bdd0e8862e66c85c",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "barbell-back-squat",
+      "scene": "b62d77540a1e71c71868cb13dc79956caf810f4351e16cbe35eccd4d02276c7f",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "trx-chest-press",
+      "scene": "be8b4f316f26731903338fb4b220b410f31422e69c27aaa574cfec94b55914b2",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "trx-fly",
+      "scene": "27e0871ac2a92a5a7ab1d325064c7dc614f5a28488ef07ad3932dc8f4e1579d4",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "trx-triceps-extension",
+      "scene": "451d0d9252a074a12cf331761dde533c7849c5ceb19387e6db4936b53180d826",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "trx-fallout",
+      "scene": "f29d9add431affcbe529dae4e08d4b174e770c7cc11d94a153a8b98b8ce08264",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "tate-press",
+      "scene": "62e3ca93009062f2ade72a7dd50e995ac4556a2fbc029f864437668756712fd4",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "cable-crunch",
+      "scene": "4526d4985e47f3d5f53afb584ddaa947f3996854a0569b541631346fc15acff9",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "pendlay-row",
+      "scene": "fe613d8b3530a0826f3b033e46c1bcc12534adb8fc9244fbab7d628a6ad72018",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "conventional-deadlift",
+      "scene": "d94fd280a381b0f1ae9dda300cc9102e1bbbd2d303d44511f21d04e46a5603b6",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "sumo-deadlift",
+      "scene": "2e326404f914bbc6fe076493dcb33f403a70b5e8a67721e5fd47bb8d48deb32b",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "landmine-lateral-lunge",
+      "scene": "8a62f1f05c020d4461a16ecdd05ba6e48f44b7ac5ee0b29c8b4a302234f713c2",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "half-kneeling-landmine-press",
+      "scene": "d9e0214a38941fa82dcf18ea84d13020d231f7c4aa421c6a6ea3a2e68db7bf96",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "landmine-single-leg-romanian-deadlift",
+      "scene": "d7c2b5c014fe3fce44e9760c79b15747220c11237a40df246a692e4681c2f82b",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "rotational-medicine-ball-slam",
+      "scene": "ce22c86bfac3015608d475154ac1d7a2f7a0bcdd08ca802ba80d0ea13fc64c67",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "bird-dogs",
+      "scene": "fde2b8e9f210b23397310298706c085d217118f6cf68d1a9576091a231b3996a",
+      "folder": "release-review",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "hanging-knee-raise",
+      "scene": "275eba43acf337a63a5a729650da6b6860a0844dccb8b50af41c1e230660e35c",
+      "folder": "hang-final",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "toes-to-bar",
+      "scene": "a6344065f86746fd221eb22d41295375494239ba1143d30b5effa543b4f644d1",
+      "folder": "hang-final",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "weighted-pull-up",
+      "scene": "24bcb66be34b8a42e358ba97637de15e79fd737d3d4e196d5bb737affa7e79a6",
+      "folder": "hang-final",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    },
+    {
+      "id": "neutral-grip-pull-up",
+      "scene": "b788ceeb50ad0938c2a7ff380190776b19eb2e012102ebb9300ab631e81961d5",
+      "folder": "hang-final",
+      "phases": [
+        0,
+        0.25,
+        0.5,
+        0.75
+      ],
+      "views": [
+        "body-front",
+        "body-side",
+        "hand-front",
+        "hand-side",
+        "elbow",
+        "knee"
+      ]
+    }
+  ],
+  "limits": [
+    "Fine skin contact and manufacturer-specific fit remain visual review items.",
+    "No professional, individual suitability, breathing or complete entry/exit validation.",
+    "The 128 earlier excluded reference entries remain excluded.",
+    "No database or production change."
+  ]
+}

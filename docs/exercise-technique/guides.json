@@ -1,0 +1,2837 @@
+{
+  "guides": [
+    {
+      "id": "a-skips",
+      "name": "A-skips",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Use a clear nonslip lane and begin with marching knee lifts before adding a skip.",
+        "execution": "Lift one knee toward hip level with the opposite arm forward, then make a small rhythmic skip and switch legs.",
+        "variantNotes": "Keep contacts under the body and the trunk tall; the retrieved athletics source is a video overview, so precise timing still needs practical review.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xaskip"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "arm-circles",
+      "name": "Arm circles",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with room to extend both arms and a relaxed neck.",
+        "execution": "Make small forward circles from the shoulders, enlarge only within comfort and reverse direction.",
+        "variantNotes": "Keep ribs quiet and avoid whipping the arms into a large painful arc; shoulder-conditioning guidance is related rather than an exact circle protocol.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshoulder"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "band-dislocates",
+      "name": "Band dislocates",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Inspect a light band and hold it very wide with arms forward and elbows soft.",
+        "execution": "Raise it overhead and behind only within an unforced range, then reverse without rib flare.",
+        "variantNotes": "The name does not mean dislocating a joint. Widen the grip, shorten the arc or stop if the shoulders pinch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xpassthrough"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "band-pull-aparts",
+      "name": "Band pull-aparts",
+      "kind": "guide",
+      "pattern": "rear",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Let the scapula glide without aggressively pinching or depressing it. Keep the elbow bend and torso position consistent.",
+        "breathingAndTempo": "Exhale on the opening or pull and inhale on return.",
+        "commonFaults": "Throwing the trunk, pulling far behind the available shoulder range, craning the neck or turning every variation into a heavy row.",
+        "regression": "Use less load and chest support; shorten the shoulder range.",
+        "setup": "Use an inspected light band at chest-to-shoulder height, hands well spaced.",
+        "execution": "Open the arms until the band approaches the chest, then return smoothly without losing trunk control.",
+        "variantNotes": "Do not force a maximal shoulder-blade pinch or let the band snap toward the face.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xbandpull"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "banded-lateral-walks",
+      "name": "Banded lateral walks",
+      "kind": "guide",
+      "pattern": "hipside",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the pelvis steady and move at the hip. Use modest range before trunk lean or pelvic rotation takes over.",
+        "breathingAndTempo": "Exhale during the active movement and inhale on return.",
+        "commonFaults": "Rocking the torso, rotating the hip to appear to lift higher or letting a band snap the legs together.",
+        "regression": "Reduce resistance and range or use a supported lying variation.",
+        "setup": "Place a light loop above the knees and stand in a shallow squat, feet hip-width.",
+        "execution": "Take small sideways steps while retaining mild band tension and level hips.",
+        "variantNotes": "Do not drag the trailing foot into the lead foot or turn the toes far outward to substitute rotation for abduction.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xbandwalk"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "clamshell"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "lateral-band-walks",
+      "name": "Lateral band walks",
+      "kind": "guide",
+      "pattern": "hipside",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the pelvis steady and move at the hip. Use modest range before trunk lean or pelvic rotation takes over.",
+        "breathingAndTempo": "Exhale during the active movement and inhale on return.",
+        "commonFaults": "Rocking the torso, rotating the hip to appear to lift higher or letting a band snap the legs together.",
+        "regression": "Reduce resistance and range or use a supported lying variation.",
+        "setup": "Use a light loop above the knees initially and establish supported foot pressure.",
+        "execution": "Step sideways with the pelvis quiet, then bring the other foot in only far enough to retain tension.",
+        "variantNotes": "This is a separate guide-name alias of the same lateral walk; ankle placement is a progression rather than the required setup.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xbandwalk"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "clamshell"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "bodyweight-squats-to-a-bench",
+      "name": "Bodyweight squats to a bench",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Inhale and brace before descending; exhale through the rise as appropriate to the load. Keep the descent controlled.",
+        "commonFaults": "Heels lifting unexpectedly, knees collapsing inward, losing trunk position, or pursuing depth at the expense of balance.",
+        "regression": "Reduce load or depth, squat to a higher box or use hand support.",
+        "setup": "Place a stable bench behind the legs and choose its height before beginning.",
+        "execution": "Sit down under control to a light contact or supported seat, then press through both feet to stand.",
+        "variantNotes": "Avoid dropping onto the bench or rocking forward; raise the target if balance or trunk control is lost.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p176"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "prisoner"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "broad-jumps",
+      "name": "Broad jumps",
+      "kind": "guide",
+      "pattern": "jump",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the knees tracking with the feet. Choose height and distance that allow a quiet balanced landing without a deep emergency tuck.",
+        "breathingAndTempo": "Breathe naturally; take a fresh setup between discrete efforts. Stop a set when landing quality or jump output deteriorates.",
+        "commonFaults": "Stiff-legged landings, knee collapse, chasing box height through excessive knee tuck or rushing fatigued repeats.",
+        "regression": "Use a lower jump, smaller distance or a step-up and practise landing on the floor.",
+        "setup": "Clear a modest forward takeoff and landing area with no equipment in the path.",
+        "execution": "Use a small countermovement and arm swing to jump forward, then land on both feet and pause.",
+        "variantNotes": "Keep this warm-up submaximal and reduce distance before landing becomes noisy, unstable or knee-dominant.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p196"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "broomstick-or-towel-pass-throughs",
+      "name": "Broomstick or towel pass-throughs",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Grip a light dowel or towel very wide with enough slack or hand spacing to avoid forced shoulder range.",
+        "execution": "Raise overhead and, only if comfortable, slightly behind before returning along the same path.",
+        "variantNotes": "A rigid dowel cannot stretch like a band; widen the hands and stop before rib flare, pinching or forced elbow locking.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xpassthrough"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "cat-cow",
+      "name": "Cat-cow",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start on hands and knees, padding the knees and placing hands where wrists are comfortable.",
+        "execution": "Alternate a gentle rounded-spine position with a small comfortable extension, moving slowly through the trunk.",
+        "variantNotes": "Do not force the neck backward or push into end-range lower-back compression; standing supported movement is an alternative.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xcatcow"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "dead-hang",
+      "name": "Dead hang",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Use a rated bar and step, with feet able to assist if needed.",
+        "execution": "Let bodyweight transfer gradually to the hands while maintaining a comfortable shoulder position, then step down before grip fails.",
+        "variantNotes": "A fully passive hang is optional; avoid forcing shoulder traction through pinching or instability.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "npull-up"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "downward-dog-to-plank",
+      "name": "Downward dog to plank",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start in a supported high plank on a nonslip mat with hands spread.",
+        "execution": "Push the hips upward/back into an inverted V, then return shoulders over hands without dropping the pelvis.",
+        "variantNotes": "Keep knees soft as needed; heels need not reach the floor and the lower back should not sag on return.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xdownward",
+        "npush-up"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "explosive-push-ups",
+      "name": "Explosive push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Demonstrate a controlled ordinary push-up first and use an incline for early power practice.",
+        "execution": "Lower with control, then press fast enough for a small hand release and receive the hands with soft elbows.",
+        "variantNotes": "A clap is unnecessary; stop when hand landings or trunk alignment deteriorate rather than chasing speed.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nplyo-pushup"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "fast-bodyweight-squats",
+      "name": "Fast bodyweight squats",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Inhale and brace before descending; exhale through the rise as appropriate to the load. Keep the descent controlled.",
+        "commonFaults": "Heels lifting unexpectedly, knees collapsing inward, losing trunk position, or pursuing depth at the expense of balance.",
+        "regression": "Reduce load or depth, squat to a higher box or use hand support.",
+        "setup": "Use a familiar comfortable stance and rehearse a few slow squats first.",
+        "execution": "Repeat the squat at a brisk controlled pace while retaining whole-foot contact and knee tracking.",
+        "variantNotes": "Fast does not mean bouncing through the bottom or sacrificing the depth that can be controlled.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p176"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "fast-incline-push-ups",
+      "name": "Fast incline push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Use a secured raised surface and a body angle that permits easy aligned push-ups.",
+        "execution": "Lower under control and press up briskly while keeping the body connected.",
+        "variantNotes": "Hand release is optional and requires a support that cannot move; stop before rushed catches or hip sag.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p105",
+        "nplyo-pushup"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "glute-bridges",
+      "name": "Glute bridges",
+      "kind": "guide",
+      "pattern": "bridge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the pelvis level and stop at hip extension without rib flare. Support the head and shoulders on the floor.",
+        "breathingAndTempo": "Exhale while lifting and inhale on lowering; keep breathing through any pause.",
+        "commonFaults": "Lumbar arching, rotating the pelvis or pushing the head into the floor.",
+        "regression": "Use both feet on the floor, reduce height or remove resistance.",
+        "setup": "Lie with feet flat, knees bent and head/shoulders on a mat.",
+        "execution": "Lift the hips to a controlled shoulder-hip-knee line, pause and lower slowly.",
+        "variantNotes": "Keep the ribs quiet; a high back arch is not extra hip extension.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p117"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "bridge"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "half-kneeling-hip-flexor-stretch-with-reach",
+      "name": "Half-kneeling hip flexor stretch with reach",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Pad the rear knee, place the other foot forward and gently tuck the pelvis.",
+        "execution": "Shift forward a little to stretch the front of the rear hip, then add a comfortable same-side overhead reach.",
+        "variantNotes": "Do not gain reach by arching the low back; the reach is an adaptation of the basic kneeling stretch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nstretching"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "high-knee-marches",
+      "name": "High-knee marches",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand tall beside a support if balance is limited.",
+        "execution": "Lift one knee toward hip level while the opposite arm moves forward, lower softly and alternate.",
+        "variantNotes": "March rather than bounce; knee height ends before the pelvis hikes or the torso leans back.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xaskip"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "hip-circles",
+      "name": "Hip circles",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with feet planted and hands on the hips or a nearby support.",
+        "execution": "Make small controlled circles through the hips/pelvis in one direction, then reverse.",
+        "variantNotes": "Avoid forcing a large lower-back circle or moving through hip pinching; this general mobility drill has related rather than exact source coverage.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhipconditioning"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "hug-yourself-twists",
+      "name": "Hug-yourself twists",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with soft knees and arms forward or lightly crossed over the chest.",
+        "execution": "Turn the upper trunk gently side to side, allowing the hips and feet to follow as needed.",
+        "variantNotes": "The self-hug should remain loose; avoid whipping the neck or forcing a twist through fixed knees.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthoracic"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "inchworms",
+      "name": "Inchworms",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with a clear mat ahead and soften the knees as the hands reach down.",
+        "execution": "Walk the hands forward to a supported plank, then walk them back or move the feet forward as the planned version requires.",
+        "variantNotes": "Do not force straight knees to touch the floor or let the low back sag at the farthest reach.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xinchworm"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "incline-push-ups-on-a-bench",
+      "name": "Incline push-ups on a bench",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Use a stable bench against movement and set the hands slightly wider than the shoulders.",
+        "execution": "Lower the chest toward the bench and press away while keeping head, pelvis and heels connected.",
+        "variantNotes": "Choose a higher support if the hips sag; do not grip a padded edge that allows the hands to slip.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p105"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "push-up"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "incline-push-ups",
+      "name": "Incline push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Select a secure raised support such as a bench or fixed rail with a comfortable hand height.",
+        "execution": "Bend the elbows to approach the support with the chest, then push back as one unit.",
+        "variantNotes": "The support height controls difficulty; repeat the same height when comparing technique across sessions.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p105"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "push-up"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "lat-stretch-holding-a-post",
+      "name": "Lat stretch holding a post",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Hold a fixed post with one or both hands and stand far enough back for a small hip hinge.",
+        "execution": "Send the hips back while the hands stay supported, feeling a mild stretch along the side of the upper trunk.",
+        "variantNotes": "The NASM source uses a ball-supported lat stretch; post height/grip are adaptations and should not force shoulder traction.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nlat-stretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "lateral-shuffles",
+      "name": "Lateral shuffles",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Clear a short sideways lane and take an athletic stance with hips and knees softly bent.",
+        "execution": "Step laterally with the lead foot and follow with the other without crossing the legs.",
+        "variantNotes": "Keep the steps small and chest facing forward; slow down before feet collide or the knees collapse.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshuffle"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "planes"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "leg-swings-front-to-back-and-side-to-side",
+      "name": "Leg swings, front to back and side to side",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Hold a rail securely and stand on one leg with a soft knee.",
+        "execution": "Swing the free leg through a small comfortable front/back arc, then a separate side-to-side arc.",
+        "variantNotes": "Keep the pelvis controlled and build range gradually; do not throw the leg high enough to twist the trunk.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xlegswings"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "leg-swings-front-to-back",
+      "name": "Leg swings, front to back",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Hold a fixed support and leave clearance ahead and behind the working leg.",
+        "execution": "Swing the leg forward and backward smoothly while the standing hip stays stable.",
+        "variantNotes": "Keep the arc modest and knee relaxed; avoid arching the back to send the leg farther behind.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xlegswings"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "low-box-jumps",
+      "name": "Low box jumps",
+      "kind": "guide",
+      "pattern": "jump",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the knees tracking with the feet. Choose height and distance that allow a quiet balanced landing without a deep emergency tuck.",
+        "breathingAndTempo": "Breathe naturally; take a fresh setup between discrete efforts. Stop a set when landing quality or jump output deteriorates.",
+        "commonFaults": "Stiff-legged landings, knee collapse, chasing box height through excessive knee tuck or rushing fatigued repeats.",
+        "regression": "Use a lower jump, smaller distance or a step-up and practise landing on the floor.",
+        "setup": "Choose a low sturdy box and clear its top and the step-down route.",
+        "execution": "Jump onto the box with both feet, absorb the landing and step down to reset.",
+        "variantNotes": "Use low as a control requirement; do not progressively raise the box during a warm-up merely because it can be cleared.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p195"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "box-jump"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "marching-knee-lifts",
+      "name": "Marching knee lifts",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand near a support and establish tall posture with ribs over the pelvis.",
+        "execution": "Lift one knee, lower the foot softly and alternate while coordinating the opposite arm.",
+        "variantNotes": "This is the low-impact march version, not the skipping or running drill; height stops before trunk lean.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xaskip"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "medicine-ball-chest-pass",
+      "name": "Medicine ball chest pass",
+      "kind": "guide",
+      "pattern": "throw",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Coordinate the hips with the throw. A rebound is equipment-dependent; do not assume a slam ball will bounce or a medicine ball is safe to slam.",
+        "breathingAndTempo": "Exhale with the throw and reset before the next effort. Prioritise clean individual efforts over fatigued speed.",
+        "commonFaults": "Throwing toward people or fragile walls, twisting a fixed knee, catching an unpredictable rebound or bending the back to reach a rolling ball.",
+        "regression": "Use a lighter ball and slower practice throws with more space and no reactive catch.",
+        "setup": "Use a light suitable ball and a prepared partner or approved wall with a clear rebound path.",
+        "execution": "Pass from the chest with both hands and receive with soft elbows or let the ball settle.",
+        "variantNotes": "Warm-up throws should remain controlled; confirm the receiver is ready before each release.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xmedpass"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "power"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "open-books-lying-on-your-side",
+      "name": "Open books lying on your side",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Lie on one side with knees bent and stacked, head supported and arms reaching forward together.",
+        "execution": "Open the upper arm and chest toward the opposite side while the knees remain together, then close slowly.",
+        "variantNotes": "Do not force the hand to the floor if the knees lift or shoulder pinches; follow the hand with the eyes only within neck comfort.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xopenbook"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "thoracic-open-books",
+      "name": "Thoracic open books",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Use a side-lying stacked-knee position with enough head support to keep the neck neutral.",
+        "execution": "Rotate the upper chest open with the top arm, pause comfortably and return.",
+        "variantNotes": "This guide-name alias uses the same open-book movement; lower-back rotation should not replace the intended upper-trunk motion.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xopenbook"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "prone-y-t-w-raises",
+      "name": "Prone Y-T-W raises",
+      "kind": "guide",
+      "pattern": "rear",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Let the scapula glide without aggressively pinching or depressing it. Keep the elbow bend and torso position consistent.",
+        "breathingAndTempo": "Exhale on the opening or pull and inhale on return.",
+        "commonFaults": "Throwing the trunk, pulling far behind the available shoulder range, craning the neck or turning every variation into a heavy row.",
+        "regression": "Use less load and chest support; shorten the shoulder range.",
+        "setup": "Lie prone on a mat or supported bench, forehead supported if helpful and no load initially.",
+        "execution": "Lift the arms through a Y, a T and a bent-elbow W with a small controlled range, lowering between shapes.",
+        "variantNotes": "Do not raise the chest and neck to make the arms seem higher; this sequence extends the supported Y-raise reference.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p46",
+        "xshoulder"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "push-up-to-downward-dog",
+      "name": "Push-up to downward dog",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Start in a manageable floor or incline push-up with nonslip support.",
+        "execution": "Complete a controlled push-up, then move the hips back/up into an inverted V before returning to plank.",
+        "variantNotes": "Keep the two actions distinct rather than letting the push-up sag directly into a back arch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "npush-up",
+        "xdownward"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "push-ups",
+      "name": "Push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Set hands securely around shoulder width and extend into a stable plank.",
+        "execution": "Lower the chest while the body stays connected, then push the floor away to return.",
+        "variantNotes": "Raise the hand support if a full floor repetition requires the hips or head to move first.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p110",
+        "npush-up"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "push-up"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "reach-and-pull",
+      "name": "Reach-and-pull",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand tall without external resistance and begin with hands near the sides.",
+        "execution": "Reach the arms overhead within comfort, then draw elbows down toward the ribs as a slow pulldown rehearsal.",
+        "variantNotes": "This is an unloaded preparation drill; do not force a shoulder-blade pinch or treat a cable pulldown as an identical loading condition.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p66"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "reverse-arm-swings",
+      "name": "Reverse arm swings",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with clearance beside and behind the arms and a relaxed neck.",
+        "execution": "Swing the arms gently backward and forward through a comfortable shoulder arc.",
+        "variantNotes": "Do not yank the arms into deep shoulder extension or rotate the trunk to exaggerate the backward reach.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshoulder"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "reverse-lunges-in-place",
+      "name": "Reverse lunges in place",
+      "kind": "guide",
+      "pattern": "lunge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the front foot supported and knee tracking with its toes. Use a comfortable torso lean; a perfectly vertical shin is not mandatory.",
+        "breathingAndTempo": "Inhale on lowering and exhale on rising. Keep the rear-knee approach controlled.",
+        "commonFaults": "Standing on a tightrope, pushing mainly from the rear foot, front heel lift or pelvis rotating.",
+        "regression": "Use a stationary split squat, hand support, less depth or no external load.",
+        "setup": "Stand with feet hip-width apart and use a rail if balance is limited.",
+        "execution": "Step one foot back, lower with both knees bending and return through the front foot before switching.",
+        "variantNotes": "Use a small comfortable step and shallow depth first; a perfectly vertical front shin is unnecessary.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p172"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "scap-pull-ups",
+      "name": "Scap pull-ups",
+      "kind": "guide",
+      "pattern": "pullup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the trunk supported and avoid kicking. Use a comfortable hang and pull height without jutting the chin or forcing the shoulders.",
+        "breathingAndTempo": "Exhale during the pull and inhale on lowering. Start the next rep from a controlled position.",
+        "commonFaults": "Swinging for momentum, neck reaching, uncontrolled drops or grip failure.",
+        "regression": "Use assistance or a pulldown; choose a manageable range before adding weight or asymmetric grips.",
+        "setup": "Hang from a rated bar with feet available to assist and elbows kept straight.",
+        "execution": "Move only a small distance by drawing the shoulder girdle down, then return to the comfortable starting hang.",
+        "variantNotes": "Do not turn it into an elbow-bending pull-up or force a painful passive hang between reps.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "npull-up"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "scap-push-ups",
+      "name": "Scap push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Use slow shoulder-blade motion with steady breathing; the elbows remain extended throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Use a wall or higher stable surface and a smaller shoulder-blade range.",
+        "setup": "Choose a floor, incline or knee-supported high plank with elbows extended but not jammed.",
+        "execution": "Allow the chest to settle a small amount between the shoulder blades, then push the surface away without bending the elbows.",
+        "variantNotes": "Keep the pelvis steady; the movement belongs at the shoulder blades, not in a repeated lumbar arch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xscappush"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "side-lunges",
+      "name": "Side lunges",
+      "kind": "guide",
+      "pattern": "lateral",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the bent knee tracking with the foot and the pelvis controlled. Depth and foot angle vary with the named movement.",
+        "breathingAndTempo": "Inhale into the descent and exhale on return.",
+        "commonFaults": "Collapsing the knee inward, rolling onto the foot edge, twisting the knee against the floor or forcing groin range.",
+        "regression": "Use a smaller step, less depth and hand support.",
+        "setup": "Begin with no load and a clear sideways stepping path.",
+        "execution": "Step wide enough to sit into one hip, keeping the other leg long, then push back to center.",
+        "variantNotes": "Whole-foot contact and knee tracking matter more than a large step or maximal groin stretch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p171"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "planes"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "bodyweight-good-mornings",
+      "name": "Bodyweight good mornings",
+      "kind": "guide",
+      "pattern": "hinge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the load close and knee bend modest. Stop when further hip travel would require a spinal position change; reaching the floor is unnecessary.",
+        "breathingAndTempo": "Inhale and brace on lowering, then exhale during the return. Use controlled lowering.",
+        "commonFaults": "Converting the movement to a squat, rounding to reach lower, or thrusting the pelvis beyond a tall finish.",
+        "regression": "Use less load, a shorter range or practise touching the hips to a wall.",
+        "setup": "Stand with soft knees and hands at the hips or lightly across the chest.",
+        "execution": "Push the hips backward to incline the torso, then return tall while keeping the trunk controlled.",
+        "variantNotes": "This is an unloaded hinge rehearsal; do not round the back to reach horizontal or turn it into a squat.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "ngood-morning"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "good-morning"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "calf-raises",
+      "name": "Calf raises",
+      "kind": "guide",
+      "pattern": "calf",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Maintain pressure across the forefoot without rolling the ankle outward. Keep the prescribed knee angle steady.",
+        "breathingAndTempo": "Exhale while rising and inhale on lowering. Avoid repeated bouncing off the bottom.",
+        "commonFaults": "Ankle rolling, knee pumping instead of ankle movement, bouncing through a deep stretch or foot slipping off the edge.",
+        "regression": "Use the floor, both legs, lighter resistance and hand support.",
+        "setup": "Stand with both feet on the floor and fingertips on a secure support.",
+        "execution": "Lift both heels, pause and lower smoothly while retaining forefoot pressure.",
+        "variantNotes": "Begin with floor range and two legs; avoid ankle rolling or using repeated knee bends to lift the heels.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p135"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "deep-squat-hold",
+      "name": "Deep squat hold",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Breathe steadily through the hold and rise deliberately before position deteriorates. Choose a manageable interval rather than holding the breath.",
+        "commonFaults": "Holding beyond knee/hip comfort, foot slippage, breath holding or losing the intended supported position.",
+        "regression": "Use a shallower hold, hand support and a shorter interval.",
+        "setup": "Use a rail or counterbalance and choose a depth where heels remain supported.",
+        "execution": "Lower into a comfortable squat and remain briefly while breathing and keeping the knees aligned with the feet.",
+        "variantNotes": "Deep is relative to current control; use a higher hold rather than hanging on the knee joints or forcing the hips down.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p176"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "bodyweight-squats",
+      "name": "Bodyweight squats",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Inhale and brace before descending; exhale through the rise as appropriate to the load. Keep the descent controlled.",
+        "commonFaults": "Heels lifting unexpectedly, knees collapsing inward, losing trunk position, or pursuing depth at the expense of balance.",
+        "regression": "Reduce load or depth, squat to a higher box or use hand support.",
+        "setup": "Set a comfortable stance with feet fully supported and arms positioned for balance.",
+        "execution": "Bend hips and knees together, descend within control and stand through the whole foot.",
+        "variantNotes": "Knees may move past toes; do not force vertical shins or maximum depth at the expense of balance.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p176"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "prisoner"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "quadruped-hip-circles",
+      "name": "Quadruped hip circles",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start on hands and padded knees with ribs and pelvis level.",
+        "execution": "Lift one knee slightly and trace a small circle from the hip, then reverse and change sides.",
+        "variantNotes": "Keep the trunk quiet; a large circle obtained by rotating the pelvis is not additional controlled hip range.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhipconditioning"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "bird-dogs",
+      "name": "Bird dogs",
+      "kind": "guide",
+      "pattern": "plank",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep pelvis level and ribs steady over a broad hand/knee base. Reach the free limbs long rather than lifting them above the trunk.",
+        "breathingAndTempo": "Breathe steadily throughout the hold. End the interval at loss of position rather than holding the breath to prolong it.",
+        "commonFaults": "Pelvis rotating, reaching the leg too high, lumbar arching or shifting abruptly onto the support hand.",
+        "regression": "Move one limb at a time or slide a foot along the floor instead of lifting it.",
+        "setup": "Begin on hands and knees with a comfortable neutral trunk and wide enough support for balance.",
+        "execution": "Reach one arm and the opposite leg away, pause with pelvis level and return before switching.",
+        "variantNotes": "Reach long rather than high; reduce the limb lever if the lower back arches or weight shifts abruptly.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nbird"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "bird"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "dead-bugs",
+      "name": "Dead bugs",
+      "kind": "guide",
+      "pattern": "plank",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Maintain comfortable low-back contact and a steady rib-pelvis relationship. The arm and leg reach ends before the back arches or the pelvis shifts.",
+        "breathingAndTempo": "Exhale during the reach and inhale on return; keep enough abdominal support to breathe without lifting the ribs.",
+        "commonFaults": "Extending the leg too low, arching the back, flaring the ribs or moving too quickly to control the opposite limbs.",
+        "regression": "Use heel taps, one limb at a time or a shorter reach with the knee bent.",
+        "setup": "Lie on the back with arms up and hips/knees bent, maintaining comfortable lower-back control.",
+        "execution": "Extend the opposite arm and leg through a short range, return and change sides.",
+        "variantNotes": "A heel tap or one-limb movement is a valid regression if simultaneous reach lifts the ribs or back.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p5",
+        "ndead-bug"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "dead-bug"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "plank-shoulder-taps",
+      "name": "Plank shoulder taps",
+      "kind": "guide",
+      "pattern": "plank",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep head, ribs and pelvis aligned. Keep the supporting shoulder active instead of hanging into the joint.",
+        "breathingAndTempo": "Breathe continuously while alternating slow taps; replace the hand securely before lifting the other.",
+        "commonFaults": "Hips sagging or rotating, ribs flaring, shoulder collapse or turning a hold into uncontrolled rocking.",
+        "regression": "Use a higher support, a wider foot base or brief hand lifts without touching the shoulder.",
+        "setup": "Use a high plank with feet wide enough to resist rotation, starting from an incline if helpful.",
+        "execution": "Briefly lift one hand to touch the other shoulder, replace it and alternate without pelvic roll.",
+        "variantNotes": "Shift only enough weight to free the hand; do not rush the taps or let the supporting shoulder collapse.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xscappush",
+        "p12"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "spiderman-lunge-with-reach",
+      "name": "Spiderman lunge with reach",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Step into a supported long lunge with hands on the floor or blocks inside the front foot.",
+        "execution": "Open the chest by reaching the front-leg-side arm upward, then return and switch sides.",
+        "variantNotes": "Use rear-knee support and raised hands if needed; do not force the elbow to the floor or twist the front knee inward.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xworldstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "cossack-squats",
+      "name": "Cossack squats",
+      "kind": "guide",
+      "pattern": "lateral",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the bent knee tracking with the foot and the pelvis controlled. Depth and foot angle vary with the named movement.",
+        "breathingAndTempo": "Inhale into the descent and exhale on return.",
+        "commonFaults": "Collapsing the knee inward, rolling onto the foot edge, twisting the knee against the floor or forcing groin range.",
+        "regression": "Use a smaller step, less depth and hand support.",
+        "setup": "Use a wide unloaded stance with a rail available.",
+        "execution": "Shift into one hip as the other leg lengthens, allowing its toes to lift if comfortable, then return through center.",
+        "variantNotes": "A shallow version is appropriate for warming up; avoid forcing groin depth or turning the working knee against the floor.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xcossack"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "goblet-squat-pry",
+      "name": "Goblet squat pry",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Inhale and brace before descending; exhale through the rise as appropriate to the load. Keep the descent controlled.",
+        "commonFaults": "Heels lifting unexpectedly, knees collapsing inward, losing trunk position, or pursuing depth at the expense of balance.",
+        "regression": "Reduce load or depth, squat to a higher box or use hand support.",
+        "setup": "Hold a very light bell near the chest and use a comfortable supported squat depth.",
+        "execution": "Remain in the squat and make small controlled weight shifts while the feet stay supported.",
+        "variantNotes": "Prying means gentle exploration, not forcing the knees apart with the elbows or adding a heavy prolonged hold.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p180"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "kettlebell-halos",
+      "name": "Kettlebell halos",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Grip a light bell securely by the horns in front of the chest with adequate head clearance.",
+        "execution": "Circle it around the head slowly in each direction while keeping the ribs controlled.",
+        "variantNotes": "Keep the bell close without brushing the face; do not force the shoulders behind their comfortable range.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhalo"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "band-face-pulls",
+      "name": "Band face pulls",
+      "kind": "guide",
+      "pattern": "rear",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Let the scapula glide without aggressively pinching or depressing it. Keep the elbow bend and torso position consistent.",
+        "breathingAndTempo": "Exhale on the opening or pull and inhale on return.",
+        "commonFaults": "Throwing the trunk, pulling far behind the available shoulder range, craning the neck or turning every variation into a heavy row.",
+        "regression": "Use less load and chest support; shorten the shoulder range.",
+        "setup": "Anchor an inspected light band securely around eye level with the body out of its recoil line.",
+        "execution": "Draw the hands toward the temples and separate them comfortably, then return slowly.",
+        "variantNotes": "Avoid a backward trunk lean or forcing the wrists behind the head; the band anchor needs its own check.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p44",
+        "xbandpull"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "face-pull"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "ankle-rocks-against-a-wall",
+      "name": "Ankle rocks against a wall",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Face a wall in a small split stance with the front heel firmly on the floor.",
+        "execution": "Move the front knee toward the wall over the toes, then return without the heel lifting.",
+        "variantNotes": "Bring the foot closer if the heel rises or the arch collapses; this is a controlled mobility drill, not a forced knee push.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xanklerock"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "hip-airplanes",
+      "name": "Hip airplanes",
+      "kind": "guide",
+      "pattern": "singlehinge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Maintain a soft standing knee and a controlled foot tripod while intentionally rotating the pelvis open and closed over the hip. Use hand support to separate rotation from balance failure.",
+        "breathingAndTempo": "Breathe in while hinging and out while returning. Move slowly enough to distinguish balance from momentum.",
+        "commonFaults": "Twisting a locked knee, rolling off the foot edge, using speed to recover balance or hinging deeper than can be supported.",
+        "regression": "Use firm hand support and a shallow hinge, then practise a small pelvic turn before reducing support.",
+        "setup": "Stand on one leg beside a rail and hinge slightly with the free leg reaching behind.",
+        "execution": "Rotate the pelvis open and closed over the standing hip through a small controlled range.",
+        "variantNotes": "The pelvic rotation is intentional here, unlike a square-hip single-leg RDL; avoid twisting a locked knee or removing support too early.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhipairplane"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "single-leg-glute-bridges",
+      "name": "Single-leg glute bridges",
+      "kind": "guide",
+      "pattern": "bridge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the pelvis level and stop at hip extension without rib flare. Support the head and shoulders on the floor.",
+        "breathingAndTempo": "Exhale while lifting and inhale on lowering; keep breathing through any pause.",
+        "commonFaults": "Lumbar arching, rotating the pelvis or pushing the head into the floor.",
+        "regression": "Use both feet on the floor, reduce height or remove resistance.",
+        "setup": "Lie with one foot planted and the other knee bent or leg lightly extended, shoulders on the floor.",
+        "execution": "Lift the hips while keeping both front hip points level, then lower before changing sides.",
+        "variantNotes": "Remove height or return to two feet if the pelvis rotates, hamstrings cramp or the back arches.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p118"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "bridge"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "quadruped-t-spine-reach",
+      "name": "Quadruped T-spine reach",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start on hands and knees with one hand behind the head or reaching freely.",
+        "execution": "Rotate the upper chest gently open while the pelvis stays mostly level, then return.",
+        "variantNotes": "Do not pull the head with the hand or obtain the turn by shifting the hips backward and sideways.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthoracic"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "seated-twists",
+      "name": "Seated twists",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Sit tall on a stable chair or floor support with feet or pelvis grounded.",
+        "execution": "Turn the upper chest gently to one side, return through center and alternate.",
+        "variantNotes": "Keep the range easy and avoid pulling forcefully on the chair or knee to increase rotation.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthoracic"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "seated-twist",
+      "name": "Seated twist",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Sit supported with the pelvis grounded and hands placed lightly for balance.",
+        "execution": "Turn the upper trunk into a mild comfortable stretch and return slowly before the other side.",
+        "variantNotes": "This held variation differs from repeated seated twists; do not lever aggressively against the knee or chair.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthoracic"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "shoulder-rolls",
+      "name": "Shoulder rolls",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Sit or stand tall with arms relaxed and no hand load.",
+        "execution": "Move the shoulders through small comfortable forward/up/back/down circles, then reverse.",
+        "variantNotes": "Keep the head still and avoid exaggerated neck circles or using weights to pull the shoulders into a stretch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshoulder"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "shoulder-taps-on-the-wall",
+      "name": "Shoulder taps on the wall",
+      "kind": "guide",
+      "pattern": "plank",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep head, ribs and pelvis aligned. Keep the supporting shoulder active instead of hanging into the joint.",
+        "breathingAndTempo": "Breathe continuously while alternating slow taps; replace the hand securely before lifting the other.",
+        "commonFaults": "Hips sagging or rotating, ribs flaring, shoulder collapse or turning a hold into uncontrolled rocking.",
+        "regression": "Use a higher support, a wider foot base or brief hand lifts without touching the shoulder.",
+        "setup": "Place both hands on a wall at shoulder level and stand close enough for easy weight transfer.",
+        "execution": "Lift one hand to tap the other shoulder, replace it and alternate with the trunk square.",
+        "variantNotes": "A more upright stance is easier; keep the supporting wrist comfortable and avoid twisting to free the hand.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xscappush"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "sit-to-stands-from-a-chair",
+      "name": "Sit-to-stands from a chair",
+      "kind": "guide",
+      "pattern": "squat",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep heels supported and knees tracking in the general direction of the toes. Depth follows control and comfort; knees may travel forward past the toes.",
+        "breathingAndTempo": "Inhale and brace before descending; exhale through the rise as appropriate to the load. Keep the descent controlled.",
+        "commonFaults": "Heels lifting unexpectedly, knees collapsing inward, losing trunk position, or pursuing depth at the expense of balance.",
+        "regression": "Reduce load or depth, squat to a higher box or use hand support.",
+        "setup": "Use a stable chair against a wall with feet planted beneath or slightly behind the knees.",
+        "execution": "Lean the trunk forward from the hips and stand through both feet, then sit down under control.",
+        "variantNotes": "Use hands or a higher seat if needed; do not drop onto the chair or choose one that rolls.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xnhsstrength"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "split-squat-holds",
+      "name": "Split squat holds",
+      "kind": "guide",
+      "pattern": "lunge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the front foot supported and knee tracking with its toes. Use a comfortable torso lean; a perfectly vertical shin is not mandatory.",
+        "breathingAndTempo": "Breathe steadily through the hold and rise deliberately before position deteriorates. Choose a manageable interval rather than holding the breath.",
+        "commonFaults": "Holding beyond knee/hip comfort, foot slippage, breath holding or losing the intended supported position.",
+        "regression": "Use a shallower hold, hand support and a shorter interval.",
+        "setup": "Take a stable split stance with a support nearby and both knees softly bent.",
+        "execution": "Lower into a shallow split squat and hold while breathing, then rise and change lead legs.",
+        "variantNotes": "Choose a depth that keeps the front foot supported; reduce the hold before balance or knee tracking deteriorates.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p187"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "standing-back-arch-and-round",
+      "name": "Standing back arch and round",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand with soft knees and hands resting lightly on the thighs if helpful.",
+        "execution": "Alternate a small comfortable trunk rounding with gentle extension, moving slowly rather than throwing the head back.",
+        "variantNotes": "This is a standing adaptation of spinal mobility; do not force a deep backbend or continue through pinching.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xcatcow"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "standing-hip-extensions",
+      "name": "Standing hip extensions",
+      "kind": "guide",
+      "pattern": "kickback",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the pelvis facing the support or floor and ribs controlled. Leg height ends before the back arches.",
+        "breathingAndTempo": "Exhale on hip extension and inhale on return.",
+        "commonFaults": "Arching the lower back, rotating the pelvis open or using momentum to swing the ankle.",
+        "regression": "Remove resistance and shorten the hip-extension range.",
+        "setup": "Stand beside a fixed support with ribs over the pelvis and no ankle load initially.",
+        "execution": "Move one thigh backward a small distance and return without arching the lower back.",
+        "variantNotes": "Keep the pelvis facing forward; a high foot swing usually substitutes back motion for hip extension.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p119"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "standing-knee-hugs",
+      "name": "Standing knee hugs",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Stand beside a rail and transfer weight to one leg before lifting the other knee.",
+        "execution": "Bring the knee toward the torso with light hand assistance, hold briefly and release before switching.",
+        "variantNotes": "Stay tall rather than pulling so hard the pelvis tucks and balance is lost; avoid compressing a painful hip.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xkneehug"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "walking-knee-hugs",
+      "name": "Walking knee hugs",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Use a clear lane and begin with slow supported standing knee lifts if balance is limited.",
+        "execution": "Step, draw one knee gently toward the torso, release it and continue with the other side.",
+        "variantNotes": "Do not pull the knee abruptly or lean backward; the walking balance task is an adaptation of a supported knee hug.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xkneehug"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "thoracic-rotations-on-hands-and-knees",
+      "name": "Thoracic rotations on hands and knees",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start on hands and padded knees with hips centered and one hand lightly behind the head.",
+        "execution": "Turn the upper chest open, then return the elbow toward the opposite forearm through a small controlled arc.",
+        "variantNotes": "Keep the pelvis mostly quiet and avoid pulling the head to create more neck rotation.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthoracic"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "thread-the-needle",
+      "name": "Thread the needle",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Start in quadruped with enough floor space beside the supporting hand.",
+        "execution": "Slide one arm under the torso, allowing a gentle upper-back turn; return using the support hand and repeat the other side.",
+        "variantNotes": "Do not load the head or force the shoulder to the floor; a raised support reduces the range.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xthread"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "walking-lunges",
+      "name": "Walking lunges",
+      "kind": "guide",
+      "pattern": "lunge",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the front foot supported and knee tracking with its toes. Use a comfortable torso lean; a perfectly vertical shin is not mandatory.",
+        "breathingAndTempo": "Inhale on lowering and exhale on rising. Keep the rear-knee approach controlled.",
+        "commonFaults": "Standing on a tightrope, pushing mainly from the rear foot, front heel lift or pelvis rotating.",
+        "regression": "Use a stationary split squat, hand support, less depth or no external load.",
+        "setup": "Clear a straight lane and begin unloaded with feet separated laterally.",
+        "execution": "Step forward, lower with both knees bending and continue into the next step through the front leg.",
+        "variantNotes": "Shorten the step or use stationary lunges if the pelvis rotates or balance becomes rushed.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p174"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "wall-push-ups",
+      "name": "Wall push-ups",
+      "kind": "guide",
+      "pattern": "pushup",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, trunk and pelvis aligned. Use comfortable elbow spacing and depth; let the shoulder blades move naturally around the ribs.",
+        "breathingAndTempo": "Breathe in while lowering and out while pushing. Keep the trunk supported throughout.",
+        "commonFaults": "Hips sagging, the head leading the descent, elbows abruptly flaring, or cutting depth as fatigue rises.",
+        "regression": "Raise the hand support or use a stable floor variation before adding instability or load.",
+        "setup": "Place hands on a fixed wall at chest-to-shoulder height and feet far enough back for a light lean.",
+        "execution": "Bend the elbows to bring the chest toward the wall, then press away while the body stays connected.",
+        "variantNotes": "Move closer to make it easier; avoid head-first movement or letting the pelvis drop toward the wall.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xnhsstrength",
+        "p105"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "push-up"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "wall-sit",
+      "name": "Wall sit",
+      "kind": "guide",
+      "pattern": "plank",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep head, ribs and pelvis aligned. Keep the supporting shoulder active instead of hanging into the joint.",
+        "breathingAndTempo": "Breathe steadily through the hold and rise deliberately before position deteriorates. Choose a manageable interval rather than holding the breath.",
+        "commonFaults": "Holding beyond knee/hip comfort, foot slippage, breath holding or losing the intended supported position.",
+        "regression": "Use a shallower hold, hand support and a shorter interval.",
+        "setup": "Set the back against a wall with feet forward and floor grip secure.",
+        "execution": "Slide to a comfortable knee bend and hold with the pelvis supported, then push back to standing.",
+        "variantNotes": "Parallel thighs are optional; do not hold a painful knee angle or place the feet so close the heels lift.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "p194"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "wall-slides",
+      "name": "Wall slides",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Stand or sit at a wall with forearms supported as the chosen version permits and ribs controlled.",
+        "execution": "Slide the arms upward through a comfortable range while allowing shoulder-blade rotation, then lower.",
+        "variantNotes": "Not every body point must touch the wall; do not arch the back to force the hands higher.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xwallslide"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "world-s-greatest-stretch",
+      "name": "World’s greatest stretch",
+      "kind": "guide",
+      "pattern": "mobility",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Use a comfortable range rather than forcing a joint endpoint. Warm-up drills should prepare movement without exhausting the working muscles.",
+        "breathingAndTempo": "Breathe steadily and use smooth repetitions; avoid bouncing into a stretch.",
+        "commonFaults": "Compensating through the lower back, forcing range with momentum or turning a warm-up into a maximal effort.",
+        "regression": "Use a smaller range, slower speed and additional support.",
+        "setup": "Take a supported long lunge with the hands on the floor or blocks and rear knee down if needed.",
+        "execution": "Add a controlled front-leg-side upper-trunk rotation, return the hand and gently shift toward a front-hamstring reach as tolerated.",
+        "variantNotes": "The name covers several sequences; this note defines a modest lunge/rotation/hamstring version without forcing elbow-to-floor contact.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xworldstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "biceps-wall-stretch",
+      "name": "Biceps wall stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Stand beside a wall with the arm supported at or below shoulder height and elbow softly extended.",
+        "execution": "Turn the body away slightly until a mild front-arm/chest stretch appears, then ease back.",
+        "variantNotes": "Reduce arm height or rotation for front-shoulder tension; stop if there is tingling rather than pulling harder.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xbicepsstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "butterfly-stretch",
+      "name": "Butterfly stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Sit supported with soles together and knees resting outward without being pushed down.",
+        "execution": "Hold the feet lightly and hinge forward a little while keeping a comfortable tall spine.",
+        "variantNotes": "Do not press forcefully on the knees or bounce; elevate the pelvis or move feet farther away to reduce demand.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nbutterfly"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "butterfly"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "calf-stretch-on-a-wall",
+      "name": "Calf stretch on a wall",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Face a wall with one foot behind, rear heel down and toes generally forward.",
+        "execution": "Bend the front knee and move the body forward until the rear calf stretches gently; use a slight rear-knee bend for a different calf emphasis.",
+        "variantNotes": "Do not turn the rear foot far outward or let its heel lift to imitate more range.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nstretching"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "child-s-pose",
+      "name": "Child’s pose",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Kneel with padding and separate knees as needed for comfortable hips and trunk space.",
+        "execution": "Sit the hips toward the heels and reach forward or rest the arms comfortably, breathing into the back.",
+        "variantNotes": "Use a cushion beneath the hips or a chair support if deep knee flexion is uncomfortable; do not force the hips onto the heels.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nchild"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "same-movement",
+        "sourceIds": [
+          "child"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "cobra-stretch",
+      "name": "Cobra stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Lie prone with hands near the lower ribs and elbows bent, neck aligned.",
+        "execution": "Gently raise the upper chest with appropriate arm assistance while keeping the pelvis supported and the shoulders comfortable.",
+        "variantNotes": "Height is optional; use a low sphinx-like version if a full press causes low-back pinching.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xcobra"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "cross-body-shoulder-stretch",
+      "name": "Cross-body shoulder stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Sit or stand tall and bring one upper arm across the chest below shoulder height.",
+        "execution": "Use the other arm to apply light pressure above the elbow while keeping the shoulder relaxed.",
+        "variantNotes": "Do not pull directly on the elbow joint or lift the shoulder toward the ear to create a stronger stretch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshoulder"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "doorway-chest-stretch",
+      "name": "Doorway chest stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Rest a forearm on a stable doorframe with elbow at or below shoulder height and feet in a small split stance.",
+        "execution": "Shift or turn the body gently forward until the chest stretches, then release and repeat the other side.",
+        "variantNotes": "Use a lower elbow position for comfort and avoid forcing the upper arm far behind the torso.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nstretching"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "figure-4-glute-stretch",
+      "name": "Figure-4 glute stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Lie on the back with one ankle resting above the opposite knee, not directly on the kneecap.",
+        "execution": "Draw the supporting thigh toward the chest until the crossed-side buttock stretches mildly.",
+        "variantNotes": "Keep the head supported and avoid pushing on the crossed knee; a foot-on-wall version can reduce hand reach.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xfigure4"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "half-kneeling-hip-flexor-stretch",
+      "name": "Half-kneeling hip flexor stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Pad the rear knee and place the opposite foot forward with hips facing ahead.",
+        "execution": "Gently tuck the pelvis and shift a small distance forward until the front of the rear hip stretches.",
+        "variantNotes": "Do not substitute a lower-back arch or a long uncontrolled forward lunge; use standing split stance if kneeling hurts.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nstretching"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "hands-behind-back-chest-opener",
+      "name": "Hands-behind-back chest opener",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Stand tall and clasp hands loosely behind the pelvis or use a towel if the hands cannot meet comfortably.",
+        "execution": "Straighten the elbows only within comfort and lift the hands a small distance while keeping ribs controlled.",
+        "variantNotes": "This adapts chest-opening mechanics; do not lever the arms high or force the shoulders forward in their sockets.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "nstretching"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "kneeling-shin-stretch",
+      "name": "Kneeling shin stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Kneel on padding with the tops of the feet supported and a cushion between hips and heels if needed.",
+        "execution": "Shift gently backward to feel a mild stretch across the front of the ankles/shins, then release slowly.",
+        "variantNotes": "The position includes deep knee flexion and ankle plantarflexion; use a seated assisted ankle stretch if either joint is uncomfortable.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xshin"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "lying-cross-body-glute-stretch",
+      "name": "Lying cross-body glute stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Lie on the back with both shoulders supported and draw one bent knee toward the torso.",
+        "execution": "Guide the thigh gently toward the opposite side without forcing the pelvis or knee, then return.",
+        "variantNotes": "This differs from the figure-4 reference; stop before a lumbar twist or knee pressure replaces the intended hip stretch.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xfigure4"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "neck-side-stretch",
+      "name": "Neck side stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Sit supported with shoulders relaxed and eyes forward.",
+        "execution": "Tilt one ear toward the shoulder through a small comfortable range, pause and return to center before the other side.",
+        "variantNotes": "Do not pull forcefully on the head or elevate the shoulder to meet the ear; stop for dizziness or radiating symptoms.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xneck"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "overhead-triceps-stretch",
+      "name": "Overhead triceps stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Raise one arm overhead only within shoulder comfort and bend the elbow so the hand rests behind the head.",
+        "execution": "Apply light guidance with the opposite hand above the elbow while keeping the neck and ribs relaxed.",
+        "variantNotes": "Avoid pulling the elbow hard across the midline or arching the back to obtain more overhead range.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xtricepsstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "seated-hamstring-stretch",
+      "name": "Seated hamstring stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "related-only",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Sit with one leg long, knee softly extended and the pelvis on a stable support.",
+        "execution": "Hinge forward gently from the hips until the back of the thigh stretches, then return without bouncing.",
+        "variantNotes": "Reaching the toes is unnecessary; avoid rounding deeply or pulling into tingling behind the knee.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhamstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "related-only",
+        "sourceIds": [
+          "stretching"
+        ],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "standing-quad-stretch",
+      "name": "Standing quad stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Hold a rail, balance on one leg and take the other ankle or a strap behind the body.",
+        "execution": "Bring the heel gently toward the buttock while keeping the knees reasonably near each other and the pelvis controlled.",
+        "variantNotes": "Do not arch the back or force the bent knee inward; use a side-lying or strap-assisted version if balance or reach limits control.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xhamstretch"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    },
+    {
+      "id": "wrist-flexor-and-extensor-stretch",
+      "name": "Wrist flexor and extensor stretch",
+      "kind": "guide",
+      "pattern": "stretch",
+      "reviewDate": "2026-11-13",
+      "status": "internal-research-draft",
+      "sourceRelationship": "same-movement",
+      "notes": {
+        "alignmentAndRange": "Keep the targeted region relaxed and avoid substituting a spinal twist or joint pressure for muscle length. Do not force a fixed endpoint.",
+        "breathingAndTempo": "Breathe slowly throughout; a stretch is not a breath-holding test. Avoid bouncing.",
+        "commonFaults": "Pulling forcefully, stretching through pinching or nerve-like symptoms, or pushing deeper as the position becomes less controlled.",
+        "regression": "Reduce stretch depth, use a strap/support or choose a supported position.",
+        "setup": "Extend one arm forward with elbow comfortably straight and shoulder relaxed.",
+        "execution": "With light help from the other hand, guide the wrist into extension for the palm-side forearm and flexion for the back-side forearm, then release.",
+        "variantNotes": "Use gentle hand pressure rather than pulling hard on individual fingers; stop if there is tingling, joint pinching or numbness.",
+        "stopOrRegress": "End or regress when the described alignment, support or breathing is lost. Stop for sharp pain, pinching, numbness or tingling; individual symptoms need appropriate professional assessment."
+      },
+      "sourceIds": [
+        "xwrist"
+      ],
+      "evidenceBoundary": "Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.",
+      "previousNasmAudit": {
+        "reviewDate": "2026-11-11",
+        "referenceLevel": "unresolved",
+        "sourceIds": [],
+        "inventory": "../exercise-audit-2026-11-11.json"
+      },
+      "document": "warmups-and-stretches.md"
+    }
+  ]
+}

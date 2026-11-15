@@ -1,0 +1,68 @@
+# Character comparison candidate
+
+The development gallery has a Character selector. The separate
+[`character-lab.html`](../exercise-guides/character-lab.html) page opens the Rose
+athlete draft directly and uses the same application renderer and exercise assets.
+Selection lasts for that page session; no profile, plan or account data changes.
+The anatomical instructor remains the default in a fresh application session.
+
+The candidate has 28,824 vertices, 54,248 triangles, four influences per vertex,
+one skinned draw, one 2048 × 2048 RGBA WebP atlas and a 512px roughness map, and no hair simulation. Geometry
+and texture total 1,574,895 bytes. This is an asset budget, not a measured mobile
+frame rate. Existing exercise equipment adds its own draws. The original body is
+loaded only when selected. At most two candidate bind fits are retained.
+
+The accepted 55-bone hierarchy, motion packs, inverse binds, equipment and muscle
+maps are unchanged. The mesh is fitted once into each accepted bind frame using
+its source inverse binds; animations are not retargeted or regenerated. All 53
+common source bones are checked against the accepted rest frames. The editable
+scene also retains the accepted two forearm helpers. Hair, eyes and trainers use
+the existing head/foot bones. Clothing is a baked fitted surface, not simulated
+cloth. The anatomical model's muscle texture is not projected onto this model.
+
+The local build uses Blender 5.3 and the existing source scenes. From the app root:
+
+```powershell
+& 'C:/Program Files/Blender Foundation/Blender 5.3/blender.exe' -b --python-exit-code 1 --python character-authoring/build_candidate.py -- 'C:/Passion/Strong Start' 'C:/Passion/Strong Start/output/realistic-character-review-v4'
+python character-authoring/package_candidate.py 'C:/Passion/Strong Start/output/realistic-character-review-v4'
+node scripts/check-all-exercise-animations.mjs --prune
+node scripts/build-dev.mjs
+node scripts/test-character-models.cjs http://127.0.0.1:8742/exercise-guides/character-lab.html
+```
+
+The source root must contain the original female goblet-squat scene and accepted
+anatomical goblet-squat scene under `output/`; these are local authoring inputs,
+not runtime dependencies. The review directory needs `skin-source.png`, from
+[MakeHuman's base texture mirror](https://download.tuxfamily.org/makehuman/assets/1.1/base/skins/textures/young_lightskinned_female_diffuse.png).
+The [official system assets register](https://static.makehumancommunity.org/assets/assetpacks/makehuman_system_assets.html)
+records the CC0 graphical assets. Runtime attribution and distinctions from the
+separate anatomical model are in
+[`CHARACTER-NOTICES.html`](../exercise-guides/shared/CHARACTER-NOTICES.html).
+`rose-athlete-final.blend` is the self-contained editable output, with the color map
+packed. Run `finalize_source.py` in Blender after packaging to write the final source with the runtime atlas packed. The runtime uses `characters.json` and three content-addressed assets.
+
+Verification covers 12 representative movements at 1000, 390 and 320 pixels,
+model switching with identical bone/equipment matrices and paused time, finite
+sampled skin positions, lazy loading, play/pause, half speed, reduced motion,
+cached offline switching and no horizontal overflow or unexpected browser errors.
+Front/back/side and press/support screenshots are retained locally. This is a
+first realistic-style character draft; it does not reproduce the reference's
+photorealism. Body/equipment fit and contacts require visual review. Physical
+phones, low-end performance and professional movement review remain unverified.
+
+The current reference-based head/hair and covered-bust change, source assets,
+mobile budget and desktop-proxy results are recorded in
+[the latest dated review](../docs/LOOSE-BUN-SUPPORTED-SHAPE-2026-11-14.md).
+[Texture sources and exact prompts](TEXTURES.md) identify built-in image generation
+separately from the actual rigged geometry. `reference_head.py` owns the facial
+sculpt; `supported_bust.py` owns the rounded clothed surface, and `authored_bun.py`
+fits the authored hair and adds the small flyaways. `profile-character-mobile.cjs` records
+frame intervals without presenting them as physical-phone results.
+
+Blender MCP was used for the adjustable bust and hair fitting. The separate local
+`rose-athlete-mcp-sculpt.blend` retains the bust shape key; the final packed source
+is `output/realistic-character-review-v4/rose-athlete-final.blend`. All 55 bones
+remain unchanged. The main hair adapts a 2,524-vertex authored bun, with twelve
+added wisps, consolidated into the existing single runtime draw. Its original
+mesh and texture, author credit and license provenance are under
+[`assets/bun-brown`](assets/bun-brown/PROVENANCE.md).
