@@ -5820,10 +5820,10 @@ function unlockAudio(){
 }
 ['pointerdown','touchend','click','keydown'].forEach(t=>document.addEventListener(t,unlockAudio,{capture:true,passive:true}));
 document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible' && audioCtx) unlockAudio(); });
-function tone(freq,vol,dur){
+function tone(freq,vol,dur,count=1){
   try{
     if(!audioCtx || state.settings.sound===false) return;
-    const play=()=>{ try{ const o=audioCtx.createOscillator(), g=audioCtx.createGain(), t=audioCtx.currentTime; o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur); o.start(t); o.stop(t+dur+.01); }catch(e){} };
+    const play=()=>{ try{ const start=audioCtx.currentTime; for(let i=0;i<count;i++){ const o=audioCtx.createOscillator(), g=audioCtx.createGain(), t=start+i*(dur+.15); o.frequency.value=freq; o.connect(g); g.connect(audioCtx.destination); g.gain.setValueAtTime(0,start); g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.001,t+dur); o.start(t); o.stop(t+dur+.01); } }catch(e){} };
     if(audioCtx.state==='running') return play();
     // Paused by the phone: try to wake it, but drop the beep if that takes too long to still be useful.
     const asked=Date.now(), p=audioCtx.resume(); if(p&&p.then) p.then(()=>{ if(Date.now()-asked<1500) play(); }).catch(()=>{});
@@ -5869,10 +5869,12 @@ function startRest(sec, info={}){
   clearInterval(timerInt); timerInt=setInterval(tick,500); renderTimer();
 }
 function beep(){ tone(880,.2,.6); }
+// Reuse the timer chime, scheduled on the audio clock so all three notes stay evenly spaced.
+function restChimes(){ tone(880,.2,.6,3); }
 function tick(){
   if(!ui.timer) return;
   const left=Math.ceil((ui.timer.end-Date.now())/1000);
-  if(left<=0){ const t=ui.timer; ui.timer=null; clearInterval(timerInt); beep(); try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
+  if(left<=0){ const t=ui.timer; ui.timer=null; clearInterval(timerInt); restChimes(); try{navigator.vibrate&&navigator.vibrate([200,100,200]);}catch(e){}
     const d=state.draft; if(d&&d.step) delete d.step.tEnd;
     if(d?.rest){delete d.rest;if(d.pathCurrent?.ph==='rest'){d.pathCurrent.ph='ex';delete d.pathCurrent.i;delete d.pathCurrent.tEnd;}save();refreshPathPosition();}
     document.querySelectorAll?.('[data-path-countdown]').forEach(el=>{const sec=+el.closest('[data-sec]').dataset.sec||0;el.textContent=mmss(sec);el.removeAttribute('data-path-countdown');});
