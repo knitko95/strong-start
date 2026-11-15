@@ -933,6 +933,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.5.8",
+    "date": "2026-11-15",
+    "title": "Workout history storage and sync",
+    "notes": [
+      "After the initial account download, sync sends only changed workouts and deletions.",
+      "Workout history uses expanded offline device storage. Existing saved plans, history and unfinished workouts migrate automatically."
+    ]
+  },
+  {
     "version": "0.5.7",
     "date": "2026-11-15",
     "title": "Exercise demos fit the screen",
