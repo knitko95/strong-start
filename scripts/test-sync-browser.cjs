@@ -43,8 +43,29 @@ const server=http.createServer((req,res)=>{const file=path.join(root,'dist',req.
    await page.evaluate(()=>pushCloud());
   }
   const [a,b]=pages;
+  // Routine queued, sending, checking and successful sync never show a warning.
+  assert.equal(await b.locator('#sync').isVisible(),false);
+  for(const flags of [{pending:true},{busy:true},{ok:false}]){
+   await b.evaluate(flags=>{Object.assign(CLOUD,flags);setSync();},flags);
+   assert.equal(await b.locator('#sync').isVisible(),false);
+   await b.evaluate(()=>{CLOUD.pending=false;CLOUD.busy=false;CLOUD.ok=true;setSync();});
+  }
+  await b.evaluate(()=>{storageOk=false;setSync();});
+  assert.match(await b.locator('#sync').innerText(),/Device save failed/);
+  await b.locator('#sync').focus();await b.keyboard.press('Enter');
+  await b.getByRole('heading',{name:'Device save failed'}).waitFor();
+  await b.getByRole('button',{name:'Close',exact:true}).click();
+  await b.evaluate(()=>{storageOk=true;setSync();});
+  assert.equal(await b.locator('#sync').isVisible(),false);
+  await b.context().setOffline(true);
+  await b.waitForFunction(()=>!document.getElementById('sync').hidden);
+  assert.match(await b.locator('#sync').innerText(),/Sync pending/);
+  await b.context().setOffline(false);
+  await b.waitForFunction(()=>!CLOUD.busy&&document.getElementById('sync').hidden);
+
   await a.evaluate(()=>{state.settings.name='Phone version';save();});await a.evaluate(()=>pushCloud());
   await b.evaluate(()=>{state.settings.name='Tablet version';save();});assert.equal(await b.evaluate(()=>pushCloud()),false);
+  assert.match(await b.locator('#sync').innerText(),/Review sync conflict/);
   await b.locator('#sync').click();await b.getByRole('heading',{name:'Review sync conflict'}).waitFor();
   assert.equal(await b.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
   fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
@@ -63,7 +84,23 @@ const server=http.createServer((req,res)=>{const file=path.join(root,'dist',req.
   await b.waitForFunction(()=>!CLOUD.busy&&!CLOUD.failed&&state.coach.note==='Recovered coach note');
   fail=true;await b.evaluate(()=>{state.settings.name='Offline retained';save();});assert.equal(await b.evaluate(()=>pushCloud()),false);
   assert.equal(await b.evaluate(()=>JSON.parse(localStorage.getItem(LS)).state.settings.name),'Offline retained');
+  // A failure arriving after workout render is still visible in the shared top banner.
+  await b.evaluate(()=>{startWorkout(weekKeys()[0]);ui.tab='workout';render();clearTimeout(CLOUD.t);CLOUD.failed=true;setSync();});
+  assert.equal(await b.locator('body').evaluate(el=>el.classList.contains('in-focus')),true);
+  assert.equal(await b.locator('#sync').isVisible(),true);
+  assert.equal(await b.locator('#workout-sync').count(),0);
+  assert.equal(await b.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);
+  await b.evaluate(()=>window.scrollTo(0,300));
+  assert((await b.locator('#sync').boundingBox()).y>=0,'banner stays at the top when scrolling');
+  await b.locator('#sync').click();await b.getByRole('heading',{name:'Sync failed'}).waitFor();
+  await b.getByRole('button',{name:'Close',exact:true}).click();
+  fs.mkdirSync(path.join(root,'test-results'),{recursive:true});
+  await b.screenshot({path:path.join(root,`test-results/sync-banner-${width}.png`),fullPage:true});
   fail=false;assert.equal(await b.evaluate(()=>pushCloud()),true);
+  assert.equal(await b.locator('#sync').isVisible(),false);
+  await b.evaluate(()=>{coachMode={uid:'synthetic-preview'};setSync();});
+  assert.equal(await b.locator('#sync').isVisible(),false,'coach preview is not a sync problem');
+  await b.evaluate(()=>{coachMode=null;setSync();});
   assert.deepEqual(errors,[]);results.push({width,conflictChoice:true,recoveryCopy:true,draftDeferral:true,lostResponseRetry:true,offlineRecovery:true,errors});
   for(const page of pages)await page.close();
  }

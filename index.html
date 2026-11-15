@@ -65,7 +65,13 @@ h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:.01em;margin:
 h1{font-size:30px} h2{font-size:24px} h3{font-size:20px}
 .num{font-variant-numeric:tabular-nums}
 .wrap{width:100%;max-width:560px;margin:0 auto;padding:0 max(16px,env(safe-area-inset-right,0px)) calc(var(--nav-height) + 40px) max(16px,env(safe-area-inset-left,0px))}
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.app-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);flex:none}
+.top{background:var(--bg);border-bottom:1px solid var(--line)}
+.sync-banner{display:block;width:100%;min-height:44px;border:0;border-bottom:1px solid var(--warn);background:var(--warn-soft);color:var(--ink);font:inherit;text-align:left}
+.sync-banner[hidden]{display:none}
+.sync-banner .wrap{padding-top:10px;padding-bottom:10px;display:flex;align-items:center;gap:10px;font-size:14px}
+.sync-banner .sync-label{flex:1}
+.sync-banner .sync-open{font-size:12px;font-weight:700;white-space:nowrap}
 .top .wrap{padding-bottom:0;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px}
 .brand{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:.02em;text-transform:uppercase}
 .brand b{color:var(--accent)}
@@ -889,7 +895,8 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><button class="sync" id="sync" data-action="syncdetails" title="View save details"><span class="dot"></span><span>Checking saves…</span></button><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header>
+<div class="app-top"><div role="status" aria-live="polite"><button type="button" class="sync-banner" id="sync" data-action="syncdetails" aria-haspopup="dialog" hidden></button></div>
+<header class="top"><div class="wrap"><div class="brand"><svg class="bmark" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="var(--accent)"/><g transform="translate(19 19) scale(.62)"><path d="M16 80H38V60H60V40H82" fill="none" stroke="var(--on-accent)" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><circle cx="82" cy="20" r="8.5" fill="var(--on-accent)"/></g></svg><span class="bword">Strong<b>·</b>Start</span></div><div class="hright"><button class="fbbtn" id="fbbtn" data-action="msgopen" data-side="app" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg><span>Feedback</span></button></div></div></header></div>
 <div class="wrap" id="app-shell"><main id="app"></main></div>
 <div id="timer"></div>
 <nav class="tabs" aria-label="Sections"><div class="in" id="tabs"></div></nav>
@@ -2240,17 +2247,19 @@ function saveStatus(){
   if(CLOUD.busy) return ['','Syncing…','Saved on this device. Sending changes to your account.'];
   if(navigator.onLine===false) return ['warn','Sync pending','Saved on this device. Account sync will retry when you are online.'];
   if(CLOUD.failed) return ['warn','Sync failed','Saved on this device. Account sync failed. Tap Retry sync to try again.'];
-  if(CLOUD.pending) return ['warn','Sync pending','Saved on this device. Waiting to send your latest changes.'];
+  if(CLOUD.pending) return ['','Sync pending','Saved on this device. Waiting to send your latest changes.'];
   if(!CLOUD.ok) return ['','Checking sync…','Saved on this device. Checking your account before syncing.'];
   return ['ok','Synced','Your latest changes are saved on this device and to your account.'];
 }
 function setSync(){
-  const m=saveStatus();
-  for(const id of ['sync','workout-sync']){
-    const el=document.getElementById(id); if(!el) continue;
-    el.title=m[2]; el.setAttribute('aria-label',m[1]+'. View save details');
-    el.innerHTML=`<span class="dot ${m[0]}"></span><span aria-live="polite">${m[1]}</span>`;
-  }
+  const m=saveStatus(), el=document.getElementById('sync');
+  if(!el) return;
+  const show=m[0]==='warn' && !coachMode;
+  el.hidden=!show;
+  if(!show){ el.innerHTML=''; return; }
+  el.title=m[2]; el.setAttribute('aria-label',m[1]+'. Open sync details');
+  const content=`<span class="wrap"><span class="dot warn" aria-hidden="true"></span><span class="sync-label">${esc(m[1])}</span><span class="sync-open" aria-hidden="true">View details ›</span></span>`;
+  if(el.innerHTML!==content) el.innerHTML=content;
 }
 function syncDetails(){
   if(SYNC.conflict) return syncConflictDetails();
@@ -2699,7 +2708,7 @@ function accountCard(){
   if(!sb) return '';
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
     <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
-    <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-action="authout">Sign out</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></div>
+    <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-action="authout">Sign out</button><button class="btn sm" data-action="syncdetails">Sync details</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></div>
     ${AUTH.coach||FB.owner?'<p class="tiny muted" style="margin:0">Coach and owner account deletion must be arranged with the app owner.</p>':'<button class="btn sm danger" data-action="selfdelete">Delete my account</button>'}`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
@@ -4042,13 +4051,10 @@ function fTop(d,slots,label,progress){
     if(['ex','rest','exdone'].includes(st.ph)){ const i=slots.findIndex(x=>x.pk===st.pk), gi=gs.findIndex(g=>g.includes(i));
       if(gi>=0) label = `Exercise ${gi+1} of ${gs.length}`; }
   }
-  // The save status only takes a line when something needs attention; it is always in the workout list and the More sheet.
-  const m=saveStatus();
   return `<div class="ftop workout-top">
     <div class="flabel" title="${esc(label)}">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
-    <button class="ficon" data-action="fmore" ${st.pk?`data-pk="${esc(st.pk)}"`:''} aria-label="Workout menu" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div>${m[0]==='warn'?`<button class="sync" id="workout-sync" data-action="syncdetails" style="align-self:flex-end;padding:0">${esc(m[1])}</button>`:''}`;
+    <button class="ficon" data-action="fmore" ${st.pk?`data-pk="${esc(st.pk)}"`:''} aria-label="Workout menu" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div>`;
 }
-function fSaveRow(){ const m=saveStatus(); return `<button class="sync" data-action="syncdetails" style="align-self:center;min-height:44px"><span class="dot ${m[0]}"></span><b style="font-weight:inherit">${esc(m[1])}</b></button>`; }
 function aTop(label,backAction='tab',backAttrs='data-tab="today"'){
   return `<div class="ftop"><button class="ficon" data-action="${backAction}" ${backAttrs} aria-label="Back">‹</button><div class="fprog"><div class="flabel">${esc(label)}</div></div><span style="width:44px" aria-hidden="true"></span></div>`;
 }
@@ -4162,7 +4168,7 @@ function fMoreSheet(pk){
   }
   h=(h?`<section class="workout-menu-group"><h3>${st.ph==='warm'?'This warm-up':st.ph==='cool'?'This cool-down':'This exercise'}</h3>${h}</section>`:'')+
     `<section class="workout-menu-group"><h3>This workout</h3>${opt('flist','Workout list','Jump to another exercise.')}${opt('fpause','Pause workout','Resume from Today when you’re ready.')}${sound}${AUTH.user?opt('msgopen','Feedback','', 'data-side="app"'):''}</section>`;
-  modal(`<div class="workout-sheet-head"><h2>Workout menu</h2><button class="ficon" data-action="closemodal" aria-label="Close workout menu">×</button></div><div class="endsheet">${h}${opt('fexit','End workout','Save completed work or discard this session.')}</div><div class="menu-save">${fSaveRow()}</div>`,{sheetClass:'workout-menu-sheet',scrimClass:'workout-overlay'});
+  modal(`<div class="workout-sheet-head"><h2>Workout menu</h2><button class="ficon" data-action="closemodal" aria-label="Close workout menu">×</button></div><div class="endsheet">${h}${opt('fexit','End workout','Save completed work or discard this session.')}</div>`,{sheetClass:'workout-menu-sheet',scrimClass:'workout-overlay'});
 }
 function stepper(pk,i,f,val,unit,label,ramp=false){
   const scope=ramp?' data-ramp="true"':'';
@@ -4296,7 +4302,7 @@ function flistSheet(){
   gs.forEach(g=>g.forEach(i=>{ const s=slots[i], tg=target(s), dn=doneN(d,s.pk), n=d.sets[s.pk].length, cur=['ex','rest','exdone'].includes(st.ph)&&st.pk===s.pk;
     row; h+=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':''); }));
   h+=row('cool','Cardio and cool-down','Optional cardio, walk and stretches', st.ph==='cool'?'c':'');
-  h+=`</div><div class="anote">${fSaveRow()}</div></section>${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to workout</button>','',`<button class="amore" data-action="fexit" aria-label="Pause or end workout">${ICON.more}</button>`)}</div>`;
+  h+=`</div></section>${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to workout</button>','',`<button class="amore" data-action="fexit" aria-label="Pause or end workout">${ICON.more}</button>`)}</div>`;
   modal(h,{sheetClass:'workout-sheet'});
 }
 function reorderSheet(key){

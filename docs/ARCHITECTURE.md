@@ -389,3 +389,7 @@ The optional reference athlete uses one alpha-tested skinned draw, a shared
 body share the existing skeleton. Role textures are fetched only for the
 anatomical instructor. Color atlas data is sRGB; roughness remains linear.
 See [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md).
+
+## Sync problem banner (November 15, 2026)
+
+On dev, `setSync()` updates one initially hidden `#sync` button in a sticky `.app-top` wrapper shared by normal pages and focused workouts. Only warning states show the banner; ordinary queued uploads, sending, checking and success remain silent. Coach preview keeps its separate ownership banner. Pressing the banner opens the existing sync/recovery dialog; Settings retains a manual Sync details entry, including access to the last conflict recovery. The save protocol, account isolation and conflict resolution are unchanged. `scripts/test-sync-browser.cjs` checks visibility, keyboard opening, offline/reconnect, late workout failures and recovery at 1280, 390 and 320 pixels using synthetic RPCs.
