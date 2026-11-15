@@ -26,7 +26,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          67,
+          192,
+          857,
+          823
+        ]
+      }
     },
     "goblet-squat": {
       "name": "Goblet Squat",
@@ -52,7 +61,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          272,
+          217,
+          590,
+          871
+        ]
+      }
     },
     "dumbbell-romanian-deadlift": {
       "name": "Dumbbell Romanian Deadlift",
@@ -78,7 +96,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          218,
+          203,
+          650,
+          864
+        ]
+      }
     },
     "hammer-curl": {
       "name": "Hammer Curl",
@@ -104,7 +131,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          327,
+          27,
+          593,
+          869
+        ]
+      }
     },
     "dumbbell-lateral-raise": {
       "name": "Dumbbell Lateral Raise",
@@ -130,7 +166,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          186,
+          37,
+          718,
+          857
+        ]
+      }
     },
     "dumbbell-glute-bridge": {
       "name": "Dumbbell Glute Bridge",
@@ -156,7 +201,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          28,
+          423,
+          819,
+          753
+        ]
+      }
     },
     "standing-dumbbell-shoulder-press": {
       "name": "Standing Dumbbell Shoulder Press",
@@ -182,7 +236,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          271,
+          139,
+          613,
+          872
+        ]
+      }
     },
     "single-arm-dumbbell-row": {
       "name": "Single-Arm Dumbbell Row",
@@ -208,7 +271,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          72,
+          38,
+          800,
+          845
+        ]
+      }
     },
     "kettlebell-goblet-reverse-lunge": {
       "name": "Kettlebell Goblet Reverse Lunge",
@@ -234,7 +306,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          139,
+          146,
+          666,
+          853
+        ]
+      }
     },
     "dumbbell-overhead-triceps-extension": {
       "name": "Dumbbell Overhead Triceps Extension",
@@ -260,7 +341,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          343,
+          115,
+          559,
+          873
+        ]
+      }
     },
     "single-leg-dumbbell-calf-raise": {
       "name": "Single-Leg Dumbbell Calf Raise",
@@ -286,7 +376,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          286,
+          6,
+          665,
+          875
+        ]
+      }
     },
     "dead-bug": {
       "name": "Dead Bug",
@@ -312,7 +411,16 @@
           "width": 1024,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          131,
+          269,
+          797,
+          674
+        ]
+      }
     },
     "lat-pulldown": {
       "name": "Lat Pulldown",
@@ -338,7 +446,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          201,
+          10,
+          752,
+          870
+        ]
+      }
     },
     "seated-cable-row": {
       "name": "Seated Cable Row",
@@ -364,7 +481,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          51,
+          22,
+          834,
+          880
+        ]
+      }
     },
     "leg-press": {
       "name": "Leg Press",
@@ -390,7 +516,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          31,
+          137,
+          828,
+          768
+        ]
+      }
     },
     "dumbbell-bench-press": {
       "name": "Dumbbell Bench Press",
@@ -416,7 +551,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          48,
+          242,
+          860,
+          860
+        ]
+      }
     },
     "leg-extension": {
       "name": "Leg Extension",
@@ -442,7 +586,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          44,
+          18,
+          820,
+          870
+        ]
+      }
     },
     "seated-leg-curl": {
       "name": "Seated Leg Curl",
@@ -468,7 +621,16 @@
           "width": 887,
           "height": 887
         }
-      ]
+      ],
+      "preview": {
+        "frame": 1,
+        "bounds": [
+          139,
+          20,
+          884,
+          880
+        ]
+      }
     }
   }
 }

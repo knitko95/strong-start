@@ -16,7 +16,9 @@ const server=http.createServer((req,res)=>{try{const file=path.resolve(dist,'.'+
   await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user=null;closeModal();state=defaults();logs=[];state.setup=null;state.onboarded=true;state.settings.sound=false;state.places=[{k:'gym',n:'Gym',eq:EQ_ALL}];state.curPlace='gym';newBlock();ui.tab='library';ui.libEasy=false;ui.libShowAll=true;render();});
   assert.equal(await page.evaluate(()=>APP_ENV),'development');assert.equal(await page.evaluate(()=>SB_URL),'https://gvyfgqhgqnfmtoytqpeo.supabase.co');
   assert.equal(await page.evaluate(()=>guideAnimationId({t:'Air bike'})),'air-bike');assert.equal(await page.evaluate(()=>guideAnimationId({t:'Stationary bike'})),'stationary-bike');
-  const baseline=await page.evaluate(()=>JSON.stringify({state,logs,SYNC}));await page.locator('[data-action=animationgallery]').click();
+  const baseline=await page.evaluate(()=>JSON.stringify({state,logs,SYNC}));
+  // The full-set review entry is internal QA, no longer a Library button.
+  await page.evaluate(()=>{modal('<div class="exercise-guide-mount"></div>');window.StrongStartExerciseGuides.attach({mount:document.querySelector('#modal .exercise-guide-mount'),environment:APP_ENV,gallery:true});});
   await page.waitForFunction(()=>window.sharedExerciseDebug?.state().loaded,{timeout:90000});
   assert.equal(await page.locator('#exercise option').count(),manifest.exercises.length);
   const firstState=await page.evaluate(()=>sharedExerciseDebug.state());const families=new Set();

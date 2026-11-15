@@ -10,6 +10,10 @@ assert.equal(data.schemaVersion,1);assert.equal(Object.keys(data.exercises).leng
 for(const [id,entry] of Object.entries(data.exercises)){
  assert.equal(entry.name,names.get(id));assert.deepEqual(entry.enabledEnvironments,['development']);assert.equal(entry.review,'owner-approved');assert.equal(entry.timingMs,900);assert.equal(entry.frames.length,2);
  assert.equal(entry.frames[0].width,entry.frames[1].width);assert.equal(entry.frames[0].height,entry.frames[1].height);
+ assert(Number.isInteger(entry.preview?.frame)&&entry.preview.frame>=0&&entry.preview.frame<entry.frames.length,'Every approved exercise selects an explicit preview frame');
+ const selected=entry.frames[entry.preview.frame],bounds=entry.preview.bounds;
+ assert(Array.isArray(bounds)&&bounds.length===4&&bounds.every(Number.isFinite));
+ assert(bounds[0]>=0&&bounds[1]>=0&&bounds[2]>bounds[0]&&bounds[3]>bounds[1]&&bounds[2]<=selected.width&&bounds[3]<=selected.height,'Preview bounds must fit the selected still');
  for(const frame of entry.frames){assert(/^assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(frame.asset));const bytes=readFileSync(new URL(frame.asset,base));assert.equal(bytes.length,frame.bytes);assert.equal(createHash('sha256').update(bytes).digest('hex'),frame.sha256);assert.equal(bytes.toString('ascii',0,4),'RIFF');assert.equal(bytes.toString('ascii',8,12),'WEBP');assert(frame.asset.includes(frame.sha256.slice(0,12)));assert(/^[a-f0-9]{64}$/.test(frame.sourceSha256));files.add(frame.asset.split('/')[1]);}
 }
 assert.deepEqual([...files].sort(),readdirSync(new URL('assets/',base)).sort());

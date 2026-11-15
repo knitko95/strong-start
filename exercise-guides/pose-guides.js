@@ -1,7 +1,7 @@
 /* Approved public pose pairs only. No account, plan or workout storage access. */
 (()=>{
  'use strict';
- const base=new URL('poses/',document.currentScript.src),pairs=new Map();let cataloguePromise;
+ const base=new URL('poses/',document.currentScript.src),pairs=new Map(),previews=new Map(),hydrated=new WeakSet();let cataloguePromise;
  async function catalogue(){
   if(!cataloguePromise)cataloguePromise=fetch(new URL('catalogue.v1.json',base),{cache:'no-cache'}).then(r=>{if(!r.ok)throw Error('Pose catalogue unavailable');return r.json();}).then(data=>{
    if(data.schemaVersion!==1||!data.exercises)throw Error('Invalid pose catalogue');
@@ -27,6 +27,29 @@
   }return pairs.get(key);
  }
  async function preload(id,environment){try{const entry=await find(id,environment);if(entry)await loadPair(entry);}catch{}}
+ function validPreview(entry){
+  const p=entry?.preview,f=entry?.frames?.[p?.frame],b=p?.bounds;
+  return Number.isInteger(p?.frame)&&f&&Array.isArray(b)&&b.length===4&&b.every(Number.isFinite)&&b[0]>=0&&b[1]>=0&&b[2]>b[0]&&b[3]>b[1]&&b[2]<=f.width&&b[3]<=f.height;
+ }
+ function hydratePreviews(root,environment){
+  for(const button of root?.querySelectorAll('.today-exercise-preview[data-pose-id]')||[]){
+   if(hydrated.has(button))continue;hydrated.add(button);
+   const id=button.dataset.poseId;button.dataset.previewStatus='loading';
+   (async()=>{
+    const entry=await find(id,environment);
+    if(!validPreview(entry)){if(button.isConnected)button.dataset.previewStatus='missing';return;}
+    const frame=entry.frames[entry.preview.frame];
+    if(!previews.has(frame.asset)){previews.set(frame.asset,loadImage(frame).catch(e=>{previews.delete(frame.asset);throw e;}));while(previews.size>24)previews.delete(previews.keys().next().value);}
+    const source=await previews.get(frame.asset);
+    if(!button.isConnected||button.dataset.poseId!==id)return;
+    const [left,top,right,bottom]=entry.preview.bounds,side=Math.max(right-left,bottom-top)*1.1;
+    const image=document.createElement('img');image.src=source.src;image.alt='';image.draggable=false;
+    // Fit all visible person/equipment bounds with the same margin as the approved mockup.
+    Object.assign(image.style,{width:100*frame.width/side+'%',height:100*frame.height/side+'%',left:100*(side/2-(left+right)/2)/side+'%',top:100*(side/2-(top+bottom)/2)/side+'%'});
+    button.replaceChildren(image);button.dataset.previewStatus='ready';button.dataset.previewFrame=String(entry.preview.frame);
+   })().catch(()=>{if(button.isConnected)button.dataset.previewStatus='error';});
+  }
+ }
  async function mount(view,entry,{suspended=false,isCurrent=()=>true}={}){
   // Both files are loaded and decoded before either pose enters the layout.
   const images=await loadPair(entry),abort=new AbortController(),motion=matchMedia('(prefers-reduced-motion: reduce)');
@@ -41,5 +64,6 @@
   document.addEventListener('visibilitychange',refresh,{signal:abort.signal});motion.addEventListener('change',refresh,{signal:abort.signal});refresh();
   return {suspend(value){paused=!!value;refresh();},unmount(){disposed=true;clearTimeout(timer);observer?.disconnect();abort.abort();stage.remove();}};
  }
- window.StrongStartPoseDemos=Object.freeze({find,mount,preload});
+ window.StrongStartPoseDemos=Object.freeze({find,mount,preload,hydratePreviews});
+ document.addEventListener('DOMContentLoaded',()=>hydratePreviews(document.querySelector('#app'),'development'));
 })();

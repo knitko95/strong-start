@@ -105,6 +105,13 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 ## Exercise demonstrations
 
+On the test app, Today's expanded workout plan includes 88px still previews for the 18
+exercises with approved artwork. Each uses a fixed selected pose and tight framing that
+keeps the person and equipment visible. Tap the preview to open the exercise demonstration.
+Other exercises, or images that cannot load, show a neutral demonstration button; names,
+targets and Swap remain available. Preview viewing does not change the workout or plan.
+See the [preview selection and framing rules](EXERCISE-PREVIEWS.md).
+
 The test app's demonstration gallery also has a **Character** selector. Choose
 **Rose athlete · realistic draft** to compare the clothed female candidate with
 the anatomical instructor while preserving the paused pose and camera. The
@@ -116,7 +123,7 @@ performance remain under review; see [comparison notes](CHARACTER-COMPARISON-202
 
 The development exercise text has undergone a NASM reference audit with corrections to six cues and shared instructions for timed movement, power exercises and warm-ups. Reference coverage is incomplete and some NASM pages contain conflicting information; this is not professional technique certification. See the [audit, sources and remaining limits](EXERCISE-AUDIT-2026-11-11.md).
 
-On the test app, all 320 strength exercises have 3D demonstrations using the shared muscular character. New demonstrations are drafts for owner review; the eighteen earlier body animations are retained, with loaded-hand grip repairs. **Library > Review all 3D demonstrations** opens the searchable full set, including warm-up/stretch, cardio, recovery and the original squat reference. Drag to rotate, pause, choose half speed, scrub the movement, use Front/Side/Back, or toggle muscle highlights. Library how-to cards and swap previews open the matching strength demonstration; guided warm-up/cool-down how-to sheets open their matching movement or cardio/recovery variant. The same character and skeleton are reused while motion, role maps and missing equipment load on demand. Cached demonstrations can be selected without a connection; full offline library availability is not promised. Written instructions remain available if media fails. This complete draft set is enabled only in development; see [coverage, authoring and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md). The [form/equipment correction candidate](exercise-animation-audit/corrections.md) includes fitted supports, revised machine mechanisms and a dedicated linked-handle air bike; air-bike guide labels open that matching demonstration. The [detailed grip and joint-motion follow-up](exercise-animation-audit/form-detail.md) also checks hand placement and movement-specific form notes. The corrected assets remain owner-review drafts on the test app.
+On the test app, all 320 strength exercises have 3D demonstrations using the shared muscular character. New demonstrations are drafts for owner review; the eighteen earlier body animations are retained, with loaded-hand grip repairs. The Library no longer shows the full-set review button. Drag to rotate, pause, choose half speed, scrub the movement, use Front/Side/Back, or toggle muscle highlights. Library how-to cards and swap previews open the matching strength demonstration; guided warm-up/cool-down how-to sheets open their matching movement or cardio/recovery variant. The same character and skeleton are reused while motion, role maps and missing equipment load on demand. Cached demonstrations can be selected without a connection; full offline library availability is not promised. Written instructions remain available if media fails. This complete draft set is enabled only in development; see [coverage, authoring and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md). The [form/equipment correction candidate](exercise-animation-audit/corrections.md) includes fitted supports, revised machine mechanisms and a dedicated linked-handle air bike; air-bike guide labels open that matching demonstration. The [detailed grip and joint-motion follow-up](exercise-animation-audit/form-detail.md) also checks hand placement and movement-specific form notes. The corrected assets remain owner-review drafts on the test app.
 
 ## Exploring the muscle map
 
