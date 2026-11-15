@@ -10,7 +10,7 @@ dev work, and changes persistence/sync, checks and related documentation only.
 The original dirty checkout is preserved. Exact final commit and hosted
 deployment evidence are recorded in the private tracker and final handoff.
 
-Migration: `supabase/migrations/20261115231606_incremental_workout_sync.sql`.
+Migration: `supabase/migrations/20261115231939_incremental_workout_sync.sql`.
 Applied only to `strong-start-dev` (`gvyfgqhgqnfmtoytqpeo`). It adds row revisions,
 indexes, guarded delta RPCs and compatibility triggers. No roles, approval rules,
 Auth settings or production configuration change. An approved production release
