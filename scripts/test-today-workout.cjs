@@ -35,7 +35,7 @@ const server=http.createServer((req,res)=>{
   const expectedExtras=await page.evaluate(()=>{const key=nextWorkoutKey(),x=sessionExtras({key,place:state.curPlace},sessionSlots(key));return {warm:x.warm.map(i=>i.t),cool:x.cool.map(i=>i.t),cardio:x.finisher.t,min:x.finisher.min,total:totalMinutes(key)+x.finisher.min};});
   assert.deepEqual(await exercises.locator('[aria-label="Warm-up"] li b').allTextContents(),['Warm-up cardio','Mobility','Lighter sets']);
   assert.ok((await exercises.locator('[aria-label="Cool-down"] li b').allTextContents()).includes('Stretches'));
-  assert.match(await exercises.locator('.today-plan-cardio').innerText(),new RegExp(`About ${expectedExtras.total} min total with cardio`));
+  assert.doesNotMatch(await exercises.locator('.today-plan-cardio').textContent(),/total with cardio/);
   assert.equal(await page.locator('.today-workout > .row.small.muted').innerText(), 'Planned Today');
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),before,'expansion does not create a draft or save data');
   const rows=await exercises.locator('.slotrow').allTextContents();assert.ok(rows.length>0);
@@ -43,14 +43,15 @@ const server=http.createServer((req,res)=>{
   assert.equal(await exercises.locator('[data-action="adjust"],[data-action="prepedit"],.today-muscle').count(),0,'Today shows Swap without editing controls or badges');
   fs.mkdirSync(path.resolve(__dirname,'../test-results'),{recursive:true});
   if(width===390)await page.screenshot({path:path.resolve(__dirname,`../test-results/today-quiet-${theme}.png`),fullPage:true});
-  for(const phase of ['Warm-up','Cool-down']){
+  for(const phase of ['Warm-up','Cardio','Cool-down']){
     const fold=exercises.locator(`details[aria-label="${phase}"]`);assert.equal(await fold.getAttribute('open'),null);
     await fold.locator('summary').click();assert.equal(await fold.evaluate(e=>e.open),true);
     assert.equal(await fold.locator('button,input,select').count(),0,'preparation dropdown is read only');
   }
+  assert.match(await exercises.locator('.today-plan-cardio').innerText(),new RegExp(expectedExtras.cardio));
   const foldsBefore=await page.evaluate(()=>JSON.stringify({state,logs}));
   await toggle.click();await toggle.click();
-  assert.equal(await exercises.locator('details[open]').count(),2,'dropdown choices survive main plan collapse');
+  assert.equal(await exercises.locator('details[open]').count(),3,'dropdown choices survive main plan collapse');
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),foldsBefore,'dropdowns do not save or change workout data');
   assert.equal(await exercises.locator('.today-plan-heading svg').count(),4);
   assert.equal(await exercises.locator('.chip.S,.chip.F,.chip.T').count(),0,'movement plane labels omitted from Today');
@@ -74,7 +75,7 @@ const server=http.createServer((req,res)=>{
   const replacement=await page.locator('[data-action="swapselect"]').first().getAttribute('data-id');
   await page.locator('[data-action="swapselect"]').first().click();await page.locator('[data-action="swapapply"]').click();
   assert.equal(await page.evaluate(id=>sessionSlots(nextWorkoutKey()).some(s=>s.id===id),replacement),true,'Swap applies the chosen exercise');
-  assert.equal(await exercises.locator('details[open]').count(),2,'preparation dropdowns stay open after Swap');
+  assert.equal(await exercises.locator('details[open]').count(),3,'preparation dropdowns stay open after Swap');
   assert.ok((await exercises.locator('.today-strength-muscle').allTextContents()).includes(await page.evaluate(id=>mainMuscleLabel(id),replacement)),'swapped muscle metadata updates');
   await page.evaluate(()=>render());assert.equal(await toggle.getAttribute('aria-expanded'),'true');
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);

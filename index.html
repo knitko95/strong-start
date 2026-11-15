@@ -914,6 +914,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.5.2",
+    "date": "2026-11-15",
+    "title": "Cardio in the workout plan",
+    "notes": ["Cardio now expands like warm-up and cool-down on Today.", "The extra total-time sentence is removed from the cardio section."]
+  },
+  {
     "version": "0.5.1",
     "date": "2026-11-15",
     "title": "A simpler workout plan on Today",
@@ -5351,10 +5357,10 @@ function renderTodayPlan(key, slots, draft, mins){
   };
   const icon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name]}</svg>`;
   const phase=(name,time,body)=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><small>${time}</small></h2>${body}</section>`;
-  const fold=(name,group,time)=>{const id=key+':'+group,open=!!ui.todayPrepOpen?.[id];return `<details class="today-plan-phase today-plan-fold" data-prep-key="${id}" aria-label="${name}" ${open?'open':''}><summary class="today-plan-heading"><span>${icon(name)}${name}</span><span class="today-plan-fold-end"><small>${time}</small><span class="today-plan-caret" aria-hidden="true">▾</span></span></summary>${items(group)}</details>`;};
+  const fold=(name,group,time,body=items(group))=>{const id=key+':'+group,open=!!ui.todayPrepOpen?.[id];return `<details class="today-plan-phase today-plan-fold${group==='cardio'?' today-plan-cardio':''}" data-prep-key="${id}" aria-label="${name}" ${open?'open':''}><summary class="today-plan-heading"><span>${icon(name)}${name}${group==='cardio'?' <span class="chip acc">Optional</span>':''}</span><span class="today-plan-fold-end"><small>${time}</small><span class="today-plan-caret" aria-hidden="true">▾</span></span></summary>${body}</details>`;};
   return fold('Warm-up','warm',`~${X.min} min`)
     +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true))
-    +`<section class="today-plan-phase today-plan-cardio" aria-label="Cardio"><h2 class="today-plan-heading"><span>${icon('Cardio')}Cardio <span class="chip acc">Optional</span></span><small>${X.finisher&&!X.finisher.prepSkipped?'+'+X.finisher.min+' min':'Off'}</small></h2><div class="today-plan-group"><div><b>${X.finisher?esc(X.finisher.t):'After lifting'}</b><span class="tiny muted">${X.finisher?esc(X.finisher.d):'No extra cardio included'}</span></div></div>${X.finisher&&!X.finisher.prepSkipped?`<p class="tiny muted today-plan-time">About ${mins+X.finisher.min} min total with cardio</p>`:''}</section>`
+    +fold('Cardio','cardio',X.finisher&&!X.finisher.prepSkipped?'+'+X.finisher.min+' min':'Off',`<div class="today-plan-group"><div><b>${X.finisher?esc(X.finisher.t):'After lifting'}</b><span class="tiny muted">${X.finisher?esc(X.finisher.d):'No extra cardio included'}</span></div></div>`)
     +fold('Cool-down','cool',`${X.coolMin} min`);
 }
 function renderToday(){
