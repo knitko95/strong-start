@@ -479,6 +479,11 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 .today-plan-movements{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:10px}
 .today-plan-movements .tiny{display:block;margin-top:2px}
 .today-strength-row{grid-template-columns:24px minmax(0,1fr) auto;padding:14px 0;gap:10px}
+.today-strength-row.has-preview{grid-template-columns:24px 88px minmax(0,1fr) auto;gap:8px}
+.today-exercise-preview{position:relative;width:88px;height:88px;overflow:hidden;padding:0;border:0;border-radius:10px;background:var(--sunk);color:var(--muted);display:grid;place-items:center}
+.today-exercise-preview svg{width:26px;height:26px}
+.today-exercise-preview img{position:absolute;display:block;max-width:none;object-fit:fill}
+@media(max-width:359px){.today-strength-row.has-preview{grid-template-columns:18px 88px minmax(0,1fr) auto;gap:6px}.today-strength-row.has-preview>.pnum{width:18px}.today-strength-row.has-preview>.btn{padding-left:6px;padding-right:6px}}
 .today-strength-row>div{min-width:0}
 .today-strength-row .today-strength-name{font-size:var(--text-md);font-weight:600}
 .today-strength-meta{font-size:var(--text-xs);color:var(--muted);margin:4px 0 0}
@@ -925,6 +930,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.5.6",
+    "date": "2026-11-15",
+    "title": "Exercise previews on Today",
+    "notes": ["Today's workout plan shows tightly framed 88px previews from approved exercise stills. Tap a preview for the exercise demonstration."]
+  },
   {
     "version": "0.5.5",
     "date": "2026-11-15",
@@ -3423,7 +3434,7 @@ function mainMuscleLabel(id){
 }
 function renderPlanExercises(slots, simple=false){
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row"><span class="pnum">${i+1}</span><div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   const planes = {S:0,F:0,T:0}; slots.forEach(s=>planes[EX[s.id].pl]++);
   return `${simple?'':`<div class="row" style="margin:8px 0">${Object.entries(planes).filter(([,n])=>n).map(([p,n])=>`<span class="chip ${p}">${PLANES[p]} ${n}</span>`).join('')}</div>`}
@@ -5956,6 +5967,7 @@ function usageContext(){
 const USAGE=window.createUsageAnalytics?window.createUsageAnalytics(USAGE_CONFIG,usageContext):{capture(){},screen(){},press(){},choose(){},choice(){return 'no';},card(){return '';}};
 function render(){
   renderApp();
+  window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#app'),APP_ENV);
   USAGE.screen();
   if(USAGE_CONFIG.enabled && usageContext().eligible &&
     ((ui.tab==='settings'&&ui.settingsGroup==='account') ||

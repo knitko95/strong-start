@@ -91,6 +91,13 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 
 ## Exercise demonstrations
 
+On the test app, Today's expanded workout plan includes 88px still previews for the 18
+exercises with approved artwork. Each uses a fixed selected pose and tight framing that
+keeps the person and equipment visible. Tap the preview to open the exercise demonstration.
+Other exercises, or images that cannot load, show a neutral demonstration button; names,
+targets and Swap remain available. Preview viewing does not change the workout or plan.
+See the [preview selection and framing rules](EXERCISE-PREVIEWS.md).
+
 The test app's demonstration gallery also has a **Character** selector. Choose
 **Rose athlete · realistic draft** to compare the clothed female candidate with
 the anatomical instructor while preserving the paused pose and camera. The

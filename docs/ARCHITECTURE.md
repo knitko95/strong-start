@@ -31,6 +31,14 @@ for that surface. See [the dated comparison](CHARACTER-COMPARISON-2026-11-13.md)
 
 ## Complete animation drafts on development
 
+Today's development-only still thumbnails call `StrongStartPoseDemos.hydratePreviews()`
+after rendering the expanded plan. The public catalogue's explicit `preview.frame` and
+pixel `preview.bounds` select and frame one approved still inside an 88px button. A bounded
+24-image cache avoids re-decoding on rerender; detached rows cannot receive stale results.
+This route never mounts a player or reads/writes account state. Missing/failed artwork
+retains the neutral exercise-details button. Selection, bounds generation and validation
+are documented in [Exercise previews](EXERCISE-PREVIEWS.md).
+
 `exercise-guides/shared-guides.js` owns the workout/modal media surfaces and
 lazily imports one persistent renderer from `shared/player.js`. Moving its DOM
 canvas between a workout and a swap/review sheet preserves the character,
