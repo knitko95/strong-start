@@ -12,7 +12,7 @@ function worker(base='https://test.example/strong-start/') {
   }};
   const context=vm.createContext({URL,Request,Response,AbortController,Promise,Set,Map,setTimeout,clearTimeout,caches,
     self:{location:{href:base+'sw.js'},clients:{async claim(){}},addEventListener(k,fn){handlers[k]=fn;}},
-    async fetch(request){const url=typeof request==='string'?request:request.url;requests.push(url);if(offline||url.includes(failed||'not-a-file'))throw Error('offline');return new Response(url,{status:200});}
+    async fetch(request){const url=typeof request==='string'?request:request.url;requests.push(url);if(offline||url.includes(failed||'not-a-file'))throw Error('offline');return new Response(url,{status:200,headers:{'Content-Type':url.endsWith('.webp')?'image/webp':'text/plain'}});}
   });
   vm.runInContext(source,context);
   const fire=async (type,extra={})=>{let work;handlers[type]({...extra,waitUntil(p){work=p;},respondWith(p){work=p;}});return await work;};
@@ -61,5 +61,17 @@ await test('activation removes only this app scope’s old shell and never force
   w.stores.set(prefix+'old',new Map());w.stores.set('another-app-cache',new Map());
   await w.fire('activate');assert.equal(w.stores.has(prefix+'old'),false);assert.equal(w.stores.has('another-app-cache'),true);
   assert.equal(/skipWaiting\s*\(/.test(source),false);
+});
+await test('versioned public pose images cache after use without downloading the collection',async()=>{
+ const w=worker();await w.fire('install');assert(!w.requests.some(u=>u.endsWith('.webp')));
+ const url=w.base+'exercise-guides/poses/assets/dead-bug-0.0123456789ab.webp';
+ await w.fire('fetch',{request:new Request(url)});const count=w.requests.length;w.offline(true);
+ assert.equal(await (await w.fire('fetch',{request:new Request(url)})).text(),url);assert.equal(w.requests.length,count);
+ for(const bad of [url+'?code=synthetic',url.replace('0123456789ab.',''),url.replace('test.example','other.example')])assert.equal(await w.fire('fetch',{request:new Request(bad)}),undefined);
+});
+await test('HTML and failed image responses are never stored as pose images',async()=>{
+ const w=worker();await w.fire('install');const url=w.base+'exercise-guides/poses/assets/dead-bug-0.0123456789ab.webp';
+ w.run("fetch=async()=>new Response('not an image',{headers:{'Content-Type':'text/html'}})");
+ await w.fire('fetch',{request:new Request(url)});assert.equal(await (await w.run('caches.open(CACHE)')).match(url),undefined);
 });
 console.log(`\n${passed} offline scenarios passed.`);

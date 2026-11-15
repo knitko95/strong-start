@@ -15,6 +15,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="exercise-guides/guides.css">
 <link rel="stylesheet" href="exercise-guides/shared/player.css">
+<script defer src="exercise-guides/pose-guides.js"></script>
 <script defer src="exercise-guides/shared-guides.js"></script>
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -4227,7 +4228,11 @@ function setupWorkoutDemo(previous){
     if(previous.querySelector('.eg-inline:not([data-guide-status="error"])'))hero.classList.add('has-demo');
     return;
   }
-  guides?.attach({exerciseId:mount.dataset.exerciseId,mount,environment:APP_ENV,mode:'workout'});
+  Promise.resolve(guides?.attach({exerciseId:mount.dataset.exerciseId,mount,environment:APP_ENV,mode:'workout'})).then(()=>{
+    if(!state.draft||!mount.isConnected)return;
+    const slots=dSlots(),index=slots.findIndex(s=>s.pk===state.draft.step?.pk);
+    if(index>=0&&slots[index+1])guides?.preload?.(slots[index+1].id,APP_ENV);
+  });
 }
 document.addEventListener('exercise-guides-ready',()=>setupWorkoutDemo());
 function fLastSheet(pk){

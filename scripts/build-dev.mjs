@@ -15,6 +15,7 @@ if (branch && branch !== target) {
 }
 mkdirSync(out, { recursive: true });
 await import('./check-exercise-guides.mjs');
+await import('./check-pose-guides.mjs');
 await import('./check-all-exercise-animations.mjs');
 for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'offline.js', 'sw.js', 'exercise-guides']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
