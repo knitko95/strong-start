@@ -225,9 +225,13 @@ logs or drafts; the state remains v6 with the same local storage keys.
 `startWorkout()` copies these preferences into `draft.prep`; later plan edits
 cannot change that started session. `sessionExtras()` applies the snapshot to
 the actual guide and lighter sets. Timed overrides scale movement segments while
-preserving side-switch gaps and labels. The grouped Today overview hides the
-individual movements until Edit. Strength targets retain Adjust/Swap and gain
-right-aligned primary muscle groups from the existing anatomy map.
+preserving side-switch gaps and labels. The November 14 Today overview used grouped Edit entry points. The November 15
+refinement replaces these with read-only, initially collapsed warm-up/cool-down
+dropdowns showing generated groups and movements. Today strength rows show only
+Swap and quiet muscle metadata alongside targets; Plan/workout adjustment
+controls remain. Native dropdown state lives only in ui.todayPrepOpen and does
+not save account data. Existing preparation overrides and draft snapshots remain
+compatible; the older editor functions are retained without Today entry points.
 
 Editor saves validate whole-number targets, account/state/session ownership and
 available choices. Completed movements, timer checkpoints and the active started
