@@ -1,5 +1,13 @@
 # Strong Start architecture and operations
 
+## Shared display preferences and policy pages — November 15, 2026
+
+`theme.css` contains the shared app/policy color and typography tokens. `appearance.js` restores a two-field `{theme,color}` local display cache before CSS paints. The app refreshes it from its current settings during rendering; coach previews apply their appearance without persisting it. This cache is separate from account/plan/history storage and does not change the state schema, storage key or sync protocol.
+
+The cache key is `strongstart_appearance_v1` at the two canonical production roots, `dev_strongstart_appearance_v1` for testing, and `dev2_demo_strongstart_appearance_v1` for the local demo. Canonical detection uses the script's root directory, matching the app and legacy Pages installation. Development builds force the testing/demo choice even if served at a production hostname. No account identifiers, full settings, profiles or workouts are copied into this cache. Policy pages read this key only, never IndexedDB or the app-state cache. Missing, corrupt or denied preference storage falls back to Blush/system mode.
+
+`policy.css` supplies the policy reading layout and app branding. Policy pages include no Auth, account, history or analytics scripts. Same-origin display-cache changes and page restoration update their appearance. Back links can use browser history when the referrer is the app root; ordinary `./` links work for direct visits and other cases. Public theme assets are packaged by both builds and included in the offline shell. Existing policy copy and dates are unchanged.
+
 ## Development linked sign-ins — November 15, 2026
 
 Development adds Apple OAuth and a Sign-in methods sheet using Supabase

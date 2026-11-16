@@ -34,7 +34,7 @@ const sdk=`window.supabase={createClient(url){window.testBackend=url;return {aut
      let rel=url.pathname.slice(new URL(origin+'/').pathname.length)||'index.html';
      const file=path.resolve(root,dir,rel);
      if(!file.startsWith(path.resolve(root,dir)+path.sep)) return route.abort();
-     return route.fulfill({path:file,contentType:rel.endsWith('.html')?'text/html':rel.endsWith('.js')?'application/javascript':rel.endsWith('.webmanifest')?'application/manifest+json':rel.endsWith('.png')?'image/png':'image/svg+xml'});
+     return route.fulfill({path:file,contentType:rel.endsWith('.html')?'text/html':rel.endsWith('.js')?'application/javascript':rel.endsWith('.css')?'text/css':rel.endsWith('.webmanifest')?'application/manifest+json':rel.endsWith('.png')?'image/png':'image/svg+xml'});
     }
     return route.fulfill({body:''});
    });
@@ -54,8 +54,8 @@ const sdk=`window.supabase={createClient(url){window.testBackend=url;return {aut
    await page.evaluate(async()=>{AUTH.busy=false;AUTH.mode='forgot';AUTH.email='domain-test@example.invalid';render();await authSubmit('forgot')});
    assert.equal(await page.evaluate(()=>testReset.redirectTo),origin+'/');
    // Existing plans/drafts keep the current key and survive a reload at the new origin.
-   await page.evaluate(()=>{sb=null;lsSet(LOCAL_ONLY_KEY,'1');state=defaults();state.setup=null;state.onboarded=true;state.settings.days=[1,4];state.settings.split='ul2';state.settings.goals=['muscle'];state.places=[{k:'gym',n:'Gym',eq:PLACE_TYPES.gym.eq.split(' ')}];state.curPlace='gym';newBlock();startWorkout(weekKeys()[0]);state.draft.paused=true;persistLocal()});
-   const draft=await page.evaluate(()=>JSON.parse(localStorage.getItem(LS)).state.draft);
+   await page.evaluate(async()=>{sb=null;lsSet(LOCAL_ONLY_KEY,'1');state=defaults();state.setup=null;state.onboarded=true;state.settings.days=[1,4];state.settings.split='ul2';state.settings.goals=['muscle'];state.places=[{k:'gym',n:'Gym',eq:PLACE_TYPES.gym.eq.split(' ')}];state.curPlace='gym';newBlock();startWorkout(weekKeys()[0]);state.draft.paused=true;persistLocal();await flushDevice()});
+   const draft=await page.evaluate(()=>state.draft);
    await page.reload();await page.waitForFunction(()=>AUTH.ready);
    const restored=await page.evaluate(()=>state.draft);
    for(const key of ['key','block','week','startedAt','paused','sets','shape','planCounts'])

@@ -4,6 +4,12 @@
 
 On dev, secondary actions have larger touch areas, mode selectors use a shared highlighted style, and expandable cards and detail rows use a right-side chevron. Standard dialogs have a common title and Close control; their existing Cancel, Done and other task actions remain. Focused workout screens and full-height coach conversations keep their own layouts. Setup fits narrow phones, active equipment locations are highlighted, and light-theme helper text is darker.
 
+## Navigation and policy appearance on testing
+
+The profile icon opens All settings. Equipment returns to **Your training**. Weekly weigh-ins opened from **Profile & appearance** return there and keep the profile icon highlighted; weigh-ins opened from Today return to **Today**. Coach tools use **All settings** when returning to the Settings overview.
+
+Privacy and Terms use the same fonts, color palette and light/dark choice as the app, including **Match my phone**. They keep their reading layout and existing policy wording. The app stores only the color and appearance choices in a small display-preference cache on this browser; no account or workout data is read by the policy pages. Direct visits without that cache use Blush and the system appearance. Back to Strong Start uses the previous app page when the browser can restore it, with the app root as its normal link destination.
+
 ## Connected sign-ins on testing — November 15, 2026
 
 Open **Settings → Account & backups → Account → Sign-in methods** to see connected

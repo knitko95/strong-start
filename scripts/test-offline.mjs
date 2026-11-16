@@ -24,12 +24,20 @@ await test('offline installation includes the app, SDK and icons',async()=>{
   const w=worker();await w.fire('install');assert.equal(await w.run('ready()'),true);
   assert.ok(w.requests.some(x=>x.includes('supabase.min.js')));
   assert.ok(w.requests.includes(w.base+'offline.js'));
+  for(const file of ['theme.css','appearance.js','policy.css'])assert(w.requests.includes(w.base+file));
 });
 await test('closed-page navigation and SDK reload fall back to cached files without network',async()=>{
   const w=worker();await w.fire('install');w.offline(true);
   const page=await w.fire('fetch',{request:{url:w.base,method:'GET',mode:'navigate'}});
   assert.equal(await page.text(),w.base+'index.html');
   const sdk=await w.fire('fetch',{request:new Request(w.run('SDK'))});assert.match(await sdk.text(),/supabase/);
+});
+await test('cached policy pages retain all shared theme files offline',async()=>{
+  const w=worker();await w.fire('install');w.offline(true);
+  for(const file of ['privacy.html','terms.html','theme.css','appearance.js','policy.css']){
+    const response=await w.fire('fetch',{request:new Request(w.base+file)});
+    assert.equal(await response.text(),w.base+file);
+  }
 });
 await test('new domain root has its own offline scope and preserves Auth query/hash navigation',async()=>{
   const w=worker('https://strongstart.app/');await w.fire('install');w.offline(true);
