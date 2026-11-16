@@ -133,6 +133,8 @@ On the test app, all 320 strength exercises have 3D demonstrations using the sha
 
 ## Exploring the muscle map
 
+On the test app, Today's compact workout card shows the workout name and a short muscle summary beside front and back figures. Tap either figure to open **Muscles worked**. The popup lists main and supporting muscles; selecting one shows the exercises that work it and their roles. Highlights describe general muscle involvement, not intensity or individual technique validation. The preview follows the actual exercise choices for the selected place, including swaps. A paused workout uses its saved session exercises. Browsing does not start, change or save a workout, and it also works in coach preview.
+
 On the test app, Plan opens with a compact **Schedule** card: workouts per week, session length and selected weekdays, or **Any days that work for you** for flexible schedules. **Edit schedule** opens Settings > Your training with Schedule expanded; coach previews show the schedule as view-only. Selected days are reminders, separate from the repeating workout order.
 
 Under **Your workouts**, each workout group is a numbered, collapsed dropdown. Its name, focus and time remain visible, and **Up next** follows the same recommendation as Today. Expand it to see exercises and use Adjust or Swap. Groups open independently and stay open while making adjustments during the page session. The location selector still adapts exercises for the selected place. **Plan help** holds the Swap/Adjust instructions and timing notes.

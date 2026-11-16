@@ -273,6 +273,12 @@ Timed preparation uses `mode:ready,end:null`. `gPrepareMove()` sends untimed rep
 
 ## Database structure
 
+### Today session muscle preview on dev (November 15, 2026)
+
+`workoutMuscles(slots)` aggregates the existing `EXM` primary and secondary mappings for the session's strength exercise slots. A muscle that is primary in any slot is shown as main at session level; its individual exercise rows retain their main/supporting roles. The compact summary groups shoulder and core labels, with full coverage in the popup. Both Today figures share a single accessible button and reuse `bodySVG()`. The popup uses the existing modal focus trap, background inertness and focus restoration; all muscle choices are buttons, including supporting muscles.
+
+Today and the popup use `dSlots()` for an active/paused draft, otherwise `sessionSlots(key)`, so they follow draft substitutions, current plan swaps and location adaptation. Warm-up/cardio/cool-down are excluded from this strength-exercise map. Popup actions are allowed in read-only coach preview and do not call save or cloud functions. No state schema, storage key, database, permission or configuration changes are required.
+
 ### Today preparation edits on dev (November 14, 2026)
 
 `state.prep` is an additive map keyed by program number, workout key and training

@@ -465,6 +465,34 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 }
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
+.today-workout-summary{display:grid;grid-template-columns:minmax(0,1fr) 116px;gap:12px;align-items:center}
+.today-workout-copy{min-width:0;display:flex;flex-direction:column;gap:9px}
+.today-workout-copy p{margin:0;font-size:var(--text-base);line-height:1.5}
+.today-schedule{display:flex;align-items:center;flex-wrap:wrap;gap:5px 8px;min-width:0}
+.today-schedule-note{font-size:var(--text-xs);color:var(--muted)}
+.today-muscle-preview{display:flex;align-items:center;justify-content:center;gap:4px;width:116px;min-height:112px;padding:0;background:none;border:0;border-radius:12px}
+.today-muscle-preview svg{display:block;width:56px;height:112px;flex:none;pointer-events:none}
+.today-muscle-preview:active{background:var(--accent-soft);transform:scale(.96)}
+.today-workout .today-exercises-toggle{padding:6px 0;min-height:44px}
+.today-workout .today-exercises[hidden]{display:none}
+.today-workout:has(.today-exercises[hidden]){row-gap:8px}
+.workout-muscle-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.workout-muscle-head h2{margin-top:6px}
+.workout-muscle-head button{flex:none}
+.workout-muscle-sheet .bodypair{background:none;padding:0;gap:24px;max-width:280px;margin:0 auto}
+.workout-muscle-sheet .bodybig{max-height:200px;display:block}
+.workout-muscle-sheet .map-view-label{text-align:center;font-size:var(--text-xs);color:var(--muted)}
+.workout-muscle-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;font-size:var(--text-xs);color:var(--muted)}
+.workout-muscle-legend span{display:inline-flex;align-items:center;gap:6px}
+.workout-muscle-legend i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.workout-muscle-legend .supporting{background:var(--rose)}
+.workout-muscle-choices{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.workout-muscle-choice{min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:var(--text-sm);font-weight:700}
+.workout-muscle-choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.workout-muscle-detail{border-top:1px solid var(--line);padding-top:12px}
+.workout-muscle-item{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:var(--text-md)}
+.workout-muscle-item span:last-child{flex:none;color:var(--muted);font-size:var(--text-xs)}
+@media(max-width:360px){.today-workout-summary{grid-template-columns:minmax(0,1fr) 104px;gap:8px}.today-muscle-preview{width:104px;gap:0}.today-muscle-preview svg{width:52px;height:104px}.today-schedule{gap:4px 6px}}
 .today-plan-phase{border-top:1px solid var(--line);padding:14px 0 2px}
 .today-plan-phase:first-child{border-top:0;padding-top:0}
 .today-plan-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font:600 var(--text-base) var(--body)}
@@ -932,6 +960,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.6.0",
+    "date": "2026-11-15",
+    "title": "Workout muscle preview",
+    "notes": ["Today has a compact workout summary with front and back muscle diagrams. Tap the figures to see the main and supporting muscles and which exercises work them. The preview follows your current exercises and paused workout."]
+  },
   {
     "version": "0.5.9",
     "date": "2026-11-15",
@@ -1598,6 +1632,43 @@ function musInfo(id){
     ${s.length?`<div><span class="eyebrow">Secondary</span><div class="row" style="margin-top:4px">${s.map(m=>`<span class="chip schip">${MUSCLES[m]}</span>`).join('')}</div></div>`:''}</div>
     <p class="small muted" style="margin:0">${esc(ex.cue)}</p>
     <button class="btn ghost" data-action="closemodal">Close</button>`);
+}
+// Session coverage uses the same exercise mapping as Plan, with primary taking
+// precedence when a muscle also supports another exercise in this session.
+function workoutMuscles(slots){
+  const primary=new Set(), secondary=new Set(), items={};
+  for(const slot of slots){
+    const mapping=EXM[slot.id]; if(!mapping) continue;
+    for(const [ids,role,set] of [[mapping.p,'Main',primary],[mapping.s,'Supporting',secondary]]){
+      for(const m of ids){
+        if(!MUSCLES[m]) continue;
+        set.add(m); (items[m]??=[]).push({id:slot.id,role});
+      }
+    }
+  }
+  const p=[...primary],s=[...secondary].filter(m=>!primary.has(m));
+  return {p,s,items,color:m=>primary.has(m)?'var(--accent)':secondary.has(m)?'var(--rose)':'var(--mbase)'};
+}
+function workoutMuscleSummary(coverage){
+  const grouped={front_delts:'Shoulders',side_delts:'Shoulders',rear_delts:'Shoulders',abs:'Core',obliques:'Core',hip_flexors:'Hip flexors',forearms:'Forearms'};
+  const labels=[...new Set(coverage.p.map(m=>grouped[m]||MUSCLES[m]))];
+  if(!labels.length) return 'View muscle details';
+  const shown=labels.slice(0,4).map((name,i)=>i?name.toLowerCase():name);
+  if(labels.length>4) return shown.join(', ')+` + ${labels.length-4} more`;
+  return shown.length>1?shown.slice(0,-1).join(', ')+' & '+shown.at(-1):shown[0];
+}
+function workoutMuscleInfo(key,selected){
+  const draft=state.draft, currentKey=draft?draft.key:nextWorkoutKey();
+  if(key!==currentKey) return;
+  const coverage=workoutMuscles(draft?dSlots():sessionSlots(key)),{p,s,items,color}=coverage;
+  const all=[...p,...s],sel=all.includes(selected)?selected:all[0];
+  const choices=(ids,label)=>ids.length?`<div><div class="eyebrow">${label}</div><div class="workout-muscle-choices">${ids.map(m=>`<button type="button" class="workout-muscle-choice" data-action="workoutmusclepick" data-key="${esc(key)}" data-v="${m}" aria-pressed="${m===sel}">${esc(MUSCLES[m])}</button>`).join('')}</div></div>`:'';
+  modal(`<div class="workout-muscle-head"><div><div class="eyebrow">${esc(tplOf(key).name)}</div><h2>Muscles worked</h2></div><button type="button" class="btn sm ghost" data-action="closemodal">Close</button></div>
+    <div class="bodypair">${['f','b'].map(view=>`<div>${bodySVG(view,color,{cls:'bodybig'})}<div class="map-view-label">${view==='f'?'Front':'Back'}</div></div>`).join('')}</div>
+    <div class="workout-muscle-legend"><span><i aria-hidden="true"></i>Main muscles</span><span><i class="supporting" aria-hidden="true"></i>Supporting muscles</span></div>
+    ${choices(p,'Main muscles')}${choices(s,'Supporting muscles')}
+    <div class="workout-muscle-detail" aria-live="polite">${sel?`<b>${esc(MUSCLES[sel])}</b><div class="tiny muted">Exercises that work this muscle</div>${items[sel].map(item=>`<div class="workout-muscle-item"><span>${esc(EX[item.id].n)}</span><span>${item.role}</span></div>`).join('')}`:'<p class="small muted">No muscle details are available for these exercises.</p>'}</div>
+    <p class="tiny muted" style="margin:0">Highlights show planned muscle involvement, not intensity. These are general exercise mappings; technique and individual anatomy can change the emphasis.</p>`,{sheetClass:'workout-muscle-sheet'});
 }
 function weekMuscles(split){
   const map={}; Object.keys(MUSCLES).forEach(m=>map[m]={score:0,items:[]});
@@ -5593,9 +5664,9 @@ function renderToday(){
   const X=draft?draft._x||sessionExtras(draft,slots):null,mins=X?X.min+Math.round(liftSec(slots)/60)+X.coolMin:totalMinutes(mainKey);
   const location=placeSwitch();
   if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
-  h+=`<section class="card stack today-workout"><div class="today-head"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div><h1>${esc(t.name)}</h1>
-    <p class="muted" style="margin:0">${esc(t.focus)}</p>
-    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+esc(planned)}</span></div>
+  const coverage=workoutMuscles(slots),schedule=draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+(planned==='Today'?'today':planned);
+  h+=`<section class="card stack today-workout"><div class="today-head"><div class="today-schedule"><span class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</span><span class="tiny muted" aria-hidden="true">·</span><span class="today-schedule-note">${esc(schedule)}</span></div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div>
+    <div class="today-workout-summary"><div class="today-workout-copy"><h1>${esc(t.name)}</h1><p class="muted">${esc(workoutMuscleSummary(coverage))}</p></div><button type="button" class="today-muscle-preview" data-action="workoutmuscles" data-key="${esc(mainKey)}" aria-label="View muscles worked in ${esc(t.name)}" aria-haspopup="dialog">${bodySVG('f',coverage.color)}${bodySVG('b',coverage.color)}</button></div>
     ${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
     <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
@@ -6115,7 +6186,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6249,6 +6320,8 @@ document.addEventListener('click', e=>{
     case 'swapapply': if(ui.swap&&b.dataset.id===ui.swap.selected)applyExerciseSwap(ui.swap.pk,b.dataset.id,!ui.swap.inW||!!$('#swapkeep')?.checked); break;
     case 'libpick': libPickSheet(b.dataset.pk); break;
     case 'musinfo': musInfo(b.dataset.id); break;
+    case 'workoutmuscles': workoutMuscleInfo(b.dataset.key); break;
+    case 'workoutmusclepick': workoutMuscleInfo(b.dataset.key,b.dataset.v); break;
     case 'exinfo': exInfo(b.dataset.id, b.dataset.pk); break;
     case 'reorder': reorderSheet(b.dataset.key); break;
     case 'settstyle': { state.settings.tstyle=b.dataset.v; delete state.settings.tstyleAuto; const n=applyStylePref(); save(); render(); if(n) toast(`${n} move${n>1?'s':''} you haven’t done yet switched to match`); break; }
