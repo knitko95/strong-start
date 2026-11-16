@@ -65,4 +65,26 @@ describe('private hosted exercise workspace',()=>{
  it('migration is idempotent, cannot overwrite existing records, and is disabled after cutover',async()=>{
   await env.POSE_DB.prepare('INSERT INTO pose_settings VALUES(?,?)').bind('migration-token',sha(token)).run();const r=record();expect((await call('migrate',{record:r},'agent')).status).toBe(200);expect((await call('migrate',{record:r},'agent')).status).toBe(200);r.name='changed';expect((await call('migrate',{record:r},'agent')).status).toBe(409);await call('migration-complete',{},'agent');expect((await call('migrate',{record:r},'agent')).status).toBe(403);
  });
+ it('registers four version-bound timed frames while preserving an approved pair',async()=>{
+  const store=new HostedPoseStore(base),id='barbell-back-squat';
+  await store.claim({id,expectedRevision:0,batch:'sequence'},'generator-1',{[id]:'Barbell Back Squat'});
+  const make=n=>{const b=Buffer.alloc(32);Buffer.from([137,80,78,71,13,10,26,10]).copy(b);b.writeUInt32BE(8,16);b.writeUInt32BE(8,20);b[31]=n;return b;};
+  const brief={constraints:['Synthetic'],references:[],generation:{prompt:'Synthetic sequence',sourceReview:[{document:'synthetic'}]}};
+  async function register(values,durations,revision){
+   const items=values.map((n,i)=>({bytes:make(n),sha256:sha(make(n)),width:8,height:8,...(durations?{durationMs:durations[i]}:{})}));
+   const version='v-'+fingerprint(items).slice(0,16),frames=[];
+   for(let i=0;i<items.length;i++){const {bytes,...f}=items[i];f.url='/workspace/'+id+'/versions/'+version+'/frame-'+i+'.png';await store.upload(f.url,bytes,'image/png');frames.push(f);}
+   return store.candidate({id,expectedRevision:revision,frames,brief},'generator-1');
+  }
+  let r=await register([1,2],null,1);const approved=r.versions[0];
+  r=await store.mutate(id,r.revision,'owner:synthetic',r=>store.decision(r,{versionId:approved.id,fingerprint:approved.fingerprint,status:'approved',note:''}));
+  r=await register([3,4,5,4],[900,650,900,650],r.revision);
+  expect(r.versions).toHaveLength(2);expect(r.versions[0]).toEqual(approved);expect(r.approvedVersionId).toBe(approved.id);expect(r.review.status).toBe('unreviewed');
+  const current=r.versions.at(-1);expect(current.frames.map(f=>f.durationMs)).toEqual([900,650,900,650]);expect(current.frames[1].sha256).toBe(current.frames[3].sha256);
+  expect(fingerprint(current.frames)).not.toBe(fingerprint(current.frames.map(({durationMs,...f})=>f)));
+  await expect(store.candidate({id,expectedRevision:r.revision,frames:current.frames.concat(current.frames[0]),brief},'generator-1')).rejects.toThrow('Two to four');
+  const invalid=current.frames.map(f=>({...f,durationMs:1}));await expect(store.candidate({id,expectedRevision:r.revision,frames:invalid,brief},'generator-1')).rejects.toThrow();
+  expect((await store.get(id)).revision).toBe(r.revision);
+ });
+
 });

@@ -51,4 +51,8 @@ Exports archive review history. Import transfers the latest explicit decision pe
 
 ## What is still a human decision
 
-AI audits can flag visible errors and compare against documented references. They do not provide professional exercise technique clearance. Missing or conflicting references must stay visible. A move that cannot be explained accurately with two poses needs an owner decision about another pose or camera angle and a corresponding renderer change; the current player supports exactly two frames.
+AI audits can flag visible errors and compare against documented references. They do not provide professional exercise technique clearance. Missing or conflicting references must stay visible. A move that cannot be explained accurately with two poses needs an owner decision about another pose or camera angle and a corresponding renderer change; the review player supports two to four frames.
+
+### Short review sequences
+
+The private review workspace accepts two to four PNG/WebP frames with matching canvases. The remote CLI takes two to four paths after `--frames`; the review page exposes each pose and plays the entire sequence. Existing two-pose records and their fingerprints remain compatible. Optional per-frame `durationMs` is bounded to 200–3000 ms and participates in the version fingerprint; absent timing remains 900 ms. Extra frames require an explicit owner request. This authoring support does not change the member app’s two-pose runtime or publish artwork.

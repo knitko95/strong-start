@@ -8,7 +8,7 @@ if(!command||['--help','help'].includes(command)){
   init | list
   claim --id ID --worker NAME --batch BATCH --expected-revision N
   release --id ID --worker NAME --expected-revision N
-  candidate --id ID --frames POSE0 POSE1 --expected-revision N [--brief JSON] [--reference PNG]
+  candidate --id ID --frames POSE0 POSE1 [POSE2 POSE3] --expected-revision N [--brief JSON] [--reference PNG]
   audit --id ID --version VERSION --file AUDIT_JSON --expected-revision N
   references --file PRIVATE_REFERENCE_MAP_JSON
   export --out JSON
@@ -24,7 +24,7 @@ try{
   case 'list':result=store.list().map(r=>({id:r.id,name:r.name,revision:r.revision,status:r.review.status,version:r.review.versionId,assignment:r.assignment}));break;
   case 'claim':result=store.claim(id,revision,value('--worker'),value('--batch'));break;
   case 'release':result=store.release(id,revision,value('--worker'));break;
-  case 'candidate':{const i=args.indexOf('--frames'),brief=value('--brief');result=store.candidate(id,revision,i<0?[]:args.slice(i+1,i+3),value('--reference'),brief?parseJSON(readFileSync(brief,'utf8')):undefined);break;}
+  case 'candidate':{const i=args.indexOf('--frames'),brief=value('--brief'),rest=i<0?[]:args.slice(i+1),end=rest.findIndex(a=>a.startsWith('--'));result=store.candidate(id,revision,end<0?rest:rest.slice(0,end),value('--reference'),brief?parseJSON(readFileSync(brief,'utf8')):undefined);break;}
   case 'audit':{const audit=parseJSON(readFileSync(value('--file'),'utf8'));result=store.audit(id,revision,value('--version'),audit);break;}
   case 'export':writeFileSync(value('--out'),JSON.stringify(store.export(),null,2)+'\n');result={exported:value('--out')};break;
   case 'import':{const bundle=parseJSON(readFileSync(value('--file'),'utf8'));if(bundle.schemaVersion!==1)throw Error('Unsupported review bundle');result={exercises:store.importReviews(bundle.exercises,bundle.baseRevisions)};break;}

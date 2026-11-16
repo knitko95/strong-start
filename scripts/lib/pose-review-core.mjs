@@ -1,13 +1,13 @@
 import {createHash} from 'node:crypto';
 export const sha=value=>createHash('sha256').update(value).digest('hex');
-export const fingerprint=frames=>sha(frames.map(f=>f.sha256).join('|'));
+export const fingerprint=frames=>sha(frames.map(f=>f.sha256+(f.durationMs===undefined?'':'@'+f.durationMs)).join('|'));
 export const validId=id=>typeof id==='string'&&/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(id)&&id.length<=120;
 export class ReviewError extends Error{constructor(message,status=400){super(message);this.status=status;}}
 export const assert=(value,message,status=400)=>{if(!value)throw new ReviewError(message,status);};
 export const text=(value,max=12000)=>typeof value==='string'&&value.length<=max;
 const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
 export function parseJSON(value,maxBytes=2_000_000){assert(Buffer.byteLength(value)<=maxBytes,'Review file is too large');return JSON.parse(value,(key,value)=>{assert(!['__proto__','prototype','constructor'].includes(key),'Unsafe property');return value;});}
-function safeFrame(url,id){return typeof url==='string'&&(new RegExp('^/workspace/'+id+'/versions/v-[a-f0-9]{16}/frame-[01]\\.(png|webp)$').test(url)||/^\/exercise-guides\/poses\/assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(url));}
+function safeFrame(url,id){return typeof url==='string'&&(new RegExp('^/workspace/'+id+'/versions/v-[a-f0-9]{16}/frame-[0-3]\\.(png|webp)$').test(url)||/^\/exercise-guides\/poses\/assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(url));}
 export function validateAudit(a){
  assert(a&&['not-recorded','passed','needs-changes'].includes(a.status),'Invalid audit status');
  assert(Array.isArray(a.findings)&&a.findings.length<=100&&a.findings.every(f=>['info','warning','error'].includes(f.severity)&&text(f.text)),'Invalid audit findings');
@@ -19,8 +19,8 @@ export function validateRecord(r){
  assert(Array.isArray(r.versions)&&r.versions.length<=100,'Invalid versions');
  const ids=new Set();for(const v of r.versions){
   assert(validId(v.id)&&!ids.has(v.id)&&hash(v.fingerprint),'Invalid or duplicate version');ids.add(v.id);
-  assert(v.frames?.length===2&&v.frames.every(f=>safeFrame(f.url,r.id)&&hash(f.sha256)&&Number.isInteger(f.width)&&f.width>0&&f.width<=8192&&Number.isInteger(f.height)&&f.height>0&&f.height<=8192),'Invalid frame');
-  assert(v.frames[0].width===v.frames[1].width&&v.frames[0].height===v.frames[1].height&&fingerprint(v.frames)===v.fingerprint,'Frame dimensions or fingerprint mismatch');
+  assert(Array.isArray(v.frames)&&v.frames.length>=2&&v.frames.length<=4&&v.frames.every(f=>safeFrame(f.url,r.id)&&hash(f.sha256)&&Number.isInteger(f.width)&&f.width>0&&f.width<=8192&&Number.isInteger(f.height)&&f.height>0&&f.height<=8192&&(f.durationMs===undefined||Number.isInteger(f.durationMs)&&f.durationMs>=200&&f.durationMs<=3000)),'Invalid frame');
+  assert(v.frames.every(f=>f.width===v.frames[0].width&&f.height===v.frames[0].height)&&fingerprint(v.frames)===v.fingerprint,'Frame dimensions or fingerprint mismatch');
   assert(Array.isArray(v.constraints)&&v.constraints.length<=50&&v.constraints.every(c=>text(c,3000)),'Invalid constraints');
   assert(Array.isArray(v.references)&&v.references.length<=30&&v.references.every(ref=>text(ref.label,300)&&(!ref.note||text(ref.note))&&(!ref.url||(/^https:\/\/[^\s]+$/.test(ref.url)||new RegExp('^/workspace/'+r.id+'/references/[a-f0-9]{64}\\.(png|webp)$').test(ref.url)))),'Invalid reference');
   validateAudit(v.audit);
