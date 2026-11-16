@@ -4,6 +4,8 @@ This is the handoff for creating, auditing and reviewing exercise images without
 
 ## Start a review session
 
+For shared work across computers, use the [private hosted workspace](hosted-workspace.md). Its authenticated development review page is the canonical editing queue after migration. Agents use the remote CLI and separate scoped credentials. The local commands below are for recovery, disposable tests and pre-migration workspaces; do not create a second active queue from the archived source.
+
 From the repository's current dev worktree:
 
 ```powershell
@@ -11,7 +13,7 @@ node scripts/pose-review.mjs init
 node scripts/serve-pose-review.mjs --port 8734 --workspace output/pose-review-workspace
 ```
 
-Open the URL printed by the server. Local workspace mode saves exercise records and review history to disk. Subagents use the same explicit workspace path. Keep that workspace outside the public runtime and out of Git. The hosted development dashboard uses browser-local drafts instead; export its reviews and import them into the local workspace to hand decisions to agents. Browser-local drafts are not account sync, a shared queue, or a backup. Check the dashboard's storage-mode notice before reviewing.
+Open the URL printed by the server. Local workspace mode saves exercise records and review history to disk. Subagents use the same explicit workspace path. Keep that workspace outside the public runtime and out of Git. An unconnected static preview uses browser-local drafts; it is not the authenticated hosted workspace. Export such legacy drafts for explicit reconciliation before retiring them. Browser-local drafts are not account sync, a shared queue, or a backup. Check the dashboard's storage-mode notice before reviewing.
 
 Use the four count buttons: **All exercises**, **Approved**, **Needs review**, and **Needs changes**. **Needs review** shows only unreviewed latest candidates. Marking one **Needs changes** removes it from Needs review and places it in the separate correction queue. A new corrected candidate starts unreviewed and returns to Needs review. **Needs changes** shows only latest versions explicitly marked for changes by the owner; an audit flag alone does not add one. Each button clears the search and selects a matching exercise. A fresh session without an exercise link opens Needs review when there are pending candidates. The dropdown also keeps the narrower audit filters. A visual audit pass still needs owner review.
 
@@ -41,7 +43,7 @@ To attach private supplied reference images locally, create a private JSON map f
 
 While reviewing in the **local workspace**, use **Your reference images → Reference image**, add a label and optional guidance, then click **Add reference image**. PNG, JPEG and WebP files up to 5 MB each are supported, with up to 20 additional images per exercise. The original bytes save under that exercise's private `references/` directory. Its `record.json` gains a `reviewReferences` entry with the hash, guidance, attachment time and version being viewed. These exercise-level references stay available across revisions; they do not modify immutable version references, artwork, audits or owner decisions. Generators and auditors must inspect both `reviewReferences` and each version's existing references.
 
-The hosted preview does not upload images and links to the local workspace. Review JSON exports include attachment metadata, not image files; back up the private workspace directory to preserve the images. Review imports cannot add, remove or replace attachments. On a stale-save error the selected image and guidance remain in the form; refresh the workspace and reselect/re-enter them before retrying.
+An unconnected static preview does not upload images. The authenticated hosted workspace supports private uploads shared across computers. Review JSON exports include attachment metadata, not image files; back up the private workspace directory to preserve the images. Review imports cannot add, remove or replace attachments. On a stale-save error the selected image and guidance remain in the form; refresh the workspace and reselect/re-enter them before retrying.
 
 The first candidate for a new exercise requires `--brief FILE`; start from [the brief template](templates/brief.json). Supply its constraints, exact references and generation provenance. Later revisions can inherit constraints/references, but should still provide the actual generation prompt and source hashes. The store saves that payload privately under the version's `generation.json` and keeps the supplied frame masters unchanged.
 

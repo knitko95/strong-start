@@ -1,5 +1,8 @@
 # Generator instructions
 
+For shared hosted work, follow [remote workspace access](hosted-workspace.md). Use its current records and authenticated file manifest, not an archived local copy. The remote credential defines the worker identity; it cannot approve artwork or publish a release. Local paths in migrated provenance are retrievable private manifest keys.
+
+
 Your output is an unapproved candidate for the assigned exercise IDs. Do not change other exercises, mark your own work owner-approved, alter the runtime catalogue or publish a release.
 
 Inspect the exercise record's `reviewReferences` attachments (original image bytes and owner guidance), as well as references on the chosen version. Images attached during owner review apply across revisions even when they were added while viewing an older candidate. Record how each supplied reference affects the new brief; do not assume it was already considered by an earlier generator.

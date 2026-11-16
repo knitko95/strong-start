@@ -1,5 +1,8 @@
 # Coordinator instructions
 
+For shared hosted work, follow [remote workspace access](hosted-workspace.md). Use its current records and authenticated file manifest, not an archived local copy. The remote credential defines the worker identity; it cannot approve artwork or publish a release. Local paths in migrated provenance are retrievable private manifest keys.
+
+
 Use this with the repository's `AGENTS.md` and the private feedback workflow. The current request defines the authorized scope; a queue status does not authorize new features or production publication.
 
 1. Fetch and compare dev/main, preserve unrelated local changes and work from current dev in an isolated task worktree. Read the relevant tracker issue and comments; check for competing claims. Record the branch, workspace path, exact exercise IDs and next action in the claim.

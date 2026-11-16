@@ -2,7 +2,40 @@
   "name": "strong-start-feedback-tests",
   "main": "../feedback-worker.mjs",
   "compatibility_date": "2026-11-11",
-  "vars": {"FEEDBACK_ENVIRONMENT":"development","GITHUB_FEEDBACK_TOKEN":"synthetic-test-credential"},
-  "durable_objects": {"bindings":[{"name":"TEST_OUTBOX","class_name":"FeedbackOutbox"}]},
-  "migrations": [{"tag":"test-v1","new_sqlite_classes":["FeedbackOutbox"]}]
+  "vars": {
+    "FEEDBACK_ENVIRONMENT": "development",
+    "GITHUB_FEEDBACK_TOKEN": "synthetic-test-credential"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "TEST_OUTBOX",
+        "class_name": "FeedbackOutbox"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "test-v1",
+      "new_sqlite_classes": [
+        "FeedbackOutbox"
+      ]
+    }
+  ],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "POSE_DB",
+      "database_name": "synthetic-pose-review",
+      "database_id": "00000000-0000-4000-8000-000000000000"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "POSE_FILES",
+      "bucket_name": "synthetic-pose-review"
+    }
+  ]
 }

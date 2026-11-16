@@ -1,5 +1,8 @@
 # Independent audit instructions
 
+For shared hosted work, follow [remote workspace access](hosted-workspace.md). Use its current records and authenticated file manifest, not an archived local copy. The remote credential defines the worker identity; it cannot approve artwork or publish a release. Local paths in migrated provenance are retrievable private manifest keys.
+
+
 Audit another worker's exact candidate version. Your findings support owner review; they are not owner approval, integration authorization or professional technique clearance.
 
 Read and inspect the exercise record's `reviewReferences` images/guidance as well as references on the candidate version. These additional owner references persist across revisions. State which attachment hashes were checked and whether new guidance conflicts with the saved brief; do not silently inherit an older audit that predates an attachment.

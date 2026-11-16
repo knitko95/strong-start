@@ -1,5 +1,9 @@
 # Using Strong Start
 
+## Private exercise review on testing
+
+The [hosted exercise review page](https://dev.strongstart.app/exercise-guides/pose-review/) requires an authorized Google sign-in. Its **Connected to private hosted workspace** banner means saved notes, decisions, versions and reference images are shared across computers. Use Refresh workspace for newer changes. Unsaved note edits remain on their current browser. Owner review and publishing demonstrations into the workout app remain separate. See [agent access and workspace guidance](pose-authoring/hosted-workspace.md).
+
 ## Consistent controls on testing
 
 On dev, secondary actions have larger touch areas, mode selectors use a shared highlighted style, and expandable cards and detail rows use a right-side chevron. Standard dialogs have a common title and Close control; their existing Cancel, Done and other task actions remain. Focused workout screens and full-height coach conversations keep their own layouts. Setup fits narrow phones, active equipment locations are highlighted, and light-theme helper text is darker.

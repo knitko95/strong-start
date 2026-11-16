@@ -1,5 +1,9 @@
 # Strong Start architecture and operations
 
+## Private exercise authoring on development — November 16, 2026
+
+The development Worker adds a private authoring API with D1 revision-checked records/history and immutable private R2 objects. Browser owner sign-in uses verified Google identities from development Auth and an independent allowlist; no app staff roles change. Named agent credentials can generate/audit but cannot make owner decisions. Private images/sources require authentication. The public review seed and workout runtime remain separate. Production does not import or bind the authoring backend. See [operations, remote agents and recovery](pose-authoring/hosted-workspace.md).
+
 ## Shared display preferences and policy pages — November 15, 2026
 
 `theme.css` contains the shared app/policy color and typography tokens. `appearance.js` restores a two-field `{theme,color}` local display cache before CSS paints. The app refreshes it from its current settings during rendering; coach previews apply their appearance without persisting it. This cache is separate from account/plan/history storage and does not change the state schema, storage key or sync protocol.
