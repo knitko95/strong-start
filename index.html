@@ -5934,6 +5934,7 @@ function renderSettings(){
   ${!active?cmCoachCard():''}
   ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
   ${active&&active[0]==='account'?accountCard():''}
+  ${USAGE_CONFIG.enabled&&usageContext().eligible?setting('account','analytics','Usage analytics',USAGE.choice()==='yes'?'On':'Off',USAGE.card({embedded:true})):''}
   ${active&&active[0]==='profile'?profileCard(s):''}
   ${setting('profile','appearance','Appearance',(COLORS[s.color||'blush']||COLORS.blush).n+' · '+(s.color==='noir'?'Always dark':({auto:'Match my phone',light:'Always light',dark:'Always dark'}[s.theme||'auto'])),appearance)}
   ${setting('training','goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
@@ -6344,8 +6345,7 @@ function render(){
   window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#app'),APP_ENV);
   USAGE.screen();
   if(USAGE_CONFIG.enabled && usageContext().eligible &&
-    ((ui.tab==='settings'&&ui.settingsGroup==='account') ||
-     (USAGE.choice()===null&&(ui.tab==='today'||(state.setup&&!state.setup.paused))))){
+    (USAGE.choice()===null&&(ui.tab==='today'||(state.setup&&!state.setup.paused)))){
     document.querySelector('#app').insertAdjacentHTML('beforeend',USAGE.card());
   }
 }

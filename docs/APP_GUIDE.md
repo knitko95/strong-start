@@ -46,7 +46,8 @@ Eighteen reviewed exercises use transparent two-pose demonstrations in the worko
 
 The test app offers optional selected-interaction analytics through PostHog. It
 is off until you choose Allow analytics on Today/setup or Settings → Account &
-backups. Change the choice there anytime. The choice applies to this test browser
+backups → Usage analytics. Expand that card to allow or turn off analytics; its
+collapsed header shows the current On/Off choice. Change the choice there anytime. The choice applies to this test browser
 and does not sync. Names, emails, entered text, health details and coach messages
 are excluded; there are no recordings. This version leaves live analytics off.
 
