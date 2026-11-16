@@ -82,7 +82,7 @@ fs.mkdirSync(evidence, { recursive: true });
     for (const width of [1280, 390, 320]) {
       const { context, page, errors, requests } = await open(width);
       assert.equal(await page.locator('#exercise-list [data-exercise-id]').count(), 18);
-      assert.deepEqual(await page.locator('#exercise-detail > .panel').evaluateAll(panels=>panels.slice(0,2).map(p=>p.querySelector('h3')?.textContent)),['Your review','Your reference images'],'Review and reference images are the first panels');
+      assert.deepEqual(await page.locator('#exercise-detail > .viewer-card, #exercise-detail > .review-panel').evaluateAll(panels=>panels.slice(0,3).map(p=>p.classList.contains('viewer-card')?'Demonstration':p.querySelector('h3')?.textContent)),['Demonstration','Your review','Your reference images'],'Demonstration comes first, followed directly by review and reference images');
       assert.equal(await page.locator('details.secondary-panel').count(),3);
       assert.equal(await page.locator('details.secondary-panel[open]').count(),0,'Technical information starts collapsed');
       for(const id of ['generation-brief','independent-audit','decision-history']){await page.locator('#'+id+' > summary').click();assert.equal(await page.locator('#'+id).getAttribute('open'),'');await page.locator('#'+id+' > summary').click();}

@@ -54,7 +54,7 @@ The hosted dashboard saves drafts in that browser, with JSON export/import for h
 
 In the local dashboard, **Your reference images** lets you choose a PNG, JPEG or WebP image, add a label and optional guidance, and save it with **Add reference image**. Images remain private on this computer and are available to agents for later revisions. Each image may be up to 5 MB; an exercise can have 20 additional references. Adding a reference preserves the demonstration and approval. JSON review exports contain metadata only; keep the private workspace folder to back up the image files.
 
-Review controls come first, with reference images directly underneath and the demonstration after them. Generation brief, independent audit and decision history are collapsed by default; click their headings to read the details.
+The demonstration comes first, with **Your review** directly underneath and reference images after it. Generation brief, independent audit and decision history are collapsed by default; click their headings to read the details.
 
 ## Two-pose exercise demonstrations on testing
 
