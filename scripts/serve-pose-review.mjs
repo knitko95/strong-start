@@ -17,6 +17,7 @@ export async function startReviewServer({workspace=path.join(root,'output/pose-r
    if(req.headers.host!==new URL(origin).host)throw new ReviewError('Invalid local host',403);
    if(req.headers.origin&&req.headers.origin!==origin)throw new ReviewError('Cross-origin requests are not accepted',403);
    const url=new URL(req.url,origin);
+   const migrationFile=path.join(store.workspace,'HOSTED-WORKSPACE.json');if(existsSync(migrationFile)){const target=JSON.parse(readFileSync(migrationFile,'utf8')).url;if(target!=='https://dev.strongstart.app/exercise-guides/pose-review/')throw new ReviewError('Invalid hosted workspace marker',503);if(req.method==='GET'&&(url.pathname==='/'||url.pathname==='/exercise-guides/pose-review/')){res.writeHead(302,{Location:target+url.search});res.end();return;}if(req.method!=='GET'&&req.method!=='HEAD')throw new ReviewError('Reviews now save at '+target+'. Your local archive is preserved.',409);}
    if(url.pathname==='/api/pose-review/state'&&req.method==='GET'){json(200,{schemaVersion:1,mode:'workspace',token,exercises:store.list()});return;}
    if(url.pathname.startsWith('/api/pose-review/')){
     if(req.method!=='POST')throw new ReviewError('Method not allowed',405);
