@@ -6,13 +6,13 @@ On dev, secondary actions have larger touch areas, mode selectors use a shared h
 
 ## Navigation and policy appearance on testing
 
-The profile icon opens All settings. Equipment returns to **Your training**. Weekly weigh-ins opened from **Profile & appearance** return there and keep the profile icon highlighted; weigh-ins opened from Today return to **Today**. Coach tools use **All settings** when returning to the Settings overview.
+The profile icon opens **Profile & settings**. Equipment returns to **Places & equipment**. Weekly weigh-ins opened from **Your profile** return there and keep the profile icon highlighted; weigh-ins opened from Today return to **Today**. Coach tools return to **Profile & settings**. Browser Back and the visible Back control preserve the menu you came from.
 
 Privacy and Terms use the same fonts, color palette and light/dark choice as the app, including **Match my phone**. They keep their reading layout and existing policy wording. The app stores only the color and appearance choices in a small display-preference cache on this browser; no account or workout data is read by the policy pages. Direct visits without that cache use Blush and the system appearance. Back to Strong Start uses the previous app page when the browser can restore it, with the app root as its normal link destination.
 
 ## Connected sign-ins on testing — November 15, 2026
 
-Open **Settings → Account & backups → Account → Sign-in methods** to see connected
+Open **Profile & settings → Account & data → Sign-in methods** to see connected
 Google, Apple and email identities. Sign in to the account with your existing plan
 first, then use **Connect Google** or **Connect Apple**. The new provider may use a
 different email, including Apple’s Hide My Email. Both methods then open the same
@@ -73,8 +73,8 @@ Eighteen reviewed exercises use transparent two-pose demonstrations in the worko
 ## Optional usage analytics on testing
 
 The test app offers optional selected-interaction analytics through PostHog. It
-is off until you choose Allow analytics on Today/setup or Settings → Account &
-backups → Usage analytics. Expand that card to allow or turn off analytics; its
+is off until you choose Allow analytics on Today/setup or Profile & settings → Account &
+data → Usage analytics. Expand that card to allow or turn off analytics; its
 collapsed header shows the current On/Off choice. Change the choice there anytime. The choice applies to this test browser
 and does not sync. Names, emails, entered text, health details and coach messages
 are excluded; there are no recordings. This version leaves live analytics off.
@@ -120,7 +120,7 @@ After sign-in, supported phone browsers show Home Screen instructions before set
 
 The iPhone Home Screen app may require signing in again because its sign-in storage is separate from Safari. A skipped installation screen can be revisited from the reminder on Today; dismissing that reminder hides it for a week. Desktop and standalone sessions do not show the same prompts.
 
-Offline files download automatically during an online visit; there is no Offline access card in Settings. Sign in and load your plan first, and allow the download to finish before going offline. Once cached, the app can reopen, log sets, and resume a saved workout without the app server. Account sync, sign-in, messages, and coach updates still need a connection. Reconnect and check sync before relying on another device (on dev, use **Settings > Account & backups > Account > Sync details**). Clearing browser data or browser storage eviction removes offline files and local data, so another online visit is needed afterward. A Home Screen installation may need its own first online visit. Background/locked-screen timer accuracy still depends on the phone.
+Offline files download automatically during an online visit; there is no Offline access card in Settings. Sign in and load your plan first, and allow the download to finish before going offline. Once cached, the app can reopen, log sets, and resume a saved workout without the app server. Account sync, sign-in, messages, and coach updates still need a connection. Reconnect and check sync before relying on another device (on dev, use **Profile & settings > Account & data > Sync status**). Clearing browser data or browser storage eviction removes offline files and local data, so another online visit is needed afterward. A Home Screen installation may need its own first online visit. Background/locked-screen timer accuracy still depends on the phone.
 
 ## Finding your settings
 
@@ -191,7 +191,7 @@ On the test app, all 320 strength exercises have 3D demonstrations using the sha
 
 On the test app, Today's compact workout card shows the workout name and a short muscle summary beside front and back figures. Tap either figure to open **Muscles worked**. The popup lists main and supporting muscles; selecting one shows the exercises that work it and their roles. Highlights describe general muscle involvement, not intensity or individual technique validation. The preview follows the actual exercise choices for the selected place, including swaps. A paused workout uses its saved session exercises. Browsing does not start, change or save a workout, and it also works in coach preview.
 
-On the test app, Plan opens with a compact **Schedule** card: workouts per week, session length and selected weekdays, or **Any days that work for you** for flexible schedules. **Edit schedule** opens Settings > Your training with Schedule expanded; coach previews show the schedule as view-only. Selected days are reminders, separate from the repeating workout order.
+On the test app, Plan opens with a compact **Schedule** card: workouts per week, session length and selected weekdays, or **Any days that work for you** for flexible schedules. **Edit schedule** opens Profile & settings > Your training plan > Schedule & workout length directly and returns to Plan with Back; coach previews show the schedule as view-only. Selected days are reminders, separate from the repeating workout order.
 
 Under **Your workouts**, each workout group is a numbered, collapsed dropdown. Its name, focus and time remain visible, and **Up next** follows the same recommendation as Today. Expand it to see exercises and use Adjust or Swap. Groups open independently and stay open while making adjustments during the page session. The location selector still adapts exercises for the selected place. **Plan help** holds the Swap/Adjust instructions and timing notes.
 
@@ -262,15 +262,15 @@ The app saves a browser copy and, when signed in/connected, syncs to Supabase. O
 
 On dev, sign in to the same account on another device to retrieve its data. Independent workout entries are combined. If both devices change the plan/settings/active workout, or edit the same history entry differently, saving pauses with **Review sync conflict**. Tap the sync banner, copy both versions if needed, then choose **Keep this device’s version** or **Use account version**. The choice applies to conflicting data; independent workouts are retained and deleted workouts stay deleted. Plan/settings/progression are chosen together, not merged field by field. You can decide later and keep working locally, but cannot sign out until the conflict is resolved.
 
-The latest resolved conflict remains available through **Settings > Account & backups > Account > Sync details > Copy last conflict recovery** until another conflict is resolved, you switch accounts, or sign out. Keep a private copy before those actions if needed. The first sync after upgrading may ask you to choose between differing older device/account copies because no shared baseline was recorded previously.
+The latest resolved conflict remains available through **Profile & settings > Account & data > Sync status > Copy last conflict recovery** until another conflict is resolved, you switch accounts, or sign out. Keep a private copy before those actions if needed. The first sync after upgrading may ask you to choose between differing older device/account copies because no shared baseline was recorded previously.
 
-Use **Settings > Account & backups > Backup > Copy backup** (on the test app) to keep a personal copy. **Restore my backup** replaces state/logs after confirmation. The signed-in warning explains that the replacement syncs to the account and other devices and may remove account workouts missing from the backup. Back up first and use only the intended person's data. On dev, an explicit restore gives imported workouts new internal IDs, so intentionally restored sessions can be saved even if their original copies were deleted. An ordinary reconnect does not restore deleted history. Do not paste a real backup into a public issue or repository.
+Use **Profile & settings > Account & data > Backups > Download backup** (on the test app) to keep a personal copy. **Restore my backup** replaces state/logs after confirmation. The signed-in warning explains that the replacement syncs to the account and other devices and may remove account workouts missing from the backup. Back up first and use only the intended person's data. On dev, an explicit restore gives imported workouts new internal IDs, so intentionally restored sessions can be saved even if their original copies were deleted. An ordinary reconnect does not restore deleted history. Do not paste a real backup into a public issue or repository.
 
 Changing lb/kg converts working weights, previous sets, historical set/planned weights, body weight, weigh-ins, and active/saved drafts. Display values are rounded to two decimals; stored conversion values retain more precision. Version 6 records units explicitly. Legacy values are assumed to use their saved profile unit: incorrect unit switches made before this fix cannot be reconstructed automatically. Historical free-text progression notes retain their original explicitly written units.
 
 Sign-out flushes queued and in-flight changes before clearing the local cache. If syncing fails, sign-out stops and the device copy is retained; retry sync and keep a backup if problems remain. Signing out clears the cached plan/history from that browser. It does not delete the account.
 
-On dev, **Settings > Account & backups > Account > Delete my account** permanently removes the login, plan/settings, workouts, and coach messages. Copy a backup first if wanted, then type **DELETE** and confirm. Cancel is focused initially. A sign-in within the last ten minutes is required; if asked, cancel, sign out, sign in again, and return to the deletion screen. Paused and not-yet-invited accounts can also delete from their account screen. Coach and owner accounts must arrange deletion with the app owner. Joining again requires a new beta invite.
+On dev, **Profile & settings > Account & data > Delete my account** permanently removes the login, plan/settings, workouts, and coach messages. Copy a backup first if wanted, then type **DELETE** and confirm. Cancel is focused initially. A sign-in within the last ten minutes is required; if asked, cancel, sign out, sign in again, and return to the deletion screen. Paused and not-yet-invited accounts can also delete from their account screen. Coach and owner accounts must arrange deletion with the app owner. Joining again requires a new beta invite.
 
 App feedback remains in the private tracker and historical records to help improve the app. Reports sent with the name-and-ID notice retain those two details in the private tracker after account deletion. Earlier unattributed reports stay unattributed; historical database records lose their profile/workout links on deletion. Text and screen/device context remain and may identify the sender; contact the app owner to request removal of retained feedback. Successful deletion clears this browser's account copy. Other devices can retain offline copies until they reconnect; a connected current dev client removes its copy when account sync confirms the account is gone. Backups copied elsewhere are not erased.
 
@@ -298,7 +298,7 @@ Live arrivals preserve the draft, focus and cursor. If you are at the bottom, th
 
 On dev, the old copy-and-text progress report flow has been removed from Progress, program completion, and workout instructions. Once a signed-in person's workouts have synced, their coach can review them through **Your people**; no separate report is needed. Personal backups remain under Settings. This cleanup is awaiting approval for the live app.
 
-For a coach, **Settings > Your people > Open** shows approved people's activity, pending updates, messages, and invites.
+For a coach, **Profile & settings > Manage your people** shows approved people's activity, pending updates, messages, and invites.
 
 - **Invite someone** creates a one-use link. Copy/share it deliberately with its intended recipient. A waiting invite can be cancelled.
 - **Open their app** loads a person's plan/history into a temporary coach view. The banner identifies whose app is being viewed. Edits are not saved automatically.
