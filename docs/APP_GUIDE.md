@@ -52,8 +52,15 @@ means the latest changes are not yet durable. Offline edits sync on reconnect.
 
 Use one active app tab per browser. If **Another tab saved changes** appears,
 copy a backup from Settings, close other tabs and reload. If an older tab leaves
-a second copy, the app preserves both and offers a recovery backup; contact the
-owner before continuing. Personal backups remain `{state, logs}`. This update
+a second copy, close other app tabs and choose **Download both copies**. Keep the
+file private. Check **Use the current app copy and keep the older copy as a backup**,
+then choose **Continue with current app copy** to resume. Older-only changes are
+not merged automatically; contact the owner for help recovering those changes.
+The older copy remains under **Profile & settings > Account & data > Backups >
+Download device recovery copies** until sign-out, account switching, deletion or
+clearing browser data. Recovery downloads include all off-page workouts and both
+versions. The combined file is not a single backup to paste into Restore.
+Personal backups remain `{state, logs}`. This update
 is for dev review; production is unchanged.
 
 ## Exercise artwork review

@@ -3,7 +3,7 @@
 const {chromium}=require('playwright');
 const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),assert=require('node:assert/strict');
 const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
-const server=http.createServer((req,res)=>{try{const p=req.url.split('?')[0],file=path.join(root,'dist',p==='/'?'index.html':p);res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.js')?'text/javascript':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
+const server=http.createServer((req,res)=>{try{const p=req.url.split('?')[0],file=path.join(root,'dist',p==='/'?'index.html':p);res.setHeader('Content-Type',file.endsWith('.html')?'text/html':file.endsWith('.css')?'text/css':file.endsWith('.js')?'text/javascript':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
 const COUNT=+(process.env.SYNC_TEST_COUNT||2600);
 async function parity(page){
  await page.addScriptTag({content:fs.readFileSync(path.join(root,'scripts/fixtures/full-history-reference.js'),'utf8')});

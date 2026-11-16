@@ -20,6 +20,43 @@
     serial(fn){const p=this.tail.catch(()=>{}).then(fn);this.tail=p;return p;}
     async check(t){const m=await request(t.objectStore('meta').get('active'));if((m?.version||0)!==this.version)throw Object.assign(Error('Another tab saved changes. Copy a backup and reload this tab.'),{code:'stale_device_copy'});return m;}
     putMeta(t,value){t.objectStore('meta').put({version:this.version+1,value},'active');}
+    async deviceRecoveryAvailable(owner){
+      let found=false;
+      await this.tx(['meta'],'readonly',t=>scan(t.objectStore('meta'),IDBKeyRange.bound('device-recovery/','device-recovery/\uffff'),'next',r=>{if(r.owner===(owner||null)){found=true;return false;}}));
+      return found;
+    }
+    archiveLegacy(raw){return this.serial(async()=>{
+      if(localStorage.getItem(this.name)!==raw)throw Error('Another tab changed the older copy. Close other app tabs and reload before continuing.');
+      await this.tx(['meta'],'readwrite',async t=>{
+        const current=await this.check(t);
+        t.objectStore('meta').put({owner:current.value.sync?.owner||null,raw,at:new Date().toISOString()},'device-recovery/'+crypto.randomUUID());
+        this.putMeta(t,current.value);
+      });this.version++;
+      // Keep a later legacy write intact. The durable archive must commit first.
+      if(localStorage.getItem(this.name)!==raw)throw Error('Another tab changed the older copy. Both copies are still preserved. Close other app tabs and reload.');
+      localStorage.removeItem(this.name);this.legacy=null;
+    });}
+    async deviceRecoveryParts(legacyRaw=null,owner=null){
+      const parts=['{"format":"strong-start-device-recovery-v1","indexed":'];
+      await this.tx(['meta','logs','facts','pending','stage'],'readonly',async t=>{
+        const active=await this.check(t),value=active.value;
+        parts.push('{"state":'+JSON.stringify(value.state)+',"logs":[');let first=true;
+        await scan(t.objectStore('logs'),IDBKeyRange.bound('local/','local/\uffff'),'next',r=>{if(r.data){parts.push((first?'':',')+JSON.stringify(r.data));first=false;}});
+        parts.push(']},"legacy":',legacyRaw||'null',',"olderCopies":[');let firstOlder=true;
+        await scan(t.objectStore('meta'),IDBKeyRange.bound('device-recovery/','device-recovery/\uffff'),'next',r=>{if(r.owner===(owner||null)){parts.push((firstOlder?'':',')+r.raw);firstOlder=false;}});
+        parts.push('],"storage":{');
+        // Preserve sync baselines, outbox, staged changes and off-page records too.
+        for(const [i,name] of ['meta','logs','facts','pending','stage'].entries()){
+          parts.push((i?',':'')+JSON.stringify(name)+':[');let firstRow=true;
+          await scan(t.objectStore(name),null,'next',(value,c)=>{
+            if(name==='meta'&&String(c.key).startsWith('device-recovery/')&&value.owner!==(owner||null))return;
+            parts.push((firstRow?'':',')+JSON.stringify({key:c.key,value}));firstRow=false;
+          });parts.push(']');
+        }
+        parts.push('}}');
+      });return parts;
+    }
+    async clearDeviceRecoveries(t){await scan(t.objectStore('meta'),IDBKeyRange.bound('device-recovery/','device-recovery/\uffff'),'next',(_,c)=>c.delete());}
     async open(){
       this.db=await new Promise((resolve,reject)=>{
         const r=indexedDB.open(this.name+'_indexed',2);
@@ -85,13 +122,12 @@
       return this.serial(async()=>{
         await this.tx(['meta','logs','facts','pending'],'readwrite',async t=>{
           const prior=await this.check(t);
-          if(prior?.value?.sync?.owner&&prior.value.sync.owner!==captured.sync.owner){this.historyVersion=(this.historyVersion||0)+1;for(const n of ['logs','facts','pending'])t.objectStore(n).clear();}
+          if(prior?.value?.sync?.owner&&prior.value.sync.owner!==captured.sync.owner){this.historyVersion=(this.historyVersion||0)+1;for(const n of ['logs','facts','pending'])t.objectStore(n).clear();await this.clearDeviceRecoveries(t);}
           for(const l of changes)await this.stageLocal(t,l,captured.state?.settings?.units);
           captured.paged=true;this.putMeta(t,captured);
         });this.version++;
         if(changes.length)this.historyVersion=(this.historyVersion||0)+1;
         if(this.pageGeneration===generation){for(const l of changes)this.view.set(l.id,this.options.signature(l));while(this.view.size>31)this.view.delete(this.view.keys().next().value);}
-        try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}
       });
     }
     remove(id,value){return this.serial(async()=>{
@@ -104,7 +140,7 @@
     });}
     clear(){return this.serial(async()=>{await this.tx(['meta','logs','facts','pending','stage'],'readwrite',async t=>{
       const m=await request(t.objectStore('meta').get('active'));this.version=m?.version||0;
-      for(const n of ['logs','facts','pending','stage'])t.objectStore(n).clear();this.putMeta(t,null);
+      for(const n of ['logs','facts','pending','stage'])t.objectStore(n).clear();await this.clearDeviceRecoveries(t);this.putMeta(t,null);
     });this.version++;this.historyVersion=(this.historyVersion||0)+1;this.view.clear();});}
     beginIncoming(){this.stageToken??=crypto.randomUUID();const prefix=this.stageToken+'/';return this.serial(()=>this.tx(['stage'],'readwrite',t=>scan(t.objectStore('stage'),IDBKeyRange.bound(prefix,prefix+'\uffff'),'next',(_,c)=>c.delete())));}
     incoming(rows){const captured=clone(rows),prefix=this.stageToken+'/';return this.serial(()=>this.tx(['stage'],'readwrite',t=>{for(const r of captured)t.objectStore('stage').put(r,prefix+r.id);}));}
@@ -187,7 +223,7 @@
     async finishMigration(value){
       const m=value.sync.migration;if(!m)return value;this.stageToken=m.token;
       const next=await this.applyIncoming({state:m.state,revision:String(m.revision)},value);
-      try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}return next;
+      if(this.importedLegacy)try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}return next;
     }
     importLegacy(value,compact){return this.serial(async()=>{
       await this.tx(['meta','logs','facts','pending','stage'],'readwrite',async t=>{
@@ -202,7 +238,7 @@
           sync.migration={token,state:c.state,revision:c.revision||sync.base?.revision||'0'};sync.conflict=null;
         }
         this.putMeta(t,{state:value.state,logs:[],sync,paged:true});
-      });this.version++;this.historyVersion=(this.historyVersion||0)+1;
+      });this.version++;this.historyVersion=(this.historyVersion||0)+1;this.importedLegacy=true;
       const valueOnDisk=await this.tx(['meta'],'readonly',t=>request(t.objectStore('meta').get('active')));
       if(!valueOnDisk.value.sync.migration)try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}
       return valueOnDisk.value;

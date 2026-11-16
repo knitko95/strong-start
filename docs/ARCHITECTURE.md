@@ -50,7 +50,17 @@ persists or uploads. Boot awaits storage before account initialization.
 Legacy `{state,logs,sync}` browser saves migrate without changing IDs, state
 version or ownership. The legacy copy is removed only after IndexedDB commits;
 failed migration keeps it. A second legacy copy from an older tab is preserved
-and reopening offers a recovery backup instead of discarding either version.
+and reopening offers a complete recovery download and explicit continuation with
+the current IndexedDB copy. The older raw JSON is archived transactionally in
+owner-scoped `meta` entries before its unchanged localStorage value is removed.
+Both IndexedDB generation and legacy raw-value checks reject intervening writes.
+The download includes complete local workouts and all five storage collections,
+including pending, baseline, conflict and staged records; it is not the visible
+history page. Archived older copies remain downloadable from Backups for the
+current owner. Sign-out/deletion and owner replacement clear private archives.
+Routine saves no longer remove a legacy copy. Only a completed legacy import or
+explicit archival retires the matching old value. An interrupted migration keeps
+the old copy and may require explicit recovery on the next boot.
 Sign-out/deletion clear records and retain a generation marker against stale
 tabs. Without IndexedDB the app retains its limited localStorage fallback. A
 failed IndexedDB read stops boot instead of saving defaults over existing data.

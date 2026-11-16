@@ -953,6 +953,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.9.1",
+    "date": "2026-11-16",
+    "title": "Recover two device copies",
+    "notes": ["Download both complete device copies when an older app tab leaves a second save.", "Continue with the current app copy while keeping the older copy available in Backups until sign-out."]
+  },
+  {
     "version": "0.9.0",
     "date": "2026-11-16",
     "title": "Coaching-first Profile & settings",
@@ -2165,7 +2171,7 @@ async function downloadHistoryBackup(recovery=false){
   const url=URL.createObjectURL(new Blob(parts,{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=recovery?'strong-start-recovery.json':'strong-start-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup downloaded. Keep it private.');
 }
 
-const DEVICE={store:null,flight:Promise.resolve(),pending:0,error:null};
+const DEVICE={store:null,flight:Promise.resolve(),pending:0,error:null,archived:false};
 function loadLocal(){
   try{ const raw=localStorage.getItem(LS); if(raw){ const o=JSON.parse(raw); return o; } }catch(e){}
   return null;
@@ -2179,11 +2185,47 @@ async function openDevice(){
   await new Promise((resolve,reject)=>{const r=indexedDB.deleteDatabase(LS+'_preview_indexed');r.onsuccess=resolve;r.onerror=()=>reject(r.error);r.onblocked=()=>reject(Error('Close the other preview tab and reload.'));});
   DEVICE.store=createHistoryStore(LS);
   const saved=await DEVICE.store.open();
-  if(saved&&loadLocal()?.state){
-    DEVICE.recovery={indexed:saved,legacy};
+  const legacyRaw=localStorage.getItem(LS),latest=legacyRaw?JSON.parse(legacyRaw):null;
+  DEVICE.archived=await DEVICE.store.deviceRecoveryAvailable(saved?.sync?.owner);
+  if(saved&&latest?.state){
+    DEVICE.recovery={indexed:saved,legacy:latest,legacyRaw};
     throw Error('Two device copies found');
   }
   return saved||legacy;
+}
+function downloadDeviceFile(parts){
+  const url=URL.createObjectURL(new Blob(parts,{type:'application/json'})),a=document.createElement('a');
+  a.href=url;a.download='strong-start-device-recovery.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function downloadDeviceRecovery(){
+  await flushDevice();
+  downloadDeviceFile(await DEVICE.store.deviceRecoveryParts(null,SYNC.owner));
+}
+async function recoverDeviceCopies(){
+  const pair=DEVICE.recovery,app=document.getElementById('app');
+  document.body.classList.add('in-setup');document.body.classList.remove('in-focus');
+  const describe=s=>{const date=new Date(s?.updatedAt);return Number.isFinite(+date)&&+date>0?'Last saved '+date.toLocaleString():'Save time unavailable';};
+  app.innerHTML=`<section class="ob stack" aria-labelledby="device-recovery-title"><h1 id="device-recovery-title">Two device copies found</h1>
+    <p>The current app and an older app tab each have a saved copy. Close other Strong Start tabs before continuing.</p>
+    <div class="card stack"><b>Current app copy</b><span class="small">${esc(describe(pair.indexed.state))}</span><b>Older tab copy</b><span class="small">${esc(describe(pair.legacy.state))}</span></div>
+    <p class="small">Download both complete copies first and keep the file private. Continuing uses the current app copy; changes found only in the older copy will not be applied automatically. The older copy stays in Backups on this device until you sign out or clear browser data. Contact the app owner if you need help recovering its changes.</p>
+    <button class="btn" id="device-recovery-download">Download both copies</button>
+    <label class="toggle" for="device-recovery-confirm"><span>Use the current app copy and keep the older copy as a backup</span><input type="checkbox" id="device-recovery-confirm"></label>
+    <button class="btn primary" id="device-recovery-continue" disabled>Continue with current app copy</button>
+    <p class="small" id="device-recovery-message" role="status"></p></section>`;
+  const download=document.getElementById('device-recovery-download'),confirm=document.getElementById('device-recovery-confirm'),go=document.getElementById('device-recovery-continue'),message=document.getElementById('device-recovery-message');
+  confirm.onchange=()=>{go.disabled=!confirm.checked;};
+  download.onclick=async()=>{
+    download.disabled=true;
+    try{downloadDeviceFile(await DEVICE.store.deviceRecoveryParts(pair.legacyRaw,pair.indexed.sync?.owner));message.textContent='Recovery download prepared. Check that the file saved and keep it private.';}
+    catch(e){message.textContent='The complete backup could not be prepared. Both copies remain saved. Close other tabs and reload to retry.';}
+    finally{download.disabled=false;}
+  };
+  return new Promise(resolve=>{go.onclick=async()=>{
+    if(!confirm.checked)return;go.disabled=true;confirm.disabled=true;download.disabled=true;
+    try{await DEVICE.store.archiveLegacy(pair.legacyRaw);DEVICE.archived=true;DEVICE.recovery=null;resolve(pair.indexed);}
+    catch(e){message.textContent=e.message||'Both copies remain saved. Close other app tabs and reload to retry.';download.disabled=false;}
+  };});
 }
 async function flushDevice(){
   // Edits can queue another transaction while a previous one is finishing.
@@ -2193,6 +2235,7 @@ async function flushDevice(){
 async function clearDevice(){
   await DEVICE.flight;
   if(DEVICE.store)await DEVICE.store.clear();
+  DEVICE.archived=false;
   if(PAGE.active){PAGE.scope++;PAGE.summary=null;PAGE.sig=null;PAGE.view={before:null,exercise:null};}
   try{localStorage.removeItem(LS);}catch{}
 }
@@ -2745,6 +2788,7 @@ async function onSignedIn(u){
   if(!AUTH.user || AUTH.user.id!==u.id) return;
   const prevOwner=(rememberedAcct()||{}).id || lsGet('strongstart_owner');
   if((prevOwner && prevOwner!==u.id) || (SYNC.owner && SYNC.owner!==u.id)){
+    DEVICE.archived=false;
     if(PAGE.active){PAGE.scope++;PAGE.summary=null;PAGE.sig=null;PAGE.view={before:null,exercise:null};}
     state=defaults(); logs=[]; SYNC={owner:u.id,base:null,conflict:null,recovery:null};
   }
@@ -6218,6 +6262,7 @@ function settingsFields(){
   ${setting('account','backup','Backup',saveStatus()[1]+' · copy or restore',`
     <p class="small muted" style="margin:0">${AUTH.user?'Your workouts sync to your account when connected. Check the save indicator for the latest status. You can also copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
     <div class="row"><button class="btn sm" data-action="copybackup">${PAGE.active?'Download backup':'Copy backup'}</button></div>
+    ${PAGE.active&&DEVICE.archived?'<p class="small">An older device copy is preserved here until sign-out. Download the recovery file to keep it privately.</p><button class="btn sm" data-action="devicebackup">Download device recovery copies</button>':''}
     <button class="btn sm" data-action="settingspage" data-v="restore">Restore a backup…</button>
   `)}
   ${setting('account','restore','Restore a backup','',`    <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
@@ -6620,6 +6665,7 @@ document.addEventListener('toggle',e=>{
 document.addEventListener('click', async e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   let a=b.dataset.action;
+  if(a==='devicebackup'&&!coachMode){try{await downloadDeviceRecovery();}catch{toast('Recovery backup could not be downloaded. The saved copies are preserved.');}return;}
   if(a==='analyticsyes'||a==='analyticsno'){USAGE.choose(a==='analyticsyes'?'yes':'no');render();return;}
   USAGE.press(a==='fmoredo'?b.dataset.do:a);
   if(AUTH.deleting) return;
@@ -6900,10 +6946,8 @@ document.addEventListener('click',e=>{
 (async function boot(){
   let saved;
   try{saved=await openDevice();}catch(e){
-    document.getElementById('app').innerHTML=DEVICE.recovery
-      ? '<div class="ob"><h1>Two device copies found</h1><p>An older app tab saved another copy. Both are preserved. Copy this recovery backup and contact the app owner before continuing.</p><textarea class="in" aria-label="Device recovery backup" readonly>'+esc(JSON.stringify(DEVICE.recovery))+'</textarea></div>'
-      : '<div class="ob"><h1>Device storage unavailable</h1><p>Your saved copy has been kept. Close other app tabs and reload to try again.</p></div>';
-    return;
+    if(DEVICE.recovery)saved=await recoverDeviceCopies();
+    else{document.getElementById('app').innerHTML='<div class="ob"><h1>Device storage unavailable</h1><p>Your saved copy has been kept. Close other app tabs and reload to try again.</p></div>';return;}
   }
   if(saved && saved.state){ if(saved.sync) SYNC=saved.sync; state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
