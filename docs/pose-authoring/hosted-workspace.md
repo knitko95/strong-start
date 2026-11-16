@@ -6,6 +6,19 @@ The storage banner must say **Connected to private hosted workspace**. Decisions
 
 ## Other agents and computers
 
+### Fresh-computer setup
+
+Install Git and a current Node.js LTS release, then clone the development source:
+
+```powershell
+git clone --branch dev https://github.com/knitko95/strong-start.git
+cd strong-start
+```
+
+If the repository already exists, read its `AGENTS.md`, inspect its branch and dirty state, and follow the dev-first workflow without overwriting local work. Read-only remote CLI use does not require installing npm packages or running a local server. Start by reading `AGENTS.md`, this guide, and the applicable coordinator/generator/auditor instructions.
+
+The owner must create an agent credential and save it privately on that computer. If you were not given its file location, ask for the **file path**, not the secret. Do not use the owner's browser session or initialize a local workspace as a fallback. The initial `list` command below is the connection check: it should return the shared exercise records. A 401 means the credential needs correction, renewal or replacement; do not proceed with writes until access works.
+
 An owner opens **Agent access** and creates a distinct named credential for each generator/auditor. Save the one-time credential privately on that agent's computer, outside Git, public exports and chat messages. Credentials expire after 30 days and can be revoked or replaced immediately. They can read source evidence, claim exercises, upload immutable files, register candidates and submit independent audits. They cannot approve artwork, impersonate a different worker, change publication pointers or manage access. Do not copy browser login cookies to agents.
 
 ```powershell

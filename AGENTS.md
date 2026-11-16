@@ -2,6 +2,13 @@
 
 Read this file first. It is the shared guidance for coding agents; `CLAUDE.md` imports it. Read [the app guide](docs/APP_GUIDE.md) for user/coach workflows, [architecture](docs/ARCHITECTURE.md) before changing persistence or permissions, and [the dated review](docs/REVIEW-2026-11-11.md) for findings and verification limits.
 
+## Exercise demonstration work: shared hosted workspace
+
+- Before generating, auditing or revising exercise demonstrations, read [the hosted workspace setup and agent workflow](docs/pose-authoring/hosted-workspace.md) and the applicable [authoring role instructions](docs/pose-authoring/README.md). Use current `dev` source; the hosted tools are not assumed present on `main`.
+- The canonical review queue is `https://dev.strongstart.app/exercise-guides/pose-review/`. Use `scripts/pose-review-remote.mjs` with a distinct owner-issued agent credential saved in a private file outside the repository. Ask for the credential file's location if missing; never ask the owner to paste the secret into chat. Test access with `list` before claiming work. Browser Google sign-in and agent credentials are separate.
+- Read the current shared record, full exercise notes, source limitations, owner correction notes and actual reference images before working. Claim assigned exercises using their current revisions; preserve exact versions, hashes, history and independent auditor identities. Follow the guide for source-file retrieval, candidate uploads, audits and release of claims.
+- Do not initialize another local review queue or use archived local snapshots as the current source. Migrated Windows paths in provenance are private file-manifest keys retrievable through the remote CLI. Agent credentials cannot approve artwork or publish a release; owner review and app publication remain separate.
+
 ## Scope and owner decisions
 
 - Work on the feature or fix the user requested. Do not introduce unsolicited exercise features, wording changes, or design changes without the owner's approval. The current request can provide that approval; do not ask again for work already authorized.
