@@ -3,7 +3,7 @@
  'use strict';
  const STORAGE_KEY='strongstart_pose_review_v1',DRAFT_KEY='strongstart_pose_review_notes_v1';
  const $=selector=>document.querySelector(selector),statusNames={'unreviewed':'Unreviewed','approved':'Approved','needs-changes':'Needs changes'};
- let exercises=[],mode='browser',token=null,selectedId=null,selectedVersionId=null,baseRevisions={},draftNotes={},disposeViewer=()=>{},busy=false,seedRevision='',background='light',viewMode='animation',compareOpen=false,storageSnapshot=null;
+ let exercises=[],mode='browser',token=null,selectedId=null,selectedVersionId=null,baseRevisions={},draftNotes={},disposeViewer=()=>{},busy=false,seedRevision='',background='light',viewMode='animation',compareOpen=false,storageSnapshot=null,referencePreviewURL=null;
  function node(tag,attributes={},...children){const e=document.createElement(tag);for(const [key,value] of Object.entries(attributes)){if(value===undefined||value===null)continue;if(key==='class')e.className=value;else if(key==='text')e.textContent=value;else if(key==='hidden')e.hidden=!!value;else e.setAttribute(key,String(value));}for(const child of children.flat()){if(child!==null&&child!==undefined)e.append(typeof child==='string'?document.createTextNode(child):child);}return e;}
  function message(text,error=false){const e=$('#message');e.textContent=text;e.hidden=!text;e.classList.toggle('error',error);}
  const clone=value=>JSON.parse(JSON.stringify(value));
@@ -34,6 +34,7 @@
  function checkImmutable(incoming,current){
   if(incoming.name!==current.name)throw Error('Exercise names cannot be changed through a review import.');
   if(JSON.stringify(incoming.versions)!==JSON.stringify(current.versions))throw Error('This export changes version data. Register candidates through the authoring workflow; review import only transfers decisions.');
+  if(JSON.stringify(incoming.reviewReferences||[])!==JSON.stringify(current.reviewReferences||[]))throw Error('This export changes reference images. Attach images in the local workspace.');
   const v=current.versions.find(v=>v.id===incoming.review.versionId);if(incoming.review.versionId!==null&&!v)throw Error('The reviewed version is not registered in this workspace.');return v;
  }
  function decisionRecord(current,{versionId,fingerprint,status:decision,note},type='review'){
@@ -60,23 +61,27 @@
    try{storageSnapshot=localStorage.getItem(STORAGE_KEY);const cached=JSON.parse(storageSnapshot||'null');if(cached){validateRecords(cached);let ignored=0;for(const saved of cached.exercises){const index=exercises.findIndex(e=>e.id===saved.id);if(index<0){ignored++;continue;}try{checkImmutable(saved,exercises[index]);exercises[index]={...exercises[index],revision:saved.revision,review:saved.review,approvedVersionId:saved.approvedVersionId,history:saved.history};if(Number.isSafeInteger(cached.baseRevisions?.[saved.id]))baseRevisions[saved.id]=cached.baseRevisions[saved.id];}catch{ignored++;}}if(ignored)message('Some older browser drafts no longer match registered versions. Their saved file has not been overwritten; export it before replacing those drafts.');}}
    catch{message('An older browser draft could not be read. The approved library is available; keep a backup of your previous export.',true);}
   }
-  selectedId=exercises.find(e=>e.id===new URLSearchParams(location.search).get('exercise'))?.id||selectedId||exercises[0]?.id;setStorageNotice();renderList();renderDetail();
+  const params=new URLSearchParams(location.search),requested=exercises.find(e=>e.id===params.get('exercise'));selectedId=requested?.id||selectedId||exercises[0]?.id;
+  const requestedFilter=params.get('review');if([...$('#review-filter').options].some(o=>o.value===requestedFilter))$('#review-filter').value=requestedFilter;else if(!requested&&exercises.some(e=>status(e)!=='approved'))$('#review-filter').value='pending';
+  setStorageNotice();renderList();renderDetail();
  }
  function renderList(){
   const query=$('#exercise-search').value.trim().toLowerCase(),filter=$('#review-filter').value;
-  $('#status-counts').replaceChildren(...[['Total',exercises.length],['Approved',exercises.filter(e=>status(e)==='approved').length],['To review',exercises.filter(e=>status(e)!=='approved').length]].map(([label,count])=>node('div',{class:'count-chip'},node('strong',{text:count}),label)));
-  const found=exercises.filter(e=>(e.name.toLowerCase().includes(query)||e.id.includes(query))&&(filter==='all'||filter==='flagged'&&flagged(e)||filter==='implemented'&&!!e.developmentVersionId||status(e)===filter));$('#result-count').textContent=String(found.length);
+  $('#status-counts').replaceChildren(...[['All exercises',exercises.length,'all'],['Approved',exercises.filter(e=>status(e)==='approved').length,'approved'],['Needs review',exercises.filter(e=>status(e)!=='approved').length,'pending']].map(([label,count,value])=>{const b=node('button',{type:'button',class:'count-chip'+(value==='pending'?' review-queue':''),'aria-label':label+' ('+count+')','aria-pressed':String(filter===value)},node('strong',{text:count}),label);b.addEventListener('click',()=>{ $('#exercise-search').value='';$('#review-filter').value=value;updateList();});return b;}));
+  const found=exercises.filter(e=>(e.name.toLowerCase().includes(query)||e.id.includes(query))&&(filter==='all'||filter==='pending'&&status(e)!=='approved'||filter==='flagged'&&flagged(e)||filter==='implemented'&&!!e.developmentVersionId||status(e)===filter));$('#result-count').textContent=String(found.length);
+  if(!found.some(e=>e.id===selectedId)){selectedId=found[0]?.id||null;selectedVersionId=null;viewMode='animation';}
   $('#exercise-list').replaceChildren(...found.map(e=>{const b=node('button',{type:'button',class:'exercise-item','data-exercise-id':e.id,'aria-current':String(e.id===selectedId)},node('span',{class:'exercise-name',text:e.name}),node('span',{class:'exercise-meta'},node('span',{class:'tiny-dot '+status(e),'aria-hidden':'true'}),statusNames[status(e)],e.assignment?' · '+e.assignment.worker:''));b.addEventListener('click',()=>selectExercise(e.id));return b;}));
-  if(!found.length)$('#exercise-list').append(node('p',{class:'empty-state',text:'No exercises match this view.'}));
+  if(!found.length)$('#exercise-list').append(node('p',{class:'empty-state',text:filter==='pending'&&!query?'You’re caught up. No exercises need review. Choose All exercises to browse approved versions.':'No exercises match this view.'}));
  }
+ function updateList(){renderList();renderDetail();const url=new URL(location.href);url.searchParams.set('review',$('#review-filter').value);if(selectedId)url.searchParams.set('exercise',selectedId);else url.searchParams.delete('exercise');history.replaceState(null,'',url);}
  function selectExercise(id){selectedId=id;selectedVersionId=null;viewMode='animation';const url=new URL(location.href);url.searchParams.set('exercise',id);history.replaceState(null,'',url);renderList();renderDetail();if(matchMedia('(max-width:650px)').matches){$('#exercise-detail').scrollIntoView({block:'start',behavior:'auto'});$('#exercise-title')?.focus({preventScroll:true});}}
  function renderDetail(){
-  disposeViewer();disposeViewer=()=>{};const exercise=selected(),detail=$('#exercise-detail');if(!exercise){detail.replaceChildren(node('div',{class:'empty-state',text:'No exercise selected.'}));return;}
+  disposeViewer();disposeViewer=()=>{};if(referencePreviewURL){URL.revokeObjectURL(referencePreviewURL);referencePreviewURL=null;}const exercise=selected(),detail=$('#exercise-detail');if(!exercise){detail.replaceChildren(node('div',{class:'empty-state',text:'No exercise selected.'}));return;}
   const version=exercise.versions.find(v=>v.id===selectedVersionId)||latest(exercise);selectedVersionId=version?.id||null;
   const heading=node('div',{class:'detail-heading'},node('div',{},node('span',{class:'eyebrow',text:'MOVEMENT LIBRARY'}),node('h2',{id:'exercise-title',tabindex:'-1',text:exercise.name}),node('p',{class:'detail-subtitle',text:version?'Reviewing '+version.id:'Waiting for the first candidate'})),node('div',{class:'badges'},node('span',{class:'badge '+versionStatus(exercise,version),text:statusNames[versionStatus(exercise,version)]}),node('span',{class:'badge',text:version&&exercise.developmentVersionId===version.id?'On dev':'Not on dev'}),node('span',{class:'badge',text:version&&exercise.productionVersionId===version.id?'On production':'Not on production'})));
   detail.replaceChildren(heading);
   if(exercise.assignment)detail.append(node('p',{class:'assignment',text:'Assigned to '+exercise.assignment.worker+' · batch '+exercise.assignment.batch}));
-  if(!version){detail.append(node('div',{class:'panel empty-state',text:'This exercise is queued. A generator must register a candidate before it can be reviewed.'}));renderReview(exercise,null);renderHistory(exercise);return;}
+  if(!version){detail.append(node('div',{class:'panel empty-state',text:'This exercise is queued. A generator must register a candidate before it can be reviewed.'}));renderReferenceImages(exercise,null);renderReview(exercise,null);renderHistory(exercise);return;}
   const selector=node('select',{id:'version-select','aria-label':'Exercise version'});for(const v of [...exercise.versions].reverse()){const option=node('option',{value:v.id,text:v.id+(v.id===exercise.approvedVersionId?' · approved':'')});option.selected=v.id===version.id;selector.append(option);}selector.addEventListener('change',()=>{selectedVersionId=selector.value;renderDetail();});
   const switcher=node('div',{class:'segmented','aria-label':'Pose view'});for(const [value,label] of [['animation','Animation'],['pose0','Pose 1'],['pose1','Pose 2']]){const b=node('button',{type:'button','data-view':value,'aria-pressed':String(viewMode===value),text:label});b.addEventListener('click',()=>{viewMode=value;renderDetail();});switcher.append(b);}
   const stage=node('div',{id:'pose-stage',class:'viewer-stage surface-'+background,role:'img','aria-label':exercise.name+' '+(viewMode==='animation'?'two-pose demonstration':viewMode==='pose0'?'first pose':'second pose')});const imgs=version.frames.slice(0,2).map((frame,index)=>{const img=node('img',{src:safeURL(frame.url,{image:true}),alt:'',width:frame.width,height:frame.height});img.hidden=index!==0;img.addEventListener('error',()=>{if(!stage.querySelector('.load-error'))stage.append(node('p',{class:'load-error',text:'This pose image is unavailable here. Open the local workspace containing the registered candidate assets.'}));});stage.append(img);return img;});
@@ -84,6 +89,7 @@
   detail.append(node('div',{class:'viewer-card'},node('div',{class:'viewer-toolbar'},node('label',{class:'version-label'},'Version',selector),switcher),stage,node('div',{class:'viewer-bottom'},node('p',{class:'viewer-note',id:'playback-note',text:'Automatic · 0.9 seconds per pose'}),backgrounds),node('div',{class:'fingerprint',text:'Exact version · '+version.fingerprint})));
   setupViewer(stage,imgs);
   renderComparison(exercise,version);
+  renderReferenceImages(exercise,version);
   const columns=node('div',{class:'columns'});columns.append(renderConstraints(version),renderAudit(version));detail.append(columns);
   renderReview(exercise,version);renderHistory(exercise);
  }
@@ -108,6 +114,29 @@
   panel.append(node('p',{text:audit.reviewer?'Reviewed by '+audit.reviewer:'Owner artwork approval is preserved. A separate technique audit has not been recorded.'}));
   const checklist=audit.checks?.length?audit.checks:[['variation','Exercise variation and start/finish match'],['anatomy','Limb count, joints and hand anatomy'],['grip','Hand contact and wrist alignment'],['form','Movement against form notes and references'],['perspective','Equipment perspective and fixed camera'],['fixed-elements','Stable and intended moving regions'],['transparency','Transparency, clipping and identity'],['readability','Movement reads clearly in both poses']].map(([id,label])=>({id,label,result:'not-checked'}));for(const check of checklist){panel.append(node('div',{class:'audit-check'},node('span',{class:'check-symbol '+check.result,'aria-label':check.result.replaceAll('-',' '),text:check.result==='pass'?'✓':check.result==='fail'?'!':'○'}),node('div',{},node('span',{text:check.label||check.id}),check.note?node('p',{text:check.note}):null)));}
   for(const finding of audit.findings||[])panel.append(node('p',{class:'finding '+finding.severity,text:finding.text}));for(const limitation of audit.limitations||[])panel.append(node('p',{text:limitation}));panel.append(node('p',{text:'Playback and file checks do not establish correct exercise technique.'}));return panel;
+ }
+ function renderReferenceImages(exercise,version){
+  const panel=node('section',{class:'panel review-panel reference-panel'},node('h3',{text:'Your reference images'}),node('p',{text:'Add form examples or correction details for this exercise. Agents must review these alongside the detailed exercise notes. Images apply across revisions; adding one does not approve or change the demonstration.'}));
+  const refs=exercise.reviewReferences||[];
+  if(refs.length){
+   const gallery=node('div',{class:'reference-gallery'});
+   for(const ref of refs){
+    const caption=node('figcaption',{},node('strong',{text:ref.label}),ref.note?node('p',{text:ref.note}):null,node('p',{class:'muted',text:'Added '+formatDate(ref.createdAt)+(ref.sourceVersionId?' while viewing '+ref.sourceVersionId:' before the first candidate')}));
+    gallery.append(node('figure',{class:'reference-card'},node('a',{href:safeURL(ref.url,{image:true}),target:'_blank',rel:'noopener noreferrer','aria-label':'Open '+ref.label+' full size'},node('img',{src:safeURL(ref.url,{image:true}),alt:ref.label,loading:'lazy'})),caption));
+   }panel.append(gallery);
+  }else panel.append(node('p',{text:'No additional reference images yet.'}));
+  if(mode!=='workspace'){panel.append(node('p',{text:'To save reference images for your agents, open the local review workspace. This hosted preview does not upload images.'}),node('a',{class:'button secondary',href:'http://127.0.0.1:8734/exercise-guides/pose-review/?exercise='+exercise.id,text:'Open local review workspace'}));$('#exercise-detail').append(panel);return;}
+  const file=node('input',{id:'reference-file',type:'file',accept:'image/png,image/jpeg,image/webp'}),label=node('input',{id:'reference-label',type:'text',maxlength:'200',placeholder:'e.g. Correct wrist position'}),note=node('textarea',{id:'reference-guidance',maxlength:'3000',placeholder:'What should the agent follow in this image?'}),preview=node('img',{class:'reference-upload-preview',alt:'Selected reference image preview',hidden:true}),upload=node('button',{id:'add-reference',type:'button',class:'primary',text:'Add reference image'}),feedback=node('p',{role:'status','aria-live':'polite'});
+  upload.disabled=refs.length>=20;panel.append(node('p',{text:'PNG, JPEG or WebP · up to 5 MB per image · 20 images per exercise. Saved privately on this computer.'}),node('label',{for:'reference-file',text:'Reference image'}),file,preview,node('label',{for:'reference-label',text:'Image label'}),label,node('label',{for:'reference-guidance',text:'Guidance for agents (optional)'}),note,upload,feedback);
+  file.addEventListener('change',()=>{if(referencePreviewURL)URL.revokeObjectURL(referencePreviewURL);referencePreviewURL=null;preview.hidden=true;feedback.textContent='';const chosen=file.files[0];if(!chosen)return;if(!['image/png','image/jpeg','image/webp'].includes(chosen.type)||chosen.size>5_000_000){feedback.textContent='Choose a PNG, JPEG or WebP image no larger than 5 MB.';return;}referencePreviewURL=URL.createObjectURL(chosen);preview.src=referencePreviewURL;preview.hidden=false;if(!label.value.trim())label.value=chosen.name.replace(/\.[^.]+$/,'').slice(0,200);});
+  upload.addEventListener('click',async()=>{
+   const chosen=file.files[0];if(!chosen||!label.value.trim()){feedback.textContent='Choose an image and add a label.';return;}if(!['image/png','image/jpeg','image/webp'].includes(chosen.type)||chosen.size>5_000_000){feedback.textContent='Choose a PNG, JPEG or WebP image no larger than 5 MB.';return;}
+   upload.disabled=true;feedback.textContent='Saving reference image…';
+   try{const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(Error('Could not read this image.'));reader.readAsDataURL(chosen);});const decoded=new Image();decoded.src=data;await decoded.decode();if(decoded.naturalWidth>8192||decoded.naturalHeight>8192||decoded.naturalWidth*decoded.naturalHeight>32_000_000)throw Error('Use an image up to 8192 pixels per side and 32 megapixels.');
+    const current=exercises.find(e=>e.id===exercise.id);const result=await api('reference-images',{id:exercise.id,expectedRevision:current.revision,versionId:version?.id||null,fingerprint:version?.fingerprint||null,label:label.value.trim(),note:note.value,image:data.slice(data.indexOf(',')+1)});validateRecords({schemaVersion:1,exercises:[result.record]});exercises=exercises.map(e=>e.id===result.record.id?result.record:e);baseRevisions[result.record.id]=result.record.revision;
+    if(selectedId===exercise.id){renderList();renderDetail();}message('Reference image saved privately for '+exercise.name+'. Your review note and approval are unchanged.');
+   }catch(error){feedback.textContent=error.status===409?error.message+' Your selected image and guidance are retained. Use Refresh workspace, then select the image again before retrying.':error.message;upload.disabled=false;}
+  });$('#exercise-detail').append(panel);
  }
  function renderReview(exercise,version){
   const panel=node('section',{class:'panel review-panel'},node('h3',{text:'Your review'}),node('p',{class:'review-description',text:version?'Your decision applies to this exact version. It does not replace the app asset or publish a release.':'Review becomes available when a candidate has been registered.'}));
@@ -137,7 +166,7 @@
    message('Imported '+changed.length+' review decision'+(changed.length===1?'':'s')+'. No candidate assets were replaced or published.');renderList();renderDetail();
   }catch(error){message('Import not applied: '+error.message,true);}finally{$('#import-reviews').value='';}
  }
- $('#exercise-search').addEventListener('input',renderList);$('#review-filter').addEventListener('change',renderList);$('#export-reviews').addEventListener('click',exportReviews);$('#import-reviews').addEventListener('change',event=>importReviews(event.target.files[0]));$('#refresh-workspace').addEventListener('click',refreshWorkspace);
+ $('#exercise-search').addEventListener('input',updateList);$('#review-filter').addEventListener('change',updateList);$('#export-reviews').addEventListener('click',exportReviews);$('#import-reviews').addEventListener('change',event=>importReviews(event.target.files[0]));$('#refresh-workspace').addEventListener('click',refreshWorkspace);
  window.addEventListener('storage',event=>{if(event.key===STORAGE_KEY&&mode==='browser')message('Another window changed review drafts. Export your current reviews before reloading so notes are not lost.',true);});
  load().catch(error=>{message(error.message,true);$('#storage-mode').textContent='Review library unavailable';$('#exercise-detail').replaceChildren(node('div',{class:'panel empty-state',text:'The review library could not be loaded. Refresh when the seed catalogue or local workspace is available.'}));});
 })();

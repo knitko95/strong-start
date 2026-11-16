@@ -465,6 +465,34 @@ body.in-setup .wrap{padding-bottom:calc(24px + var(--safe-bottom))}
 }
 .today-workout{gap:12px}
 .today-workout h1{margin:0}
+.today-workout-summary{display:grid;grid-template-columns:minmax(0,1fr) 116px;gap:12px;align-items:center}
+.today-workout-copy{min-width:0;display:flex;flex-direction:column;gap:9px}
+.today-workout-copy p{margin:0;font-size:var(--text-base);line-height:1.5}
+.today-schedule{display:flex;align-items:center;flex-wrap:wrap;gap:5px 8px;min-width:0}
+.today-schedule-note{font-size:var(--text-xs);color:var(--muted)}
+.today-muscle-preview{display:flex;align-items:center;justify-content:center;gap:4px;width:116px;min-height:112px;padding:0;background:none;border:0;border-radius:12px}
+.today-muscle-preview svg{display:block;width:56px;height:112px;flex:none;pointer-events:none}
+.today-muscle-preview:active{background:var(--accent-soft);transform:scale(.96)}
+.today-workout .today-exercises-toggle{padding:6px 0;min-height:44px}
+.today-workout .today-exercises[hidden]{display:none}
+.today-workout:has(.today-exercises[hidden]){row-gap:8px}
+.workout-muscle-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.workout-muscle-head h2{margin-top:6px}
+.workout-muscle-head button{flex:none}
+.workout-muscle-sheet .bodypair{background:none;padding:0;gap:24px;max-width:280px;margin:0 auto}
+.workout-muscle-sheet .bodybig{max-height:200px;display:block}
+.workout-muscle-sheet .map-view-label{text-align:center;font-size:var(--text-xs);color:var(--muted)}
+.workout-muscle-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 18px;font-size:var(--text-xs);color:var(--muted)}
+.workout-muscle-legend span{display:inline-flex;align-items:center;gap:6px}
+.workout-muscle-legend i{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.workout-muscle-legend .supporting{background:var(--rose)}
+.workout-muscle-choices{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.workout-muscle-choice{min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:var(--text-sm);font-weight:700}
+.workout-muscle-choice[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.workout-muscle-detail{border-top:1px solid var(--line);padding-top:12px}
+.workout-muscle-item{display:flex;justify-content:space-between;gap:12px;padding:7px 0;font-size:var(--text-md)}
+.workout-muscle-item span:last-child{flex:none;color:var(--muted);font-size:var(--text-xs)}
+@media(max-width:360px){.today-workout-summary{grid-template-columns:minmax(0,1fr) 104px;gap:8px}.today-muscle-preview{width:104px;gap:0}.today-muscle-preview svg{width:52px;height:104px}.today-schedule{gap:4px 6px}}
 .today-plan-phase{border-top:1px solid var(--line);padding:14px 0 2px}
 .today-plan-phase:first-child{border-top:0;padding-top:0}
 .today-plan-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px;font:600 var(--text-base) var(--body)}
@@ -933,6 +961,27 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.8.0",
+    "date": "2026-11-15",
+    "title": "Paged history and complete progress",
+    "notes": [
+      "Browse older workouts in small pages while progress calculations use your complete saved history.",
+      "Large histories and sync recovery copies stay in offline device storage. Backups download every saved workout."
+    ]
+  },
+  {
+    "version": "0.7.0",
+    "date": "2026-11-15",
+    "title": "Connected sign-in methods",
+    "notes": ["Manage connected Google and Apple sign-ins in Settings → Account & backups → Account → Sign-in methods. Connect another method to keep using the same plan and history, even with different email addresses. Apple sign-in becomes available after Apple setup is complete."]
+  },
+  {
+    "version": "0.6.0",
+    "date": "2026-11-15",
+    "title": "Workout muscle preview",
+    "notes": ["Today has a compact workout summary with front and back muscle diagrams. Tap the figures to see the main and supporting muscles and which exercises work them. The preview follows your current exercises and paused workout."]
+  },
   {
     "version": "0.5.9",
     "date": "2026-11-15",
@@ -1599,6 +1648,43 @@ function musInfo(id){
     ${s.length?`<div><span class="eyebrow">Secondary</span><div class="row" style="margin-top:4px">${s.map(m=>`<span class="chip schip">${MUSCLES[m]}</span>`).join('')}</div></div>`:''}</div>
     <p class="small muted" style="margin:0">${esc(ex.cue)}</p>
     <button class="btn ghost" data-action="closemodal">Close</button>`);
+}
+// Session coverage uses the same exercise mapping as Plan, with primary taking
+// precedence when a muscle also supports another exercise in this session.
+function workoutMuscles(slots){
+  const primary=new Set(), secondary=new Set(), items={};
+  for(const slot of slots){
+    const mapping=EXM[slot.id]; if(!mapping) continue;
+    for(const [ids,role,set] of [[mapping.p,'Main',primary],[mapping.s,'Supporting',secondary]]){
+      for(const m of ids){
+        if(!MUSCLES[m]) continue;
+        set.add(m); (items[m]??=[]).push({id:slot.id,role});
+      }
+    }
+  }
+  const p=[...primary],s=[...secondary].filter(m=>!primary.has(m));
+  return {p,s,items,color:m=>primary.has(m)?'var(--accent)':secondary.has(m)?'var(--rose)':'var(--mbase)'};
+}
+function workoutMuscleSummary(coverage){
+  const grouped={front_delts:'Shoulders',side_delts:'Shoulders',rear_delts:'Shoulders',abs:'Core',obliques:'Core',hip_flexors:'Hip flexors',forearms:'Forearms'};
+  const labels=[...new Set(coverage.p.map(m=>grouped[m]||MUSCLES[m]))];
+  if(!labels.length) return 'View muscle details';
+  const shown=labels.slice(0,4).map((name,i)=>i?name.toLowerCase():name);
+  if(labels.length>4) return shown.join(', ')+` + ${labels.length-4} more`;
+  return shown.length>1?shown.slice(0,-1).join(', ')+' & '+shown.at(-1):shown[0];
+}
+function workoutMuscleInfo(key,selected){
+  const draft=state.draft, currentKey=draft?draft.key:nextWorkoutKey();
+  if(key!==currentKey) return;
+  const coverage=workoutMuscles(draft?dSlots():sessionSlots(key)),{p,s,items,color}=coverage;
+  const all=[...p,...s],sel=all.includes(selected)?selected:all[0];
+  const choices=(ids,label)=>ids.length?`<div><div class="eyebrow">${label}</div><div class="workout-muscle-choices">${ids.map(m=>`<button type="button" class="workout-muscle-choice" data-action="workoutmusclepick" data-key="${esc(key)}" data-v="${m}" aria-pressed="${m===sel}">${esc(MUSCLES[m])}</button>`).join('')}</div></div>`:'';
+  modal(`<div class="workout-muscle-head"><div><div class="eyebrow">${esc(tplOf(key).name)}</div><h2>Muscles worked</h2></div><button type="button" class="btn sm ghost" data-action="closemodal">Close</button></div>
+    <div class="bodypair">${['f','b'].map(view=>`<div>${bodySVG(view,color,{cls:'bodybig'})}<div class="map-view-label">${view==='f'?'Front':'Back'}</div></div>`).join('')}</div>
+    <div class="workout-muscle-legend"><span><i aria-hidden="true"></i>Main muscles</span><span><i class="supporting" aria-hidden="true"></i>Supporting muscles</span></div>
+    ${choices(p,'Main muscles')}${choices(s,'Supporting muscles')}
+    <div class="workout-muscle-detail" aria-live="polite">${sel?`<b>${esc(MUSCLES[sel])}</b><div class="tiny muted">Exercises that work this muscle</div>${items[sel].map(item=>`<div class="workout-muscle-item"><span>${esc(EX[item.id].n)}</span><span>${item.role}</span></div>`).join('')}`:'<p class="small muted">No muscle details are available for these exercises.</p>'}</div>
+    <p class="tiny muted" style="margin:0">Highlights show planned muscle involvement, not intensity. These are general exercise mappings; technique and individual anatomy can change the emphasis.</p>`,{sheetClass:'workout-muscle-sheet'});
 }
 function weekMuscles(split){
   const map={}; Object.keys(MUSCLES).forEach(m=>map[m]={score:0,items:[]});
@@ -2423,7 +2509,12 @@ const INVITE_KEY='strongstart_invite';
 function inviteCode(){ return lsGet(INVITE_KEY)||''; }
 function parseInvite(v){ v=String(v||'').trim(); const m=v.match(/invite=([A-Za-z0-9]+)/); const c=(m?m[1]:v).toUpperCase().replace(/[^A-Z0-9]/g,''); return c.length>=6&&c.length<=20?c:''; }
 (function(){ try{ const q=new URLSearchParams(location.search), c=parseInvite(q.get('invite')); if(q.has('invite')){ if(c) lsSet(INVITE_KEY,c); q.delete('invite'); const qs=q.toString(); history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash); } }catch(e){} })();
-const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
+const AUTH={user:null, ready:false, coach:false, google:false, apple:false, providersReady:false, emailEnabled:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
+const LINK_KEY=storageKey('strongstart_account_link');
+function readAccountLink(){ try{ const p=JSON.parse(sessionStorage.getItem(LINK_KEY)||'null'); return p&&typeof p.uid==='string'&&['google','apple'].includes(p.provider)&&Number.isFinite(p.started)?p:null; }catch(e){return null;} }
+let pendingAccountLink=readAccountLink(),accountLinkFlight=null;
+const SIGNINS={uid:null,identities:[],loading:false,busy:false,err:'',msg:''};
+function clearAccountLink(){pendingAccountLink=null;try{sessionStorage.removeItem(LINK_KEY);}catch(e){}}
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
 const CLOUD={ok:false, busy:false, again:false, pending:false, failed:false, t:null, flight:null};
 function lsGet(k){ try{ return localStorage.getItem(storageKey(k)); }catch(e){ return null; } }
@@ -2469,15 +2560,18 @@ async function initRemote(){
   if(!sb){ setSync('local'); return; }
   sb.auth.onAuthStateChange((ev,session)=>{
     if(AUTH.deleting) return;
+    if(pendingAccountLink){setTimeout(()=>finishAccountLink(),0);return;}
     if(ev==='PASSWORD_RECOVERY'){ AUTH.recovery=true; AUTH.err=''; AUTH.msg=''; render(); }
     const u=session&&session.user||null;
-    if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
+    if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.access=null; AUTH.coach=false; FB.owner=false; AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
+    else if(u) AUTH.user=u; // Refresh linked identities without reloading workout state.
   });
-  fetch(SB_URL+'/auth/v1/settings',{headers:{apikey:SB_KEY}}).then(r=>r.json()).then(j=>{ const g=!!(j&&j.external&&j.external.google); if(g!==AUTH.google){ AUTH.google=g; if(needsAuth()) render(); } }).catch(()=>{});
+  fetch(SB_URL+'/auth/v1/settings',{headers:{apikey:SB_KEY}}).then(r=>{if(!r.ok)throw Error('settings');return r.json();}).then(j=>{ AUTH.google=!!j?.external?.google; AUTH.apple=!!j?.external?.apple; AUTH.emailEnabled=!!j?.external?.email; AUTH.providersReady=true; render(); }).catch(()=>{});
   try{
     const {data}=await withTimeout(sb.auth.getSession(),8000);
     const u=data&&data.session&&data.session.user;
-    if(u){ if(!AUTH.user){ AUTH.user=u; onSignedIn(u); } }
+    if(pendingAccountLink) await finishAccountLink();
+    else if(u){ if(!AUTH.user){ AUTH.user=u; onSignedIn(u); } }
     else if(rememberedAcct() && navigator.onLine){ lsSet(ACCT_KEY,null); }   // signed out elsewhere or session expired: ask to sign in again
     else if(rememberedAcct()) setSync('off');
   }catch(e){ if(rememberedAcct()) setSync('off'); }
@@ -2915,6 +3009,123 @@ function hsAction(a){
   return false;
 }
 
+/* Linked sign-ins keep the Auth user ID; no app data or role memberships move. */
+function signInName(provider){return ({google:'Google',apple:'Apple',email:'Email'})[provider]||'Other sign-in';}
+function signInError(e){
+  const code=String(e?.code||''),s=String(e?.message||'');
+  if(/identity_already_exists|identity_already_linked/.test(code)||/identity.*already.*(linked|exist)/i.test(s)) return 'That sign-in is already connected to an account. Use its existing account; separate workout histories cannot be combined here.';
+  if(/manual_linking_disabled/.test(code)||/manual linking.*disabled/i.test(s)) return 'Connecting sign-ins is awaiting setup on the test app. Your account has not changed.';
+  if(/single_identity|last_identity/.test(code)) return 'Keep at least one available sign-in method connected.';
+  if(/provider_disabled|validation_failed/.test(code)||/provider.*(disabled|not enabled|unsupported)/i.test(s)) return 'This sign-in provider is not available yet. Your account has not changed.';
+  if(/access_denied|cancel/.test(code)) return 'Connection cancelled. Your existing sign-in still works.';
+  return 'Couldn’t update your sign-in methods. Check your connection and try again. Your plan and history have been kept.';
+}
+async function authOAuth(provider){
+  if(AUTH.busy||!sb||!['google','apple'].includes(provider)||!AUTH[provider]||(provider==='apple'&&IS_PRODUCTION))return;
+  AUTH.err='';AUTH.msg='';AUTH.busy=true;render();
+  try{
+    if(navigator.onLine===false)throw Error('network');
+    const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo:SITE_URL}});
+    if(error)throw error;
+  }catch(e){AUTH.busy=false;AUTH.err=authFriendly(e);render();}
+}
+function showSignInMethods(){
+  if(!AUTH.user||SIGNINS.uid!==AUTH.user.id||coachMode||IS_PRODUCTION)return;
+  const list=SIGNINS.identities,busy=SIGNINS.busy||SIGNINS.loading;
+  modal(`<h2>Sign-in methods</h2><p class="small" style="margin:0">These methods open the same account, plan and workout history. To add a different email, connect its Google or Apple sign-in here before using it on the sign-in screen.</p>
+    ${SIGNINS.loading?'<p class="small" role="status">Checking connected sign-ins…</p>':list.map(i=>`<div class="card stack" style="gap:6px"><b>${esc(signInName(i.provider))} · Connected</b><span class="small muted" style="overflow-wrap:anywhere">${esc(i.identity_data?.email||'')}</span>${['google','apple'].includes(i.provider)?`<button class="btn sm" data-action="authdisconnect" data-provider="${esc(i.provider)}" data-id="${esc(i.identity_id||i.id)}" ${busy||!canDisconnect(i,list)?'disabled':''}>Disconnect ${esc(signInName(i.provider))}</button>`:''}</div>`).join('')}
+    ${['google','apple'].filter(p=>!list.some(i=>i.provider===p)).map(p=>`<button class="btn block" data-action="authconnect" data-provider="${p}" ${busy||!AUTH[p]?'disabled':''}>Connect ${signInName(p)}</button>${AUTH.providersReady&&!AUTH[p]?`<p class="tiny muted" style="margin:0">${signInName(p)} is awaiting setup on the test app.</p>`:''}`).join('')}
+    <p class="tiny muted" style="margin:0">Keep at least one available sign-in connected. Apple’s Hide My Email can use a different address. Connecting does not merge two existing accounts.${AUTH.coach||FB.owner?' Your Google sign-in must stay connected for staff access.':''}</p>
+    ${SIGNINS.err?`<p class="small" role="alert">${esc(SIGNINS.err)}</p>`:''}${SIGNINS.msg?`<p class="small" role="status">${esc(SIGNINS.msg)}</p>`:''}
+    <div class="row"><button class="btn" data-action="authmethodsretry" ${busy?'disabled':''}>Refresh methods</button><button class="btn primary" data-action="closemodal">Done</button></div>`);
+}
+function canDisconnect(identity,list){
+  if((AUTH.coach||FB.owner)&&identity.provider==='google')return false;
+  return list.some(i=>(i.identity_id||i.id)!==(identity.identity_id||identity.id)&&
+    ((i.provider==='email'&&AUTH.emailEnabled&&i.identity_data?.email_verified===true)||(['google','apple'].includes(i.provider)&&AUTH[i.provider])));
+}
+async function freshSignInUser(uid){
+  const {data,error}=await withTimeout(sb.auth.getUser(),10000);
+  if(error)throw error;
+  if(!data?.user||data.user.id!==uid||AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+  AUTH.user=data.user;return data.user;
+}
+async function signInMethods(){
+  if(!AUTH.user||coachMode||IS_PRODUCTION||SIGNINS.busy)return;
+  const uid=AUTH.user.id;
+  Object.assign(SIGNINS,{uid,identities:[],loading:true,err:'',msg:''});showSignInMethods();
+  try{const u=await freshSignInUser(uid);SIGNINS.identities=u.identities||[];}
+  catch(e){if(AUTH.user?.id===uid)SIGNINS.err=signInError(e);}
+  finally{SIGNINS.loading=false;if(AUTH.user?.id===uid&&document.querySelector('[data-action="authmethodsretry"]'))showSignInMethods();}
+}
+async function connectSignIn(provider){
+  if(IS_PRODUCTION||!AUTH.user||AUTH.access!=='ok'||coachMode||SIGNINS.busy||SIGNINS.loading||!['google','apple'].includes(provider)||!AUTH[provider])return;
+  const uid=AUTH.user.id;SIGNINS.busy=true;SIGNINS.err='';SIGNINS.msg='';showSignInMethods();
+  try{
+    if(navigator.onLine===false)throw Error('network');
+    const user=await freshSignInUser(uid);
+    if(user.identities?.some(i=>i.provider===provider))throw Error('already connected');
+    if(!await flushCloud())throw Error('sync pending');
+    if(AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+    // A tab-scoped marker contains only the expected account ID and provider.
+    // Failure to store it must stop the redirect rather than risk account switching.
+    sessionStorage.setItem(LINK_KEY,JSON.stringify({uid,provider,started:Date.now()}));
+    const {data,error}=await sb.auth.linkIdentity({provider,options:{redirectTo:SITE_URL,skipBrowserRedirect:true}});
+    if(error)throw error;
+    if(AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+    const target=new URL(data?.url);
+    const providerOrigin=provider==='apple'?'https://appleid.apple.com':'https://accounts.google.com';
+    if(target.username||target.password||![SB_URL,providerOrigin].includes(target.origin))throw Error('invalid redirect');
+    location.assign(target.href);
+  }catch(e){clearAccountLink();SIGNINS.err=e?.message==='sync pending'?'Your latest changes need to sync before connecting a sign-in. Close this sheet, check Sync details and retry.':signInError(e);SIGNINS.busy=false;showSignInMethods();}
+}
+function confirmDisconnect(provider,id){
+  if(IS_PRODUCTION||!AUTH.user||coachMode||SIGNINS.busy||SIGNINS.loading||!['google','apple'].includes(provider))return;
+  const identity=SIGNINS.identities.find(i=>i.provider===provider&&(i.identity_id||i.id)===id);
+  if(!identity||!canDisconnect(identity,SIGNINS.identities))return;
+  const uid=AUTH.user.id;
+  confirmBox(`Disconnect ${signInName(provider)}?`,'Your plan and history stay in this account. Next time, use another connected sign-in.','Disconnect',()=>disconnectSignIn(provider,id,uid));
+}
+async function disconnectSignIn(provider,id,uid){
+  if(IS_PRODUCTION||AUTH.user?.id!==uid||coachMode||SIGNINS.busy)return;
+  SIGNINS.busy=true;SIGNINS.err='';SIGNINS.msg='';showSignInMethods();
+  try{
+    const user=await freshSignInUser(uid),list=user.identities||[],identity=list.find(i=>i.provider===provider&&(i.identity_id||i.id)===id);
+    if(!identity||!['google','apple'].includes(provider)||!canDisconnect(identity,list))throw {code:'single_identity'};
+    const {error}=await sb.auth.unlinkIdentity(identity);if(error)throw error;
+    const updated=await freshSignInUser(uid);SIGNINS.identities=updated.identities||[];SIGNINS.msg=`${signInName(provider)} disconnected.`;
+  }catch(e){SIGNINS.err=signInError(e);}
+  finally{SIGNINS.busy=false;if(AUTH.user?.id===uid&&!coachMode)showSignInMethods();}
+}
+function finishAccountLink(){
+  if(accountLinkFlight)return accountLinkFlight;
+  const pending=pendingAccountLink;if(!pending)return Promise.resolve();
+  accountLinkFlight=(async()=>{
+    let user=null,message='';
+    try{
+      const {data,error}=await withTimeout(sb.auth.getUser(),10000);if(error)throw error;
+      user=data?.user;
+      if(!user||user.id!==pending.uid)throw Error('account mismatch');
+      if(Date.now()-pending.started>30*60*1000||Date.now()<pending.started)throw Error('expired');
+      if(!user.identities?.some(i=>i.provider===pending.provider))throw {code:'access_denied'};
+      message=`${signInName(pending.provider)} is connected to this account.`;
+    }catch(e){message=signInError(e);}
+    finally{clearAccountLink();}
+    if(user?.id===pending.uid){
+      AUTH.access=null;await onSignedIn(user);
+      Object.assign(SIGNINS,{uid:user.id,identities:user.identities||[],loading:false,busy:false,err:'',msg:message});
+      ui.tab='settings';ui.settingsGroup='account';ui.open={...ui.open,account:true};render();
+      if(AUTH.access==='ok')showSignInMethods();
+    }else{
+      // Do not load a different account or upload the original device copy to it.
+      AUTH.user=null;AUTH.access=null;AUTH.coach=false;FB.owner=false;CLOUD.ok=false;clearTimeout(CLOUD.t);
+      try{await sb.auth.signOut({scope:'local'});}catch(e){}
+      lsSet(ACCT_KEY,null);closeModal();AUTH.err='Couldn’t confirm the account connection. Sign in with your original method. Your device copy has been kept.';render();
+    }
+  })().finally(()=>{accountLinkFlight=null;});
+  return accountLinkFlight;
+}
+
 /* Sign in / create account screens */
 function authMsg(){ return AUTH.err?`<p class="small" role="alert" style="margin:0;color:var(--warn,#b3261e)">${esc(AUTH.err)}</p>`:AUTH.msg?`<p class="small" role="status" style="margin:0">${esc(AUTH.msg)}</p>`:''; }
 function renderAuth(){
@@ -2950,7 +3161,10 @@ function renderAuth(){
     ${inv?`<div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><span class="small muted">You have an invite on this phone.</span><button class="btn primary block" data-action="authmode" data-v="signup">Create an account</button></div>`
       :`<div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><span class="small muted">Strong Start is invite-only during beta. Ask your coach for an invite link.</span><button class="btn block" data-action="authmode" data-v="signup">I have an invite</button></div>`}`;
   const g=AUTH.google && (m==='signin'||m==='signup') ? `<button class="btn block" data-action="authgoogle" ${busy} style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;border-radius:14px;font-size:var(--text-lg)"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</button><div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>` : '';
-  b=b.replace('<form ', g+'<form ');
+  const apple=(m==='signin'||m==='signup')&&!IS_PRODUCTION ? `<button class="btn block" data-action="authapple" ${busy||!AUTH.apple?'disabled':''} style="min-height:50px;border-radius:14px;font-size:var(--text-lg);background:#000;color:#fff;border-color:#000">Continue with Apple</button>${AUTH.providersReady&&!AUTH.apple?'<p class="tiny muted" role="status" style="margin:0">Apple sign-in is awaiting setup on the test app.</p>':''}` : '';
+  const social=g.replace(/<div class="row"[\s\S]*$/,'')+apple;
+  const divider=social?'<div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>':'';
+  b=b.replace('<form ', social+divider+'<form ');
   const skip = m==='recovery' ? '' : `<div class="spacer"></div>`;   // "Use without an account" is hidden during the invite-only beta
   return `<div class="ob auth-screen">${b}${skip}<nav aria-label="Policies" class="row auth-policies"><a class="tiny muted" href="privacy.html">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></nav><button class="link tiny muted" data-action="releasenotes">${esc(appVersionLabel())} · Release notes</button></div>`;
 }
@@ -2984,7 +3198,11 @@ async function authSubmit(kind){
 }
 function authAction(a,b){
   if(a==='authmode'){ AUTH.mode=b.dataset.v; AUTH.err=''; AUTH.msg=''; render(); window.scrollTo(0,0); }
-  else if(a==='authgoogle'){ AUTH.busy=true; render(); sb.auth.signInWithOAuth({provider:'google', options:{redirectTo:SITE_URL}}).then(({error})=>{ if(error){ AUTH.busy=false; AUTH.err=authFriendly(error); render(); } }); }
+  else if(a==='authgoogle'||a==='authapple') authOAuth(a==='authapple'?'apple':'google');
+  else if(a==='authmethods') signInMethods();
+  else if(a==='authconnect') connectSignIn(b.dataset.provider);
+  else if(a==='authdisconnect') confirmDisconnect(b.dataset.provider,b.dataset.id);
+  else if(a==='authmethodsretry') signInMethods();
   else if(a==='authcode'){ const c=parseInvite(($('#au-code')||{}).value);
     if(!c){ AUTH.invErr='Paste the whole invite link, or just the code at the end of it.'; render(); return; }
     AUTH.invErr='';
@@ -3014,6 +3232,7 @@ function accountCard(){
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
     <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-action="authout">Sign out</button><button class="btn sm" data-action="syncdetails">Sync details</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></div>
+    ${!IS_PRODUCTION&&!coachMode?'<button class="btn sm" data-action="authmethods">Sign-in methods</button>':''}
     ${AUTH.coach||FB.owner?'<p class="tiny muted" style="margin:0">Coach and owner account deletion must be arranged with the app owner.</p>':'<button class="btn sm danger" data-action="selfdelete">Delete my account</button>'}`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>
@@ -3213,7 +3432,7 @@ async function openPagedPerson(id,name){
     await temporary.open();let head=null,complete=false;
     for(let attempt=0;attempt<3;attempt++){
       await temporary.beginIncoming();const first=await sb.from('app_state').select('state,revision').eq('user_id',id).maybeSingle();
-      if(first.error)throw first.error;if(!first.data?.state?.block){toast(`${name} hasn’t finished setup yet`);temporary.db.close();indexedDB.deleteDatabase(temporary.name+'_indexed');return;}
+      if(first.error)throw first.error;if(!first.data?.state?.block){toast(`${name} hasn’t finished setup yet`);temporary.db?.close();indexedDB.deleteDatabase(temporary.name+'_indexed');return;}
       for(let offset=0;;offset+=250){const r=await sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}).order('id',{ascending:false}).range(offset,offset+249);if(r.error)throw r.error;
         await temporary.incoming((r.data||[]).map(r=>({id:r.data.id,data:r.data,deleted:false})));if((r.data||[]).length<250)break;}
       const last=await sb.from('app_state').select('revision').eq('user_id',id).maybeSingle();if(last.error)throw last.error;
@@ -3227,12 +3446,12 @@ async function openPagedPerson(id,name){
     try{fClearTimer();}catch{}
     coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
     await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);
-  }catch(e){try{temporary.db.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
+  }catch(e){try{temporary.db?.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
 }
 function exitPagedPerson(silent=false){
   const preview=coachMode;if(!preview?.temporary)return false;
   const scope=PAGE.scope+1;state=preview.own.state;logs=preview.own.logs;Object.assign(PAGE,preview.own.page,{scope});coachMode=null;
-  preview.temporary.db.close();indexedDB.deleteDatabase(preview.temporary.name+'_indexed');
+  preview.temporary.db?.close();indexedDB.deleteDatabase(preview.temporary.name+'_indexed');
   if(!silent){ui.tab='people';loadPeople();render();setSync();window.scrollTo(0,0);toast('Back to your app');}return true;
 }
 function coachSendSheet(){
@@ -5731,9 +5950,9 @@ function renderToday(){
   const X=draft?draft._x||sessionExtras(draft,slots):null,mins=X?X.min+Math.round(liftSec(slots)/60)+X.coolMin:totalMinutes(mainKey);
   const location=placeSwitch();
   if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
-  h+=`<section class="card stack today-workout"><div class="today-head"><div class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div><h1>${esc(t.name)}</h1>
-    <p class="muted" style="margin:0">${esc(t.focus)}</p>
-    <div class="row small muted"><span>${draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+esc(planned)}</span></div>
+  const coverage=workoutMuscles(slots),schedule=draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+(planned==='Today'?'today':planned);
+  h+=`<section class="card stack today-workout"><div class="today-head"><div class="today-schedule"><span class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</span><span class="tiny muted" aria-hidden="true">·</span><span class="today-schedule-note">${esc(schedule)}</span></div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div>
+    <div class="today-workout-summary"><div class="today-workout-copy"><h1>${esc(t.name)}</h1><p class="muted">${esc(workoutMuscleSummary(coverage))}</p></div><button type="button" class="today-muscle-preview" data-action="workoutmuscles" data-key="${esc(mainKey)}" aria-label="View muscles worked in ${esc(t.name)}" aria-haspopup="dialog">${bodySVG('f',coverage.color)}${bodySVG('b',coverage.color)}</button></div>
     ${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
     <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
@@ -5862,6 +6081,7 @@ function renderSettings(){
   ${!active?cmCoachCard():''}
   ${!active?`<section class="settings-menu" aria-label="Settings categories">${groups.map(([id,title,description])=>`<button class="card settings-link" data-action="settingsgroup" data-v="${id}"><span><b>${title}</b><span class="small muted">${description}</span></span><span aria-hidden="true">›</span></button>`).join('')}</section>`:''}
   ${active&&active[0]==='account'?accountCard():''}
+  ${USAGE_CONFIG.enabled&&usageContext().eligible?setting('account','analytics','Usage analytics',USAGE.choice()==='yes'?'On':'Off',USAGE.card({embedded:true})):''}
   ${active&&active[0]==='profile'?profileCard(s):''}
   ${setting('profile','appearance','Appearance',(COLORS[s.color||'blush']||COLORS.blush).n+' · '+(s.color==='noir'?'Always dark':({auto:'Match my phone',light:'Always light',dark:'Always dark'}[s.theme||'auto'])),appearance)}
   ${setting('training','goals','Goals',goals().map(g=>GOALS[g].n).join(' + '),`<p class="tiny muted" style="margin:0">Pick up to two. Changes your reps, rest and the “why your plan” note.</p>
@@ -6253,7 +6473,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6272,8 +6492,7 @@ function render(){
   window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#app'),APP_ENV);
   USAGE.screen();
   if(USAGE_CONFIG.enabled && usageContext().eligible &&
-    ((ui.tab==='settings'&&ui.settingsGroup==='account') ||
-     (USAGE.choice()===null&&(ui.tab==='today'||(state.setup&&!state.setup.paused))))){
+    (USAGE.choice()===null&&(ui.tab==='today'||(state.setup&&!state.setup.paused)))){
     document.querySelector('#app').insertAdjacentHTML('beforeend',USAGE.card());
   }
 }
@@ -6393,6 +6612,8 @@ document.addEventListener('click', async e=>{
     case 'swapapply': if(ui.swap&&b.dataset.id===ui.swap.selected)applyExerciseSwap(ui.swap.pk,b.dataset.id,!ui.swap.inW||!!$('#swapkeep')?.checked); break;
     case 'libpick': libPickSheet(b.dataset.pk); break;
     case 'musinfo': musInfo(b.dataset.id); break;
+    case 'workoutmuscles': workoutMuscleInfo(b.dataset.key); break;
+    case 'workoutmusclepick': workoutMuscleInfo(b.dataset.key,b.dataset.v); break;
     case 'exinfo': exInfo(b.dataset.id, b.dataset.pk); break;
     case 'reorder': reorderSheet(b.dataset.key); break;
     case 'settstyle': { state.settings.tstyle=b.dataset.v; delete state.settings.tstyleAuto; const n=applyStylePref(); save(); render(); if(n) toast(`${n} move${n>1?'s':''} you haven’t done yet switched to match`); break; }

@@ -1,5 +1,20 @@
 # Strong Start architecture and operations
 
+## Development linked sign-ins — November 15, 2026
+
+Development adds Apple OAuth and a Sign-in methods sheet using Supabase
+`getUser()`, `linkIdentity()` and `unlinkIdentity()`. Provider availability comes
+from public Auth settings. The existing Auth user ID remains the data owner;
+no plans, logs, role memberships or separate accounts are merged. Connect flushes
+pending saves before redirecting and uses an environment-prefixed sessionStorage
+marker to verify the returning user ID before normal account initialization.
+Same-user Auth refreshes update identities without resetting workout state;
+account changes clear cached access/role flags before access checks. Google
+disconnect is blocked for staff, the last usable method is retained, and coach
+preview cannot manage identities. No database migration or permission changes.
+See [setup, boundaries and limits](APPLE-SIGN-IN-2026-11-15.md). Production UI is
+unchanged; Apple credentials and manual linking still require development setup.
+
 ## Incremental sync and IndexedDB on dev — November 15, 2026
 
 This dev candidate replaces routine full-history transfers with
@@ -89,6 +104,8 @@ Without IndexedDB, the existing localStorage/full-memory fallback remains.
 `scripts/serve-pose-review.mjs` binds only to `127.0.0.1` and serves the same UI with an optional disk-backed workspace. It validates Host/Origin plus a session token for mutations; no general file API is exposed. `scripts/pose-review.mjs` is the local coordinator/agent CLI. Per-exercise locks and expected revisions reject stale writers. Registered frame fingerprints are immutable; candidate creation preserves the approved version and resets only the candidate's review. Audits record their target fingerprint and generator identity remains attached after claim release. Review imports preserve canonical assets, audit evidence and deployment pointers; owner decisions append history and never publish. Workspace assets are contained by real paths and verified against registered hashes when served. Filesystem operators remain trusted; these controls are not staff/account authorization.
 
 Keep the private workspace under an ignored `output/pose-review-workspace` directory, never under static/runtime output. Local supplied references and generation records stay there. See [workflow and limits](pose-authoring/README.md). A browser draft is neither a shared review queue nor an authenticated owner decision until the coordinator reconciles it; release approval still follows AGENTS.md.
+
+Local review-image uploads use the same Host/Origin/session-token and expected-revision checks. A bounded JSON request carries one PNG/JPEG/WebP image, label, guidance and the viewed version fingerprint. Original bytes are content-addressed under the exercise's private `references/` directory; optional `reviewReferences` metadata and a history event are added to the exercise record. Existing records remain compatible. Uploads preserve versions, audits, approvals and deployment pointers. Additional references apply across revisions and cannot be changed through review import. Export archives metadata only; image backup requires the private workspace directory. The hosted preview directs uploads to the local server and has no public image-upload endpoint.
 
 ## Development usage analytics
 
@@ -317,6 +334,12 @@ Timed preparation uses `mode:ready,end:null`. `gPrepareMove()` sends untimed rep
 `gAdjustTime(sec)` changes the current cardio part's remaining countdown milliseconds, using the same sign convention as rest timers: positive adds time and negative removes it. It updates the existing total/remaining/deadline fields without changing planned phase durations or seeking across earlier parts. Removing the final seconds calls `gAdvance()` once; a previously paused timer remains paused if the next cardio part starts. Final completion still uses `gCompleteMove()` and the effort prompt. Accessible button labels say 15 seconds more/less. This corrects the earlier elapsed-position seek behavior behind the plus/minus icons in both warm-up and cool-down.
 
 ## Database structure
+
+### Today session muscle preview on dev (November 15, 2026)
+
+`workoutMuscles(slots)` aggregates the existing `EXM` primary and secondary mappings for the session's strength exercise slots. A muscle that is primary in any slot is shown as main at session level; its individual exercise rows retain their main/supporting roles. The compact summary groups shoulder and core labels, with full coverage in the popup. Both Today figures share a single accessible button and reuse `bodySVG()`. The popup uses the existing modal focus trap, background inertness and focus restoration; all muscle choices are buttons, including supporting muscles.
+
+Today and the popup use `dSlots()` for an active/paused draft, otherwise `sessionSlots(key)`, so they follow draft substitutions, current plan swaps and location adaptation. Warm-up/cardio/cool-down are excluded from this strength-exercise map. Popup actions are allowed in read-only coach preview and do not call save or cloud functions. No state schema, storage key, database, permission or configuration changes are required.
 
 ### Today preparation edits on dev (November 14, 2026)
 

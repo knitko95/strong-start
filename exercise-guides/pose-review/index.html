@@ -18,7 +18,7 @@
   <div id="message" class="message" role="status" aria-live="polite" hidden></div>
   <main class="workspace">
     <aside class="library" aria-label="Exercise library">
-      <div class="library-head"><label for="exercise-search">Find an exercise</label><input id="exercise-search" type="search" placeholder="Search exercises" autocomplete="off"><label class="sr-only" for="review-filter">Review status</label><select id="review-filter"><option value="all">All exercises</option><option value="unreviewed">Unreviewed</option><option value="needs-changes">Needs changes</option><option value="approved">Approved</option><option value="flagged">Flagged in audit</option><option value="implemented">On dev</option></select></div>
+      <div class="library-head"><label for="exercise-search">Find an exercise</label><input id="exercise-search" type="search" placeholder="Search exercises" autocomplete="off"><label class="sr-only" for="review-filter">Review status</label><select id="review-filter"><option value="all">All exercises</option><option value="pending">Needs review</option><option value="unreviewed">Unreviewed</option><option value="needs-changes">Changes requested by you</option><option value="approved">Approved</option><option value="flagged">Flagged in audit</option><option value="implemented">On dev</option></select></div>
       <div id="status-counts" class="status-counts" aria-label="Library totals"></div>
       <div class="list-heading"><span>EXERCISES</span><span id="result-count"></span></div><nav id="exercise-list" aria-label="Choose an exercise"></nav>
     </aside>

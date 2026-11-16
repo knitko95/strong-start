@@ -46,7 +46,7 @@ writeFileSync(path.join(out, 'index.html'), stamped.html);
 writeFileSync(path.join(out,'sw.js'),stamped.sw);
 writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'development'},null,2)+'\n');
 writeFileSync(path.join(out, '_headers'), assetHeaders.replace('/*\n', '/*\n  X-Robots-Tag: noindex, nofollow\n'));
-writeFileSync(path.join(out, '_redirects'), assetRedirects);
+writeFileSync(path.join(out, '_redirects'), assetRedirects + '/exercise-guides/pose-review/ /exercise-guides/pose-review/index.html 200\n');
 writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');

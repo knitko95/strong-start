@@ -1,5 +1,23 @@
 # Using Strong Start
 
+## Connected sign-ins on testing — November 15, 2026
+
+Open **Settings → Account & backups → Account → Sign-in methods** to see connected
+Google, Apple and email identities. Sign in to the account with your existing plan
+first, then use **Connect Google** or **Connect Apple**. The new provider may use a
+different email, including Apple’s Hide My Email. Both methods then open the same
+account. Connecting does not combine two accounts that already have separate data.
+
+Connecting saves and syncs pending workouts before leaving for the provider.
+After returning, the app verifies that the account ID stayed the same. Failed or
+cancelled connections keep the existing plan and history. Disconnecting asks for
+confirmation and requires another available sign-in; staff cannot disconnect Google.
+Coach preview cannot manage a member’s sign-ins. No staff access is granted here.
+
+Apple’s button is disabled until the test backend is configured. Provider linking
+also requires Supabase’s **Enable Manual Linking** setting. These controls are
+development only; see [setup and verification](APPLE-SIGN-IN-2026-11-15.md).
+
 ## Development storage update — November 15, 2026
 
 The test app now opens history in pages of about 30 sessions. **Older sessions**
@@ -30,9 +48,11 @@ is for dev review; production is unchanged.
 
 ## Exercise artwork review
 
-The separate [development review dashboard](https://dev.strongstart.app/exercise-guides/pose-review/) starts with the eighteen approved pose pairs. Search or filter the list, inspect individual poses, compare a candidate with its approved version, read reference/audit notes, and approve or request changes for an exact version. Review approval does not change the workout images or publish a release. Missing audits remain labelled as not audited.
+The separate [development review dashboard](https://dev.strongstart.app/exercise-guides/pose-review/) starts with the eighteen approved pose pairs. Click **Needs review** above the exercise list to see only the latest versions awaiting your review, including versions where you requested changes. **All exercises** and **Approved** are also clickable. A fresh session opens the review queue when candidates are pending. Search or filter the list, inspect individual poses, compare a candidate with its approved version, read reference/audit notes, and approve or request changes for an exact version. Review approval does not change the workout images or publish a release. Missing audits remain labelled as not audited.
 
 The hosted dashboard saves drafts in that browser, with JSON export/import for handoff. For shared subagent work, run the local authoring server: its dashboard saves private records directly to a disk workspace. Notes and supplied reference images are kept outside public runtime files. See [the authoring workflow](pose-authoring/README.md) for startup, generation, audit and fresh-chat handoffs.
+
+In the local dashboard, **Your reference images** lets you choose a PNG, JPEG or WebP image, add a label and optional guidance, and save it with **Add reference image**. Images remain private on this computer and are available to agents for later revisions. Each image may be up to 5 MB; an exercise can have 20 additional references. Adding a reference preserves the demonstration and approval. JSON review exports contain metadata only; keep the private workspace folder to back up the image files.
 
 ## Two-pose exercise demonstrations on testing
 
@@ -42,7 +62,8 @@ Eighteen reviewed exercises use transparent two-pose demonstrations in the worko
 
 The test app offers optional selected-interaction analytics through PostHog. It
 is off until you choose Allow analytics on Today/setup or Settings → Account &
-backups. Change the choice there anytime. The choice applies to this test browser
+backups → Usage analytics. Expand that card to allow or turn off analytics; its
+collapsed header shows the current On/Off choice. Change the choice there anytime. The choice applies to this test browser
 and does not sync. Names, emails, entered text, health details and coach messages
 are excluded; there are no recordings. This version leaves live analytics off.
 
@@ -146,6 +167,8 @@ The development exercise text has undergone a NASM reference audit with correcti
 On the test app, all 320 strength exercises have 3D demonstrations using the shared muscular character. New demonstrations are drafts for owner review; the eighteen earlier body animations are retained, with loaded-hand grip repairs. The Library no longer shows the full-set review button. Drag to rotate, pause, choose half speed, scrub the movement, use Front/Side/Back, or toggle muscle highlights. Library how-to cards and swap previews open the matching strength demonstration; guided warm-up/cool-down how-to sheets open their matching movement or cardio/recovery variant. The same character and skeleton are reused while motion, role maps and missing equipment load on demand. Cached demonstrations can be selected without a connection; full offline library availability is not promised. Written instructions remain available if media fails. This complete draft set is enabled only in development; see [coverage, authoring and verification limits](COMPLETE-EXERCISE-ANIMATIONS-2026-11-13.md). The [form/equipment correction candidate](exercise-animation-audit/corrections.md) includes fitted supports, revised machine mechanisms and a dedicated linked-handle air bike; air-bike guide labels open that matching demonstration. The [detailed grip and joint-motion follow-up](exercise-animation-audit/form-detail.md) also checks hand placement and movement-specific form notes. The corrected assets remain owner-review drafts on the test app.
 
 ## Exploring the muscle map
+
+On the test app, Today's compact workout card shows the workout name and a short muscle summary beside front and back figures. Tap either figure to open **Muscles worked**. The popup lists main and supporting muscles; selecting one shows the exercises that work it and their roles. Highlights describe general muscle involvement, not intensity or individual technique validation. The preview follows the actual exercise choices for the selected place, including swaps. A paused workout uses its saved session exercises. Browsing does not start, change or save a workout, and it also works in coach preview.
 
 On the test app, Plan opens with a compact **Schedule** card: workouts per week, session length and selected weekdays, or **Any days that work for you** for flexible schedules. **Edit schedule** opens Settings > Your training with Schedule expanded; coach previews show the schedule as view-only. Selected days are reminders, separate from the repeating workout order.
 

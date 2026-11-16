@@ -31,11 +31,25 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   await page.evaluate(()=>{fAction('fpause',{dataset:{}});});await page.waitForTimeout(100);
   assert(events.some(e=>e.event==='workout_paused'));
   await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='account';render();});
+  const analyticsCard=page.locator('[data-action="sectoggle"][data-v="analytics"]');
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false');
+  assert.match(await analyticsCard.innerText(),/On/);
+  assert.equal(await page.locator('[data-action="analyticsno"]').count(),0,'consent controls hidden until expanded');
+  await analyticsCard.click();
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'true');
   assert(await page.locator('[aria-label="Usage analytics"]').isVisible());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   fs.mkdirSync(path.join(root,'test-results'),{recursive:true});if(width===390)await page.screenshot({path:path.join(root,'test-results/analytics-phone.png'),fullPage:true});
   await page.locator('[data-action="analyticsno"]').click();await page.waitForTimeout(100);const stopped=events.length;
   await page.evaluate(()=>{USAGE.capture('set_logged');ui.tab='today';render();});await page.waitForTimeout(100);assert.equal(events.length,stopped);
+  await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='account';render();});
+  assert.match(await analyticsCard.innerText(),/Off/);
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'true','consent rerender preserves expanded card');
+  await analyticsCard.click();assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false');
+  assert.equal(await page.evaluate(()=>USAGE.choice()),'no','collapsing does not change consent');
+  await page.reload();await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;state.setup=null;ui.tab='settings';ui.settingsGroup='account';render();});
+  assert.equal(await page.evaluate(()=>USAGE.choice()),'no','opt-out persists across reload');
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false','card starts collapsed after reload');
   assert(!JSON.stringify(events).includes('synthetic-analytics-account'));assert(!JSON.stringify(events).includes('Synthetic gym'));
   assert.deepEqual(errors,[]);console.log(JSON.stringify({url,width,events:events.length,consent:true,settings:true,workout:true,privacy:true,errors}));await page.close();
  }}finally{await browser.close();server.close();}

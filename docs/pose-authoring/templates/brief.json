@@ -11,6 +11,16 @@
     }
   ],
   "generation": {
+    "sourceReview": [
+      {
+        "document": "REPLACE: Full exercise-technique entry path and anchor, plus source limitations, source-register row, visual-reference entry and app cue/guide.",
+        "sha256": "REPLACE_WITH_ACTUAL_FILE_HASH",
+        "factsApplied": [],
+        "conflicts": [],
+        "mediaViewed": [],
+        "missingOrUnviewed": []
+      }
+    ],
     "tool": "REPLACE_WITH_ACTUAL_TOOL",
     "prompt": "REPLACE_WITH_ACTUAL_GENERATION_OR_EDIT_PROMPT",
     "sourceHashes": [],
