@@ -27,7 +27,7 @@ const server=http.createServer((req,res)=>{
   const trigger=page.locator('.today-muscle-preview');
   assert.equal(await trigger.locator('svg').count(),2);assert.equal(await trigger.innerText(),'');
   assert.equal(await trigger.getAttribute('aria-haspopup'),'dialog');
-  assert.equal(await page.locator('.today-schedule-note').innerText(),'Planned today');
+  assert.equal(await page.locator('.today-schedule-note').innerText(),'Today');
   async function checkCoverage(){
    const before=await page.evaluate(()=>JSON.stringify({state,logs}));
    const mapping=await page.evaluate(()=>{

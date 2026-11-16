@@ -36,7 +36,7 @@ const server=http.createServer((req,res)=>{
   assert.deepEqual(await exercises.locator('[aria-label="Warm-up"] li b').allTextContents(),['Warm-up cardio','Mobility','Lighter sets']);
   assert.ok((await exercises.locator('[aria-label="Cool-down"] li b').allTextContents()).includes('Stretches'));
   assert.doesNotMatch(await exercises.locator('.today-plan-cardio').textContent(),/total with cardio/);
-  assert.equal(await page.locator('.today-schedule-note').innerText(), 'Planned today');
+  assert.equal(await page.locator('.today-schedule-note').innerText(), 'Today');
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),before,'expansion does not create a draft or save data');
   const rows=await exercises.locator('.slotrow').allTextContents();assert.ok(rows.length>0);
   assert.equal(await exercises.locator('.today-strength-muscle').count(),rows.length);

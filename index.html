@@ -6013,7 +6013,7 @@ function renderToday(){
   const X=draft?draft._x||sessionExtras(draft,slots):null,mins=X?X.min+Math.round(liftSec(slots)/60)+X.coolMin:totalMinutes(mainKey);
   const location=placeSwitch();
   if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
-  const coverage=workoutMuscles(slots),schedule=draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':'Planned '+(planned==='Today'?'today':planned);
+  const coverage=workoutMuscles(slots),schedule=draft?(draft.partialSaved?'Partly finished':'Workout paused'):isFlex()?'Any day':planned;
   h+=`<section class="card stack today-workout"><div class="today-head"><div class="today-schedule"><span class="eyebrow">${draft?'In progress':finished||restDay?'Next workout':'Up next'}</span><span class="tiny muted" aria-hidden="true">·</span><span class="today-schedule-note">${esc(schedule)}</span></div><span class="today-len num" aria-label="About ${mins} minutes"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>~${mins} min</span></div>
     <div class="today-workout-summary"><div class="today-workout-copy"><h1>${esc(t.name)}</h1><p class="muted">${esc(workoutMuscleSummary(coverage))}</p></div><button type="button" class="today-muscle-preview" data-action="workoutmuscles" data-key="${esc(mainKey)}" aria-label="View muscles worked in ${esc(t.name)}" aria-haspopup="dialog">${bodySVG('f',coverage.color)}${bodySVG('b',coverage.color)}</button></div>
     ${placeNote([mainKey])}
