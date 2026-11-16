@@ -1,5 +1,20 @@
 # Strong Start architecture and operations
 
+## Development linked sign-ins — November 15, 2026
+
+Development adds Apple OAuth and a Sign-in methods sheet using Supabase
+`getUser()`, `linkIdentity()` and `unlinkIdentity()`. Provider availability comes
+from public Auth settings. The existing Auth user ID remains the data owner;
+no plans, logs, role memberships or separate accounts are merged. Connect flushes
+pending saves before redirecting and uses an environment-prefixed sessionStorage
+marker to verify the returning user ID before normal account initialization.
+Same-user Auth refreshes update identities without resetting workout state;
+account changes clear cached access/role flags before access checks. Google
+disconnect is blocked for staff, the last usable method is retained, and coach
+preview cannot manage identities. No database migration or permission changes.
+See [setup, boundaries and limits](APPLE-SIGN-IN-2026-11-15.md). Production UI is
+unchanged; Apple credentials and manual linking still require development setup.
+
 ## Incremental sync and IndexedDB on dev — November 15, 2026
 
 This dev candidate replaces routine full-history transfers with

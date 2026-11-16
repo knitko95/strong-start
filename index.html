@@ -961,6 +961,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.7.0",
+    "date": "2026-11-15",
+    "title": "Connected sign-in methods",
+    "notes": ["Manage connected Google and Apple sign-ins in Settings → Account & backups → Account → Sign-in methods. Connect another method to keep using the same plan and history, even with different email addresses. Apple sign-in becomes available after Apple setup is complete."]
+  },
+  {
     "version": "0.6.0",
     "date": "2026-11-15",
     "title": "Workout muscle preview",
@@ -2470,7 +2476,12 @@ const INVITE_KEY='strongstart_invite';
 function inviteCode(){ return lsGet(INVITE_KEY)||''; }
 function parseInvite(v){ v=String(v||'').trim(); const m=v.match(/invite=([A-Za-z0-9]+)/); const c=(m?m[1]:v).toUpperCase().replace(/[^A-Z0-9]/g,''); return c.length>=6&&c.length<=20?c:''; }
 (function(){ try{ const q=new URLSearchParams(location.search), c=parseInvite(q.get('invite')); if(q.has('invite')){ if(c) lsSet(INVITE_KEY,c); q.delete('invite'); const qs=q.toString(); history.replaceState(null,'',location.pathname+(qs?'?'+qs:'')+location.hash); } }catch(e){} })();
-const AUTH={user:null, ready:false, coach:false, google:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
+const AUTH={user:null, ready:false, coach:false, google:false, apple:false, providersReady:false, emailEnabled:false, recovery:false, mode:inviteCode()?'signup':'signin', busy:false, err:'', msg:'', email:'', pw:'', access:null, invErr:'', netErr:false};
+const LINK_KEY=storageKey('strongstart_account_link');
+function readAccountLink(){ try{ const p=JSON.parse(sessionStorage.getItem(LINK_KEY)||'null'); return p&&typeof p.uid==='string'&&['google','apple'].includes(p.provider)&&Number.isFinite(p.started)?p:null; }catch(e){return null;} }
+let pendingAccountLink=readAccountLink(),accountLinkFlight=null;
+const SIGNINS={uid:null,identities:[],loading:false,busy:false,err:'',msg:''};
+function clearAccountLink(){pendingAccountLink=null;try{sessionStorage.removeItem(LINK_KEY);}catch(e){}}
 const ACCT_KEY='strongstart_acct', LOCAL_ONLY_KEY='strongstart_local_only';
 const CLOUD={ok:false, busy:false, again:false, pending:false, failed:false, t:null, flight:null};
 function lsGet(k){ try{ return localStorage.getItem(storageKey(k)); }catch(e){ return null; } }
@@ -2516,15 +2527,18 @@ async function initRemote(){
   if(!sb){ setSync('local'); return; }
   sb.auth.onAuthStateChange((ev,session)=>{
     if(AUTH.deleting) return;
+    if(pendingAccountLink){setTimeout(()=>finishAccountLink(),0);return;}
     if(ev==='PASSWORD_RECOVERY'){ AUTH.recovery=true; AUTH.err=''; AUTH.msg=''; render(); }
     const u=session&&session.user||null;
-    if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
+    if(u && (!AUTH.user || AUTH.user.id!==u.id)){ AUTH.access=null; AUTH.coach=false; FB.owner=false; AUTH.user=u; setTimeout(()=>onSignedIn(u),0); }   // never await Supabase inside this callback
+    else if(u) AUTH.user=u; // Refresh linked identities without reloading workout state.
   });
-  fetch(SB_URL+'/auth/v1/settings',{headers:{apikey:SB_KEY}}).then(r=>r.json()).then(j=>{ const g=!!(j&&j.external&&j.external.google); if(g!==AUTH.google){ AUTH.google=g; if(needsAuth()) render(); } }).catch(()=>{});
+  fetch(SB_URL+'/auth/v1/settings',{headers:{apikey:SB_KEY}}).then(r=>{if(!r.ok)throw Error('settings');return r.json();}).then(j=>{ AUTH.google=!!j?.external?.google; AUTH.apple=!!j?.external?.apple; AUTH.emailEnabled=!!j?.external?.email; AUTH.providersReady=true; render(); }).catch(()=>{});
   try{
     const {data}=await withTimeout(sb.auth.getSession(),8000);
     const u=data&&data.session&&data.session.user;
-    if(u){ if(!AUTH.user){ AUTH.user=u; onSignedIn(u); } }
+    if(pendingAccountLink) await finishAccountLink();
+    else if(u){ if(!AUTH.user){ AUTH.user=u; onSignedIn(u); } }
     else if(rememberedAcct() && navigator.onLine){ lsSet(ACCT_KEY,null); }   // signed out elsewhere or session expired: ask to sign in again
     else if(rememberedAcct()) setSync('off');
   }catch(e){ if(rememberedAcct()) setSync('off'); }
@@ -2886,6 +2900,123 @@ function hsAction(a){
   return false;
 }
 
+/* Linked sign-ins keep the Auth user ID; no app data or role memberships move. */
+function signInName(provider){return ({google:'Google',apple:'Apple',email:'Email'})[provider]||'Other sign-in';}
+function signInError(e){
+  const code=String(e?.code||''),s=String(e?.message||'');
+  if(/identity_already_exists|identity_already_linked/.test(code)||/identity.*already.*(linked|exist)/i.test(s)) return 'That sign-in is already connected to an account. Use its existing account; separate workout histories cannot be combined here.';
+  if(/manual_linking_disabled/.test(code)||/manual linking.*disabled/i.test(s)) return 'Connecting sign-ins is awaiting setup on the test app. Your account has not changed.';
+  if(/single_identity|last_identity/.test(code)) return 'Keep at least one available sign-in method connected.';
+  if(/provider_disabled|validation_failed/.test(code)||/provider.*(disabled|not enabled|unsupported)/i.test(s)) return 'This sign-in provider is not available yet. Your account has not changed.';
+  if(/access_denied|cancel/.test(code)) return 'Connection cancelled. Your existing sign-in still works.';
+  return 'Couldn’t update your sign-in methods. Check your connection and try again. Your plan and history have been kept.';
+}
+async function authOAuth(provider){
+  if(AUTH.busy||!sb||!['google','apple'].includes(provider)||!AUTH[provider]||(provider==='apple'&&IS_PRODUCTION))return;
+  AUTH.err='';AUTH.msg='';AUTH.busy=true;render();
+  try{
+    if(navigator.onLine===false)throw Error('network');
+    const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo:SITE_URL}});
+    if(error)throw error;
+  }catch(e){AUTH.busy=false;AUTH.err=authFriendly(e);render();}
+}
+function showSignInMethods(){
+  if(!AUTH.user||SIGNINS.uid!==AUTH.user.id||coachMode||IS_PRODUCTION)return;
+  const list=SIGNINS.identities,busy=SIGNINS.busy||SIGNINS.loading;
+  modal(`<h2>Sign-in methods</h2><p class="small" style="margin:0">These methods open the same account, plan and workout history. To add a different email, connect its Google or Apple sign-in here before using it on the sign-in screen.</p>
+    ${SIGNINS.loading?'<p class="small" role="status">Checking connected sign-ins…</p>':list.map(i=>`<div class="card stack" style="gap:6px"><b>${esc(signInName(i.provider))} · Connected</b><span class="small muted" style="overflow-wrap:anywhere">${esc(i.identity_data?.email||'')}</span>${['google','apple'].includes(i.provider)?`<button class="btn sm" data-action="authdisconnect" data-provider="${esc(i.provider)}" data-id="${esc(i.identity_id||i.id)}" ${busy||!canDisconnect(i,list)?'disabled':''}>Disconnect ${esc(signInName(i.provider))}</button>`:''}</div>`).join('')}
+    ${['google','apple'].filter(p=>!list.some(i=>i.provider===p)).map(p=>`<button class="btn block" data-action="authconnect" data-provider="${p}" ${busy||!AUTH[p]?'disabled':''}>Connect ${signInName(p)}</button>${AUTH.providersReady&&!AUTH[p]?`<p class="tiny muted" style="margin:0">${signInName(p)} is awaiting setup on the test app.</p>`:''}`).join('')}
+    <p class="tiny muted" style="margin:0">Keep at least one available sign-in connected. Apple’s Hide My Email can use a different address. Connecting does not merge two existing accounts.${AUTH.coach||FB.owner?' Your Google sign-in must stay connected for staff access.':''}</p>
+    ${SIGNINS.err?`<p class="small" role="alert">${esc(SIGNINS.err)}</p>`:''}${SIGNINS.msg?`<p class="small" role="status">${esc(SIGNINS.msg)}</p>`:''}
+    <div class="row"><button class="btn" data-action="authmethodsretry" ${busy?'disabled':''}>Refresh methods</button><button class="btn primary" data-action="closemodal">Done</button></div>`);
+}
+function canDisconnect(identity,list){
+  if((AUTH.coach||FB.owner)&&identity.provider==='google')return false;
+  return list.some(i=>(i.identity_id||i.id)!==(identity.identity_id||identity.id)&&
+    ((i.provider==='email'&&AUTH.emailEnabled&&i.identity_data?.email_verified===true)||(['google','apple'].includes(i.provider)&&AUTH[i.provider])));
+}
+async function freshSignInUser(uid){
+  const {data,error}=await withTimeout(sb.auth.getUser(),10000);
+  if(error)throw error;
+  if(!data?.user||data.user.id!==uid||AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+  AUTH.user=data.user;return data.user;
+}
+async function signInMethods(){
+  if(!AUTH.user||coachMode||IS_PRODUCTION||SIGNINS.busy)return;
+  const uid=AUTH.user.id;
+  Object.assign(SIGNINS,{uid,identities:[],loading:true,err:'',msg:''});showSignInMethods();
+  try{const u=await freshSignInUser(uid);SIGNINS.identities=u.identities||[];}
+  catch(e){if(AUTH.user?.id===uid)SIGNINS.err=signInError(e);}
+  finally{SIGNINS.loading=false;if(AUTH.user?.id===uid&&document.querySelector('[data-action="authmethodsretry"]'))showSignInMethods();}
+}
+async function connectSignIn(provider){
+  if(IS_PRODUCTION||!AUTH.user||AUTH.access!=='ok'||coachMode||SIGNINS.busy||SIGNINS.loading||!['google','apple'].includes(provider)||!AUTH[provider])return;
+  const uid=AUTH.user.id;SIGNINS.busy=true;SIGNINS.err='';SIGNINS.msg='';showSignInMethods();
+  try{
+    if(navigator.onLine===false)throw Error('network');
+    const user=await freshSignInUser(uid);
+    if(user.identities?.some(i=>i.provider===provider))throw Error('already connected');
+    if(!await flushCloud())throw Error('sync pending');
+    if(AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+    // A tab-scoped marker contains only the expected account ID and provider.
+    // Failure to store it must stop the redirect rather than risk account switching.
+    sessionStorage.setItem(LINK_KEY,JSON.stringify({uid,provider,started:Date.now()}));
+    const {data,error}=await sb.auth.linkIdentity({provider,options:{redirectTo:SITE_URL,skipBrowserRedirect:true}});
+    if(error)throw error;
+    if(AUTH.user?.id!==uid||coachMode)throw Error('account changed');
+    const target=new URL(data?.url);
+    const providerOrigin=provider==='apple'?'https://appleid.apple.com':'https://accounts.google.com';
+    if(target.username||target.password||![SB_URL,providerOrigin].includes(target.origin))throw Error('invalid redirect');
+    location.assign(target.href);
+  }catch(e){clearAccountLink();SIGNINS.err=e?.message==='sync pending'?'Your latest changes need to sync before connecting a sign-in. Close this sheet, check Sync details and retry.':signInError(e);SIGNINS.busy=false;showSignInMethods();}
+}
+function confirmDisconnect(provider,id){
+  if(IS_PRODUCTION||!AUTH.user||coachMode||SIGNINS.busy||SIGNINS.loading||!['google','apple'].includes(provider))return;
+  const identity=SIGNINS.identities.find(i=>i.provider===provider&&(i.identity_id||i.id)===id);
+  if(!identity||!canDisconnect(identity,SIGNINS.identities))return;
+  const uid=AUTH.user.id;
+  confirmBox(`Disconnect ${signInName(provider)}?`,'Your plan and history stay in this account. Next time, use another connected sign-in.','Disconnect',()=>disconnectSignIn(provider,id,uid));
+}
+async function disconnectSignIn(provider,id,uid){
+  if(IS_PRODUCTION||AUTH.user?.id!==uid||coachMode||SIGNINS.busy)return;
+  SIGNINS.busy=true;SIGNINS.err='';SIGNINS.msg='';showSignInMethods();
+  try{
+    const user=await freshSignInUser(uid),list=user.identities||[],identity=list.find(i=>i.provider===provider&&(i.identity_id||i.id)===id);
+    if(!identity||!['google','apple'].includes(provider)||!canDisconnect(identity,list))throw {code:'single_identity'};
+    const {error}=await sb.auth.unlinkIdentity(identity);if(error)throw error;
+    const updated=await freshSignInUser(uid);SIGNINS.identities=updated.identities||[];SIGNINS.msg=`${signInName(provider)} disconnected.`;
+  }catch(e){SIGNINS.err=signInError(e);}
+  finally{SIGNINS.busy=false;if(AUTH.user?.id===uid&&!coachMode)showSignInMethods();}
+}
+function finishAccountLink(){
+  if(accountLinkFlight)return accountLinkFlight;
+  const pending=pendingAccountLink;if(!pending)return Promise.resolve();
+  accountLinkFlight=(async()=>{
+    let user=null,message='';
+    try{
+      const {data,error}=await withTimeout(sb.auth.getUser(),10000);if(error)throw error;
+      user=data?.user;
+      if(!user||user.id!==pending.uid)throw Error('account mismatch');
+      if(Date.now()-pending.started>30*60*1000||Date.now()<pending.started)throw Error('expired');
+      if(!user.identities?.some(i=>i.provider===pending.provider))throw {code:'access_denied'};
+      message=`${signInName(pending.provider)} is connected to this account.`;
+    }catch(e){message=signInError(e);}
+    finally{clearAccountLink();}
+    if(user?.id===pending.uid){
+      AUTH.access=null;await onSignedIn(user);
+      Object.assign(SIGNINS,{uid:user.id,identities:user.identities||[],loading:false,busy:false,err:'',msg:message});
+      ui.tab='settings';ui.settingsGroup='account';ui.open={...ui.open,account:true};render();
+      if(AUTH.access==='ok')showSignInMethods();
+    }else{
+      // Do not load a different account or upload the original device copy to it.
+      AUTH.user=null;AUTH.access=null;AUTH.coach=false;FB.owner=false;CLOUD.ok=false;clearTimeout(CLOUD.t);
+      try{await sb.auth.signOut({scope:'local'});}catch(e){}
+      lsSet(ACCT_KEY,null);closeModal();AUTH.err='Couldn’t confirm the account connection. Sign in with your original method. Your device copy has been kept.';render();
+    }
+  })().finally(()=>{accountLinkFlight=null;});
+  return accountLinkFlight;
+}
+
 /* Sign in / create account screens */
 function authMsg(){ return AUTH.err?`<p class="small" role="alert" style="margin:0;color:var(--warn,#b3261e)">${esc(AUTH.err)}</p>`:AUTH.msg?`<p class="small" role="status" style="margin:0">${esc(AUTH.msg)}</p>`:''; }
 function renderAuth(){
@@ -2921,7 +3052,10 @@ function renderAuth(){
     ${inv?`<div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><span class="small muted">You have an invite on this phone.</span><button class="btn primary block" data-action="authmode" data-v="signup">Create an account</button></div>`
       :`<div class="card stack" style="gap:8px;margin-top:6px"><b>New here?</b><span class="small muted">Strong Start is invite-only during beta. Ask your coach for an invite link.</span><button class="btn block" data-action="authmode" data-v="signup">I have an invite</button></div>`}`;
   const g=AUTH.google && (m==='signin'||m==='signup') ? `<button class="btn block" data-action="authgoogle" ${busy} style="display:flex;align-items:center;justify-content:center;gap:10px;min-height:50px;border-radius:14px;font-size:var(--text-lg)"><svg width="20" height="20" viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continue with Google</button><div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>` : '';
-  b=b.replace('<form ', g+'<form ');
+  const apple=(m==='signin'||m==='signup')&&!IS_PRODUCTION ? `<button class="btn block" data-action="authapple" ${busy||!AUTH.apple?'disabled':''} style="min-height:50px;border-radius:14px;font-size:var(--text-lg);background:#000;color:#fff;border-color:#000">Continue with Apple</button>${AUTH.providersReady&&!AUTH.apple?'<p class="tiny muted" role="status" style="margin:0">Apple sign-in is awaiting setup on the test app.</p>':''}` : '';
+  const social=g.replace(/<div class="row"[\s\S]*$/,'')+apple;
+  const divider=social?'<div class="row" style="gap:10px;flex-wrap:nowrap"><span style="flex:1;height:1px;background:var(--line)"></span><span class="tiny muted">or use email</span><span style="flex:1;height:1px;background:var(--line)"></span></div>':'';
+  b=b.replace('<form ', social+divider+'<form ');
   const skip = m==='recovery' ? '' : `<div class="spacer"></div>`;   // "Use without an account" is hidden during the invite-only beta
   return `<div class="ob auth-screen">${b}${skip}<nav aria-label="Policies" class="row auth-policies"><a class="tiny muted" href="privacy.html">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></nav><button class="link tiny muted" data-action="releasenotes">${esc(appVersionLabel())} · Release notes</button></div>`;
 }
@@ -2955,7 +3089,11 @@ async function authSubmit(kind){
 }
 function authAction(a,b){
   if(a==='authmode'){ AUTH.mode=b.dataset.v; AUTH.err=''; AUTH.msg=''; render(); window.scrollTo(0,0); }
-  else if(a==='authgoogle'){ AUTH.busy=true; render(); sb.auth.signInWithOAuth({provider:'google', options:{redirectTo:SITE_URL}}).then(({error})=>{ if(error){ AUTH.busy=false; AUTH.err=authFriendly(error); render(); } }); }
+  else if(a==='authgoogle'||a==='authapple') authOAuth(a==='authapple'?'apple':'google');
+  else if(a==='authmethods') signInMethods();
+  else if(a==='authconnect') connectSignIn(b.dataset.provider);
+  else if(a==='authdisconnect') confirmDisconnect(b.dataset.provider,b.dataset.id);
+  else if(a==='authmethodsretry') signInMethods();
   else if(a==='authcode'){ const c=parseInvite(($('#au-code')||{}).value);
     if(!c){ AUTH.invErr='Paste the whole invite link, or just the code at the end of it.'; render(); return; }
     AUTH.invErr='';
@@ -2985,6 +3123,7 @@ function accountCard(){
   if(AUTH.user) return sec('account','Account',AUTH.user.email,`
     <p class="small muted" style="margin:0">Signed in as <b>${esc(AUTH.user.email)}</b>. Your plan, weights and workouts sync to your account when connected. Check the save status before closing the app. Sign-in and messages need a connection.</p>
     <div class="row" style="flex-wrap:wrap"><button class="btn sm" data-action="authout">Sign out</button><button class="btn sm" data-action="syncdetails">Sync details</button><a class="tiny muted" href="privacy.html" style="margin-left:auto">Privacy policy</a><a class="tiny muted" href="terms.html">Terms of Service</a></div>
+    ${!IS_PRODUCTION&&!coachMode?'<button class="btn sm" data-action="authmethods">Sign-in methods</button>':''}
     ${AUTH.coach||FB.owner?'<p class="tiny muted" style="margin:0">Coach and owner account deletion must be arranged with the app owner.</p>':'<button class="btn sm danger" data-action="selfdelete">Delete my account</button>'}`);
   return sec('account','Account','Not signed in · saved on this device only',`
     <p class="small muted" style="margin:0">Create an account to keep your plan and workouts safe and use them on any device. What’s on this phone moves into your account.</p>

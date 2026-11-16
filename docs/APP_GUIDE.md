@@ -1,5 +1,23 @@
 # Using Strong Start
 
+## Connected sign-ins on testing — November 15, 2026
+
+Open **Settings → Account & backups → Account → Sign-in methods** to see connected
+Google, Apple and email identities. Sign in to the account with your existing plan
+first, then use **Connect Google** or **Connect Apple**. The new provider may use a
+different email, including Apple’s Hide My Email. Both methods then open the same
+account. Connecting does not combine two accounts that already have separate data.
+
+Connecting saves and syncs pending workouts before leaving for the provider.
+After returning, the app verifies that the account ID stayed the same. Failed or
+cancelled connections keep the existing plan and history. Disconnecting asks for
+confirmation and requires another available sign-in; staff cannot disconnect Google.
+Coach preview cannot manage a member’s sign-ins. No staff access is granted here.
+
+Apple’s button is disabled until the test backend is configured. Provider linking
+also requires Supabase’s **Enable Manual Linking** setting. These controls are
+development only; see [setup and verification](APPLE-SIGN-IN-2026-11-15.md).
+
 ## Development storage update — November 15, 2026
 
 On the test app, history saves in IndexedDB and syncs only changed workouts after
