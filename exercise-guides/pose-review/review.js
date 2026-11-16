@@ -88,6 +88,7 @@
   const backgrounds=node('div',{class:'background-choice'},node('span',{text:'Background'}));for(const [value,label] of [['light','Light'],['dark','Dark'],['checker','Checkerboard']]){const b=node('button',{type:'button',class:'swatch surface-'+value,'aria-label':label+' background','aria-pressed':String(background===value)});b.addEventListener('click',()=>{background=value;stage.className='viewer-stage surface-'+background;detail.querySelectorAll('.swatch').forEach(s=>s.setAttribute('aria-pressed',String(s===b)));detail.querySelectorAll('.compare-poses').forEach(s=>s.className='compare-poses surface-'+background);});backgrounds.append(b);}
   detail.append(node('div',{class:'viewer-card'},node('div',{class:'viewer-toolbar'},node('label',{class:'version-label'},'Version',selector),switcher),stage,node('div',{class:'viewer-bottom'},node('p',{class:'viewer-note',id:'playback-note',text:'Automatic · 0.9 seconds per pose'}),backgrounds),node('div',{class:'fingerprint',text:'Exact version · '+version.fingerprint})));
   setupViewer(stage,imgs);
+  const stopPlayback=disposeViewer,stopFraming=fitPosePair(stage,imgs);disposeViewer=()=>{stopPlayback();stopFraming();};
   renderReview(exercise,version);
   renderReferenceImages(exercise,version);
   renderComparison(exercise,version);
@@ -100,6 +101,13 @@
   const display=()=>{imgs.forEach((img,i)=>img.hidden=i!==phase);stage.dataset.pose=String(phase);};
   function tick(){clearTimeout(timer);if(disposed)return;if(motion.matches&&viewMode==='animation')phase=0;display();const playing=viewMode==='animation'&&!motion.matches&&!document.hidden&&visible;stage.dataset.playing=String(playing);note.textContent=viewMode!=='animation'?'Still pose · inspect alignment and contact':motion.matches?'Reduced motion · first pose shown':'Automatic · 0.9 seconds per pose';if(playing)timer=setTimeout(()=>{phase=1-phase;tick();},900);}
   const observer=typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;tick();}):null;observer?.observe(stage);document.addEventListener('visibilitychange',tick,{signal:controller.signal});motion.addEventListener('change',tick,{signal:controller.signal});tick();disposeViewer=()=>{disposed=true;clearTimeout(timer);observer?.disconnect();controller.abort();};
+ }
+ // Fit the union of both silhouettes so animation keeps one camera and scale.
+ function fitPosePair(stage,imgs){
+  let bounds=null,disposed=false;
+  function layout(){if(!bounds||disposed)return;const {x,y,w,h}=bounds,pad=12,scale=Math.min((stage.clientWidth-pad*2)/w,(stage.clientHeight-pad*2)/h);for(const img of imgs){Object.assign(img.style,{padding:'0',objectFit:'fill',width:scale+'px',height:scale*(img.naturalHeight/img.naturalWidth)+'px',left:((stage.clientWidth-w*scale)/2-x*scale)+'px',top:((stage.clientHeight-h*scale)/2-y*scale)+'px'});}stage.dataset.framing='paired-content';}
+  function measure(){if(disposed||!imgs.every(img=>img.complete&&img.naturalWidth))return;try{let left=1,top=1,right=0,bottom=0;for(const img of imgs){const canvas=document.createElement('canvas');canvas.width=384;canvas.height=Math.max(1,Math.round(384*img.naturalHeight/img.naturalWidth));const ctx=canvas.getContext('2d',{willReadFrequently:true});ctx.drawImage(img,0,0,canvas.width,canvas.height);const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;for(let y=0;y<canvas.height;y++)for(let x=0;x<canvas.width;x++)if(data[(y*canvas.width+x)*4+3]>8){left=Math.min(left,x/canvas.width);right=Math.max(right,(x+1)/canvas.width);top=Math.min(top,y/canvas.width);bottom=Math.max(bottom,(y+1)/canvas.width);}}if(right>left&&bottom>top){bounds={x:left,y:top,w:right-left,h:bottom-top};layout();}}catch{/* Original contain view remains available if pixels cannot be read. */}}
+  imgs.forEach(img=>img.addEventListener('load',measure));const observer=new ResizeObserver(layout);observer.observe(stage);measure();return()=>{disposed=true;observer.disconnect();imgs.forEach(img=>img.removeEventListener('load',measure));};
  }
  function renderComparison(exercise,version){
   const approved=exercise.versions.find(v=>v.id===exercise.approvedVersionId),button=node('button',{type:'button',id:'compare-toggle',class:'secondary','aria-expanded':String(compareOpen),text:'Compare with approved'}),body=node('div',{id:'compare-panel',hidden:!compareOpen});
@@ -154,7 +162,12 @@
  async function saveDecision(decision){
   if(busy)return;const exercise=selected(),version=exercise?.versions.find(v=>v.id===selectedVersionId);if(!version)return;const note=$('#review-note').value,payload={id:exercise.id,expectedRevision:exercise.revision,versionId:version.id,fingerprint:version.fingerprint,status:decision,note};
   try{decisionRecord(exercise,payload);busy=true;$('#approve').disabled=$('#needs-changes').disabled=true;let record;
-   if(mode==='workspace'){record=(await api('decision',payload)).record;validateRecords({schemaVersion:1,exercises:[record]});baseRevisions[record.id]=record.revision;}else{record=decisionRecord(exercise,payload);const next=exercises.map(e=>e.id===record.id?record:e);await browserCommit(next);}
+   if(mode==='workspace'){
+    const fresh=validateRecords(await api('state')),current=fresh.exercises.find(e=>e.id===exercise.id),currentVersion=current?.versions.find(v=>v.id===version.id);
+    if(!currentVersion||currentVersion.fingerprint!==version.fingerprint||latest(current)?.id!==latest(exercise)?.id||JSON.stringify(current.review)!==JSON.stringify(exercise.review)||JSON.stringify(current.reviewReferences||[])!==JSON.stringify(exercise.reviewReferences||[]))throw Object.assign(Error('The candidate, review or references changed. Refresh and review them before saving.'),{status:409});
+    token=fresh.token||token;payload.expectedRevision=current.revision;
+    record=(await api('decision',payload)).record;validateRecords({schemaVersion:1,exercises:[record]});baseRevisions[record.id]=record.revision;
+   }else{record=decisionRecord(exercise,payload);const next=exercises.map(e=>e.id===record.id?record:e);await browserCommit(next);}
    exercises=exercises.map(e=>e.id===record.id?record:e);delete draftNotes[keyFor(exercise.id,version.id)];saveDrafts();message(decision==='approved'?'Review saved: version approved. App integration and publication remain separate.':'Review saved: changes requested. The approved artwork remains preserved.');busy=false;renderList();renderDetail();
   }catch(error){busy=false;message(error.status===409?error.message+' Your entered note is retained. Use Refresh workspace, then review the current record.':error.message,true);$('#approve').disabled=$('#needs-changes').disabled=false;}
  }

@@ -17,6 +17,8 @@ Use the prominent **Needs review** count button to show only exercises whose lat
 
 The exercise detail starts with the demonstration, followed immediately by **Your review**, then reference images and the attachment controls. Existing attached form images and additional review images appear together. **Generation brief**, **Independent audit** and **Decision history** start collapsed; expand their headings when needed. Version comparison is also closed when choosing another exercise. All saved notes, audits and history remain available.
 
+The player fits both poses together to their shared visible bounds, removing excess transparent canvas from the preview without changing artwork or the relative scale and placement between poses. Local decision saves refresh the current revision first, so finished agent audits and claim releases do not block approval. Changed candidates, owner decisions or reference attachments still require a refresh and another review; unsaved notes are retained.
+
 The public seed and canonical runtime catalogue describe only public artwork and sanitized production metadata. Private review comments, supplied reference photos, generation sources and working candidates belong in the local workspace/archive. Never place that workspace under `exercise-guides/`, `dist/` or a hosting output folder.
 
 ## One exercise, one version, one decision
