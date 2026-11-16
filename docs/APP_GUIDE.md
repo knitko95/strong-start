@@ -38,6 +38,8 @@ The separate [development review dashboard](https://dev.strongstart.app/exercise
 
 The hosted dashboard saves drafts in that browser, with JSON export/import for handoff. For shared subagent work, run the local authoring server: its dashboard saves private records directly to a disk workspace. Notes and supplied reference images are kept outside public runtime files. See [the authoring workflow](pose-authoring/README.md) for startup, generation, audit and fresh-chat handoffs.
 
+In the local dashboard, **Your reference images** lets you choose a PNG, JPEG or WebP image, add a label and optional guidance, and save it with **Add reference image**. Images remain private on this computer and are available to agents for later revisions. Each image may be up to 5 MB; an exercise can have 20 additional references. Adding a reference preserves the demonstration and approval. JSON review exports contain metadata only; keep the private workspace folder to back up the image files.
+
 ## Two-pose exercise demonstrations on testing
 
 Eighteen reviewed exercises use transparent two-pose demonstrations in the workout and How-to views on development. They switch between the approved positions every 0.9 seconds, with no play/pause, speed or camera-rotation controls. Expand remains available during workouts. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.

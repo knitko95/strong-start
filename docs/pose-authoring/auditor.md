@@ -2,6 +2,8 @@
 
 Audit another worker's exact candidate version. Your findings support owner review; they are not owner approval, integration authorization or professional technique clearance.
 
+Read and inspect the exercise record's `reviewReferences` images/guidance as well as references on the candidate version. These additional owner references persist across revisions. State which attachment hashes were checked and whether new guidance conflicts with the saved brief; do not silently inherit an older audit that predates an attachment.
+
 ## Establish the evidence
 
 Read the exercise's current form notes, variation, references, previous approved version and requested correction. Confirm the candidate's two frame hashes and combined fingerprint. Record your reviewer/agent identifier and date. If you generated this candidate, ask the coordinator for a different reviewer. Independence is checked against the saved version generator, not just the current claim; a released or reassigned claim does not make the generator independent.

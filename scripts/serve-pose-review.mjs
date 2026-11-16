@@ -22,10 +22,12 @@ export async function startReviewServer({workspace=path.join(root,'output/pose-r
     if(req.method!=='POST')throw new ReviewError('Method not allowed',405);
     if(req.headers.origin!==origin||req.headers['x-pose-review-token']!==token)throw new ReviewError('Open the local dashboard before saving',403);
     if(!req.headers['content-type']?.startsWith('application/json'))throw new ReviewError('JSON required',415);
-    let body='',size=0;for await(const chunk of req){size+=chunk.length;if(size>2_000_000)throw new ReviewError('Request is too large',413);body+=chunk;}
-    const input=parseJSON(body);
+    const maxBytes=url.pathname==='/api/pose-review/reference-images'?7_000_000:2_000_000;
+    let body='',size=0;for await(const chunk of req){size+=chunk.length;if(size>maxBytes)throw new ReviewError('Request is too large',413);body+=chunk;}
+    const input=parseJSON(body,maxBytes);
     if(url.pathname==='/api/pose-review/decision'){json(200,{record:store.decide(input)});return;}
     if(url.pathname==='/api/pose-review/import'){json(200,{exercises:store.importReviews(input.records,input.expectedRevisions)});return;}
+    if(url.pathname==='/api/pose-review/reference-images'){json(200,{record:store.addReference(input)});return;}
     throw new ReviewError('Unknown authoring action',404);
    }
    if(req.method!=='GET'&&req.method!=='HEAD')throw new ReviewError('Method not allowed',405);
@@ -37,7 +39,7 @@ export async function startReviewServer({workspace=path.join(root,'output/pose-r
     if(!/^\/exercise-guides\/pose-review\/(index\.html|review\.js|review\.css|seed\.v1\.json|briefs\.v1\.json)$/.test(pathname)&&!/^\/exercise-guides\/poses\/assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(pathname))throw new ReviewError('Not found',404);
     file=path.join(root,pathname);if(!existsSync(file))throw new ReviewError('Not found',404);file=realpathSync(file);if(!file.startsWith(realpathSync(root)+path.sep))throw new ReviewError('Invalid public asset',403);
    }
-   const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webp':'image/webp'};
+   const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.webp':'image/webp','.jpg':'image/jpeg'};
    res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream'});res.end(req.method==='HEAD'?undefined:readFileSync(file));
   }catch(error){json(error.status||400,{error:error instanceof SyntaxError?'Invalid JSON':error.message});}
  });

@@ -9,7 +9,7 @@ export class ReviewError extends Error{constructor(message,status=400){super(mes
 const assert=(value,message,status=400)=>{if(!value)throw new ReviewError(message,status);};
 const text=(value,max=12000)=>typeof value==='string'&&value.length<=max;
 const hash=value=>typeof value==='string'&&/^[a-f0-9]{64}$/.test(value);
-export function parseJSON(value){assert(Buffer.byteLength(value)<=2_000_000,'Review file is too large');return JSON.parse(value,(key,value)=>{assert(!['__proto__','prototype','constructor'].includes(key),'Unsafe property');return value;});}
+export function parseJSON(value,maxBytes=2_000_000){assert(Buffer.byteLength(value)<=maxBytes,'Review file is too large');return JSON.parse(value,(key,value)=>{assert(!['__proto__','prototype','constructor'].includes(key),'Unsafe property');return value;});}
 function safeFrame(url,id){return typeof url==='string'&&(new RegExp('^/workspace/'+id+'/versions/v-[a-f0-9]{16}/frame-[01]\\.(png|webp)$').test(url)||/^\/exercise-guides\/poses\/assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(url));}
 function validateAudit(a){
  assert(a&&['not-recorded','passed','needs-changes'].includes(a.status),'Invalid audit status');
@@ -29,15 +29,21 @@ export function validateRecord(r){
   validateAudit(v.audit);
  }
  for(const key of ['approvedVersionId','developmentVersionId','productionVersionId'])assert(r[key]===null||ids.has(r[key]),'Unknown '+key);
+ assert(r.reviewReferences===undefined||Array.isArray(r.reviewReferences)&&r.reviewReferences.length<=20&&r.reviewReferences.every(ref=>hash(ref.sha256)&&ref.id==='ref-'+ref.sha256.slice(0,16)&&ref.url==='/workspace/'+r.id+'/references/'+ref.sha256+'.'+ref.ext&&['png','webp','jpg'].includes(ref.ext)&&text(ref.label,200)&&ref.label.trim()&&text(ref.note,3000)&&Number.isInteger(ref.width)&&ref.width>0&&ref.width<=8192&&Number.isInteger(ref.height)&&ref.height>0&&ref.height<=8192&&text(ref.createdAt,100)&&(ref.sourceVersionId===null||ids.has(ref.sourceVersionId))),'Invalid additional reference image');
  assert(r.review&&['approved','needs-changes','unreviewed'].includes(r.review.status)&&text(r.review.note)&&((r.review.versionId===null&&r.versions.length===0)||ids.has(r.review.versionId)),'Invalid review');
  assert(r.review.status!=='approved'||r.approvedVersionId===r.review.versionId,'Approved decision must match approved version');
  assert(r.assignment===null||(text(r.assignment?.worker,150)&&text(r.assignment?.batch,150)),'Invalid assignment');
  assert(Array.isArray(r.history)&&r.history.length<=5000,'Invalid history');
  return r;
 }
-export function imageInfo(bytes){
+export function imageInfo(bytes,{allowJpeg=false}={}){
  assert(bytes.length>=30&&bytes.length<=25_000_000,'Image size unsupported');
  if(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10])))return {ext:'png',width:bytes.readUInt32BE(16),height:bytes.readUInt32BE(20)};
+ if(allowJpeg&&bytes[0]===255&&bytes[1]===216){
+  assert(bytes.at(-2)===255&&bytes.at(-1)===217,'Incomplete JPEG image');
+  let offset=2;while(offset+3<bytes.length){assert(bytes[offset++]===255,'Invalid JPEG marker');while(bytes[offset]===255)offset++;const marker=bytes[offset++];if(marker===217||marker===218)break;if(marker===1||marker>=208&&marker<=215)continue;const length=bytes.readUInt16BE(offset);assert(length>=2&&offset+length<=bytes.length,'Invalid JPEG segment');if([192,193,194,195,197,198,199,201,202,203,205,206,207].includes(marker)){assert(length>=8,'Invalid JPEG frame');return {ext:'jpg',height:bytes.readUInt16BE(offset+3),width:bytes.readUInt16BE(offset+5)};}offset+=length;}
+  throw new ReviewError('Unsupported JPEG image');
+ }
  assert(bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP','Use PNG or WebP images');
  const type=bytes.toString('ascii',12,16);let width,height;
  if(type==='VP8L'){const bits=bytes.readUInt32LE(21);width=(bits&0x3fff)+1;height=((bits>>>14)&0x3fff)+1;}
@@ -62,6 +68,18 @@ export class PoseReviewStore{
  applyDecision(r,{versionId,fingerprint:fp,status,note}){const v=r.versions.find(v=>v.id===versionId);assert(v&&v.fingerprint===fp,'Decision does not match the registered version',409);assert(['approved','needs-changes'].includes(status)&&text(note),'Invalid decision');assert(status!=='needs-changes'||note.trim(),'Describe the requested change');r.review={versionId,status,note:note.trim(),updatedAt:new Date().toISOString()};if(status==='approved')r.approvedVersionId=versionId;r.history.push(event('owner-decision',versionId,note.trim(),status));}
  claim(id,expectedRevision,worker,batch){this.create(id);return this.mutate(id,expectedRevision,r=>{assert(text(worker,150)&&worker.trim()&&text(batch,150)&&batch.trim(),'Worker and batch required');assert(!r.assignment||r.assignment.worker===worker,'Another worker owns this exercise',409);r.assignment={worker,batch};r.history.push(event('claimed',r.review.versionId,worker+' / '+batch));});}
  release(id,expectedRevision,worker){return this.mutate(id,expectedRevision,r=>{assert(r.assignment?.worker===worker,'Only the assigned worker can release this exercise',409);r.assignment=null;r.history.push(event('released',r.review.versionId,worker));});}
+ addReference(input){
+  assert(typeof input.image==='string'&&input.image.length<=6_666_668&&/^[A-Za-z0-9+/]+={0,2}$/.test(input.image),'Invalid reference image data');
+  const bytes=Buffer.from(input.image,'base64');assert(bytes.toString('base64')===input.image,'Invalid reference image encoding');assert(bytes.length<=5_000_000,'Reference image must be at most 5 MB');const info=imageInfo(bytes,{allowJpeg:true});assert(info.width>0&&info.height>0&&info.width<=8192&&info.height<=8192&&info.width*info.height<=32_000_000,'Reference dimensions unsupported');
+  assert(text(input.label,200)&&input.label.trim()&&text(input.note,3000),'Add an image label; keep guidance under 3000 characters');const digest=sha(bytes);let createdFile;
+  try{return this.mutate(input.id,input.expectedRevision,r=>{
+   const version=input.versionId===null?null:r.versions.find(v=>v.id===input.versionId);assert(input.versionId===null?r.versions.length===0:version&&version.fingerprint===input.fingerprint,'Reference does not match the viewed version',409);
+   const refs=r.reviewReferences||[];assert(refs.length<20,'This exercise already has 20 additional reference images');assert(!refs.some(ref=>ref.sha256===digest),'This reference image is already attached',409);
+   const folder=path.join(this.folder(r.id),'references');mkdirSync(folder,{recursive:true});this.checked(folder);const dest=path.join(folder,digest+'.'+info.ext);if(!existsSync(dest)){writeFileSync(dest,bytes,{flag:'wx'});createdFile=dest;}else assert(sha(readFileSync(this.checked(dest)))===digest,'Stored reference content changed',409);
+   r.reviewReferences=[...refs,{id:'ref-'+digest.slice(0,16),sha256:digest,url:'/workspace/'+r.id+'/references/'+digest+'.'+info.ext,...info,label:input.label.trim(),note:input.note.trim(),sourceVersionId:input.versionId,createdAt:new Date().toISOString()}];
+   r.history.push(event('reference-added',input.versionId,input.label.trim()+(input.note.trim()?' — '+input.note.trim():'')));
+  });}catch(error){if(createdFile)unlinkSync(this.checked(createdFile));throw error;}
+ }
  candidate(id,expectedRevision,files,reference,brief){this.create(id);assert(files?.length===2,'Two pose files required');const frames=files.map(file=>{const bytes=readFileSync(file),info=imageInfo(bytes);assert(info.width>0&&info.height>0&&info.width<=8192&&info.height<=8192,'Image dimensions unsupported');return {bytes,...info,sha256:sha(bytes)};});assert(frames[0].width===frames[1].width&&frames[0].height===frames[1].height,'Both pose canvases must match');const fp=fingerprint(frames),versionId='v-'+fp.slice(0,16);let createdFolder;
  try{return this.mutate(id,expectedRevision,r=>{
   assert(r.assignment?.worker,'Claim this exercise before registering a candidate',409);assert(!r.versions.some(v=>v.fingerprint===fp),'This exact pair is already registered',409);const parent=path.join(this.folder(id),'versions');mkdirSync(parent,{recursive:true});this.checked(parent);const folder=path.join(parent,versionId);assert(!existsSync(folder),'Version assets are immutable',409);mkdirSync(folder);createdFolder=folder;this.checked(folder);
@@ -76,8 +94,8 @@ export class PoseReviewStore{
  export(){const exercises=this.list();return {schemaVersion:1,exportedAt:new Date().toISOString(),baseRevisions:Object.fromEntries(exercises.map(r=>[r.id,r.revision])),exercises};}
  importReviews(records,expectedRevisions){assert(Array.isArray(records)&&records.length>0&&records.length<=400,'Invalid review bundle');const ids=records.map(r=>r.id);assert(new Set(ids).size===ids.length&&ids.every(validId),'Duplicate or invalid exercise ID');const unlocks=[];try{
   for(const id of [...ids].sort())unlocks.push(this.lock(id));
-  const changes=records.map(incoming=>{validateRecord(incoming);const r=this.get(incoming.id);assert(r.revision===expectedRevisions?.[r.id],'Import conflicts with newer workspace changes: '+r.name,409);assert(JSON.stringify(incoming.versions)===JSON.stringify(r.versions),'Imported version content differs. Register candidates through the authoring CLI.',409);const v=r.versions.find(v=>v.id===incoming.review.versionId);assert(v,'Unknown imported review version');assert(['approved','needs-changes'].includes(incoming.review.status),'Only explicit review decisions can be imported');this.applyDecision(r,{...incoming.review,fingerprint:v.fingerprint});r.revision++;validateRecord(r);return {before:this.get(r.id),after:r};});
+  const changes=records.map(incoming=>{validateRecord(incoming);const r=this.get(incoming.id);assert(r.revision===expectedRevisions?.[r.id],'Import conflicts with newer workspace changes: '+r.name,409);assert(JSON.stringify(incoming.versions)===JSON.stringify(r.versions),'Imported version content differs. Register candidates through the authoring CLI.',409);assert(JSON.stringify(incoming.reviewReferences||[])===JSON.stringify(r.reviewReferences||[]),'Imported reference images differ. Attach images in the local dashboard.',409);const v=r.versions.find(v=>v.id===incoming.review.versionId);assert(v,'Unknown imported review version');assert(['approved','needs-changes'].includes(incoming.review.status),'Only explicit review decisions can be imported');this.applyDecision(r,{...incoming.review,fingerprint:v.fingerprint});r.revision++;validateRecord(r);return {before:this.get(r.id),after:r};});
   const written=[];try{for(const change of changes){save(this.file(change.after.id),change.after);written.push(change);}}catch(e){for(const c of written)save(this.file(c.before.id),c.before);throw e;}return changes.map(c=>c.after);
  }finally{for(const unlock of unlocks.reverse())unlock();}}
- asset(url){assert(/^\/workspace\/[a-z0-9-]+\/(versions\/v-[a-f0-9]{16}\/frame-[01]\.(png|webp)|references\/[a-f0-9]{64}\.(png|webp))$/.test(url),'Invalid asset path',404);const pieces=url.split('/').slice(2),file=path.join(this.workspace,'exercises',...pieces);assert(existsSync(file),'Asset not found',404);const real=this.checked(file),record=this.get(pieces[0]);const expected=url.includes('/references/')?path.basename(file).split('.')[0]:record.versions.flatMap(v=>v.frames).find(f=>f.url===url)?.sha256;assert(expected&&sha(readFileSync(real))===expected,'Registered asset content changed',409);return real;}
+ asset(url){assert(/^\/workspace\/[a-z0-9-]+\/(versions\/v-[a-f0-9]{16}\/frame-[01]\.(png|webp)|references\/[a-f0-9]{64}\.(png|webp|jpg))$/.test(url),'Invalid asset path',404);const pieces=url.split('/').slice(2),file=path.join(this.workspace,'exercises',...pieces);assert(existsSync(file),'Asset not found',404);const real=this.checked(file),record=this.get(pieces[0]);const expected=url.includes('/references/')?record.reviewReferences?.find(ref=>ref.url===url)?.sha256||record.versions.flatMap(v=>v.references).find(ref=>ref.url===url)&&path.basename(file).split('.')[0]:record.versions.flatMap(v=>v.frames).find(f=>f.url===url)?.sha256;assert(expected&&sha(readFileSync(real))===expected,'Registered asset content changed',409);return real;}
 }

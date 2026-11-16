@@ -60,6 +60,8 @@ download still scale with full history. See [verification and release limits](IN
 
 Keep the private workspace under an ignored `output/pose-review-workspace` directory, never under static/runtime output. Local supplied references and generation records stay there. See [workflow and limits](pose-authoring/README.md). A browser draft is neither a shared review queue nor an authenticated owner decision until the coordinator reconciles it; release approval still follows AGENTS.md.
 
+Local review-image uploads use the same Host/Origin/session-token and expected-revision checks. A bounded JSON request carries one PNG/JPEG/WebP image, label, guidance and the viewed version fingerprint. Original bytes are content-addressed under the exercise's private `references/` directory; optional `reviewReferences` metadata and a history event are added to the exercise record. Existing records remain compatible. Uploads preserve versions, audits, approvals and deployment pointers. Additional references apply across revisions and cannot be changed through review import. Export archives metadata only; image backup requires the private workspace directory. The hosted preview directs uploads to the local server and has no public image-upload endpoint.
+
 ## Development usage analytics
 
 The dev build injects public ingestion configuration from
