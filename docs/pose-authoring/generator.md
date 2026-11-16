@@ -5,9 +5,10 @@ Your output is an unapproved candidate for the assigned exercise IDs. Do not cha
 ## Before producing images
 
 1. Read the assigned handoff, current record, prior approved version, exact correction notes and [visual spec](visual-spec.md). Confirm your claim and expected revision. Check whether another worker has changed the record.
-2. Match the reference to the app's actual variation. Record the intended start/finish poses, camera direction, grip and equipment. Separate reference facts from unresolved assumptions. Escalate a missing key reference rather than inventing form validation.
-3. Inspect the approved style anchors and every input image. Read the installed image-generation skill before generating or editing raster artwork and follow its current tool instructions. Do not reuse a stale tool recipe from a past chat.
-4. Write the fixed/moving-region brief. For a revision, name anatomical and viewer sides, exact editable regions and protected regions. Reuse the approved body/bench/machine where required; do not regenerate everything to fix a wrist.
+2. Read the **full exercise entry** in `docs/exercise-technique/catalog-*.md`, its source limitations in `docs/exercise-technique/sources.md`, the exercise's `docs/EXERCISE-SOURCES.md` row, and its existing references in `docs/exercise-visuals/catalog.md` / `entries.json`. Also read the current app cue and any exact exercise-specific guide. The short catalogue cue and a newly found web page are insufficient substitutes. Inspect supplied private form images and available registered visual references; approved instructor artwork is an identity/style anchor, not a technique reference for a different move. Record which images/videos were actually viewed and which were unavailable.
+3. Match the references to the app's actual variation. Record start/finish poses, camera direction, grip and equipment. Save a `generation.sourceReview` list in the brief with exact document paths/sections, file hashes, facts applied, conflicts, and missing/unviewed references. Resolve conflicting cues before generation with the coordinator; do not silently choose one. A related reference does not validate the exact variation.
+4. Inspect the approved style anchors and every input image. Read the installed image-generation skill before generating or editing raster artwork and follow its current tool instructions. Do not reuse a stale tool recipe from a past chat.
+5. Write the fixed/moving-region brief. For a revision, name anatomical and viewer sides, exact editable regions and protected regions. Reuse the approved body/bench/machine where required; do not regenerate everything to fix a wrist.
 
 ## Produce and register a candidate
 

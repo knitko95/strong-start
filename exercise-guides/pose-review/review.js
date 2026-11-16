@@ -60,15 +60,19 @@
    try{storageSnapshot=localStorage.getItem(STORAGE_KEY);const cached=JSON.parse(storageSnapshot||'null');if(cached){validateRecords(cached);let ignored=0;for(const saved of cached.exercises){const index=exercises.findIndex(e=>e.id===saved.id);if(index<0){ignored++;continue;}try{checkImmutable(saved,exercises[index]);exercises[index]={...exercises[index],revision:saved.revision,review:saved.review,approvedVersionId:saved.approvedVersionId,history:saved.history};if(Number.isSafeInteger(cached.baseRevisions?.[saved.id]))baseRevisions[saved.id]=cached.baseRevisions[saved.id];}catch{ignored++;}}if(ignored)message('Some older browser drafts no longer match registered versions. Their saved file has not been overwritten; export it before replacing those drafts.');}}
    catch{message('An older browser draft could not be read. The approved library is available; keep a backup of your previous export.',true);}
   }
-  selectedId=exercises.find(e=>e.id===new URLSearchParams(location.search).get('exercise'))?.id||selectedId||exercises[0]?.id;setStorageNotice();renderList();renderDetail();
+  const params=new URLSearchParams(location.search),requested=exercises.find(e=>e.id===params.get('exercise'));selectedId=requested?.id||selectedId||exercises[0]?.id;
+  const requestedFilter=params.get('review');if([...$('#review-filter').options].some(o=>o.value===requestedFilter))$('#review-filter').value=requestedFilter;else if(!requested&&exercises.some(e=>status(e)!=='approved'))$('#review-filter').value='pending';
+  setStorageNotice();renderList();renderDetail();
  }
  function renderList(){
   const query=$('#exercise-search').value.trim().toLowerCase(),filter=$('#review-filter').value;
-  $('#status-counts').replaceChildren(...[['Total',exercises.length],['Approved',exercises.filter(e=>status(e)==='approved').length],['To review',exercises.filter(e=>status(e)!=='approved').length]].map(([label,count])=>node('div',{class:'count-chip'},node('strong',{text:count}),label)));
-  const found=exercises.filter(e=>(e.name.toLowerCase().includes(query)||e.id.includes(query))&&(filter==='all'||filter==='flagged'&&flagged(e)||filter==='implemented'&&!!e.developmentVersionId||status(e)===filter));$('#result-count').textContent=String(found.length);
+  $('#status-counts').replaceChildren(...[['All exercises',exercises.length,'all'],['Approved',exercises.filter(e=>status(e)==='approved').length,'approved'],['Needs review',exercises.filter(e=>status(e)!=='approved').length,'pending']].map(([label,count,value])=>{const b=node('button',{type:'button',class:'count-chip'+(value==='pending'?' review-queue':''),'aria-label':label+' ('+count+')','aria-pressed':String(filter===value)},node('strong',{text:count}),label);b.addEventListener('click',()=>{ $('#exercise-search').value='';$('#review-filter').value=value;updateList();});return b;}));
+  const found=exercises.filter(e=>(e.name.toLowerCase().includes(query)||e.id.includes(query))&&(filter==='all'||filter==='pending'&&status(e)!=='approved'||filter==='flagged'&&flagged(e)||filter==='implemented'&&!!e.developmentVersionId||status(e)===filter));$('#result-count').textContent=String(found.length);
+  if(!found.some(e=>e.id===selectedId)){selectedId=found[0]?.id||null;selectedVersionId=null;viewMode='animation';}
   $('#exercise-list').replaceChildren(...found.map(e=>{const b=node('button',{type:'button',class:'exercise-item','data-exercise-id':e.id,'aria-current':String(e.id===selectedId)},node('span',{class:'exercise-name',text:e.name}),node('span',{class:'exercise-meta'},node('span',{class:'tiny-dot '+status(e),'aria-hidden':'true'}),statusNames[status(e)],e.assignment?' · '+e.assignment.worker:''));b.addEventListener('click',()=>selectExercise(e.id));return b;}));
-  if(!found.length)$('#exercise-list').append(node('p',{class:'empty-state',text:'No exercises match this view.'}));
+  if(!found.length)$('#exercise-list').append(node('p',{class:'empty-state',text:filter==='pending'&&!query?'You’re caught up. No exercises need review. Choose All exercises to browse approved versions.':'No exercises match this view.'}));
  }
+ function updateList(){renderList();renderDetail();const url=new URL(location.href);url.searchParams.set('review',$('#review-filter').value);if(selectedId)url.searchParams.set('exercise',selectedId);else url.searchParams.delete('exercise');history.replaceState(null,'',url);}
  function selectExercise(id){selectedId=id;selectedVersionId=null;viewMode='animation';const url=new URL(location.href);url.searchParams.set('exercise',id);history.replaceState(null,'',url);renderList();renderDetail();if(matchMedia('(max-width:650px)').matches){$('#exercise-detail').scrollIntoView({block:'start',behavior:'auto'});$('#exercise-title')?.focus({preventScroll:true});}}
  function renderDetail(){
   disposeViewer();disposeViewer=()=>{};const exercise=selected(),detail=$('#exercise-detail');if(!exercise){detail.replaceChildren(node('div',{class:'empty-state',text:'No exercise selected.'}));return;}
@@ -137,7 +141,7 @@
    message('Imported '+changed.length+' review decision'+(changed.length===1?'':'s')+'. No candidate assets were replaced or published.');renderList();renderDetail();
   }catch(error){message('Import not applied: '+error.message,true);}finally{$('#import-reviews').value='';}
  }
- $('#exercise-search').addEventListener('input',renderList);$('#review-filter').addEventListener('change',renderList);$('#export-reviews').addEventListener('click',exportReviews);$('#import-reviews').addEventListener('change',event=>importReviews(event.target.files[0]));$('#refresh-workspace').addEventListener('click',refreshWorkspace);
+ $('#exercise-search').addEventListener('input',updateList);$('#review-filter').addEventListener('change',updateList);$('#export-reviews').addEventListener('click',exportReviews);$('#import-reviews').addEventListener('change',event=>importReviews(event.target.files[0]));$('#refresh-workspace').addEventListener('click',refreshWorkspace);
  window.addEventListener('storage',event=>{if(event.key===STORAGE_KEY&&mode==='browser')message('Another window changed review drafts. Export your current reviews before reloading so notes are not lost.',true);});
  load().catch(error=>{message(error.message,true);$('#storage-mode').textContent='Review library unavailable';$('#exercise-detail').replaceChildren(node('div',{class:'panel empty-state',text:'The review library could not be loaded. Refresh when the seed catalogue or local workspace is available.'}));});
 })();

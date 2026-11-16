@@ -15,6 +15,11 @@
 
 - Exact exercise variation / equipment / camera:
 - Current app form notes to check:
+- Full detailed technique entry and source-limitations sections (paths/anchors/hashes):
+- Existing source-register row and visual-reference entry (paths/anchors/hashes):
+- Supplied form reference files, distinct from identity/style anchors:
+- Media actually inspected / unavailable / not played:
+- Facts applied and conflicts resolved before generation:
 - Start and finish pose definitions:
 - Reference labels / exact URLs or local paths / dates / hashes:
 - Reference variation match and unresolved facts:

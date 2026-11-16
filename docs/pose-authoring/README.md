@@ -13,6 +13,8 @@ node scripts/serve-pose-review.mjs --port 8734 --workspace output/pose-review-wo
 
 Open the URL printed by the server. Local workspace mode saves exercise records and review history to disk. Subagents use the same explicit workspace path. Keep that workspace outside the public runtime and out of Git. The hosted development dashboard uses browser-local drafts instead; export its reviews and import them into the local workspace to hand decisions to agents. Browser-local drafts are not account sync, a shared queue, or a backup. Check the dashboard's storage-mode notice before reviewing.
 
+Use the prominent **Needs review** count button to show only exercises whose latest candidate has not been approved, including unreviewed versions and versions with owner-requested changes. It clears the search and selects a matching exercise. A fresh session without an exercise link opens this queue when there are pending candidates. **All exercises** and **Approved** are also clickable. The status dropdown keeps the narrower audit and owner-decision filters. A visual audit pass still needs owner review.
+
 The public seed and canonical runtime catalogue describe only public artwork and sanitized production metadata. Private review comments, supplied reference photos, generation sources and working candidates belong in the local workspace/archive. Never place that workspace under `exercise-guides/`, `dist/` or a hosting output folder.
 
 ## One exercise, one version, one decision

@@ -34,7 +34,7 @@ is for dev review; production is unchanged.
 
 ## Exercise artwork review
 
-The separate [development review dashboard](https://dev.strongstart.app/exercise-guides/pose-review/) starts with the eighteen approved pose pairs. Search or filter the list, inspect individual poses, compare a candidate with its approved version, read reference/audit notes, and approve or request changes for an exact version. Review approval does not change the workout images or publish a release. Missing audits remain labelled as not audited.
+The separate [development review dashboard](https://dev.strongstart.app/exercise-guides/pose-review/) starts with the eighteen approved pose pairs. Click **Needs review** above the exercise list to see only the latest versions awaiting your review, including versions where you requested changes. **All exercises** and **Approved** are also clickable. A fresh session opens the review queue when candidates are pending. Search or filter the list, inspect individual poses, compare a candidate with its approved version, read reference/audit notes, and approve or request changes for an exact version. Review approval does not change the workout images or publish a release. Missing audits remain labelled as not audited.
 
 The hosted dashboard saves drafts in that browser, with JSON export/import for handoff. For shared subagent work, run the local authoring server: its dashboard saves private records directly to a disk workspace. Notes and supplied reference images are kept outside public runtime files. See [the authoring workflow](pose-authoring/README.md) for startup, generation, audit and fresh-chat handoffs.
 
