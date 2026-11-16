@@ -11,7 +11,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   const page=await browser.newPage({viewport:{width,height:844}}),errors=[];
   page.on('pageerror',e=>{console.error(e.stack);errors.push(e.message);});page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(url).origin?r.continue():r.fulfill({status:200,body:''}));
-  const response=await page.goto(url);
+  const response=await page.goto(url);await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);
   assert.equal((await response.text()).replace(/\r\n/g,'\n'),fs.readFileSync(path.join(dist,'index.html'),'utf8').replace(/\r\n/g,'\n'),'exact candidate HTML');
   await page.evaluate(()=>{
    sb=null;AUTH.ready=true;AUTH.user=null;ui.qsLater=true;state=defaults();logs=[];state.setup=null;state.onboarded=true;
@@ -59,7 +59,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   await page.locator('#set-sound').check();
   assert.equal(await page.evaluate(()=>state.settings.sound),true);
   assert.equal(await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft})),progress);
-  await page.reload();await page.evaluate(()=>{sb=null;AUTH.ready=true;ui.qsLater=true;ui.tab='settings';render();});
+  await page.reload();await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;AUTH.ready=true;ui.qsLater=true;ui.tab='settings';render();});
   assert.equal(await page.evaluate(()=>state.settings.name),'Synthetic member');
   assert.equal(await page.evaluate(()=>state.settings.theme),'dark');
   assert.equal(await page.evaluate(()=>state.settings.sound),true);

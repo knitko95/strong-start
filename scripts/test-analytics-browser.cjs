@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   const page=await browser.newPage({viewport:{width,height:844}}),events=[],errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname.endsWith('.posthog.com')){events.push(JSON.parse(r.request().postData()));if(process.env.ANALYTICS_VERIFY_INGESTION)return r.continue();return r.fulfill({status:200,body:'1'});}return u.origin===new URL(url).origin?r.continue():r.fulfill({status:200,body:''});});
-  await page.goto(url);await page.evaluate(()=>{
+  await page.goto(url);await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{
    if(location.hostname==='dev.strongstart.app')APP_BUILD.variant='analytics-verification';
    sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;
    state=defaults();logs=[];state.setup=null;state.onboarded=true;
@@ -47,7 +47,7 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   assert.equal(await analyticsCard.getAttribute('aria-expanded'),'true','consent rerender preserves expanded card');
   await analyticsCard.click();assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false');
   assert.equal(await page.evaluate(()=>USAGE.choice()),'no','collapsing does not change consent');
-  await page.reload();await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;state.setup=null;ui.tab='settings';ui.settingsGroup='account';render();});
+  await page.reload();await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;state.setup=null;ui.tab='settings';ui.settingsGroup='account';render();});
   assert.equal(await page.evaluate(()=>USAGE.choice()),'no','opt-out persists across reload');
   assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false','card starts collapsed after reload');
   assert(!JSON.stringify(events).includes('synthetic-analytics-account'));assert(!JSON.stringify(events).includes('Synthetic gym'));

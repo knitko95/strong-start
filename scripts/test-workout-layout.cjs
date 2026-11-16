@@ -70,7 +70,7 @@ async function seed(page,screen,theme='light'){
      await seed(page,screen,theme);
      assert.equal(await page.evaluate(()=>navigator.onLine),true);
      assert.equal(await page.locator('#offline-notice').isVisible(),false,'online notice stays hidden on '+screen);
-     assert.equal(await page.locator('#app>.focus>section.card.acard').count(),1,'one main card on '+screen);
+     assert.equal(await page.locator(screen==='preview'?'#app>.focus>section.workout-preview-card':'#app>.focus>section.card.acard').count(),1,'one main card on '+screen);
      const measure=await page.evaluate(()=>{
       const focus=document.querySelector('.focus'),footer=focus.querySelector('.ffoot'),main=document.getElementById('app'),wrap=main.parentElement;
       const r=focus.getBoundingClientRect(),foot=footer?.getBoundingClientRect();

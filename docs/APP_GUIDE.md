@@ -1,5 +1,9 @@
 # Using Strong Start
 
+## Consistent controls on testing
+
+On dev, secondary actions have larger touch areas, mode selectors use a shared highlighted style, and expandable cards and detail rows use a right-side chevron. Standard dialogs have a common title and Close control; their existing Cancel, Done and other task actions remain. Focused workout screens and full-height coach conversations keep their own layouts. Setup fits narrow phones, active equipment locations are highlighted, and light-theme helper text is darker.
+
 ## Connected sign-ins on testing — November 15, 2026
 
 Open **Settings → Account & backups → Account → Sign-in methods** to see connected

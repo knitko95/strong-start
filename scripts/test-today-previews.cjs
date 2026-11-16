@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{try{const file=path.resolve(dist,'.'+
   const context=await browser.newContext({viewport:{width,height:900},serviceWorkers:'block',reducedMotion:'reduce'}),page=await context.newPage(),errors=[],requests=[],mutations=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{requests.push(r.url());if(r.method()!=='GET')mutations.push(r.url());});
   await context.route('**/*',r=>{const u=new URL(r.request().url());if(fail&&u.pathname.includes('/poses/assets/goblet-squat-'))return r.abort();return u.origin===origin?r.continue():r.fulfill({status:200,body:''});});
-  await page.goto(url);await page.evaluate(theme=>{
+  await page.goto(url);await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(theme=>{
    closeModal();sb=null;AUTH.ready=true;AUTH.user=null;AUTH.coach=false;ui.qsLater=true;state=defaults();state.setup=null;state.onboarded=true;logs=[];
    Object.assign(state.settings,{goals:['muscle'],days:[1,3,5],split:'fb3',mins:45,theme,sound:false});state.places=[{k:'gym',n:'Gym',eq:EQ_ALL}];state.curPlace='gym';newBlock();
    startWorkout(nextWorkoutKey());const slots=dSlots(),ids=['goblet-squat','barbell-bench-press','dumbbell-overhead-triceps-extension','dead-bug','plank'];state.draft.subs=Object.fromEntries(slots.map((s,i)=>[s.pk,ids[i%ids.length]]));ui.tab='today';ui.todayExercises=null;render();
