@@ -23,8 +23,8 @@ for(const place of ['home','gym']){
  const active=await page.locator(`[data-action="sutab"][data-v="${place}"]`).evaluate(e=>({pressed:e.getAttribute('aria-pressed'),bg:getComputedStyle(e).backgroundColor,fg:getComputedStyle(e).color,other:getComputedStyle(e.parentElement.querySelector('[aria-pressed="false"]')).backgroundColor}));
  assert.equal(active.pressed,'true');assert.notEqual(active.bg,active.other,'active location is visually distinct');assert(contrast(active.fg,active.bg)>=4.5,'selected location text remains readable');
 }
-await page.evaluate(()=>{state.setup=null;ui.tab='settings';ui.settingsGroup='training';ui.open={schedule:true,places:true,level:true};render();});
-const targets=await page.locator('[data-action="settingshome"],[data-action="pickLevel"],[data-action="editeq"]').evaluateAll(es=>es.map(e=>({text:e.textContent,height:e.getBoundingClientRect().height})));assert(targets.length>=2);assert(targets.every(t=>t.height>=44),'common secondary actions retain full touch height');
+await page.evaluate(()=>{state.setup=null;ui.tab='settings';ui.settingsGroup='training';ui.settingsPage='places';ui.open={schedule:true,places:true,level:true};render();});
+const targets=await page.locator('[data-action="settingsback"],[data-action="pickLevel"],[data-action="editeq"]').evaluateAll(es=>es.map(e=>({text:e.textContent,height:e.getBoundingClientRect().height})));assert(targets.length>=2);assert(targets.every(t=>t.height>=44),'common secondary actions retain full touch height');
 for(const color of ['blush','green','blue','noir'])for(const theme of ['light','dark']){
  const pairs=await page.evaluate(({color,theme})=>{Object.assign(state.settings,{color,theme});applyColor();const probe=document.createElement('span');probe.style.color='var(--muted)';document.body.append(probe);const fg=getComputedStyle(probe).color;const bgs=['bg','surface','sunk'].map(v=>{probe.style.backgroundColor=`var(--${v})`;return getComputedStyle(probe).backgroundColor;});probe.remove();return {fg,bgs};},{color,theme});
  assert(pairs.bgs.every(bg=>contrast(pairs.fg,bg)>=4.5),`${color}/${theme} helper text contrast`);

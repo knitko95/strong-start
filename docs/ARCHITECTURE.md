@@ -531,3 +531,10 @@ See [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md).
 ## Sync problem banner (November 15, 2026)
 
 On dev, `setSync()` updates one initially hidden `#sync` button in a sticky `.app-top` wrapper shared by normal pages and focused workouts. Only warning states show the banner; ordinary queued uploads, sending, checking and success remain silent. Coach preview keeps its separate ownership banner. Pressing the banner opens the existing sync/recovery dialog; Settings retains a manual Sync details entry, including access to the last conflict recovery. The save protocol, account isolation and conflict resolution are unchanged. `scripts/test-sync-browser.cjs` checks visibility, keyboard opening, offline/reconnect, late workout failures and recovery at 1280, 390 and 320 pixels using synthetic RPCs.
+
+
+## Profile & settings navigation (development, November 16, 2026)
+
+The profile entry opens a coaching-first hub. `SETTINGS_GROUPS` and `SETTINGS_PAGES` describe icon menus; `settingsFields()` renders the existing setting controls on direct destination screens. The UI continues to use the existing save, unit conversion, plan adjustment, consent, Auth and coaching functions. No stored-state schema or database permission changes accompany this navigation.
+
+`settingsGo()` saves presentation-only routes in browser history, including menu scroll and opening-control focus. A per-page navigation token and account/coach-view owner scope prevent stale history entries from being applied after navigation resets or account changes. Back/Forward never restores account or workout snapshots. Equipment exits still reconcile the current plan. Ordinary bottom navigation ends the Settings history scope; reload starts a fresh scope. Messages continue to use the existing conversation overlay and draft/scroll behavior. Sign-out clears the Settings navigation scope after successful account sign-out.

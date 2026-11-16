@@ -16,7 +16,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   await page.waitForFunction(()=>state!==null&&DEVICE.pending===0);
   await page.evaluate(()=>{
    state=defaults();state.setup=null;state.onboarded=true;state.settings.name='Synthetic member';
-   logs=[{id:'synthetic-history',status:'complete',entries:[]}];state.draft={id:'synthetic-draft',marker:'keep'};
+   logs=[{id:'synthetic-history',status:'complete',entries:[],units:'lb'}];state.draft={id:'synthetic-draft',marker:'keep'};
    window.authCalls=[];window.flushes=0;window.linkError=null;window.unlinkError=null;window.flushOK=true;
    window.authUser={id:'synthetic-member',email:'member@example.invalid',identities:[{id:'google-id',identity_id:'google-id',provider:'google',identity_data:{email:'member@example.invalid',email_verified:true}}]};
    sb={auth:{
@@ -33,7 +33,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
    ui.tab='settings';ui.settingsGroup='account';ui.open={account:true};persistLocal();render();
   });
   const baseline=await page.evaluate(()=>JSON.stringify({state,logs,owner:SYNC.owner}));
-  await page.getByRole('button',{name:'Sign-in methods',exact:true}).click();
+  await page.locator('[data-action="authmethods"]').click();
   await page.getByText('Google · Connected',{exact:true}).waitFor();
   assert(await page.getByRole('button',{name:'Disconnect Google',exact:true}).isDisabled());
   assert(await page.getByRole('button',{name:'Connect Apple',exact:true}).isDisabled());

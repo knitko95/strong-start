@@ -124,7 +124,16 @@ Offline files download automatically during an online visit; there is no Offline
 
 ## Finding your settings
 
-On the test app, Settings opens with four categories instead of one long list. **Your training** contains goals, schedule/split/workout order, places/equipment, level/limitations and the 6-week program. **Workout preferences** contains exercise choices, cardio and timers. **Profile & appearance** contains personal details and units, a separate Appearance section for app colors/light/dark, and weekly weigh-ins. **Account & backups** contains account access, policy links and copying/restoring a backup. Tap a category, then expand the setting you need; **All settings** returns to the overview. Coach messages and **Your people** appear at the top of that overview, above the categories, for accounts that already have access. Coach member-preview restrictions are unchanged.
+On the test app, tap the top-right profile button for **Profile & settings**. Coaching stays first: members can message their assigned coach, while coaches can open **Manage your people**, **Messages** or **Invites**. App owners retain their existing people-management tools; ownership alone does not grant access to coach conversations.
+
+Your name opens **Your profile** directly, with personal details and weigh-in preferences. Icon menus below it organize the remaining controls:
+
+- **Your training plan:** goals, schedule and workout length, workout split, workout order, places and equipment, experience level, pain and limitations, exercise preferences, and the 6-week program.
+- **During workouts:** cardio, timers and sounds.
+- **App preferences:** appearance and weight units. Changing units converts saved weights using the existing conversion behavior.
+- **Account & data:** sign-in methods when available, sync status, backups, privacy and terms, optional usage analytics, and account actions. Usage analytics remains a collapsed On/Off card. Account deletion retains its confirmation and staff restrictions. Restoring a backup has a separate screen with replacement warnings.
+
+Each option opens its controls directly. Changes save automatically; the save indicator distinguishes device storage from account sync. The Back button and browser Back/Forward retain menu position and focus. Opening Schedule from Plan returns to Plan; opening weigh-ins from your profile returns to your profile. Navigation changes no saved plan or history. Coach member-preview settings remain restricted and view-only except for the already-supported level changes.
 
 ## Setup
 

@@ -32,71 +32,69 @@ const server=http.createServer((req,res)=>{try{const file=path.join(dist,req.url
   assert.equal(await page.locator('#tabs [aria-current]').count(),0);
   assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),baseline,'opening Settings preserves saved data');
   assert.equal(await page.locator('[data-action="settingsgroup"]').count(),4);
-  if(width===390){fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await page.screenshot({path:path.join(root,'test-results/settings-home.png'),fullPage:true});}
-  for(const [group,ids] of [['training',['goals','schedule','places','level','block']],['workout',['exch','cardio','timers']],['profile',['appearance','weigh']],['account',['backup']]]){
+  assert.equal(await page.locator('#app h1').innerText(),'Profile & settings');
+  assert.equal(await page.locator('.settings-row .settings-icon').count(),5);
+  const go=async id=>{await page.locator(`[data-action="settingspage"][data-v="${id}"]`).click();};
+  const back=async()=>{await page.locator('[data-action="settingsback"]').click();await page.waitForTimeout(90);};
+  for(const [group,ids] of [['training',['goals','schedule','split','order','places','level','pain','exch','block']],['workout',['cardio','timers']],['preferences',['appearance','units']],['account',['backup','privacy']]]){
    await page.locator(`[data-action="settingsgroup"][data-v="${group}"]`).click();
    assert.equal(await page.evaluate(()=>document.activeElement.id),'settings-title');
-   assert.deepEqual(await page.locator('[data-action="sectoggle"]').evaluateAll(es=>es.map(e=>e.dataset.v)),ids);
    for(const id of ids){
-    await page.locator(`[data-action="sectoggle"][data-v="${id}"]`).click();
-    assert.equal(await page.locator(`[data-action="sectoggle"][data-v="${id}"]`).getAttribute('aria-expanded'),'true');
-    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${group}/${id} overflows at ${width}`);
+    await go(id);
+    assert.equal(await page.evaluate(()=>ui.settingsPage),id);
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${id} overflows at ${width}`);
+    assert.equal(await page.locator('#tabs [aria-current]').count(),0);
+    if(id==='places'){
+     await page.locator('[data-action="editeq"]').first().click();
+     await page.locator('[data-action="eqdone"]').first().click();await page.waitForTimeout(90);
+     assert.equal(await page.evaluate(()=>ui.settingsPage),'places');
+    }
+    if(id==='backup'){await go('restore');assert(await page.locator('#restore').isVisible());await back();assert.equal(await page.evaluate(()=>ui.settingsPage),'backup');}
+    await back();assert.equal(await page.evaluate(()=>ui.settingsPage),null);
+    assert.equal(await page.evaluate(()=>ui.settingsGroup),group);
+    assert.equal(await page.evaluate(()=>document.activeElement.dataset.v),id,'Back restores the opening row');
    }
-   await page.locator('[data-action="settingshome"]').click();
+   await back();assert.equal(await page.locator('#app h1').innerText(),'Profile & settings');
   }
-  assert.equal(await page.evaluate(()=>JSON.stringify({state,logs})),baseline,'browsing preserves all saved data');
-  await page.locator('[data-action="settingsgroup"][data-v="profile"]').click();
-  await page.locator('[data-action="proftoggle"]').click();
+  assert.equal(await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft})),progress,'browsing preserves plan, weights, logs and paused workout');
+  await go('profile');
+  assert(await page.locator('#set-name').isVisible(),'profile fields open without another disclosure');
   await page.locator('#set-name').fill('Synthetic member');await page.locator('#set-name').dispatchEvent('change');
-  await page.locator('[data-action="setunits"][data-u="kg"]').click();
-  assert.equal(await page.evaluate(()=>state.settings.units),'kg');
-  await page.locator('[data-action="setunits"][data-u="lb"]').click();
-  await page.locator('[data-action="settheme"][data-t="dark"]').click();
-  assert.equal(await page.evaluate(()=>state.settings.theme),'dark');
-  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'expanded profile fits');
-  await page.locator('[data-action="settingshome"]').click();
-  await page.locator('[data-action="settingsgroup"][data-v="workout"]').click();
-  await page.locator('#set-sound').check();
+  await page.locator('#wi-on').check();
+  await page.locator('[data-tab="weigh"]').click();await page.locator('[data-action="weighback"]').click();await page.waitForTimeout(90);
+  assert.equal(await page.locator('#app h1').innerText(),'Your profile');
+  await back();
+  await page.locator('[data-action="settingsgroup"][data-v="preferences"]').click();await go('units');
+  await page.locator('[data-action="setunits"][data-u="kg"]').click();assert.equal(await page.evaluate(()=>state.settings.units),'kg');
+  await page.locator('[data-action="setunits"][data-u="lb"]').click();await back();await go('appearance');
+  await page.locator('[data-action="settheme"][data-t="dark"]').click();assert.equal(await page.evaluate(()=>state.settings.theme),'dark');await back();await back();
+  await page.locator('[data-action="settingsgroup"][data-v="workout"]').click();await go('timers');await page.locator('#set-sound').check();
   assert.equal(await page.evaluate(()=>state.settings.sound),true);
   assert.equal(await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft})),progress);
   await page.reload();await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;AUTH.ready=true;ui.qsLater=true;ui.tab='settings';render();});
-  assert.equal(await page.evaluate(()=>state.settings.name),'Synthetic member');
-  assert.equal(await page.evaluate(()=>state.settings.theme),'dark');
-  assert.equal(await page.evaluate(()=>state.settings.sound),true);
-  // Render signed-in account controls and staff/member boundaries without a live session.
-  const roles=await page.evaluate(()=>{
-   sb={};AUTH.user={id:'synthetic',email:'settings@example.invalid'};AUTH.access='ok';ui.settingsGroup='account';ui.open={account:true,backup:true};
-   const account=renderSettings();ui.settingsGroup=null;AUTH.coach=true;const staff=renderSettings();
-   AUTH.coach=false;CM.owner=AUTH.user.id;CM.summary={coach:{name:'Synthetic coach',unread:2}};
-   const member=renderSettings();$('#app').innerHTML=member;
-   coachMode={name:'Synthetic member'};const preview=renderSettings();coachMode=null;AUTH.coach=false;sb=null;AUTH.user=null;
-   return {account,staff,member,preview};
-  });
-  assert.match(roles.account,/Delete my account/);assert.match(roles.account,/privacy.html/);assert.match(roles.account,/terms.html/);
-  assert.match(roles.staff,/Your people/);
-  assert(roles.staff.indexOf('data-action="people"')<roles.staff.indexOf('settings-menu'),'staff card precedes settings categories');
-  assert.match(roles.member,/Your coach/);
-  assert(roles.member.indexOf('data-action="cmopen"')<roles.member.indexOf('settings-menu'),'coach messages precede settings categories');
-  assert(await page.evaluate(()=>document.querySelector('.cm-card').getBoundingClientRect().bottom<document.querySelector('.settings-menu').getBoundingClientRect().top));
-  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert(!roles.preview.includes('settingsgroup'));assert(!roles.preview.includes('copybackup'));
-  await page.evaluate(()=>{sb=null;AUTH.user=null;coachMode=null;ui.tab='today';CM.summary={coach:{unread:102}};render();});
-  assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-label'),'Settings, 102 unread');
-  assert.equal(await page.locator('#settings-shortcut .tbadge').innerText(),'99+');
-  await page.evaluate(()=>{CM.summary=null;ui.tab='today';render();});
-  assert.equal(await page.locator('#settings-shortcut .tbadge').count(),0);
-  assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-current'),null);
-  // Include the signed-in feedback button when checking the narrow header.
-  await page.evaluate(()=>{$('#fbbtn').hidden=false;});
-  assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'header fits with feedback and profile');
-  const header=await page.locator('#settings-shortcut').boundingBox();
-  assert(header.width>=44&&header.height>=44&&header.x+header.width<=width,'profile touch target fits');
-  await page.evaluate(()=>{coachMode={name:'Synthetic member'};ui.tab='today';render();});
-  await page.locator('#settings-shortcut').click();
-  assert.equal(await page.evaluate(()=>ui.tab),'settings','coach preview can still open view-only Settings');
-  await page.evaluate(()=>{coachMode=null;ui.tab='workout';render();});
-  assert.equal(await page.locator('#settings-shortcut').isVisible(),false,'focused workout hides shortcut');
-  await page.evaluate(()=>{ui.tab='today';AUTH.recovery=true;render();});
-  assert.equal(await page.locator('#settings-shortcut').isVisible(),false,'recovery hides shortcut');
-  assert.deepEqual(errors,[]);await page.close();console.log(`PASS Settings categories, expanded controls, persistence, progress and role boundaries at ${width}px`);
+  assert.equal(await page.evaluate(()=>state.settings.name),'Synthetic member');assert.equal(await page.evaluate(()=>state.settings.theme),'dark');assert.equal(await page.evaluate(()=>state.settings.sound),true);
+  await page.evaluate(()=>{state.settings.theme='light';state.settings.bw=145;AUTH.user={id:'synthetic-member',email:'member@example.invalid'};AUTH.access='ok';CM.owner=AUTH.user.id;CM.summary={coach:{name:'Synthetic coach',unread:2}};ui.settingsGroup=null;ui.settingsPage=null;render();});
+  assert(await page.locator('[data-action="cmopen"]').isVisible());
+  assert(await page.evaluate(()=>document.querySelector('.settings-coaching').getBoundingClientRect().bottom<document.querySelector('.settings-profile-link').getBoundingClientRect().top),'coaching comes before profile and settings');
+  if(width===390){fs.mkdirSync(path.join(root,'test-results'),{recursive:true});await page.screenshot({path:path.join(root,'test-results/profile-settings-member.png'),fullPage:true});}
+  await page.evaluate(()=>{AUTH.coach=true;CM.summary={inbox:[{needs_reply:true,unread:2}]};render();});
+  assert.equal(await page.locator('[data-action="cmopen"]').count(),0,'coach has people tools rather than assigned-coach messaging');
+  assert(await page.locator('[data-action="settingsmessages"]').isVisible());assert(await page.locator('[data-action="settingsinvites"]').isVisible());
+  if(width===390)await page.screenshot({path:path.join(root,'test-results/profile-settings-coach.png'),fullPage:true});
+  await page.locator('[data-action="settingsmessages"]').click();assert.equal(await page.evaluate(()=>ui.tab),'inbox');await page.goBack();await page.waitForTimeout(90);assert.equal(await page.locator('#app h1').innerText(),'Profile & settings');
+  await page.evaluate(()=>{window.originalLoadPeople=loadPeople;loadPeople=()=>{ui.people={list:[]};ui.invites={list:[]};render();};});await page.locator('[data-action="settingsinvites"]').click();assert(await page.locator('[data-action="invitenew"]').isVisible());await page.goBack();await page.waitForTimeout(90);await page.evaluate(()=>{loadPeople=window.originalLoadPeople;});
+  await page.evaluate(()=>{AUTH.coach=false;FB.owner=true;render();});assert(await page.locator('[data-action="people"]').isVisible());assert.equal(await page.locator('[data-action="settingsmessages"]').count(),0,'owner role does not grant coach conversations');
+  await page.locator('[data-action="settingsgroup"][data-v="account"]').click();assert.equal(await page.locator('[data-action="selfdelete"]').count(),0,'staff self deletion remains guarded');
+  await page.evaluate(()=>{FB.owner=false;render();});assert(await page.locator('[data-action="selfdelete"]').isVisible());await page.locator('[data-action="selfdelete"]').click();assert(await page.locator('#self-delete-confirm').isVisible());assert(await page.locator('#self-delete-button').isDisabled());await page.locator('[data-action="closemodal"]').last().click();
+  await page.evaluate(()=>{AUTH.user=null;AUTH.coach=false;CM.summary=null;ui.tab='plan';settingsResetNavigation();render();});
+  await page.locator('[data-action="planeditschedule"]').click();assert.equal(await page.locator('#app h1').innerText(),'Schedule & workout length');assert.match(await page.locator('[data-action="settingsback"]').innerText(),/Plan/);await back();assert.equal(await page.evaluate(()=>ui.tab),'plan','shortcut returns to Plan');
+  await page.locator('#settings-shortcut').click();await page.locator('[data-action="settingsgroup"][data-v="training"]').click();
+  await page.evaluate(()=>window.scrollTo(0,220));const scroll=await page.evaluate(()=>scrollY);await go('exch');await page.goBack();await page.waitForTimeout(90);assert.equal(await page.evaluate(()=>ui.settingsPage),null);assert(Math.abs(await page.evaluate(()=>scrollY)-scroll)<3,'browser Back restores menu scroll');await page.goForward();await page.waitForTimeout(90);assert.equal(await page.evaluate(()=>ui.settingsPage),'exch');
+  await page.evaluate(()=>{AUTH.user={id:'synthetic-other'};});await page.goBack();await page.waitForTimeout(90);assert.equal(await page.evaluate(()=>ui.settingsPage),'exch','stale navigation cannot cross accounts');
+  await page.evaluate(()=>{AUTH.user=null;coachMode={name:'Synthetic member'};render();});assert.equal(await page.locator('[data-action="settingsgroup"],[data-action="copybackup"],#set-name').count(),0);assert(await page.locator('[data-action="pickLevel"]').isVisible());
+  await page.evaluate(()=>{coachMode=null;ui.tab='today';CM.summary={coach:{unread:102}};render();});assert.equal(await page.locator('#settings-shortcut').getAttribute('aria-label'),'Profile & settings, 102 unread');assert.equal(await page.locator('#settings-shortcut .tbadge').innerText(),'99+');
+  await page.evaluate(()=>{ui.tab='workout';render();});assert.equal(await page.locator('#settings-shortcut').isVisible(),false);
+  await page.evaluate(()=>{ui.tab='today';AUTH.recovery=true;render();});assert.equal(await page.locator('#settings-shortcut').isVisible(),false);
+  assert.deepEqual(errors,[]);await page.close();console.log(`PASS coaching-first hub, icon destinations, direct fields, browser Back/Forward, origin/scroll/focus return, persistence, account and preview boundaries at ${width}px`);
  }}finally{await browser.close();server.close();}
 })().catch(e=>{console.error(e);process.exitCode=1;server.close();});

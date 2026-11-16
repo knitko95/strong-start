@@ -19,25 +19,25 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.locator('[data-action="sulater"]').click();
   assert.equal(await page.getByText('Finish setting up',{exact:true}).count(),1);
   await page.locator('[data-action="tab"][data-tab="settings"]').click();
-  await page.evaluate(()=>{ui.settingsGroup='profile';ui.profOpen=true;ui.open={profile:true};render();});
+  await page.evaluate(()=>{ui.settingsGroup=null;ui.settingsPage='profile';ui.profOpen=true;ui.open={profile:true};render();});
   // Open the profile using its actual toggle if needed.
   if(!await page.locator('#set-name').count()) await page.locator('[data-action="proftoggle"]').click();
   await page.locator('#set-name').fill('Synthetic profile');await page.locator('#set-name').dispatchEvent('change');
   assert.equal(await page.evaluate(()=>state.setup.a.name),'Synthetic profile');
   assert.equal(await page.evaluate(()=>+state.setup.a.bw),180,'unfinished wizard-only answer retained');
-  await page.reload();await page.evaluate(()=>{sb=null;ui.qsLater=true;render();});
+  await page.reload();await page.waitForFunction(()=>state&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;ui.qsLater=true;render();});
   await page.locator('[data-action="suresume"]').click();
   assert.equal(await page.locator('#su-name').inputValue(),'Synthetic profile');
   assert.equal(await page.locator('#su-bw').inputValue(),'180');
   await page.locator('[data-action="sulater"]').click();
   const before=await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft}));
   await page.locator('[data-action="tab"][data-tab="settings"]').click();
-  await page.evaluate(()=>{ui.settingsGroup='training';ui.open={goals:true};render();});
+  await page.evaluate(()=>{ui.settingsGroup='training';ui.settingsPage='goals';ui.open={goals:true};render();});
   await page.locator('[data-action="setgoal"][data-v="muscle"]').click();
   assert.equal(await page.evaluate(()=>state.setup),null);
   assert.equal(await page.evaluate(()=>state.onboarded),true);
   assert.equal(await page.evaluate(()=>JSON.stringify({block:state.block,ex:state.ex,logs,draft:state.draft})),before,'Settings completion preserves program and progress');
-  await page.reload();await page.evaluate(()=>{sb=null;ui.qsLater=true;render();});
+  await page.reload();await page.waitForFunction(()=>state&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;ui.qsLater=true;render();});
   assert.equal(await page.getByText('Finish setting up',{exact:true}).count(),0);
   assert.equal(await page.evaluate(()=>state.settings.name),'Synthetic profile');
   // Older checkpoints lack a Settings baseline: current saved values win on Continue.
@@ -48,7 +48,7 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   // Early quick setup stays incomplete; ordinary saving cannot create a plan.
   await page.evaluate(()=>{state=defaults();state.setup.a.name='Quick checkpoint';ui.tab='today';render();});
   await page.locator('[data-action="sulater"]').click();
-  await page.reload();await page.evaluate(()=>{sb=null;render();});
+  await page.reload();await page.waitForFunction(()=>state&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;render();});
   await page.locator('[data-action="suresume"]').click();
   assert.equal(await page.locator('#su-name').inputValue(),'Quick checkpoint');
   assert.equal(await page.evaluate(()=>state.block),null);
@@ -56,8 +56,8 @@ const server=http.createServer((req,res)=>{try{const file=path.join(root,'dist',
   await page.evaluate(()=>{
    state.settings.goals=['muscle'];state.places=[{k:'gym',n:'Gym',eq:PLACE_TYPES.gym.eq.split(' ')}];state.curPlace='gym';newBlock();
    state.setup={paused:true,step:'week1',a:{...prefillSetup(),quickSetup:true},savedSettings:prefillSetup()};
-   state.draft={synthetic:'keep'};state.ex={synthetic:{w:25}};logs=[{id:'synthetic-history',entries:[]}];
-   ui.tab='settings';ui.settingsGroup='profile';ui.profOpen=true;ui.open={profile:true};render();
+   state.draft={synthetic:'keep'};state.ex={synthetic:{w:25}};logs=[{id:'synthetic-history',entries:[],units:'lb',status:'complete'}];
+   ui.tab='settings';ui.settingsGroup=null;ui.settingsPage='profile';ui.profOpen=true;ui.open={profile:true};render();
   });
   const progress=await page.evaluate(()=>JSON.stringify({block:state.block,draft:state.draft,ex:state.ex,logs}));
   await page.locator('#set-name').fill('Quick saved profile');await page.locator('#set-name').dispatchEvent('change');

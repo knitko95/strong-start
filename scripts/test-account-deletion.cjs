@@ -21,13 +21,13 @@ const server=http.createServer((req,res)=>{try{const p=req.url.split('?')[0];con
    lsSet(ACCT_KEY,JSON.stringify(AUTH.user));lsSet('strongstart_owner',AUTH.user.id);ui.tab='settings';ui.settingsGroup='account';ui.open={account:true};persistLocal();render();
   });
   assert.ok(await page.getByText('Testing',{exact:false}).count());
-  await page.getByRole('button',{name:'Delete my account',exact:true}).click();
+  await page.locator('[data-action="selfdelete"]').click();
   const dialog=page.getByRole('dialog'),del=dialog.getByRole('button',{name:'Delete my account forever'});
   await dialog.getByRole('heading',{name:'Delete your account forever?'}).waitFor();
   assert.equal(await dialog.getByRole('button',{name:'Cancel'}).evaluate(el=>el===document.activeElement),true);
   assert.equal(await del.isDisabled(),true);assert.ok(await dialog.getByText(/message text and screen\/device context remain/).count());
   await page.keyboard.press('Escape');assert.equal(await page.getByRole('dialog').count(),0);assert.equal(await page.evaluate(()=>calls.length),0);
-  await page.getByRole('button',{name:'Delete my account',exact:true}).click();
+  await page.locator('[data-action="selfdelete"]').click();
   await page.getByLabel('Type DELETE to confirm').fill('delete');assert.equal(await del.isDisabled(),true);
   await page.getByLabel('Type DELETE to confirm').fill('DELETE');assert.equal(await del.isDisabled(),false);
   const [backup]=await Promise.all([page.waitForEvent('download'),dialog.getByRole('button',{name:'Download backup first'}).click()]);assert.ok(fs.readFileSync(await backup.path(),'utf8').includes('Deletion test'));
