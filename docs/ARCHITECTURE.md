@@ -32,10 +32,55 @@ Sign-out/deletion clear records and retain a generation marker against stale
 tabs. Without IndexedDB the app retains its limited localStorage fallback. A
 failed IndexedDB read stops boot instead of saving defaults over existing data.
 
-All history is still loaded into memory for existing progression/search/charts.
-This change bounds sync transfers and disk writes; it does not add lazy history
-rendering, server summaries, retention or tombstone pruning. First import and
-download still scale with full history. See [verification and release limits](INCREMENTAL-SYNC-2026-11-15.md).
+The initial incremental-sync release loaded all history into memory. The paged
+history candidate below supersedes that limitation. First import/download still
+scales with full history, streamed to the offline disk cache. No history retention
+or tombstone pruning is introduced. See the [original verification](INCREMENTAL-SYNC-2026-11-15.md)
+and [paged-history verification](PAGED-HISTORY-2026-11-15.md).
+
+## Paged history and progress summaries on dev — November 15, 2026
+
+`history-store.js` upgrades the same environment-scoped IndexedDB database to
+version 2. Raw local/server baseline records stay on disk, alongside compact
+per-session exercise facts, a pending-record queue and isolated incoming-sync
+staging. Metadata retains the plan/draft, account identity, state baseline and
+revision; it contains no full-history arrays. A normal boot loads a 30-session
+page, plus a pinned draft record when necessary. Repeated offline completions
+return to that bound after their writes become durable. Failed writes retain
+live pending data for backup instead of evicting it.
+
+History uses disk cursors for Older sessions / Latest sessions and exercise
+history pages. Per-exercise counters and first-two/latest-three comparable
+results produce the existing score. Two ordered passes over compact disk facts
+calculate graphs, eligibility, experience/stall decisions and current-program
+completion summaries without retaining the complete raw history. Graphs retain
+at most 600 selected exact points per series; scores use all eligible results.
+Equal-time records retain the original locale-aware ID ordering in calculation
+windows. Edits/deletions rebuild summaries from disk, including old baselines;
+pending summaries are shown as updating and plan/start actions await them.
+
+Sync uses the existing development delta RPCs. Each incoming page (at most 250
+records) is staged on disk, scoped to this download. Inconsistent paged snapshots
+restart without publishing a cursor or replacing local edits. Applying the
+complete snapshot, per-record three-way merges, tombstones and the new cursor is
+one device transaction. Upload acknowledgements preserve edits made in flight.
+Conflicting records and full recovery versions remain on disk. The legacy
+localStorage and IndexedDB-v1 migrations preserve pending deletions, units,
+conflicts, remote additions and unfinished sets, including interrupted migration.
+
+Coach preview streams bounded reads into a separate disposable disk cache. It
+never writes the coach's own cache or the member's account directly. The preview
+cache is deleted on exit and at next boot after an interrupted session. Existing
+RLS/approval and plan-update rules remain; no new database schema, RPC, grant or
+role is introduced by pagination. The prior incremental-sync migration remains
+required for a future approved production release.
+
+Personal/recovery backups enumerate all disk records, overlay unsaved live edits
+and download the existing JSON shape. Export assembles serialized JSON/Blob
+parts, so an explicitly requested large backup can temporarily use memory
+proportional to its file size. Restoring a pasted JSON backup similarly needs to
+parse that input once. Neither operation silently backs up only the visible page.
+Without IndexedDB, the existing localStorage/full-memory fallback remains.
 
 ## Exercise artwork authoring
 

@@ -1,5 +1,9 @@
 # Incremental sync and IndexedDB: development verification
 
+The later [paged-history candidate](PAGED-HISTORY-2026-11-15.md) replaces the
+full-memory limitation recorded below. This file preserves the initial release's
+test scope; it is not a claim that all those checks cover later changes.
+
 Authorized scope: incremental sync, IndexedDB, several years of synthetic
 history testing and dev deployment. Production release is not approved.
 

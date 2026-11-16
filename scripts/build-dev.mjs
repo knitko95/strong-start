@@ -19,7 +19,7 @@ await import('./check-pose-guides.mjs');
 await import('./check-pose-review.mjs');
 await import('./test-pose-review-store.mjs');
 await import('./check-all-exercise-animations.mjs');
-for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'offline.js', 'sw.js', 'exercise-guides']) {
+for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'history-store.js', 'offline.js', 'sw.js', 'exercise-guides']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
 }
 // A test deployment cannot connect to production even if served at another URL.

@@ -923,6 +923,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 <div id="toast"></div>
 
 <script src="analytics.js"></script>
+<script src="history-store.js"></script>
 <script>
 /* Environment: exact approved production locations; previews stay isolated. */
 const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
@@ -1853,9 +1854,9 @@ const EXPLOSIVE_WU=/jump|explosive|^fast |chest pass/i;
 function prefMatch(e){ const t=state.settings.tstyle, pe=primeEq(e); if(t==='machines') return ['mc','cb'].includes(pe); if(t==='free') return ['db','kb','bb','lm'].includes(pe); return true; }
 function prefBonus(e){ const t=state.settings.tstyle; return !t||t==='mix' ? 0 : prefMatch(e) ? 1.2 : -0.6; }
 // Has this exercise stopped moving up? (top weight in the last 3 sessions no better than before)
-function stalled(id){ const w=logs.filter(l=>l.entries.some(e=>e.ex===id)).reverse().map(l=>Math.max(0,...l.entries.find(e=>e.ex===id).sets.map(x=>+x.w||0)));
+function stalled(id){ if(PAGE.active){const x=PAGE.summary?.experience[id];return !!x&&x.count>=4&&Math.max(...x.top)<=x.earlier;}const w=logs.filter(l=>l.entries.some(e=>e.ex===id)).reverse().map(l=>Math.max(0,...l.entries.find(e=>e.ex===id).sets.map(x=>+x.w||0)));
   if(w.length<4) return false; return Math.max(...w.slice(-3)) <= Math.max(...w.slice(0,-3)); }
-function programsWith(id){ return new Set(logs.filter(l=>l.entries.some(e=>e.ex===id)).map(l=>l.block)).size; }
+function programsWith(id){ if(PAGE.active)return PAGE.summary?.experience[id]?.programs||0;return new Set(logs.filter(l=>l.entries.some(e=>e.ex===id)).map(l=>l.block)).size; }
 function generatePlan(prev, opts={}){
   const plan={}, used=new Set(), eqset=placeEq(homeBase()), L=lvl();
   // Decide what carries over from the last 6-week program (Exercise variety setting)
@@ -1940,7 +1941,7 @@ function applyAdj(s){
 // Keep the program you're leaving so you can go back to it
 function snapBlock(){ if(!state.block) return; state.prevBlock=JSON.parse(JSON.stringify({block:state.block, adj:state.adj||{}, weekModes:state.weekModes||{}, draft:state.draft||null, checkin:state.checkin||null, easeUntil:state.easeUntil||0})); }
 function goBackBlock(){
-  const P=state.prevBlock; if(!P) return; const cur=state.block, usedNew=logs.some(l=>l.block===cur.n);
+  const P=state.prevBlock; if(!P) return; const cur=state.block, usedNew=hasBlockHistory(cur.n);
   state.block=P.block; state.adj=P.adj; state.weekModes=P.weekModes; state.checkin=P.checkin; state.easeUntil=P.easeUntil;
   if(usedNew){ state.block.n=cur.n; state.block.start=cur.start; } else if(P.draft && !state.draft) state.draft=P.draft;
   state.prevBlock=null;
@@ -1992,77 +1993,81 @@ function defaults(){
 }
 // Account-scoped metadata and workout records share one device transaction.
 // No dependency or network access is needed for offline saves.
-class DeviceStore {
-  constructor(name){ this.name=name; this.db=null; this.version=0; this.keys=new Map(); this.tail=Promise.resolve();this.legacy=null;try{this.legacy=localStorage.getItem(name);}catch{} }
-  async open(){
-    this.db=await new Promise((resolve,reject)=>{
-      const req=indexedDB.open(this.name+'_indexed',1);
-      req.onupgradeneeded=()=>{req.result.createObjectStore('meta');req.result.createObjectStore('logs');};
-      req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);
-      req.onblocked=()=>reject(Error('Close the other app tab to open device storage'));
-    });
-    this.db.onversionchange=()=>{this.db.close();this.db=null;};
-    const saved=await new Promise((resolve,reject)=>{
-      const tx=this.db.transaction(['meta','logs'],'readonly'),m=tx.objectStore('meta').get('active'),r=tx.objectStore('logs').getAll();
-      tx.oncomplete=()=>resolve({meta:m.result,rows:r.result});tx.onerror=tx.onabort=()=>reject(tx.error||Error('Device read failed'));
-    });
-    if(!saved.meta)return null;
-    this.version=saved.meta.version;
-    const value=saved.meta.value;
-    for(const row of saved.rows){
-      this.keys.set(row.key,JSON.stringify(row.data));
-      const parts=row.key.split('/'),slot=parts.shift();
-      const dest=slot==='local'?value:slot==='base'?value.sync.base:slot==='conflict'?value.sync.conflict:slot==='device'?value.sync.recovery.device:value.sync.recovery.account;
-      if(dest)dest.logs.push(row.data);
-    }
-    // Preserve newest-first history after IndexedDB's key-ordered getAll().
-    for(const snapshot of [value,value?.sync.base,value?.sync.conflict,value?.sync.recovery?.device,value?.sync.recovery?.account]){
-      if(snapshot)snapshot.logs.sort((a,b)=>new Date(b.date)-new Date(a.date)||String(a.id).localeCompare(String(b.id)));
-    }
-    return value;
-  }
-  write(value){
-    // Capture now: later UI edits must not leak into this transaction's baseline.
-    const captured=structuredClone(value);
-    const task=this.tail.catch(()=>{}).then(()=>this.commit(captured));
-    this.tail=task;return task;
-  }
-  async commit(value){
-    const rows=new Map();
-    const split=(slot,snapshot)=>{if(!snapshot)return;for(const l of snapshot.logs||[])rows.set(slot+'/'+l.id,l);snapshot.logs=[];};
-    split('local',value);split('base',value.sync.base);split('conflict',value.sync.conflict);
-    if(value.sync.recovery){split('device',value.sync.recovery.device);split('account',value.sync.recovery.account);}
-    const signatures=new Map([...rows].map(([k,v])=>[k,JSON.stringify(v)]));
-    await new Promise((resolve,reject)=>{
-      const tx=this.db.transaction(['meta','logs'],'readwrite'),meta=tx.objectStore('meta'),records=tx.objectStore('logs'),req=meta.get('active');
-      let reason;
-      req.onsuccess=()=>{
-        if((req.result?.version||0)!==this.version){reason=Object.assign(Error('Another tab saved changes. Copy a backup and reload this tab.'),{code:'stale_device_copy'});tx.abort();return;}
-        for(const [key,data] of rows)if(this.keys.get(key)!==signatures.get(key))records.put({key,data},key);
-        for(const key of this.keys.keys())if(!rows.has(key))records.delete(key);
-        meta.put({version:this.version+1,value},'active');
-      };
-      tx.oncomplete=()=>{this.version++;this.keys=signatures;resolve();};
-      tx.onerror=tx.onabort=()=>reject(reason||tx.error||Error('Device save failed'));
-    });
-    // Remove the legacy copy only after the IndexedDB transaction has committed.
-    // An older still-open app may write its legacy cache during migration.
-    // Preserve that copy instead of deleting newer work from another tab.
-    try{if(localStorage.getItem(this.name)===this.legacy)localStorage.removeItem(this.name);}catch{}
-  }
-  clear(){
-    const task=this.tail.catch(()=>{}).then(()=>new Promise((resolve,reject)=>{
-      const tx=this.db.transaction(['meta','logs'],'readwrite');
-      // Keep a generation marker so an old tab cannot recreate a cleared account.
-      const req=tx.objectStore('meta').get('active');
-      req.onsuccess=()=>{
-        this.version=(req.result?.version||0)+1;
-        tx.objectStore('meta').put({version:this.version,value:null},'active');
-        tx.objectStore('logs').clear();
-      };
-      tx.oncomplete=()=>{this.keys.clear();resolve();};tx.onerror=tx.onabort=()=>reject(tx.error||Error('Device clear failed'));
-    }));this.tail=task;return task;
-  }
+const DeviceStore=globalThis.StrongStartHistory?.Store;
+const PAGE={active:false,store:null,summary:null,view:{before:null,exercise:null},more:false,next:null,scope:0,flight:null,sig:null,error:null};
+function compactSync(sync){
+  const copy=copySync({...sync,base:sync.base?{...sync.base,logs:[],deleted:[]}:null,conflict:sync.conflict?{...sync.conflict,logs:[]}:null,
+    recovery:sync.recovery?{...sync.recovery,device:{...sync.recovery.device,logs:[]},account:{...sync.recovery.account,logs:[]}}:null});
+  return copy;
+}
+function historyFact(log,units){
+  const l=copySync(log);l.units=l.units||units||'lb';const entries=new Map();
+  for(const e of l.entries||[]){if(!entries.has(e.ex))entries.set(e.ex,{...e,sets:[],top:Math.max(0,...(e.sets||[]).map(s=>+s.w||0))});entries.get(e.ex).sets.push(...(e.sets||[]));}
+  const ms=Date.parse(l.date),valid=Number.isFinite(ms),f={};
+  for(const k of ['id','date','name','dur','status','block','week','key','completedAt','orderAdvanced','units','cardio','completed','planned'])if(l[k]!==undefined)f[k]=l[k];
+  f.status=f.status||'complete';f.ms=valid?ms:0;f.valid=valid;
+  f.entries=[...entries.values()].map(e=>({ex:e.ex,name:EX[e.ex]?.n||e.name||e.ex,area:historyArea(e.ex),metric:historyMetric(e,l),top:e.top}));return f;
+}
+function mergePageState(base,local,remote){
+  base=base?migrate(copySync(base)):base;local=migrate(copySync(local));remote=remote?migrate(copySync(remote)):remote;
+  const m=mergeSnapshots(base?{state:base,logs:[]}:null,{state:local,logs:[]},{state:remote,logs:[],deleted:[]});
+  return {state:m.state,conflict:m.conflicts.length>0};
+}
+function createHistoryStore(name){return new DeviceStore(name,{fact:historyFact,same:sameSync,signature:syncKey,normalize:(l,unit)=>normalizeLogs([copySync(l)],unit||'lb')[0],merge:mergePageState});}
+function historyCount(){return PAGE.active?PAGE.summary?.count||0:logs.length;}
+function hasBlockHistory(n){return PAGE.active?PAGE.summary?.blockN===n&&PAGE.summary.hasBlock:logs.some(l=>l.block===n);}
+function historyContext(){return {block:state.block,blockLen:PROGRAM.blockLen,keys:weekKeys(),units:state.settings.units,now:Date.now()};}
+async function refreshHistory(draw=true){
+  if(!PAGE.active||!PAGE.store)return;
+  if(PAGE.flight){await PAGE.flight;return refreshHistory(draw);}
+  const store=PAGE.store,scope=PAGE.scope,context=historyContext(),signature=JSON.stringify([store.historyVersion||0,context.block,context.keys,context.units,new Date().toDateString()]);
+  if(signature===PAGE.sig)return;
+  PAGE.flight=(async()=>{
+    const summary=await store.summary(context);
+    if(PAGE.scope!==scope||PAGE.store!==store)return;
+    PAGE.summary=summary;PAGE.sig=signature;PAGE.error=null;if(draw)render();
+  })().catch(e=>{PAGE.error=e;if(draw)render();}).finally(()=>{PAGE.flight=null;});
+  await PAGE.flight;
+}
+async function loadHistoryPage(before=null,exercise=null,draw=true){
+  if(!PAGE.active)return;await flushDevice();const store=PAGE.store,scope=PAGE.scope;
+  const rows=await store.page(before,30,exercise,state.draft?.logId,state.settings.units);
+  if(PAGE.scope!==scope||store!==PAGE.store)return;
+  logs=rows;PAGE.view={before,exercise};PAGE.more=store.pageMore;PAGE.next=store.pageCursor;PAGE.loadedHistory=store.historyVersion||0;if(draw)render();
+}
+function historyPageButtons(){return PAGE.active?`<div class="row" style="margin-top:12px">${PAGE.view.before?'<button class="btn sm" data-action="histfirst">Latest sessions</button>':''}${PAGE.more?'<button class="btn sm" data-action="histmore">Older sessions</button>':''}</div>`:'';}
+async function openPagedExercise(id,reveal=false){
+  const open=reveal||ui.histExercise!==id;ui.histExercise=open?id:null;
+  if(reveal){ui.histView='exercises';ui.histQuery='';ui.histFilter='all';}
+  if(open)await loadHistoryPage(null,id,false);render();
+  const button=[...document.querySelectorAll('[data-action="histexopen"]')].find(el=>el.dataset.id===id);button?.focus({preventScroll:true});if(reveal)button?.scrollIntoView({block:'start'});
+}
+function pagedExerciseGroup(g,i){
+  const open=ui.histExercise===g.id,records=open?logs.filter(l=>(l.entries||[]).some(e=>e.ex===g.id)):[],metric=g.points.at(-1),factor=metric?.kind==='load'&&state.settings.units==='lb'?1/0.45359237:1;
+  const label=metric?.kind==='load'?`Est. 1-rep max (${state.settings.units})`:metric?.kind==='time'?'Best hold (sec)':'Best set (reps)';
+  return `<div class="hist"><button class="history-toggle history-exercise-toggle" data-action="histexopen" data-id="${esc(g.id)}" aria-expanded="${open}" aria-controls="history-exercise-${i}"><span class="history-heading"><b>${esc(g.name)}</b><span class="tiny muted">Last ${new Date(g.lastDate).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})} · ${g.count} session${g.count===1?'':'s'}</span></span><span class="history-action">${open?'Hide':'View'} <span class="history-arrow" aria-hidden="true">›</span></span></button><div id="history-exercise-${i}" ${open?'':'hidden'}>${open?records.map(l=>{const es=l.entries.filter(e=>e.ex===g.id),e={...es[0],sets:es.flatMap(e=>e.sets||[])};return `<div class="history-record"><div class="history-record-heading"><b class="small">${new Date(l.date).toLocaleDateString([],{month:'short',day:'numeric',year:'numeric'})}</b><span class="tiny muted">${esc(l.name)}${l.status==='partial'?' · Partial':''}</span></div>${historyExercise(e)}</div>`;}).join('')+historyPageButtons()+`<details class="history-exercise-trend"><summary>View exercise trend</summary>${metric?sparkChart(g.points.map(p=>({d:p.d,v:p.v*factor})),label):'<p class="small muted">No comparable trend is available for this exercise yet.</p>'}</details>`:''}</div></div>`;
+}
+async function enablePaged(saved){
+  if(!DEVICE.store)return;PAGE.active=true;PAGE.store=DEVICE.store;PAGE.scope++;
+  if(saved&&!saved.paged){let migrated=await DEVICE.store.importLegacy({state,logs,sync:SYNC},compactSync);if(migrated.sync.migration)migrated=await DEVICE.store.finishMigration(migrated);state=migrate(migrated.state);SYNC=migrated.sync;}
+  SYNC=compactSync(SYNC);await loadHistoryPage(null,null,false);await refreshHistory(false);if(PAGE.error)throw PAGE.error;
+}
+function historySaved(p){
+  DEVICE.pending++;DEVICE.error=null;
+  DEVICE.flight=p.then(()=>{storageOk=true;},e=>{storageOk=false;DEVICE.error=e;}).finally(()=>{DEVICE.pending--;setSync();});return DEVICE.flight;
+}
+async function pagedDelete(id){
+  if(!PAGE.active||coachMode)return;
+  await historySaved(PAGE.store.remove(id,{state,sync:compactSync(SYNC)}));
+  await loadHistoryPage(PAGE.view.before,PAGE.view.exercise,false);await refreshHistory();queueCloud();
+}
+async function downloadHistoryBackup(recovery=false){
+  await flushDevice();
+  const store=PAGE.store;let parts;
+  if(recovery){const pair=SYNC.conflict?{device:{state},account:{state:SYNC.conflict.state}}:SYNC.recovery;
+    parts=['{"device":',...await store.exportParts(pair.device.state,SYNC.conflict?'local':'device',SYNC.conflict?logs:[]),',"account":',...await store.exportParts(pair.account.state,SYNC.conflict?'base':'account'),'}'];
+  }else parts=await store.exportParts(state,'local',logs);
+  const url=URL.createObjectURL(new Blob(parts,{type:'application/json'})),a=document.createElement('a');a.href=url;a.download=recovery?'strong-start-recovery.json':'strong-start-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Backup downloaded. Keep it private.');
 }
 
 const DEVICE={store:null,flight:Promise.resolve(),pending:0,error:null};
@@ -2074,9 +2079,12 @@ let storageOk=true;
 async function openDevice(){
   const legacy=loadLocal();
   if(typeof indexedDB==='undefined')return legacy;
-  DEVICE.store=new DeviceStore(LS);
+  // A preview is a disposable read cache. Clean it even after an interrupted
+  // browser session, before another account can use this app installation.
+  await new Promise((resolve,reject)=>{const r=indexedDB.deleteDatabase(LS+'_preview_indexed');r.onsuccess=resolve;r.onerror=()=>reject(r.error);r.onblocked=()=>reject(Error('Close the other preview tab and reload.'));});
+  DEVICE.store=createHistoryStore(LS);
   const saved=await DEVICE.store.open();
-  if(saved&&legacy?.state){
+  if(saved&&loadLocal()?.state){
     DEVICE.recovery={indexed:saved,legacy};
     throw Error('Two device copies found');
   }
@@ -2090,12 +2098,26 @@ async function flushDevice(){
 async function clearDevice(){
   await DEVICE.flight;
   if(DEVICE.store)await DEVICE.store.clear();
+  if(PAGE.active){PAGE.scope++;PAGE.summary=null;PAGE.sig=null;PAGE.view={before:null,exercise:null};}
   try{localStorage.removeItem(LS);}catch{}
 }
 function persistLocal(){
   if(typeof AUTH!=='undefined' && AUTH.deleting) return;
   if(typeof coachMode!=='undefined' && coachMode) return;
-  if(DEVICE.store){
+  if(PAGE.active){
+    const store=DEVICE.store,scope=PAGE.scope;
+    historySaved(store.write({state,logs,sync:compactSync(SYNC)}));
+    DEVICE.flight.then(async()=>{
+      await flushDevice();if(!storageOk||PAGE.scope!==scope||PAGE.store!==store||coachMode)return;
+      // Evict raw records only once all pending writes are durable. Offline
+      // workout completion must not grow the visible page indefinitely.
+      if(PAGE.loadedHistory!==(store.historyVersion||0)){
+        if(!PAGE.reloadFlight)PAGE.reloadFlight=loadHistoryPage(PAGE.view.before,PAGE.view.exercise,false).finally(()=>{PAGE.reloadFlight=null;});
+        await PAGE.reloadFlight;
+      }
+      await refreshHistory();
+    }).catch(e=>{PAGE.error=e;setSync();});
+  }else if(DEVICE.store){
     DEVICE.pending++;DEVICE.error=null;
     DEVICE.flight=DEVICE.store.write({state,logs,sync:SYNC}).then(()=>{storageOk=true;},e=>{storageOk=false;DEVICE.error=e;}).finally(()=>{DEVICE.pending--;setSync();});
   }else try{ localStorage.setItem(LS, JSON.stringify({state, logs, sync:SYNC})); storageOk=true; }catch(e){ storageOk=false; }
@@ -2310,7 +2332,7 @@ function normalizeLogs(items,unit,legacyUnit=unit){
 function changeUnits(unit){
   if(!['lb','kg'].includes(unit)) return;
   const from=state.weightUnits||state.settings.units||'lb';
-  normalizeLogs(logs,unit,from);
+  normalizeLogs(logs,unit,from);if(PAGE.active)PAGE.store.track(logs);
   state.settings.bw=convertWeight(state.settings.bw,from,unit);
   convertProgress(state.ex,from,unit);
   convertRows(state.weigh&&state.weigh.list,from,unit);
@@ -2342,6 +2364,7 @@ function weekNum(){ if(!state.block) return 1; const s=new Date(state.block.star
 function weekMode(){ return splitN(); }
 function rirFor(w){ const L=RIR[PROGRAM.blockLen]||RIR[5]; return L[Math.min(w,L.length)-1]; }
 function weekLogs(w){
+  if(PAGE.active)return (PAGE.summary?.weeks||[]).filter(l=>l.week===w).sort((a,b)=>b.ms-a.ms);
   const done=logs.filter(l=>l.block===state.block.n && l.week===w && l.status!=='partial');
   return done.filter((l,i)=>done.findIndex(x=>x.key===l.key)===i);
 }
@@ -2349,6 +2372,7 @@ function weekLogs(w){
 // new optional orderAdvanced metadata keeps repeats/out-of-order sessions from
 // moving the recommendation. Reordering uses the successor in the current order.
 function nextWorkoutKey(){
+  if(PAGE.active){const keys=weekKeys(),n=PAGE.summary?.blockN===state.block?.n?PAGE.summary?.next:null;return n?keys[(keys.indexOf(n.key)+1)%keys.length]:keys[0];}
   const keys=weekKeys(); if(!state.block || !keys.length) return keys[0];
   const finished=logs.filter(l=>l.block===state.block.n && l.status!=='partial'
     && l.orderAdvanced!==false && keys.includes(l.key)
@@ -2359,7 +2383,7 @@ function nextWorkoutKey(){
 function nextTrainingDate(){
   const today=dayStart(new Date()), ds=trainDays();
   // After finishing today, suggest the next selected day. Training early stays optional.
-  const doneToday=logs.some(l=>l.block===state.block.n && l.status!=='partial'
+  const doneToday=PAGE.active?!!PAGE.summary?.today:logs.some(l=>l.block===state.block.n && l.status!=='partial'
     && dayStart(new Date(l.completedAt||l.date)).getTime()===today.getTime());
   for(let offset=doneToday?1:0;offset<=7;offset++){
     const date=new Date(today); date.setDate(date.getDate()+offset);
@@ -2385,7 +2409,7 @@ function lenText(key){const slots=sessionSlots(key),X=sessionExtras({key,place:s
 let remote={status:'local'};   // replaced by the cloud block below
 let coachMode=null;   // {own:{state,logs}, name} while viewing someone else's app; nothing is saved then
 function save(){ state.updatedAt = Math.max(Date.now(),(state.updatedAt||0)+1); if(coachMode) return; syncPausedSetup(); persistLocal(); queueCloud(); }
-function pushLog(){ queueCloud(); } function deleteRemoteLog(){ queueCloud(); }
+function pushLog(){ queueCloud(); } function deleteRemoteLog(id){ if(PAGE.active){pagedDelete(id);return;}queueCloud(); }
 /* ---------------- Accounts (Supabase) ----------------
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
    so they follow them to any device. The phone keeps a copy too, so the app works with no signal at the gym.
@@ -2572,11 +2596,12 @@ function syncConflictDetails(){
   if(!SYNC.conflict) return syncDetails();
   const merged=mergeSnapshots(SYNC.base,deviceSnapshot(),SYNC.conflict);
   modal(`<h2>Review sync conflict</h2><p class="small">This device and your account changed since their last shared save. Choose which plan, settings and conflicting workouts to keep. Workouts added independently are kept from both copies; deleted workouts stay deleted.</p>
-    <p class="small">Your device: ${logs.length} workouts${state.draft?', unfinished workout':''}. Account: ${SYNC.conflict.logs.length} workouts${SYNC.conflict.state&&SYNC.conflict.state.draft?', unfinished workout':''}.</p>
+    <p class="small">Your device: ${historyCount()} workouts${state.draft?', unfinished workout':''}. Account: ${PAGE.active?(SYNC.conflict.recordCount||0)+' conflicting':SYNC.conflict.logs.length} workouts${SYNC.conflict.state&&SYNC.conflict.state.draft?', unfinished workout':''}.</p>
     <p class="small">${merged.conflicts.length} conflicting item(s). Copy both versions before choosing. Your latest conflict recovery copy stays on this device until sign-out.</p>
     <div class="row"><button class="btn" data-action="synccopy">Copy both versions</button><button class="btn" data-action="syncchoose" data-v="device">Keep this device’s version</button><button class="btn" data-action="syncchoose" data-v="account">Use account version</button><button class="btn" data-action="closemodal">Decide later</button></div>`);
 }
 async function resolveSyncConflict(choice){
+  if(PAGE.active)return resolvePagedConflict(choice);
   if(!SYNC.conflict || !AUTH.user || coachMode || CLOUD.busy || !['device','account'].includes(choice)) return;
   const local=deviceSnapshot(), account=copySync(SYNC.conflict);
   // Persist recovery before replacing anything. Do not proceed if storage fails.
@@ -2588,6 +2613,7 @@ async function resolveSyncConflict(choice){
   await pushCloud();
 }
 function copySyncRecovery(){
+  if(PAGE.active){downloadHistoryBackup(true);return;}
   const data=SYNC.conflict?{device:deviceSnapshot(),account:SYNC.conflict}:SYNC.recovery;
   if(!data) return;
   const text=JSON.stringify(data);
@@ -2596,6 +2622,7 @@ function copySyncRecovery(){
 }
 function newLogId(){ return 'log-'+(window.crypto&&window.crypto.randomUUID?window.crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+Math.random().toString(36).slice(2)); }
 function restoreSnapshot(o){
+  if(PAGE.active)return restorePagedBackup(o);
   state=migrate(copySync(o.state)); logs=normalizeLogs(copySync(o.logs||[]),state.settings.units);
   // An explicit restore is allowed to restore previously deleted content, under
   // new identities. Ordinary reconnects must never reuse deleted workout IDs.
@@ -2608,12 +2635,14 @@ function restoreSnapshot(o){
 
 async function onSignedIn(u){
   if(AUTH.deleting) return;
+  if(coachMode?.temporary)exitPagedPerson(true);
   if(CM.owner!==u.id){cmReset(u.id);FBS={side:'app',tag:'',text:'',busy:false};}
   AUTH.user=u; AUTH.busy=false;
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
   if(!AUTH.user || AUTH.user.id!==u.id) return;
   const prevOwner=(rememberedAcct()||{}).id || lsGet('strongstart_owner');
   if((prevOwner && prevOwner!==u.id) || (SYNC.owner && SYNC.owner!==u.id)){
+    if(PAGE.active){PAGE.scope++;PAGE.summary=null;PAGE.sig=null;PAGE.view={before:null,exercise:null};}
     state=defaults(); logs=[]; SYNC={owner:u.id,base:null,conflict:null,recovery:null};
   }
   SYNC.owner=u.id;
@@ -2664,6 +2693,7 @@ function workoutDelta(base,next){
   return {upserts:next.logs.filter(l=>!sameSync(l,before.get(l.id))).slice(0,250),deletes:[...before.keys()].filter(id=>!after.has(id)).slice(0,250)};
 }
 function pushCloud(){
+  if(PAGE.active&&!coachMode)return pushPagedCloud();
   if(!CLOUD.ok || !AUTH.user || !sb || coachMode || AUTH.deleting) return Promise.resolve(false);
   clearTimeout(CLOUD.t); CLOUD.t=null;
   if(CLOUD.flight){ CLOUD.again=true; return CLOUD.flight; }
@@ -2721,6 +2751,76 @@ function pushCloud(){
     finally{CLOUD.busy=false;CLOUD.flight=null;setSync();}
   })();
   return CLOUD.flight;
+}
+async function adoptPaged(next,before){
+  const merged=mergePageState(before.state,state,next.state),draftChanged=!sameSync(state.draft,merged.state.draft);
+  state=merged.state;SYNC=next.sync;
+  if(merged.conflict)SYNC.conflict={state:next.state,revision:next.sync.base?.revision,logs:[],recordCount:next.sync.conflict?.recordCount||0,stateConflict:true};
+  if(draftChanged){ui.timer=null;clearInterval(timerInt);if(!state.draft&&ui.tab==='workout')ui.tab='today';}
+  await loadHistoryPage(PAGE.view.before,PAGE.view.exercise,false);persistLocal();await flushDevice();await refreshHistory(false);render();
+}
+function pushPagedCloud(){
+  if(!CLOUD.ok||!AUTH.user||!sb||coachMode||AUTH.deleting||SYNC.conflict)return Promise.resolve(false);
+  clearTimeout(CLOUD.t);CLOUD.t=null;
+  if(CLOUD.flight){CLOUD.again=true;return CLOUD.flight;}
+  const uid=AUTH.user.id,store=PAGE.store,scope=PAGE.scope,current=()=>AUTH.user?.id===uid&&!coachMode&&!AUTH.deleting&&PAGE.store===store&&PAGE.scope===scope;
+  CLOUD.busy=true;CLOUD.failed=false;setSync();
+  CLOUD.flight=(async()=>{
+    await Promise.resolve();
+    try{
+      if(!await flushDevice())throw Error('Device save failed');
+      for(let attempt=0;attempt<512;attempt++){
+        CLOUD.again=false;let remote=null;
+        for(let restart=0;restart<4;restart++){
+          await store.beginIncoming();let after=null,revision=null,again=false;
+          do{
+            const r=await sb.rpc('read_account_changes',{p_since:SYNC.base?.revision??null,p_after:after,p_expected:revision});
+            if(!current())return false;if(r.error)throw r.error;
+            if(!r.data){const status=await sb.rpc('account_status');if(current()&&!status.error&&status.data==='none'){await clearDeletedAccount();return false;}throw Error('Account unavailable');}
+            if(r.data.restart){again=true;break;}
+            revision=r.data.revision;remote={state:r.data.state,revision};
+            await store.incoming(r.data.changes);if(!current())return false;after=r.data.next;
+          }while(after!==null);
+          if(!again)break;remote=null;
+        }
+        if(!remote)throw Error('Account changed during download; retry sync');
+        if(!await flushDevice())throw Error('Device save failed');if(!current())return false;
+        let before={state:copySync(state)};
+        let next=await store.applyIncoming(remote,{state,sync:compactSync(SYNC)});if(!current())return false;
+        await adoptPaged(next,before);if(!current())return false;if(SYNC.conflict)return false;
+        const batch=await store.pending(250),sent={state:copySync(state)};
+        const applyCoach=batch.length===0&&sameSync(sent.state,SYNC.base?.state);
+        const r=await sb.rpc('commit_account_changes',{p_revision:SYNC.base.revision,p_state:sent.state,p_upserts:batch.filter(p=>p.local).map(p=>p.local),p_deletes:batch.filter(p=>!p.local).map(p=>p.id),p_apply_coach:applyCoach});
+        if(!current())return false;if(r.error)throw r.error;if(!r.data)throw Error('Invalid sync response');if(!r.data.ok)continue;
+        // Drain edits made during the request before committing its acknowledgement.
+        if(!await flushDevice())throw Error('Device save failed');if(!current())return false;
+        before={state:copySync(state)};next=await store.acknowledge(batch,r.data,sent);if(!current())return false;
+        await adoptPaged(next,before);if(!current())return false;if(SYNC.conflict)return false;
+        if(r.data.applied)toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+        if(!CLOUD.again&&applyCoach&&await store.pendingCount()===0&&sameSync(state,SYNC.base.state)){
+          CLOUD.pending=false;return true;
+        }
+      }
+      throw Error('Too many pending changes; retry sync');
+    }catch(e){if(current()){CLOUD.failed=true;CLOUD.pending=true;}return false;}
+    finally{CLOUD.busy=false;CLOUD.flight=null;setSync();}
+  })();return CLOUD.flight;
+}
+async function resolvePagedConflict(choice){
+  if(!SYNC.conflict||!AUTH.user||coachMode||CLOUD.busy||!['device','account'].includes(choice))return;
+  await flushDevice();if(!storageOk){toast('Save failed. Download a recovery backup before continuing.');return;}
+  const before={state:copySync(state)};let next;
+  await historySaved(PAGE.store.resolve(choice,{state,sync:compactSync(SYNC)}).then(x=>next=x));
+  if(!storageOk){toast('The recovery copy could not be saved. Download both versions before continuing.');return;}
+  await adoptPaged(next,before);closeModal();CLOUD.pending=true;await pushCloud();
+}
+async function restorePagedBackup(o){
+  const st=migrate(copySync(o.state)),items=normalizeLogs(copySync(o.logs||[]),st.settings.units),ids=new Map();
+  if(AUTH.user||rememberedAcct())for(const l of items){const id=newLogId();ids.set(l.id,id);l.id=id;}
+  for(const d of [st.draft,st.prevBlock?.draft])if(d&&ids.has(d.logId))d.logId=ids.get(d.logId);
+  await historySaved(PAGE.store.replace({state:st,logs:items,sync:compactSync(SYNC)}));
+  if(!storageOk)throw Error('Backup could not be saved');
+  state=st;await loadHistoryPage(null,null,false);await refreshHistory(false);
 }
 async function flushCloud(){
   clearTimeout(CLOUD.t); CLOUD.t=null;
@@ -2929,12 +3029,13 @@ function selfDeleteSheet(){
     <p class="small" style="margin:0">This permanently deletes your login, plan, settings, workout history, and coach messages, including any unfinished workout. This can’t be undone. Joining again requires a new beta invite.</p>
     <p class="small" style="margin:0">Your app feedback stays in our private tracker and historical records to help improve Strong Start. Reports sent with the name-and-ID notice retain those details after account deletion. Earlier unattributed reports stay unattributed; older database records lose their account and workout links. The message text and screen/device context remain and may identify you. Contact the app owner to request removal or redaction of retained feedback.</p>
     <p class="small" style="margin:0">You must have signed in within the last 10 minutes. If needed, cancel, sign out, and sign in again before returning here. Other devices may retain an offline copy until they reconnect.</p>
-    <button class="btn sm" data-action="selfdeletebackup">Copy backup first</button><textarea id="delete-backup" aria-label="Backup to copy" hidden readonly></textarea>
+    <button class="btn sm" data-action="selfdeletebackup">${PAGE.active?'Download backup first':'Copy backup first'}</button><textarea id="delete-backup" aria-label="Backup to copy" hidden readonly></textarea>
     <label class="field2" for="self-delete-confirm"><span class="flabel">Type DELETE to confirm</span><input class="in" id="self-delete-confirm" autocomplete="off" autocapitalize="characters" spellcheck="false"></label>
     <p id="self-delete-error" class="small" role="alert" style="margin:0"></p>
     <div class="row"><button class="btn" data-action="closemodal" data-modal-initial>Cancel</button><button class="btn danger" id="self-delete-button" data-action="selfdeletego" disabled>Delete my account forever</button></div>`);
 }
 async function selfDeleteBackup(){
+  if(PAGE.active){await downloadHistoryBackup();return;}
   const txt=JSON.stringify({state,logs});
   try{ await navigator.clipboard.writeText(txt); toast('Backup copied. Keep it somewhere private.'); }
   catch(e){ const box=$('#delete-backup'); if(box){box.hidden=false;box.value=txt;box.focus();box.select();} }
@@ -3095,6 +3196,7 @@ async function acctDelete(id,b){
   closeModal(); toast(`${acctName(p)}’s account was deleted`); loadPeople();
 }
 async function openPerson(id,name){
+  if(PAGE.active)return openPagedPerson(id,name);
   toast('Opening…');
   const [st,lg]=await Promise.all([ sb.from('app_state').select('state').eq('user_id',id).maybeSingle(), sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}) ]);
   if(st.error||lg.error){ toast('Couldn’t open their app. Check your connection.'); return; }
@@ -3102,6 +3204,36 @@ async function openPerson(id,name){
   try{ fClearTimer(); }catch(e){}
   coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
   state=migrate(st.data.state); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
+}
+async function openPagedPerson(id,name){
+  if(!await flushCloud()){toast('Sync your changes before opening another app.');return;}
+  await refreshHistory(false);const ownStore=PAGE.store,ownUser=AUTH.user?.id,ownScope=PAGE.scope;
+  const temporary=createHistoryStore(LS+'_preview');
+  try{
+    await temporary.open();let head=null,complete=false;
+    for(let attempt=0;attempt<3;attempt++){
+      await temporary.beginIncoming();const first=await sb.from('app_state').select('state,revision').eq('user_id',id).maybeSingle();
+      if(first.error)throw first.error;if(!first.data?.state?.block){toast(`${name} hasn’t finished setup yet`);temporary.db.close();indexedDB.deleteDatabase(temporary.name+'_indexed');return;}
+      for(let offset=0;;offset+=250){const r=await sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}).order('id',{ascending:false}).range(offset,offset+249);if(r.error)throw r.error;
+        await temporary.incoming((r.data||[]).map(r=>({id:r.data.id,data:r.data,deleted:false})));if((r.data||[]).length<250)break;}
+      const last=await sb.from('app_state').select('revision').eq('user_id',id).maybeSingle();if(last.error)throw last.error;
+      if(String(first.data.revision)===String(last.data?.revision)){head=first.data;complete=true;break;}
+    }
+    if(!complete)throw Error('History changed while opening; retry');
+    await temporary.applyIncoming({state:head.state,revision:String(head.revision)},{state:migrate(copySync(head.state)),sync:{owner:id,base:null,conflict:null,recovery:null}});
+    if(PAGE.store!==ownStore||AUTH.user?.id!==ownUser||PAGE.scope!==ownScope)throw Error('Account changed while opening preview');
+    if(!await flushCloud())throw Error('Own account has pending changes');await refreshHistory(false);
+    const own={state:copySync(state),logs:copySync(logs),page:{...PAGE,view:{...PAGE.view}}};
+    try{fClearTimer();}catch{}
+    coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
+    await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);
+  }catch(e){try{temporary.db.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
+}
+function exitPagedPerson(silent=false){
+  const preview=coachMode;if(!preview?.temporary)return false;
+  const scope=PAGE.scope+1;state=preview.own.state;logs=preview.own.logs;Object.assign(PAGE,preview.own.page,{scope});coachMode=null;
+  preview.temporary.db.close();indexedDB.deleteDatabase(preview.temporary.name+'_indexed');
+  if(!silent){ui.tab='people';loadPeople();render();setSync();window.scrollTo(0,0);toast('Back to your app');}return true;
 }
 function coachSendSheet(){
   modal(`<h2>Send changes to ${esc(coachMode.name)}</h2>
@@ -3702,6 +3834,7 @@ function historyMetric(entry,log){
   return values.length?{kind,v:Math.max(...values)}:null;
 }
 function historyData(){
+  if(PAGE.active)return PAGE.summary?.groups||[];
   const groups=new Map();
   const chronological=logs.slice().filter(l=>Number.isFinite(Date.parse(l.date))).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date)||String(a.id).localeCompare(String(b.id)));
   for(const l of chronological){
@@ -3722,6 +3855,7 @@ function historyData(){
   return [...groups.values()].sort((a,b)=>Date.parse(b.records.at(-1).l.date)-Date.parse(a.records.at(-1).l.date)||a.name.localeCompare(b.name));
 }
 function historyProgress(groups,area){
+  if(PAGE.active)return PAGE.summary?.graphs[area]||{eligible:[],points:[],score:null};
   const eligible=groups.filter(g=>g.ready&&(area==='overall'||g.area===area));
   if(!eligible.length)return {eligible,points:[],score:null};
   // Use the same current exercise cohort throughout the graph. Start only once
@@ -3735,10 +3869,12 @@ function historyProgress(groups,area){
 }
 function historySwitch(items,selected,action,label){return `<div class="history-tabs" aria-label="${label}">${items.map(([id,name])=>`<button data-action="${action}" data-id="${id}" aria-pressed="${id===selected}">${name}</button>`).join('')}</div>`;}
 function historyProgressCard(groups){
+  if(PAGE.active&&PAGE.error)return '<section class="card" role="alert"><h3>Progress unavailable</h3><p>Your saved history has been kept. Close other app tabs and retry.</p><button class="btn sm" data-action="histrefresh">Retry history</button></section>';
+  if(PAGE.active&&PAGE.flight)return '<section class="card" role="status"><h3>Updating progress…</h3><p>Checking your complete saved history.</p></section>';
   const area=ui.histArea||'overall',p=historyProgress(groups,area),change=p.score==null?null:p.score-100;
   const scored=p.eligible.map(g=>`<button class="history-score-link" data-action="histreveal" data-id="${esc(g.id)}">${esc(g.name)}<span>${g.ratio>=1?'+':''}${((g.ratio-1)*100).toFixed(1)}% ›</span></button>`).join('');
   return `<section class="card stack"><h3>Your exercise progress</h3>${historySwitch([['overall','Overall'],['upper','Upper body'],['lower','Lower body']],area,'histarea','Progress area')}
-    ${p.score==null?`<div><h2>Building your baseline</h2><p class="small muted">${logs.length?'An exercise needs four comparable completed sessions before it contributes to this score.':'Finish your first workout to start your progress history.'}</p></div>`:`<div><div class="history-score"><strong>${p.score.toFixed(1)}</strong><span class="history-change">${change>0?'↑':change<0?'↓':'→'} ${Math.abs(change).toFixed(1)}% ${change<0?'below':'from'} baseline</span></div><p class="tiny muted">Personal progress index · Starting point: 100</p></div>${historyProgressChart(p.points)}<p class="tiny muted">Based on ${p.eligible.length} tracked exercise${p.eligible.length===1?'':'s'} · Compared with your own starting results.</p>`}
+    ${p.score==null?`<div><h2>Building your baseline</h2><p class="small muted">${historyCount()?'An exercise needs four comparable completed sessions before it contributes to this score.':'Finish your first workout to start your progress history.'}</p></div>`:`<div><div class="history-score"><strong>${p.score.toFixed(1)}</strong><span class="history-change">${change>0?'↑':change<0?'↓':'→'} ${Math.abs(change).toFixed(1)}% ${change<0?'below':'from'} baseline</span></div><p class="tiny muted">Personal progress index · Starting point: 100</p></div>${historyProgressChart(p.points)}${PAGE.active&&p.totalPoints>p.points.length?'<p class="tiny muted">The chart shows selected points from your complete progress history.</p>':''}<p class="tiny muted">Based on ${p.eligible.length} tracked exercise${p.eligible.length===1?'':'s'} · Compared with your own starting results.</p>`}
     <details class="history-breakdown"><summary>Exercises behind this score</summary><p class="small muted">Each exercise has equal weight. Its baseline is the median of its first two comparable completed sessions; recent performance is the median of its latest three. Loaded lifts use estimated strength, reps-only moves use best reps, and timed holds use seconds. This tracks exercise performance, not overall fitness.</p><p class="tiny muted">Partial sessions, assisted moves, added-weight bodyweight sets, loaded holds and loaded sets over 30 reps do not contribute. Core and mixed movements appear in Overall and the All exercise filter. Adding or deleting history can change the contributing exercises and the graph.</p>${scored||'<p class="small muted">No exercises have enough comparable history here yet.</p>'}</details></section>`;
 }
 function historyProgressChart(points){
@@ -3748,6 +3884,7 @@ function historyProgressChart(points){
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Personal exercise progress over time, latest score ${points.at(-1).v.toFixed(1)}"><title>${points.map(p=>`${date(p.d)}: ${p.v.toFixed(1)}`).join('; ')}</title>${[lo,100,hi].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" ${v===100?'stroke-dasharray="4 4"':''}/><text x="${L-5}" y="${y(v)+4}" text-anchor="end">${Math.round(v)}</text>`).join('')}<path d="${line} L${x(points.length-1)},${H-B} L${x(0)},${H-B} Z" fill="var(--accent)" opacity=".08"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5"/>${points.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.v)}" r="${i===points.length-1?4:2.5}" fill="var(--accent)"><title>${date(p.d)}: ${p.v.toFixed(1)}</title></circle>`).join('')}<text x="${L}" y="${H-5}">${date(points[0].d)}</text>${points.length>1?`<text x="${W-R}" y="${H-5}" text-anchor="end">${date(points.at(-1).d)}</text>`:''}</svg>`;
 }
 function historyExerciseGroup(g,i){
+  if(PAGE.active)return pagedExerciseGroup(g,i);
   const open=ui.histExercise===g.id,records=g.records.slice().reverse();
   const metric=g.points.at(-1),factor=metric?.kind==='load'&&state.settings.units==='lb'?1/0.45359237:1;
   const label=metric?.kind==='load'?`Est. 1-rep max (${state.settings.units})`:metric?.kind==='time'?'Best hold (sec)':'Best set (reps)';
@@ -3757,7 +3894,7 @@ function renderHistory(){
   const groups=historyData(),view=ui.histView||'sessions';
   if(!groups.some(g=>g.id===ui.histExercise))ui.histExercise=null;
   const query=(ui.histQuery||'').trim().toLowerCase(),filter=ui.histFilter||'all',matches=groups.filter(g=>g.name.toLowerCase().includes(query)&&(filter==='all'||g.area===filter));
-  return `<section class="stack"><div><div class="eyebrow">${logs.length} session${logs.length===1?'':'s'} logged</div><h1>Progress</h1></div></section>${historyProgressCard(groups)}${historySwitch([['sessions','Sessions'],['exercises','Exercises']],view,'histview','Progress views')}${view==='sessions'?`<section class="card"><h3 style="margin-bottom:6px">Sessions</h3><div>${logs.map(historySession).join('')||'<p class="muted small">No sessions yet.</p>'}</div></section>`:`<input class="search" type="search" id="histquery" aria-label="Search all logged exercises" placeholder="Search all logged exercises" value="${esc(ui.histQuery||'')}">${historySwitch([['all','All'],['upper','Upper body'],['lower','Lower body']],filter,'histfilter','Exercise filters')}<section class="card"><h3 style="margin-bottom:6px">Exercises</h3>${matches.map(historyExerciseGroup).join('')||'<p class="small muted" role="status">No exercises match. Try another search or filter.</p>'}</section>`}`;
+  return `<section class="stack"><div><div class="eyebrow">${historyCount()} session${historyCount()===1?'':'s'} logged</div><h1>Progress</h1></div></section>${historyProgressCard(groups)}${historySwitch([['sessions','Sessions'],['exercises','Exercises']],view,'histview','Progress views')}${view==='sessions'?`<section class="card"><h3 style="margin-bottom:6px">Sessions</h3><div>${logs.map(historySession).join('')||'<p class="muted small">No sessions yet.</p>'}</div>${historyPageButtons()}</section>`:`<input class="search" type="search" id="histquery" aria-label="Search all logged exercises" placeholder="Search all logged exercises" value="${esc(ui.histQuery||'')}">${historySwitch([['all','All'],['upper','Upper body'],['lower','Lower body']],filter,'histfilter','Exercise filters')}<section class="card"><h3 style="margin-bottom:6px">Exercises</h3>${matches.map(historyExerciseGroup).join('')||'<p class="small muted" role="status">No exercises match. Try another search or filter.</p>'}</section>`}`;
 }
 function sparkChart(pts,label){
   if(pts.length<1) return '<p class="muted small">No sets logged yet.</p>';
@@ -3878,7 +4015,7 @@ function applySetup(a){
 }
 function buildPlanFromSetup(){
   const prev = state.block && state.block.plan;
-  const n = state.block ? (logs.some(l=>l.block===state.block.n) ? state.block.n+1 : state.block.n) : 1;
+  const n = state.block ? (hasBlockHistory(state.block.n) ? state.block.n+1 : state.block.n) : 1;
   state.block = {n, start:dayStart(new Date()).toISOString(), plan:generatePlan(prev,{keepAll:!!prev})};
   applyStylePref(); state.block.orig={...state.block.plan}; state.block.ease=true; state.adj={}; state.checkin=null; state.easeUntil=0; state.draft=null;
 }
@@ -4219,8 +4356,8 @@ function xSwapSheet(group,k){
 }
 
 /* ---------------- Focus workout flow: preview, warm-up, one exercise at a time, rest, done, cool-down ---------------- */
-function lastLogDays(){ if(!logs.length) return 0; return (Date.now()-new Date(logs[0].date).getTime())/864e5; }
-function exSessions(id){ return logs.filter(l=>l.entries.some(e=>e.ex===id)).length; }
+function lastLogDays(){ if(PAGE.active)return PAGE.summary?.last?(Date.now()-PAGE.summary.last.ms)/864e5:0;if(!logs.length) return 0; return (Date.now()-new Date(logs[0].date).getTime())/864e5; }
+function exSessions(id){ if(PAGE.active)return PAGE.summary?.experience[id]?.count||0;return logs.filter(l=>l.entries.some(e=>e.ex===id)).length; }
 // Ask "how did it feel?" only while the app is still finding the right weight
 function needFeel(slot){
   const ex=EX[slot.id]; if(!usesLoad(ex) || ex.mode==='P') return false;
@@ -4809,7 +4946,7 @@ function cWarmItem(key,eq,mins){
   item.alts=cModes(eq).filter(m=>m!==mode).map(m=>cItem(m,fitPhases(withCoolOff(m,cWarmPhases(m,L)),mins),cTitleWarm(m,L),{cardio:'warm'}));
   return item;
 }
-function weekIntervals(){ const ws=dayStart(new Date()); ws.setDate(ws.getDate()-((ws.getDay()+6)%7)); return logs.filter(l=>l.cardio&&l.cardio.type==='intervals'&&new Date(l.date)>=ws).length; }
+function weekIntervals(){ if(PAGE.active)return PAGE.summary?.intervals||0;const ws=dayStart(new Date()); ws.setDate(ws.getDate()-((ws.getDay()+6)%7)); return logs.filter(l=>l.cardio&&l.cardio.type==='intervals'&&new Date(l.date)>=ws).length; }
 function cAfterType(key,mode){
   const L=cLevel(); if(L<=1) return mode==='jog' ? 'walkjog' : 'steady';
   const i=Math.max(0,weekKeys().indexOf(key));
@@ -5424,7 +5561,7 @@ function weighDue(){
 }
 function checkinCard(w){
   if(coachMode || state.checkin || w<3 || !state.block) return '';
-  if(!logs.some(l=>l.block===state.block.n)) return '';
+  if(!hasBlockHistory(state.block.n)) return '';
   return `<section class="card stack"><div><div class="eyebrow">Two weeks in</div><h3>How’s it feeling so far?</h3></div>
     <div class="row">${[['easy','Too easy'],['right','About right'],['much','Too much']].map(([k,l])=>`<button class="btn sm ${k==='right'?'primary':''}" data-action="checkin" data-v="${k}">${l}</button>`).join('')}</div>
     </section>`;
@@ -5438,6 +5575,7 @@ function addDayBanner(w){
     <div class="row"><button class="btn primary sm" data-action="opensched">Add a day</button><button class="btn ghost sm" data-action="leveldismiss">Not yet</button></div></div>`;
 }
 function todayCompletedWorkout(){
+  if(PAGE.active)return PAGE.summary?.today||null;
   const today=dayStart(new Date()).getTime();
   return logs.filter(l=>l.block===state.block.n && l.status!=='partial'
     && dayStart(new Date(l.completedAt||l.date)).getTime()===today)
@@ -5605,7 +5743,7 @@ function renderToday(){
   h+=cmCoachCard(true);
   const others=keys.filter(k=>k!==mainKey);
   if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
-    const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial');
+    const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&(PAGE.active?(PAGE.summary?.partials||[]).find(l=>l.week===w&&l.key===k):logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial'));
     return `<button class="day ${d&&!nx?'done':''} ${nx?'next':''}" data-action="open" data-key="${k}"><span class="idx">${dayLabel(i)}</span><span class="grow"><span class="t">${esc(t.name)}</span><br><span class="small muted">${esc(t.focus)}${partial?` · Partial: ${partial.completed}/${partial.planned} sets`:''}</span></span><span class="small muted num" style="text-align:right">${nx?'Up next':d?'Done '+new Date(log.completedAt||log.date).toLocaleDateString([], {weekday:'short'}):lenText(k)}</span></button>`;
   }).join('')}</div></details>`;
   let reminders='';
@@ -5615,7 +5753,7 @@ function renderToday(){
   reminders+=checkinCard(w)+addDayBanner(w);
   if(pendingQs().length) reminders+=`<section class="card row between"><b>${pendingQs().length>1?pendingQs().length+' quick questions':'A quick question'}</b><button class="btn sm" data-action="cqopen">Answer</button></section>`;
   if(!coachMode && state.setup && state.setup.paused) reminders+=`<section class="card row between"><b>Finish setting up</b><button class="btn sm" data-action="suresume">Continue</button></section>`;
-  if(!coachMode && state.tips&&state.tips.firstWorkout && !logs.length) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>Tap Show workout plan to look ahead, or Start workout when you’re ready.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
+  if(!coachMode && state.tips&&state.tips.firstWorkout && !historyCount()) reminders+=`<details class="card today-other"><summary>Your first workout</summary><ol class="small"><li>Tap Show workout plan to look ahead, or Start workout when you’re ready.</li><li>Log your weight and reps, then mark each set done.</li><li>Follow the rest timer. Take a break saves your place.</li></ol><button class="btn sm ghost" data-action="firstworkoutdismiss">Got it</button></details>`;
   reminders+=hsCard();
   if(reminders) h+=`<section class="stack today-reminders" aria-label="Reminders">${reminders}</section>`;
   return h;
@@ -5769,7 +5907,7 @@ function renderSettings(){
   `)}
   ${setting('account','backup','Backup',saveStatus()[1]+' · copy or restore',`
     <p class="small muted" style="margin:0">${AUTH.user?'Your workouts sync to your account when connected. Check the save indicator for the latest status. You can also copy a backup to keep somewhere else.':'Your workouts are saved in this browser on this device. Copy a backup now and then and keep it somewhere safe (a note or an email to yourself). To move to a new phone, paste it in there.'}</p>
-    <div class="row"><button class="btn sm" data-action="copybackup">Copy backup</button></div>
+    <div class="row"><button class="btn sm" data-action="copybackup">${PAGE.active?'Download backup':'Copy backup'}</button></div>
     <textarea id="restore" placeholder="Paste your own backup here" aria-label="Backup to restore"></textarea>
     <button class="btn sm" data-action="restore">Restore my backup</button>
     <p class="tiny muted" style="margin:0">${AUTH.user?'Restoring replaces your plan and workout history here, then syncs that replacement to your account. Other devices will receive it too. Workouts missing from the backup may be removed from your account.':'Restoring replaces the plan and workout history saved in this browser.'}</p>
@@ -6115,7 +6253,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','exinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6146,7 +6284,7 @@ document.addEventListener('toggle',e=>{
   if(current!==el)return;
   ui.todayPrepOpen=ui.todayPrepOpen||{};ui.todayPrepOpen[el.dataset.prepKey]=el.open;
 },true);
-document.addEventListener('click', e=>{
+document.addEventListener('click', async e=>{
   const b=e.target.closest('[data-action]'); if(!b) return;
   let a=b.dataset.action;
   if(a==='analyticsyes'||a==='analyticsno'){USAGE.choose(a==='analyticsyes'?'yes':'no');render();return;}
@@ -6154,6 +6292,12 @@ document.addEventListener('click', e=>{
   if(AUTH.deleting) return;
   if(a==='fmoredo'){ closeModal(); a=b.dataset.do; }  // More sheet: close it, then run the chosen action
   if(coachMode && !coachActionAllowed(a,b)){ toast('This control is only available in the member’s own app.'); return; }
+  if(PAGE.active&&!coachMode&&['fbegin','open','resume','newblock','prevblock','sunext','supickdone','supause'].includes(a)){
+    if(PAGE.actionBusy)return;PAGE.actionBusy=true;const scope=PAGE.scope;let ready=false;
+    try{await flushDevice();await refreshHistory(false);ready=storageOk&&!PAGE.error&&scope===PAGE.scope;}finally{PAGE.actionBusy=false;}
+    if(!ready){toast('Your history could not be checked. Keep this page open and retry.');return;}
+    if(a==='fbegin'&&ui.tab==='today'&&!state.draft&&b.dataset.key!==nextWorkoutKey()){render();toast('Your next workout has updated. Choose Start again.');return;}
+  }
   if(a==='firstworkoutdismiss'){ state.tips.firstWorkout=false; save(); render(); return; }
   if(a==='releasenotes'){ releaseNotes(b.dataset.v||APP_VERSION); return; }
   if(a==='syncdetails'){ syncDetails(); return; }
@@ -6332,11 +6476,15 @@ document.addEventListener('click', e=>{
     case 'animationgallery': if(APP_ENV==='development'){modal('<div><div class="eyebrow">Exercise library</div><h2>All 3D demonstrations</h2><p class="small muted">New animations are drafts ready for your review.</p></div><div class="exercise-guide-mount"></div>');window.StrongStartExerciseGuides?.attach({mount:$('#modal .exercise-guide-mount'),environment:APP_ENV,gallery:true});} break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
+    case 'histmore': if(PAGE.active&&PAGE.next)loadHistoryPage(PAGE.next,PAGE.view.exercise).catch(e=>{PAGE.error=e;render();});break;
+    case 'histfirst': if(PAGE.active)loadHistoryPage(null,PAGE.view.exercise).catch(e=>{PAGE.error=e;render();});break;
+    case 'histrefresh': if(PAGE.active){PAGE.sig=null;loadHistoryPage(PAGE.view.before,PAGE.view.exercise).then(()=>refreshHistory()).catch(e=>{PAGE.error=e;render();});}break;
     case 'histview': case 'histarea': case 'histfilter': {
-      const key={histview:'histView',histarea:'histArea',histfilter:'histFilter'}[a];ui[key]=b.dataset.id;render();
+      const key={histview:'histView',histarea:'histArea',histfilter:'histFilter'}[a];ui[key]=b.dataset.id;if(PAGE.active&&a==='histview'&&b.dataset.id==='sessions'){loadHistoryPage().catch(e=>{PAGE.error=e;render();});break;}render();
       [...document.querySelectorAll(`[data-action="${a}"]`)].find(el=>el.dataset.id===b.dataset.id)?.focus({preventScroll:true});break;
     }
     case 'histexopen': case 'histreveal': {
+      if(PAGE.active){openPagedExercise(b.dataset.id,a==='histreveal').catch(e=>{PAGE.error=e;render();});break;}
       const id=b.dataset.id;
       if(a==='histreveal'){ui.histView='exercises';ui.histQuery='';ui.histFilter='all';ui.histExercise=id;}
       else ui.histExercise=ui.histExercise===id?null:id;
@@ -6346,10 +6494,10 @@ document.addEventListener('click', e=>{
     case 'histopen': { const id=b.dataset.id; ui.histOpen = ui.histOpen===id?null:id; render(); [...document.querySelectorAll('[data-action="histopen"]')].find(el=>el.dataset.id===id)?.focus({preventScroll:true}); break; }
     case 'dellog': { const id=b.dataset.id; confirmBox('Delete this session?','It is removed from history. Working weights are not rolled back.','Delete',()=>{ logs=logs.filter(l=>l.id!==id); save(); deleteRemoteLog(id); render(); }); break; }
     case 'setunits': changeUnits(b.dataset.u); save(); render(); toast('Weights converted to '+state.settings.units+'.'); break;
-    case 'copybackup': { const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
+    case 'copybackup': { if(PAGE.active){downloadHistoryBackup();break;}const txt=JSON.stringify({state,logs}); try{ navigator.clipboard.writeText(txt).then(()=>toast('Backup copied'),()=>{ $('#restore').value=txt; toast('Copy blocked. Backup placed in the box below.'); }); }catch(err){ $('#restore').value=txt; } break; }
     case 'restore': { try{ const o=JSON.parse($('#restore').value); if(!o.state||!o.state.block) throw 0;
-      confirmBox('Load this data?',`This replaces the plan, weights and history in this browser with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} backup. ${AUTH.user?'The replacement also syncs to your account and other devices. Account workouts absent from the backup may be deleted.':'It affects this browser’s saved data.'} Copy a current backup first.`,'Load',()=>{ restoreSnapshot(o); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
-    case 'coachexit': { if(!coachMode) break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
+      confirmBox('Load this data?',`This replaces the plan, weights and history in this browser with ${o.state.settings&&o.state.settings.name?esc(o.state.settings.name)+"'s":'the pasted'} backup. ${AUTH.user?'The replacement also syncs to your account and other devices. Account workouts absent from the backup may be deleted.':'It affects this browser’s saved data.'} Copy a current backup first.`,'Load',async()=>{ await restoreSnapshot(o); save(); ui.tab='today'; render(); window.scrollTo(0,0); toast('Loaded'); }); }catch(err){ toast('That backup could not be read. Paste the full text.'); } break; }
+    case 'coachexit': { if(!coachMode) break;if(exitPagedPerson())break; const wasUid=coachMode.uid; state=coachMode.own.state; logs=coachMode.own.logs; coachMode=null; ui.tab=wasUid?'people':'today'; if(wasUid) loadPeople(); try{ fClearTimer(); }catch(e){} render(); setSync(CLOUD.ok?'cloud':'local'); window.scrollTo(0,0); toast('Back to your app'); break; }
     case 'confirmok': { const cb=confirmCb; confirmCb=null; closeModal(); cb&&cb(); break; }
   }
 });
@@ -6394,6 +6542,7 @@ function seedDemo(){
   state.places=[{k:'gym',n:'Demo gym',eq:PLACE_TYPES.gym.eq.split(' ')}];
   state.curPlace='gym'; newBlock();
   SYNC={owner:null,base:null,conflict:null,recovery:null};
+  if(PAGE.active)historySaved(PAGE.store.replace({state,logs:[],sync:compactSync(SYNC)}));
 }
 document.addEventListener('click',e=>{
   if(!DEMO_MODE || !e.target.closest('[data-action="demoreset"]')) return;
@@ -6411,6 +6560,10 @@ document.addEventListener('click',e=>{
   }
   if(saved && saved.state){ if(saved.sync) SYNC=saved.sync; state=migrate(saved.state); logs=normalizeLogs(saved.logs||[],state.settings.units); }
   else { state=defaults(); state.updatedAt=0; }
+  try{await enablePaged(saved);}catch(e){
+    storageOk=false;DEVICE.error=e;
+    document.getElementById('app').innerHTML='<div class="ob"><h1>Device storage unavailable</h1><p>Your existing saved copy has been kept. Close other app tabs and reload to retry migration.</p></div>';return;
+  }
   if(DEMO_MODE){
     if(!saved || !saved.state) seedDemo();
     AUTH.ready=true; ui.qsLater=true;

@@ -2,6 +2,20 @@
 
 ## Development storage update — November 15, 2026
 
+The test app now opens history in pages of about 30 sessions. **Older sessions**
+opens the next page; **Latest sessions** returns to the newest page. Exercise
+history is paged too. The total and progress score still use your complete saved
+history, including workouts outside the visible page. Charts can show selected
+points from that complete history. An old workout edit/deletion updates its
+baseline and trends; it does not reset your working weights.
+
+History remains cached on this device for offline use. The first account sync
+still downloads the history in small batches. **Updating progress…** means the
+app is checking saved results before displaying a revised score. Personal and
+sync-recovery backups now download complete JSON files, including sessions
+outside the current page; keep them private. Existing pasted JSON backups remain
+restorable. Close old app tabs before the storage upgrade.
+
 On the test app, history saves in IndexedDB and syncs only changed workouts after
 the initial download. Existing browser saves migrate automatically after a
 successful device write. Plans, weights, history and unfinished workouts are
