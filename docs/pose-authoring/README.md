@@ -15,6 +15,8 @@ Open the URL printed by the server. Local workspace mode saves exercise records 
 
 Use the prominent **Needs review** count button to show only exercises whose latest candidate has not been approved, including unreviewed versions and versions with owner-requested changes. It clears the search and selects a matching exercise. A fresh session without an exercise link opens this queue when there are pending candidates. **All exercises** and **Approved** are also clickable. The status dropdown keeps the narrower audit and owner-decision filters. A visual audit pass still needs owner review.
 
+The exercise detail starts with **Your review**, followed immediately by reference images and the attachment controls, then the demonstration. Existing attached form images and additional review images appear together. **Generation brief**, **Independent audit** and **Decision history** start collapsed; expand their headings when needed. Version comparison is also closed when choosing another exercise. All saved notes, audits and history remain available.
+
 The public seed and canonical runtime catalogue describe only public artwork and sanitized production metadata. Private review comments, supplied reference photos, generation sources and working candidates belong in the local workspace/archive. Never place that workspace under `exercise-guides/`, `dist/` or a hosting output folder.
 
 ## One exercise, one version, one decision

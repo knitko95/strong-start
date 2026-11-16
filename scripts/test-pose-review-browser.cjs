@@ -71,7 +71,7 @@ fs.mkdirSync(evidence, { recursive: true });
     return { context, page, errors, requests, decisions };
   }
   async function message(page, expression) {
-    await page.waitForFunction(pattern => new RegExp(pattern, 'i').test(document.querySelector('#message')?.textContent || ''), expression);
+    try{await page.waitForFunction(pattern => new RegExp(pattern, 'i').test(document.querySelector('#message')?.textContent || ''), expression);}catch(error){error.message+='\nVisible message: '+await page.locator('#message').textContent();throw error;}
   }
   async function selectExercise(page, id) {
     await page.locator('#exercise-list [data-exercise-id="' + id + '"]').click();
@@ -82,6 +82,10 @@ fs.mkdirSync(evidence, { recursive: true });
     for (const width of [1280, 390, 320]) {
       const { context, page, errors, requests } = await open(width);
       assert.equal(await page.locator('#exercise-list [data-exercise-id]').count(), 18);
+      assert.deepEqual(await page.locator('#exercise-detail > .panel').evaluateAll(panels=>panels.slice(0,2).map(p=>p.querySelector('h3')?.textContent)),['Your review','Your reference images'],'Review and reference images are the first panels');
+      assert.equal(await page.locator('details.secondary-panel').count(),3);
+      assert.equal(await page.locator('details.secondary-panel[open]').count(),0,'Technical information starts collapsed');
+      for(const id of ['generation-brief','independent-audit','decision-history']){await page.locator('#'+id+' > summary').click();assert.equal(await page.locator('#'+id).getAttribute('open'),'');await page.locator('#'+id+' > summary').click();}
       await page.getByRole('button', { name: 'Needs review (0)', exact: true }).click();
       assert.equal(await page.locator('#exercise-list [data-exercise-id]').count(), 0);
       assert.match(await page.locator('#exercise-list').innerText(), /caught up/i);
@@ -200,6 +204,7 @@ fs.mkdirSync(evidence, { recursive: true });
     await page.locator('#version-select').selectOption(candidate.id);
     await page.locator('#compare-toggle').click();
     assert.equal(await page.locator('#compare-panel .compare-version').count(), 2);
+    await page.locator('#independent-audit > summary').click();
     assert((await page.locator('#exercise-detail').innerText()).includes('Synthetic candidate needs wrist review.'));
     const note = 'Synthetic exact candidate correction; preserve this note after conflict.';
     await page.locator('#review-note').fill(note);
