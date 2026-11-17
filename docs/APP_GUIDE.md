@@ -291,7 +291,7 @@ Approved signed-in users can choose **About the app** (the private feedback trac
 
 The duplicate app-feedback admin inbox and its unread/done controls are retired. Review, label, prioritize and organize reports in the private [GitHub tracker](https://github.com/knitko95/strong-start-feedback) or [review board](https://github.com/users/knitko95/projects/1). The owner approved production attribution and the cleaner report format after dev testing. Reports show feedback, name and app version first; account ID and diagnostics expand under **Technical details**.
 
-Coaching threads are visible only to the member and the coach who invited them; other coaches and app owners without that assignment cannot read them. Accounts without an inviting coach show that no coach is linked; the app does not choose one automatically.
+Production coaching threads are visible only to the member and their assigned coach. On dev, the assigned coach, their lead-coach supervisors and organization admins can access the conversation. **Who can access this conversation?** lists the current names and roles, and each message identifies its actual sender. Read receipts mean that the member or someone on the coaching team has read the message. Accounts without an assigned coach show that no coach is linked; the app does not choose one automatically.
 
 The compact **Your coach** card in Settings is the everyday entry to messages. Today shows a coach card only while there are unread incoming messages, including new plan-update notes. Opening the conversation clears its unread badge; **×** also marks the currently shown messages read without deleting them. Older notes are kept in the conversation. Existing imported plan notes start as read. The former always-on Today plan-note card is replaced for signed-in users.
 
@@ -311,6 +311,14 @@ On dev, the old copy-and-text progress report flow has been removed from Progres
 
 For a coach, **Profile & settings > Manage your people** shows approved people's activity, pending updates, messages, and invites.
 
+On dev, organization tools open from **Profile & settings**. Coaches see **Your people**, lead coaches see **Your coaching team**, and organization admins see **Your organization**. A coach sees their direct members; a lead coach also sees members of the coaches below them in the reporting chain; an admin sees all members in their organization. Coaches appear separately in **Coaches**, without sharing their own personal training. Creating and redeeming a member invite establishes the primary-coach assignment. Unassigned accounts are not adopted automatically.
+
+Organization admins use **Coaches > Edit access** to choose **Coach** or **Lead coach**, set **Reports to**, and separately enable **Organization admin**. **Review changes** shows the access change before confirmation. Another admin must promote your own coaching role. The final admin cannot be removed, reporting loops are rejected, and a lead coach's reporting coaches must be reassigned before demotion. App-owner access is separate and is not granted by this screen.
+
+**Add coach** promotes an existing approved member of the organization who has Google sign-in. It does not create a login or send an email. The person's saved plan and history remain on their account as private staff training; unapplied member-plan updates are cancelled on promotion. Admins can then assign a lead role, reporting line or admin access. Each coach belongs to one organization in this version.
+
+Admins can choose **Change coach** on a member. The confirmation explains that the member keeps their plan, history and conversation; access follows the new primary coach and reporting team, and queued, unapplied plan updates from the previous team are cancelled. An old coach who remains an organization admin or supervisor still has that role's access. **Activity** shows the latest 30 role, reporting, assignment and account-management changes to admins only.
+
 - **Invite someone** creates a one-use link. Copy/share it deliberately with its intended recipient. A waiting invite can be cancelled.
 - **Open their app** loads a person's plan/history into a temporary coach view. The banner identifies whose app is being viewed. Edits are not saved automatically.
 - Change exercise choices, set/rep/rest/recovery targets, or level, then **Send changes** with an optional note. Profile, schedule, equipment, and working weights are view-only. Coach view does not offer workout recording, history deletion, backup restore, or program restarts. **Preview at** changes the displayed location only; it is not sent to the member.
@@ -318,6 +326,8 @@ For a coach, **Profile & settings > Manage your people** shows approved people's
 - Coaching unread status clears when an individual thread is opened, while reply status stays separate. App-feedback lifecycle and priority are managed in GitHub.
 
 App owners can manage eligible non-staff accounts from Your people. **Disable** preserves data and pauses access; **Turn back on** reverses it. **Delete** permanently removes the account and related workout/plan data after typing the person's name/email. Staff/self-deletion are guarded. App feedback remains in the private tracker and historical records. Older records lose their profile/workout links; report text can still identify someone. Do not use deletion as a test.
+
+On dev, account management requires organization admin access to that member. Admins can disable, reactivate or delete eligible non-staff members of their organization. Existing app-owner membership alone does not grant these organization permissions.
 
 See [architecture](ARCHITECTURE.md) for permission boundaries and [the review](REVIEW-2026-11-11.md) for outstanding reliability/validation work.
 

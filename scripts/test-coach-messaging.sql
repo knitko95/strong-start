@@ -11,6 +11,10 @@ insert into auth.users(id,email) values
  ('00000000-0000-4000-8000-000000000304','message-other-coach@example.invalid'),
  ('00000000-0000-4000-8000-000000000305','message-unassigned@example.invalid');
 insert into public.coaches(user_id) values('00000000-0000-4000-8000-000000000302'),('00000000-0000-4000-8000-000000000304');
+insert into private.coaching_organizations(id,name) values('00000000-0000-4000-8000-000000000399','Synthetic messaging organization');
+insert into private.coaching_staff(user_id,organization_id) values
+('00000000-0000-4000-8000-000000000302','00000000-0000-4000-8000-000000000399'),
+('00000000-0000-4000-8000-000000000304','00000000-0000-4000-8000-000000000399');
 update public.profiles set approved_at=now(),name='Synthetic member' where id::text like '00000000-0000-4000-8000-00000000030%';
 update public.profiles set name='Synthetic coach' where id='00000000-0000-4000-8000-000000000302';
 update public.profiles set invited_by='00000000-0000-4000-8000-000000000302' where id='00000000-0000-4000-8000-000000000301';

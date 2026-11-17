@@ -953,6 +953,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.10.0",
+    "date": "2026-11-17",
+    "title": "Coaching organizations",
+    "notes": ["Keep members with their primary coach while lead coaches oversee their reporting teams.","Organization admins can assign lead coaches, manage reporting lines and admin access, transfer members, and review organization activity.","Coaches’ personal workouts stay separate. Members can see who has access to their coaching conversation."]
+  },
+  {
     "version": "0.9.2",
     "date": "2026-11-16",
     "title": "Countdown timer chimes",
@@ -2557,7 +2563,7 @@ function pushLog(){ queueCloud(); } function deleteRemoteLog(id){ if(PAGE.active
 /* ---------------- Accounts (Supabase) ----------------
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
    so they follow them to any device. The phone keeps a copy too, so the app works with no signal at the gym.
-   Coaches (listed in the coaches table, added from the Supabase dashboard) can see everyone and send plan updates. */
+   Coaches (listed in the coaches table) can review their assigned members and send plan updates. */
 const SB_URL = IS_PRODUCTION ? 'https://aybtxqsneywuqxzjwoek.supabase.co' : 'https://gvyfgqhgqnfmtoytqpeo.supabase.co';
 const SB_KEY = IS_PRODUCTION ? 'sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl' : 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49';
 const SITE_URL=location.origin+location.pathname;
@@ -2789,6 +2795,7 @@ async function onSignedIn(u){
   if(AUTH.deleting) return;
   if(coachMode?.temporary)exitPagedPerson(true);
   if(CM.owner!==u.id){cmReset(u.id);FBS={side:'app',tag:'',text:'',busy:false};}
+  if(ORG.owner!==u.id)orgReset(u.id);
   AUTH.user=u; AUTH.busy=false;
   if(AUTH.access!=='ok' && !(await checkAccess(u))) return;
   if(!AUTH.user || AUTH.user.id!==u.id) return;
@@ -2806,6 +2813,8 @@ async function onSignedIn(u){
     const [co,ow]=await Promise.all([sb.rpc('is_coach'),sb.rpc('is_app_owner')]);
     if(!AUTH.user || AUTH.user.id!==u.id) return;
     AUTH.coach=!co.error&&co.data===true; FB.owner=!ow.error&&ow.data===true;
+    if(AUTH.coach)await orgLoad(false);
+    if(!AUTH.user||AUTH.user.id!==u.id)return;
     sb.from('profiles').update({last_seen:new Date().toISOString()}).eq('id',u.id).then(()=>{},()=>{});
     CLOUD.ok=true;
     await pushCloud();
@@ -3355,11 +3364,75 @@ async function selfDeleteAccount(b){
 /* Coach: your people */
 function agoText(d){ if(!d) return 'No workouts yet'; const days=Math.floor((Date.now()-new Date(d).getTime())/864e5); return days<=0?'Worked out today':days===1?'Last workout yesterday':`Last workout ${days} days ago`; }
 async function loadPeople(){
-  ui.people={loading:true, list:(ui.people&&ui.people.list)||[]}; render();
+  if(!AUTH.user||!AUTH.coach||coachMode)return;
+  const uid=AUTH.user.id,request=++ORG.peopleRequest;
+  if(ORG.owner!==uid)orgReset(uid);
+  ui.people={loading:true,list:ui.people?.list||[]};render();
   refreshUnread();
   loadInvites();
-  const {data,error}=await sb.rpc('coach_people');
-  ui.people={loading:false, err:error?authFriendly(error):'', list:data||[]}; if(ui.tab==='people') render();
+  const [people]=await Promise.all([sb.rpc('coach_people'),orgLoad(false)]);
+  if(AUTH.user?.id!==uid||ORG.owner!==uid||ORG.peopleRequest!==request)return;
+  ui.people={loading:false,err:people.error?authFriendly(people.error):'',list:people.data||[]};if(ui.tab==='people')render();
+}
+/* Organization roles and reporting lines are authorized by guarded database RPCs. */
+const ORG={owner:null,data:null,err:'',loading:false,generation:0,flight:null,peopleRequest:0,tab:'members',coach:null,invites:false,dialog:null,busy:false};
+function orgReset(owner=null){Object.assign(ORG,{owner,data:null,err:'',loading:false,generation:ORG.generation+1,flight:null,tab:'members',coach:null,invites:false,dialog:null,busy:false});ui.people=null;ui.invites=null;}
+function orgCurrent(owner,generation){return AUTH.user?.id===owner&&ORG.owner===owner&&ORG.generation===generation&&!AUTH.deleting;}
+function orgAdmin(){return ORG.owner===AUTH.user?.id&&ORG.data?.self?.is_admin===true;}
+function orgCoachName(id){return ORG.data?.coaches?.find(c=>c.id===id)?.name||'Organization admin';}
+function orgRole(c){return c?.role==='lead'?'Lead coach':'Coach';}
+function orgHeading(){return orgAdmin()?'Your organization':ORG.data?.self?.role==='lead'?'Your coaching team':'Your people';}
+async function orgLoad(redraw=true){
+  if(!sb||!AUTH.user||!AUTH.coach||coachMode)return;
+  if(ORG.owner!==AUTH.user.id)orgReset(AUTH.user.id);
+  if(ORG.flight)return ORG.flight;
+  const owner=ORG.owner,generation=ORG.generation;ORG.loading=true;
+  const flight=(async()=>{try{
+    const {data,error}=await withTimeout(sb.rpc('coaching_organization',{p_action:'summary'}),12000);
+    if(!orgCurrent(owner,generation))return;
+    if(error)throw error;if(!data?.self||!Array.isArray(data.coaches)||!Array.isArray(data.members))throw Error('Invalid organization response');
+    ORG.data=data;ORG.err='';if(!data.self.is_admin&&ORG.tab==='activity')ORG.tab='members';
+    if(ORG.coach&&!data.coaches.some(c=>c.id===ORG.coach))ORG.coach=null;
+  }catch(e){if(orgCurrent(owner,generation)){ORG.data=null;ORG.err='Couldn’t load organization access. Refresh to try again.';}}
+  finally{if(orgCurrent(owner,generation)){ORG.loading=false;if(redraw&&['people','settings'].includes(ui.tab))render();}}})();
+  ORG.flight=flight;try{return await flight;}finally{if(ORG.flight===flight)ORG.flight=null;}
+}
+function orgScope(){return orgAdmin()?'Organization admin · all coaches and members':ORG.data?.self?.role==='lead'?'Lead coach · your members and reporting team':'Coach · your direct members';}
+function orgMemberCoach(id){return ORG.data?.members?.find(m=>m.id===id)?.coach_id;}
+function orgTabButton(key,label){return `<button class="${ORG.tab===key?'on':''}" role="tab" aria-selected="${ORG.tab===key}" data-action="orgtab" data-v="${key}">${label}</button>`;}
+function orgCoachCards(){return (ORG.data?.coaches||[]).map(c=>`<section class="card stack" style="gap:10px"><div class="row between"><div><b>${esc(c.name)}</b><div class="tiny muted">${esc(c.email||'')}</div></div><div class="row"><span class="chip">${orgRole(c)}</span>${c.is_admin?'<span class="chip acc">Admin</span>':''}</div></div><div class="small muted">${c.members} direct member${c.members===1?'':'s'} · Reports to ${esc(orgCoachName(c.reports_to))}</div><div class="row"><button class="btn sm" data-action="orgcoach" data-id="${esc(c.id)}">View members</button>${orgAdmin()?`<button class="btn sm ghost" data-action="orgedit" data-id="${esc(c.id)}">Edit access</button>`:''}</div></section>`).join('');}
+function orgActivity(){const names={coach_added:'Coach added',coach_access_changed:'Coach access changed',member_transferred:'Member moved',member_disabled:'Member disabled',member_enabled:'Member reactivated',member_deleted:'Member deleted'};return `<section class="card stack"><h2>Organization activity</h2><p class="tiny muted">Latest 30 changes. Only organization admins can see this log.</p>${(ORG.data?.audit||[]).map(a=>{const v=a.after||{},before=a.before||{},details=a.action==='coach_access_changed'?`${orgRole(v)}${v.is_admin?' · Admin':''} · Reports to ${orgCoachName(v.reports_to)}`:a.action==='member_transferred'?`${orgCoachName(before.coach_id)} → ${orgCoachName(v.coach_id)}`:'';return `<div style="border-top:1px solid var(--line);padding-top:10px"><b class="small">${esc(names[a.action]||'Organization updated')}${a.target?' · '+esc(a.target):''}</b>${details?`<div class="small muted">${esc(details)}</div>`:''}<div class="tiny muted">${esc(a.actor||'Admin')} · ${esc(new Date(a.created_at).toLocaleString())}</div></div>`;}).join('')||'<p class="small muted">No organization changes recorded yet.</p>'}</section>`;}
+function orgOpenDialog(type,target){if(!orgAdmin()||coachMode)return null;const d={type,target,owner:AUTH.user.id,generation:ORG.generation};ORG.dialog=d;return d;}
+async function orgChange(action,target,data,dialog){
+  if(!dialog||!orgCurrent(dialog.owner,dialog.generation)||!orgAdmin()||coachMode||ORG.busy)return;
+  ORG.busy=true;
+  const button=document.querySelector('#modal [data-action="confirmok"]');if(button)button.disabled=true;
+  try{const r=await sb.rpc('coaching_organization',{p_action:action,p_target:target,p_data:data});
+    if(!orgCurrent(dialog.owner,dialog.generation))return;
+    if(r.error)throw r.error;if(!r.data?.ok)throw Error('Change not confirmed');
+    ORG.dialog=null;closeModal();toast('Organization updated');await loadPeople();
+  }catch(e){if(orgCurrent(dialog.owner,dialog.generation)){toast(e?.message||'Couldn’t save. Refresh and try again.');await orgLoad(false);}}
+  finally{if(orgCurrent(dialog.owner,dialog.generation))ORG.busy=false;if(button?.isConnected)button.disabled=false;}
+}
+function orgEdit(id){
+  const c=ORG.data?.coaches?.find(c=>c.id===id),d=orgOpenDialog('coach',id);if(!c||!d)return;
+  d.expected={role:c.role,is_admin:c.is_admin,reports_to:c.reports_to||null};
+  const blocked=new Set([id]);for(let i=0;i<(ORG.data.coaches||[]).length;i++)for(const x of ORG.data.coaches)if(blocked.has(x.reports_to))blocked.add(x.id);
+  modal(`<h2>${esc(c.name)}’s organization access</h2><p class="small muted">Role controls responsibilities. Reporting lines control which team a lead coach oversees.</p><label class="field2" for="org-role"><span class="flabel">Coaching role</span><select class="in" id="org-role"><option value="coach" ${c.role==='coach'?'selected':''}>Coach</option><option value="lead" ${c.role==='lead'?'selected':''} ${id===AUTH.user.id&&c.role!=='lead'?'disabled':''}>Lead coach</option></select></label><label class="field2" for="org-manager"><span class="flabel">Reports to</span><select class="in" id="org-manager"><option value="">Organization admin</option>${ORG.data.coaches.filter(x=>x.role==='lead'&&!blocked.has(x.id)).map(x=>`<option value="${esc(x.id)}" ${x.id===c.reports_to?'selected':''}>${esc(x.name)}</option>`).join('')}</select></label><label class="row" style="align-items:flex-start;flex-wrap:nowrap"><input style="flex:none;margin-top:5px" type="checkbox" id="org-admin" ${c.is_admin?'checked':''}><span style="flex:1;min-width:0"><b>Organization admin</b><span class="small muted" style="display:block">Access all organization members and manage roles, reporting lines and assignments. Staff personal training stays private.</span></span></label>${id===AUTH.user.id?'<p class="tiny muted">Another admin must promote your coaching role. At least one admin must remain.</p>':''}<div class="row"><button class="btn primary" data-action="orgreview">Review changes</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
+}
+function orgReview(){const d=ORG.dialog;if(!d||d.type!=='coach'||!orgCurrent(d.owner,d.generation))return;const role=$('#org-role').value,is_admin=$('#org-admin').checked,reports_to=$('#org-manager').value||null,data={role,is_admin,reports_to,expected:d.expected};const c=ORG.data.coaches.find(c=>c.id===d.target);confirmBox(`Update ${c.name}’s access?`,`<b>${orgRole(data)}${is_admin?' · Organization admin':''}</b><br>Reports to ${esc(orgCoachName(reports_to))}<br><br>This changes access to member plans, history and coaching conversations. Personal training stays separate.`, 'Save changes',()=>orgChange('update_coach',d.target,data,d));}
+function orgAdd(){if(!orgOpenDialog('add',null))return;modal(`<h2>Add a coach</h2><p class="small muted">They must already be an approved member of this organization with Google sign-in. Ask them to join using your member invite first.</p><label class="field2" for="org-email"><span class="flabel">Google account email</span><input class="in" id="org-email" type="email" autocomplete="off" maxlength="254"></label><p class="tiny muted">They will become a coach with no admin access or reporting coaches. Their saved plan and history stay on their account as private staff training. Unapplied member-plan updates are cancelled.</p><div class="row"><button class="btn primary" data-action="orgaddreview">Review coach addition</button><button class="btn" data-action="closemodal">Cancel</button></div>`);}
+function orgAddReview(){const d=ORG.dialog,input=$('#org-email');if(!d||!input?.reportValidity()||!input.value.trim())return;const email=input.value.trim();confirmBox('Add this account as a coach?',`<b>${esc(email)}</b><br><br>No email or invitation is sent. Their personal training will no longer appear in member lists. You can assign lead coach or admin access after adding them.`, 'Add coach',()=>orgChange('add_coach',null,{email},d));}
+function orgTransfer(id){const p=acctPerson(id),d=orgOpenDialog('transfer',id);if(!p||!d)return;d.coach=orgMemberCoach(id);modal(`<h2>Change ${esc(acctName(p))}’s coach</h2><label class="field2" for="org-primary"><span class="flabel">Primary coach</span><select class="in" id="org-primary">${ORG.data.coaches.map(c=>`<option value="${esc(c.id)}" ${c.id===d.coach?'selected':''}>${esc(c.name)}</option>`).join('')}</select></label><p class="small muted">The member keeps their plan, history and conversation. The new coach and their supervisors gain access; the previous team loses access unless they still oversee the member. Undelivered plan updates from the previous team are cancelled.</p><div class="row"><button class="btn primary" data-action="orgtransferreview">Review transfer</button><button class="btn" data-action="closemodal">Cancel</button></div>`);}
+function orgTransferReview(){const d=ORG.dialog;if(!d||!$('#org-primary'))return;const coach_id=$('#org-primary').value,p=acctPerson(d.target);confirmBox(`Move ${acctName(p)}?`,`Primary coach: <b>${esc(orgCoachName(d.coach))} → ${esc(orgCoachName(coach_id))}</b><br><br>Coaching access changes when you confirm. Undelivered plan updates from the previous team are cancelled.`, 'Move member',()=>orgChange('transfer_member',d.target,{coach_id,expected_coach:d.coach},d));}
+function orgAction(a,b){
+  if(!a.startsWith('org'))return false;if(!AUTH.coach||coachMode)return true;
+  if(a==='orgtab'){if(b.dataset.v==='activity'&&!orgAdmin())return true;ORG.tab=b.dataset.v;ORG.coach=null;ORG.invites=false;render();}
+  else if(a==='orgcoach'){ORG.coach=b.dataset.id;ORG.tab='members';ORG.invites=false;render();}
+  else if(a==='orgall'){ORG.coach=null;render();}
+  else if(a==='orginvites'){ORG.invites=!ORG.invites;ORG.tab='members';render();}
+  else if(a==='orgedit')orgEdit(b.dataset.id);else if(a==='orgreview')orgReview();else if(a==='orgadd')orgAdd();else if(a==='orgaddreview')orgAddReview();else if(a==='orgtransfer')orgTransfer(b.dataset.id);else if(a==='orgtransferreview')orgTransferReview();
+  return true;
 }
 /* Coach: invites (beta is invite-only; each link works once for 14 days) */
 async function loadInvites(){
@@ -3418,30 +3491,34 @@ function inviteCancel(id){
     if(error) toast('Couldn’t cancel. Check your connection and try again.'); else { toast('Invite cancelled'); loadInvites(); } });
 }
 function renderPeople(){
-  const P=ui.people||{list:[]}, me=AUTH.user&&AUTH.user.id, active=P.list.filter(p=>!p.disabled_at), off=P.list.filter(p=>p.disabled_at);
-  return `<section><div class="eyebrow">Coach</div><h1>Your people</h1></section>
-  <div class="row"><button class="btn sm" data-action="settingsback">‹ Profile &amp; settings</button><button class="btn sm ghost" data-action="peoplereload">${P.loading?'Loading…':'Refresh'}</button></div>
-  ${inboxCards()}
-  ${invitesCard()}
-  ${P.err?`<p class="small" role="alert">${esc(P.err)}</p>`:''}
-  ${!P.loading && !active.length?`<section class="card"><p class="small muted" style="margin:0">No one has joined yet. Tap Invite someone to send a link, and they’ll show up here once they create an account.</p></section>`:''}
+  const P=ui.people||{list:[]}, selected=ORG.data?.coaches?.find(c=>c.id===ORG.coach),list=P.list.filter(p=>!selected||orgMemberCoach(p.id)===selected.id),active=list.filter(p=>!p.disabled_at),off=list.filter(p=>p.disabled_at);
+  const heading=selected?selected.name:orgHeading(),ready=ORG.owner===AUTH.user?.id&&!!ORG.data;
+  const header=`<section><div class="eyebrow">${esc(ORG.data?.organization?.name||'Coaching')}</div><h1>${esc(heading)}</h1></section><div class="row"><button class="btn sm" data-action="${selected?'orgall':'settingsback'}">‹ ${selected?'All members':'Profile &amp; settings'}</button><button class="btn sm ghost" data-action="peoplereload">${P.loading||ORG.loading?'Loading…':'Refresh'}</button></div>${P.err||ORG.err?`<p class="small" role="alert">${esc(P.err||ORG.err)}</p>`:''}`;
+  if(!ready)return header+`<section class="card"><p class="small muted">${ORG.err?'Organization tools are unavailable until access can be checked.':'Loading organization access…'}</p></section>`;
+  const tabs=selected?`<section class="card stack"><div class="row between"><b>${orgRole(selected)}${selected.is_admin?' · Admin':''}</b>${orgAdmin()?`<button class="btn sm" data-action="orgedit" data-id="${esc(selected.id)}">Edit access</button>`:''}</div><p class="small muted">Reports to ${esc(orgCoachName(selected.reports_to))}. This staff view does not share their personal training.</p></section>`:`<section class="card stack" style="gap:10px"><p class="small muted">${esc(orgScope())}</p><div class="tabs2" role="tablist" aria-label="Organization">${orgTabButton('members','Members')}${ORG.data.self.role==='lead'||orgAdmin()?orgTabButton('coaches','Coaches'):''}${orgAdmin()?orgTabButton('activity','Activity'):''}</div><div class="row"><button class="btn sm" data-action="orginvites">${ORG.invites?'Hide invites':'Invites'}</button>${orgAdmin()?'<button class="btn sm primary" data-action="orgadd">Add coach</button>':''}</div></section>`;
+  if(ORG.tab==='coaches'&&!selected)return header+tabs+orgCoachCards();
+  if(ORG.tab==='activity'&&orgAdmin())return header+tabs+orgActivity();
+  return header+tabs+`${inboxCards()}${ORG.invites?invitesCard():''}
+  ${!P.loading&&!active.length?`<section class="card"><p class="small muted" style="margin:0">No members yet. Open Invites to send someone a link. Coaches are listed separately from members.</p></section>`:''}
   ${active.map(p=>`<section class="card stack" style="gap:6px">
-    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div style="min-width:0"><b>${esc(p.name||p.email||'New person')}</b>${p.id===me?' <span class="tiny muted">(you)</span>':''}<div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')}</div></div>
+    <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><div style="min-width:0"><b>${esc(p.name||p.email||'New person')}</b><div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')}</div></div>
       ${p.pending_update?'<span class="chip">Update waiting</span>':''}</div>
+    <div class="tiny muted">Primary coach: ${esc(orgCoachName(orgMemberCoach(p.id)))}</div>
     <div class="small">${esc(agoText(p.last_workout))}</div>
     <div class="tiny muted">${p.workouts_7d} this week · ${p.workouts_28d} in 4 weeks · ${p.workouts_total} total</div>
-    ${p.id===me?'':`<div class="row" style="gap:8px"><button class="btn sm primary" data-action="personopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'their')}">Open their app</button>${FB.owner&&!p.staff?`<button class="btn sm ghost" data-action="acctmanage" data-id="${esc(p.id)}">Manage account</button>`:''}</div>`}
+    <div class="row" style="gap:8px"><button class="btn sm primary" data-action="personopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'their')}">Open their app</button><button class="btn sm" data-action="cmopen" data-id="${esc(p.id)}" data-n="${esc(p.name||p.email||'Member')}">Messages</button>${orgAdmin()&&!p.staff?`<button class="btn sm ghost" data-action="orgtransfer" data-id="${esc(p.id)}">Change coach</button><button class="btn sm ghost" data-action="acctmanage" data-id="${esc(p.id)}">Manage account</button>`:''}</div>
   </section>`).join('')}
-  ${FB.owner&&off.length?`<section class="card stack" style="gap:10px">
+  ${orgAdmin()&&off.length?`<section class="card stack" style="gap:10px">
     <button class="row" data-action="acctoffshow" style="justify-content:space-between;flex-wrap:nowrap;background:none;border:0;padding:0;color:inherit;font:inherit;text-align:left;width:100%" aria-expanded="${ui.showOff?'true':'false'}"><div><b>Disabled (${off.length})</b><div class="tiny muted">Hidden and can’t use the app. Everything is kept.</div></div><span aria-hidden="true">${ui.showOff?'▾':'▸'}</span></button>
     ${ui.showOff?off.map(p=>`<div class="stack" style="gap:6px;border-top:1px solid var(--line);padding-top:10px"><div style="min-width:0"><b class="small">${esc(p.name||p.email||'Person')}</b><div class="tiny muted" style="overflow:hidden;text-overflow:ellipsis">${esc(p.email||'')} · disabled ${shortDate(p.disabled_at)} · ${p.workouts_total} workouts</div></div>
       <div class="row" style="gap:8px"><button class="btn sm" data-action="acctenable" data-id="${esc(p.id)}">Turn back on</button><button class="btn sm ghost" data-action="acctdelete" data-id="${esc(p.id)}">Delete…</button></div></div>`).join(''):''}
   </section>`:''}`;
 }
-/* App owner: disable (hide + lock out, everything kept) or permanently delete an account */
+/* Organization admin: disable or delete eligible organization members. */
 const acctPerson=id=>((ui.people&&ui.people.list)||[]).find(p=>p.id===id);
 const acctName=p=>p.name||p.email||'this person';
 function acctManage(id){
+  if(!orgAdmin())return;
   const p=acctPerson(id); if(!p) return; const n=esc(acctName(p));
   modal(`<h2>${n}’s account</h2>
     <div class="stack" style="gap:6px"><b>Disable</b><p class="small muted" style="margin:0">Hides ${n} from Your people and stops them using the app. Their plan, workouts and messages are kept, and you can turn them back on anytime from the Disabled list.</p>
@@ -3451,12 +3528,14 @@ function acctManage(id){
     <div class="row"><button class="btn" data-action="closemodal">Close</button></div>`);
 }
 async function acctSetDisabled(id,on){
+  if(!orgAdmin())return;
   const p=acctPerson(id); if(!p) return;
   const {error}=await sb.rpc('admin_set_disabled',{p_user:id,p_disabled:on});
   if(error){ toast('Couldn’t change that. Check your connection and try again.'); return; }
   closeModal(); toast(on?`${acctName(p)} is disabled`:`${acctName(p)} is back on`); loadPeople();
 }
 function acctDeleteSheet(id){
+  if(!orgAdmin())return;
   const p=acctPerson(id); if(!p) return; const n=acctName(p), key=(p.name||p.email||'').trim();
   ui.delKey=key.toLowerCase();
   modal(`<h2>Delete ${esc(n)}’s account forever?</h2>
@@ -3644,6 +3723,7 @@ function renderInbox(){ return AUTH.coach?cmInbox():renderSettings(); }
 /* ---------------- Assigned-coach conversations ---------------- */
 const CM={owner:null,summary:null,err:'',flight:null,thread:null,drafts:{},generation:0,live:null};
 function cmReset(owner=null){
+  if(!owner||(ORG.owner&&ORG.owner!==owner))orgReset(owner);
   cmLiveStop();
   if(CM.thread) closeModal();
   CM.owner=owner;CM.summary=null;CM.err='';CM.flight=null;CM.thread=null;CM.drafts={};CM.generation++;
@@ -3715,18 +3795,19 @@ async function cmLoad(t,older=false){
   t.loading=true;t.err='';cmDraw();
   try{const data=await cmRpc('read',t.member,older?{before:t.messages[0].id}:{});
     if(!cmCurrent(owner,generation)||CM.thread!==t||t.readVersion!==request)return;
-    t.name=t.coach?data.member_name:data.coach_name;
+    t.name=t.coach?data.member_name:data.coach_name;t.access=data.access||[];
     const merged=new Map((older?t.messages:[]).map(m=>[m.id,m]));data.messages.forEach(m=>merged.set(m.id,m));
     t.messages=[...merged.values()].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||(BigInt(a.id)<BigInt(b.id)?-1:1));t.hasMore=data.has_more;t.through=data.through;t.needsReply=data.needs_reply;t.loading=false;cmDraw(!older);cmRefresh();
   }catch(e){if(cmCurrent(owner,generation)&&CM.thread===t&&t.readVersion===request){t.loading=false;t.err='Couldn’t load this conversation. Check your connection and try again.';cmDraw();}}
 }
+function cmAccessText(access){return access?.length?access.map(p=>`${p.name} (${p.role})`).join(', '):'Access details are unavailable. Refresh this conversation to check the current coaching team.';}
 function cmDraw(bottom=false){
   const t=CM.thread;if(!t)return;const old=$('#cm-conversation'),scroll=old&&old.scrollTop,box=$('#cm-text'),selection=box&&[box.selectionStart,box.selectionEnd];
   const needs=t.coach&&(t.needsReply??t.messages.some(m=>m.sender_id!==CM.owner&&!m.resolved_at));
   const messages=cmMessageMarkup(t);
   cmLockPage();
   modal(`<header class="cm-head"><div class="row" style="flex-wrap:nowrap">${cmAvatar(t.name)}<div class="grow"><div class="eyebrow">${t.coach?'Messages':'Your coach'}</div><h2 class="cm-name">${esc(t.name)}</h2></div><button class="btn sm ghost" data-action="closemodal">${ui.tab==='workout'?'Back to workout':t.coach?'Back':'Done'}</button></div></header>
-    <div id="cm-conversation" class="cm-conversation"><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':''}<span id="cm-live-status" class="tiny muted" role="status" style="flex:1"></span><button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div><div id="cm-messages" class="cm-messages">${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}</div>${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
+    <div id="cm-conversation" class="cm-conversation"><details id="cm-access" class="tiny muted" ${t.accessOpen?'open':''}><summary>Who can access this conversation?</summary><p>${esc(cmAccessText(t.access))}</p><p>Read receipts show when the member or someone on the coaching team has read a message.</p></details><div class="row between cm-history-tools">${t.hasMore?'<button class="link tiny" data-action="cmolder">Older messages</button>':''}<span id="cm-live-status" class="tiny muted" role="status" style="flex:1"></span><button class="link tiny" data-action="cmreload" ${t.loading?'disabled':''}>${t.loading?'Loading…':'Refresh'}</button></div><div id="cm-messages" class="cm-messages">${messages||(!t.loading&&!t.err?'<p class="small muted">Start a conversation with a message below.</p>':'')}</div>${t.err?`<p class="small" role="alert">${esc(t.err)}</p>`:''}</div>
     <div id="cm-new-host" class="cm-new-host"></div><footer class="cm-composer"><div class="cm-tools">${t.coach?`<span id="cm-reply-status" class="tiny muted">${needs?'Needs reply':'Done'}</span>`:`<button class="cm-tag-toggle" data-action="cmtags" aria-expanded="${!!t.draft.tagsOpen}">${t.draft.tag?'Tag: '+esc(fbTagName(t.draft.tag))+' ×':'+ Add tag'}</button>`}</div>
       ${!t.coach&&t.draft.tagsOpen?`<div class="cm-tags">${FB_TAGS.coach.map(([k,l])=>`<button class="btn sm" data-action="cmtag" data-v="${k}" aria-pressed="${t.draft.tag===k}">${l}</button>`).join('')}</div>`:''}
       <div class="cm-compose-row"><textarea id="cm-text" aria-label="${t.coach?'Reply to '+esc(t.name):'Message '+esc(t.name)}" placeholder="${t.coach?'Reply to':'Message'} ${esc(t.name)}…" rows="1" maxlength="4000" ${t.busy?'disabled':''}>${esc(t.draft.text)}</textarea><button class="btn primary" data-action="cmsend" ${t.busy||t.loading?'disabled':''}>${t.busy?'Sending…':'Send'}</button></div>
@@ -3845,7 +3926,7 @@ function cmNearBottom(){const el=$('#cm-conversation');return !!el&&el.scrollHei
 function cmMessageMarkup(t){
   const latest=t.messages.filter(m=>m.sender_id===CM.owner).at(-1);let date='';
   return t.messages.map(m=>{const d=new Date(m.created_at).toLocaleDateString(undefined,{month:'short',day:'numeric'}),stamp=d!==date?`<div class="cm-date">${esc(d)}</div>`:'';date=d;
-    return stamp+`<div class="cm-bubble ${m.sender_id===CM.owner?'mine':''} ${m.kind==='plan'?'plan-note':''}" data-message-id="${esc(m.id)}">${m.kind==='plan'?'<span class="chip">Plan update</span>':m.tag?`<span class="chip">${esc(fbTagName(m.tag))}</span>`:''}<p>${esc(m.message)}</p>${m.workout&&m.workout.name?`<span class="tiny muted">Workout: ${esc(m.workout.name)}${m.workout.status?' · '+esc(m.workout.status):''}</span>`:''}<span class="tiny muted">${esc(m.sender_id===CM.owner?'You':t.name)} · ${esc(new Date(m.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}))}</span>${m===latest?`<span class="tiny muted cm-receipt" aria-label="Message ${m.read_at?'read':'sent'}">${m.read_at?'Read':'Sent'}</span>`:''}</div>`;
+    return stamp+`<div class="cm-bubble ${m.sender_id===CM.owner?'mine':''} ${m.kind==='plan'?'plan-note':''}" data-message-id="${esc(m.id)}">${m.kind==='plan'?'<span class="chip">Plan update</span>':m.tag?`<span class="chip">${esc(fbTagName(m.tag))}</span>`:''}<p>${esc(m.message)}</p>${m.workout&&m.workout.name?`<span class="tiny muted">Workout: ${esc(m.workout.name)}${m.workout.status?' · '+esc(m.workout.status):''}</span>`:''}<span class="tiny muted">${esc(m.sender_id===CM.owner?'You':m.sender_name||t.name)}${m.sender_id!==CM.owner&&m.sender_role==='Coaching team'?' · Coaching team':''} · ${esc(new Date(m.created_at).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}))}</span>${m===latest?`<span class="tiny muted cm-receipt" aria-label="Message ${m.read_at?'read':'sent'}">${m.read_at?'Read':'Sent'}</span>`:''}</div>`;
   }).join('');
 }
 function cmNewButton(){const host=$('#cm-new-host');if(host)host.innerHTML=CM.thread&&CM.thread.newCount?'<button class="btn sm" data-action="cmnew">New messages ↓</button>':'';}
@@ -3865,7 +3946,7 @@ async function cmLiveThread(t,live){
     const scroll=el.scrollTop,wasBottom=cmNearBottom()&&!t.newCount,oldIds=new Set(t.messages.map(m=>m.id)),previous=JSON.stringify(t.messages);
     const merged=new Map(t.messages.map(m=>[m.id,m]));data.messages.forEach(m=>merged.set(m.id,m));
     t.messages=[...merged.values()].sort((a,b)=>new Date(a.created_at)-new Date(b.created_at)||(BigInt(a.id)<BigInt(b.id)?-1:1));
-    t.through=data.through;t.needsReply=data.needs_reply??t.messages.some(m=>m.sender_id!==owner&&!m.resolved_at);live.fetchFailed=false;
+    t.through=data.through;t.needsReply=data.needs_reply??t.messages.some(m=>m.sender_id!==owner&&!m.resolved_at);t.access=data.access||[];const access=$('#cm-access p');if(access)access.textContent=cmAccessText(t.access);live.fetchFailed=false;
     const fresh=data.messages.filter(m=>!oldIds.has(m.id)&&m.sender_id!==owner).length;
     if(!wasBottom)t.newCount=(t.newCount||0)+fresh;
     if(previous!==JSON.stringify(t.messages)){
@@ -6172,13 +6253,13 @@ function settingsCoaching(){
   let management='';
   if(AUTH.coach||FB.owner){
     const inbox=CM.owner===AUTH.user?.id?CM.summary?.inbox||[]:[],needs=inbox.filter(p=>p.needs_reply).length,unread=inbox.reduce((n,p)=>n+(p.unread||0),0);
-    management=`<section class="card settings-coaching stack"><div class="row between"><div class="settings-coaching-person">${settingsIcon('users')}<div><div class="eyebrow">${AUTH.coach?'Your coaching':'People management'}</div><h2>Your people</h2></div></div>${needs?`<span class="chip acc">${needs} ${needs===1?'needs':'need'} a reply</span>`:''}</div><p class="small muted">${AUTH.coach?'Plans, progress and conversations in one place.':'Manage the accounts you already have access to.'}</p><button class="btn primary block" data-action="people">${settingsIcon('users')} Manage your people</button>${AUTH.coach?`<div class="settings-coaching-actions"><button class="btn" data-action="settingsmessages">${settingsIcon('message')} Messages${unread?' · '+unread+' new':''}</button><button class="btn" data-action="settingsinvites">Invites</button></div>`:''}</section>`;
+    management=`<section class="card settings-coaching stack"><div class="row between"><div class="settings-coaching-person">${settingsIcon('users')}<div><div class="eyebrow">${AUTH.coach?'Your coaching':'People management'}</div><h2>${esc(orgHeading())}</h2></div></div>${needs?`<span class="chip acc">${needs} ${needs===1?'needs':'need'} a reply</span>`:''}</div><p class="small muted">${AUTH.coach?'Plans, progress and conversations in one place.':'Manage the accounts you already have access to.'}</p><button class="btn primary block" data-action="people">${settingsIcon('users')} ${orgAdmin()?'Manage organization':ORG.data?.self?.role==='lead'?'Manage coaching team':'Manage your people'}</button>${AUTH.coach?`<div class="settings-coaching-actions"><button class="btn" data-action="settingsmessages">${settingsIcon('message')} Messages${unread?' · '+unread+' new':''}</button><button class="btn" data-action="settingsinvites">Invites</button></div>`:''}</section>`;
     if(AUTH.coach)return management;
   }
   if(!AUTH.user)return management;
   const c=CM.owner===AUTH.user.id?CM.summary?.coach:null;
   if(!c)return management+`<section class="card settings-coaching stack"><div class="row"><span class="prof-av">${settingsIcon('message')}</span><div><div class="eyebrow">Your coach</div><b>${CM.err?esc(CM.err):CM.summary?'No coach is linked to this account yet.':'Loading your coach…'}</b></div></div>${CM.err?'<button class="btn" data-action="cmrefresh">Retry</button>':''}</section>`;
-  return `<section class="card cm-card settings-coaching stack"><div class="row between"><div class="settings-coaching-person">${cmAvatar(c.name)}<div><div class="eyebrow">Your coach</div><h2 class="cm-name">${esc(c.name)}</h2></div></div>${c.unread?`<span class="chip acc">${c.unread} new</span>`:''}</div><p class="small muted">Talk about your training, ask a question or check in.</p><button class="btn primary block" data-action="cmopen">${settingsIcon('message')} Message ${esc(c.name||'your coach')}</button></section>`+management;
+  return `<section class="card cm-card settings-coaching stack"><div class="row between"><div class="settings-coaching-person">${cmAvatar(c.name)}<div><div class="eyebrow">Your coach</div><h2 class="cm-name">${esc(c.name)}</h2></div></div>${c.unread?`<span class="chip acc">${c.unread} new</span>`:''}</div><p class="small muted">Talk about your training, ask a question or check in.</p>${c.access?.length?`<details class="small muted"><summary>Who can access your coaching?</summary><p>${esc(cmAccessText(c.access))}</p></details>`:''}<button class="btn primary block" data-action="cmopen">${settingsIcon('message')} Message ${esc(c.name||'your coach')}</button></section>`+management;
 }
 function settingsProfile(){const s=state.settings;return `<section class="card stack settings-fields"><label class="field2" for="set-name"><span class="flabel">First name</span><input class="in" id="set-name" value="${esc(s.name||'')}"></label><label class="field2" for="set-age"><span class="flabel">Age</span><input class="in" id="set-age" inputmode="numeric" value="${s.age??''}"></label><div><span class="flabel">Gender</span><p class="tiny muted">Used with body weight to suggest starting weights.</p>${genderSeg(s.gender||'','setgender')}</div><label class="field2" for="set-bw"><span class="flabel">Body weight (${s.units})</span><input class="in" id="set-bw" inputmode="decimal" value="${weightNumber(s.bw)??''}"></label><p class="tiny muted">Only used to suggest starting weights. Change units in App preferences.</p></section>`;}
 function settingsAccount(){
@@ -6700,9 +6781,10 @@ document.addEventListener('click', async e=>{
   if(a.startsWith('auth')){ authAction(a,b); return; }
   if(a.startsWith('hs') && hsAction(a)) return;
   if((a.startsWith('msg')||a.startsWith('cm')) && fbAction(a,b)) return;
+  if(a.startsWith('org')&&orgAction(a,b))return;
   if(a==='people'){ settingsGo({tab:'people'}); if(AUTH.coach) loadPeople(); else refreshUnread(); return; }
   if(a==='settingsmessages'){ if(!AUTH.coach)return;ui.cmFilter='needs';settingsGo({tab:'inbox'});cmRefresh();return; }
-  if(a==='settingsinvites'){ if(!AUTH.coach)return;settingsGo({tab:'people'});loadPeople();document.querySelector('[data-action="invitenew"]')?.scrollIntoView({block:'center'});return; }
+  if(a==='settingsinvites'){ if(!AUTH.coach)return;ORG.invites=true;ORG.tab='members';ORG.coach=null;settingsGo({tab:'people'});loadPeople();document.querySelector('[data-action="invitenew"]')?.scrollIntoView({block:'center'});return; }
   if(a==='peoplereload'){ loadPeople(); return; }
   if(a==='invitenew'){ inviteSheet(); return; }
   if(a==='acctmanage'){ acctManage(b.dataset.id); return; }
