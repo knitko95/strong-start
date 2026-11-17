@@ -9,6 +9,12 @@ insert into public.coaches(user_id) values
 ('00000000-0000-4000-8000-000000000901'),('00000000-0000-4000-8000-000000000902'),('00000000-0000-4000-8000-000000000908');
 insert into public.app_owners(user_id) values
 ('00000000-0000-4000-8000-000000000901'),('00000000-0000-4000-8000-000000000902');
+-- App ownership does not grant organization administration. These are ordinary coaches.
+insert into private.coaching_organizations(id,name) values('00000000-0000-4000-8000-000000000999','Synthetic member isolation organization');
+insert into private.coaching_staff(user_id,organization_id) values
+('00000000-0000-4000-8000-000000000901','00000000-0000-4000-8000-000000000999'),
+('00000000-0000-4000-8000-000000000902','00000000-0000-4000-8000-000000000999'),
+('00000000-0000-4000-8000-000000000908','00000000-0000-4000-8000-000000000999');
 update public.profiles set invited_by='00000000-0000-4000-8000-000000000901' where id in
 ('00000000-0000-4000-8000-000000000903','00000000-0000-4000-8000-000000000907','00000000-0000-4000-8000-000000000908');
 update public.profiles set invited_by='00000000-0000-4000-8000-000000000902' where id='00000000-0000-4000-8000-000000000904';
@@ -33,8 +39,8 @@ set local request.jwt.claim.sub='00000000-0000-4000-8000-000000000901';
 do $$ declare ids uuid[]; begin
   select array_agg(id order by id) into ids from public.coach_people()
     where id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908';
-  assert ids=array['00000000-0000-4000-8000-000000000903'::uuid,'00000000-0000-4000-8000-000000000907'::uuid],'Owner coach list crossed assignment or included staff';
-  assert (select count(*) from public.profiles where id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908')=3,'Profile read escaped owner/member boundary';
+  assert ids=array['00000000-0000-4000-8000-000000000903'::uuid],'Coach list crossed assignment or included staff';
+  assert (select count(*) from public.profiles where id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908')=2,'Profile read escaped coach/member boundary';
   assert (select count(*) from public.app_state where user_id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908')=2,'State read escaped boundary';
   assert (select count(*) from public.workout_logs where user_id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908')=2,'Log read escaped boundary';
   assert (select count(*) from public.plan_updates where user_id between '00000000-0000-4000-8000-000000000901' and '00000000-0000-4000-8000-000000000908')=1,'Plan read escaped boundary';
@@ -48,9 +54,7 @@ do $$ declare ids uuid[]; begin
   begin perform public.admin_delete_account('00000000-0000-4000-8000-000000000904');raise exception 'Other admin deleted member';exception when insufficient_privilege then null;end;
   begin perform public.coach_messaging('peek','00000000-0000-4000-8000-000000000908');raise exception 'Coach conversation RPC allowed';exception when insufficient_privilege then null;end;
   insert into public.plan_updates(user_id,update) values('00000000-0000-4000-8000-000000000903','{"plan":{},"note":"Assigned member plan"}');
-  perform public.admin_set_disabled('00000000-0000-4000-8000-000000000907',false);
-  assert private.coach_member_allowed('00000000-0000-4000-8000-000000000907'),'Assigned admin cannot reactivate';
-  perform public.admin_set_disabled('00000000-0000-4000-8000-000000000907',true);
+  begin perform public.admin_set_disabled('00000000-0000-4000-8000-000000000907',false);raise exception 'App owner implicitly gained organization admin';exception when insufficient_privilege then null;end;
   perform set_config('test.boundary_invite',(select code from public.create_invite('Synthetic new member')),true);
 end $$;
 set local request.jwt.claim.sub='00000000-0000-4000-8000-000000000902';

@@ -4,7 +4,7 @@ const fs=require('node:fs'),path=require('node:path'),http=require('node:http'),
 const root=path.resolve(__dirname,'..'),html=fs.readFileSync(path.join(root,'dist/index.html'),'utf8');
 const server=http.createServer((req,res)=>{
   try{const p=new URL(req.url,'http://localhost').pathname,f=path.join(root,'dist',p==='/'?'index.html':p);
-    res.setHeader('Content-Type',f.endsWith('.html')?'text/html':f.endsWith('.js')?'text/javascript':'text/plain');res.end(fs.readFileSync(f));
+    res.setHeader('Content-Type',f.endsWith('.html')?'text/html':f.endsWith('.js')?'text/javascript':f.endsWith('.css')?'text/css':'text/plain');res.end(fs.readFileSync(f));
   }catch{res.writeHead(404);res.end();}
 });
 (async()=>{
@@ -22,14 +22,14 @@ const server=http.createServer((req,res)=>{
       AUTH.user={id:'coach-a',email:'coach-a@example.invalid'};AUTH.coach=true;AUTH.access='ok';AUTH.ready=true;FB.owner=true;
       CLOUD.ok=false;clearTimeout(CLOUD.t);cmReset('coach-a');
       window.roster=[];
-      sb={rpc:async name=>({data:name==='coach_people'?roster:name==='coach_messaging'?{coach:null,inbox:[]}:null}),
+      sb={rpc:async name=>({data:name==='coaching_organization'?{organization:{id:'test-org',name:'Synthetic organization'},self:{id:AUTH.user.id,role:'coach',is_admin:false},coaches:[{id:AUTH.user.id,name:'Synthetic coach',role:'coach',is_admin:false}],members:roster.map(p=>({id:p.id,coach_id:AUTH.user.id})),audit:[]}:name==='coach_people'?roster:name==='coach_messaging'?{coach:null,inbox:[]}:null}),
         from:()=>({select:()=>({order:()=>({limit:async()=>({data:[]})})})})};
       ui.tab='people';await loadPeople();
     });
     await page.getByRole('heading',{name:'Your people',exact:true}).waitFor();
     assert.equal(await page.locator('[data-action="personopen"]').count(),0);
-    await page.getByText(/No one has joined yet/).waitFor();
-    await page.getByRole('button',{name:'Invite someone',exact:true}).click();
+    await page.getByText(/No members yet/).waitFor();
+    await page.getByRole('button',{name:'Invites',exact:true}).click();await page.getByRole('button',{name:'Invite someone',exact:true}).click();
     await page.getByRole('heading',{name:'Invite someone',exact:true}).waitFor();
     await page.getByRole('button',{name:'Cancel',exact:true}).click();
     await page.evaluate(async()=>{
@@ -38,7 +38,7 @@ const server=http.createServer((req,res)=>{
     });
     assert.equal(await page.locator('[data-action="personopen"]').count(),1);
     assert.equal(await page.locator('[data-action="personopen"]').getAttribute('data-id'),'member-a');
-    assert.equal(await page.locator('[data-action="acctmanage"]').count(),1);
+    assert.equal(await page.locator('[data-action="acctmanage"]').count(),0);
     await page.evaluate(async()=>{AUTH.user={id:'coach-b',email:'coach-b@example.invalid'};cmReset('coach-b');roster=[{id:'member-b',name:'Synthetic second member',email:'member-b@example.invalid',workouts_7d:0,workouts_28d:0,workouts_total:0,staff:false}];await loadPeople();});
     assert.equal(await page.getByText('Synthetic own member',{exact:true}).count(),0);
     assert.equal(await page.locator('[data-action="personopen"]').getAttribute('data-id'),'member-b');
