@@ -311,6 +311,8 @@ On dev, the old copy-and-text progress report flow has been removed from Progres
 
 For a coach, **Profile & settings > Manage your people** shows approved people's activity, pending updates, messages, and invites.
 
+On dev, Your people includes only members who joined through that coach's invite. Coaches are excluded from member lists, even if another coach originally invited them. Each coach keeps their own personal app. Admin access does not expand the member list to other coaches' members. Unassigned accounts are not assigned automatically. Creating an invite and having the new member redeem it establishes the coaching relationship.
+
 - **Invite someone** creates a one-use link. Copy/share it deliberately with its intended recipient. A waiting invite can be cancelled.
 - **Open their app** loads a person's plan/history into a temporary coach view. The banner identifies whose app is being viewed. Edits are not saved automatically.
 - Change exercise choices, set/rep/rest/recovery targets, or level, then **Send changes** with an optional note. Profile, schedule, equipment, and working weights are view-only. Coach view does not offer workout recording, history deletion, backup restore, or program restarts. **Preview at** changes the displayed location only; it is not sent to the member.
@@ -318,6 +320,8 @@ For a coach, **Profile & settings > Manage your people** shows approved people's
 - Coaching unread status clears when an individual thread is opened, while reply status stays separate. App-feedback lifecycle and priority are managed in GitHub.
 
 App owners can manage eligible non-staff accounts from Your people. **Disable** preserves data and pauses access; **Turn back on** reverses it. **Delete** permanently removes the account and related workout/plan data after typing the person's name/email. Staff/self-deletion are guarded. App feedback remains in the private tracker and historical records. Older records lose their profile/workout links; report text can still identify someone. Do not use deletion as a test.
+
+On dev, account management also requires that the member belongs to that coach. An admin coach can reactivate their own disabled members; other members and coaches remain outside that access.
 
 See [architecture](ARCHITECTURE.md) for permission boundaries and [the review](REVIEW-2026-11-11.md) for outstanding reliability/validation work.
 

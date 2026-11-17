@@ -2557,7 +2557,7 @@ function pushLog(){ queueCloud(); } function deleteRemoteLog(id){ if(PAGE.active
 /* ---------------- Accounts (Supabase) ----------------
    Everyone signs in with email + password. Their app state and each finished workout are saved to their account,
    so they follow them to any device. The phone keeps a copy too, so the app works with no signal at the gym.
-   Coaches (listed in the coaches table, added from the Supabase dashboard) can see everyone and send plan updates. */
+   Coaches (listed in the coaches table) can review their assigned members and send plan updates. */
 const SB_URL = IS_PRODUCTION ? 'https://aybtxqsneywuqxzjwoek.supabase.co' : 'https://gvyfgqhgqnfmtoytqpeo.supabase.co';
 const SB_KEY = IS_PRODUCTION ? 'sb_publishable_swpSGJwzyT_AvE_UR5XGLw_mLNhGdsl' : 'sb_publishable_zODycrXJ-6wKpZiAR9qEHg_IP95lM49';
 const SITE_URL=location.origin+location.pathname;

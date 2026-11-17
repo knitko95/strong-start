@@ -412,14 +412,16 @@ Auth-user deletion cascades through core account records. Feedback's profile ref
 
 ### Authorization to preserve
 
-- Members read their own state/workouts; coaches read across accounts. Members save through the guarded revision-checked RPC; direct state/log writes are revoked. Workflow-table restrictive policies also require `is_approved()`.
-- Profile reads allow self/coach/owner. Client inserts allow id/email/name/last_seen; updates allow email/name/last_seen. Approval/inviter/disable columns are excluded. RLS-only review misses this protection.
+- Members read their own state/workouts. On dev, coaches read only approved, active non-coach members assigned through `profiles.invited_by`; owner membership does not bypass the assignment. Members save through the guarded revision-checked RPC; direct state/log writes are revoked. Workflow-table restrictive policies also require `is_approved()`.
+- On dev, profile reads allow self or assigned members. An admin coach may also read their own disabled members' profiles for reactivation. Client inserts allow id/email/name/last_seen; updates allow email/name/last_seen. Approval/inviter/disable columns are excluded. RLS-only review misses this protection.
 - Feedback reads allow self or the appropriate inbox role. Inserts are limited to message/context columns; `user_id` defaults to `auth.uid()`. Inbox updates are limited to `read_at`/`done_at`.
 - Invites are created by the coach-only RPC. Coaches read their own and update only `cancelled_at` on eligible unused rows.
 - Coaches insert plan updates as themselves using only user_id/created_by/update columns. Clients cannot prefill applied_at or update acknowledgements directly. The atomic save function acknowledges only the authenticated recipient’s updates after applying them. Deletion records are readable only by their approved owner.
 - `coaches`/`app_owners` have no client row policies. Small `SECURITY DEFINER` functions read them with an empty search path. No-policy notices do not justify making role tables public.
 - Coach and owner are separate memberships. Owner membership alone does not grant coach access or beta approval: `is_approved()` explicitly exempts coaches, and the UI loads the people list through the coach path. Do not assume the roles are interchangeable.
 - Reviewed definer functions check callers where needed. They are not all interchangeable with invoker functions. `coach_people()` is security invoker and relies on caller RLS.
+
+Development migration `20261117163123_isolate_coach_members.sql` applies the owned-member boundary to profile/state/log/plan reads, plan sends, historical coach feedback and account-management RPCs. `private.coach_member_allowed()` checks the authenticated caller, trusted coach membership, invite assignment, approval, disabled state and absence of coach membership on the target. It runs as definer solely to avoid recursive profile RLS, with an empty search path and no public/anonymous execution. No members are reassigned. `private.coach_pair_allowed()` also excludes coach targets so promotion hides the former member conversation without deleting it. App-feedback owner access remains separate. `scripts/test-coach-members.sql` exercises both coach/admin directions, direct reads and denied writes, member self access, promotion, reassignment and invite redemption with rolled-back synthetic fixtures. Production needs explicit approval before applying this migration.
 
 ### RPCs and migrations
 
