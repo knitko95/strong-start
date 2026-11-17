@@ -1,0 +1,1122 @@
+{
+  "schemaVersion": 1,
+  "revision": "2026-11-15-approved-18-v1",
+  "exercises": [
+    {
+      "id": "barbell-bench-press",
+      "name": "Barbell Bench Press",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-a2228fe88922c9f5",
+          "fingerprint": "a2228fe88922c9f5c279e3176564135770c52bcf5919b2b1f87f67f9675ef207",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/barbell-bench-press-0.5485f457a6e6.webp",
+              "sha256": "5485f457a6e6ec2a6f4d7845d05c74c8b56d3655a023031e88b12376686ba40a",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/barbell-bench-press-1.2add65536c77.webp",
+              "sha256": "2add65536c77529a316680e09a9d1778ce60e55c13c6720a9eeed59cddb4d803",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Approved bench press pilot",
+              "note": "Owner approved the head-supported revision. Prior artwork is a style/registration reference; no new independent technique audit is recorded."
+            }
+          ],
+          "constraints": [
+            "Preserve the locked approved woman, bench, crop and camera.",
+            "Head rests on the bench with neck and spine aligned; keep head, torso, bench and planted feet fixed between poses.",
+            "Only the arms and bar move. Preserve natural shoulder attachments, closed grips and bar perspective."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-a2228fe88922c9f5",
+      "developmentVersionId": "v-a2228fe88922c9f5",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-a2228fe88922c9f5",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-barbell-bench-press",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-a2228fe88922c9f5",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "goblet-squat",
+      "name": "Goblet Squat",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-f22843a655dff258",
+          "fingerprint": "f22843a655dff25878c23e2464a977f244f863308ec38e49ba2471bee9e766f7",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/goblet-squat-0.9fcac224e8d4.webp",
+              "sha256": "9fcac224e8d4ff400251a7d533705e7ef01737288b6e2c47dd856ad5eb14dba2",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/goblet-squat-1.52b5a68a8581.webp",
+              "sha256": "52b5a68a8581be16992ef8dc44d51c3b394c97efc80ae1cb9f22a89ccb545289",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Approved squat pilot",
+              "note": "Preserve the existing approved pair. A new audit must identify an exact goblet-squat form reference and document what was checked."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved instructor, equipment, crop and fixed camera.",
+            "Keep the planted foot positions and kettlebell grip consistent while the hips, knees and torso move through the squat.",
+            "Do not make the standing and lowered body the same height or recenter the lower pose."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-f22843a655dff258",
+      "developmentVersionId": "v-f22843a655dff258",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-f22843a655dff258",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-goblet-squat",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-f22843a655dff258",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dumbbell-romanian-deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-3f1884c1b0caa8f1",
+          "fingerprint": "3f1884c1b0caa8f130f4a6688e17a59e6c905992199f191d27b649965006dd2e",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-romanian-deadlift-0.aab44df8bdc8.webp",
+              "sha256": "aab44df8bdc89897a2bce124d746ab1570d4fa28e8e85cccb94f345b695a4804",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-romanian-deadlift-1.ebf0bde3883e.webp",
+              "sha256": "ebf0bde3883ec9596580e72fc20998816fe1516a37b3ed2acab252ae8e3f7173",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Approved Romanian deadlift pilot",
+              "note": "Imported artwork approval does not establish a new form audit. Match references to the dumbbell Romanian deadlift variation."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved hinge variation, camera and planted feet.",
+            "Dumbbells remain naturally gripped and close to the legs, with consistent perspective and dimensions.",
+            "Distinguish the intended hip hinge from a squat when checking the app's specific form notes."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-3f1884c1b0caa8f1",
+      "developmentVersionId": "v-3f1884c1b0caa8f1",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-3f1884c1b0caa8f1",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dumbbell-romanian-deadlift",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-3f1884c1b0caa8f1",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "hammer-curl",
+      "name": "Hammer Curl",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-af7f6f0b94303709",
+          "fingerprint": "af7f6f0b94303709b1c81d23bcdf607693e85049e37657fb256c702aa3fdbb48",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/hammer-curl-0.0b87c8d24c81.webp",
+              "sha256": "0b87c8d24c81d54ddf2ff5ffc81df716a2665b882183fe99dfcd043737045e03",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/hammer-curl-1.6c2f94a64460.webp",
+              "sha256": "6c2f94a64460ce3ff45b46a44d970f1a9f17e6f1b682500330e4fafa8261b38c",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Approved hammer curl pilot",
+              "note": "Use the locked pair as the visual anchor. Record a movement-specific source before claiming technique validation."
+            }
+          ],
+          "constraints": [
+            "Keep the head, torso, hips, legs, feet, camera and upper-arm placement registered.",
+            "Show the intended elbow/forearm motion with the approved neutral grips.",
+            "Check both closed hands and dumbbell axes; do not mirror a hand to repair the other side."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-af7f6f0b94303709",
+      "developmentVersionId": "v-af7f6f0b94303709",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-af7f6f0b94303709",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-hammer-curl",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-af7f6f0b94303709",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dumbbell-lateral-raise",
+      "name": "Dumbbell Lateral Raise",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-edf48031d7355576",
+          "fingerprint": "edf48031d73555768db0076f0b993309a70a373248273a9e6e2edc8e11df39b5",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-lateral-raise-0.31d33759bfdf.webp",
+              "sha256": "31d33759bfdf75b3da1e782cd6b749345574894b5fa2e876a6032d5344d5ce8b",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-lateral-raise-1.07e88f57dbd0.webp",
+              "sha256": "07e88f57dbd07b0f35cc5bb2002544095fdbda5890d25fea57856240b36c766c",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied lateral raise reference",
+              "note": "The owner used an anatomical lateral raise image to correct the left shoulder/wrist/hand. Keep supplied imagery in the private archive; inspect it before another change."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved anatomical-left arm correction: shoulder pulled back into a readable T, continuous arm/wrist alignment and natural hand anatomy.",
+            "Preserve the approved dumbbell orientation, including the visible end facing the camera according to perspective.",
+            "Name anatomical and viewer sides in any correction; edit only the requested arm, wrist, hand and dumbbell."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-edf48031d7355576",
+      "developmentVersionId": "v-edf48031d7355576",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-edf48031d7355576",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dumbbell-lateral-raise",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-edf48031d7355576",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dumbbell-glute-bridge",
+      "name": "Dumbbell Glute Bridge",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-4fbf7b3167aad571",
+          "fingerprint": "4fbf7b3167aad571ab1534f66e60394a025768f171ac30ac5c8688719df9a7eb",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-glute-bridge-0.46cd711148eb.webp",
+              "sha256": "46cd711148ebecb4ff31a54c3f41deeddc2f6550587609671421328ea6fd5b53",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-glute-bridge-1.6fd9b6cbe114.webp",
+              "sha256": "6fd9b6cbe114a6721f1a6f3a83f0191443c03e72f6fd3e9b5335eaf74832eaf2",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied photographic dumbbell bridge reference",
+              "note": "The owner supplied a two-position photograph and approved targeted hip/dumbbell/hand corrections. Reference photo remains private; no redistribution is implied."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved body, feet, head, camera and bridge motion.",
+            "Center the similar-size dumbbell across the hip crease as in the approved revision; prevent either end drifting onto the pelvis/genital area.",
+            "Hands stabilize the dumbbell in the approved placement; the far anatomical-left hand is largely occluded rather than prominently duplicated."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-4fbf7b3167aad571",
+      "developmentVersionId": "v-4fbf7b3167aad571",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-4fbf7b3167aad571",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dumbbell-glute-bridge",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-4fbf7b3167aad571",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "standing-dumbbell-shoulder-press",
+      "name": "Standing Dumbbell Shoulder Press",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-781514b0cae70b1a",
+          "fingerprint": "781514b0cae70b1afb203d6837b2e0a7bac154466125e12b9b2760fdac98199b",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/standing-dumbbell-shoulder-press-0.42ba8bac43cb.webp",
+              "sha256": "42ba8bac43cb1ae75e5724fc3b5105cfc4d03be13270dd8f0f2c39ecb689af7f",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/standing-dumbbell-shoulder-press-1.d4adcf928a08.webp",
+              "sha256": "d4adcf928a08d2d2da2fc54bd8231b8fb528723745ca875a6d41bf82350833bb",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied standing shoulder press reference",
+              "note": "Reference depicts the intended standing two-dumbbell start and overhead positions. Retrieve the private source before detailed form comparison."
+            }
+          ],
+          "constraints": [
+            "Preserve the standing variation, approved camera, instructor and planted stance.",
+            "Only the pressing arm/shoulder articulation and dumbbells change as required; retain stable body registration.",
+            "Check each wrist, thumb/finger grip and dumbbell perspective at the shoulder-height and overhead positions."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-781514b0cae70b1a",
+      "developmentVersionId": "v-781514b0cae70b1a",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-781514b0cae70b1a",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-standing-dumbbell-shoulder-press",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-781514b0cae70b1a",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "single-arm-dumbbell-row",
+      "name": "Single-Arm Dumbbell Row",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-1283ac0a965925f2",
+          "fingerprint": "1283ac0a965925f250f2a0ad5721f600c32985f7e7a1045bcd6588a9c7308ef0",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/single-arm-dumbbell-row-0.169978ee817c.webp",
+              "sha256": "169978ee817c03e2b5f7695a81f170f7835206d709b001ef1abbb8a1b62b9d1a",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/single-arm-dumbbell-row-1.b65c6fa2d74b.webp",
+              "sha256": "b65c6fa2d74b25a0ca997f38961d63b1ceff9d5dd687476bdb7f81854292ded0",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied bench-supported single-arm row reference",
+              "note": "Use the supplied two-position reference for the assigned support setup. The locked exports include a registration correction that must be preserved."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved bench-supported single-arm row variation and camera.",
+            "Keep the bench, support hand, support knee, planted foot and body registration fixed as approved.",
+            "Show the working elbow/arm and dumbbell moving together with a natural grip; avoid a whole-image shift."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-1283ac0a965925f2",
+      "developmentVersionId": "v-1283ac0a965925f2",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-1283ac0a965925f2",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-single-arm-dumbbell-row",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-1283ac0a965925f2",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "kettlebell-goblet-reverse-lunge",
+      "name": "Kettlebell Goblet Reverse Lunge",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-b12970a2b9dfad60",
+          "fingerprint": "b12970a2b9dfad6027b049a57b2a4f56704d36f5810ce66e5f75c490cb7cada7",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/kettlebell-goblet-reverse-lunge-0.eb09f367b0fe.webp",
+              "sha256": "eb09f367b0fe3e9a1658332b7ba849744f88e11a7d1423c31c1ae1444c68a724",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/kettlebell-goblet-reverse-lunge-1.f0f6e09efcdb.webp",
+              "sha256": "f0f6e09efcdbcd28540399cac1e1da31689ee1c9a7c4c8037b68cd21ea95fd4b",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied kettlebell goblet reverse lunge reference",
+              "note": "The approved finish was registered to its planted foot. Preserve this version and confirm the exact reference before a new form audit."
+            }
+          ],
+          "constraints": [
+            "Preserve the kettlebell goblet hold, approved side direction and fixed camera.",
+            "Keep the front planted foot registered while the other leg steps back into the intended reverse lunge.",
+            "Body height and leg positions change through the movement; do not freeze the torso or duplicate a leg."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-b12970a2b9dfad60",
+      "developmentVersionId": "v-b12970a2b9dfad60",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-b12970a2b9dfad60",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-kettlebell-goblet-reverse-lunge",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-b12970a2b9dfad60",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dumbbell-overhead-triceps-extension",
+      "name": "Dumbbell Overhead Triceps Extension",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-783ef604b231374e",
+          "fingerprint": "783ef604b231374e6b4c121dccde9824f3283a054895a35434f45dc485b5d6b3",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-overhead-triceps-extension-0.e1eb70cb58b8.webp",
+              "sha256": "e1eb70cb58b8c4dd876ac1859e0ffe220ab46991d3a6008567efe679e9959247",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-overhead-triceps-extension-1.cab166427bcd.webp",
+              "sha256": "cab166427bcd4be4fd8d130c9ef05acdc34732c9e73db60caf1d24f116b47ea6",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied seated extension reference, adapted to standing",
+              "note": "Owner explicitly requested standing after supplying a seated reference. The reference supports the grip/elbow comparison only; seated posture must not replace the approved stance."
+            }
+          ],
+          "constraints": [
+            "Use the approved standing version from the rear three-quarter view; do not reintroduce a seat or bench.",
+            "Preserve the head, torso, hips, legs, stance and camera while the elbows/forearms and single shared dumbbell move.",
+            "Check that both hands contact the same dumbbell correctly and that upper-arm position matches the intended extension."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-783ef604b231374e",
+      "developmentVersionId": "v-783ef604b231374e",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-783ef604b231374e",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dumbbell-overhead-triceps-extension",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-783ef604b231374e",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "single-leg-dumbbell-calf-raise",
+      "name": "Single-Leg Dumbbell Calf Raise",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-cbc2e32bd2614cc1",
+          "fingerprint": "cbc2e32bd2614cc1ad3cec03e0de1a47787fba9ed32ef556fa01f5566b47be7d",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/single-leg-dumbbell-calf-raise-0.b28150af07d9.webp",
+              "sha256": "b28150af07d95830e5d228c2485e2ed886c0a725fc586d625cee1231859e97f4",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/single-leg-dumbbell-calf-raise-1.163c968aa65c.webp",
+              "sha256": "163c968aa65c5a5406e797e507878cea96cf16d6362edfba72b03dd082795a37",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied calf raise form reference",
+              "note": "The supplied image used machine structure; owner authorized its form as a reference while explicitly excluding press machines from the mockup."
+            }
+          ],
+          "constraints": [
+            "Use the approved plain platform/weight-plate support and simple balance post; include no press machine.",
+            "Preserve the single-leg variation, support geometry, dumbbell grip and fixed camera.",
+            "Show the intended heel-height change with correct foot/platform contact and no platform drift."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-cbc2e32bd2614cc1",
+      "developmentVersionId": "v-cbc2e32bd2614cc1",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-cbc2e32bd2614cc1",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-single-leg-dumbbell-calf-raise",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-cbc2e32bd2614cc1",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead Bug",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-6b6b797ac1b5befc",
+          "fingerprint": "6b6b797ac1b5befc6eccff9266660327076b365f1f8fa6b69b50e95731c870c8",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dead-bug-0.7ca9da45e082.webp",
+              "sha256": "7ca9da45e08247b11690355fba7be9d93e01f4c3889956dad8988b172dfe15b3",
+              "width": 1024,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dead-bug-1.fe8c7db94ee8.webp",
+              "sha256": "fe8c7db94ee8fec354cfabdb2dccbcd26d4e1d67368d8e364794e953ea10cacb",
+              "width": 1024,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied photographic dead bug restart reference",
+              "note": "The owner supplied a second photographic reference after duplicate-leg errors; the approved restart follows that reference. Do not reuse the rejected extra-leg draft."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved wider canvas and full reaching-arm/extended-foot margins.",
+            "Exactly two legs: in the extended pose, one knee remains bent and the opposite leg extends; no third leg or duplicate contour.",
+            "Preserve head/torso registration and the reference's opposite arm/leg movement; do not shift the whole image."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-6b6b797ac1b5befc",
+      "developmentVersionId": "v-6b6b797ac1b5befc",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-6b6b797ac1b5befc",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dead-bug",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-6b6b797ac1b5befc",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "lat-pulldown",
+      "name": "Lat Pulldown",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-6921ebb902f0f9b0",
+          "fingerprint": "6921ebb902f0f9b0f2a0b629bd0171f613709db0d0e48edb29292001c0c50912",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/lat-pulldown-0.a30509fb9499.webp",
+              "sha256": "a30509fb94996153ea40e2fa697c2007c2e7f6f7ff94e05332dd6916cd0d2e60",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/lat-pulldown-1.9d7c3730d457.webp",
+              "sha256": "9d7c3730d4573a3512ef514e923f43233617990dea01e30577de316229f78673",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied lat pulldown reference",
+              "note": "Supplied reference shows the intended high-bar and pulled-down positions. Private reference imagery is not part of the public delivery assets."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved seated machine setup, camera and instructor.",
+            "Keep stationary machine frame, seat and supported lower-body placement registered; distinguish moving weight/cable parts from the frame.",
+            "Check the bar-to-hands connection, wrist orientation and cable path in both positions."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-6921ebb902f0f9b0",
+      "developmentVersionId": "v-6921ebb902f0f9b0",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-6921ebb902f0f9b0",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-lat-pulldown",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-6921ebb902f0f9b0",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "seated-cable-row",
+      "name": "Seated Cable Row",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-69808e117f4b7385",
+          "fingerprint": "69808e117f4b7385a0e5c04f8c87f8a1543012a75e07778add83eb576c4e1e30",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/seated-cable-row-0.c336b98764eb.webp",
+              "sha256": "c336b98764eb1a62c7e74f336c9c99f6b2ebec77d5d00edadad0f4b560f7aea7",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/seated-cable-row-1.ab34a04caeb7.webp",
+              "sha256": "ab34a04caeb738cd69d7ec5254c5b789a4681b479b94a725c9421af536e281e1",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied seated cable row reference",
+              "note": "Use the specific seated cable-row reference when auditing the torso and handle positions. Imported approval is not a newly completed audit."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved seated row variation, instructor, machine and camera.",
+            "Retain stable seat, foot support and machine geometry; check body movement against the exact row form notes.",
+            "Both hands hold the intended attachment and the cable remains connected with consistent perspective."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-69808e117f4b7385",
+      "developmentVersionId": "v-69808e117f4b7385",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-69808e117f4b7385",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-seated-cable-row",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-69808e117f4b7385",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg Press",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-9250404ec89dd2e7",
+          "fingerprint": "9250404ec89dd2e7c5be07cccc5a3b6137e6d8ed14dc8e4becaa6755cae334d0",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/leg-press-0.1e4632dd9a48.webp",
+              "sha256": "1e4632dd9a48ae039bc06c515563be7b1d34e9a7ffe60f49b4357307ead2e06d",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/leg-press-1.dc700e846328.webp",
+              "sha256": "dc700e84632896de91f19197fd32a0ca510166422d2bce72a4639f206029b761",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied horizontal leg press reference",
+              "note": "The locked pair uses the fixed-machine revision. Frame registration and mechanism distinction matter; the original growing-machine draft is not the approved version."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved horizontal sliding-seat machine, not a different sled variation.",
+            "The frame, base, rails, rear stop and footplate keep identical geometry and extents across poses; the machine must not grow longer.",
+            "Only the intended carriage/seat, supported body and legs travel; keep hips/back in contact with the pads."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-9250404ec89dd2e7",
+      "developmentVersionId": "v-9250404ec89dd2e7",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-9250404ec89dd2e7",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-leg-press",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-9250404ec89dd2e7",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-b29995032e714331",
+          "fingerprint": "b29995032e7143310cae4fabcaaeacecc3e5a24c0d2ec541b0449104650f6984",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-bench-press-0.79002fdcaba0.webp",
+              "sha256": "79002fdcaba06eaed80e7eea4b7acd501fedddc6c612163f956b6265dce4f4a8",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/dumbbell-bench-press-1.e99a1b884056.webp",
+              "sha256": "e99a1b884056b2e5a438c2f43b3b0f8694856c91ab2dee7ef7be8752da1cf736",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied dumbbell bench press reference",
+              "note": "The approved pair includes the stationary-head and neck-transparency repairs. Earlier drafts must not replace those corrected exports."
+            }
+          ],
+          "constraints": [
+            "Keep the head stationary and supported on the bench with the neck/spine aligned; preserve the repaired opaque neck.",
+            "Keep the torso, bench, feet and camera fixed. Only the arms and dumbbells change for this movement.",
+            "Preserve natural shoulder joins, both closed grips and correct dumbbell perspective; inspect neck alpha on light and dark backgrounds."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-b29995032e714331",
+      "developmentVersionId": "v-b29995032e714331",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-b29995032e714331",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-dumbbell-bench-press",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-b29995032e714331",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "leg-extension",
+      "name": "Leg Extension",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-36eccd0b69e0e09d",
+          "fingerprint": "36eccd0b69e0e09d5c664fd91cbfbca07cf37e0130490c89b276243df03e02e9",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/leg-extension-0.5ba56533aed3.webp",
+              "sha256": "5ba56533aed3249ae59b5ec42d3a99f4fbe9c8bed4a06d66f4e68e157b25092a",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/leg-extension-1.a9d4daf03545.webp",
+              "sha256": "a9d4daf03545b3a8d6faca7eb646eb584a04405c4fa8861f0ac6087ec946c444",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied leg extension reference",
+              "note": "Reference identifies the front shin roller and intended seated start/finish. Confirm the specific setup before claiming mechanical or form validation."
+            }
+          ],
+          "constraints": [
+            "Preserve the seated leg-extension variation, camera, seat/back support and machine frame.",
+            "The intended lower legs and roller mechanism move while the torso, hands and stationary machine regions stay registered.",
+            "Check the front lower-shin roller contact and continuous knee/ankle/foot anatomy in both poses."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-36eccd0b69e0e09d",
+      "developmentVersionId": "v-36eccd0b69e0e09d",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-36eccd0b69e0e09d",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-leg-extension",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-36eccd0b69e0e09d",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    },
+    {
+      "id": "seated-leg-curl",
+      "name": "Seated Leg Curl",
+      "revision": 0,
+      "versions": [
+        {
+          "id": "v-d7fcc34498861e60",
+          "fingerprint": "d7fcc34498861e60f56df9e6eab531192efcfeea2ca345db9cf3a16f11167d67",
+          "createdAt": "2026-11-15T00:00:00.000Z",
+          "frames": [
+            {
+              "url": "/exercise-guides/poses/assets/seated-leg-curl-0.0eed335bc51a.webp",
+              "sha256": "0eed335bc51a993eefd37df3b5d109a6e16fa36509cdc15b4db068bebf6d300c",
+              "width": 887,
+              "height": 887
+            },
+            {
+              "url": "/exercise-guides/poses/assets/seated-leg-curl-1.9a6277961403.webp",
+              "sha256": "9a6277961403d84c33b0dbce7659ea746a2c3a61bd16f0d961023a4804a1239a",
+              "width": 887,
+              "height": 887
+            }
+          ],
+          "references": [
+            {
+              "label": "Owner-supplied seated leg curl reference",
+              "note": "The locked exports include a no-shift alignment repair. Do not import an earlier unaligned draft when registering a new candidate."
+            }
+          ],
+          "constraints": [
+            "Preserve the approved aligned seated leg-curl pair; no image translation between poses.",
+            "Keep the head, torso, seat, thigh hold-down and stationary frame registered; distinguish the moving lower-leg/roller mechanism.",
+            "Check the rear lower-calf roller and continuous legs/feet without changing the approved machine dimensions."
+          ],
+          "audit": {
+            "status": "not-recorded",
+            "findings": [],
+            "checks": []
+          }
+        }
+      ],
+      "approvedVersionId": "v-d7fcc34498861e60",
+      "developmentVersionId": "v-d7fcc34498861e60",
+      "productionVersionId": null,
+      "review": {
+        "versionId": "v-d7fcc34498861e60",
+        "status": "approved",
+        "note": "Owner-approved artwork imported from the original 18-exercise pilot. Approval is for this exact pose pair; no independent form audit is recorded.",
+        "updatedAt": "2026-11-15T00:00:00.000Z"
+      },
+      "assignment": null,
+      "history": [
+        {
+          "id": "seed-seated-leg-curl",
+          "at": "2026-11-15T00:00:00.000Z",
+          "type": "approval-imported",
+          "versionId": "v-d7fcc34498861e60",
+          "status": "approved",
+          "note": "Existing owner approval preserved; exact frame fingerprints recorded. Development integration only; no production publication."
+        }
+      ]
+    }
+  ]
+}

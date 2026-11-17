@@ -1,0 +1,33 @@
+{
+  "constraints": [
+    "REPLACE: Exact exercise variation, equipment and approved style anchors.",
+    "REPLACE: Camera, canvas registration and regions that must remain fixed.",
+    "REPLACE: Intended moving joints/equipment, start and finish positions."
+  ],
+  "references": [
+    {
+      "label": "REPLACE: Exact variation reference",
+      "note": "REPLACE: Review date, variation match, facts checked and remaining uncertainty. Keep supplied photos in the private workspace."
+    }
+  ],
+  "generation": {
+    "sourceReview": [
+      {
+        "document": "REPLACE: Full exercise-technique entry path and anchor, plus source limitations, source-register row, visual-reference entry and app cue/guide.",
+        "sha256": "REPLACE_WITH_ACTUAL_FILE_HASH",
+        "factsApplied": [],
+        "conflicts": [],
+        "mediaViewed": [],
+        "missingOrUnviewed": []
+      }
+    ],
+    "tool": "REPLACE_WITH_ACTUAL_TOOL",
+    "prompt": "REPLACE_WITH_ACTUAL_GENERATION_OR_EDIT_PROMPT",
+    "sourceHashes": [],
+    "referenceFiles": [],
+    "sourceOutput": "REPLACE_WITH_PRIVATE_UNTOUCHED_SOURCE_PATH",
+    "registrationNotes": "REPLACE: Document extraction, crop/translation and protected regions; state none if unchanged.",
+    "requestedCorrection": "REPLACE: Exact requested change, or initial generation.",
+    "createdAt": "REPLACE_WITH_ISO_DATE_TIME"
+  }
+}

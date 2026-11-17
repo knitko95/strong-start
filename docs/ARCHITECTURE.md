@@ -1,5 +1,134 @@
 # Strong Start architecture and operations
 
+## Private exercise authoring on development — November 16, 2026
+
+The development Worker adds a private authoring API with D1 revision-checked records/history and immutable private R2 objects. Browser owner sign-in uses verified Google identities from development Auth and an independent allowlist; no app staff roles change. Named agent credentials can generate/audit but cannot make owner decisions. Private images/sources require authentication. The public review seed and workout runtime remain separate. Production does not import or bind the authoring backend. See [operations, remote agents and recovery](pose-authoring/hosted-workspace.md).
+
+## Shared display preferences and policy pages — November 15, 2026
+
+`theme.css` contains the shared app/policy color and typography tokens. `appearance.js` restores a two-field `{theme,color}` local display cache before CSS paints. The app refreshes it from its current settings during rendering; coach previews apply their appearance without persisting it. This cache is separate from account/plan/history storage and does not change the state schema, storage key or sync protocol.
+
+The cache key is `strongstart_appearance_v1` at the two canonical production roots, `dev_strongstart_appearance_v1` for testing, and `dev2_demo_strongstart_appearance_v1` for the local demo. Canonical detection uses the script's root directory, matching the app and legacy Pages installation. Development builds force the testing/demo choice even if served at a production hostname. No account identifiers, full settings, profiles or workouts are copied into this cache. Policy pages read this key only, never IndexedDB or the app-state cache. Missing, corrupt or denied preference storage falls back to Blush/system mode.
+
+`policy.css` supplies the policy reading layout and app branding. Policy pages include no Auth, account, history or analytics scripts. Same-origin display-cache changes and page restoration update their appearance. Back links can use browser history when the referrer is the app root; ordinary `./` links work for direct visits and other cases. Public theme assets are packaged by both builds and included in the offline shell. Existing policy copy and dates are unchanged.
+
+## Development linked sign-ins — November 15, 2026
+
+Development adds Apple OAuth and a Sign-in methods sheet using Supabase
+`getUser()`, `linkIdentity()` and `unlinkIdentity()`. Provider availability comes
+from public Auth settings. The existing Auth user ID remains the data owner;
+no plans, logs, role memberships or separate accounts are merged. Connect flushes
+pending saves before redirecting and uses an environment-prefixed sessionStorage
+marker to verify the returning user ID before normal account initialization.
+Same-user Auth refreshes update identities without resetting workout state;
+account changes clear cached access/role flags before access checks. Google
+disconnect is blocked for staff, the last usable method is retained, and coach
+preview cannot manage identities. No database migration or permission changes.
+See [setup, boundaries and limits](APPLE-SIGN-IN-2026-11-15.md). Production UI is
+unchanged; Apple credentials and manual linking still require development setup.
+
+## Incremental sync and IndexedDB on dev — November 15, 2026
+
+This dev candidate replaces routine full-history transfers with
+`read_account_changes(p_since,p_after,p_expected)` and
+`commit_account_changes(p_revision,p_state,p_upserts,p_deletes,p_apply_coach)`.
+Workouts and deletion markers carry `sync_revision`, indexed by account and
+revision. Initial downloads use pages of at most 250 records; later downloads
+request changes since the persisted baseline revision. Writes between pages
+cause the incomplete download to be discarded and retried. Upload transactions
+contain at most 250 changed workouts and 250 explicit deletion IDs. Missing rows
+never mean deletion. State remains a whole-document save. Revision checks,
+profile locks, approval, tombstones, conflict recovery and coach draft deferral
+remain. Legacy snapshot RPCs remain compatible: triggers tag changed rows and
+skip unchanged legacy upserts. No client write grants or roles expand.
+
+`DeviceStore` names its IndexedDB database from the environment/variant's
+existing storage key plus `_indexed`. Local, baseline and conflict/recovery
+workouts are individual records. Changed records and metadata commit together;
+unchanged workouts are not rewritten. A generation check rejects stale writers
+in other tabs. `persistLocal()` starts saving immediately; `flushDevice()`
+drains queued writes before sync acknowledgement or conflict replacement.
+Pending writes and storage failures have distinct statuses. Coach preview never
+persists or uploads. Boot awaits storage before account initialization.
+
+Legacy `{state,logs,sync}` browser saves migrate without changing IDs, state
+version or ownership. The legacy copy is removed only after IndexedDB commits;
+failed migration keeps it. A second legacy copy from an older tab is preserved
+and reopening offers a complete recovery download and explicit continuation with
+the current IndexedDB copy. The older raw JSON is archived transactionally in
+owner-scoped `meta` entries before its unchanged localStorage value is removed.
+Both IndexedDB generation and legacy raw-value checks reject intervening writes.
+The download includes complete local workouts and all five storage collections,
+including pending, baseline, conflict and staged records; it is not the visible
+history page. Archived older copies remain downloadable from Backups for the
+current owner. Sign-out/deletion and owner replacement clear private archives.
+Routine saves no longer remove a legacy copy. Only a completed legacy import or
+explicit archival retires the matching old value. An interrupted migration keeps
+the old copy and may require explicit recovery on the next boot.
+Sign-out/deletion clear records and retain a generation marker against stale
+tabs. Without IndexedDB the app retains its limited localStorage fallback. A
+failed IndexedDB read stops boot instead of saving defaults over existing data.
+
+The initial incremental-sync release loaded all history into memory. The paged
+history candidate below supersedes that limitation. First import/download still
+scales with full history, streamed to the offline disk cache. No history retention
+or tombstone pruning is introduced. See the [original verification](INCREMENTAL-SYNC-2026-11-15.md)
+and [paged-history verification](PAGED-HISTORY-2026-11-15.md).
+
+## Paged history and progress summaries on dev — November 15, 2026
+
+`history-store.js` upgrades the same environment-scoped IndexedDB database to
+version 2. Raw local/server baseline records stay on disk, alongside compact
+per-session exercise facts, a pending-record queue and isolated incoming-sync
+staging. Metadata retains the plan/draft, account identity, state baseline and
+revision; it contains no full-history arrays. A normal boot loads a 30-session
+page, plus a pinned draft record when necessary. Repeated offline completions
+return to that bound after their writes become durable. Failed writes retain
+live pending data for backup instead of evicting it.
+
+History uses disk cursors for Older sessions / Latest sessions and exercise
+history pages. Per-exercise counters and first-two/latest-three comparable
+results produce the existing score. Two ordered passes over compact disk facts
+calculate graphs, eligibility, experience/stall decisions and current-program
+completion summaries without retaining the complete raw history. Graphs retain
+at most 600 selected exact points per series; scores use all eligible results.
+Equal-time records retain the original locale-aware ID ordering in calculation
+windows. Edits/deletions rebuild summaries from disk, including old baselines;
+pending summaries are shown as updating and plan/start actions await them.
+
+Sync uses the existing development delta RPCs. Each incoming page (at most 250
+records) is staged on disk, scoped to this download. Inconsistent paged snapshots
+restart without publishing a cursor or replacing local edits. Applying the
+complete snapshot, per-record three-way merges, tombstones and the new cursor is
+one device transaction. Upload acknowledgements preserve edits made in flight.
+Conflicting records and full recovery versions remain on disk. The legacy
+localStorage and IndexedDB-v1 migrations preserve pending deletions, units,
+conflicts, remote additions and unfinished sets, including interrupted migration.
+
+Coach preview streams bounded reads into a separate disposable disk cache. It
+never writes the coach's own cache or the member's account directly. The preview
+cache is deleted on exit and at next boot after an interrupted session. Existing
+RLS/approval and plan-update rules remain; no new database schema, RPC, grant or
+role is introduced by pagination. The prior incremental-sync migration remains
+required for a future approved production release.
+
+Personal/recovery backups enumerate all disk records, overlay unsaved live edits
+and download the existing JSON shape. Export assembles serialized JSON/Blob
+parts, so an explicitly requested large backup can temporarily use memory
+proportional to its file size. Restoring a pasted JSON backup similarly needs to
+parse that input once. Neither operation silently backs up only the visible page.
+Without IndexedDB, the existing localStorage/full-memory fallback remains.
+
+## Exercise artwork authoring
+
+`exercise-guides/pose-review/` is a standalone development dashboard, with a sanitized immutable seed derived from the eighteen approved pose pairs. The production packager excludes this dashboard. It does not use member Auth, Supabase, plan state, logs or account sync. The hosted page stores browser-local drafts and transfers version-specific decisions through bounded JSON imports/exports. Private notes are never included in build inputs.
+
+`scripts/serve-pose-review.mjs` binds only to `127.0.0.1` and serves the same UI with an optional disk-backed workspace. It validates Host/Origin plus a session token for mutations; no general file API is exposed. `scripts/pose-review.mjs` is the local coordinator/agent CLI. Per-exercise locks and expected revisions reject stale writers. Registered frame fingerprints are immutable; candidate creation preserves the approved version and resets only the candidate's review. Audits record their target fingerprint and generator identity remains attached after claim release. Review imports preserve canonical assets, audit evidence and deployment pointers; owner decisions append history and never publish. Workspace assets are contained by real paths and verified against registered hashes when served. Filesystem operators remain trusted; these controls are not staff/account authorization.
+
+Keep the private workspace under an ignored `output/pose-review-workspace` directory, never under static/runtime output. Local supplied references and generation records stay there. See [workflow and limits](pose-authoring/README.md). A browser draft is neither a shared review queue nor an authenticated owner decision until the coordinator reconciles it; release approval still follows AGENTS.md.
+
+Local review-image uploads use the same Host/Origin/session-token and expected-revision checks. A bounded JSON request carries one PNG/JPEG/WebP image, label, guidance and the viewed version fingerprint. Original bytes are content-addressed under the exercise's private `references/` directory; optional `reviewReferences` metadata and a history event are added to the exercise record. Existing records remain compatible. Uploads preserve versions, audits, approvals and deployment pointers. Additional references apply across revisions and cannot be changed through review import. Export archives metadata only; image backup requires the private workspace directory. The hosted preview directs uploads to the local server and has no public image-upload endpoint.
+
 ## Development usage analytics
 
 The dev build injects public ingestion configuration from
@@ -31,6 +160,19 @@ for that surface. See [the dated comparison](CHARACTER-COMPARISON-2026-11-13.md)
 
 ## Complete animation drafts on development
 
+Today and Other workouts development-only still thumbnails call `StrongStartPoseDemos.hydratePreviews()`
+after rendering the expanded plan. The public catalogue's explicit `preview.frame` and
+pixel `preview.bounds` select and frame one approved still inside an 88px button. A bounded
+24-image cache avoids re-decoding on rerender; detached rows cannot receive stale results.
+This route never mounts a player or reads/writes account state. Missing/failed artwork
+retains the neutral exercise-details button. Selection, bounds generation and validation
+are documented in [Exercise previews](EXERCISE-PREVIEWS.md).
+
+`renderWorkoutPlan()` shares numbered exercise rows and preparation dropdowns between
+Today and the Other workouts preview. The latter opens expanded, retains guarded Reorder,
+and starts/resumes only through its existing action. Collapse and section-open choices
+are page UI state, with separate section keys for the preview; they never save member data.
+
 `exercise-guides/shared-guides.js` owns the workout/modal media surfaces and
 lazily imports one persistent renderer from `shared/player.js`. Moving its DOM
 canvas between a workout and a swap/review sheet preserves the character,
@@ -60,6 +202,10 @@ Baseline review: November 11, 2026, production frontend commit `149f807bd8e67c7c
 
 ## Runtime and deployment
 
+### Approved pose-pair demos (development)
+
+`exercise-guides/pose-guides.js` reads the public `poses/catalogue.v1.json` keyed by existing exercise IDs. The shared loader routes the 18 approved pairs to this image renderer before importing the 3D runtime, retaining 3D/text fallback on missing or failed images. Both lossless WebP frames decode before mounting; swaps use fixed geometry and 900ms timing without crossfade. Per-mount controllers cancel timers/listeners/observers on replacement and suspend for hidden/offscreen/covered views and reduced motion. No play/pause controls are rendered. A bounded four-pair memory cache and next-slot preloading avoid a whole-library download. The service worker cache-first rule covers only same-origin, query-free, content-addressed public pose WebP files after first use; images are not precached. Original approved PNG masters and pixel-exact conversion verification remain in the local approved-artwork archive. No account state, exercise IDs, persistence schema or permissions change.
+
 The browser runs one HTML page with inline CSS/JavaScript. Rendering builds HTML strings and assigns them to `#app`, `#tabs`, and modal/timer containers. Delegated document click/input/change listeners dispatch using `data-action`. The browser has no bundler, frontend dependencies or router package. On dev, a small Cloudflare Worker handles authenticated app-feedback delivery; static assets remain separately packaged. Development has a small Node build and checked-in syntax/environment checks; these do not replace application-flow tests.
 
 `index.html` loads Supabase JS v2 from jsDelivr's UMD path and fonts from Google Fonts. The SDK follows the v2 major rather than an exact patch. The manifest/mobile metadata provides standalone/Home Screen presentation. Development now includes the public-file service worker described below; it is separate from account sync. Legacy video/photo registries (`EX_PHOTOS`, `EX_MEDIA`) remain empty. The new versioned `exercise-guides/registry.v1.json` links eleven existing IDs to reviewed rose-top 3D demos, enabled in development only. Text instructions remain owned by the existing catalogue/`exHowTo()`. The isolated loader imports model-viewer and a hash/version-pinned GLB on demand, cleans up on modal replacement/close, and falls back to the unchanged written guide. No account state, persistence schema or permissions change. The small loader/CSS/registry join the offline shell; models and the viewer bundle are not precached. See [scope and verification](EXERCISE-GUIDES-2026-11-11.md).
@@ -78,7 +224,7 @@ The published [domain transition](DOMAIN-TRANSITION-2026-11-11.md) adds exact-ro
 
 History progress is derived on demand from the currently loaded `logs` by `historyData()` / `historyProgress()`. It does not persist scores or change account sync, roles, storage keys or schema. `histView`, `histArea`, `histQuery`, `histFilter` and `histExercise` are temporary UI state; all history browsing actions remain available in read-only coach preview. See [score definitions and limits](HISTORY-PROGRESS-2026-11-12.md).
 
-Mobile layout uses a device-width viewport with `viewport-fit=cover`, viewport zoom restrictions, and `touch-action:pan-y` on the document and scrolling sheets. Browser accessibility overrides can still permit zoom. Safe-area insets protect all four edges; `--nav-height` shares the fixed tab bar's height and bottom clearance with document padding and the floating timer. Setup/focus views retain bottom safe-area padding while hiding navigation. Phone form fields have a 16px minimum font size to prevent focus auto zoom. Validate both narrow portrait and landscape layouts; browser emulation does not establish native iOS/Android safe-area or keyboard behavior.
+Mobile layout uses a device-width viewport with `viewport-fit=cover`, viewport zoom restrictions, and `touch-action:pan-y` on the document and scrolling sheets. Browser accessibility overrides can still permit zoom. Safe-area insets protect all four edges; `--nav-height` shares the fixed tab bar's height and bottom clearance with document padding and the floating timer. Setup/focus views retain bottom safe-area padding while hiding navigation. Phone form fields have a 16px minimum font size to prevent focus auto zoom. Text sizes use the `:root` type scale (`--text-2xs` 11px through `--title-xl` 32px); only large display numbers (38px and above) and that zoom guard stay literal. Small all-caps labels share `--label-track` letter spacing. Nunito is loaded at 400/600/700/800 and Playfair Display at 500/600/700, so use those weights. Validate both narrow portrait and landscape layouts; browser emulation does not establish native iOS/Android safe-area or keyboard behavior.
 
 Navigate by section/function names rather than depending on these approximate line anchors.
 
@@ -211,6 +357,12 @@ Timed preparation uses `mode:ready,end:null`. `gPrepareMove()` sends untimed rep
 
 ## Database structure
 
+### Today session muscle preview on dev (November 15, 2026)
+
+`workoutMuscles(slots)` aggregates the existing `EXM` primary and secondary mappings for the session's strength exercise slots. A muscle that is primary in any slot is shown as main at session level; its individual exercise rows retain their main/supporting roles. The compact summary groups shoulder and core labels, with full coverage in the popup. Both Today figures share a single accessible button and reuse `bodySVG()`. The popup uses the existing modal focus trap, background inertness and focus restoration; all muscle choices are buttons, including supporting muscles.
+
+Today and the popup use `dSlots()` for an active/paused draft, otherwise `sessionSlots(key)`, so they follow draft substitutions, current plan swaps and location adaptation. Warm-up/cardio/cool-down are excluded from this strength-exercise map. Popup actions are allowed in read-only coach preview and do not call save or cloud functions. No state schema, storage key, database, permission or configuration changes are required.
+
 ### Today preparation edits on dev (November 14, 2026)
 
 `state.prep` is an additive map keyed by program number, workout key and training
@@ -225,9 +377,13 @@ logs or drafts; the state remains v6 with the same local storage keys.
 `startWorkout()` copies these preferences into `draft.prep`; later plan edits
 cannot change that started session. `sessionExtras()` applies the snapshot to
 the actual guide and lighter sets. Timed overrides scale movement segments while
-preserving side-switch gaps and labels. The grouped Today overview hides the
-individual movements until Edit. Strength targets retain Adjust/Swap and gain
-right-aligned primary muscle groups from the existing anatomy map.
+preserving side-switch gaps and labels. The November 14 Today overview used grouped Edit entry points. The November 15
+refinement replaces these with read-only, initially collapsed warm-up/cool-down
+dropdowns showing generated groups and movements. Today strength rows show only
+Swap and quiet muscle metadata alongside targets; Plan/workout adjustment
+controls remain. Native dropdown state lives only in ui.todayPrepOpen and does
+not save account data. Existing preparation overrides and draft snapshots remain
+compatible; the older editor functions are retained without Today entry points.
 
 Editor saves validate whole-number targets, account/state/session ownership and
 available choices. Completed movements, timer checkpoints and the active started
@@ -385,3 +541,18 @@ The optional reference athlete uses one alpha-tested skinned draw, a shared
 body share the existing skeleton. Role textures are fetched only for the
 anatomical instructor. Color atlas data is sRGB; roughness remains linear.
 See [the reference-character review](REFERENCE-CHARACTER-2026-11-13.md).
+
+## Sync problem banner (November 15, 2026)
+
+On dev, `setSync()` updates one initially hidden `#sync` button in a sticky `.app-top` wrapper shared by normal pages and focused workouts. Only warning states show the banner; ordinary queued uploads, sending, checking and success remain silent. Coach preview keeps its separate ownership banner. Pressing the banner opens the existing sync/recovery dialog; Settings retains a manual Sync details entry, including access to the last conflict recovery. The save protocol, account isolation and conflict resolution are unchanged. `scripts/test-sync-browser.cjs` checks visibility, keyboard opening, offline/reconnect, late workout failures and recovery at 1280, 390 and 320 pixels using synthetic RPCs.
+
+
+## Profile & settings navigation (development, November 16, 2026)
+
+The profile entry opens a coaching-first hub. `SETTINGS_GROUPS` and `SETTINGS_PAGES` describe icon menus; `settingsFields()` renders the existing setting controls on direct destination screens. The UI continues to use the existing save, unit conversion, plan adjustment, consent, Auth and coaching functions. No stored-state schema or database permission changes accompany this navigation.
+
+`settingsGo()` saves presentation-only routes in browser history, including menu scroll and opening-control focus. A per-page navigation token and account/coach-view owner scope prevent stale history entries from being applied after navigation resets or account changes. Back/Forward never restores account or workout snapshots. Equipment exits still reconcile the current plan. Ordinary bottom navigation ends the Settings history scope; reload starts a fresh scope. Messages continue to use the existing conversation overlay and draft/scroll behavior. Sign-out clears the Settings navigation scope after successful account sign-out.
+
+## Private authoring review sequences
+
+Review candidates accept two to four equal-size PNG/WebP frames. Optional per-frame `durationMs` is limited to 200–3000 ms and included in the content fingerprint; existing two-pose fingerprints without timing remain unchanged. The hosted store keeps old versions and publication pointers and sets a new candidate to unreviewed. The private viewer lists every pose, uses shared silhouette bounds and plays all frames with visibility/reduced-motion guards. This does not change member-app demonstration rendering, Auth, grants or workout persistence.

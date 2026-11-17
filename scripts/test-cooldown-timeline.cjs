@@ -26,7 +26,7 @@ const step=(page,i,s=0)=>page.locator(`[data-action="gstep"][data-i="${i}"][data
   page.on('pageerror',e=>errors.push(e.message));
   page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   await page.route('**/*',r=>{const u=new URL(r.request().url());return u.origin===origin||['fonts.googleapis.com','fonts.gstatic.com'].includes(u.hostname)?r.continue():r.fulfill({status:200,body:''});});
-  const response=await page.goto(url);assert.equal((await response.text()).replace(/\r\n/g,'\n'),expected.replace(/\r\n/g,'\n'),'exact candidate HTML');
+  const response=await page.goto(url);await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);assert.equal((await response.text()).replace(/\r\n/g,'\n'),expected.replace(/\r\n/g,'\n'),'exact candidate HTML');
   assert.equal(await page.evaluate(()=>SB_URL),'https://gvyfgqhgqnfmtoytqpeo.supabase.co');
   await seed(page,theme);
   await page.locator('[data-action="gfin"][data-v="yes"]').click();
@@ -51,7 +51,7 @@ const step=(page,i,s=0)=>page.locator(`[data-action="gstep"][data-i="${i}"][data
   await page.getByRole('button',{name:'15 seconds less',exact:true}).click();assert.equal(await page.evaluate(()=>state.draft.guide.left),pausedLeft);assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');await step(page,0,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
   await page.locator('.fbig[data-action="gresume"]').click();await step(page,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'ready');
   await step(page,0,1).click();assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');
-  const left=await page.evaluate(()=>state.draft.guide.left);await page.reload();
+  const left=await page.evaluate(()=>state.draft.guide.left);await page.reload();await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);
   // Actual persisted guide is restored by boot; reinstall only synthetic extras.
   await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user=null;ui.qsLater=true;window.originalExtras=sessionExtras;sessionExtras=(d,s)=>({...window.originalExtras(d,s),finisher:{...cItem('walk',[P(1,'Easy walk'),P(8,'Brisk walk'),P(1,'Cool off: easy walk')],'Steady walk'),k:'f',cardio:'after',ctype:'steady',min:10}});ui.tab='workout';render();});
   assert.equal(await page.evaluate(()=>state.draft.guide.mode),'paused');assert.equal(await page.evaluate(()=>state.draft.guide.s),1);assert.equal(await page.evaluate(()=>state.draft.guide.left),left);

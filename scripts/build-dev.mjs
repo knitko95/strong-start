@@ -15,10 +15,15 @@ if (branch && branch !== target) {
 }
 mkdirSync(out, { recursive: true });
 await import('./check-exercise-guides.mjs');
+await import('./check-pose-guides.mjs');
+await import('./check-pose-review.mjs');
+await import('./test-pose-review-store.mjs');
 await import('./check-all-exercise-animations.mjs');
-for (const file of ['index.html', 'privacy.html', 'terms.html', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'offline.js', 'sw.js', 'exercise-guides']) {
+for (const file of ['index.html', 'privacy.html', 'terms.html', 'theme.css', 'appearance.js', 'policy.css', 'manifest.webmanifest', 'manifest.dev.webmanifest', '.nojekyll', 'icons', 'analytics.js', 'history-store.js', 'offline.js', 'sw.js', 'exercise-guides']) {
   cpSync(path.join(root, file), path.join(out, file), { recursive: true });
 }
+const appearance=readFileSync(path.join(out,'appearance.js'),'utf8').replace("const BUILD_ENV = 'auto';","const BUILD_ENV = '"+(target==='dev2'?'demo':'dev')+"';");
+writeFileSync(path.join(out,'appearance.js'),appearance);
 // A test deployment cannot connect to production even if served at another URL.
 if(!process.env.POSTHOG_DEV_PROJECT_TOKEN && process.loadEnvFile){try{process.loadEnvFile(path.join(root,'.env.analytics.local'));}catch{}}
 const analytics={enabled:target==='dev',token:process.env.POSTHOG_DEV_PROJECT_TOKEN||'',host:process.env.POSTHOG_DEV_HOST||''};
@@ -43,10 +48,11 @@ writeFileSync(path.join(out, 'index.html'), stamped.html);
 writeFileSync(path.join(out,'sw.js'),stamped.sw);
 writeFileSync(path.join(out,'version.json'),JSON.stringify({...stamped.metadata,environment:'development'},null,2)+'\n');
 writeFileSync(path.join(out, '_headers'), assetHeaders.replace('/*\n', '/*\n  X-Robots-Tag: noindex, nofollow\n'));
-writeFileSync(path.join(out, '_redirects'), assetRedirects);
+writeFileSync(path.join(out, '_redirects'), assetRedirects + '/exercise-guides/pose-review/ /exercise-guides/pose-review/index.html 200\n');
 writeFileSync(path.join(out, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 console.log('Built isolated development site in dist/');
 await import('./check-environments.mjs');
+await import('./test-appearance.mjs');
 await import('./test-app-version.mjs');
 await import('./test-persistence.mjs');
 await import('./test-workout-demos.mjs');

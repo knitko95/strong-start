@@ -236,3 +236,11 @@ Checks: 100 workout/persistence regression scenarios passed in development and w
 Database: all thirteen migrations are already applied in production. Function definitions (normalized line endings), public columns, RLS policies and anon/authenticated column grants match development. No production database mutation was needed. The six known production migration version aliases remain documented in RELEASE-CANDIDATE-2026-11-11.md; migrations were not replayed and history IDs were not changed.
 
 The eleven reviewed 3D demonstrations retain their existing development-only setting. An additional attempt to enable them in production was rejected by automatic approval review as beyond the exact requested candidate. That additional setting and its associated changes were reverted on dev before final branch synchronization. Enabling live demos remains pending explicit owner approval; source and assets are included in the published release but the production environment gate is preserved.
+
+## November 15 release: version 0.5.0 live
+
+Owner requested publishing latest dev to main. Candidate `da75e374919f89c502e6535dedcb779b3ce2c64f` merged through PR #4 as `adc19a70588796f5f70a3d5ca39b39f4cff925a6`. Cloudflare production build `07e278aa-d7eb-4dfb-95a5-eba5c489a9fe` succeeded. Live HTML, version.json (0.5.0, main), service worker, offline script, analytics script, privacy, guide loader and shared exercise manifest match the production package exactly after newline normalization.
+
+Development and production packaging, 106 workout/persistence scenarios, six offline scenarios, version and analytics safeguards passed. The hosted dev deployment succeeded for the candidate; HTML differs locally only in configured test analytics settings and the corresponding digest. Browser startup remains blocked by socket permissions, so fresh browser/physical-phone/authenticated-account behavior is unverified. Existing environment gates are preserved; no extra production feature enablement or configuration changes were made.
+
+No database mutation was required. The historical additive feedback-version migration remains unapplied in production as documented: the current Worker/private-tracker feedback flow does not use those columns. This release does not replay it or repair historical migration IDs.

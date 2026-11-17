@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Exercise review · Strong Start</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="review.css">
+  <script defer src="hosted.js"></script>
+  <script defer src="review.js"></script>
+</head>
+<body>
+  <header class="page-header">
+    <div><a class="brand" href="/">Strong Start<span> / authoring</span></a><h1>Exercise review</h1><p class="intro">One place to review movement, preserve approvals, and guide the next revision.</p></div>
+    <div class="file-actions"><a class="button secondary" href="https://github.com/knitko95/strong-start/blob/dev/docs/pose-authoring/README.md" target="_blank" rel="noopener noreferrer">Workflow guide ↗</a><button id="export-reviews" type="button">Export reviews</button><label class="button secondary" for="import-reviews" role="button" tabindex="0" id="import-trigger">Import reviews<input id="import-reviews" type="file" accept="application/json,.json" hidden></label><button id="refresh-workspace" type="button" class="secondary" hidden>Refresh workspace</button></div>
+  </header>
+  <section class="storage-banner" aria-label="Review storage"><span class="storage-dot" aria-hidden="true"></span><div><strong id="storage-mode">Loading review library…</strong><p id="storage-detail">Approved artwork remains separate from review drafts.</p></div></section>
+  <div id="message" class="message" role="status" aria-live="polite" hidden></div>
+  <main class="workspace">
+    <aside class="library" aria-label="Exercise library">
+      <div class="library-head"><label for="exercise-search">Find an exercise</label><input id="exercise-search" type="search" placeholder="Search exercises" autocomplete="off"><label class="sr-only" for="review-filter">Review status</label><select id="review-filter"><option value="all">All exercises</option><option value="pending">Needs review</option><option value="unreviewed">Unreviewed</option><option value="needs-changes">Changes requested by you</option><option value="approved">Approved</option><option value="flagged">Flagged in audit</option><option value="implemented">On dev</option></select></div>
+      <div id="status-counts" class="status-counts" aria-label="Library totals"></div>
+      <div class="list-heading"><span>EXERCISES</span><span id="result-count"></span></div><nav id="exercise-list" aria-label="Choose an exercise"></nav>
+    </aside>
+    <section id="exercise-detail" class="detail" aria-label="Selected exercise"><div class="empty-state">Loading the approved exercise library…</div></section>
+  </main>
+  <footer class="page-footer">Authoring workspace · Review approval does not publish an exercise. App integration and production release are separate decisions.</footer>
+</body>
+</html>

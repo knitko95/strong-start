@@ -9,7 +9,7 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   const page=await browser.newPage({viewport:{width,height:844}}),events=[],errors=[];
   page.on('pageerror',e=>errors.push(e.message));
   await page.route('**/*',r=>{const u=new URL(r.request().url());if(u.hostname.endsWith('.posthog.com')){events.push(JSON.parse(r.request().postData()));if(process.env.ANALYTICS_VERIFY_INGESTION)return r.continue();return r.fulfill({status:200,body:'1'});}return u.origin===new URL(url).origin?r.continue():r.fulfill({status:200,body:''});});
-  await page.goto(url);await page.evaluate(()=>{
+  await page.goto(url);await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{
    if(location.hostname==='dev.strongstart.app')APP_BUILD.variant='analytics-verification';
    sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;
    state=defaults();logs=[];state.setup=null;state.onboarded=true;
@@ -19,8 +19,8 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   assert.equal(events.length,0);await page.locator('[data-action="analyticsyes"]').click();await page.waitForTimeout(100);
   assert(events.some(e=>e.event==='screen_viewed'));
   await page.evaluate(()=>{ui.tab='settings';render();});
-  await page.locator('[data-action="settingsgroup"][data-v="profile"]').click();
-  await page.locator('[data-action="sectoggle"][data-v="appearance"]').click();
+  await page.locator('[data-action="settingsgroup"][data-v="preferences"]').click();
+  await page.locator('[data-action="settingspage"][data-v="appearance"]').click();
   await page.locator('[data-action="settheme"][data-t="dark"]').click();
   await page.waitForTimeout(100);assert(events.some(e=>e.event==='settings_changed'));
   await page.evaluate(()=>{ui.tab='today';startWorkout(weekKeys()[0]);ui.tab='workout';render();});
@@ -30,12 +30,26 @@ const server=http.createServer((req,res)=>{try{const f=path.join(dist,req.url===
   assert(events.some(e=>e.event==='set_logged'));
   await page.evaluate(()=>{fAction('fpause',{dataset:{}});});await page.waitForTimeout(100);
   assert(events.some(e=>e.event==='workout_paused'));
-  await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='account';render();});
+  await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='account';ui.settingsPage=null;render();});
+  const analyticsCard=page.locator('[data-action="sectoggle"][data-v="analytics"]');
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false');
+  assert.match(await analyticsCard.innerText(),/On/);
+  assert.equal(await page.locator('[data-action="analyticsno"]').count(),0,'consent controls hidden until expanded');
+  await analyticsCard.click();
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'true');
   assert(await page.locator('[aria-label="Usage analytics"]').isVisible());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   fs.mkdirSync(path.join(root,'test-results'),{recursive:true});if(width===390)await page.screenshot({path:path.join(root,'test-results/analytics-phone.png'),fullPage:true});
   await page.locator('[data-action="analyticsno"]').click();await page.waitForTimeout(100);const stopped=events.length;
   await page.evaluate(()=>{USAGE.capture('set_logged');ui.tab='today';render();});await page.waitForTimeout(100);assert.equal(events.length,stopped);
+  await page.evaluate(()=>{ui.tab='settings';ui.settingsGroup='account';ui.settingsPage=null;render();});
+  assert.match(await analyticsCard.innerText(),/Off/);
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'true','consent rerender preserves expanded card');
+  await analyticsCard.click();assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false');
+  assert.equal(await page.evaluate(()=>USAGE.choice()),'no','collapsing does not change consent');
+  await page.reload();await page.waitForFunction(()=>state&&document.querySelector('#app h1')&&!PAGE.flight&&!DEVICE.pending);await page.evaluate(()=>{sb=null;AUTH.ready=true;AUTH.user={id:'synthetic-analytics-account'};AUTH.access='ok';ui.qsLater=true;state.setup=null;ui.tab='settings';ui.settingsGroup='account';ui.settingsPage=null;render();});
+  assert.equal(await page.evaluate(()=>USAGE.choice()),'no','opt-out persists across reload');
+  assert.equal(await analyticsCard.getAttribute('aria-expanded'),'false','card starts collapsed after reload');
   assert(!JSON.stringify(events).includes('synthetic-analytics-account'));assert(!JSON.stringify(events).includes('Synthetic gym'));
   assert.deepEqual(errors,[]);console.log(JSON.stringify({url,width,events:events.length,consent:true,settings:true,workout:true,privacy:true,errors}));await page.close();
  }}finally{await browser.close();server.close();}
