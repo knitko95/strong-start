@@ -836,8 +836,10 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .demo-first{gap:12px}.demo-first .ahead{padding-bottom:0}.exercise-hero{position:relative;min-height:44px;min-width:0}
 /* Demo media must never widen the page, even before or without the guide stylesheet. */
 :where(.exercise-hero) :where(img,canvas,model-viewer){max-width:100%;height:auto}
-.exercise-hero .hero-how{display:flex;margin:0 auto;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 12px;position:relative;z-index:1;font-size:var(--text-sm)}
-.exercise-hero .hero-how svg{width:16px;height:16px}.exercise-hero.has-demo .hero-how{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);margin:0}
+.exercise-hero .hero-how{display:flex;margin:0;min-height:44px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 12px;position:relative;z-index:1;font-size:var(--text-sm)}
+.exercise-hero.has-demo .hero-how{position:absolute;left:0;bottom:8px}
+.exercise-hero .eg-inline:not(.expanded) .ss-toolbar{display:none}
+.exercise-hero:has(.eg-inline.expanded[data-media-type="3d"]) .hero-how{left:50%;transform:translateX(-50%)}
 .demo-first .acard{border-radius:24px;padding:18px}.demo-first .asteps{gap:12px}.demo-first .asteps .fstep{background:var(--sunk);border-radius:14px;padding:10px 8px}
 .demo-first .asteps .fstep .fval{min-width:0}.demo-first .atimer{margin:0;gap:14px}.demo-first .atimer .fring{width:150px;height:150px}
 .demo-first .ffoot{margin-top:0}.demo-first .fbig{min-height:54px}.ftop .ficon svg{width:24px;height:24px}
@@ -882,7 +884,7 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .focus .atimer .aside{background:var(--sunk);border-radius:50%;font-weight:400}.focus .atimer .aside span{font-weight:400}
 .demo-first{gap:0}.demo-first .ahead{margin:16px 2px 10px}.demo-first .exercise-hero{margin:0 0 6px}.demo-first .exercise-hero.has-demo{margin-top:-36px}.demo-first .ahead{position:relative;z-index:1;pointer-events:none}.demo-first .exercise-hero.has-demo .eg-status{top:44px}
 .demo-first .acard{padding:18px 18px 14px;gap:12px}.demo-first .acard>.ffoot{margin-top:4px;padding-top:0;gap:8px}
-.exercise-hero .hero-how{font-weight:600;box-shadow:none;color:var(--ink);border:0;background:var(--surface)}.exercise-hero.has-demo .hero-how{left:52px;transform:none;bottom:8px}
+.exercise-hero .hero-how{font-weight:600;box-shadow:none;color:var(--ink);border:0;background:var(--surface)}
 .focus .apair>button{background:var(--sunk);border:0;border-radius:14px}.focus .apair>button[aria-pressed="true"]{background:var(--accent-soft)}
 .workout-path[data-paired="true"] .path-stop:not(.rest){margin:0 3px}
 .rest-focus .atimer .fring{width:128px;height:128px}
@@ -4873,8 +4875,8 @@ function fPairIntro(d,slots,pair){
 // More sheet: the less-used actions for the current workout screen
 function fMoreSheet(pk){
   const d=state.draft; if(!d) return; const st=d.step||{};
-  const icons={flast:'M12 8v4l3 2M3 12a9 9 0 1 0 3-6M3 3v6h6',swap:'M4 7h14m-3-3 3 3-3 3M20 17H6m3-3-3 3 3 3',adjust:'M4 7h5m4 0h7M4 17h9m4 0h3M9 4v6m4 4v6',fskipex:'m5 5 11 7-11 7V5Zm14 0v14',gmute:'M4 9h4l4-4v14l-4-4H4V9Zm12-2a7 7 0 0 1 0 10m2-13a11 11 0 0 1 0 16',fpause:'M8 5v14m8-14v14',flist:'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',fexit:'M5 5h14v14H5z',addset:'M5 12h14m-7-7v14',rmset:'M5 12h14',msgopen:'M4 4h16v13H9l-5 4V4Z'};
-  const opt=(act,title,sub,extra='')=>`<button class="opt2 menu-row ${act==='fexit'?'menu-end':''}" data-action="fmoredo" data-do="${act}" ${extra}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[act]||'M5 12h14m-6-6 6 6-6 6'}"/></svg><b>${title}</b>${act==='gmute'?`<span class="menu-value">${state.settings.sound===false?'Off':'On'}</span>`:['flast','swap','adjust','flist','xswap'].includes(act)?'<span class="menu-value" aria-hidden="true">›</span>':''}<span class="workout-sr">${sub}</span></button>`;
+  const icons={flast:'M12 8v4l3 2M3 12a9 9 0 1 0 3-6M3 3v6h6',swap:'M4 7h14m-3-3 3 3-3 3M20 17H6m3-3-3 3 3 3',fskipex:'m5 5 11 7-11 7V5Zm14 0v14',gmute:'M4 9h4l4-4v14l-4-4H4V9Zm12-2a7 7 0 0 1 0 10m2-13a11 11 0 0 1 0 16',fpause:'M8 5v14m8-14v14',flist:'M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01',fexit:'M5 5h14v14H5z',addset:'M5 12h14m-7-7v14',rmset:'M5 12h14',msgopen:'M4 4h16v13H9l-5 4V4Z'};
+  const opt=(act,title,sub,extra='')=>`<button class="opt2 menu-row ${act==='fexit'?'menu-end':''}" data-action="fmoredo" data-do="${act}" ${extra}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${icons[act]||'M5 12h14m-6-6 6 6-6 6'}"/></svg><b>${title}</b>${act==='gmute'?`<span class="menu-value">${state.settings.sound===false?'Off':'On'}</span>`:['flast','swap','flist','xswap'].includes(act)?'<span class="menu-value" aria-hidden="true">›</span>':''}<span class="workout-sr">${sub}</span></button>`;
   const sound=opt('gmute', 'Timer sound', state.settings.sound===false?'Timers are silent right now.':'Timers beep when they change.');
   let h='';
   if((st.ph==='warm'||st.ph==='cool') && d.listView){
@@ -4893,7 +4895,6 @@ function fMoreSheet(pk){
     if(s){ const arr=d.sets[pk]||[];
       h+=opt('flast','Last time','See your previous sets for this exercise.',`data-pk="${esc(pk)}"`);
       h+=opt('swap','Swap this exercise','Machine taken, or it doesn’t feel right.',`data-pk="${pk}"`);
-      h+=opt('adjust','Adjust','Change the sets, reps or rest for this exercise.',`data-pk="${pk}"`);
       h+=opt('addset','Add a set','',`data-pk="${pk}"`);
       if(arr.length>1 && !arr[arr.length-1].done) h+=opt('rmset','Remove a set','',`data-pk="${pk}"`);
       h+=opt('fskipex','Skip this exercise','It won’t count against your progress.',`data-pk="${pk}"`);
@@ -4920,7 +4921,7 @@ function setDefaults(d,s,tg,k){
     st.r=String(prev?prev.r:(usesLoad(tg.ex)?(lastR&&lastR>=tg.lo&&lastR<=tg.hi+2?lastR:tg.lo):tg.r)); }
 }
 function workoutHero(ex,pk){
-  return `<div class="exercise-hero"><div class="workout-demo" data-exercise-id="${esc(ex.id)}"></div><button class="howbtn hero-how" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(pk)}" aria-haspopup="dialog">${ICON.play}How to</button></div>`;
+  return `<div class="exercise-hero"><div class="workout-demo" data-exercise-id="${esc(ex.id)}"></div><button class="howbtn hero-how" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(pk)}" aria-haspopup="dialog">How to</button></div>`;
 }
 function setupWorkoutDemo(previous){
   const mount=document.querySelector('#app .workout-demo'),guides=window.StrongStartExerciseGuides;

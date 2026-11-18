@@ -140,9 +140,8 @@ async function seed(page,screen,theme='light'){
    assert.equal(await page.locator('.path-rest[aria-current="step"]').getAttribute('data-round'),'0','rest after round 1 is current');
    await page.locator('[data-action="fready"]').click();assert.equal(await page.evaluate(()=>state.draft.step.pk),pair.a);
    assert.equal(await page.locator('.path-set[aria-current="step"]').getAttribute('data-path-id'),await page.evaluate(a=>fPathSetId(fPair(state.draft,dSlots(),a).moves,a,1),pair.a),'set 2A is current');
-   // Unequal targets after Adjust still retain both moves and logged sets.
-   await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="adjust"]').click();
-   await page.locator('#adj-sets').fill('4');await page.locator('[data-action="adjsave"]').click();
+   // Adding a set retains both moves and logged sets in a pair.
+   await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="addset"]').click();
    assert(await page.evaluate(({a,b})=>dSlots().some(s=>s.pk===a)&&dSlots().some(s=>s.pk===b)&&state.draft.sets[a][0].done&&state.draft.sets[b][0].done,pair));
    // Existing list navigation keeps the workout draft and returns to its screen.
    await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="flist"]').click();assert.equal(await page.locator('.workout-sheet .acard').count(),1);
