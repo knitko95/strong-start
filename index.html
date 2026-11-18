@@ -147,6 +147,9 @@ main{padding-top:16px;display:flex;flex-direction:column;gap:16px}
 .lib-item button.lt:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 .lib-arrow{flex-shrink:0;color:var(--muted);opacity:.65;font-size:var(--title-md);font-weight:400;padding:0 4px}
 .lib-item .ln{font-weight:600}
+.library-sections{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.library-sections button{min-height:44px;padding:4px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:inherit;font:inherit;font-size:var(--text-sm);font-weight:600}
+.library-sections button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
 .filters{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .filters select,.search{width:100%;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:0 10px}
 .search{grid-column:1/-1}
@@ -964,6 +967,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.11.0",
+    "date": "2026-11-18",
+    "title": "Warm-ups and cool-downs in the Library",
+    "notes": ["Browse warm-up moves, stretches and recovery work by body part, equipment and movement type. Open any move for setup and instructions."]
+  },
   {
     "version": "0.10.2",
     "date": "2026-11-18",
@@ -2120,7 +2129,7 @@ const STRETCH = {
 const LS = storageKey('strongstart_state_v3');
 let state = null, logs = [];
 let SYNC={owner:null,base:null,conflict:null,recovery:null};
-let ui = {tab:'today', libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histView:'sessions', histArea:'overall', histFilter:'all', histQuery:'', histExercise:null, histOpen:null, planMode:'ppl3', timer:null, musSel:null};
+let ui = {tab:'today', libSection:'strength', prepFilters:{warm:{},cool:{}}, libEasy:true, libQ:'', libEq:'', libPl:'', libSlot:'', libOpen:null, histView:'sessions', histArea:'overall', histFilter:'all', histQuery:'', histExercise:null, histOpen:null, planMode:'ppl3', timer:null, musSel:null};
 
 
 function dayStart(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
@@ -4157,13 +4166,16 @@ function libFilters(f,ids){ return `<input class="search" id="${ids.q}" type="se
       <select id="${ids.body}" aria-label="Body part"><option value="">All body parts</option>${optsHTML(Object.entries(LIB_BODY).map(([k,v])=>[k,v[0]]),f.body)}</select>
       <select id="${ids.eq}" aria-label="Equipment"><option value="">All equipment</option>${optsHTML(LIB_EQ,f.eq)}</select>
       <select id="${ids.move}" aria-label="Movement" style="grid-column:1/-1"><option value="">All movement types</option>${optsHTML(Object.entries(LIB_MOVE).map(([k,v])=>[k,v[0]]),f.move)}</select>`; }
+const LIB_SECTIONS={strength:'Exercises',warm:'Warm-ups',cool:'Cool-downs'};
+function libraryHeading(){
+  return `<h1>Exercise library</h1><div class="library-sections" role="group" aria-label="Library section">${Object.entries(LIB_SECTIONS).map(([key,label])=>`<button type="button" data-action="libsection" data-id="${key}" aria-pressed="${ui.libSection===key}">${label}</button>`).join('')}</div>`;
+}
 function renderLibrary(){
-  const q=ui.libQ.toLowerCase();
+  if(ui.libSection!=='strength')return renderPrepLibrary();
   const hidden = LIB.filter(e=>!available(e)).length;
   const F={q:ui.libQ, eq:ui.libEq, body:ui.libBody, move:ui.libMove};
   const list = LIB.filter(e=>(ui.libShowAll||available(e)) && (!ui.libEasy||allowed(e)) && libMatch(e,F));
-  const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${v===k?'selected':''}>${l}</option>`).join('');
-  return `<section class="stack"><div><div class="eyebrow">${LIB.length-hidden} exercises for your gym · ${LIB.filter(allowed).length} fit your level</div><h1>Exercise library</h1></div>
+  return `<section class="stack">${libraryHeading()}<p class="tiny muted" style="margin:0">${LIB.length-hidden} exercises for your gym · ${LIB.filter(allowed).length} fit your level</p>
     <div class="filters">
       ${libFilters(F,{q:'libq',eq:'libeq',body:'libbody',move:'libmove'})}
     </div>
@@ -4640,6 +4652,8 @@ const FINISH = {
         {t:'Treadmill or outdoor run intervals', d:'6 rounds: 30 s fast, 90 s walk or jog', imp:true},{t:'Jump rope intervals', d:'8 rounds: 30 s on, 30 s off', eq:['rope'], imp:true},
         {t:'Incline sprint walks', d:'6 rounds: 45 s steep and fast, 75 s easy', eq:['tread']},{t:'Sled pushes', d:'6 pushes, walk back to recover', eq:['sled']},{t:'Battle rope intervals', d:'8 rounds: 20 s on, 40 s off', eq:['rp']},{t:'Elliptical intervals', d:'6 rounds: 30 s hard, 90 s easy', eq:['ellip']},{t:'Shadow boxing intervals', d:'8 rounds: 30 s hard, 30 s easy'},{t:'Fast walk intervals outside', d:'6 rounds: 1 min fast, 1 min easy'}],
 };
+const ROLL_AREAS = {quads:'quads',glutes:'glutes',abductors:'glutes',hamstrings:'hamstrings',calves:'calves',adductors:'inner thighs',upper_back:'upper back',traps:'upper back',rear_delts:'upper back',lats:'lats'};
+const BALL_AREAS = {chest:'chest',front_delts:'shoulders',side_delts:'shoulders',glutes:'glutes',calves:'calves',upper_back:'upper back',quads:'quads'};
 const COOL_WALK = [{t:'Easy walk', d:'3–5 min, let your heart rate come down'},{t:'Easy bike', d:'3–5 min, no resistance', eq:['bike','airbike']},{t:'Slow elliptical', d:'3–5 min', eq:['ellip']}];
 // Stretches picked from the muscles the workout actually trained
 const STRETCH_BY_MUSCLE = [
@@ -4718,8 +4732,8 @@ function sessionExtras(d, slots){
   // Foam roll: name the exact spots from what was trained (owner's pick, Nov 9)
   const area=(map)=>{ const sc={}; Object.entries(map).forEach(([m,a])=>{ if(worked[m]) sc[a]=(sc[a]||0)+worked[m]; }); return Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).slice(0,B.foam); };
   const listTxt=a=>a.length>1?a.slice(0,-1).join(', ')+' and '+a[a.length-1]:a[0];
-  const roll=area({quads:'quads',glutes:'glutes',abductors:'glutes',hamstrings:'hamstrings',calves:'calves',adductors:'inner thighs',upper_back:'upper back',traps:'upper back',rear_delts:'upper back',lats:'lats'});
-  const ball=area({chest:'chest',front_delts:'shoulders',side_delts:'shoulders',glutes:'glutes',calves:'calves',upper_back:'upper back',quads:'quads'});
+  const roll=area(ROLL_AREAS);
+  const ball=area(BALL_AREAS);
   const RD='About 30 seconds each. Roll slowly and pause on tight spots.';
   if(eq.has('foam') && roll.length) cool.push({k:'foam', t:`Foam roll: ${listTxt(roll)}`, d:RD, alts:eq.has('mball')&&ball.length?[{t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.'}]:[]});
   else if(eq.has('mball') && ball.length) cool.push({k:'foam', t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.', alts:[]});
@@ -5778,6 +5792,87 @@ function guideAnimationId(it){
   if(/air bike|airbike/.test(title))return 'air-bike';if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
   return slugify(it.t);
 }
+// The Library describes existing guided moves without building or modifying a workout.
+const PREP_TYPE={mobility:'Mobility',activation:'Activation',dynamic:'Dynamic stretch',stretch:'Static stretch',power:'Power and footwork',roll:'Foam rolling',massage:'Massage ball work'};
+const PREP_BODY={...Object.fromEntries(Object.entries(LIB_BODY).map(([key,[label]])=>[key,label])),hips:'Hips and hip flexors',neck:'Neck'};
+const PREP_TAG_BODY={shoulder:'shoulders',scap:'shoulders back',overhead:'shoulders',upperback:'back',lats:'back',spine:'back',tspine:'back',lowback:'back',rot:'core',core:'core',chest:'chest',grip:'forearms',hip:'hips',glute:'glutes',quad:'quads',ham:'hamstrings',adductor:'inner',ankle:'calves',lateral:'hips inner',knee:'quads'};
+const PREP_EQUIPMENT={none:'No equipment',band:'Resistance band',mat:'Mat',foam:'Foam roller',mball:'Massage ball',bench:'Bench or chair',wall:'Wall or doorway',rail:'Rail or post',stick:'Broomstick or towel',pu:'Pull-up bar',kb:'Kettlebell',db:'Dumbbell',box:'Box or step',mb:'Medicine ball'};
+const PREP_EQ_GROUP={bd:'band',minib:'band',bn:'bench',adjb:'bench',bx:'box',step:'box',rigstep:'box'};
+const PREP_SETUP={
+  'Bodyweight squats to a bench':['bench'],'Sit-to-stands from a chair':['bench'],'Incline push-ups':['bench','box'],'Fast incline push-ups':['bench','box'],
+  'Wall push-ups':['wall'],'Wall sit':['wall'],'Wall slides':['wall'],'Shoulder taps on the wall':['wall'],'Ankle rocks against a wall':['wall'],
+  'Biceps wall stretch':['wall'],'Calf stretch on a wall':['wall'],'Doorway chest stretch':['wall','rail'],'Medicine ball chest pass':['wall'],
+  'Lat stretch holding a post':['rail'],'Standing quad stretch':['wall','rail'],'Leg swings, front to back':['wall','rail'],'Leg swings, front to back and side to side':['wall','rail'],'Hip airplanes':['rail'],
+  'Broomstick or towel pass-throughs':['stick']
+};
+const PREP_WARM_TYPES={
+  activation:['Wall push-ups','Incline push-ups on a bench','Incline push-ups','Band pull-aparts','Bodyweight squats to a bench','Wall sit','Sit-to-stands from a chair','Glute bridges','Standing hip extensions','Shoulder taps on the wall','Push-ups','Prone Y-T-W raises','Walking lunges','Reverse lunges in place','Split squat holds','Banded lateral walks','Lateral band walks','Scap push-ups','Scap pull-ups','Bodyweight good mornings','Calf raises','Bodyweight squats','Bird dogs','Dead bugs','Plank shoulder taps','Band face pulls','Single-leg glute bridges'],
+  dynamic:['Inchworms','Downward dog to plank','Push-up to downward dog','World’s greatest stretch','Spiderman lunge with reach','Leg swings, front to back','Leg swings, front to back and side to side','Walking knee hugs','Standing knee hugs'],
+  stretch:['Half-kneeling hip flexor stretch with reach','Lat stretch holding a post','Dead hang'],
+  power:['Explosive push-ups','Medicine ball chest pass','Fast incline push-ups','Lateral shuffles','A-skips','High-knee marches','Low box jumps','Broad jumps','Fast bodyweight squats']
+};
+function buildPrepLibrary(){
+  const warm=new Map(),cool=new Map();
+  function add(collection,t,d,type,body,equipment,steps){
+    const id=slugify(t),how=steps||MOVE_HOW[t],gear=[...(equipment.length?equipment:['none']),...(how?.[0].includes('mat')?['mat']:[])];
+    const move=collection.get(id)||{id,t,d,type,how,body:new Set(),gear:new Set()};
+    body.filter(Boolean).forEach(key=>move.body.add(key));
+    gear.forEach(key=>move.gear.add(key));
+    collection.set(id,move);
+  }
+  const warmMoves=[...Object.values(WU_MOVES).flatMap(group=>Object.values(group).flat()).flatMap(move=>[move,...move.alt]),...Object.values(WU_EXTRA).flat()];
+  for(const {t,d,eq=[]} of warmMoves){
+    const tags=(WU_TAGS[t]||'').split(' ').flatMap(tag=>(PREP_TAG_BODY[tag]||'').split(' '));
+    const type=Object.keys(PREP_WARM_TYPES).find(key=>PREP_WARM_TYPES[key].includes(t))||'mobility';
+    add(warm,t,d,type,tags,[...eq.map(key=>PREP_EQ_GROUP[key]||key),...(PREP_SETUP[t]||[])]);
+  }
+  function bodyFor(muscle){
+    if(muscle==='hip_flexors')return 'hips';
+    if(muscle==='traps')return 'neck';
+    return Object.keys(LIB_BODY).find(key=>LIB_BODY[key][1].includes(muscle));
+  }
+  for(const [muscle,t,d] of STRETCH_BY_MUSCLE)add(cool,t,d,'stretch',[bodyFor(muscle)],PREP_SETUP[t]||[]);
+  for(const [type,label,eq,areas] of [['roll','Foam roll','foam',ROLL_AREAS],['massage','Massage ball','mball',BALL_AREAS]]){
+    const how=type==='roll'
+      ? ['On the floor with a foam roller','Support yourself and roll the muscle slowly.','Pause and breathe on tight spots. Stay off joints and your lower back.']
+      : ['With a massage ball against a wall or the floor','Place the ball against the muscle and lean in gently.','Make small, slow circles. Keep pressure comfortable and stay off joints.'];
+    const muscles=Object.entries(areas);
+    for(const [muscle,area] of muscles)add(cool,label+': '+area,'About 30 seconds per area',type,[area==='upper back'?'back':bodyFor(muscle)],[eq],how);
+  }
+  return {warm:[...warm.values()].sort((a,b)=>a.t.localeCompare(b.t)),cool:[...cool.values()].sort((a,b)=>a.t.localeCompare(b.t))};
+}
+const PREP_LIBRARY=buildPrepLibrary();
+const prepEquipment=move=>[...move.gear].filter(key=>key!=='none'||move.gear.size===1).map(key=>key==='mat'?'Mat (optional)':PREP_EQUIPMENT[key]).join(', ');
+function renderPrepLibrary(){
+  const moves=PREP_LIBRARY[ui.libSection],f=ui.prepFilters[ui.libSection],query=(f.q||'').trim().toLowerCase();
+  const body=move=>[...move.body].map(key=>PREP_BODY[key]).join(', ');
+  const list=moves.filter(move=>(!f.body||move.body.has(f.body))&&(!f.eq||move.gear.has(f.eq))&&(!f.type||move.type===f.type)&&[move.t,body(move),prepEquipment(move),PREP_TYPE[move.type]].join(' ').toLowerCase().includes(query));
+  function filter(field,label,all,labels,keys){
+    return `<select id="preplib-${field}" aria-label="${label}"><option value="">${all}</option>${optsHTML(Object.entries(labels).filter(([key])=>keys.has(key)),f[field])}</select>`;
+  }
+  return `<section class="stack">${libraryHeading()}<div class="filters">
+    <input class="search" id="preplib-q" type="search" placeholder="Search moves or body parts" aria-label="Search moves" value="${esc(f.q||'')}">
+    ${filter('body','Body part','All body parts',PREP_BODY,new Set(moves.flatMap(m=>[...m.body])))}
+    ${filter('eq','Equipment','All equipment',PREP_EQUIPMENT,new Set(moves.flatMap(m=>[...m.gear])))}
+    ${filter('type','Movement type','All movement types',PREP_TYPE,new Set(moves.map(m=>m.type)))}
+  </div></section><section class="card">
+    <div class="small muted" style="margin-bottom:6px">${list.length} shown</div>
+    ${list.map(move=>`<div class="lib-item"><button class="lt" type="button" data-action="preplibinfo" data-id="${move.id}" aria-haspopup="dialog">
+      <div class="row between" style="flex-wrap:nowrap"><div><div class="ln">${esc(move.t)}</div><div class="tiny muted">${esc([body(move),prepEquipment(move),PREP_TYPE[move.type]].filter(Boolean).join(' · '))}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div>
+    </button></div>`).join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}
+  </section>`;
+}
+function prepLibraryInfo(id){
+  const move=PREP_LIBRARY[ui.libSection]?.find(m=>m.id===id);
+  if(!move)return;
+  const steps=move.how?.slice(1).filter(Boolean)||['Move slowly through a comfortable range. Stop if anything pinches or hurts.'];
+  modal(`<div><div class="eyebrow">How to</div><h2>${esc(move.t)}</h2><p class="small muted">${esc(move.d)}</p></div>
+    <div class="small"><b>Equipment:</b> ${esc(prepEquipment(move))}</div>
+    ${move.how?`<div class="small"><b>Where:</b> ${esc(move.how[0])}</div>`:''}<div class="exercise-guide-mount"></div>
+    <ol class="howto">${steps.map(step=>`<li>${esc(step)}</li>`).join('')}</ol>
+    <button class="btn primary block" data-action="closemodal">Got it</button>`);
+  window.StrongStartExerciseGuides?.attach({exerciseId:guideAnimationId(move),mount:$('#modal .exercise-guide-mount'),environment:APP_ENV});
+}
 function gHowTo(it){
   const G=state.draft.guide, cool=G&&G.ph==='cool';
   const tips = it.k==='foam' ? ['Place the roller under the spot named on screen and support yourself with your hands.','Roll slowly, about an inch a second. Pause and breathe on tight spots.','Stay off joints and your lower back.']
@@ -6751,7 +6846,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','libshowall','libopen','libsection','preplibinfo','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6987,6 +7082,12 @@ document.addEventListener('click', async e=>{
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
     case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.block.sequenceResetAt=Date.now(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
     case 'animationgallery': if(APP_ENV==='development'){modal('<div><div class="eyebrow">Exercise library</div><h2>All 3D demonstrations</h2><p class="small muted">New animations are drafts ready for your review.</p></div><div class="exercise-guide-mount"></div>');window.StrongStartExerciseGuides?.attach({mount:$('#modal .exercise-guide-mount'),environment:APP_ENV,gallery:true});} break;
+    case 'libsection': {
+      if(!Object.hasOwn(LIB_SECTIONS,b.dataset.id))break;
+      ui.libSection=b.dataset.id;render();
+      document.querySelector('.library-sections [aria-pressed="true"]')?.focus({preventScroll:true});break;
+    }
+    case 'preplibinfo': prepLibraryInfo(b.dataset.id);break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'histmore': if(PAGE.active&&PAGE.next)loadHistoryPage(PAGE.next,PAGE.view.exercise).catch(e=>{PAGE.error=e;render();});break;
@@ -7017,16 +7118,17 @@ document.addEventListener('click', async e=>{
 document.addEventListener('submit', e=>{ const f=e.target.closest('[data-authform]'); if(!f) return; e.preventDefault(); authSubmit(f.dataset.authform); });
 document.addEventListener('input', e=>{
   const t=e.target;
-  if(coachMode && !['libq','lpq','swapq','histquery'].includes(t.id)) return;
+  if(coachMode && !['libq','preplib-q','lpq','swapq','histquery'].includes(t.id)) return;
   if(t.id==='histquery'){const start=t.selectionStart,end=t.selectionEnd;ui.histQuery=t.value;render();const input=$('#histquery');input?.focus({preventScroll:true});if(input&&start!=null)input.setSelectionRange(start,end);return;}
   if(t.id==='au-email'){ AUTH.email=t.value; return; } if(t.id==='au-pw'){ AUTH.pw=t.value; return; }
   if(t.dataset.f && state.draft){ const slot=dSlots().find(x=>x.pk===t.dataset.pk); if(!slot) return; const s=t.dataset.ramp?rampSet(state.draft,slot,+t.dataset.i):state.draft.sets[t.dataset.pk][+t.dataset.i]; s[t.dataset.f]=t.value.replace(/[^0-9.]/g,''); save(); return; }
   if(t.id==='swapq'&&ui.swap){ui.swap.q=t.value;ui.swap.limit=12;const pos=t.selectionStart;renderSwapPicker();const n=$('#swapq');n.focus();if(pos!=null)n.setSelectionRange(pos,pos);return;}
+  if(t.id==='preplib-q'&&ui.prepFilters[ui.libSection]){const pos=t.selectionStart;ui.prepFilters[ui.libSection].q=t.value;render();const input=$('#preplib-q');input?.focus({preventScroll:true});if(pos!=null)input?.setSelectionRange(pos,pos);return;}
   if(t.id==='libq'){ ui.libQ=t.value; const pos=t.selectionStart; render(); const n=$('#libq'); n.focus(); n.setSelectionRange(pos,pos); }
 });
 document.addEventListener('change', e=>{
   const t=e.target;
-  if(coachMode && !['libeasy','libeq','libbody','libmove','swapeq','swapbody','lpq','lpeq','lpbody','lpmove'].includes(t.id)) return;
+  if(coachMode && !['preplib-body','preplib-eq','preplib-type','libeasy','libeq','libbody','libmove','swapeq','swapbody','lpq','lpeq','lpbody','lpmove'].includes(t.id)) return;
   if(t.dataset.check && state.draft){ state.draft[t.dataset.check][t.dataset.k]=t.checked; save(); return; }
   if(t.dataset.set){ state.settings[t.dataset.set]=t.checked; save(); return; }
   if(t.id==='set-age'){ const v=parseInt(t.value,10); state.settings.age=isFinite(v)&&v>10&&v<110?v:null; save(); render(); return; }
@@ -7038,6 +7140,7 @@ document.addEventListener('change', e=>{
   if(t.id==='libeasy'){ ui.libEasy=t.checked; render(); return; }
   if(t.id==='set-name'){ state.settings.name=t.value.trim().slice(0,30); save(); render(); return; }
   if(t.id==='set-bw'){ const result=checkBodyWeight(t.value,state.settings.units,'set-bw',true); if(!result.ok) return; state.settings.bw=result.value; save(); render(); toast(state.settings.bw?'Saved. New exercises use this for starting weights.':'Cleared'); return; }
+  if(['preplib-body','preplib-eq','preplib-type'].includes(t.id)&&ui.prepFilters[ui.libSection]){ui.prepFilters[ui.libSection][t.id.slice(8)]=t.value;render();document.getElementById(t.id)?.focus({preventScroll:true});return;}
   if(t.id==='libeq'){ ui.libEq=t.value; render(); }
   if(t.id==='libbody'){ ui.libBody=t.value; render(); }
   if(t.id==='libmove'){ ui.libMove=t.value; render(); }
