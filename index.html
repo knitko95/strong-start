@@ -28,18 +28,6 @@
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
 /* Layout: single phone column, sticky top bar, fixed bottom tab bar; soft white cards on blush, serif for titles and numbers, spaced caps for labels */
 /* Shared theme tokens live in theme.css. */
-/* Reference typography: expressive serif for headings and key workout values;
-   restrained sans-serif for labels, cues, navigation and actions. */
-h1,h2,h3{font-weight:400;letter-spacing:0}
-.eyebrow{font-family:var(--body);font-weight:700;letter-spacing:var(--label-track)}
-.brand{font-weight:400}
-.stat .v,.day .idx,.plan-number,.day .t,.ex .name,.ex .n,
-.target b,.set .sn,.timer .clock{font-weight:400}
-.ex .name{letter-spacing:0}
-.field input{font-family:var(--display);font-size:var(--title-md);font-weight:400}
-.target b{letter-spacing:0}
-.btn,nav.tabs button{font-family:var(--body);font-weight:600}
-
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--text-lg);line-height:1.4;-webkit-text-size-adjust:100%}
 /* Keep touch gestures vertical without trapping document or sheet scrolling. */
@@ -942,6 +930,18 @@ button.link.tiny,button.linkbtn.tiny{font-size:var(--text-md)}
 .sheet-close,.workout-sheet-head .sheet-close{display:inline-flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;min-height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:var(--surface);color:var(--ink);box-shadow:none;font:600 var(--title-md)/1 var(--body)}
 .sheet.workout-menu-sheet,.sheet.workout-info-sheet{padding-top:20px;padding-left:20px;padding-right:20px;gap:16px}
 .sheet.coach-thread-sheet{padding:0;gap:0}
+
+/* Reference typography: expressive serif for headings and key workout values;
+   restrained sans-serif for labels, cues, navigation and actions. */
+h1,h2,h3{font-weight:400;letter-spacing:0}
+.eyebrow{font-family:var(--body);font-weight:700;letter-spacing:var(--label-track)}
+.brand{font-weight:400}
+.stat .v,.day .idx,.plan-number,.day .t,.ex .name,.ex .n,
+.target b,.set .sn,.timer .clock{font-weight:400}
+.ex .name{letter-spacing:0}
+.field input{font-family:var(--display);font-size:var(--title-md);font-weight:400}
+.target b{letter-spacing:0}
+.btn,nav.tabs button{font-family:var(--body);font-weight:600}
 </style>
 </head>
 <body>
