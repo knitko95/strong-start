@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
 /* Layout: single phone column, sticky top bar, fixed bottom tab bar; soft white cards on blush, serif for titles and numbers, spaced caps for labels */
@@ -942,6 +942,8 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .field input{font-family:var(--display);font-size:var(--title-md);font-weight:400}
 .target b{letter-spacing:0}
 .btn,nav.tabs button{font-family:var(--body);font-weight:600}
+/* Owner request: Exercise library title stays upright and bold. */
+h1.library-title{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-weight:700;font-style:normal;letter-spacing:.01em}
 </style>
 </head>
 <body>
@@ -964,6 +966,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.12.0",
+    "date": "2026-11-18",
+    "title": "Warm-ups and cool-downs in the Exercise library",
+    "notes": ["Warm-up moves, stretches and foam rolling now appear in the same Exercise library list as exercises. Find them with the body part, equipment and movement type filters, and tap one for its instructions.", "Library rows show just the exercise name, and the Library title is bold again."]
+  },
   {
     "version": "0.11.1",
     "date": "2026-11-18",
@@ -4170,21 +4178,37 @@ function libFilters(f,ids){ return `<input class="search" id="${ids.q}" type="se
       <select id="${ids.eq}" aria-label="Equipment"><option value="">All equipment</option>${optsHTML(LIB_EQ,f.eq)}</select>
       <select id="${ids.move}" aria-label="Movement" style="grid-column:1/-1"><option value="">All movement types</option>${optsHTML(Object.entries(LIB_MOVE).map(([k,v])=>[k,v[0]]),f.move)}</select>`; }
 function renderLibrary(){
-  const q=ui.libQ.toLowerCase();
-  const hidden = LIB.filter(e=>!available(e)).length;
   const F={q:ui.libQ, eq:ui.libEq, body:ui.libBody, move:ui.libMove};
-  const list = LIB.filter(e=>(ui.libShowAll||available(e)) && (!ui.libEasy||allowed(e)) && libMatch(e,F));
-  const opt=(o,v)=>Object.entries(o).map(([k,l])=>`<option value="${k}" ${v===k?'selected':''}>${l}</option>`).join('');
-  return `<section class="stack"><div><div class="eyebrow">${LIB.length-hidden} exercises for your gym · ${LIB.filter(allowed).length} fit your level</div><h1>Exercise library</h1></div>
+  const strengthOk=e=>{
+    if(F.move&&!LIB_MOVE[F.move])return false;
+    if(F.body==='neck')return false;
+    if(F.body==='hips')return EXM[e.id].p.includes('hip_flexors')&&libMatch(e,{...F,body:''});
+    return libMatch(e,F);
+  };
+  const hidden = LIB.filter(e=>!available(e)).length + PREP_LIB.filter(m=>!prepAvailable(m)).length;
+  const gym = LIB.length + PREP_LIB.length - hidden;
+  const list = LIB.filter(e=>(ui.libShowAll||available(e)) && (!ui.libEasy||allowed(e)) && strengthOk(e));
+  const typeOrder=Object.keys(PREP_TYPE);
+  const prep = PREP_LIB.filter(m=>(ui.libShowAll||prepAvailable(m)) && prepMatch(m,F)).sort((a,b)=>typeOrder.indexOf(a.type)-typeOrder.indexOf(b.type)||a.t.localeCompare(b.t));
+  const bodyOpts=Object.entries(LIB_BODY_ALL).map(([k,v])=>[k,v[0]]);
+  const sel=(id,label,all,inner,v)=>`<select id="${id}" aria-label="${label}"${id==='libmove'?' style="grid-column:1/-1"':''}><option value="">${all}</option>${inner}</select>`;
+  const filters=`<input class="search" id="libq" type="search" placeholder="Search exercises or muscles" value="${esc(F.q||'')}" aria-label="Search">
+      ${sel('libbody','Body part','All body parts',optsHTML(bodyOpts,F.body))}
+      ${sel('libeq','Equipment','All equipment',optsHTML([...LIB_EQ,...PREP_EQ],F.eq))}
+      ${sel('libmove','Movement','All movement types',`<optgroup label="Warm-up and cool-down">${optsHTML(Object.entries(PREP_TYPE),F.move)}</optgroup><optgroup label="Strength">${optsHTML(Object.entries(LIB_MOVE).map(([k,v])=>[k,v[0]]),F.move)}</optgroup>`)}`;
+  const row=(cls,thumb,title,attrs)=>`<div class="lib-item"${cls}><button class="lt" ${attrs} aria-haspopup="dialog">
+      <div class="row" style="flex-wrap:nowrap;gap:10px">${thumb}<div style="flex:1;min-width:0"><div class="ln pain-warning-title">${title}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div></button></div>`;
+  const rows=[
+    ...list.map(e=>row(available(e)?'':' style="opacity:.5"',musThumb(e.id,false),`${painWarningBubble(e)}<span>${esc(e.n)}</span>`,`data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}"`)),
+    ...prep.map(m=>row(prepAvailable(m)?'':' style="opacity:.5"',prepThumb(m),`<span>${esc(m.t)}</span>`,`data-action="preplibinfo" data-id="${m.id}" aria-label="How to do ${esc(m.t)}"`))
+  ];
+  return `<section class="stack"><div><div class="eyebrow">${gym} exercises for your gym · ${LIB.filter(allowed).length+PREP_LIB.length} fit your level</div><h1 class="library-title">Exercise library</h1></div>
     <div class="filters">
-      ${libFilters(F,{q:'libq',eq:'libeq',body:'libbody',move:'libmove'})}
+      ${filters}
     </div>
     <label class="toggle" for="libeasy" style="border:0;padding:0"><span class="small"><b>Only moves that fit your level</b></span><input type="checkbox" id="libeasy" ${ui.libEasy?'checked':''}></label></section>
-    <section class="card"><div class="small muted" style="margin-bottom:6px"><span class="num">${list.length}</span> shown${hidden?` · <button class="linkbtn" data-action="libshowall">${ui.libShowAll?'Hide':'Show'} ${hidden} for equipment you don't have</button>`:''}</div>
-    <div>${list.map(e=>`<div class="lib-item" style="${available(e)?'':'opacity:.5'}"><button class="lt" data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}" aria-haspopup="dialog">
-      <div class="row" style="flex-wrap:nowrap;gap:10px">${musThumb(e.id,false)}<div style="flex:1;min-width:0"><div class="ln pain-warning-title">${painWarningBubble(e)}<span>${esc(e.n)}</span></div>
-      ${musLine(e.id)}<div class="tiny muted">${e.eq.map(x=>EQ_SHORT[x]).join(', ')}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div></button>
-    </div>`).join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}</div></section>`;
+    <section class="card"><div class="small muted" style="margin-bottom:6px"><span class="num">${rows.length}</span> shown${hidden?` · <button class="linkbtn" data-action="libshowall">${ui.libShowAll?'Hide':'Show'} ${hidden} for equipment you don't have</button>`:''}</div>
+    <div>${rows.join('')||'<p class="muted">Nothing matches. Clear a filter.</p>'}</div></section>`;
 }
 
 function e1rm(w,r){ return w*(1+r/30); }
@@ -4652,6 +4676,8 @@ const FINISH = {
         {t:'Treadmill or outdoor run intervals', d:'6 rounds: 30 s fast, 90 s walk or jog', imp:true},{t:'Jump rope intervals', d:'8 rounds: 30 s on, 30 s off', eq:['rope'], imp:true},
         {t:'Incline sprint walks', d:'6 rounds: 45 s steep and fast, 75 s easy', eq:['tread']},{t:'Sled pushes', d:'6 pushes, walk back to recover', eq:['sled']},{t:'Battle rope intervals', d:'8 rounds: 20 s on, 40 s off', eq:['rp']},{t:'Elliptical intervals', d:'6 rounds: 30 s hard, 90 s easy', eq:['ellip']},{t:'Shadow boxing intervals', d:'8 rounds: 30 s hard, 30 s easy'},{t:'Fast walk intervals outside', d:'6 rounds: 1 min fast, 1 min easy'}],
 };
+const ROLL_AREAS = {quads:'quads',glutes:'glutes',abductors:'glutes',hamstrings:'hamstrings',calves:'calves',adductors:'inner thighs',upper_back:'upper back',traps:'upper back',rear_delts:'upper back',lats:'lats'};
+const BALL_AREAS = {chest:'chest',front_delts:'shoulders',side_delts:'shoulders',glutes:'glutes',calves:'calves',upper_back:'upper back',quads:'quads'};
 const COOL_WALK = [{t:'Easy walk', d:'3–5 min, let your heart rate come down'},{t:'Easy bike', d:'3–5 min, no resistance', eq:['bike','airbike']},{t:'Slow elliptical', d:'3–5 min', eq:['ellip']}];
 // Stretches picked from the muscles the workout actually trained
 const STRETCH_BY_MUSCLE = [
@@ -4730,8 +4756,8 @@ function sessionExtras(d, slots){
   // Foam roll: name the exact spots from what was trained (owner's pick, Nov 9)
   const area=(map)=>{ const sc={}; Object.entries(map).forEach(([m,a])=>{ if(worked[m]) sc[a]=(sc[a]||0)+worked[m]; }); return Object.keys(sc).sort((a,b)=>sc[b]-sc[a]).slice(0,B.foam); };
   const listTxt=a=>a.length>1?a.slice(0,-1).join(', ')+' and '+a[a.length-1]:a[0];
-  const roll=area({quads:'quads',glutes:'glutes',abductors:'glutes',hamstrings:'hamstrings',calves:'calves',adductors:'inner thighs',upper_back:'upper back',traps:'upper back',rear_delts:'upper back',lats:'lats'});
-  const ball=area({chest:'chest',front_delts:'shoulders',side_delts:'shoulders',glutes:'glutes',calves:'calves',upper_back:'upper back',quads:'quads'});
+  const roll=area(ROLL_AREAS);
+  const ball=area(BALL_AREAS);
   const RD='About 30 seconds each. Roll slowly and pause on tight spots.';
   if(eq.has('foam') && roll.length) cool.push({k:'foam', t:`Foam roll: ${listTxt(roll)}`, d:RD, alts:eq.has('mball')&&ball.length?[{t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.'}]:[]});
   else if(eq.has('mball') && ball.length) cool.push({k:'foam', t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.', alts:[]});
@@ -5790,6 +5816,78 @@ function guideAnimationId(it){
   if(/air bike|airbike/.test(title))return 'air-bike';if(/elliptical/.test(title))return 'elliptical';if(/bike|cycl/.test(title))return 'stationary-bike';if(/rowing|row/.test(title))return 'rowing-machine';if(/stair/.test(title))return 'stair-climber';if(/jog|run/.test(title))return 'jog';if(/shadow/.test(title))return 'shadow-boxing';if(/jump rope|skipping/.test(title))return 'jump-rope';if(/jumping jacks/.test(title))return 'jumping-jacks';if(/march/.test(title))return 'easy-marching';if(/walk/.test(title))return 'easy-walk';
   return slugify(it.t);
 }
+// Warm-up and cool-down moves listed in the Exercise library alongside exercises (browse only; never changes a workout).
+const PREP_TYPE={mobility:'Mobility',activation:'Activation',dynamic:'Dynamic stretch',stretch:'Static stretch',power:'Power and footwork',roll:'Foam rolling',massage:'Massage ball'};
+const PREP_BODY={hips:['Hips and hip flexors',['hip_flexors']],neck:['Neck',['traps']]};
+const LIB_BODY_ALL={...LIB_BODY,...PREP_BODY};
+const PREP_EQ=[['foam','Foam roller'],['mball','Massage ball'],['mat','Mat'],['bench','Bench or chair'],['wall','Wall or doorway'],['rail','Rail or post'],['stick','Broomstick or towel']];
+const PREP_EQ_KEY={band:'bd',minib:'bd',db:'db',kb:'kb',mb:'mb',pu:'pu',bx:'bx',box:'bx',step:'bx',rigstep:'bx',bn:'bench',adjb:'bench'};
+const PREP_EQ_NEEDS={foam:['foam'],mball:['mball'],bd:['bd','minib'],db:['db'],kb:['kb'],mb:['mb'],pu:['pu']};
+const PREP_TAG_BODY={shoulder:'shoulders',scap:'shoulders back',overhead:'shoulders',upperback:'back',lats:'back',spine:'back',tspine:'back',lowback:'back',rot:'core',core:'core',chest:'chest',grip:'forearms',hip:'hips',glute:'glutes',quad:'quads',ham:'hamstrings',adductor:'inner',ankle:'calves',lateral:'hips inner',knee:'quads'};
+const PREP_SETUP={
+  'Bodyweight squats to a bench':['bench'],'Sit-to-stands from a chair':['bench'],'Incline push-ups':['bench','bx'],'Fast incline push-ups':['bench','bx'],
+  'Wall push-ups':['wall'],'Wall sit':['wall'],'Wall slides':['wall'],'Shoulder taps on the wall':['wall'],'Ankle rocks against a wall':['wall'],
+  'Biceps wall stretch':['wall'],'Calf stretch on a wall':['wall'],'Doorway chest stretch':['wall','rail'],'Medicine ball chest pass':['wall'],
+  'Lat stretch holding a post':['rail'],'Standing quad stretch':['wall','rail'],'Leg swings, front to back':['wall','rail'],'Leg swings, front to back and side to side':['wall','rail'],'Hip airplanes':['rail'],
+  'Broomstick or towel pass-throughs':['stick']
+};
+const PREP_WARM_TYPES={
+  activation:['Wall push-ups','Incline push-ups on a bench','Incline push-ups','Band pull-aparts','Bodyweight squats to a bench','Wall sit','Sit-to-stands from a chair','Glute bridges','Standing hip extensions','Shoulder taps on the wall','Push-ups','Prone Y-T-W raises','Walking lunges','Reverse lunges in place','Split squat holds','Banded lateral walks','Lateral band walks','Scap push-ups','Scap pull-ups','Bodyweight good mornings','Calf raises','Bodyweight squats','Bird dogs','Dead bugs','Plank shoulder taps','Band face pulls','Single-leg glute bridges'],
+  dynamic:['Inchworms','Downward dog to plank','Push-up to downward dog','World’s greatest stretch','Spiderman lunge with reach','Leg swings, front to back','Leg swings, front to back and side to side','Walking knee hugs','Standing knee hugs'],
+  stretch:['Half-kneeling hip flexor stretch with reach','Lat stretch holding a post','Dead hang'],
+  power:['Explosive push-ups','Medicine ball chest pass','Fast incline push-ups','Lateral shuffles','A-skips','High-knee marches','Low box jumps','Broad jumps','Fast bodyweight squats']
+};
+function buildPrepLibrary(){
+  const moves=new Map();
+  function add(t,d,type,body,gear,how){
+    const id='prep-'+slugify(t); how=how||MOVE_HOW[t];
+    const m=moves.get(id)||{id,t,d,type,how,body:new Set(),gear:new Set()};
+    body.filter(k=>LIB_BODY_ALL[k]).forEach(k=>m.body.add(k));
+    gear.forEach(k=>m.gear.add(PREP_EQ_KEY[k]||k));
+    if(how?.[0]&&/\bmat\b/i.test(how[0]))m.gear.add('mat');
+    moves.set(id,m);
+  }
+  const warm=[...Object.values(WU_MOVES).flatMap(g=>Object.values(g).flat()).flatMap(m=>[m,...(m.alt||[])]),...Object.values(WU_EXTRA).flat()];
+  for(const {t,d,eq=[]} of warm){
+    const body=(WU_TAGS[t]||'').split(' ').flatMap(tag=>(PREP_TAG_BODY[tag]||'').split(' '));
+    add(t,d,Object.keys(PREP_WARM_TYPES).find(k=>PREP_WARM_TYPES[k].includes(t))||'mobility',body,[...eq,...(PREP_SETUP[t]||[])]);
+  }
+  const bodyFor=mu=>Object.keys(LIB_BODY_ALL).find(k=>LIB_BODY_ALL[k][1].includes(mu));
+  for(const [mu,t,d] of STRETCH_BY_MUSCLE)add(t,d,'stretch',[mu==='traps'?'neck':bodyFor(mu)],PREP_SETUP[t]||[]);
+  const rollHow=['On the floor with a foam roller','Support yourself and roll the muscle slowly.','Pause and breathe on tight spots. Stay off joints and your lower back.'];
+  const ballHow=['With a massage ball against a wall or the floor','Place the ball against the muscle and lean in gently.','Make small, slow circles. Keep pressure comfortable and stay off joints.'];
+  const areaBody={'upper back':'back','inner thighs':'inner','shoulders':'shoulders','calves':'calves'};
+  for(const [mu,area] of Object.entries(ROLL_AREAS))add('Foam roll '+area,'About 30 seconds per area','roll',[areaBody[area]||bodyFor(mu)],['foam'],rollHow);
+  for(const [mu,area] of Object.entries(BALL_AREAS))add('Massage ball, '+area,'About 30 seconds per area','massage',[areaBody[area]||bodyFor(mu)],['mball'],ballHow);
+  for(const m of moves.values())if(!m.gear.size)m.gear.add('bw');
+  return [...moves.values()];
+}
+const PREP_LIB=buildPrepLibrary();
+const prepAvailable=m=>{ const eq=placeEq(state.curPlace||homeBase()); return [...m.gear].every(g=>!PREP_EQ_NEEDS[g]||PREP_EQ_NEEDS[g].some(k=>eq.has(k))); };
+function prepMatch(m,f){
+  return (!f.body||m.body.has(f.body)) && (!f.eq||m.gear.has(f.eq)) && (!f.move||m.type===f.move)
+    && (!f.q||[m.t,...[...m.body].map(k=>LIB_BODY_ALL[k][0]),PREP_TYPE[m.type]].join(' ').toLowerCase().includes(f.q.toLowerCase()));
+}
+function prepThumb(m){
+  const mus=new Set([...m.body].flatMap(k=>LIB_BODY_ALL[k][1])), list=[...mus];
+  const back=list.filter(x=>BACK_SIDE.has(x)).length>list.filter(x=>!BACK_SIDE.has(x)).length, low=list.filter(x=>LOWER.has(x)).length>list.filter(x=>!LOWER.has(x)).length;
+  return `<span class="mthumb" aria-hidden="true">${bodySVG(back?'b':'f',x=>mus.has(x)?'var(--accent)':'var(--mbase)',{viewBox:low?'14 88 72 72':'13 24 74 74'})}</span>`;
+}
+const prepGearLabel=m=>[...m.gear].filter(g=>g!=='bw'||m.gear.size===1).map(g=>g==='bw'?'Nothing':g==='mat'?'Mat (optional)':(PREP_EQ.find(([k])=>k===g)||LIB_EQ.find(([k])=>k===g)||[,g])[1]).join(', ');
+function prepLibraryInfo(id){
+  const m=PREP_LIB.find(x=>x.id===id); if(!m)return;
+  const mus=new Set([...m.body].flatMap(k=>LIB_BODY_ALL[k][1])), c=x=>mus.has(x)?'var(--accent)':'var(--mbase)';
+  const steps=m.how?.slice(1).filter(Boolean)||['Move slowly through a comfortable range. Stop if anything pinches or hurts.'];
+  modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(m.t)}</h2>
+      <div class="musline" style="margin-top:6px"><span class="dotp"></span>${esc([...m.body].map(k=>LIB_BODY_ALL[k][0]).join(', '))} <span class="dots"></span>${esc(PREP_TYPE[m.type])}</div>
+      <div class="small muted" style="margin-top:6px">${esc(m.d)} · You’ll need: ${esc(prepGearLabel(m))}</div></div>
+    <div class="exercise-guide-mount"></div>
+    ${m.how?`<div class="small"><b>Where:</b> ${esc(m.how[0])}</div>`:''}
+    <div><div class="eyebrow" style="margin-bottom:6px">Steps</div><ol class="howto">${steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>
+    ${mus.size?`<div><div class="eyebrow">Targets</div><div class="bodypair">${bodySVG('f',c,{cls:'bodybig'})}${bodySVG('b',c,{cls:'bodybig'})}</div></div>`:''}
+    <button class="btn primary block" data-action="closemodal">Got it</button>`);
+  window.StrongStartExerciseGuides?.attach({exerciseId:guideAnimationId(m),mount:$('#modal .exercise-guide-mount'),environment:APP_ENV});
+}
 function gHowTo(it){
   const G=state.draft.guide, cool=G&&G.ph==='cool';
   const tips = it.k==='foam' ? ['Place the roller under the spot named on screen and support yourself with your hands.','Roll slowly, about an inch a second. Pause and breathe on tight spots.','Stay off joints and your lower back.']
@@ -6763,7 +6861,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6999,6 +7097,7 @@ document.addEventListener('click', async e=>{
     case 'prevblock': confirmBox('Go back to your previous program?','You’ll get your previous exercises and swaps back. Your history and weights stay.','Go back',()=>{ goBackBlock(); save(); render(); toast('You’re back on your previous program'); }); break;
     case 'restartblock': confirmBox('Restart at week 1?','Week 1 starts today with the same plan. Your weights and history stay.','Restart',()=>{ state.block.start=dayStart(new Date()).toISOString(); state.block.sequenceResetAt=Date.now(); state.weekModes={}; save(); ui.tab='today'; render(); }); break;
     case 'animationgallery': if(APP_ENV==='development'){modal('<div><div class="eyebrow">Exercise library</div><h2>All 3D demonstrations</h2><p class="small muted">New animations are drafts ready for your review.</p></div><div class="exercise-guide-mount"></div>');window.StrongStartExerciseGuides?.attach({mount:$('#modal .exercise-guide-mount'),environment:APP_ENV,gallery:true});} break;
+    case 'preplibinfo': prepLibraryInfo(b.dataset.id); break;
     case 'libshowall': ui.libShowAll=!ui.libShowAll; render(); break;
     case 'libopen': ui.libOpen = ui.libOpen===b.dataset.id?null:b.dataset.id; render(); break;
     case 'histmore': if(PAGE.active&&PAGE.next)loadHistoryPage(PAGE.next,PAGE.view.exercise).catch(e=>{PAGE.error=e;render();});break;
