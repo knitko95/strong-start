@@ -39,7 +39,7 @@ Internal research draft, reviewed 2026-11-13. [Scope, method and review limits](
 - [Single-Arm Kettlebell Overhead Press](#single-arm-kettlebell-overhead-press)
 - [Bottoms-Up Kettlebell Press](#bottoms-up-kettlebell-press)
 - [Arnold Press](#arnold-press)
-- [Half-Kneeling Single-Arm Cable Press](#half-kneeling-single-arm-cable-press)
+- [Half-Kneeling Single-Arm Cable Chest Press](#half-kneeling-single-arm-cable-press)
 - [Pike Push-Up](#pike-push-up)
 - [Dumbbell Lateral Raise](#dumbbell-lateral-raise)
 - [Cable Lateral Raise](#cable-lateral-raise)
@@ -949,7 +949,7 @@ Reference relationship: **same-movement**. Status: internal research draft.
 Movement relationship describes reference relevance, not professional validation. Notes are original synthesis; differing equipment/support, progressions, breathing and conservative range choices may be adaptations. See the variant notes and each source's limits.
 
 <a id="half-kneeling-single-arm-cable-press"></a>
-## Half-Kneeling Single-Arm Cable Press
+## Half-Kneeling Single-Arm Cable Chest Press
 
 Reference relationship: **related-only**. Status: internal research draft.
 

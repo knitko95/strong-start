@@ -803,6 +803,44 @@
           900
         ]
       }
+    },
+    "half-kneeling-single-arm-cable-press": {
+      "name": "Half-Kneeling Single-Arm Cable Chest Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": [
+        900,
+        900
+      ],
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/half-kneeling-single-arm-cable-press-0.06c7a158ef0f.webp",
+          "bytes": 150810,
+          "sha256": "06c7a158ef0f76c2fd7ef03b7c7107c5485a9f3dffda274a18dde48973fca82b",
+          "sourceSha256": "fe31850708e1348f98823477277899991709e8a16d7af899ad59fb42c6576725",
+          "width": 887,
+          "height": 887
+        },
+        {
+          "asset": "assets/half-kneeling-single-arm-cable-press-1.84213e046c95.webp",
+          "bytes": 149918,
+          "sha256": "84213e046c95bb025fa51a25ce0e03027e9e233c9cdd955de1fe6cf06f4ccb59",
+          "sourceSha256": "fe31850708e1348f98823477277899991709e8a16d7af899ad59fb42c6576725",
+          "width": 887,
+          "height": 887
+        }
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          64,
+          13,
+          824,
+          855
+        ]
+      }
     }
   }
 }

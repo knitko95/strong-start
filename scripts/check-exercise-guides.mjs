@@ -9,7 +9,7 @@ const data=JSON.parse(readFileSync(path.join(directory,'registry.v1.json'),'utf8
 const html=readFileSync(path.join(root,'index.html'),'utf8');
 const raw=html.match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1];
 const slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const catalogue=new Map(raw.trim().split('\n').map(line=>{const name=line.split('|')[0].trim();return [slug(name),name];}));
+const catalogue=new Map(raw.trim().split('\n').map(line=>{const fields=line.split('|'),name=fields[0].trim();return [fields[9]||slug(name),name];}));
 assert.equal(data.schemaVersion,1);assert.ok(data.revision);
 const assets=new Set();
 for(const [id,guide] of Object.entries(data.guides)){

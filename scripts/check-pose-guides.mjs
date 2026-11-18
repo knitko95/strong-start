@@ -5,7 +5,7 @@ import vm from 'node:vm';
 const root=new URL('../',import.meta.url),base=new URL('exercise-guides/poses/',root),data=JSON.parse(readFileSync(new URL('catalogue.v1.json',base)));
 const html=readFileSync(new URL('index.html',root),'utf8'),raw=html.match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1];
 const slug=n=>n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-const names=new Map(raw.trim().split('\n').map(row=>[slug(row.split('|')[0]),row.split('|')[0]]));
+const names=new Map(raw.trim().split('\n').map(row=>{const fields=row.split('|');return [fields[9]||slug(fields[0]),fields[0]];}));
 assert.equal(data.schemaVersion,1);assert.equal(Object.keys(data.exercises).length,18);const files=new Set();
 assert(Object.keys(data.sequences??{}).every(id=>!(id in data.exercises)));
 for(const [id,entry] of Object.entries({...data.exercises,...data.sequences})){

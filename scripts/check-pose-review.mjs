@@ -13,6 +13,6 @@ new vm.Script(readFileSync(path.join(folder,'hosted.js'),'utf8'));
 for(const file of ['README.md','visual-spec.md','coordinator.md','generator.md','auditor.md','templates/batch-handoff.md','templates/audit.json','templates/audit.schema.json'])assert(existsSync(path.join(root,'docs/pose-authoring',file)));
 console.log('PASS review seed matches every approved pose hash, preserves approvals/dev state, records unaudited status and contains no local references');
 
-const appRows=readFileSync(path.join(root,'index.html'),'utf8').match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1].trim().split('\n').map(row=>row.split('|')[0].trim());
-const expectedNames=Object.fromEntries(appRows.map(name=>[name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),name]));
+const appRows=readFileSync(path.join(root,'index.html'),'utf8').match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1].trim().split('\n').map(row=>row.split('|'));
+const expectedNames=Object.fromEntries(appRows.map(fields=>{const name=fields[0].trim();return [fields[9]||name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),name];}));
 assert.deepEqual(JSON.parse(readFileSync(path.join(root,'hosting/pose-review-catalogue.json'))),expectedNames,'Hosted authoring catalogue must match current exercise IDs/names');

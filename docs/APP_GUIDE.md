@@ -79,7 +79,7 @@ The demonstration comes first, with **Your review** directly underneath and refe
 
 ## Two-pose exercise demonstrations on testing
 
-Reviewed exercises use transparent pose demonstrations in the workout and How-to views on development. Most switch between two positions every 0.9 seconds. Kettlebell Gorilla Row alternates sides and returns to both bells down between pulls. These demonstrations have no play/pause, speed or camera-rotation controls. Expand remains available during workouts. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.
+Reviewed exercises use transparent pose demonstrations in the workout and How-to views on development. Most switch between two positions every 0.9 seconds. Kettlebell Gorilla Row alternates sides and returns to both bells down between pulls. Half-Kneeling Single-Arm Cable Chest Press presses forward at chest height. Existing saved plans and history keep the same exercise reference. These demonstrations have no play/pause, speed or camera-rotation controls. Expand remains available during workouts. Reduced-motion preferences show a still first pose. Playback suspends while hidden, offscreen or covered by a sheet. Other exercises retain the existing 3D demonstration or written instructions. Images load on demand; the next workout exercise can preload, and images already loaded are available from the public offline cache.
 
 ## Optional usage analytics on testing
 
