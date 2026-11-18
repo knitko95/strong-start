@@ -176,8 +176,6 @@ Review the proposed first week, then choose **Looks good, let's go**. **Save and
 | Progress | Review saved sessions and exercise progress; expand a session for details. |
 | Settings | Change profile, goals, schedule/split/order, places/equipment, level/limitations, exercise choices, cardio, weigh-ins, timers, program, account, and backup. |
 
-In the Library, choose **Exercises**, **Warm-ups**, or **Cool-downs**. Warm-ups and Cool-downs list the existing guided moves, stretches, foam rolling and massage ball work. Search by name or target area, and combine body part, equipment and movement type filters. Open a move for equipment, setup, steps and any available demonstration. Browsing these sections does not change your workout.
-
 ## Exercise demonstrations
 
 On the test app, Today's expanded workout plan includes 88px still previews for the 18
