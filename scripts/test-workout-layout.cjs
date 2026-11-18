@@ -144,7 +144,7 @@ async function seed(page,screen,theme='light'){
    await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="addset"]').click();
    assert(await page.evaluate(({a,b})=>dSlots().some(s=>s.pk===a)&&dSlots().some(s=>s.pk===b)&&state.draft.sets[a][0].done&&state.draft.sets[b][0].done,pair));
    // Existing list navigation keeps the workout draft and returns to its screen.
-   await page.locator('.ftop [data-action="fmore"]').click();await page.locator('[data-action="fmoredo"][data-do="flist"]').click();assert.equal(await page.locator('.workout-sheet .acard').count(),1);
+   await page.locator('.ftop [data-action="flist"]').click();assert.equal(await page.locator('.workout-sheet .acard').count(),1);
    await page.locator('[data-action="fjump"][data-to="'+pair.b+'"]').click();assert.equal(await page.evaluate(()=>state.draft.step.pk),pair.b);
    // Check-in choices apply once, after the explicit bottom Continue action.
    await seed(page,'cfeel');const cardioBefore=await page.evaluate(()=>JSON.stringify(state.settings.cardio));

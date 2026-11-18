@@ -102,9 +102,9 @@ await test('late feedback responses cannot clear another account or newly edited
 await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);
   const out=h.run('renderFocus()');assert.match(out,/focus demo-first/);assert(out.indexOf('workout-demo')<out.indexOf('class="asteps"'));
-  assert.match(out,/aria-label="Workout menu"/);assert.match(out,/data-action="flist"[^>]*>Workout list/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/Suggested start\. Change it if it feels off\./);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
-  h.run('fMoreSheet(demoPk)');for(const action of ['swap','fskipex','fpause','fexit','flist','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
-  assert.doesNotMatch(h.run('lastModal'),/data-do="adjust"/);
+  assert.match(out,/aria-label="Workout menu"/);assert.match(out,/data-action="flist"[^>]*>.*Workout list/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/Suggested start\. Change it if it feels off\./);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
+  h.run('fMoreSheet(demoPk)');for(const action of ['fskipex','fpause','fexit','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
+  assert.doesNotMatch(h.run('lastModal'),/data-do="(?:adjust|swap|flist)"/);
   h.run('var savedTarget=target;target=s=>({...savedTarget(s),w:null,sug:null,last:null});');assert.match(h.run('renderFocus()'),/First time: start light\./);
 });
 await test('compact progress counts exercise groups and regular Up next appears only on the last set',()=>{

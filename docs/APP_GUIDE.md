@@ -214,11 +214,13 @@ After selection, the muscle's name becomes the outlined selector button (for exa
 
 ## Doing a workout
 
-On the **dev1 preview**, Today puts the workout and its Start or Resume button above the expandable plan and weekly progress. During the workout, the labeled **Workout list** opens the session order. Tap an exercise to jump to it, or tap **Swap** beside an unfinished exercise to pick a replacement. The current exercise also has a **Swap** shortcut beside its name. A swap updates the remaining sets for this session unless **Also update my plan** is selected.
+On the **dev1 preview**, Today shows the planned or in-progress workout first, followed by **Other workouts**, then a compact card with both progress rings. Tap the rings card to open **Progress**. During a workout, the outlined **Workout list** button opens the session order. Tap an exercise to jump to it, or tap **Swap** beside an unfinished exercise to pick a replacement. The current exercise also has a **Swap** shortcut beside its name. A swap updates the remaining sets for this session unless **Also update my plan** is selected.
 
 On short screens, the inline demonstration is smaller and the primary button comes before the timeline. During an active rest, **Start next set** continues to the set shown below it. The saved summary keeps **Done** above the expandable **Next targets**.
 
 **How to** opens the exercise instructions from the lower-left edge of the preview. Expand a 3D preview to access its playback controls. Enter actual weight and reps on the set itself, or use **Add a set** and **Remove a set** in the Workout menu. Plan adjustments are available before the workout.
+
+The **⋯** workout menu groups exercise and session actions, with **End workout** at the bottom. **Exercise complete** shows what you logged and asks how the load felt when that feedback helps tune your targets. It names the next exercise and shows the recovery countdown when enabled in **Timers & sounds**. In warm-up, cardio uses short labels and moves use numbered buttons. Full names appear for the current and next move and in the **Warm-up moves** section of the Workout list.
 
 On dev, workout screens account for the Testing banner and phone safe areas before positioning the bottom buttons. Longer screens scroll normally, with space below the controls. See the [spacing and screen coverage review](WORKOUT-LAYOUT-2026-11-11.md) for the remaining differences between the older screens and the new design.
 
