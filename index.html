@@ -23,11 +23,23 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
 /* Layout: single phone column, sticky top bar, fixed bottom tab bar; soft white cards on blush, serif for titles and numbers, spaced caps for labels */
 /* Shared theme tokens live in theme.css. */
+/* Reference typography: expressive serif for headings and key workout values;
+   restrained sans-serif for labels, cues, navigation and actions. */
+h1,h2,h3{font-weight:400;letter-spacing:0}
+.eyebrow{font-family:var(--body);font-weight:700;letter-spacing:var(--label-track)}
+.brand{font-weight:400}
+.stat .v,.day .idx,.plan-number,.day .t,.ex .name,.ex .n,
+.target b,.set .sn,.timer .clock{font-weight:400}
+.ex .name{letter-spacing:0}
+.field input{font-family:var(--display);font-size:var(--title-md);font-weight:400}
+.target b{letter-spacing:0}
+.btn,nav.tabs button{font-family:var(--body);font-weight:600}
+
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--text-lg);line-height:1.4;-webkit-text-size-adjust:100%}
 /* Keep touch gestures vertical without trapping document or sheet scrolling. */
@@ -952,6 +964,13 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.10.2",
+    "date": "2026-11-18",
+    "title": "Refined workout typography",
+    "notes": ["Use an expressive serif for exercise titles and important workout values, with clearer sans-serif labels, controls and guidance."]
+  },
+
   {
     "version": "0.10.1",
     "date": "2026-11-18",
