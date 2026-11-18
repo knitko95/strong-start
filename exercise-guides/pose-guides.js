@@ -1,4 +1,4 @@
-/* Approved public pose pairs only. No account, plan or workout storage access. */
+/* Approved public pose demonstrations only. No account, plan or workout storage access. */
 (()=>{
  'use strict';
  const base=new URL('poses/',document.currentScript.src),pairs=new Map(),previews=new Map(),hydrated=new WeakSet();let cataloguePromise;
@@ -7,11 +7,14 @@
    if(data.schemaVersion!==1||!data.exercises)throw Error('Invalid pose catalogue');
    for(const entry of Object.values(data.exercises)){
     if(entry.review!=='owner-approved'||entry.frames?.length!==2||entry.timingMs!==900||!entry.frames.every(f=>/^assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(f.asset)&&f.width>0&&f.height>0))throw Error('Invalid approved pose pair');
+   }
+   for(const [id,entry] of Object.entries(data.sequences??{})){
+    if(Object.hasOwn(data.exercises,id)||entry.review!=='owner-approved'||!Array.isArray(entry.frames)||entry.frames.length<2||entry.frames.length>4||!Array.isArray(entry.timingMs)||entry.timingMs.length!==entry.frames.length||!entry.timingMs.every(ms=>Number.isInteger(ms)&&ms>=100&&ms<=2000)||!entry.frames.every(f=>/^assets\/[a-z0-9-]+\.[a-f0-9]{12}\.webp$/.test(f.asset)&&f.width>0&&f.height>0))throw Error('Invalid approved pose sequence');
    }return data;
   }).catch(e=>{cataloguePromise=null;throw e;});
   return cataloguePromise;
  }
- async function find(id,environment){const entry=(await catalogue()).exercises[id];return entry?.enabledEnvironments.includes(environment)?entry:null;}
+ async function find(id,environment){const data=await catalogue(),entry=data.exercises[id]??data.sequences?.[id];return entry?.enabledEnvironments.includes(environment)?entry:null;}
  function loadImage(frame){return new Promise((resolve,reject)=>{
   const image=new Image();image.decoding='async';let done=false;
   const timeout=setTimeout(()=>finish(Error('Pose image timeout')),15000);
@@ -51,14 +54,14 @@
   }
  }
  async function mount(view,entry,{suspended=false,isCurrent=()=>true}={}){
-  // Both files are loaded and decoded before either pose enters the layout.
+  // Decode all poses before starting playback.
   const images=await loadPair(entry),abort=new AbortController(),motion=matchMedia('(prefers-reduced-motion: reduce)');
   if(!isCurrent())throw new DOMException('Cancelled pose mount','AbortError');
-  const stage=document.createElement('div');stage.className='pose-stage';stage.setAttribute('role','img');stage.setAttribute('aria-label',entry.name+' demonstration, showing two exercise positions.');
+  const stage=document.createElement('div');stage.className='pose-stage';stage.setAttribute('role','img');stage.setAttribute('aria-label',entry.name+' demonstration.');
   for(const source of images){const image=document.createElement('img');image.src=source.src;image.alt='';image.width=source.naturalWidth;image.height=source.naturalHeight;image.draggable=false;image.hidden=true;stage.append(image);}
   let phase=0,timer,disposed=false,visible=true,paused=suspended;const frames=[...stage.children];
   function display(){frames.forEach((image,i)=>image.hidden=i!==phase);stage.dataset.pose=String(phase);}
-  function refresh(){clearTimeout(timer);if(disposed)return;if(motion.matches){phase=0;display();}const running=!motion.matches&&!document.hidden&&!paused&&visible;stage.dataset.playing=String(running);if(running)timer=setTimeout(()=>{phase=1-phase;display();refresh();},entry.timingMs);}
+  function refresh(){clearTimeout(timer);if(disposed)return;if(motion.matches){phase=0;display();}const running=!motion.matches&&!document.hidden&&!paused&&visible;stage.dataset.playing=String(running);if(running)timer=setTimeout(()=>{phase=(phase+1)%frames.length;display();refresh();},Array.isArray(entry.timingMs)?entry.timingMs[phase]:entry.timingMs);}
   display();view.replaceChildren(stage);
   const observer=typeof IntersectionObserver==='function'?new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;refresh();}):null;observer?.observe(stage);
   document.addEventListener('visibilitychange',refresh,{signal:abort.signal});motion.addEventListener('change',refresh,{signal:abort.signal});refresh();

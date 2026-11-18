@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": "2026-11-15-approved-18-v1",
+  "revision": "2026-11-18-reviewed-exercise-demos",
   "exercises": {
     "barbell-bench-press": {
       "name": "Barbell Bench Press",
@@ -629,6 +629,178 @@
           20,
           884,
           880
+        ]
+      }
+    }
+  },
+  "sequences": {
+    "smith-machine-bench-press": {
+      "name": "Smith Machine Bench Press",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": [
+        900,
+        900
+      ],
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/smith-machine-bench-press-0.de7a4b982161.webp",
+          "bytes": 158092,
+          "sha256": "de7a4b982161ba4378b1b2249f0e4e2a56c826499914a6259d363d0e915abdaa",
+          "sourceSha256": "975b74ea7f27cafe62a6d83755a444790b6b7b0b46786075345a0382c764e61e",
+          "width": 837,
+          "height": 940
+        },
+        {
+          "asset": "assets/smith-machine-bench-press-1.a94f6456697b.webp",
+          "bytes": 158848,
+          "sha256": "a94f6456697bec13f705e7d4d407cd8bacc921ab4ca800dfa0d13df97604f748",
+          "sourceSha256": "975b74ea7f27cafe62a6d83755a444790b6b7b0b46786075345a0382c764e61e",
+          "width": 837,
+          "height": 940
+        }
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          20,
+          48,
+          826,
+          914
+        ]
+      }
+    },
+    "neutral-grip-pull-up": {
+      "name": "Neutral-Grip Pull-Up",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": [
+        900,
+        900
+      ],
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/neutral-grip-pull-up-0.7f7c76b0d254.webp",
+          "bytes": 101862,
+          "sha256": "7f7c76b0d2543bc7f2a017b5b935cf6285c2d81f3713e82e5b933efab03427e5",
+          "sourceSha256": "fce814547823e050d7d64f0d04f30ac98eecb06341b8fef6fec2b0503e16df53",
+          "width": 600,
+          "height": 980
+        },
+        {
+          "asset": "assets/neutral-grip-pull-up-1.3d59ba777e12.webp",
+          "bytes": 101624,
+          "sha256": "3d59ba777e12413e9e399af4443f5c60b69e4e631616de44f1345a159114e857",
+          "sourceSha256": "fce814547823e050d7d64f0d04f30ac98eecb06341b8fef6fec2b0503e16df53",
+          "width": 600,
+          "height": 980
+        }
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          58,
+          25,
+          546,
+          956
+        ]
+      }
+    },
+    "kettlebell-gorilla-row": {
+      "name": "Kettlebell Gorilla Row",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": [
+        650,
+        850,
+        650,
+        850
+      ],
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/kettlebell-gorilla-row-0.5d8e95a29ec5.webp",
+          "bytes": 87800,
+          "sha256": "5d8e95a29ec573cb2898e1feac60bb18e47fa8fc607e14b0026222cff3d0eaf1",
+          "sourceSha256": "6c29e9f9d3356b6d05c6b54b263e9d0440c82e31dde44670fc15b0361eb7d775",
+          "width": 530,
+          "height": 724
+        },
+        {
+          "asset": "assets/kettlebell-gorilla-row-1.b1a5226f5977.webp",
+          "bytes": 85098,
+          "sha256": "b1a5226f5977ef6fb8e1704a2fab02aadae53401741c3751f7f522dbad313bba",
+          "sourceSha256": "6c29e9f9d3356b6d05c6b54b263e9d0440c82e31dde44670fc15b0361eb7d775",
+          "width": 530,
+          "height": 724
+        },
+        {
+          "asset": "assets/kettlebell-gorilla-row-0.5d8e95a29ec5.webp",
+          "bytes": 87800,
+          "sha256": "5d8e95a29ec573cb2898e1feac60bb18e47fa8fc607e14b0026222cff3d0eaf1",
+          "sourceSha256": "6c29e9f9d3356b6d05c6b54b263e9d0440c82e31dde44670fc15b0361eb7d775",
+          "width": 530,
+          "height": 724
+        },
+        {
+          "asset": "assets/kettlebell-gorilla-row-3.be41366576e8.webp",
+          "bytes": 88044,
+          "sha256": "be41366576e8e7579fb1576fb2ff7545863a821603e671ec218f77b525e5bb8b",
+          "sourceSha256": "6c29e9f9d3356b6d05c6b54b263e9d0440c82e31dde44670fc15b0361eb7d775",
+          "width": 530,
+          "height": 724
+        }
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          48,
+          37,
+          484,
+          703
+        ]
+      }
+    },
+    "machine-triceps-extension": {
+      "name": "Machine Triceps Extension",
+      "enabledEnvironments": [
+        "development"
+      ],
+      "timingMs": [
+        900,
+        900
+      ],
+      "review": "owner-approved",
+      "frames": [
+        {
+          "asset": "assets/machine-triceps-extension-0.d42f4c1d55df.webp",
+          "bytes": 189530,
+          "sha256": "d42f4c1d55dfbc9401323f04c3de588b4340d6343958fc4a85c3b595c9cef898",
+          "sourceSha256": "ed433ddc4ba128c03ea923748368ac518698450d34361db304131e19430248d9",
+          "width": 923,
+          "height": 923
+        },
+        {
+          "asset": "assets/machine-triceps-extension-1.ee334003d478.webp",
+          "bytes": 185710,
+          "sha256": "ee334003d47878790e61fde28dfcdc52b710b10471fcf02df07e4ceab08d680c",
+          "sourceSha256": "ed433ddc4ba128c03ea923748368ac518698450d34361db304131e19430248d9",
+          "width": 923,
+          "height": 923
+        }
+      ],
+      "preview": {
+        "frame": 0,
+        "bounds": [
+          132,
+          34,
+          849,
+          900
         ]
       }
     }
