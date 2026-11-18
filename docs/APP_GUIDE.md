@@ -214,6 +214,10 @@ After selection, the muscle's name becomes the outlined selector button (for exa
 
 ## Doing a workout
 
+On the **dev1 preview**, Today puts the workout and its Start or Resume button above the expandable plan and weekly progress. During the workout, the labeled **Workout list** opens the session order. Tap an exercise to jump to it, or tap **Swap** beside an unfinished exercise to pick a replacement. The current exercise also has a **Swap** shortcut beside its name. A swap updates the remaining sets for this session unless **Also update my plan** is selected.
+
+On short screens, the inline demonstration is smaller and the primary button comes before the timeline. During an active rest, **Start next set** continues to the set shown below it. The saved summary keeps **Done** above the expandable **Next targets**.
+
 On dev, workout screens account for the Testing banner and phone safe areas before positioning the bottom buttons. Longer screens scroll normally, with space below the controls. See the [spacing and screen coverage review](WORKOUT-LAYOUT-2026-11-11.md) for the remaining differences between the older screens and the new design.
 
 On the test app, workouts are numbered independently of weekdays. **Up next** follows your completed workouts across program weeks, then loops back to Workout 1. For a Monday/Wednesday/Friday schedule started on Wednesday, you can do Workout 1 Wednesday, Workout 2 Friday, and Workout 3 Monday. Missing Friday leaves Workout 2 ready for your next visit. The selected weekdays appear separately as your planned schedule; you can train on another day.

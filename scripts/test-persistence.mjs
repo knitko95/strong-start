@@ -102,7 +102,7 @@ await test('late feedback responses cannot clear another account or newly edited
 await test('demo-first exercise view keeps the live path and moves secondary actions to settings',()=>{
   const h=harness();h.run(`startWorkout(weekKeys()[0]);var demoPk=dSlots()[0].pk;state.draft.rampDone=99;state.draft.step={ph:'ex',pk:demoPk};`);
   const out=h.run('renderFocus()');assert.match(out,/focus demo-first/);assert(out.indexOf('workout-demo')<out.indexOf('class="asteps"'));
-  assert.match(out,/aria-label="Workout menu"/);assert.doesNotMatch(out,/data-action="flist"/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/Suggested start\. Change it if it feels off\./);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
+  assert.match(out,/aria-label="Workout menu"/);assert.match(out,/data-action="flist"[^>]*>Workout list/);assert.match(out,/How to/);assert.match(out,/Log set/);assert.doesNotMatch(out,/Suggested start\. Change it if it feels off\./);assert.doesNotMatch(out,/<p class="atip"><b>Tip:/);
   h.run('fMoreSheet(demoPk)');for(const action of ['swap','adjust','fskipex','fpause','fexit','flist','gmute'])assert(h.run('lastModal').includes(`data-do="${action}"`));
   h.run('var savedTarget=target;target=s=>({...savedTarget(s),w:null,sug:null,last:null});');assert.match(h.run('renderFocus()'),/First time: start light\./);
 });
@@ -700,7 +700,7 @@ await test('paired Log set follows A then B then rest, with unmatched sets and a
     const h=pairedWorkout();h.run(`startWorkout(K);state.settings.autoRest=${autoRest};state.settings.betweenTimer=false;state.draft.rampDone=99;state.draft.pairSeen={[fPair(state.draft,dSlots(),A).key]:true};state.draft.sets[A]=Array.from({length:3},()=>({w:'20',r:'10',done:false}));state.draft.sets[B]=Array.from({length:4},()=>({w:'20',r:'10',done:false}));state.draft.step={ph:'ex',pk:A};`);
     const trace=[];let iterations=0;
     while(h.run("state.draft.step.ph!=='exdone'")&&iterations++<30){
-      if(h.run("state.draft.step.ph==='rest'")){trace.push('rest');assert.match(h.run('renderFocus()'),/>Ready<\/button>/);h.click('fready');}
+      if(h.run("state.draft.step.ph==='rest'")){trace.push('rest');assert.match(h.run('renderFocus()'),/>Start next set<\/button>/);h.click('fready');}
       h.run(`var currentPk=state.draft.step.pk,k=state.draft.sets[currentPk].findIndex(x=>!x.done);`);
       trace.push((h.run('currentPk===A')?'A':'B')+(h.run('k')+1));assert.match(h.run('renderFocus()'),/>Log set<\/button>/);h.click('fdone',{pk:h.run('currentPk'),i:String(h.run('k'))});
     }

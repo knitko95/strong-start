@@ -851,7 +851,16 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 
 /* Refined workout presentation, scoped to the workout flow and its sheets. */
 .focus{gap:18px}.focus h1{font-size:var(--title-xl);font-weight:600;font-style:normal;line-height:1.15}
-.workout-top{display:grid;grid-template-columns:max-content minmax(24px,1fr) 44px;gap:12px;align-items:center;padding:0 2px;min-height:44px}
+.workout-top{display:grid;grid-template-columns:minmax(0,max-content) minmax(16px,1fr) max-content 44px;gap:8px;align-items:center;padding:0 2px;min-height:44px}
+.workout-top .workout-list-link,.exercise-swap{min-height:44px;min-width:44px;text-decoration:none}
+.workout-top .workout-list-link{font-size:var(--text-sm);padding-inline:2px}
+.exercise-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:6px}
+.exercise-heading h1{min-width:0;overflow-wrap:anywhere}
+.exercise-heading .exercise-swap{flex:none;pointer-events:auto}
+.workout-list-row{display:flex;align-items:center;gap:8px;border-top:1px solid var(--line)}
+.workout-list-row:first-child{border-top:0}
+.workout-list-row .fli{flex:1;min-width:0;min-height:44px;box-sizing:border-box}
+.workout-list-row .exercise-swap{flex:none}
 .workout-top .flabel{max-width:min(44vw,180px);font-size:var(--text-sm);font-weight:400;text-transform:none;letter-spacing:0;color:var(--muted);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .workout-top .ficon{background:transparent;border-radius:12px;box-shadow:none}.workout-top .ficon svg{width:21px;height:21px}
 .workout-top .fsegs{min-width:0;gap:4px}.workout-top .fsegs i{height:4px;border-radius:4px;background:var(--line)}
@@ -881,6 +890,19 @@ nav.tabs .ticon{position:relative;display:inline-flex}
 .rest-entry-base{display:grid;grid-template-rows:auto 56px;row-gap:6px;visibility:hidden;pointer-events:none}
 .rest-entry-label{font:400 var(--text-md) var(--body)}.rest-entry-hint{visibility:hidden;pointer-events:none;text-align:center}
 .demo-first .rest-entry-slot .atimer{position:absolute;left:0;right:0;bottom:0;height:128px;margin:0}
+.demo-first .acard>.ffoot{margin-top:0}
+.demo-first .entry-next{min-height:19px;margin:0;text-align:center;font-size:var(--text-sm);line-height:19px}
+.workout-summary .ffoot{padding-top:0;margin-top:0}
+.workout-summary .workout-disclosure{border-top:1px solid var(--line)}
+@media(max-height:650px){
+  .demo-first .exercise-hero.has-demo{margin-top:-20px}
+  .demo-first .exercise-hero .eg-inline:not(.expanded) :is(.pose-stage,.ss-stage){height:132px}
+  .demo-first .ahead{margin-top:8px}
+  .focus.demo-first .acard,.focus.guide-focus .acard{gap:8px;padding-block:12px}
+  .guide-focus{gap:8px}
+  .guide-focus .atimer .gringw,.guide-timer .gringw{width:108px;height:108px}
+  .guide-focus .guide-timer,.guide-focus .guide-reps{min-height:108px}
+}
 
 
 .guide-focus{gap:14px}.guide-focus .acard{padding:18px;gap:12px}.guide-meta{display:flex;align-items:center;justify-content:space-between;gap:12px}.guide-meta .howbtn{min-height:44px;border:0;background:var(--surface);font-size:var(--text-sm);color:var(--ink)}
@@ -4764,6 +4786,7 @@ function fTop(d,slots,label,progress){
   }
   return `<div class="ftop workout-top">
     <div class="flabel" title="${esc(label)}">${esc(label)}</div><div class="fsegs" aria-hidden="true">${segs.map(c=>`<i class="${c}"></i>`).join('')}</div>
+    <button class="linkbtn workout-list-link" data-action="flist" aria-haspopup="dialog">Workout list</button>
     <button class="ficon" data-action="fmore" ${st.pk?`data-pk="${esc(st.pk)}"`:''} aria-label="Workout menu" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button></div>`;
 }
 function aTop(label,backAction='tab',backAttrs='data-tab="today"'){
@@ -4955,13 +4978,15 @@ function renderFocus(){
   if(st.ph==='ex'&&pair&&!d.pairSeen?.[pair.key]&&pair.moves.every(move=>!doneN(d,move.pk)&&openN(d,move.pk))) return fPairIntro(d,slots,pair);
   const each = load && (primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   const per = ex.uni?' per side':'';
+  const swap=workoutSwapButton(s,openN(d,s.pk));
+  const heading=`<div class="exercise-heading"><h1>${esc(ex.n)}</h1>${swap}</div><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>`;
   const upNext=(i)=>{ if(i!==(d.sets[s.pk]||[]).length-1)return '';const n=nextGroupStart(d,slots,idx); return n>=0&&grp.length<2?`<div class="anext">Up next: <b>${esc(EX[slots[n].id].n)}</b></div>`:''; };
-  const moreBtn=``;
   if(st.ph==='rest'){
     const T=st.restPreview?null:ui.timer, preview=!!st.restPreview, planned=st.restSec??fRestSeconds(s,slots), left=T?Math.max(0,Math.ceil((T.end-Date.now())/1000)):preview?planned:0, tot=Math.max(1,T?T.total:planned), R=110, C=2*Math.PI*R;
-    const restHint=workoutSetHint(tg);
+    const restHint=workoutSetHint(tg), nextIndex=d.sets[s.pk].findIndex(row=>!row.done);
+    const nextSet=nextIndex<0?'':`Set ${nextIndex+1}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} of ${d.sets[s.pk].length}`;
     return `<div class="focus demo-first rest-focus">${fTop(d,slots,pair?`${gi+1} of ${gs.length}`:undefined)}
-      <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div></div>
+      <div class="ahead">${heading}</div>
       ${workoutHero(ex,s.pk)}
       <section class="card acard"><div class="ach"><b>Rest</b></div>
         <div class="rest-entry-slot"><div class="rest-entry-base" aria-hidden="true"><span class="rest-entry-label">Weight</span></div>${restHint?`<div class="tiny muted rest-entry-hint" aria-hidden="true">${esc(restHint)}</div>`:''}
@@ -4970,9 +4995,9 @@ function renderFocus(){
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div></div>
-        ${workoutPath(d,slots,s)}
-
-      <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':'Ready'}</button></div></div></section></div>`;
+      <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':'Start next set'}</button></div></div>
+      ${!preview&&nextSet?`<p class="entry-next"><span class="muted">Next:</span> ${esc(nextSet)}</p>`:''}
+      ${workoutPath(d,slots,s)}</section></div>`;
   }
   if(st.ph==='exdone'){
     const gSlots=grp.map(i=>slots[i]), nxt=nextGroupStart(d,slots,idx), ns=nxt>=0?slots[nxt]:null, ntg=ns?target(ns):null;
@@ -5000,22 +5025,26 @@ function renderFocus(){
   const label = `Exercise ${gi+1} of ${gs.length}`;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
-    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
+    <div class="ahead">${heading}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
     ${workoutHero(ex,s.pk)}
     <section class="card acard"><div class="ach"><b>Set ${kk+1}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} <span>of ${sets.length}</span></b><span class="goal">${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
-      ${workoutPath(d,slots,s)}
-    <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':'Log set'}</button></div>${pair?'':upNext(kk)}</div></section></div>`;
+    <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':'Log set'}</button></div>${pair?'':upNext(kk)}</div>
+    ${workoutPath(d,slots,s)}</section></div>`;
+}
+function workoutSwapButton(slot,remaining){
+  if(!remaining||coachMode) return '';
+  return `<button class="linkbtn exercise-swap" data-action="swap" data-pk="${esc(slot.pk)}" aria-label="Swap ${esc(EX[slot.id].n)}" aria-haspopup="dialog">Swap</button>`;
 }
 function flistSheet(){
   const d=state.draft, slots=dSlots(), gs=fGroups(slots), st=d.step||{};
   const mins=Math.round((Date.now()-d.startedAt)/60000);
-  const row=(to,name,sub,state1)=>`<button class="fli" data-action="fjump" data-to="${to}"><span class="fmark ${state1}">${state1==='d'?'✓':state1==='c'?'▶':''}</span><span style="flex:1;text-align:left"><b>${esc(name)}</b><br><span class="tiny muted">${esc(sub)}</span></span>${state1==='c'?'<span class="chip acc">Now</span>':''}</button>`;
-  let h=`<div class="focus">${aTop('Workout list','closemodal','')}<div class="ahead"><h1>Today’s workout</h1><div class="small muted">Tap any exercise to jump to it, like when a machine is taken.</div></div><section class="card acard"><div class="ach"><b>Session order</b><span class="goal">${mins} min in</span></div><div class="aworkout-list">`;
+  const row=(to,name,sub,state1,swap='')=>`<div class="workout-list-row"><button class="fli" data-action="fjump" data-to="${esc(to)}"><span class="fmark ${state1}">${state1==='d'?'✓':state1==='c'?'▶':''}</span><span style="flex:1;text-align:left"><b>${esc(name)}</b><br><span class="tiny muted">${esc(sub)}</span></span>${state1==='c'?'<span class="chip acc">Now</span>':''}</button>${swap}</div>`;
+  let h=`<div class="focus">${aTop('Workout list','closemodal','')}<div class="ahead"><h1>Workout list</h1></div><section class="card acard"><div class="ach"><b>Session order</b><span class="goal">${mins} min in</span></div><div class="aworkout-list">`;
   h+=row('warm','Warm-up',`${d._x?d._x.min:5} min`, st.ph==='warm'?'c':'d');
   gs.forEach(g=>g.forEach(i=>{ const s=slots[i], tg=target(s), dn=doneN(d,s.pk), n=d.sets[s.pk].length, cur=['ex','rest','exdone'].includes(st.ph)&&st.pk===s.pk;
-    row; h+=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':''); }));
+    h+=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':'',workoutSwapButton(s,n-dn)); }));
   h+=row('cool','Cardio and cool-down','Optional cardio, walk and stretches', st.ph==='cool'?'c':'');
   h+=`</div></section>${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to workout</button>','',`<button class="amore" data-action="fexit" aria-label="Pause or end workout">${ICON.more}</button>`)}</div>`;
   modal(h,{sheetClass:'workout-sheet'});
@@ -5815,7 +5844,7 @@ function renderGuide(){
   return `<div class="focus guide-focus grouped-guide">${header}<div class="ahead"><h1>${esc(moveTitle)}</h1><div class="guide-meta"><span class="small muted">${esc(goal)}</span><button class="howbtn" data-action="ghowto">${ICON.play}How to</button></div></div>
     <section class="card acard"><div class="ach"><b>${esc(title)}</b>${pause}</div>${timer}
       ${hint?`<p class="guide-hint">${esc(hint)}</p>`:''}
-      ${guidePath(d,G,items)}<div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${label}</button></div><div class="guide-next">Next: <span>${esc(nextLabel)}</span></div></div></section></div>`;
+      <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${act==='gnow'&&ready&&it.phases?'Start timer':label}</button></div><div class="guide-next">Next: <span>${esc(nextLabel)}</span></div></div>${guidePath(d,G,items)}</section></div>`;
 
 }
 function gAction(a,b){
@@ -6086,11 +6115,11 @@ function renderToday(){
   const finished=!draft?todayCompletedWorkout():null;
   const restDay=!draft&&!finished&&!isFlex()&&!trainDays().includes(new Date().getDay());
   const date=nextTrainingDate(), planned=date.getTime()===dayStart(new Date()).getTime()?'Today':date.toLocaleDateString([], {weekday:'short',month:'short',day:'numeric'});
-  let h=ringsCard(w,keys,wl,{L});
+  let h='', status='';
   if(finished){
     const count=(finished.entries||[]).length, recap=[finished.name,finished.dur!=null?finished.dur+' min':null,count?count+' exercise'+(count===1?'':'s'):null].filter(Boolean).join(' · ');
-    h+=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
-  } else if(restDay) h+=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
+    status=`<section class="card today-status today-finished" role="status"><div class="eyebrow">✓ Finished today</div><h2>Today’s workout complete</h2><p class="small">${esc(recap)}</p><p class="small muted">Your workout is saved.</p></section>`;
+  } else if(restDay) status=`<section class="card today-status today-rest"><h2>A day to recharge</h2><p class="small muted">No workout scheduled today.</p><p class="small">Next planned: ${esc(planned)}</p></section>`;
   const X=draft?draft._x||sessionExtras(draft,slots):null,mins=X?X.min+Math.round(liftSec(slots)/60)+X.coolMin:totalMinutes(mainKey);
   const location=placeSwitch();
   if(location) h+=`<div class="today-location" aria-label="Training location">${location}</div>`;
@@ -6099,11 +6128,11 @@ function renderToday(){
     <div class="today-workout-summary"><div class="today-workout-copy"><h1>${esc(t.name)}</h1><p class="muted">${esc(workoutMuscleSummary(coverage))}</p></div><button type="button" class="today-muscle-preview" data-action="workoutmuscles" data-key="${esc(mainKey)}" aria-label="View muscles worked in ${esc(t.name)}" aria-haspopup="dialog">${bodySVG('f',coverage.color)}${bodySVG('b',coverage.color)}</button></div>
     ${placeNote([mainKey])}
     ${draft?`<div class="today-resume"><p><b>${completion.completed} of ${completion.planned} sets complete</b></p><p class="small muted">Next: ${esc(todayResumeNext(draft,slots))}</p><div class="today-resume-meter" aria-hidden="true"><span style="width:${completion.planned?Math.min(100,100*completion.completed/completion.planned):0}%"></span></div></div>`:''}
+    ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">${restDay?'Train today':'Start workout'}</button>`}
     <button class="today-exercises-toggle" data-action="todayexercises" data-key="${mainKey}" aria-expanded="${exercisesOpen}" aria-controls="today-exercises"><span>${exercisesOpen?'Hide workout plan':'Show workout plan'}</span><span aria-hidden="true">${exercisesOpen?'▴':'▾'}</span></button>
     <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderWorkoutPlan(mainKey,slots,draft):''}</div>
-    ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">${restDay?'Train today':'Start workout'}</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
-  h+=cmCoachCard(true);
+  h+=status+ringsCard(w,keys,wl,{L})+cmCoachCard(true);
   const others=keys.filter(k=>k!==mainKey);
   if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
     const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&(PAGE.active?(PAGE.summary?.partials||[]).find(l=>l.week===w&&l.key===k):logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial'));
@@ -6710,14 +6739,13 @@ function finishWorkout(){
   else state.draft=null;
   fClearTimer(); ui.timer=null; clearInterval(timerInt); save(); pushLog(l);
   ui.tab='today'; render(); window.scrollTo(0,0);
-  modal(`<div class="focus">${aTop(l.status==='partial'?'Partial workout saved':'Workout saved','closemodal','')}
-    <div class="ahead"><h1>${l.status==='partial'?'Your work is saved.':'A strong finish.'}</h1><div class="small muted">${esc(l.name)} ${l.status==='partial'?'partly finished':'complete'}</div></div>
+  modal(`<div class="focus workout-summary">${aTop(l.name,'closemodal','')}
+    <div class="ahead"><h1>${l.status==='partial'?'Partial workout saved':'Workout saved'}</h1><div class="small muted">${esc(l.name)} ${l.status==='partial'?'partly finished':'complete'}</div></div>
     <section class="card acard"><div class="ach"><b>Your workout</b><span class="goal">${l.status==='partial'?'Partial':'Complete'}</span></div><div class="astats"><div><b>${l.completed} / ${l.planned}</b><span>Working sets</span></div><div><b>${l.dur} min</b><span>Workout time</span></div></div>
       ${l.status==='partial'?'<div class="small muted">Resume the remaining sets from Today. This does not count as a completed workout.</div>':''}
-      <div class="asection"><b>Next targets</b>${entries.map(e=>`<div class="asection"><b class="small">${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div>`).join('')}</div>
+      ${aFoot('<button class="btn primary fbig" data-action="closemodal">Done</button>')}
+      <details class="workout-disclosure"><summary>Next targets</summary>${entries.map(e=>`<div class="asection"><b class="small">${esc(e.name)}</b><div class="small muted">${esc(e.msg)}</div></div>`).join('')}</details>
       <div class="anote small">${esc(saveStatus()[2])}${AUTH.user&&!AUTH.coach&&!coachMode?' Your coach can see this workout after it syncs.':''}</div></section>
-    <p class="atip">Great job showing up. Don't skip the walk and stretches, and drink some water.</p>
-    ${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to Today</button>')}
     </div>`,{sheetClass:'workout-sheet'});
 }
 
