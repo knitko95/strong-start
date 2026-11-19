@@ -971,6 +971,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.12.3",
+    "date": "2026-11-18",
+    "title": "More accurate exercise targets",
+    "notes": ["Shrugs count as traps work, overhead presses count mainly as front shoulders, and a plan's side-shoulder exercise is always a side-shoulder move. Lateral Lunge is now Side Lunge, and the duplicate Side Step Lunge is gone. Clearer muscle descriptions for dips, rows and a few step-ups."]
+  },
+  {
     "version": "0.12.2",
     "date": "2026-11-18",
     "title": "Start workout on Today",
@@ -1248,7 +1254,7 @@ TRX Chest Press|trx|push_h,push_2|S|Chest, core|2|R|0|Walk your feet closer to t
 Incline Dumbbell Press|db,bn|push_2,push_h|S|Upper chest, front delts|1|L|0|Bench at about 30 degrees; elbows slightly tucked.
 Incline Barbell Bench Press|bb,bn|push_2,push_h|S|Upper chest, front delts|1|L|0|Bar touches just below the collarbone.
 Incline Machine Press|mc|push_2|S|Upper chest|2|L|0|Drive through the palms, don't shrug.
-Weighted Dip|dp|push_2,tri|S|Chest, triceps|1|B|0|Slight forward lean; go to about shoulder-below-elbow depth.
+Weighted Dip|dp|push_2,tri|S|Lower chest, triceps|1|B|0|Slight forward lean; go to about shoulder-below-elbow depth.
 Cable Fly High to Low|cb|push_2|T|Lower chest|2|L|0|Soft elbows; hug a barrel down toward your hips.
 Cable Fly Low to High|cb|push_2|T|Upper chest|2|L|0|Scoop up to eye level, squeeze the hands together.
 Pec Deck|mc|push_2|T|Chest|2|L|0|Pause one second with the handles together.
@@ -1257,19 +1263,19 @@ TRX Fly|trx|push_2|T|Chest, core|2|R|0|Arms nearly straight; keep the plank rigi
 Deficit Push-Up|bw|push_2|S|Chest, triceps|2|B|0|Hands on plates or handles, chest sinks below hand level.
 Push-Up on Stability Ball|sb|push_2|S|Chest, core|2|R|0|Hands on the ball; squeeze it to stop the wobble.
 Feet-on-Ball Push-Up|sb|push_2|S|Chest, core, shoulders|2|R|0|Shins on the ball, keep hips level.
-Dumbbell Squeeze Press|db,bn|push_2|S|Inner chest, triceps|2|L|0|Press the dumbbells hard into each other the whole set.
-Standing Barbell Overhead Press|bb|push_v|S|Shoulders, triceps, core|1|L|0|Squeeze glutes; press up and slightly back over mid-foot.
-Push Press|bb|push_v|S|Shoulders, triceps, legs|1|L|0|Short dip, drive with the legs, finish with the arms.
-Z Press|bb|push_v|S|Shoulders, core|1|L|0|Sit on the floor, legs straight; no leaning back.
-Seated Dumbbell Shoulder Press|db,bn|push_v|S|Shoulders, triceps|1|L|0|Back on the bench, lower to ear level.
-Standing Dumbbell Shoulder Press|db|push_v|S|Shoulders, core|2|L|0|Ribs down, no back arch.
-Machine Shoulder Press|mc|push_v|S|Shoulders, triceps|2|L|0|Handles start at ear level.
-Half-Kneeling Landmine Press|bb,lm|push_v|S|Shoulders, upper chest, core|2|L|1|Press up and forward in an arc; don't lean back.
-Single-Arm Kettlebell Overhead Press|kb|push_v|S|Shoulders, core|2|L|1|Bell in the rack, lats tight, punch to the ceiling.
-Bottoms-Up Kettlebell Press|kb|push_v|S|Shoulders, grip, rotator cuff|2|L|1|Crush the handle; bell stays upside-down and upright.
-Arnold Press|db,bn|push_v|T|Shoulders|2|L|0|Rotate palms from facing you to facing forward as you press.
+Dumbbell Squeeze Press|db,bn|push_2|S|Chest, triceps|2|L|0|Press the dumbbells hard into each other the whole set.
+Standing Barbell Overhead Press|bb|push_v|S|Front delts, side delts, triceps, core|1|L|0|Squeeze glutes; press up and slightly back over mid-foot.
+Push Press|bb|push_v|S|Front delts, side delts, triceps, legs|1|L|0|Short dip, drive with the legs, finish with the arms.
+Z Press|bb|push_v|S|Front delts, side delts, core|1|L|0|Sit on the floor, legs straight; no leaning back.
+Seated Dumbbell Shoulder Press|db,bn|push_v|S|Front delts, side delts, triceps|1|L|0|Back on the bench, lower to ear level.
+Standing Dumbbell Shoulder Press|db|push_v|S|Front delts, side delts, core|2|L|0|Ribs down, no back arch.
+Machine Shoulder Press|mc|push_v|S|Front delts, side delts, triceps|2|L|0|Handles start at ear level.
+Half-Kneeling Landmine Press|bb,lm|push_v|S|Front delts, upper chest, core|2|L|1|Press up and forward in an arc; don't lean back.
+Single-Arm Kettlebell Overhead Press|kb|push_v|S|Front delts, side delts, core|2|L|1|Bell in the rack, lats tight, punch to the ceiling.
+Bottoms-Up Kettlebell Press|kb|push_v|S|Front delts, side delts, grip, rotator cuff|2|L|1|Crush the handle; bell stays upside-down and upright.
+Arnold Press|db,bn|push_v|T|Front delts, side delts|2|L|0|Rotate palms from facing you to facing forward as you press.
 Half-Kneeling Single-Arm Cable Chest Press|cb|push_h|S|Chest, core|2|L|1|Set the cable behind you at chest height. Press straight forward without twisting.|half-kneeling-single-arm-cable-press
-Pike Push-Up|bw|push_v|S|Shoulders, triceps|2|B|0|Hips high; head travels in front of the hands.
+Pike Push-Up|bw|push_v|S|Front delts, side delts, triceps|2|B|0|Hips high; head travels in front of the hands.
 Dumbbell Lateral Raise|db|shoulder_iso|F|Side delts|2|L|0|Lead with the elbows, stop at shoulder height.
 Cable Lateral Raise|cb|shoulder_iso|F|Side delts|2|L|1|Cable crosses behind your body for constant tension.
 Machine Lateral Raise|mc|shoulder_iso|F|Side delts|2|L|0|Pads on the forearms, raise to shoulder height.
@@ -1277,8 +1283,8 @@ Leaning Single-Arm Lateral Raise|db|shoulder_iso|F|Side delts|2|L|1|Hold a post 
 Lu Raise|db|shoulder_iso|F|Delts, upper traps|2|L|0|Thumbs up, raise all the way overhead with light weight.
 Cable Y-Raise|cb|shoulder_iso|F|Delts, lower traps|2|L|0|Cross the cables and raise into a Y.
 Y-Raise on Stability Ball|db,sb|shoulder_iso,rear|F|Lower traps, delts|2|L|0|Chest on the ball, thumbs up, arms in a Y.
-Dumbbell Front Raise|db|shoulder_iso|S|Front delts|2|L|0|Raise to eye level, no swing.
-Kettlebell Halo|kb|shoulder_iso,rot|T|Shoulders, core|2|L|0|Circle the bell close around your head, ribs down.
+Dumbbell Front Raise|db|shoulder_aux|S|Front delts|2|L|0|Raise to eye level, no swing.
+Kettlebell Halo|kb|shoulder_aux,rot|T|Shoulder mobility, core|2|L|0|Circle the bell close around your head, ribs down.
 Cable Rope Pushdown|cb|tri|S|Triceps|2|L|0|Elbows pinned; spread the rope at the bottom.
 Overhead Cable Triceps Extension|cb|tri|S|Triceps long head|2|L|0|Face away from the stack, stretch fully behind the head.
 Single-Arm Cable Kickback|cb|tri|S|Triceps|2|L|1|Hinge forward, upper arm parallel to the floor.
@@ -1342,8 +1348,8 @@ Pendlay Row|bb|pull_h|S|Upper back, lats|1|L|0|Torso parallel, each rep starts f
 Seal Row|bb,bn|pull_h|S|Upper back|1|L|0|Lie face-down on a raised bench, no body English.
 Chest-Supported Dumbbell Row|db,bn|pull_h|S|Upper back, lats|1|L|0|Chest on an incline bench, squeeze the shoulder blades.
 Landmine T-Bar Row|bb,lm|pull_h|S|Upper back, lats|1|L|0|Straddle the bar, V-handle under the plates.
-Seated Cable Row|cb|pull_h|S|Mid back, lats|2|L|0|Sit tall, pull to the stomach, no rocking.
-Machine Row|mc|pull_h|S|Mid back|2|L|0|Chest on the pad, elbows drive back.
+Seated Cable Row|cb|pull_h|S|Upper back, lats|2|L|0|Sit tall, pull to the stomach, no rocking.
+Machine Row|mc|pull_h|S|Upper back|2|L|0|Chest on the pad, elbows drive back.
 Inverted Row|bb|pull_h|S|Upper back, biceps|2|B|0|Bar in a rack; body straight, chest to the bar.
 TRX Row|trx|pull_h|S|Upper back, biceps|2|R|0|Walk feet forward to make it harder.
 Kettlebell Gorilla Row|kb|pull_h|S|Lats, upper back|2|L|0|Wide stance, two bells, alternate rows.
@@ -1355,7 +1361,7 @@ TRX Single-Arm Row|trx|pull_2|T|Lats, core|2|R|1|Don't let the free side drop.
 TRX Power Pull|trx|pull_2,rot|T|Upper back, obliques|2|R|1|Free arm reaches down then rotates open as you row.
 Straight-Arm Cable Pulldown|cb|pull_2|S|Lats|2|L|0|Arms straight, sweep the bar to the thighs.
 Dumbbell Pullover|db,bn|pull_2|S|Lats, chest|2|L|0|Across a bench, lower behind the head with soft elbows.
-Half-Kneeling Single-Arm Cable Row|cb|pull_2|S|Lats, mid back|2|L|1|Stay tall; don't twist toward the cable.
+Half-Kneeling Single-Arm Cable Row|cb|pull_2|S|Lats, upper back|2|L|1|Stay tall; don't twist toward the cable.
 Ball-Supported Dumbbell Row|db,sb|pull_2|S|Upper back|2|L|0|Chest on the ball, feet wide.
 Cable Face Pull|cb|rear|T|Rear delts, rotator cuff|2|L|0|Pull to the forehead, thumbs end pointing back.
 Reverse Pec Deck|mc|rear|T|Rear delts|2|L|0|Arms long, sweep back without shrugging.
@@ -1366,7 +1372,7 @@ TRX Face Pull|trx|rear|T|Rear delts|2|R|0|Pull hands to the temples, elbows high
 TRX Y-T-W|trx|rear|F|Lower traps, rear delts|2|R|0|Do one rep of each letter as one rep.
 Ball Prone Y-T-W|sb|rear|F|Lower traps, rear delts|2|R|0|Chest on the ball, thumbs up.
 Cable External Rotation|cb|rear|T|Rotator cuff|2|L|1|Elbow pinned to the side, rotate out.
-Dumbbell Shrug|db|rear|S|Upper traps|2|L|0|Straight up, pause at the top.
+Dumbbell Shrug|db|traps|S|Upper traps|2|L|0|Straight up, pause at the top.
 Barbell Curl|bb|bi|S|Biceps|2|L|0|Elbows still, no swing.
 Incline Dumbbell Curl|db,bn|bi|S|Biceps long head|2|L|0|Arms hang behind the body for a big stretch.
 Hammer Curl|db|bi|S|Brachialis, forearms|2|L|0|Neutral grip, curl across or straight up.
@@ -1422,7 +1428,7 @@ Landmine Single-Leg Romanian Deadlift|bb,lm|sl_hip|S|Hamstrings, glutes|2|L|1|Th
 Cable Single-Leg Romanian Deadlift|cb|sl_hip|T|Hamstrings, glutes, anti-rotation|2|L|1|Cable pulls across your body; resist the turn.
 B-Stance Romanian Deadlift|db|sl_hip|S|Hamstrings, glutes|2|L|1|Back toe only for balance.
 High Step-Up|db,bn|sl_hip|S|Glutes, hamstrings|2|L|1|Box at knee height or higher, lean slightly forward.
-Lateral Lunge|db|lateral|F|Adductors, glutes, quads|2|L|1|Step wide, sit into one hip, other leg straight.
+Side Lunge|db|lateral|F|Adductors, glutes, quads|2|L|1|Step wide, sit into one hip, other leg straight.|lateral-lunge
 Cossack Squat|kb|lateral|F|Adductors, glutes, quads|2|L|1|Goblet hold, drop deep to one side, toes of the straight leg up.
 Lateral Step-Up|db,bn|lateral|F|Glute med, quads|2|L|1|Stand beside the bench, step up sideways.
 Landmine Lateral Lunge|bb,lm|lateral|F|Adductors, glutes|2|L|1|Hold the bar end at the chest.
@@ -1443,7 +1449,7 @@ Leg Extension|mc|quad_iso|S|Quads|2|L|0|Pause at the top, slow lowering.
 Single-Leg Extension|mc|quad_iso|S|Quads|2|L|1|Same seat set-up, one leg at a time.
 Sissy Squat|bw|quad_iso|S|Quads|2|B|0|Hold a post, knees travel forward, hips stay extended.
 Reverse Nordic|bw|quad_iso|S|Quads, hip flexors|2|R|0|Kneel tall, lean back with straight hips.
-Peterson Step-Up|db,bn|quad_iso|S|Quads (VMO)|2|L|1|Low step, heel stays up, knee drives forward.
+Peterson Step-Up|db,bn|quad_iso|S|Quads, knee control|2|L|1|Low step, heel stays up, knee drives forward.
 Hip Adduction Machine|mc|adab|F|Adductors|2|L|0|Pause with the pads together.
 Hip Abduction Machine|mc|adab|F|Glute med|2|L|0|Lean forward slightly to bias the glutes.
 Cable Hip Abduction|cb|adab|F|Glute med|2|L|1|Ankle strap, lift the leg out to the side.
@@ -1459,7 +1465,7 @@ Tibialis Raise|bw|calf|S|Shins (tibialis)|2|R|0|Back against a wall, lift the to
 Box Step-Up|bx,db|sl_knee,sl_hip|S|Quads, glutes|2|L|1|Whole foot on the box, drive through the heel, control the step down.
 Lateral Box Step-Up|bx,db|lateral|F|Glute med, quads|2|L|1|Stand beside the box, step up sideways; don't push off the floor foot.
 Crossover Box Step-Up|bx,db|lateral|T|Glutes, adductors|2|L|1|Step across your body onto the box, then stand tall.
-Box Step-Up with Knee Drive|bx,kb|sl_knee|S|Glutes, hip flexors, balance|2|L|1|Drive the free knee to hip height at the top and pause.
+Box Step-Up with Knee Drive|bx,kb|sl_knee|S|Quads, glutes, balance|2|L|1|Drive the free knee to hip height at the top and pause.
 Eccentric Box Step-Down|bx|quad_iso,sl_knee|S|Quads, knee control|2|B|1|Lower the free heel to the floor over 3 s, tap, stand back up.
 Box Bulgarian Split Squat|bx,db|sl_knee|S|Quads, glutes|2|L|1|Rear foot on the box; drop straight down.
 Feet-on-Box Decline Push-Up|bx|push_2|S|Upper chest, shoulders|2|B|0|Feet on the box, body in one straight line.
@@ -1478,18 +1484,17 @@ Lateral Bound|bw|jump,lateral|F|Glutes, adductors, power|2|P|1|Jump sideways off
 Single-Leg Lateral Hop|bw|jump|F|Ankle stability, glute med|2|P|1|Hop side to side over a line on one leg.
 Pogo Hops|bw|jump|S|Calves, ankle stiffness|2|T|0|Stiff ankles, quick bounces on the balls of the feet.
 Dumbbell Jump Squat|db|jump|S|Quads, glutes, power|2|L|0|Light dumbbells only, about 10 to 20 percent of bodyweight.
-Side Step Lunge|db|lateral|F|Adductors, glutes, quads|2|L|0|Step out to the side, sit into that hip, push back to center; alternate legs.
 Side Step Lunge to Balance|bw|lateral|F|Glutes, adductors, balance|2|R|1|Step out, push back and finish balanced on one leg with the knee high.
 Hanging Knee Raise|pu|core|S|Abs, hip flexors|2|B|0|Knees to chest without swinging; lower slowly.
 Band Pull-Apart|bd|rear|T|Rear delts, upper back|2|R|0|Arms straight at shoulder height, pull the band to your chest.
 Band Face Pull|bd|rear|T|Rear delts, rotator cuff|2|R|0|Anchor the band at eye level, pull to the forehead, thumbs back.
 Band-Assisted Archer Pull-Up|pu,bd|pull_v|F|Lats, biceps|2|R|1|Band under one foot; pull toward one hand while the other arm straightens.
 Kneeling Band Lat Pulldown|bd|pull_v|S|Lats|2|R|0|Anchor high, kneel, drive elbows to the ribs.
-Band Seated Row|bd|pull_h|S|Mid back, lats|2|R|0|Band around the feet, sit tall, squeeze the shoulder blades.
+Band Seated Row|bd|pull_h|S|Upper back, lats|2|R|0|Band around the feet, sit tall, squeeze the shoulder blades.
 Tube Single-Arm Row|bd|pull_2|T|Lats, obliques|2|R|1|Tube with handles anchored at chest height; staggered stance, resist the twist.
 Anchored Band Chest Press|bd|push_h|S|Chest, triceps|2|R|0|Band anchored behind you at chest height, staggered stance.
 Banded Push-Up|bd|push_h,push_2|S|Chest, triceps, core|2|R|0|Band across the upper back, ends pinned under the hands.
-Band Overhead Press|bd|push_v|S|Shoulders, triceps|2|R|0|Stand on the band, press overhead, ribs down.
+Band Overhead Press|bd|push_v|S|Front delts, side delts, triceps|2|R|0|Stand on the band, press overhead, ribs down.
 Band Lateral Raise|bd|shoulder_iso|F|Side delts|2|R|0|Stand on the band, lead with the elbows.
 Band Triceps Pushdown|bd|tri|S|Triceps|2|R|0|Anchor high, elbows pinned, spread the band at the bottom.
 Band Biceps Curl|bd|bi|S|Biceps|2|R|0|Stand on the band, slow lowering.
@@ -1502,7 +1507,7 @@ Banded Glute Bridge|bd|glute|S|Glutes|2|R|0|Band above the knees, push them out 
 Band Pull-Through|bd|hinge,glute|S|Glutes, hamstrings|2|R|0|Anchor low behind you, hinge and snap the hips forward.
 Band Good Morning|bd|hinge|S|Hamstrings, low back|2|R|0|Band under the feet and across the upper back, not the neck. Soft knees, push your hips back with your spine steady.
 Prone Band Hamstring Curl|bd|ham_iso|S|Hamstrings|2|R|0|Anchor the band low, face-down, curl the heels to the glutes.
-Battle Rope Alternating Waves|rp|shoulder_iso|S|Shoulders, core|2|T|0|Athletic stance, fast alternating arm waves all the way to the anchor.
+Battle Rope Alternating Waves|rp|shoulder_aux|S|Shoulders, core|2|T|0|Athletic stance, fast alternating arm waves all the way to the anchor.
 Battle Rope Side-to-Side Waves|rp|rot|T|Obliques, shoulders|2|T|0|Hands together, whip the ropes side to side by turning the torso.
 Battle Rope Rotational Slams|rp|rot|T|Obliques, lats, shoulders|2|T|0|Lift the ropes overhead and slam them down to one side, alternate.
 Battle Rope Double Slams|rp|core|S|Lats, abs, shoulders|2|T|0|Rise onto the toes, then slam both ropes down hard.
@@ -1532,19 +1537,19 @@ Toes-to-Bar|pu|core|S|Abs, lats|2|B|0|Pull the toes to the bar, no big swing.
 Hanging Windshield Wiper|pu|rot|T|Obliques, abs|2|R|0|Legs up, sweep them side to side under control.
 Commando Pull-Up|pu|pull_v|T|Lats, obliques, biceps|2|B|0|Hands one in front of the other; head goes to alternating sides.
 Archer Pull-Up|pu|pull_v|F|Lats, biceps|1|B|1|Wide grip, pull toward one hand while the other arm straightens.
-Plate Front Raise|pl|shoulder_iso|S|Front delts|2|L|0|Hold the plate at 3 and 9 o'clock, raise to eye level.
-Plate Halo|pl|shoulder_iso,rot|T|Shoulders, core|2|L|0|Circle the plate close around your head, ribs down.
+Plate Front Raise|pl|shoulder_aux|S|Front delts|2|L|0|Hold the plate at 3 and 9 o'clock, raise to eye level.
+Plate Halo|pl|shoulder_aux,rot|T|Shoulder mobility, core|2|L|0|Circle the plate close around your head, ribs down.
 Plate Pinch Carry|pl|carry|S|Grip, forearms|2|L|0|Pinch smooth plates together with your fingers and walk.
 Plate Russian Twist|pl|rot|T|Obliques|2|L|0|Lean back, turn the shoulders, tap the plate beside each hip.
 Turkish Get-Up|kb|core,rot|T|Shoulders, core, hips|2|L|1|Eyes on the bell, one slow step at a time up and back down.
-Kettlebell Clean and Press|kb|push_v|S|Shoulders, glutes, core|2|L|1|Clean to the rack, then press; keep the bell close.
+Kettlebell Clean and Press|kb|push_v|S|Front delts, side delts, glutes, core|2|L|1|Clean to the rack, then press; keep the bell close.
 Kettlebell Snatch|kb|hinge|S|Glutes, hamstrings, shoulders|2|L|1|Hike, snap the hips and punch through at the top.
 Smith Machine Hip Thrust|mc,bn|glute|S|Glutes, hamstrings|2|L|0|Upper back on a bench, padded bar across your hips. Drive up until your hips line up with your knees, chin tucked.
 Dumbbell Glute Bridge|db|glute|S|Glutes, hamstrings|2|L|0|Lie on the floor with one dumbbell on your hips. Push through your heels and squeeze at the top for a second.
 Trap Bar Deadlift|bb|hinge|S|Glutes, quads, hamstrings|1|L|0|Stand in the middle of the bar, push the floor away and stand tall. Easier on the back than a straight bar.
 EZ-Bar Curl|bb|bi|S|Biceps, forearms|2|L|0|Elbows pinned to your sides; curl without swinging.
 Assisted Pull-Up Machine|mc|pull_v|S|Lats, biceps|2|R|0|Kneel or stand on the pad. More weight on the stack means more help; use less help as you get stronger.
-Assisted Dip Machine|mc|tri,push_2|S|Triceps, chest|2|R|0|Shoulders down, lower until elbows reach about 90 degrees. Use less help over time.
+Assisted Dip Machine|mc|tri,push_2|S|Triceps, lower chest|2|R|0|Shoulders down, lower until elbows reach about 90 degrees. Use less help over time.
 Sled Push|sled|carry|S|Quads, glutes, calves|2|T|0|Arms long, lean in, drive with short powerful steps.
 Sled Pull|sled|carry|S|Quads, hamstrings, upper back|2|T|0|Walk backward with the straps, staying low and steady.
 Sandbag Bear-Hug Carry|sandbag|carry|S|Upper back, core, forearms|2|T|0|Hug the bag high on your chest and walk tall.
@@ -1555,7 +1560,7 @@ Ankle-Weight Side-Lying Leg Raise|ankle|adab|F|Glute med|2|R|1|Lie on your side,
 Back Extension|mc|hinge,glute|S|Glutes, spinal erectors, hamstrings|2|R|0|Hinge at the hips over the pad, squeeze glutes to come up to a straight line.
 `;
 
-const SLOT_NAMES = {push_h:'Horizontal press',push_v:'Vertical press',push_2:'Chest accessory',shoulder_iso:'Shoulder isolation',tri:'Triceps',rot:'Rotation / anti-rotation',core:'Core',carry:'Loaded carry',pull_v:'Vertical pull',pull_h:'Horizontal row',pull_2:'Row / lat accessory',rear:'Rear delts and upper back',bi:'Biceps',squat:'Squat',hinge:'Hinge',glute:'Glute bridge / thrust',sl_knee:'Single-leg squat / lunge',sl_hip:'Single-leg hinge',lateral:'Lateral / rotational legs',ham_iso:'Hamstring curl',quad_iso:'Quad isolation',adab:'Adductors / abductors',calf:'Calves and shins',jump:'Jumps and plyometrics'};
+const SLOT_NAMES = {push_h:'Horizontal press',push_v:'Vertical press',push_2:'Chest accessory',shoulder_iso:'Shoulder isolation',shoulder_aux:'Shoulder accessory',traps:'Traps',tri:'Triceps',rot:'Rotation / anti-rotation',core:'Core',carry:'Loaded carry',pull_v:'Vertical pull',pull_h:'Horizontal row',pull_2:'Row / lat accessory',rear:'Rear delts and upper back',bi:'Biceps',squat:'Squat',hinge:'Hinge',glute:'Glute bridge / thrust',sl_knee:'Single-leg squat / lunge',sl_hip:'Single-leg hinge',lateral:'Lateral / rotational legs',ham_iso:'Hamstring curl',quad_iso:'Quad isolation',adab:'Adductors / abductors',calf:'Calves and shins',jump:'Jumps and plyometrics'};
 const EQUIP = {bb:'Barbell',lm:'Landmine',db:'Dumbbells',kb:'Kettlebells',cb:'Cable machine',mc:'Machines',bn:'Bench',pu:'Pull-up bar',dp:'Dip bars',sb:'Stability ball',trx:'TRX',bx:'Plyo box',bd:'Resistance bands and tubes',rp:'Battle ropes',mb:'Medicine and slam balls',bs:'BOSU ball',pl:'Weight plates',bw:'Bodyweight'};
 const EQ_SHORT = {bb:'Barbell',lm:'Landmine',db:'DB',kb:'KB',cb:'Cable',mc:'Machine',bn:'Bench',pu:'Pull-up bar',dp:'Dip bars',sb:'Ball',trx:'TRX',bx:'Box',bd:'Band',rp:'Ropes',mb:'Med ball',bs:'BOSU',pl:'Plate',bw:'Bodyweight'};
 const PLANES = {S:'Forward & back',F:'Side to side',T:'Twisting'};
@@ -1647,8 +1652,8 @@ function eqLabelList(ex){ return ex.req.map(gr=>gr.map(k=>EQ_NAME[k]).join(' or 
 /* ---------------- Muscles ---------------- */
 const MUSCLES = {chest:'Chest',front_delts:'Front delts',side_delts:'Side delts',rear_delts:'Rear delts',traps:'Traps',upper_back:'Upper back',lats:'Lats',lower_back:'Lower back',biceps:'Biceps',triceps:'Triceps',forearms:'Forearms and grip',abs:'Abs',obliques:'Obliques',hip_flexors:'Hip flexors',glutes:'Glutes',abductors:'Glute med / abductors',adductors:'Adductors',quads:'Quads',hamstrings:'Hamstrings',calves:'Calves',shins:'Shins'};
 const SLOT_MUS = {
-  push_h:[['chest'],['front_delts','triceps']], push_v:[['front_delts','side_delts'],['triceps','traps']], push_2:[['chest'],['front_delts','triceps']],
-  shoulder_iso:[['side_delts'],['traps']], tri:[['triceps'],[]], rot:[['obliques'],['abs']], core:[['abs'],['obliques','hip_flexors']], carry:[['forearms','traps'],['obliques','abs']],
+  push_h:[['chest'],['front_delts','triceps']], push_v:[['front_delts'],['side_delts','triceps','traps']], push_2:[['chest'],['front_delts','triceps']],
+  shoulder_iso:[['side_delts'],['traps']], shoulder_aux:[[],[]], traps:[['traps'],['forearms']], tri:[['triceps'],[]], rot:[['obliques'],['abs']], core:[['abs'],['obliques','hip_flexors']], carry:[['forearms','traps'],['obliques','abs']],
   pull_v:[['lats'],['biceps','rear_delts','upper_back']], pull_h:[['upper_back','lats'],['rear_delts','biceps','lower_back']], pull_2:[['lats'],['upper_back','biceps']],
   rear:[['rear_delts'],['upper_back','traps']], bi:[['biceps'],['forearms']],
   squat:[['quads','glutes'],['adductors','lower_back','abs']], hinge:[['hamstrings','glutes'],['lower_back','forearms']], glute:[['glutes'],['hamstrings']],
@@ -1666,6 +1671,9 @@ for(const e of LIB){
   const S=new Set([...ss, ...terms.slice(1).flatMap(termMuscles)].filter(m=>!P.has(m)));
   EXM[e.id]={p:[...P], s:[...S]};
 }
+// Retired exercise IDs that still resolve, so saved plans and history keep working (Side Step Lunge merged into Side Lunge, Nov 18 2026).
+const EX_ALIAS={'side-step-lunge':'lateral-lunge'};
+for(const [old,id] of Object.entries(EX_ALIAS)){ EX[old]=EX[id]; EXM[old]=EXM[id]; }
 const BACK_SIDE = new Set(['traps','rear_delts','triceps','upper_back','lats','lower_back','glutes','abductors','hamstrings','calves']);
 const LOWER = new Set(['glutes','abductors','adductors','quads','hamstrings','calves','shins','hip_flexors']);
 const P_=(m,d)=>({m,d});
@@ -1949,7 +1957,7 @@ const PAIN = {
   back:{n:'Lower back', re:/Deadlift|Good Morning|Bent-Over|Pendlay|Back Squat|Front Squat|Zercher|Box Squat|Swing|Snatch|Back Extension|Rollout|Slam|Toes-to-Bar|Hanging Leg Raise|Russian Twist|V-Up|Sit-Up|Windmill|Renegade|Jackknife|Pike|Body Saw|Push Press|Sandbag Squat|Sled|Seal Row|Glute-Ham/},
   shoulders:{n:'Shoulders', re:/Overhead|Shoulder Press|Arnold|Push Press|Z Press|Clean and Press|Landmine Press|Pike|Dip|Pullover|Halo|Windmill|Turkish|Snatch|Y-Raise|Lu Raise|Front Raise|Y-T-W|Archer|Commando|Weighted Pull-Up|Chin-Up|L-Sit|Monkey Bar|Windshield|Deficit Push-Up|Barbell Bench|Close-Grip Bench|Wall Throw/},
   wrists:{n:'Wrists', re:/Push-Up|Pike|Renegade|Mountain Climber|Body Saw|Front Squat|Skull Crusher|Clean|Snatch|Zottman|Bottoms-Up|Tate Press|Plank|Rollout|Stir the Pot|Barbell Curl|Bench Dip|Medicine Ball Push/},
-  hips:{n:'Hips', re:/Cossack|Sumo|Curtsy|Lateral Lunge|Side Step Lunge|Transverse|Copenhagen|Pistol|Jump|Bound|Skater|Hanging Leg Raise|Toes-to-Bar|Hip Adduction|Deep|Lateral Box|Crossover/},
+  hips:{n:'Hips', re:/Cossack|Sumo|Curtsy|Side Lunge|Lateral Lunge|Side Step Lunge|Transverse|Copenhagen|Pistol|Jump|Bound|Skater|Hanging Leg Raise|Toes-to-Bar|Hip Adduction|Deep|Lateral Box|Crossover/},
   neck:{n:'Neck', re:/Crunch|Sit-Up|V-Up|Back Squat|Zercher|Shrug|Overhead Kettlebell Carry|Hollow Body|Toes-to-Bar/},
   ankles:{n:'Ankles', re:/Jump|Hop|Bound|Pogo|Depth|BOSU|Skater|Shuffle|Single-Leg .*Calf|Tibialis|Sled/},
 };
@@ -2096,6 +2104,24 @@ function ensurePlan(){
   });
   return fixed;
 }
+// Nov 18 2026 catalog fixes: merged duplicate IDs move to the kept exercise, and app-chosen picks that no longer
+// belong to their slot (shrug in the rear-delt slot; front raise, halo or battle ropes in the side-delt slot) are re-picked.
+// The person's own swaps are kept. Runs once per program, only in the person's own app.
+function repairCatalogPicks(){
+  if(coachMode||!state||!state.block||!state.block.plan||state.draft||state.block.catalogFix===1) return;
+  const plan=state.block.plan, orig=state.block.orig||{}, eqset=placeEq(homeBase());
+  for(const map of [plan,orig]) for(const pk of Object.keys(map)) if(EX_ALIAS[map[pk]]) map[pk]=EX_ALIAS[map[pk]];
+  for(const a of Object.values(state.adj||{})) if(a&&EX_ALIAS[a.ex]) a.ex=EX_ALIAS[a.ex];
+  for(const [old,id] of Object.entries(EX_ALIAS)) if(state.ex&&state.ex[old]){ if(!state.ex[id]) state.ex[id]=state.ex[old]; delete state.ex[old]; }
+  for(const key of Object.keys(TPL)) TPL[key].slots.forEach((slot,i)=>{
+    const pk=`${key}.${i}`, cur=EX[plan[pk]];
+    if(!cur || cur.slots.includes(slot.s) || orig[pk]!==plan[pk]) return;
+    const c=candidates(slot.s,eqset); if(!c.length) return;
+    const e=c.slice().sort((a,b)=>similarity(cur,b)-similarity(cur,a))[0];
+    plan[pk]=e.id; if(state.block.orig) state.block.orig[pk]=e.id;
+  });
+  state.block.catalogFix=1; save();
+}
 function announceReplaced(r){ if(r && r.length){ save(); toast(`Swapped: ${r.join(', ')}`); } }
 function swapTargetSlot(s){
   // A timed carry swapped for a rep-based lift must not inherit seconds as its rep target.
@@ -2123,7 +2149,7 @@ function goBackBlock(){
 function newBlock(){
   snapBlock();
   const prev = state.block && state.block.plan;
-  state.block = {n:(state.block?state.block.n+1:1), start:dayStart(new Date()).toISOString(), plan:generatePlan(prev)};
+  state.block = {n:(state.block?state.block.n+1:1), start:dayStart(new Date()).toISOString(), plan:generatePlan(prev), catalogFix:1};
   state.block.orig = {...state.block.plan};
   state.weekModes={}; state.draft=null; state.adj={}; state.levelDismiss=null; state.checkin=null; state.easeUntil=0;
 }
@@ -4181,8 +4207,8 @@ function renderPlan(){
 const LIB_EQ=[['mc','Machines'],['cb','Cables'],['db','Dumbbells'],['bb','Barbell'],['kb','Kettlebells'],['bw','Bodyweight'],['bd','Bands'],['mb','Medicine ball'],['sb','Stability ball'],['trx','TRX'],['pu','Pull-up bar'],['dp','Dip bars'],['bx','Box or step'],['bs','BOSU'],['lm','Landmine'],['rp','Battle ropes'],['pl','Weight plate']];
 const LIB_BODY={chest:['Chest',['chest']],back:['Back',['lats','upper_back','traps','lower_back']],shoulders:['Shoulders',['front_delts','side_delts','rear_delts']],biceps:['Biceps',['biceps']],triceps:['Triceps',['triceps']],forearms:['Forearms and grip',['forearms']],
   core:['Core and abs',['abs','obliques','hip_flexors']],glutes:['Glutes',['glutes','abductors']],quads:['Quads',['quads']],hamstrings:['Hamstrings',['hamstrings']],inner:['Inner thighs',['adductors']],calves:['Calves and shins',['calves','shins']]};
-const LIB_MOVE={push:['Push',['push_h','push_v','push_2']],pull:['Pull',['pull_v','pull_h','pull_2','rear']],squat:['Squat',['squat']],hinge:['Hinge and glutes',['hinge','glute']],single:['Lunges and single-leg',['sl_knee','sl_hip','lateral']],
-  arms:['Arms and shoulders (isolation)',['bi','tri','shoulder_iso']],legiso:['Leg isolation',['quad_iso','ham_iso','adab','calf']],core:['Core and rotation',['core','rot']],carry:['Carries',['carry']],jump:['Jumps',['jump']]};
+const LIB_MOVE={push:['Push',['push_h','push_v','push_2']],pull:['Pull',['pull_v','pull_h','pull_2','rear','traps']],squat:['Squat',['squat']],hinge:['Hinge and glutes',['hinge','glute']],single:['Lunges and single-leg',['sl_knee','sl_hip','lateral']],
+  arms:['Arms and shoulders (isolation)',['bi','tri','shoulder_iso','shoulder_aux']],legiso:['Leg isolation',['quad_iso','ham_iso','adab','calf']],core:['Core and rotation',['core','rot']],carry:['Carries',['carry']],jump:['Jumps',['jump']]};
 const optsHTML=(pairs,v)=>pairs.map(([k,l])=>`<option value="${k}" ${v===k?'selected':''}>${esc(l)}</option>`).join('');
 function libMatch(e,f){ const m=EXM[e.id]||{p:[],s:[]};
   return (!f.eq||e.eq.includes(f.eq)) && (!f.body||LIB_BODY[f.body][1].some(x=>m.p.includes(x))) && (!f.move||LIB_MOVE[f.move][1].some(x=>e.slots.includes(x))) && (!f.q||(e.n+' '+e.m).toLowerCase().includes(f.q.toLowerCase())); }
@@ -6889,6 +6915,7 @@ function usageContext(){
 }
 const USAGE=window.createUsageAnalytics?window.createUsageAnalytics(USAGE_CONFIG,usageContext):{capture(){},screen(){},press(){},choose(){},choice(){return 'no';},card(){return '';}};
 function render(){
+  repairCatalogPicks();
   renderApp();
   window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#app'),APP_ENV);
   USAGE.screen();
