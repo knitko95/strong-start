@@ -976,6 +976,11 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .ed-actions{margin-top:6px}.ed-sslabel{color:var(--accent);font-weight:650;margin-top:2px}
 .ed-pair.second{border-top:1px dashed var(--accent)}.ed-pair{box-shadow:inset 3px 0 0 var(--accent);padding-left:6px}
 .ed-add{display:block;margin:10px 0 4px}
+.coach-notes textarea{min-height:140px;font-family:var(--body);font-size:var(--text-md);line-height:1.45;width:100%;box-sizing:border-box}
+.cupd{display:flex;flex-direction:column;gap:8px;padding:14px 16px}.cupd .cm-identity{padding-right:36px}.cupd .eyebrow{display:block}.cupd-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:2px}.cupd-note{margin:0;font-style:italic;color:var(--muted)}
+
+.coach-tag{display:inline-block;white-space:nowrap;margin-top:4px;padding:2px 8px;border-radius:999px;background:var(--good-soft);color:var(--good);font-size:11px;font-weight:750;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+
 .balance-card .bal-list{display:flex;flex-direction:column}.bal-row{display:grid;grid-template-columns:92px 1fr 56px 40px;align-items:center;gap:8px;min-height:40px;border-top:1px solid var(--line)}.bal-row:first-child{border-top:0}
 .bal-name{font-weight:600;font-size:var(--text-md)}.bal-bar{height:8px;border-radius:4px;background:var(--sunk);overflow:hidden}.bal-bar i{display:block;height:100%;background:var(--accent);border-radius:4px}
 .bal-row.low .bal-bar i{background:var(--warn,#c47a2c)}.bal-sets{font-size:var(--text-sm);text-align:right;color:var(--muted)}.bal-row.low .bal-sets,.bal-row.high .bal-sets{color:var(--ink);font-weight:650}
@@ -1029,6 +1034,17 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.17.0",
+    "date": "2026-11-19",
+    "title": "Coach notes, suggested weights and plan update card",
+    "notes": [
+      "Coaches have private notes at the bottom of a member's plan that only they can see.",
+      "When a coach opens a member's app, Since you last looked lists finished workouts, swaps, weight changes and schedule changes since their last visit, and adds it to their notes.",
+      "Coaches can suggest a weight in Adjust. Members see a green Coach: try 25 lb tag and still choose their own weight.",
+      "When a coach updates your plan, Today shows what changed and their note, with See my plan and Reply. Close it with ×. Renamed workouts show a green Renamed tag."
+    ]
+  },
   {
     "version": "0.16.0",
     "date": "2026-11-19",
@@ -3127,7 +3143,7 @@ function pushCloud(){
         if(after.conflicts.length){SYNC.base=sent;setSyncConflict(committed);await flushDevice();return false;}
         adoptSnapshot(after,committed);
         if(!await flushDevice())throw Error('Device save failed');
-        if(response.data.applied)toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+        if(response.data.applied){toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);coachUpdateArrived();}
         if(!CLOUD.again && sameSync(after.state,committed.state)&&sameSync(after.logs,committed.logs) && applyCoach){
           CLOUD.pending=false;return true;
         }
@@ -3182,7 +3198,7 @@ function pushPagedCloud(){
         if(!await flushDevice())throw Error('Device save failed');if(!current())return false;
         before={state:copySync(state)};next=await store.acknowledge(batch,r.data,sent);if(!current())return false;
         await adoptPaged(next,before);if(!current())return false;if(SYNC.conflict)return false;
-        if(r.data.applied)toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);
+        if(r.data.applied){toast(`${coachName()[0].toUpperCase()+coachName().slice(1)} updated your plan`);coachUpdateArrived();}
         if(!CLOUD.again&&applyCoach&&await store.pendingCount()===0&&sameSync(state,SYNC.base.state)){
           CLOUD.pending=false;return true;
         }
@@ -3784,7 +3800,7 @@ async function openPerson(id,name){
   if(!st.data || !st.data.state || !st.data.state.block){ toast(`${name} hasn’t finished setup yet`); return; }
   try{ fClearTimer(); }catch(e){}
   coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
-  state=migrate(st.data.state); coachMode.base=JSON.parse(JSON.stringify(state)); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
+  state=migrate(st.data.state); coachMode.base=JSON.parse(JSON.stringify(state)); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`); coachLookOpen(coachMode);
 }
 async function openPagedPerson(id,name){
   if(!await flushCloud()){toast('Sync your changes before opening another app.');return;}
@@ -3807,7 +3823,7 @@ async function openPagedPerson(id,name){
     const own={state:copySync(state),logs:copySync(logs),page:{...PAGE,view:{...PAGE.view}}};
     try{fClearTimer();}catch{}
     coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));coachMode.base=copySync(state);PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
-    await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);
+    await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);coachLookOpen(coachMode);
   }catch(e){try{temporary.db?.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
 }
 function exitPagedPerson(silent=false){
@@ -3862,6 +3878,9 @@ function coachChanges(){
   if(adjN) out.push(`New sets, reps or rest for ${adjN} exercise${adjN>1?'s':''}`);
   if(o.level!==s.level) out.push('Level: '+LEVELS[lvl()].n);
   out.push(...workoutEditChanges(b));
+  const sg=new Set([...Object.keys(b.sugg||{}),...Object.keys(state.sugg||{})]);
+  sg.forEach(id=>{ if(!EX[id]) return; const was=(b.sugg||{})[id], now=suggOf(id); if(cur(was||null)===cur((state.sugg||{})[id]||null)) return;
+    out.push(now?`Suggested weight for ${EX[id].n}: ${weightNumber(now.w)} ${now.u}`:`No suggested weight for ${EX[id].n}`); });
   return out;
 }
 // Moves removed, added, reordered or paired in each workout, compared with an earlier copy of the state.
@@ -3899,6 +3918,8 @@ async function coachSend(){
   const {error}=await sb.from('plan_updates').insert({user_id:coachMode.uid, update:JSON.parse(planCode())});
   if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
   const leaving=coachMode.leaving;
+  // What the coach just sent becomes the starting point for the next "since you last looked".
+  sb.rpc('coach_private',{p_action:'seen',p_member:coachMode.uid,p_body:{seen:coachLookSnap()}}).then(()=>{},()=>{});
   coachMode.base=JSON.parse(JSON.stringify(state)); coachMode.edit={undo:[],redo:[],last:null,on:false}; closeModal();
   toast(`Sent. It applies the next time ${coachMode.name} opens the app.`);
   if(leaving) coachLeave(); else render();
@@ -4046,6 +4067,19 @@ function cmSummaryRender(){
   const active=document.activeElement;
   if(ui.tab==='workout'||ui.tab==='preview'||(active&&['INPUT','TEXTAREA','SELECT'].includes(active.tagName)&&active.closest('#app')))return;
   render();
+}
+// The coach's plan update, shown on Today until the person closes it (×).
+function coachUpdateArrived(){ state.coach={...(state.coach||{}),open:true,at:new Date().toISOString()}; save(); render(); }
+function coachUpdateCard(){
+  const c=state.coach; if(coachMode||!c||!c.open) return '';
+  const note=String(c.note||''), i=note.indexOf('What changed:'), msg=(i<0?note:note.slice(0,i)).trim();
+  const items=i<0?[]:note.slice(i).split('\n').filter(l=>l.startsWith('• ')).map(l=>l.slice(2));
+  const who=(CM.summary&&CM.summary.coach&&CM.summary.coach.name)||coachName(), Who=who[0].toUpperCase()+who.slice(1);
+  return `<section class="card cm-card cupd"><button class="cm-dismiss" data-action="cupddismiss" aria-label="Close">×</button>
+    <div class="cm-identity">${cmAvatar(who)}<div><span class="eyebrow">Plan update</span><b class="cm-name">${esc(Who)} updated your plan</b></div></div>
+    ${items.length?`<ul class="small cupd-list">${items.slice(0,8).map(x=>`<li>${esc(x)}</li>`).join('')}${items.length>8?`<li>${items.length-8} more</li>`:''}</ul>`:''}
+    ${msg?`<p class="small cupd-note">“${esc(msg)}”</p>`:''}
+    <div class="row"><button class="btn sm primary" data-action="cupdplan">See my plan</button>${AUTH.user?'<button class="btn sm" data-action="cmopen">Reply</button>':''}</div></section>`;
 }
 function cmAvatar(name){return `<span class="prof-av cm-avatar" aria-hidden="true">${esc((name||'?').trim()[0].toUpperCase())}</span>`;}
 function cmCoachCard(today=false){
@@ -4337,9 +4371,9 @@ function coachBanner(){ return `<section class="card coachbar" role="status"><di
   <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
 // Coach edit mode (owner design Nov 19): one Edit plan button, a pinned bar with Undo/Redo and Done, Done sends.
 const COACH_KEYS=['plan','orig','adj','settings','names'];
-function coachSnap(){ return JSON.stringify({plan:state.block&&state.block.plan, orig:state.block&&state.block.orig, adj:state.adj||{}, names:state.names||{}, order:state.order||{}, custom:state.custom||{},
+function coachSnap(){ return JSON.stringify({plan:state.block&&state.block.plan, orig:state.block&&state.block.orig, adj:state.adj||{}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}, sugg:state.sugg||{},
   settings:(({split,days,flex,nDays,mins,order,level})=>({split,days,flex,nDays,mins,order,level}))(state.settings)}); }
-function coachRestore(js){ const v=JSON.parse(js); if(state.block){ state.block.plan=v.plan; state.block.orig=v.orig; } state.adj=v.adj; state.names=v.names; state.order=v.order||{}; state.custom=v.custom||{};
+function coachRestore(js){ const v=JSON.parse(js); if(state.block){ state.block.plan=v.plan; state.block.orig=v.orig; } state.adj=v.adj; state.names=v.names; state.order=v.order||{}; state.custom=v.custom||{}; state.sugg=v.sugg||{};
   for(const k of ['split','days','flex','nDays','mins','order','level']){ if(v.settings[k]===undefined) delete state.settings[k]; else state.settings[k]=v.settings[k]; } }
 // Every render notices a coach change: it enters edit mode and records an undo step.
 function coachTrack(){
@@ -4430,19 +4464,22 @@ const GRIP='<svg viewBox="0 0 12 20" aria-hidden="true"><g fill="currentColor"><
 // Plan edit mode: the coach editing a member's plan (later also people coaching themselves).
 function planEditOn(){ return !!(coachMode&&coachMode.edit&&coachMode.edit.on); }
 function gripBtn(kind,label){ return `<button type="button" class="drag-grip" data-grip="${kind}" aria-label="${esc(label)}. Use arrow keys to move it.">${GRIP}</button>`; }
+// Coach-suggested weight for an exercise (state.sugg). The member's own working weight is never changed.
+function suggOf(id){ const g=state.sugg&&state.sugg[id]; return g&&typeof g==='object'&&+g.w>0?{w:+g.w,u:g.u==='kg'?'kg':'lb'}:null; }
+function suggTag(id){ const g=suggOf(id); return g?`<span class="coach-tag">Coach: try ${weightNumber(g.w)} ${g.u}</span>`:''; }
 function renderPlanExercises(slots, simple=false, opt={}){
   if(opt.edit) return `<div class="ed-list" data-drop-list="x" data-k="${opt.key}">${slots.map((s,i)=>{ const ex=EX[s.id], tg=target(s), pair=s.cfg.ssLen>1;
         return `<div class="slotrow mrow3 ed-row${pair?' ed-pair'+(s.cfg.ssPos===0?' first':' second'):''}" data-drag="x" data-k="${opt.key}" data-pk="${s.pk}">${gripBtn('x','Move '+ex.n)}${musThumb(ex.id)}<div><div style="font-weight:600"><span>${s.label}. ${esc(ex.n)}</span></div>${pair&&s.cfg.ssPos===0?'<div class="tiny ed-sslabel">Superset with the next move</div>':''}
-        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>
+        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}
         <div class="row plan-move-actions ed-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}<button class="linkbtn plan-textbtn" data-action="exmore" data-k="${opt.key}" data-pk="${s.pk}" aria-label="More options for ${esc(ex.n)}">More</button></div></div></div>`; }).join('')}</div>
     <button class="linkbtn plan-textbtn ed-add" data-action="exadd" data-k="${opt.key}">+ Add exercise</button>`;
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   return `<div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
         return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div ${simple?'class="today-exercise-name"':'style="font-weight:600"'}><span>${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</span>${simple?`<span class="today-muscle" aria-label="Main muscles: ${esc(mainMuscleLabel(ex.id))}">${esc(mainMuscleLabel(ex.id))}</span>`:''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
-        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p></div>
+        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}</div>
         <div class="row plan-move-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
 }
 
@@ -4471,7 +4508,7 @@ function renderCoachPlan(){
       <button class="coach-chev" data-action="sectoggle" data-v="${id}" aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${esc(t.name)} exercises">${open?'▴':'▾'}</button></div>
       ${open?`<div class="stack sec-body">${renderPlanExercises(ss,false,{edit,key:k})}</div>`:''}</div>`;
   });
-  return h+'</div></section>'+balanceCard(coachMode.name)+sec('plan-muscles','Muscles in their plan','',renderMuscleMap(undefined,true));
+  return h+'</div></section>'+balanceCard(coachMode.name)+sec('plan-muscles','Muscles in their plan','',renderMuscleMap(undefined,true))+coachNotesCard();
 }
 function renderPlan(){
   if(coachMode) return renderCoachPlan();
@@ -4488,7 +4525,7 @@ function renderPlan(){
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id];
     h+=`<section class="card plan-workout ${k===next?'plan-next':''}">
-      <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><span class="row"><b class="sec-t">${esc(t.name)}</b>${k===next?'<span class="chip acc">Up next</span>':''}</span><span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
+      <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><span class="row"><b class="sec-t">${esc(t.name)}</b>${k===next?'<span class="chip acc">Up next</span>':''}${t.name!==tplDefaultName(k)?'<span class="coach-renamed">Renamed</span>':''}</span><span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
       ${open?`<div class="stack sec-body">${renderPlanExercises(ss)}</div>`:''}</section>`;
   });
   return h + sec('plan-muscles','Muscles in your plan','',renderMuscleMap(undefined,true)) + whyCard() + `<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
@@ -6568,7 +6605,7 @@ function renderToday(){
     <div id="today-exercises" class="today-exercises"${exercisesOpen?'':' hidden'}>${exercisesOpen?renderWorkoutPlan(mainKey,slots,draft):''}</div>
     ${coachMode?`<button class="btn block" data-action="open" data-key="${mainKey}">View workout</button>`:draft?`<button class="btn primary block today-start" data-action="resume">${draft.partialSaved?'Resume remaining sets':'Resume workout'}</button>`:finished?`<button class="btn block today-start" data-action="open" data-key="${mainKey}">View next workout</button>`:`<button class="btn primary block today-start" data-action="fbegin" data-key="${mainKey}">Start workout</button>`}
     ${draft&&coachMode?'<p class="tiny muted" style="margin:0">Plan updates wait until this workout is finished or discarded.</p>':''}</section>`;
-  h+=cmCoachCard(true);
+  h+=coachUpdateCard()+cmCoachCard(true);
   const others=keys.filter(k=>k!==mainKey);
   if(others.length) h+=`<details class="card today-other"><summary>Other workouts</summary><div class="stack" style="margin-top:12px">${others.map(k=>{
     const i=keys.indexOf(k), t=tplOf(k), d=doneKeys.has(k), nx=k===nextKey, log=wl.find(l=>l.key===k), partial=!d&&(PAGE.active?(PAGE.summary?.partials||[]).find(l=>l.week===w&&l.key===k):logs.find(l=>l.block===state.block.n&&l.week===w&&l.key===k&&l.status==='partial'));
@@ -6837,7 +6874,7 @@ function levelSheet(){
 }
 function planCode(){ const s=state.settings;
   return JSON.stringify({t:'ssplan', v:1, plan:state.block.plan, orig:state.block.orig, adj:state.adj, note:(state.coach&&state.coach.note)||'', level:s.level,
-    sched:{split:s.split||splitId(), days:(s.days||[]).slice(), flex:!!s.flex, nDays:+s.nDays||nDays(), mins:+s.mins||45, order:s.order||{}}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}}); }
+    sched:{split:s.split||splitId(), days:(s.days||[]).slice(), flex:!!s.flex, nDays:+s.nDays||nDays(), mins:+s.mins||45, order:s.order||{}}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}, sugg:state.sugg||{}}); }
 // Bring older saved data up to date
 function migrate(st){
   if(!st) return st;
@@ -7139,7 +7176,7 @@ function adjustSheet(pk){
       ${f('adj-hi',`High end (${unit})`,tg.hi)}
       ${f('adj-rest','Rest between sets (sec)',slot.cfg.rest, tg.ssFirst?'Supersets: rest happens after the paired exercise':'')}
       ${f('adj-after','Recovery after exercise (sec)',r.sec,'Starts when every set is checked off')}
-      ${usesLoad(ex)?(coachMode?`<div class="small muted">Working weight: ${fmtW(tg.w)} · view only. The member controls their working weights.</div>`:f('adj-w',`Working weight (${state.settings.units})`,weightNumber(tg.w),'Next targets build from this')):''}
+      ${usesLoad(ex)?(coachMode?`<div class="small muted">Working weight: ${fmtW(tg.w)} · view only. The member controls their working weights.</div>${f('adj-sugg',`Suggest a weight (${state.settings.units})`,suggOf(slot.id)?suggOf(slot.id).w:'','They see “Coach: try …” and still choose their own weight. Leave empty for none.')}`:f('adj-w',`Working weight (${state.settings.units})`,weightNumber(tg.w),'Next targets build from this')):''}
     </div>
     <div class="row"><button class="btn primary" data-action="adjsave" data-pk="${pk}" data-id="${slot.id}">Save</button><button class="btn" data-action="adjreset" data-pk="${pk}">Reset adjustments</button><button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
 }
@@ -7193,7 +7230,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -7227,6 +7264,67 @@ document.addEventListener('toggle',e=>{
   if(current!==el)return;
   ui.todayPrepOpen=ui.todayPrepOpen||{};ui.todayPrepOpen[el.dataset.prepKey]=el.open;
 },true);
+
+/* ---------------- Coach: private notes and "since you last looked" ---------------- */
+// Only the coach who writes them can read the notes (coach_private RPC). The coach's last view of the member's
+// plan is saved so the next visit can list what changed in between; that summary is added to the notes too.
+function coachLookSnap(){ const st=state; return {plan:st.block&&st.block.plan||{}, adj:st.adj||{}, ex:Object.fromEntries(Object.entries(st.ex||{}).map(([k,v])=>[k,v&&v.w])),
+  sched:{split:splitId(),days:trainDays(),flex:isFlex(),mins:st.settings.mins||45}, level:st.settings.level, block:st.block&&st.block.n}; }
+function coachLookDiff(old){
+  const out=[], now=coachLookSnap(), n=x=>EX[x]?EX[x].n:x;
+  if(old.block!==now.block) out.push('Started a new 6-week program');
+  else Object.keys(now.plan).forEach(pk=>{ const a=old.plan[pk], b=now.plan[pk]; if(a&&b&&a!==b&&EX[a]&&EX[b]) out.push(`Swapped ${n(a)} for ${n(b)}`); });
+  Object.keys(now.ex).forEach(id=>{ const a=+old.ex[id]||0, b=+now.ex[id]||0; if(EX[id]&&b&&a&&a!==b) out.push(`${n(id)}: ${weightNumber(a)} → ${weightNumber(b)} ${state.settings.units}`); });
+  const adjN=Object.keys({...old.adj,...now.adj}).filter(k=>JSON.stringify(old.adj[k]||null)!==JSON.stringify(now.adj[k]||null)).length; if(adjN) out.push(`Changed sets, reps or rest on ${adjN} exercise${adjN>1?'s':''}`);
+  if(JSON.stringify(old.sched)!==JSON.stringify(now.sched)) out.push(`Schedule now ${nDays()} workouts a week${isFlex()?' (any days)':' · '+trainDays().map(d=>DAYN[d]).join(', ')}, ${now.sched.mins} min`);
+  if(old.level!==now.level) out.push('Level: '+LEVELS[lvl()].n);
+  return out;
+}
+async function coachLookOpen(cm){
+  if(!sb||!cm||coachMode!==cm) return;
+  try{
+    const {data,error}=await sb.rpc('coach_private',{p_action:'get',p_member:cm.uid,p_body:{}}); if(error) throw error; if(coachMode!==cm) return;
+    cm.notes=data.notes||''; cm.notesLoaded=true;
+    const snap=coachLookSnap();
+    if(data.seen&&data.seen_at){
+      const items=coachLookDiff(data.seen), w=await sb.from('workout_logs').select('date,data').eq('user_id',cm.uid).gt('date',data.seen_at).order('date');
+      if(coachMode!==cm) return;
+      const done=(w.data||[]).map(r=>r.data).filter(Boolean);
+      if(done.length) items.unshift(`${done.length} workout${done.length>1?'s':''}: ${done.slice(-4).map(l=>`${l.name||'Workout'} (${new Date(l.date).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}${l.status&&l.status!=='complete'?', partial':''})`).join(', ')}`);
+      if(items.length){
+        cm.look={since:data.seen_at,items};
+        const stamp=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'});
+        cm.notes=(`${stamp} · Since ${new Date(data.seen_at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}:\n`+items.map(x=>'• '+x).join('\n')+(cm.notes?'\n\n'+cm.notes:'')).slice(0,20000);
+        await sb.rpc('coach_private',{p_action:'notes',p_member:cm.uid,p_body:{notes:cm.notes}});
+        if(coachMode===cm&&!$('#modal .sheet')) coachLookSheet();
+      }
+    }
+    await sb.rpc('coach_private',{p_action:'seen',p_member:cm.uid,p_body:{seen:snap}});
+    if(coachMode===cm&&ui.tab==='plan') render();
+  }catch(e){ if(coachMode===cm){ cm.notesErr=true; } }
+}
+function coachLookSheet(){
+  const L=coachMode&&coachMode.look; if(!L) return;
+  modal(`<div><div class="eyebrow">${esc(coachMode.name)}</div><h2>Since you last looked</h2><p class="tiny muted" style="margin:4px 0 0">${esc(new Date(L.since).toLocaleString(undefined,{month:'short',day:'numeric',hour:'numeric',minute:'2-digit'}))} to now</p></div>
+    <ul class="small" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px">${L.items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+    <p class="tiny muted" style="margin:0">Saved to your private notes about ${esc(coachMode.name)}.</p>
+    <button class="btn primary block" data-action="closemodal">Got it</button>`);
+}
+function coachNotesCard(){
+  if(!coachMode) return '';
+  return `<section class="card stack coach-notes"><div class="row between"><h3>Your private notes</h3><span class="tiny muted">Only you can see these</span></div>${coachMode.look?'<button class="linkbtn plan-textbtn" data-action="coachlook" style="align-self:flex-start">Since you last looked</button>':''}
+    ${coachMode.notesLoaded?`<textarea id="coachnotes" aria-label="Private notes about ${esc(coachMode.name)}" maxlength="20000" placeholder="Goals, injuries, what to watch for…">${esc(coachMode.notes||'')}</textarea>
+    <div class="row between"><span class="tiny muted" id="coachnotes-status">${coachMode.notesSaved?'Saved':''}</span><button class="btn sm" data-action="coachnotessave">Save notes</button></div>`
+      :`<p class="small muted" style="margin:0">${coachMode.notesErr?'Notes couldn’t load. Check your connection and reopen their app.':'Loading notes…'}</p>`}
+  </section>`;
+}
+async function coachNotesSave(){
+  const t=$('#coachnotes'), cm=coachMode; if(!t||!cm) return; const v=t.value.slice(0,20000), st=$('#coachnotes-status'); if(st) st.textContent='Saving…';
+  const {error}=await sb.rpc('coach_private',{p_action:'notes',p_member:cm.uid,p_body:{notes:v}});
+  if(error){ if(st) st.textContent='Couldn’t save. Try again.'; return; } cm.notes=v; cm.notesSaved=true; if(st) st.textContent='Saved';
+}
+document.addEventListener('input',e=>{ if(e.target.id==='coachnotes'&&coachMode){ coachMode.notes=e.target.value; coachMode.notesSaved=false; const st=$('#coachnotes-status'); if(st) st.textContent='Not saved'; } });
+document.addEventListener('focusout',e=>{ if(e.target.id==='coachnotes'&&coachMode&&!coachMode.notesSaved) coachNotesSave(); });
 /* ---------------- Plan warnings: similar moves, back-to-back days, weekly balance ---------------- */
 // Exercise focus audit (Nov 18 2026, docs/EXERCISE-FOCUS-AUDIT-2026-11-18.md): two moves from the same group train the
 // same muscle the same way. Only flagged groups are listed; different groups never warn.
@@ -7395,6 +7493,8 @@ function planEditAction(a,b){
   if(a==='exaddpick'){ const A=ui.exAdd; if(!A) return true; exAdd(A.key,b.dataset.id); closeModal(); render(); toast(`Added ${EX[b.dataset.id].n}`); return true; }
   if(a==='exremove'){ const n=EX[(sessionSlots(k).find(x=>x.pk===pk)||{}).id]; exRemove(k,pk); closeModal(); render(); toast(`Removed ${n?n.n:'the exercise'}`); return true; }
   if(a==='expair'){ const c=customEnsure(k), nx=b.dataset.next; c.pairs=c.pairs.filter(p=>!p.includes(pk)&&!p.includes(nx)); c.pairs.push([pk,nx]); closeModal(); render(); toast('Superset added'); return true; }
+  if(a==='coachnotessave'){ coachNotesSave(); return true; }
+  if(a==='coachlook'){ coachLookSheet(); return true; }
   if(a==='baladd'){ balanceAdd(b.dataset.v); return true; }
   if(a==='warnkeep'){ warnDismiss(b.dataset.w); closeModal(); render(); return true; }
   if(a==='b2bspread'){ state.settings.days=b.dataset.v.split(',').map(Number); closeModal(); render(); toast('Days spread out'); return true; }
@@ -7488,7 +7588,9 @@ document.addEventListener('click', async e=>{
   if(a==='synccopy'){ copySyncRecovery(); return; }
   if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
-  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap'].includes(a)&&planEditAction(a,b)) return;
+  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook'].includes(a)&&planEditAction(a,b)) return;
+  if(a==='cupddismiss'){ state.coach={...(state.coach||{}),open:false}; save(); render(); return; }
+  if(a==='cupdplan'){ ui.tab='plan'; render(); scrollTo(0,0); return; }
   if(a.startsWith('auth')){ authAction(a,b); return; }
   if(a.startsWith('hs') && hsAction(a)) return;
   if((a.startsWith('msg')||a.startsWith('cm')) && fbAction(a,b)) return;
@@ -7627,6 +7729,7 @@ document.addEventListener('click', async e=>{
       if(rest!=null) a.rest=Math.round(rest); if(after!=null) a.after=Math.round(after);
       a.ex=b.dataset.id; state.adj[pk]=a;
       if(w!=null && !coachMode){ const id=b.dataset.id; state.ex[id]={...(state.ex[id]||{}), w}; }
+      if(coachMode&&$('#adj-sugg')){ const sg=v('adj-sugg'), id=b.dataset.id; state.sugg=state.sugg&&typeof state.sugg==='object'?state.sugg:{}; if(sg>0&&sg<=2000) state.sugg[id]={w:sg,u:state.settings.units||'lb'}; else delete state.sugg[id]; }
       const d=state.draft;
       if(d && d.sets[pk]){ const slot=dSlots().find(x=>x.pk===pk), tg=target(slot), arr=d.sets[pk];
         while(arr.length<tg.sets) arr.push({w:defW(tg),r:'',done:false});
