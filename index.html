@@ -1035,6 +1035,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.18.1",
+    "date": "2026-11-19",
+    "title": "Shorter Today rows and privacy update",
+    "notes": [
+      "Today's exercise list reads like 3 × 8–12, the same as Plan.",
+      "The privacy policy now explains coach notes, message edits, removing your coach and admin access for support."
+    ]
+  },
+  {
     "version": "0.18.0",
     "date": "2026-11-19",
     "title": "Coach yourself",
@@ -4510,7 +4519,7 @@ function renderPlanExercises(slots, simple=false, opt={}){
         <div class="row plan-move-actions ed-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}<button class="linkbtn plan-textbtn" data-action="exmore" data-k="${opt.key}" data-pk="${s.pk}" aria-label="More options for ${esc(ex.n)}">More</button></div></div></div>`; }).join('')}</div>
     <button class="linkbtn plan-textbtn ed-add" data-action="exadd" data-k="${opt.key}">+ Add exercise</button>`;
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} sets × ${tg.unit==='sec'?esc(tg.r):tg.lo+'–'+tg.hi} ${esc(tg.unit)}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   return `<div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
