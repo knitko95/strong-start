@@ -971,6 +971,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.13.0",
+    "date": "2026-11-19",
+    "title": "Coaches can change schedules, splits and workout names",
+    "notes": ["In a member's Plan, coaches can edit the schedule, workout length and split, and rename workouts. Send changes lists what's changing; the member gets it as a message and their app applies it the next time they open it."]
+  },
+  {
     "version": "0.12.3",
     "date": "2026-11-18",
     "title": "More accurate exercise targets",
@@ -2417,7 +2423,9 @@ function baseSlot(pk){
   const x={pk, cfg, id: ps||id}; if(ps) x.placeFrom=id;
   return x;
 }
-const tplOf = key => TPL[key] || DERIVED[key];
+// A coach can rename a workout for one person (state.names); the template keeps its default name.
+const tplOf = key => { const t=TPL[key]||DERIVED[key], n=typeof state!=='undefined'&&state&&state.names&&state.names[key]; return t&&n?{...t,name:n}:t; };
+const tplDefaultName = key => (TPL[key]||DERIVED[key]||{}).name||'';
 function dSlots(){ const d=state.draft, keep=state.curPlace; if(d.place) state.curPlace=d.place; try{ return dSlotsInner(d); } finally{ state.curPlace=keep; } }
 // A started workout keeps its exercises, order and pairings (d.shape). Changing sets or rest with Adjust re-fits the
 // plan to the time budget, which must not drop, add or re-pair an exercise in the middle of a workout.
@@ -3647,7 +3655,7 @@ async function openPerson(id,name){
   if(!st.data || !st.data.state || !st.data.state.block){ toast(`${name} hasn’t finished setup yet`); return; }
   try{ fClearTimer(); }catch(e){}
   coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
-  state=migrate(st.data.state); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
+  state=migrate(st.data.state); coachMode.base=JSON.parse(JSON.stringify(state)); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`);
 }
 async function openPagedPerson(id,name){
   if(!await flushCloud()){toast('Sync your changes before opening another app.');return;}
@@ -3669,7 +3677,7 @@ async function openPagedPerson(id,name){
     if(!await flushCloud())throw Error('Own account has pending changes');await refreshHistory(false);
     const own={state:copySync(state),logs:copySync(logs),page:{...PAGE,view:{...PAGE.view}}};
     try{fClearTimer();}catch{}
-    coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
+    coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));coachMode.base=copySync(state);PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
     await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);
   }catch(e){try{temporary.db?.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
 }
@@ -3679,17 +3687,67 @@ function exitPagedPerson(silent=false){
   preview.temporary.db?.close();indexedDB.deleteDatabase(preview.temporary.name+'_indexed');
   if(!silent){ui.tab='people';loadPeople();render();setSync();window.scrollTo(0,0);toast('Back to your app');}return true;
 }
+function coachSchedSheet(){
+  const s=state.settings;
+  modal(`<div class="coach-sched stack"><div><div class="eyebrow">${esc(coachMode.name)}’s plan</div><h2>Schedule & split</h2></div>
+    <div class="seg wide" role="group" aria-label="Schedule type"><button data-action="setflex" data-v="0" aria-pressed="${!isFlex()}">Set days</button><button data-action="setflex" data-v="1" aria-pressed="${isFlex()}">Days change</button></div>
+    ${isFlex()?`<div class="mins">${[2,3,4,5].map(n=>`<button class="min ${nDays()===n?'on':''}" data-action="setndays" data-v="${n}"><b>${n}</b><span>days</span></button>`).join('')}</div>`
+      :`<div class="days">${[1,2,3,4,5,6,0].map(d=>`<button class="day7 ${(s.days||[]).includes(d)?'on':''}" data-action="setday" data-v="${d}" aria-pressed="${(s.days||[]).includes(d)}">${DAYN[d][0]}<small>${DAYN[d]}</small></button>`).join('')}</div>`}
+    <div><b>Workout length</b></div>
+    <div class="mins">${[30,45,60,75].map(m=>`<button class="min ${(s.mins||45)===m?'on':''}" data-action="setmins" data-v="${m}"><b>${m}</b><span>${MINS[m]} exercises</span></button>`).join('')}</div>
+    <div><b>Workout split</b><div class="tiny muted">How their ${nDays()} days are divided up.</div></div>
+    <div class="stack" style="gap:8px">${SPLITS_FOR(splitN()).map(k=>{ const o=SPLITS[k], on=splitId()===k;
+      return `<button class="opt ${on?'sel':''}" data-action="setsplit" data-v="${k}" aria-pressed="${on}" style="padding:12px 14px"><span style="flex:1"><b>${esc(o.label)}${SPLIT_DEFAULT[splitN()]===k?' <span class="chip acc">Recommended</span>':''}</b><span class="d">${esc(o.d)}</span></span><span class="tkb">${on?'&#10003;':''}</span></button>`; }).join('')}</div>
+    <p class="tiny muted" style="margin:0">A new split keeps their exercises, history and weights. Changes are included when you Send changes.</p>
+    <button class="btn primary block" data-action="closemodal">Done</button></div>`);
+}
+function coachRenameSheet(k){
+  const t=tplOf(k), def=tplDefaultName(k);
+  modal(`<div><div class="eyebrow">${esc(coachMode.name)}’s plan</div><h2>Rename workout</h2></div>
+    <label class="field2" for="wkname"><span class="flabel">Workout name</span><input id="wkname" maxlength="40" value="${esc(t.name)}" data-modal-initial></label>
+    <p class="tiny muted" style="margin:0">Default: “${esc(def)}”. ${esc(coachMode.name)} sees the new name on Today and Plan after you Send changes.</p>
+    <div class="row"><button class="btn primary" data-action="coachrenamesave" data-k="${k}">Save</button>${t.name!==def?`<button class="btn" data-action="coachrenamereset" data-k="${k}">Use default</button>`:''}<button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
+}
+function coachRenameSave(k,reset){
+  const def=tplDefaultName(k), v=reset?'':(($('#wkname')||{}).value||'').replace(/\s+/g,' ').trim().slice(0,40);
+  state.names=state.names||{};
+  if(!v||v===def) delete state.names[k]; else state.names[k]=v;
+  closeModal(); render(); toast(v&&v!==def?`Renamed to “${v}”`:`Back to “${def}”`);
+}
+// Plain-language list of what this coach changed since opening the member's app.
+function coachChanges(){
+  const b=coachMode&&coachMode.base; if(!b||!b.block||!state.block) return [];
+  const out=[], s=state.settings, o=b.settings||{}, cur=JSON.stringify;
+  const with_=(st,fn)=>{ const keep=state; state=st; try{ return fn(); } finally{ state=keep; } };
+  const sched=st=>with_(st,()=>`${nDays()} workouts a week${isFlex()?' (any days)':' · '+trainDays().map(d=>DAYN[d]).join(', ')}`);
+  const split=st=>with_(st,()=>splitLabel());
+  if(sched(b)!==sched(state)) out.push('Schedule: '+sched(state));
+  if(split(b)!==split(state)) out.push('Split: '+split(state));
+  if((o.mins||45)!==(s.mins||45)) out.push(`Workouts: ${s.mins||45} minutes`);
+  if(cur((o.order||{})[splitId()]||null)!==cur((s.order||{})[splitId()]||null)) out.push('New workout order');
+  const keys=new Set([...Object.keys(b.names||{}),...Object.keys(state.names||{})]);
+  keys.forEach(k=>{ const was=(b.names||{})[k]||tplDefaultName(k), now=(state.names||{})[k]||tplDefaultName(k); if(was!==now) out.push(`“${was}” is now “${now}”`); });
+  let sw=0; Object.keys(state.block.plan).forEach(pk=>{ const a=b.block.plan[pk], c=state.block.plan[pk]; if(a!==c&&EX[a]&&EX[c]){ sw++; if(sw<=5) out.push(`${EX[a].n} → ${EX[c].n}`); } });
+  if(sw>5) out.push(`${sw-5} more exercise swaps`);
+  const adjN=new Set([...Object.keys(b.adj||{}),...Object.keys(state.adj||{})].filter(k=>cur((b.adj||{})[k]||null)!==cur((state.adj||{})[k]||null))).size;
+  if(adjN) out.push(`New sets, reps or rest for ${adjN} exercise${adjN>1?'s':''}`);
+  if(o.level!==s.level) out.push('Level: '+LEVELS[lvl()].n);
+  return out;
+}
 function coachSendSheet(){
+  const ch=coachChanges();
   modal(`<h2>Send changes to ${esc(coachMode.name)}</h2>
-    <p class="small muted" style="margin:0">Sends exercise choices, sets, rep ranges, rest and recovery times, level, and your note. Working weights and personal settings stay with the member. The update applies when their app connects and no workout is in progress. A paused or unfinished workout must be finished or discarded first.</p>
-    <label class="field2" for="sendnote"><span class="flabel">Note to them <span class="tiny muted">(shows on their home screen)</span></span><textarea id="sendnote" style="font-family:var(--body);font-size:var(--text-md);min-height:80px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
-    <div class="row"><button class="btn primary" data-action="coachsend">Send plan update</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
+    <div class="stack" style="gap:4px"><b class="small">What’s changing</b>${ch.length?`<ul class="small" style="margin:0;padding-left:18px">${ch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>`:'<p class="small muted" style="margin:0">No changes yet. You can still send a note.</p>'}</div>
+    <label class="field2" for="sendnote"><span class="flabel">Note to them <span class="tiny muted">(optional)</span></span><textarea id="sendnote" style="font-family:var(--body);font-size:var(--text-md);min-height:80px">${esc((state.coach&&state.coach.note)||'')}</textarea></label>
+    <p class="tiny muted" style="margin:0">${esc(coachMode.name)} gets your note and this list as a message. The changes apply the next time they open the app (after any workout in progress). Working weights and personal settings stay theirs.</p>
+    <div class="row"><button class="btn primary" data-action="coachsend">Send changes</button><button class="btn" data-action="closemodal">Cancel</button></div>`);
 }
 async function coachSend(){
-  const n=$('#sendnote'); state.coach={note:n?n.value.trim():''};
+  const n=$('#sendnote'), typed=n?n.value.trim():'', ch=coachChanges();
+  state.coach={note:[typed, ch.length?'What changed:\n'+ch.map(x=>'• '+x).join('\n'):''].filter(Boolean).join('\n\n').slice(0,3900)};
   const {error}=await sb.from('plan_updates').insert({user_id:coachMode.uid, update:JSON.parse(planCode())});
   if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
-  closeModal(); toast(`Plan update sent. It will apply when ${coachMode.name} connects with no workout in progress.`);
+  coachMode.base=JSON.parse(JSON.stringify(state)); closeModal(); toast(`Sent. It applies the next time ${coachMode.name} opens the app.`);
 }
 
 /* App feedback goes to the private tracker; coach conversations stay separate. */
@@ -4105,7 +4163,7 @@ function renderApp(){
   renderTimer(); setSync(); syncWake(); warmClock(); setupWorkoutPath(previousPathView); setupWorkoutDemo(previousDemo);
   if(document.getElementById('gclock')&&['run','gap'].includes(state.draft?.guide?.mode)){if(!gInt)gInt=setInterval(gTick,250);}else{clearInterval(gInt);gInt=null;}
 }
-function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Edit exercise choices, sets, reps, rest, recovery, and level, then Send changes. Other settings and working weights are view-only. Unsent edits are discarded when you leave.</div></div>
+function coachBanner(){ return `<section class="card coachbar" role="status"><div><b>Viewing ${esc(coachMode.name)}’s app</b><div class="tiny">Change their plan, schedule, split and workout names, then Send changes. They apply the next time the member opens the app.</div></div>
   <div class="row" style="gap:8px;flex-wrap:nowrap"><button class="btn sm" data-action="coachsendopen">Send changes</button><button class="btn sm primary" data-action="coachexit">Back to my app</button></div></section>`; }
 
 function ringStats(w, keys, wl, o){
@@ -4188,8 +4246,8 @@ function renderPlan(){
   let h=`<section class="stack"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
     </div></section>
     <section class="card stack plan-schedule" aria-label="Schedule">
-      <div class="row between"><h3>Schedule</h3>${coachMode?'<span class="tiny muted">View only</span>':'<button class="linkbtn" data-action="planeditschedule">Edit schedule</button>'}</div>
-      <p class="small muted" style="margin:0">${nDays()} workouts a week · ${state.settings.mins||45} min each</p>
+      <div class="row between"><h3>Schedule</h3>${coachMode?'<button class="linkbtn plan-textbtn" data-action="coachsched">Edit</button>':'<button class="linkbtn" data-action="planeditschedule">Edit schedule</button>'}</div>
+      <p class="small muted" style="margin:0">${nDays()} workouts a week · ${state.settings.mins||45} min each${coachMode?' · '+esc(splitLabel()):''}</p>
       ${isFlex()?'<p class="small plan-flex" style="margin:0">Any days that work for you</p>':`<div class="plan-days" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<div role="listitem" class="plan-day ${ds.includes(d)?'planned':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'planned training day':'not scheduled'}"><span>${DAYN[d]}</span><b aria-hidden="true">${ds.includes(d)?'●':'–'}</b></div>`).join('')}</div>`}
     </section>
     ${state.places.length>1?placeSwitch():`<div class="row between small plan-place"><span class="muted">Exercises for</span><span>${esc(curPlace().n)}</span></div>`}
@@ -4198,7 +4256,7 @@ function renderPlan(){
     const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id];
     h+=`<section class="card plan-workout ${k===next?'plan-next':''}">
       <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><span class="row"><b class="sec-t">${esc(t.name)}</b>${k===next?'<span class="chip acc">Up next</span>':''}</span><span class="tiny muted">${dayLabel(j,true)} · ${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
-      ${open?`<div class="stack sec-body">${renderPlanExercises(ss)}</div>`:''}</section>`;
+      ${open?`<div class="stack sec-body">${coachMode?`<div class="row between coach-rename"><span class="tiny muted">${t.name!==tplDefaultName(k)?'Renamed from “'+esc(tplDefaultName(k))+'”':'Workout name'}</span><button class="linkbtn plan-textbtn" data-action="coachrename" data-k="${k}">Rename</button></div>`:''}${renderPlanExercises(ss)}</div>`:''}</section>`;
   });
   return h + sec('plan-muscles','Muscles in your plan','',renderMuscleMap(undefined,true)) + whyCard() + `<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
 }
@@ -6544,7 +6602,9 @@ function levelSheet(){
     ${LEVEL_ORDER.map(k=>{ const o=LEVELS[k]; return `<button class="lvl ${lvl()===k?'sel':''}" data-action="setlevel" data-v="${k}" style="text-align:left;width:100%"><div class="h"><b>${o.n}</b></div><div class="small muted">${o.d}</div><div class="more"><span><b>First weeks:</b> ${o.first}</span></div></button>`; }).join('')}
     <button class="btn ghost" data-action="closemodal">Close</button>`);
 }
-function planCode(){ return JSON.stringify({t:'ssplan', v:1, plan:state.block.plan, orig:state.block.orig, adj:state.adj, note:(state.coach&&state.coach.note)||'', level:state.settings.level}); }
+function planCode(){ const s=state.settings;
+  return JSON.stringify({t:'ssplan', v:1, plan:state.block.plan, orig:state.block.orig, adj:state.adj, note:(state.coach&&state.coach.note)||'', level:s.level,
+    sched:{split:s.split||splitId(), days:(s.days||[]).slice(), flex:!!s.flex, nDays:+s.nDays||nDays(), mins:+s.mins||45, order:s.order||{}}, names:state.names||{}}); }
 // Bring older saved data up to date
 function migrate(st){
   if(!st) return st;
@@ -6900,7 +6960,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -6917,6 +6977,7 @@ const USAGE=window.createUsageAnalytics?window.createUsageAnalytics(USAGE_CONFIG
 function render(){
   repairCatalogPicks();
   renderApp();
+  if(coachMode&&$('#modal .coach-sched')) coachSchedSheet();
   window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#app'),APP_ENV);
   USAGE.screen();
   if(USAGE_CONFIG.enabled && usageContext().eligible &&
@@ -6978,6 +7039,9 @@ document.addEventListener('click', async e=>{
   if(a==='invall'){ ui.invAll=!ui.invAll; render(); return; }
   if(a==='personopen'){ openPerson(b.dataset.id,b.dataset.n); return; }
   if(a==='coachsendopen'){ coachSendSheet(); return; }
+  if(a==='coachsched'){ coachSchedSheet(); return; }
+  if(a==='coachrename'){ coachRenameSheet(b.dataset.k); return; }
+  if(a==='coachrenamesave'||a==='coachrenamereset'){ coachRenameSave(b.dataset.k,a==='coachrenamereset'); return; }
   if(a==='coachsend'){ coachSend(); return; }
   if(a==='suedit' && !state.setup && ui.editFromSettings) state.setup={step:'week1', a:prefillSetup()};
   if(a.startsWith('su') && a!=='subtoday' && state.setup){ if(a==='suresume'){ syncPausedSetup(); if(state.setup) state.setup.paused=false; save(); render(); window.scrollTo(0,0); return; } setupAction(a,b); return; }
