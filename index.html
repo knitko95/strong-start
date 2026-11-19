@@ -943,11 +943,19 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .target b{letter-spacing:0}
 .btn,nav.tabs button{font-family:var(--body);font-weight:600}
 /* Coach edit mode */
+.scrim.scrim-top{align-items:flex-start}
+.sheet.sheet-top{border-radius:0 0 24px 24px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
 .coach-editbar{position:sticky;top:8px;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--ink);color:var(--surface);border-radius:16px;padding:10px 12px;margin:0 0 14px}
 .coach-editbar .tiny{opacity:.8}
-.ceb-u{border:1px solid color-mix(in srgb,var(--surface) 40%,transparent);background:none;color:inherit;font:inherit;font-weight:650;border-radius:999px;min-height:40px;padding:0 12px}
+.coach-editbar>div:first-child{flex:1;min-width:0}
+.coach-editbar>div:first-child b,.coach-editbar>div:first-child .tiny{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coach-editbar>div:first-child b{font-size:var(--text-sm)}
+.coach-editbar .row{flex:none;flex-wrap:nowrap}
+.ceb-u,.ceb-d{white-space:nowrap;flex:none}
+.ceb-u{border:1px solid color-mix(in srgb,var(--surface) 40%,transparent);background:none;color:inherit;font:inherit;font-size:var(--text-sm);font-weight:650;border-radius:999px;min-height:40px;padding:0 10px}
 .ceb-u:disabled{opacity:.4}
-.ceb-d{border:0;background:var(--surface);color:var(--ink);font:inherit;font-weight:750;border-radius:999px;min-height:40px;padding:0 16px}
+.ceb-icon{padding:0;min-width:40px}
+.ceb-d{border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:var(--text-sm);font-weight:750;border-radius:999px;min-height:40px;padding:0 14px}
 .coach-plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
 .coach-editbtn{flex:none;min-height:44px;padding:0 16px;border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);font:inherit;font-weight:700}
 .coach-vdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
@@ -960,9 +968,17 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .coach-split{font-size:var(--text-lg)}
 .coach-wlist{padding-top:4px;padding-bottom:4px}
 .coach-wrow+.coach-wrow{border-top:1px solid var(--line)}
-.coach-whead{display:flex;align-items:center;gap:8px}
-.coach-whead .sec-head{flex:1;min-width:0;border:0;background:none;box-shadow:none;padding-left:0;padding-right:0}
-.coach-wtags{display:flex;align-items:center;gap:6px;flex:none}
+.coach-whead{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer}
+.coach-wlabel{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.coach-wtitle{display:block;line-height:1.5}
+.coach-wtitle>*{display:inline;vertical-align:baseline;margin-right:10px;white-space:nowrap}
+.coach-wtitle>.coach-wname{white-space:normal}
+.coach-wname{border:0;background:none;padding:0;font:inherit;font-weight:700;font-size:var(--text-lg);color:var(--ink);text-align:left}
+.coach-wtitle .chip{display:inline-block}
+.ceb-short{display:none}
+@media (max-width:370px){.ceb-long{display:none}.ceb-short{display:inline}}
+.coach-ren{min-height:32px;padding:0;font-size:var(--text-sm)}
+.coach-chev{flex:none;border:0;background:none;color:var(--muted);font-size:16px;min-width:40px;min-height:40px}
 .coach-renamed{font-size:11px;font-weight:750;color:var(--good);background:var(--good-soft);padding:2px 8px;border-radius:999px;white-space:nowrap}
 .coach-discard{color:var(--warn)}
 /* Plan moves: plain bold text actions and the Today-style sets/reps/muscle line. */
@@ -993,6 +1009,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.14.1",
+    "date": "2026-11-19",
+    "title": "Edit plan fixes",
+    "notes": ["Up next, Rename and Renamed sit right next to each workout name. The editing bar keeps Undo and Done on one line on small phones, and the Rename box opens at the top of the screen so the keyboard doesn't cover it."]
+  },
   {
     "version": "0.14.0",
     "date": "2026-11-19",
@@ -3735,7 +3757,7 @@ function coachRenameSheet(k){
   modal(`<div><div class="eyebrow">${esc(coachMode.name)}’s plan</div><h2>Rename workout</h2></div>
     <label class="field2" for="wkname"><span class="flabel">Workout name</span><input id="wkname" maxlength="40" value="${esc(t.name)}" data-modal-initial></label>
     <p class="tiny muted" style="margin:0">Default: “${esc(def)}”. ${esc(coachMode.name)} sees the new name on Today and Plan after you Send changes.</p>
-    <div class="row"><button class="btn primary" data-action="coachrenamesave" data-k="${k}">Save</button>${t.name!==def?`<button class="btn" data-action="coachrenamereset" data-k="${k}">Use default</button>`:''}<button class="btn ghost" data-action="closemodal">Cancel</button></div>`);
+    <div class="row"><button class="btn primary" data-action="coachrenamesave" data-k="${k}">Save</button>${t.name!==def?`<button class="btn" data-action="coachrenamereset" data-k="${k}">Use default</button>`:''}<button class="btn ghost" data-action="closemodal">Cancel</button></div>`,{scrimClass:'scrim-top',sheetClass:'sheet-top'});
 }
 function coachRenameSave(k,reset){
   const def=tplDefaultName(k), v=reset?'':(($('#wkname')||{}).value||'').replace(/\s+/g,' ').trim().slice(0,40);
@@ -4220,8 +4242,8 @@ function coachUndo(redo){
 }
 function coachEditBar(){
   const E=coachMode.edit||{undo:[],redo:[]}, n=coachChanges().length;
-  return `<section class="coach-editbar" role="region" aria-label="Editing ${esc(coachMode.name)}’s plan"><div><b>Editing ${esc(coachMode.name)}’s plan</b><div class="tiny">${n?`${n} change${n>1?'s':''} · not sent yet`:'No changes yet'}</div></div>
-    <div class="row" style="gap:6px;flex-wrap:nowrap">${E.redo.length?'<button class="ceb-u" data-action="coachredo">↷ Redo</button>':''}<button class="ceb-u" data-action="coachundo" ${E.undo.length?'':'disabled'}>↶ Undo</button><button class="ceb-d" data-action="coachdone">Done</button></div></section>`;
+  return `<section class="coach-editbar" role="region" aria-label="Editing ${esc(coachMode.name)}’s plan"><div><b><span class="ceb-long">Editing ${esc(coachMode.name)}’s plan</span><span class="ceb-short">Editing</span></b><div class="tiny">${n?`${n} change${n>1?'s':''}<span class="ceb-long"> · not sent</span>`:'No changes'}</div></div>
+    <div class="row" style="gap:6px;flex-wrap:nowrap">${E.redo.length?'<button class="ceb-u ceb-icon" data-action="coachredo" aria-label="Redo">↷</button>':''}<button class="ceb-u" data-action="coachundo" ${E.undo.length?'':'disabled'}>↶ Undo</button><button class="ceb-d" data-action="coachdone">Done</button></div></section>`;
 }
 function coachDiscard(){ if(coachMode.base){ coachRestore(JSON.stringify({plan:coachMode.base.block.plan,orig:coachMode.base.block.orig,adj:coachMode.base.adj||{},names:coachMode.base.names||{},
   settings:(({split,days,flex,nDays,mins,order,level})=>({split,days,flex,nDays,mins,order,level}))(coachMode.base.settings)})); }
@@ -4321,8 +4343,10 @@ function renderCoachPlan(){
   h+=`${state.places.length>1?placeSwitch():''}<section class="stack" style="gap:4px"><h3>Workouts</h3>${edit?'<p class="tiny muted" style="margin:0">Tap a workout to change its exercises</p>':''}</section><section class="card coach-wlist">`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id], renamed=t.name!==tplDefaultName(k);
-    h+=`<div class="coach-wrow"><div class="coach-whead"><button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><b class="sec-t">${esc(t.name)}</b><span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
-      <span class="coach-wtags">${edit?`<button class="linkbtn plan-textbtn" data-action="coachrename" data-k="${k}">Rename</button>`:(k===next?'<span class="chip acc">Up next</span>':'')}${renamed&&edit?'<span class="coach-renamed">Renamed</span>':''}</span></div>
+    h+=`<div class="coach-wrow"><div class="coach-whead" data-action="sectoggle" data-v="${id}"><span class="plan-number" aria-hidden="true">${j+1}</span>
+      <div class="coach-wlabel"><div class="coach-wtitle"><button class="sec-t coach-wname" data-action="sectoggle" data-v="${id}" aria-expanded="${open}">${esc(t.name)}</button>${edit?`<button class="linkbtn plan-textbtn coach-ren" data-action="coachrename" data-k="${k}">Rename</button>${renamed?'<span class="coach-renamed">Renamed</span>':''}`:(k===next?'<span class="chip acc">Up next</span>':'')}</div>
+        <span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></div>
+      <button class="coach-chev" data-action="sectoggle" data-v="${id}" aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${esc(t.name)} exercises">${open?'▴':'▾'}</button></div>
       ${open?`<div class="stack sec-body">${renderPlanExercises(ss)}</div>`:''}</div>`;
   });
   return h+'</section>'+sec('plan-muscles','Muscles in their plan','',renderMuscleMap(undefined,true));
