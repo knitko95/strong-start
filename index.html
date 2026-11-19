@@ -966,7 +966,8 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .coach-edays button.on,.coach-seg button.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
 .coach-seg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 .coach-split{font-size:var(--text-lg)}
-.coach-wlist{padding-top:4px;padding-bottom:4px}
+.coach-wlist{padding-bottom:4px}
+.coach-wlist-title{margin:0}
 .coach-wrow+.coach-wrow{border-top:1px solid var(--line)}
 .coach-whead{display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer}
 .coach-wlabel{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
@@ -1009,6 +1010,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.14.3",
+    "date": "2026-11-19",
+    "title": "Coach plan layout",
+    "notes": ["In a coach's view of a member's plan, the Workouts title sits inside its box like Schedule and Split."]
+  },
   {
     "version": "0.14.2",
     "date": "2026-11-19",
@@ -4346,7 +4353,7 @@ function renderCoachPlan(){
       <section class="card stack"><h3>Split</h3><div class="tiny muted">For ${nDays()} workouts a week</div>${SPLITS_FOR(splitN()).map(k=>{ const o=SPLITS[k], on=splitId()===k;
         return `<button class="opt ${on?'sel':''}" data-action="setsplit" data-v="${k}" aria-pressed="${on}" style="padding:12px 14px"><span style="flex:1"><b>${esc(o.label)}${SPLIT_DEFAULT[splitN()]===k?' <span class="chip acc">Recommended</span>':''}</b><span class="d">${esc(o.d)}</span></span><span class="tkb">${on?'&#10003;':''}</span></button>`; }).join('')}</section>`;
   }
-  h+=`${state.places.length>1?placeSwitch():''}<section class="stack" style="gap:4px"><h3>Workouts</h3>${edit?'<p class="tiny muted" style="margin:0">Tap a workout to change its exercises</p>':''}</section><section class="card coach-wlist">`;
+  h+=`${state.places.length>1?placeSwitch():''}<section class="card coach-wlist"><h3 class="coach-wlist-title">Workouts</h3>${edit?'<p class="tiny muted" style="margin:2px 0 0">Tap a workout to change its exercises</p>':''}`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id], renamed=t.name!==tplDefaultName(k);
     h+=`<div class="coach-wrow"><div class="coach-whead" data-action="sectoggle" data-v="${id}"><span class="plan-number" aria-hidden="true">${j+1}</span>
