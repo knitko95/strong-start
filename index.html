@@ -1055,6 +1055,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.23.0",
+    "date": "2026-11-20",
+    "title": "One warm-up set",
+    "notes": ["Workouts now have the mobility warm-up, then one lighter warm-up set before your first lift. The extra ramp-up sets are gone."]
+  },
+  {
     "version": "0.22.0",
     "date": "2026-11-20",
     "title": "Legs and Glutes are separate focus areas",
@@ -2133,7 +2139,8 @@ const MINS = {30:4, 45:5, 60:6, 75:7};
 const BUDGET = {30:{wc:2.5,wm:2,cw:1,foam:0,st:1,cool:3}, 45:{wc:4,wm:3,cw:2,foam:2,st:3,cool:6}, 60:{wc:5,wm:3,cw:2,foam:2,st:4,cool:7}, 75:{wc:6,wm:4,cw:2,foam:3,st:4,cool:8}};
 function budget(){ const m=state.settings.mins||45, b=BUDGET[m]||BUDGET[45]; return {...b, mins:m, warm:Math.round(b.wc+b.wm*0.75), lift:m-Math.round(b.wc+b.wm*0.75)-b.cool}; }
 function slotSec(s){ const first=s.cfg.ssLen&&s.cfg.ssPos<s.cfg.ssLen-1, work=EX[s.id]&&EX[s.id].mode==='P'?15:40; return s.cfg.sets*(work+(first?10:s.cfg.rest))+(first?0:60); }
-function rampN(){ const m=state.settings.mins||45; return Math.min({easy:1,mid:2}[TIER()]||3, m<=30?1:m<=45?2:3); }
+// One warm-up set before the first lift, after the mobility warm-up (owner decision Nov 20, 2026: no multi-set ramp-ups).
+function rampN(){ return 1; }
 function rampSec(arr){ return arr.some(s=>EX[s.id]&&usesLoad(EX[s.id])&&EX[s.id].mode==='L') ? rampN()*60 : 0; }
 function liftSec(arr){ return arr.reduce((a,s)=>a+slotSec(s),0)+rampSec(arr); }
 // The shortest rest that still serves the goal: strength main lifts keep 90–120 s, other main lifts 60–75 s, the rest 45 s.
@@ -5250,8 +5257,8 @@ function sessionExtras(d, slots){
     warm.push({k:'m'+i, t:opts[0].t, d:opts[0].d, alts:opts.slice(1).map(x=>({...x, why:picks.why(x)})), why:picks.why(opts[0])}); });
   const first=slots.find(s=>usesLoad(EX[s.id]) && EX[s.id].mode==='L');
   if(first){ const tg=target(first), w=tg.w??tg.sug, ex=EX[first.id];
-    const n=rampN(), plan = n===1 ? [[0.6,6]] : n===2 ? [[0.5,8],[0.75,4]] : [[0.5,5],[0.7,3],[0.85,1]];
-    plan.forEach(([f,r],i)=>warm.push({k:'r'+i, t:`Ramp-up set ${i+1}: ${ex.n}`, d: w ? `${fmtW(snap(ex, (kgU()?w*2.2046:w)*f))} × ${r}` : `${Math.round(f*100)}% of your working weight × ${r}`, ramp:true})); }
+    const plan = [[0.5,10]];   // one set of 10 at about half the working weight (owner, feedback #1)
+    plan.forEach(([f,r],i)=>warm.push({k:'r'+i, t:`Warm-up set: ${ex.n}`, d: w ? `${fmtW(snap(ex, (kgU()?w*2.2046:w)*f))} × ${r}` : `${Math.round(f*100)}% of your working weight × ${r}`, ramp:true})); }
   const cs=cSet()||{}, prep=d.prep||savedPrep(d.key,d.place), D = d.cmin!=null ? d.cmin : prep.cardioMin!=null?prep.cardioMin:(cs.after!=null ? cs.after : cAfterDefault()); const finisher = D>0 ? cAfterItem(d.key,eq,D) : null;
   const CF=coolFit(slots), walk=pickList(COOL_WALK,eq).map(x=>({...x, d:x.d.replace('3–5 min',CF.cw+' min')})); cool.push({k:'w', t:walk[0].t, d:walk[0].d, alts:walk.slice(1)});
   const worked={}; slots.forEach(s=>{ const m=EXM[s.id]; if(!m) return; m.p.forEach(x=>worked[x]=(worked[x]||0)+2); m.s.forEach(x=>worked[x]=(worked[x]||0)+1); });
@@ -6500,15 +6507,15 @@ function renderRamp(d,s,X){
   const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
   const m=(r.d||'').match(/^(.*?) × (\d+)$/), row=rampSet(d,s,k);
   const each=(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
-  return `<div class="focus">${fTop(d,dSlots(),`Warm-up set ${k+1} of ${ramps.length}`)}
+  return `<div class="focus">${fTop(d,dSlots(),ramps.length>1?`Warm-up set ${k+1} of ${ramps.length}`:'Warm-up set')}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div></div>
-    <section class="card acard"><div class="ach"><b>Lighter set</b><span class="goal">Not logged</span></div>
+    <section class="card acard"><div class="ach"><b>Warm-up set</b><span class="goal">Not logged</span></div>
       <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep fixed"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
       ${row.w===''?`<div class="tiny muted" style="text-align:center">${esc(m?m[1]:r.d)}</div>`:''}
-      <div class="tiny muted" style="text-align:center">Easy and smooth. These prepare you for your working sets.</div></section>
+      <div class="tiny muted" style="text-align:center">Easy and smooth. This gets you ready for your working sets.</div></section>
     <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
     <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button></div>
-      <button class="btn ghost block" data-action="frampskip">Skip warm-up sets</button></div></div>`;
+      <button class="btn ghost block" data-action="frampskip">Skip warm-up set${ramps.length>1?'s':''}</button></div></div>`;
 }
 
 /* ---------------- Home screen ---------------- */
@@ -6598,7 +6605,7 @@ function savedPrep(key,place){return state.prep?.[prepKey(key,place)]||{items:{}
 function prepBuckets(X){return [
   {id:'warm-cardio',name:'Warm-up cardio',group:'warm',items:X.warm.filter(x=>x.k==='c')},
   {id:'mobility',name:'Mobility',group:'warm',items:X.warm.filter(x=>!x.ramp&&x.k!=='c')},
-  {id:'ramps',name:'Lighter sets',group:'warm',items:X.warm.filter(x=>x.ramp)},
+  {id:'ramps',name:'Warm-up set',group:'warm',items:X.warm.filter(x=>x.ramp)},
   {id:'cardio',name:'Cardio',group:'cool',items:X.finisher?[X.finisher]:[]},
   {id:'walk',name:'Easy movement',group:'cool',items:X.cool.filter(x=>x.k==='w')},
   {id:'recovery',name:'Muscle recovery',group:'cool',items:X.cool.filter(x=>!x.stretch&&x.k!=='w')},
