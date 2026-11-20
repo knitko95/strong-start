@@ -1058,7 +1058,7 @@ const APP_RELEASES = [
     "version": "0.23.0",
     "date": "2026-11-20",
     "title": "One warm-up set",
-    "notes": ["Workouts now have the mobility warm-up, then one lighter warm-up set before your first lift. The extra ramp-up sets are gone."]
+    "notes": ["Workouts now have the mobility warm-up, then one lighter warm-up set before your first lift. The extra ramp-up sets are gone.", "The Schedule card on Plan no longer has its own Edit schedule link. Use Edit plan, or Profile & settings › Schedule."]
   },
   {
     "version": "0.22.0",
@@ -4639,7 +4639,7 @@ function renderCoachPlan(){
   const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey(), s=state.settings, edit=planEditOn(), self=!coachMode, coached=self&&!coachSelf(), canEdit=!coached;
   let h=`<section class="coach-plan-head"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>${self?'Your plan':esc(coachMode.name)+'’s plan'}</h1></div>${edit||!canEdit?'':'<button class="coach-editbtn" data-action="coachedit">✎ Edit plan</button>'}</section>`;
   if(!edit){
-    h+=`<section class="card stack plan-schedule" aria-label="Schedule"><div class="row between"><h3>Schedule</h3>${self?'<button class="linkbtn" data-action="planeditschedule">Edit schedule</button>':''}</div><p class="small muted" style="margin:0">${nDays()} workouts a week · ${s.mins||45} min each</p>
+    h+=`<section class="card stack plan-schedule" aria-label="Schedule"><h3>Schedule</h3><p class="small muted" style="margin:0">${nDays()} workouts a week · ${s.mins||45} min each</p>
       ${isFlex()?`<p class="small plan-flex" style="margin:0">Any days that work for ${self?'you':'them'}</p>`:`<div class="coach-vdays" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<span role="listitem" class="${ds.includes(d)?'on':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'training day':'not scheduled'}">${DAYN[d]}</span>`).join('')}</div>`}</section>
       <section class="card stack"><h3>Split</h3><div><b class="coach-split">${esc(SPLITS[splitId()].label)}</b><div class="small muted">${esc(SPLITS[splitId()].d)}</div></div></section>`;
   } else {
