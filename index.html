@@ -1051,6 +1051,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.20.1",
+    "date": "2026-11-20",
+    "title": "Since you last looked shows only the client's own changes",
+    "notes": [
+      "Coaches no longer see Since you last looked when the client's app hasn't changed.",
+      "Changes a coach sent that haven't reached the client's app yet are no longer listed as the client's changes."
+    ]
+  },
+  {
     "version": "0.20.0",
     "date": "2026-11-20",
     "title": "Add a move from the balance card",
@@ -3867,11 +3876,11 @@ async function acctDelete(id,b){
 async function openPerson(id,name){
   if(PAGE.active)return openPagedPerson(id,name);
   toast('Opening…');
-  const [st,lg]=await Promise.all([ sb.from('app_state').select('state').eq('user_id',id).maybeSingle(), sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}) ]);
+  const [st,lg]=await Promise.all([ sb.from('app_state').select('state,revision').eq('user_id',id).maybeSingle(), sb.from('workout_logs').select('data').eq('user_id',id).order('date',{ascending:false}) ]);
   if(st.error||lg.error){ toast('Couldn’t open their app. Check your connection.'); return; }
   if(!st.data || !st.data.state || !st.data.state.block){ toast(`${name} hasn’t finished setup yet`); return; }
   try{ fClearTimer(); }catch(e){}
-  coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id};
+  coachMode={own:{state:JSON.parse(JSON.stringify(state)), logs:JSON.parse(JSON.stringify(logs))}, name, uid:id, rev:st.data.revision==null?null:String(st.data.revision)};
   state=migrate(st.data.state); coachMode.base=JSON.parse(JSON.stringify(state)); logs=normalizeLogs((lg.data||[]).map(r=>r.data),state.settings.units); ui.tab='today'; render(); setSync('coach'); window.scrollTo(0,0); toast(`Viewing ${name}’s app`); coachLookOpen(coachMode);
 }
 async function openPagedPerson(id,name){
@@ -3894,7 +3903,7 @@ async function openPagedPerson(id,name){
     if(!await flushCloud())throw Error('Own account has pending changes');await refreshHistory(false);
     const own={state:copySync(state),logs:copySync(logs),page:{...PAGE,view:{...PAGE.view}}};
     try{fClearTimer();}catch{}
-    coachMode={own,name,uid:id,temporary};state=migrate(copySync(head.state));coachMode.base=copySync(state);PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
+    coachMode={own,name,uid:id,temporary,rev:head.revision==null?null:String(head.revision)};state=migrate(copySync(head.state));coachMode.base=copySync(state);PAGE.scope++;PAGE.store=temporary;PAGE.flight=null;PAGE.sig=null;PAGE.summary=null;PAGE.view={before:null,exercise:null};
     await loadHistoryPage(null,null,false);await refreshHistory(false);ui.tab='today';render();setSync();window.scrollTo(0,0);toast(`Viewing ${name}’s app`);coachLookOpen(coachMode);
   }catch(e){try{temporary.db?.close();indexedDB.deleteDatabase(temporary.name+'_indexed');}catch{}toast('Couldn’t open their app. Check your connection and try again.');}
 }
@@ -3996,7 +4005,10 @@ async function coachSend(){
   if(error){ toast('Couldn’t send. Check your connection and try again.'); return; }
   const leaving=coachMode.leaving;
   // What the coach just sent becomes the starting point for the next "since you last looked".
-  sb.rpc('coach_private',{p_action:'seen',p_member:coachMode.uid,p_body:{seen:coachLookSnap()}}).then(()=>{},()=>{});
+  // Their saved app still shows the old values until the update applies; remember those so they aren't reported as the member's own changes.
+  { const sent=coachLookSnap(), was=coachLookFlat(coachLookSnapOf(coachMode.base)), now=coachLookFlat(sent), pend={};
+    Object.keys({...was,...now}).forEach(k=>{ if(was[k]!==now[k]) pend[k]=was[k]===undefined?null:was[k]; });
+    sb.rpc('coach_private',{p_action:'seen',p_member:coachMode.uid,p_body:{seen:{...sent,rev:coachMode.rev,pend}}}).then(()=>{},()=>{}); }
   coachMode.base=JSON.parse(JSON.stringify(state)); coachMode.edit={undo:[],redo:[],last:null,on:false}; closeModal();
   toast(`Sent. It applies the next time ${coachMode.name} opens the app.`);
   if(leaving) coachLeave(); else render();
@@ -7391,8 +7403,23 @@ async function memberCoaching(action){
 /* ---------------- Coach: private notes and "since you last looked" ---------------- */
 // Only the coach who writes them can read the notes (coach_private RPC). The coach's last view of the member's
 // plan is saved so the next visit can list what changed in between; that summary is added to the notes too.
-function coachLookSnap(){ const st=state; return {plan:st.block&&st.block.plan||{}, adj:st.adj||{}, ex:Object.fromEntries(Object.entries(st.ex||{}).map(([k,v])=>[k,v&&v.w])),
-  sched:{split:splitId(),days:trainDays(),flex:isFlex(),mins:st.settings.mins||45}, level:st.settings.level, block:st.block&&st.block.n}; }
+function coachLookSnap(){ return coachLookSnapOf(state); }
+function coachLookSnapOf(st){ return {plan:{...(st.block&&st.block.plan||{})}, adj:JSON.parse(JSON.stringify(st.adj||{})), ex:Object.fromEntries(Object.entries(st.ex||{}).map(([k,v])=>[k,v&&v.w])),
+  sched:coachLookSched(st), level:st.settings.level, block:st.block&&st.block.n}; }
+function coachLookSched(st){ const keep=state; try{ state=st; return {split:splitId(),days:trainDays(),flex:isFlex(),mins:st.settings.mins||45}; } finally{ state=keep; } }
+// Flat key → JSON value, so a change can be matched field by field.
+function coachLookFlat(x){ const o={}; if(!x) return o; ['plan','adj','ex'].forEach(g=>Object.entries(x[g]||{}).forEach(([k,v])=>{ o[g+'.'+k]=JSON.stringify(v===undefined?null:v); })); ['sched','level','block'].forEach(k=>{ o[k]=JSON.stringify(x[k]===undefined?null:x[k]); }); return o; }
+function coachLookUnflat(o){ const x={plan:{},adj:{},ex:{}}; Object.entries(o).forEach(([k,v])=>{ const i=k.indexOf('.'), val=v==null?undefined:JSON.parse(v); if(i>0) { if(val!==undefined&&val!==null) x[k.slice(0,i)][k.slice(i+1)]=val; } else x[k]=val===null?undefined:val; }); return x; }
+// Compare what the coach last saw with the member's saved app now.
+// A coach update that hasn't applied yet is not a change the member made, and when their app hasn't been saved since, nothing changed.
+function coachLookCompare(seen,rev){
+  const nowSnap=coachLookSnap(), now=coachLookFlat(nowSnap), old=coachLookFlat(seen), pend=(seen&&seen.pend)||{}, keep={}, eff={...old};
+  Object.keys(pend).forEach(k=>{ if(now[k]===pend[k]||(now[k]===undefined&&pend[k]==null)){ keep[k]=pend[k]; eff[k]=now[k]; } });
+  const unchanged=!seen||!seen.rev||rev==null||String(seen.rev)===String(rev);
+  const items=unchanged?[]:coachLookDiff(coachLookUnflat(eff));
+  const next=coachLookFlat(nowSnap); Object.keys(keep).forEach(k=>{ if(old[k]===undefined) delete next[k]; else next[k]=old[k]; });
+  return {items, seen:{...coachLookUnflat(next), rev, pend:keep}};
+}
 function coachLookDiff(old){
   const out=[], now=coachLookSnap(), n=x=>EX[x]?EX[x].n:x;
   if(old.block!==now.block) out.push('Started a new 6-week program');
@@ -7408,9 +7435,9 @@ async function coachLookOpen(cm){
   try{
     const {data,error}=await sb.rpc('coach_private',{p_action:'get',p_member:cm.uid,p_body:{}}); if(error) throw error; if(coachMode!==cm) return;
     cm.notes=data.notes||''; cm.notesLoaded=true;
-    const snap=coachLookSnap();
+    const cmp=coachLookCompare(data.seen,cm.rev), snap=cmp.seen;
     if(data.seen&&data.seen_at){
-      const items=coachLookDiff(data.seen), w=await sb.from('workout_logs').select('date,data').eq('user_id',cm.uid).gt('date',data.seen_at).order('date');
+      const items=cmp.items, w=await sb.from('workout_logs').select('date,data').eq('user_id',cm.uid).gt('date',data.seen_at).order('date');
       if(coachMode!==cm) return;
       const done=(w.data||[]).map(r=>r.data).filter(Boolean);
       if(done.length) items.unshift(`${done.length} workout${done.length>1?'s':''}: ${done.slice(-4).map(l=>`${l.name||'Workout'} (${new Date(l.date).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}${l.status&&l.status!=='complete'?', partial':''})`).join(', ')}`);
