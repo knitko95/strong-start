@@ -1055,6 +1055,12 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.22.0",
+    "date": "2026-11-20",
+    "title": "Legs and Glutes are separate focus areas",
+    "notes": ["The Legs focus now works your quads, hamstrings and calves. Glutes have their own focus, so you can pick both without doubling up."]
+  },
+  {
     "version": "0.21.3",
     "date": "2026-11-20",
     "title": "Even spacing around page titles",
@@ -7499,10 +7505,10 @@ document.addEventListener('focusout',e=>{ if(e.target.id==='coachnotes'&&coachMo
 /* ---------------- Focus areas (#154, owner decisions Nov 12 and Nov 20 2026) ---------------- */
 // Up to two areas get a little extra: focus-heavy versions of the main moves and one extra move on days that train
 // them, as time allows. The person and their coach can both set it; the coach's choice wins.
-const FOCUS={glutes:['Glutes',['glutes','abductors']],legs:['Legs',['quads','hamstrings','glutes']],chest:['Chest',['chest']],back:['Back',['lats','upper_back']],
+const FOCUS={glutes:['Glutes',['glutes','abductors']],legs:['Legs',['quads','hamstrings','calves']],chest:['Chest',['chest']],back:['Back',['lats','upper_back']],
   shoulders:['Shoulders',['front_delts','side_delts','rear_delts']],arms:['Arms',['biceps','triceps']],core:['Abs and core',['abs','obliques']]};
 const FOCUS_NOTE={glutes:'Leg days lean on moves that work your glutes hard, like hip thrusts and Bulgarian split squats, plus one extra glute exercise.',
-  legs:'Leg days lean on moves that work your quads, hamstrings and glutes hard, plus one extra leg exercise.',chest:'Upper and push days lean on chest-heavy presses, plus one extra chest exercise.',
+  legs:'Leg days lean on moves that work your quads, hamstrings and calves hard, plus one extra leg exercise. For glutes, pick the Glutes focus too.',chest:'Upper and push days lean on chest-heavy presses, plus one extra chest exercise.',
   back:'Upper and pull days lean on back-heavy rows and pulldowns, plus one extra back exercise.',shoulders:'Upper days add one extra shoulder exercise.',
   arms:'Upper days add one extra biceps or triceps exercise.',core:'Workouts add one extra abs or rotation exercise.'};
 function focusAreas(){ const f=state&&state.settings&&state.settings.focus; return Array.isArray(f)?f.filter(k=>FOCUS[k]).slice(0,2):[]; }
@@ -7659,7 +7665,7 @@ const BAL_TREE=[
   ['Lower body',[
     ['glutes','Glutes & hips',['glutes','abductors'],'glutes',[['Glute max',m=>m.includes('glutes')],['Glute med (side of hip)',m=>m.includes('abductors')],['Inner thighs',m=>m.includes('adductors')]]],
     ['quads','Quads',['quads'],'quads',[]],['hamstrings','Hamstrings',['hamstrings'],'hamstrings',[]],['calves','Calves',['calves'],'calves',[]]]]];
-const BAL_FOCUS={glutes:['glutes'],legs:['quads','hamstrings','glutes'],chest:['chest'],back:['back'],shoulders:['shoulders'],arms:['biceps','triceps'],core:['core']};
+const BAL_FOCUS={glutes:['glutes'],legs:['quads','hamstrings','calves'],chest:['chest'],back:['back'],shoulders:['shoulders'],arms:['biceps','triceps'],core:['core']};
 const BAL_ZONE={min:'Not enough',build:'Building',ok:'On target',high:'High volume',once:'Once a week',twice:'2× a week',none:'Not trained'};
 // Build muscle and Lose weight use set targets; Get stronger, Feel healthier and Move more athletically check twice a week.
 function balMode(){ return hasGoal('muscle')||hasGoal('lose')?'sets':'freq'; }
