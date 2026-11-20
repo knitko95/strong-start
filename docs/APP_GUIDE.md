@@ -355,3 +355,7 @@ The scoped feedback delivery/admin-inbox release was approved and published as `
 
 
 Approved pose demonstrations (all owner-approved entries in `exercise-guides/poses/catalogue.v1.json`) are enabled for development and production since Nov 20, 2026 (owner request), including the Today list play button. The 3D animation drafts stay development-only. New exercises get a 3D draft scene copied from their closest movement until they're authored; their pose demos go through the review queue.
+
+During a workout, the workout list (Nov 20, 2026, owner-approved) lets people drag not-started exercises (⠿) to reorder, use **More** (Swap for template moves, Move to the end, Remove from today's workout) and **+ Add exercise** (body-part chips, suggestions for what the week is light on, search). Additions go after the current exercise; workout-only additions use draft-only `w.N` keys in `state.draft.adds`. People without a coach can choose **Just today** or **Every week** (Every week uses the plan's custom add/remove); people with a coach change today only. Logs mark added entries (`added:true`) and removed names (`removed`); history shows 'Added during this workout' and the coach's Since you last looked lists them.
+
+Plan rows in every view show `demoThumb()`: the approved pose demo's still when one exists (via `hydratePreviews`), otherwise the muscle diagram; tapping opens How to. `shared-guides.js` shows approved pose demos in every environment where the pose catalogue enables them; 3D drafts stay development-only.

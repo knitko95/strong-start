@@ -21,6 +21,7 @@
      }catch{if(!available(entry)||version!==serial)return;entry.pose?.unmount();entry.pose=null;entry.poseFailed=true;}
     }
    }
+   if(!entry.has3d){if(available(entry)&&version===serial){entry.card.dataset.guideStatus='error';entry.view.innerHTML='<p class="eg-shared-error">Demonstration unavailable. You can still follow the written steps.</p>';entry.card.querySelector('.eg-status').hidden=true;}return;}
    const runtime=await player();if(!available(entry)||version!==serial)return;
    entry.card.dataset.mediaType='3d';entry.card.setAttribute('aria-label','3D exercise demonstration');
    if(owner&&owner!==entry)owner.playing=runtime.isPlaying();owner=entry;
@@ -38,13 +39,17 @@
  }
  async function attach({exerciseId,mount,environment,mode='guide',gallery=false}){
   const surface=mode==='workout'?'workout':'modal';dispose(surface);if(!mount)return;
-  if(environment!=='development'){mount.hidden=true;return;}
   const entry={id:exerciseId,mount,surface,gallery,environment,playing:!matchMedia('(prefers-reduced-motion: reduce)').matches};active.set(surface,entry);
   entry.observer=new MutationObserver(()=>{if(!mount.isConnected)dispose(surface);});entry.observer.observe(document.body,{childList:true,subtree:true});
   try{
-   const data=await manifest();if(!available(entry))return;
+   // Approved pose demonstrations show in every environment where they're enabled (production included, Nov 20 2026);
+   // 3D drafts only where their own manifest enables them (development). Same for every viewer.
+   if(gallery&&environment!=='development'){mount.hidden=true;return;}
+   const data=await manifest().catch(()=>({exercises:[]}));if(!available(entry))return;
    if(gallery)entry.id=data.exercises.find(e=>e.enabledEnvironments.includes(environment))?.id;
-   if(!data.exercises.some(e=>e.id===entry.id&&e.enabledEnvironments.includes(environment))){mount.hidden=true;return;}
+   let pose=null;try{pose=await window.StrongStartPoseDemos?.find(entry.id,environment);}catch{}if(!available(entry))return;
+   entry.has3d=data.exercises.some(e=>e.id===entry.id&&e.enabledEnvironments.includes(environment));
+   if(!pose&&!entry.has3d){mount.hidden=true;return;}
    const card=document.createElement('section');card.className='eg-demo'+(surface==='workout'?' eg-inline':'');card.dataset.exerciseGuide=exerciseId||'gallery';card.setAttribute('aria-label',gallery?'All exercise demonstrations':'3D exercise demonstration');
    card.innerHTML='<span class="eg-status" role="status">Loading demonstration…</span><div class="eg-view"></div>'+(surface==='workout'?'<button type="button" class="eg-expand" aria-expanded="false" aria-label="Expand demonstration">⤢</button>':'');
    card.addEventListener('click',e=>e.stopPropagation());card.addEventListener('input',e=>e.stopPropagation());card.addEventListener('change',e=>e.stopPropagation());
