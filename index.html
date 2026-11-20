@@ -976,6 +976,8 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .ed-actions{margin-top:6px}.ed-sslabel{color:var(--accent);font-weight:650;margin-top:2px}
 .ed-pair.second{border-top:1px dashed var(--accent)}.ed-pair{box-shadow:inset 3px 0 0 var(--accent);padding-left:6px}
 .ed-add{display:block;margin:10px 0 4px}
+.ba-prev{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--sunk);border-radius:14px;padding:10px 12px;font-size:var(--text-sm)}.ba-prev b{font-size:var(--text-md)}.ba-tag{font-size:11px;font-weight:700;border-radius:6px;padding:1px 6px;white-space:nowrap;background:var(--surface)}.ba-tag.z-min{color:#9a6223}.ba-tag.z-build{color:#7d6a3a}.ba-tag.z-ok{color:var(--good)}.ba-tag.z-high{color:var(--accent)}
+.ba-days{display:flex;gap:6px;flex-wrap:wrap}.ba-sug{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}.ba-sug>span{display:flex;flex-direction:column}
 .coach-notes textarea{min-height:140px;font-family:var(--body);font-size:var(--text-md);line-height:1.45;width:100%;box-sizing:border-box}
 .cupd{display:flex;flex-direction:column;gap:8px;padding:14px 16px}.cupd .cm-identity{padding-right:36px}.cupd .eyebrow{display:block}.cupd-list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:2px}.cupd-note{margin:0;font-style:italic;color:var(--muted)}
 
@@ -1048,6 +1050,17 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.20.0",
+    "date": "2026-11-20",
+    "title": "Add a move from the balance card",
+    "notes": [
+      "When a muscle shows Not enough, tap + Add to see a few suggested moves and the change in weekly sets before adding one.",
+      "The app picks days that already suit that muscle. Tap a day to leave it out.",
+      "If a day would run long, the app shortens rests only while they stay long enough for the goal. If rests are already as short as the goal allows, it tells you the workout will take longer, so you decide.",
+      "The athletic goal is now called Move more athletically: jump, sprint and change direction better for everyday sports and activities."
+    ]
+  },
   {
     "version": "0.19.0",
     "date": "2026-11-20",
@@ -2076,13 +2089,16 @@ function slotSec(s){ const first=s.cfg.ssLen&&s.cfg.ssPos<s.cfg.ssLen-1, work=EX
 function rampN(){ const m=state.settings.mins||45; return Math.min({easy:1,mid:2}[TIER()]||3, m<=30?1:m<=45?2:3); }
 function rampSec(arr){ return arr.some(s=>EX[s.id]&&usesLoad(EX[s.id])&&EX[s.id].mode==='L') ? rampN()*60 : 0; }
 function liftSec(arr){ return arr.reduce((a,s)=>a+slotSec(s),0)+rampSec(arr); }
+// The shortest rest that still serves the goal: strength main lifts keep 90–120 s, other main lifts 60–75 s, the rest 45 s.
+function restFloor(x){ const heavy=hasGoal('strong')||hasGoal('sport'), short=budget().mins<=30; return x.cfg.role==='main'?(heavy?(lvl()==='up'?120:90):short?60:75):x.cfg.role==='main2'?(heavy?90:60):45; }
 function fitSlots(out,keepAll=false){
   const lim=budget().lift*60, over=a=>liftSec(finalize(a))>lim+30;
   if(!over(out)) return out;
   // A workout someone edited keeps every move they chose: only sets and rests shorten.
   if(keepAll){ const A=x=>(state.adj&&state.adj[x.pk])||{};
     out=out.map(x=>x.cfg.sets>3&&A(x).sets==null?{...x,cfg:{...x.cfg,sets:3,trimmed:true}}:x);
-    for(let k=0;k<4&&over(out);k++) out=out.map(x=>A(x).rest!=null?x:{...x,cfg:{...x.cfg,rest:Math.max(/^main/.test(x.cfg.role)?75:45,x.cfg.rest-15)}});
+    // Rests shorten only as far as the goal allows (strength keeps longer rests); past that the workout runs longer.
+    for(let k=0;k<8&&over(out);k++) out=out.map(x=>A(x).rest!=null?x:{...x,cfg:{...x.cfg,rest:Math.max(restFloor(x),x.cfg.rest-15)}});
     return out; }
   const A=x=>(state.adj&&state.adj[x.pk])||{}, isMain=x=>/^main/.test(x.cfg.role);
   // 1. 3 sets is plenty
@@ -2127,7 +2143,7 @@ const GOALS = {
   muscle:{n:'Build muscle', d:'Look more toned and defined', ic:'&#9650;'},
   strong:{n:'Get stronger', d:'Lift heavier over time', ic:'&#9670;'},
   health:{n:'Feel healthier', d:'More energy, better sleep, move with less stiffness', ic:'&#9829;'},
-  sport:{n:'Athletic performance', d:'Jump higher, run faster, play better', ic:'&#10148;'},
+  sport:{n:'Move more athletically', d:'Jump, sprint and change direction better for everyday sports and activities', ic:'&#10148;'},
 };
 const PAIN = {
   knees:{n:'Knees', re:/Lunge|Split Squat|Step-Down|Step-Up|Pistol|Skater|Sissy|Reverse Nordic|Cossack|Jump|Bound|Hop|Depth|Hack Squat|Box Squat|Front Squat|Back Squat|Zercher|BOSU Squat/},
@@ -7318,7 +7334,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy','baladdday','baladdpick','baladdall'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -7597,7 +7613,7 @@ const BAL_TREE=[
     ['quads','Quads',['quads'],'quads',[]],['hamstrings','Hamstrings',['hamstrings'],'hamstrings',[]],['calves','Calves',['calves'],'calves',[]]]]];
 const BAL_FOCUS={glutes:['glutes'],legs:['quads','hamstrings','glutes'],chest:['chest'],back:['back'],shoulders:['shoulders'],arms:['biceps','triceps'],core:['core']};
 const BAL_ZONE={min:'Not enough',build:'Building',ok:'On target',high:'High volume',once:'Once a week',twice:'2× a week',none:'Not trained'};
-// Build muscle and Lose weight use set targets; Get stronger, Feel healthier and Athletic performance check twice a week.
+// Build muscle and Lose weight use set targets; Get stronger, Feel healthier and Move more athletically check twice a week.
 function balMode(){ return hasGoal('muscle')||hasGoal('lose')?'sets':'freq'; }
 function balFocusSet(){ return new Set(focusAreas().flatMap(a=>BAL_FOCUS[a]||[])); }
 function weekBalance(){
@@ -7649,12 +7665,51 @@ function balanceWhy(){
     <p class="tiny muted" style="margin:0">Sources: ACSM Position Stand on resistance training (2026); Pelland et al., weekly volume and frequency meta-regressions (2026); Schoenfeld, Ogborn &amp; Krieger (2017).</p>
     <button class="btn primary block" data-action="closemodal">Got it</button>`);
 }
-// Below target: open Add exercise in the workout that already trains that area most.
+// "+ Add a … move" from the balance card: suggested moves, which days, what it does to the week and to workout time.
+const BAL_FITS={chest:['push','upper','full'],back:['pull','upper','full'],shoulders:['push','upper','full'],biceps:['pull','upper','full'],triceps:['push','upper','full'],core:['push','pull','upper','legs','full'],glutes:['legs','full'],quads:['legs','full'],hamstrings:['legs','full'],calves:['legs','full']};
+function balGroup(k){ for(const [,gs] of BAL_TREE) for(const g of gs) if(g[0]===k) return g; return null; }
+function workoutMins(key){ const slots=sessionSlots(key), X=sessionExtras({key,place:state.curPlace},slots); return X.min+Math.round(liftSec(slots)/60)+X.coolMin; }
 function balanceAdd(k){
-  const fits={chest:['push','upper','full'],back:['pull','upper','full'],shoulders:['push','upper','full'],biceps:['pull','upper','full'],triceps:['push','upper','full'],core:['push','pull','upper','legs','full'],glutes:['legs','full'],quads:['legs','full'],hamstrings:['legs','full'],calves:['legs','full']}[k]||[];
-  let best=weekKeys()[0], bs=-1e9;
-  for(const key of weekKeys()){ const sc=(fits.includes(tplOf(key).kind)?100:0)-sessionSlots(key).length; if(sc>bs){ bs=sc; best=key; } }
-  exAddSheet(best,{body:k});
+  const g=balGroup(k); if(!g) return; const fits=BAL_FITS[k]||[], keys=weekKeys();
+  let days=keys.filter(key=>fits.includes(tplOf(key).kind));
+  if(!days.length) days=[keys[0]];
+  // Twice a week when there are two fitting days, spread apart in the week's order
+  const pick=days.length>=2?[days[0],days[Math.min(days.length-1,Math.max(1,Math.floor(days.length/2)))]]:days.slice(0,1);
+  ui.balAdd={k,days:[...new Set(pick)]}; balAddDraw();
+}
+function balAddCands(k){
+  const g=balGroup(k), ms=g[2], eqset=placeEq(homeBase()), L=lvl(), inPlan=new Set(weekKeys().flatMap(key=>sessionSlots(key).map(s=>s.id)));
+  const roleOf=e=>{ const t=Object.values(TPL).flatMap(x=>x.slots).find(s=>e.slots.includes(s.s)); return t?t.role:''; };
+  return LIB.filter(e=>{ const m=EXM[e.id]; return m&&ms.some(x=>m.p.includes(x))&&allowed(e)&&hasEq(e,eqset)&&!inPlan.has(e.id)&&['acc','iso','core','main2','main'].includes(roleOf(e)); })
+    .map(e=>({e,sc:(ms.includes(EXM[e.id].p[0])?2:0)+(['acc','iso'].includes(roleOf(e))?1:0)+(['mc','cb'].includes(primeEq(e))?0.4:0)+(STARTER.has(e.id)?(L==='start'?0.6:0.3):0)-(ADV.test(e.n)?1:0)+prefBonus(e)-(e.uni?0.2:0)}))
+    .sort((a,b)=>b.sc-a.sc||a.e.n.localeCompare(b.e.n)).slice(0,3).map(x=>x.e);
+}
+// Try the add on a copy of the plan and report the week's sets and each day's minutes.
+function balAddPreview(k,id,days){
+  const keep=state; state=JSON.parse(JSON.stringify(state)); try{
+    const before=Object.fromEntries(days.map(d=>[d,workoutMins(d)])), w0=weekBalance().flatMap(x=>x[1]).find(x=>x.k===k);
+    if(id) days.forEach(d=>exAdd(d,id)); else days.forEach(d=>exAdd(d,balAddCands(k)[0]?.id));
+    const after=Object.fromEntries(days.map(d=>[d,workoutMins(d)])), w1=weekBalance().flatMap(x=>x[1]).find(x=>x.k===k);
+    return {w0,w1,before,after};
+  } catch(e){ return null; } finally{ state=keep; }
+}
+function balAddDraw(){
+  const A=ui.balAdd; if(!A) return; const g=balGroup(A.k), name=g[1].replace(' & hips','').toLowerCase(), C=balAddCands(A.k), mins=state.settings.mins||45;
+  const fits=BAL_FITS[A.k]||[], keys=weekKeys(), P=A.days.length&&C.length?balAddPreview(A.k,C[0].id,A.days):null;
+  const heavy=hasGoal('strong')||hasGoal('sport'), tag=z=>`<span class="ba-tag z-${z}">${BAL_ZONE[z]}</span>`;
+  const over=P?A.days.filter(d=>P.after[d]>mins+1):[];
+  const timeNote=!P?'':over.length?`<div class="note2 small"><b>${over.map(d=>`${esc(tplOf(d).name)} goes from about ${P.before[d]} to ${P.after[d]} minutes.`).join(' ')}</b> ${heavy?'Rests are already as short as a strength goal allows, so':'Rests are already as short as they can be while still doing their job, so'} the workout gets longer instead. You can still add it, pick fewer days, or skip it.</div>`
+    :A.days.some(d=>P.before[d]+4>mins)?`<div class="note2 small">To stay at about ${mins} minutes, the app shortens rests a little. They stay long enough for ${coachMode?'their':'your'} goal.</div>`:'';
+  modal(`<div><div class="eyebrow">Balance this week</div><h2>Add a ${esc(name)} move</h2></div>
+    ${P?`<div class="ba-prev"><span class="tiny muted">Sets a week:</span><span>${esc(g[1])}</span><b class="num">${P.w0.sets}</b>${tag(P.w0.zone)}<span aria-hidden="true">→</span><b class="num">${P.w1.sets}</b>${tag(P.w1.zone)}</div>`:''}
+    <div class="small"><b>Add to</b></div>
+    <div class="ba-days">${keys.map(d=>`<button class="painchip ${A.days.includes(d)?'on':''}" data-action="baladdday" data-v="${d}" aria-pressed="${A.days.includes(d)}">${esc(tplOf(d).name)}</button>`).join('')}</div>
+    <p class="tiny muted" style="margin:0">${A.days.length>=2?`${A.days.length} days are picked, so ${esc(name)} ${name.endsWith('s')?'are':'is'} trained ${A.days.length} times a week.`:A.days.length?'One day is picked.':'Pick at least one day.'} Tap a day to change it.</p>
+    ${timeNote}
+    ${C.length?`<div class="small"><b>Suggested</b> <span class="tiny muted">· fits the equipment at ${esc((state.places.find(p=>p.k===homeBase())||{n:"this place"}).n)}</span></div>
+    <div>${C.map((e,i)=>{ const cfg=cfgFor(focusSlotFor(e.id)); return `<div class="ba-sug">${musThumb(e.id,false)}<span><b>${esc(e.n)}</b><span class="tiny muted">${cfg.sets} sets of ${cfg.unit==='sec'?esc(cfg.lo+'–'+cfg.hi)+' sec':cfg.lo+'–'+cfg.hi}${A.days.length>1?' on each day':''}</span></span><button class="btn sm ${i?'':'primary'}" data-action="baladdpick" data-id="${e.id}" ${A.days.length?'':'disabled'}>Add</button></div>`; }).join('')}</div>`
+      :'<p class="small muted">No more moves for this muscle fit the equipment here.</p>'}
+    <button class="linkbtn plan-textbtn" data-action="baladdall">See all ${esc(name)} moves ›</button>`);
 }
 
 /* ---------------- Plan edit mode: reorder, remove, add and superset ---------------- */
@@ -7719,6 +7774,9 @@ function planEditAction(a,b){
   if(a==='coachnotessave'){ coachNotesSave(); return true; }
   if(a==='coachlook'){ coachLookSheet(); return true; }
   if(a==='baladd'){ balanceAdd(b.dataset.v); return true; }
+  if(a==='baladdday'){ const A=ui.balAdd; if(!A) return true; const d=b.dataset.v; A.days=A.days.includes(d)?A.days.filter(x=>x!==d):[...A.days,d].sort((x,y)=>weekKeys().indexOf(x)-weekKeys().indexOf(y)); balAddDraw(); return true; }
+  if(a==='baladdpick'){ const A=ui.balAdd, id=b.dataset.id; if(!A||!EX[id]||!A.days.length) return true; A.days.forEach(d=>exAdd(d,id)); ui.balAdd=null; closeModal(); render(); toast(`Added ${EX[id].n} to ${A.days.map(d=>tplOf(d).name).join(' and ')}`); return true; }
+  if(a==='baladdall'){ const A=ui.balAdd; if(!A) return true; ui.balAdd=null; exAddSheet(A.days[0]||weekKeys()[0],{body:A.k}); return true; }
   if(a==='balopen'){ ui.balOpen=ui.balOpen||{}; ui.balOpen[b.dataset.v]=!ui.balOpen[b.dataset.v]; render(); return true; }
   if(a==='balwhy'){ balanceWhy(); return true; }
   if(a==='warnkeep'){ warnDismiss(b.dataset.w); closeModal(); render(); return true; }
@@ -7813,7 +7871,7 @@ document.addEventListener('click', async e=>{
   if(a==='synccopy'){ copySyncRecovery(); return; }
   if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
-  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','balopen','balwhy'].includes(a)&&planEditAction(a,b)) return;
+  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','balopen','balwhy','baladdday','baladdpick','baladdall'].includes(a)&&planEditAction(a,b)) return;
   if(a==='coachremove'){ coachRemoveSheet(); return; }
   if(a==='coachremovego'){ memberCoaching('remove'); return; }
   if(a==='coachrejoin'){ memberCoaching('rejoin'); return; }
