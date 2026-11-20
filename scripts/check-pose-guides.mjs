@@ -9,7 +9,7 @@ const names=new Map(raw.trim().split('\n').map(row=>{const fields=row.split('|')
 assert.equal(data.schemaVersion,1);assert.equal(Object.keys(data.exercises).length,18);const files=new Set();
 assert(Object.keys(data.sequences??{}).every(id=>!(id in data.exercises)));
 for(const [id,entry] of Object.entries({...data.exercises,...data.sequences})){
- assert.equal(entry.name,names.get(id));assert.deepEqual(entry.enabledEnvironments,['development']);assert.equal(entry.review,'owner-approved');if (id in data.exercises) {assert.equal(entry.timingMs,900);assert.equal(entry.frames.length,2);}
+ assert.equal(entry.name,names.get(id));assert.deepEqual(entry.enabledEnvironments,['development','production']);assert.equal(entry.review,'owner-approved');if (id in data.exercises) {assert.equal(entry.timingMs,900);assert.equal(entry.frames.length,2);}
  else {assert(entry.frames.length>=2&&entry.frames.length<=4);assert.equal(entry.timingMs.length,entry.frames.length);assert(entry.timingMs.every(ms=>Number.isInteger(ms)&&ms>=100&&ms<=2000));}
  assert(entry.frames.every(f=>f.width===entry.frames[0].width&&f.height===entry.frames[0].height));
  assert(Number.isInteger(entry.preview?.frame)&&entry.preview.frame>=0&&entry.preview.frame<entry.frames.length,'Every approved exercise selects an explicit preview frame');

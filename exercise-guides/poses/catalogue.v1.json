@@ -5,7 +5,8 @@
     "barbell-bench-press": {
       "name": "Barbell Bench Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -40,7 +41,8 @@
     "goblet-squat": {
       "name": "Goblet Squat",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -75,7 +77,8 @@
     "dumbbell-romanian-deadlift": {
       "name": "Dumbbell Romanian Deadlift",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -110,7 +113,8 @@
     "hammer-curl": {
       "name": "Hammer Curl",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -145,7 +149,8 @@
     "dumbbell-lateral-raise": {
       "name": "Dumbbell Lateral Raise",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -180,7 +185,8 @@
     "dumbbell-glute-bridge": {
       "name": "Dumbbell Glute Bridge",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -215,7 +221,8 @@
     "standing-dumbbell-shoulder-press": {
       "name": "Standing Dumbbell Shoulder Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -250,7 +257,8 @@
     "single-arm-dumbbell-row": {
       "name": "Single-Arm Dumbbell Row",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -285,7 +293,8 @@
     "kettlebell-goblet-reverse-lunge": {
       "name": "Kettlebell Goblet Reverse Lunge",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -320,7 +329,8 @@
     "dumbbell-overhead-triceps-extension": {
       "name": "Dumbbell Overhead Triceps Extension",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -355,7 +365,8 @@
     "single-leg-dumbbell-calf-raise": {
       "name": "Single-Leg Dumbbell Calf Raise",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -390,7 +401,8 @@
     "dead-bug": {
       "name": "Dead Bug",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -425,7 +437,8 @@
     "lat-pulldown": {
       "name": "Lat Pulldown",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -460,7 +473,8 @@
     "seated-cable-row": {
       "name": "Seated Cable Row",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -495,7 +509,8 @@
     "leg-press": {
       "name": "Leg Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -530,7 +545,8 @@
     "dumbbell-bench-press": {
       "name": "Dumbbell Bench Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -565,7 +581,8 @@
     "leg-extension": {
       "name": "Leg Extension",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -600,7 +617,8 @@
     "seated-leg-curl": {
       "name": "Seated Leg Curl",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": 900,
       "review": "owner-approved",
@@ -637,7 +655,8 @@
     "smith-machine-bench-press": {
       "name": "Smith Machine Bench Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": [
         900,
@@ -675,7 +694,8 @@
     "neutral-grip-pull-up": {
       "name": "Neutral-Grip Pull-Up",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": [
         900,
@@ -713,7 +733,8 @@
     "kettlebell-gorilla-row": {
       "name": "Kettlebell Gorilla Row",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": [
         650,
@@ -769,7 +790,8 @@
     "machine-triceps-extension": {
       "name": "Machine Triceps Extension",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": [
         900,
@@ -807,7 +829,8 @@
     "half-kneeling-single-arm-cable-press": {
       "name": "Half-Kneeling Single-Arm Cable Chest Press",
       "enabledEnvironments": [
-        "development"
+        "development",
+        "production"
       ],
       "timingMs": [
         900,
