@@ -23,7 +23,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Playfair+Display:ital,wght@1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
 /* Layout: single phone column, sticky top bar, fixed bottom tab bar; soft white cards on blush, serif for titles and numbers, spaced caps for labels */
@@ -936,6 +936,8 @@ button.link.tiny,button.linkbtn.tiny{font-size:var(--text-md)}
 h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .eyebrow{font-family:var(--body);font-weight:700;letter-spacing:var(--label-track)}
 .brand{font-style:normal;font-weight:400}
+/* Wordmark only: Playfair Display bold italic (owner choice Nov 20, 2026). Used nowhere else. */
+.brand .bword{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-style:italic;font-weight:700;letter-spacing:0}
 .stat .v,.day .idx,.plan-number,.day .t,.ex .name,.ex .n,
 .target b,.set .sn,.timer .clock{font-weight:400}
 .ex .name,.ex .n{font-style:normal;letter-spacing:0}
@@ -1050,6 +1052,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.21.2",
+    "date": "2026-11-20",
+    "title": "New wordmark style",
+    "notes": ["The Strong · Start name at the top of the app is now in a bold italic serif."]
+  },
   {
     "version": "0.21.1",
     "date": "2026-11-20",
