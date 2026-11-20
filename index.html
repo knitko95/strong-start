@@ -1065,7 +1065,8 @@ const APP_RELEASES = [
     "title": "Superset ideas",
     "notes": [
       "In Edit plan, Superset ideas sits next to + Add exercise when a workout has moves that pair well. It suggests up to three pairs that work different muscles, shows the time each saves, and pairs them with one tap.",
-      "The workout list has Superset ideas too, for pairing moves you haven't started when you're short on time today."
+      "The workout list has Superset ideas too, for pairing moves you haven't started when you're short on time today.",
+      "People with a coach can use Superset ideas on their own Plan as well. Their coach sees any supersets they add, in Since you last looked and in workout history."
     ]
   },
   {
@@ -4681,7 +4682,8 @@ function renderPlanExercises(slots, simple=false, opt={}){
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
         return `<div class="slotrow mrow3">${demoThumb(ex.id,s.pk)}<div><div ${simple?'class="today-exercise-name"':'style="font-weight:600"'}><span>${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</span>${simple?`<span class="today-muscle" aria-label="Main muscles: ${esc(mainMuscleLabel(ex.id))}">${esc(mainMuscleLabel(ex.id))}</span>`:''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
         <p class="today-strength-meta plan-move-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}</div>
-        <div class="row plan-move-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
+        <div class="row plan-move-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>
+    ${opt.key&&!coachMode&&hasCoach()&&(ssIdeas(slots).length||(state.memberPairs||[]).some(p=>p[0]===opt.key))?`<div class="ed-addrow"><button class="linkbtn plan-textbtn ed-ss" data-action="ssideas" data-k="${opt.key}">⇄ Superset ideas</button></div>`:''}`;
 }
 
 // One plan layout for every view: the member's own app, people coaching themselves, and a coach viewing a client.
@@ -7495,6 +7497,7 @@ function finishWorkout(){
   if(completion.status==='complete'){ l.orderAdvanced=orderAdvanced; l.completedAt=new Date().toISOString(); if(d.block===state.block.n) l.week=weekNum(); }
   if(d.cardioDone) l.cardio=d.cardioDone;
   if(Array.isArray(d.removed)&&d.removed.length) l.removed=d.removed.slice(0,20);
+  if(Array.isArray(d.ssPaired)&&d.ssPaired.length) l.paired=d.ssPaired.slice(0,10);
   logs=logs.filter(x=>x.id!==l.id); logs.unshift(l);
   USAGE.capture('workout_saved',{status:l.status});
   if(l.status==='partial'){ d.logId=l.id; d.elapsedMs=elapsed; d.partialSaved=true; }
@@ -7575,12 +7578,12 @@ async function memberCoaching(action){
 // Only the coach who writes them can read the notes (coach_private RPC). The coach's last view of the member's
 // plan is saved so the next visit can list what changed in between; that summary is added to the notes too.
 function coachLookSnap(){ return coachLookSnapOf(state); }
-function coachLookSnapOf(st){ return {plan:{...(st.block&&st.block.plan||{})}, adj:JSON.parse(JSON.stringify(st.adj||{})), ex:Object.fromEntries(Object.entries(st.ex||{}).map(([k,v])=>[k,v&&v.w])),
+function coachLookSnapOf(st){ return {pairs:Object.fromEntries(Object.entries(st.custom||{}).map(([k,c])=>[k,(c&&Array.isArray(c.pairs)?c.pairs:[]).map(p=>p.join('+')).sort()])), plan:{...(st.block&&st.block.plan||{})}, adj:JSON.parse(JSON.stringify(st.adj||{})), ex:Object.fromEntries(Object.entries(st.ex||{}).map(([k,v])=>[k,v&&v.w])),
   sched:coachLookSched(st), level:st.settings.level, block:st.block&&st.block.n}; }
 function coachLookSched(st){ const keep=state; try{ state=st; return {split:splitId(),days:trainDays(),flex:isFlex(),mins:st.settings.mins||45}; } finally{ state=keep; } }
 // Flat key → JSON value, so a change can be matched field by field.
-function coachLookFlat(x){ const o={}; if(!x) return o; ['plan','adj','ex'].forEach(g=>Object.entries(x[g]||{}).forEach(([k,v])=>{ o[g+'.'+k]=JSON.stringify(v===undefined?null:v); })); ['sched','level','block'].forEach(k=>{ o[k]=JSON.stringify(x[k]===undefined?null:x[k]); }); return o; }
-function coachLookUnflat(o){ const x={plan:{},adj:{},ex:{}}; Object.entries(o).forEach(([k,v])=>{ const i=k.indexOf('.'), val=v==null?undefined:JSON.parse(v); if(i>0) { if(val!==undefined&&val!==null) x[k.slice(0,i)][k.slice(i+1)]=val; } else x[k]=val===null?undefined:val; }); return x; }
+function coachLookFlat(x){ const o={}; if(!x) return o; ['plan','adj','ex','pairs'].forEach(g=>Object.entries(x[g]||{}).forEach(([k,v])=>{ o[g+'.'+k]=JSON.stringify(v===undefined?null:v); })); ['sched','level','block'].forEach(k=>{ o[k]=JSON.stringify(x[k]===undefined?null:x[k]); }); return o; }
+function coachLookUnflat(o){ const x={plan:{},adj:{},ex:{},pairs:{}}; Object.entries(o).forEach(([k,v])=>{ const i=k.indexOf('.'), val=v==null?undefined:JSON.parse(v); if(i>0) { if(val!==undefined&&val!==null) x[k.slice(0,i)][k.slice(i+1)]=val; } else x[k]=val===null?undefined:val; }); return x; }
 // Compare what the coach last saw with the member's saved app now.
 // A coach update that hasn't applied yet is not a change the member made, and when their app hasn't been saved since, nothing changed.
 function coachLookCompare(seen,rev){
@@ -7598,6 +7601,9 @@ function coachLookDiff(old){
   Object.keys(now.ex).forEach(id=>{ const a=+old.ex[id]||0, b=+now.ex[id]||0; if(EX[id]&&b&&a&&a!==b) out.push(`${n(id)}: ${weightNumber(a)} → ${weightNumber(b)} ${state.settings.units}`); });
   const adjN=Object.keys({...old.adj,...now.adj}).filter(k=>JSON.stringify(old.adj[k]||null)!==JSON.stringify(now.adj[k]||null)).length; if(adjN) out.push(`Changed sets, reps or rest on ${adjN} exercise${adjN>1?'s':''}`);
   if(JSON.stringify(old.sched)!==JSON.stringify(now.sched)) out.push(`Schedule now ${nDays()} workouts a week${isFlex()?' (any days)':' · '+trainDays().map(d=>DAYN[d]).join(', ')}, ${now.sched.mins} min`);
+  const pname=pk=>{ const id=(state.block&&state.block.plan||{})[pk]; return EX[id]?EX[id].n:pk; };
+  Object.keys({...(old.pairs||{}),...now.pairs}).forEach(k=>{ const a=(old.pairs||{})[k]||[], b=now.pairs[k]||[], nm=p=>p.split('+').map(pname).join(' + ');
+    b.filter(p=>!a.includes(p)).forEach(p=>out.push(`Supersetted ${nm(p)}${tplOf(k)?' ('+tplOf(k).name+')':''}`)); a.filter(p=>!b.includes(p)).forEach(p=>out.push(`Stopped the superset ${nm(p)}`)); });
   if(old.level!==now.level) out.push('Level: '+LEVELS[lvl()].n);
   return out;
 }
@@ -7612,7 +7618,7 @@ async function coachLookOpen(cm){
       if(coachMode!==cm) return;
       const done=(w.data||[]).map(r=>r.data).filter(Boolean);
       if(done.length) items.unshift(`${done.length} workout${done.length>1?'s':''}: ${done.slice(-4).map(l=>`${l.name||'Workout'} (${new Date(l.date).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}${l.status&&l.status!=='complete'?', partial':''})`).join(', ')}`);
-      done.forEach(l=>{ const add=(l.entries||[]).filter(e=>e.added).map(e=>e.name), rem=Array.isArray(l.removed)?l.removed:[]; if(add.length||rem.length) items.push(`${l.name||'Workout'}: ${[add.length?'added '+add.join(', '):'',rem.length?'removed '+rem.join(', '):''].filter(Boolean).join('; ')} for that workout`); });
+      done.forEach(l=>{ const add=(l.entries||[]).filter(e=>e.added).map(e=>e.name), rem=Array.isArray(l.removed)?l.removed:[], pr=Array.isArray(l.paired)?l.paired:[]; if(add.length||rem.length||pr.length) items.push(`${l.name||'Workout'}: ${[add.length?'added '+add.join(', '):'',rem.length?'removed '+rem.join(', '):'',pr.length?'supersetted '+pr.map(p=>p.join(' + ')).join(', '):''].filter(Boolean).join('; ')} for that workout`); });
       if(items.length){
         cm.look={since:data.seen_at,items};
         const stamp=new Date().toLocaleDateString(undefined,{month:'short',day:'numeric'});
@@ -8040,20 +8046,25 @@ function ssIdeasSheet(scope,key){
   const live=scope==='workout', slots=live?dSlots():sessionSlots(key), d=state.draft, cur=live&&['ex','rest','exdone'].includes((d.step||{}).ph)?d.step.pk:null;
   const ideas=ssIdeas(slots,live?(s=>doneN(d,s.pk)===0&&s.pk!==cur):undefined); ui.ss={scope,key,ideas:ideas.map(p=>[p.a.pk,p.b.pk])};
   const pfx=live?'f':'';
-  if(!ideas.length){ modal(`<div><div class="eyebrow">${esc(tplOf(key||d.key).name)}</div><h2>Superset ideas</h2></div><p class="small muted" style="margin:0">No good pairs right now. The moves left work the same muscles or need the same station.</p><button class="btn ghost block" data-action="${live?'flist':'closemodal'}">Back</button>`); return; }
+  if(!ideas.length){ modal(`<div><div class="eyebrow">${esc(tplOf(key||d.key).name)}</div><h2>Superset ideas</h2></div><p class="small muted" style="margin:0">No good pairs right now. The moves left work the same muscles or need the same station.</p>${!live&&!coachMode&&hasCoach()&&(state.memberPairs||[]).some(p=>p[0]===key)?`<button class="btn block" data-action="ssundo" data-k="${key}">Undo my supersets in this workout</button>`:''}<button class="btn ghost block" data-action="${live?'flist':'closemodal'}">Back</button>`); return; }
   const total=ideas.reduce((n,p)=>n+p.save,0);
   modal(`<div><div class="eyebrow">${esc(tplOf(key||d.key).name)}</div><h2>Superset ideas</h2><p class="small muted" style="margin:4px 0 0">Moves that work different muscles, done back to back with rest after the pair. Each move keeps its sets and reps. Together these save about ${total} min.</p></div>
     ${ideas.map((p,i)=>`<div class="ss-card"><div class="ss-pair">${demoThumb(p.a.id,p.a.pk)}<div class="ss-names"><b>${esc(EX[p.a.id].n)}</b><span class="ss-plus" aria-hidden="true">+</span><b>${esc(EX[p.b.id].n)}</b></div>${demoThumb(p.b.id,p.b.pk)}</div>
       <p class="tiny muted" style="margin:6px 0 8px">${esc(ssWhy(p))}</p>
       <div class="row between"><span class="ss-save">Saves about ${p.save} min</span><button class="btn sm${i===0?' primary':''}" data-action="${pfx}sspair" data-i="${i}">Pair them</button></div></div>`).join('')}
     ${ideas.length>1?`<button class="btn block" data-action="${pfx}sspairall">Pair all ${ideas.length} · saves about ${total} min</button>`:''}
-    <p class="tiny muted" style="margin:0">${live?'Pairs are for today’s workout.':'Undo a pair from either move’s More menu.'}</p>
+    <p class="tiny muted" style="margin:0">${live?'Pairs are for today’s workout.'+(hasCoach()?' Your coach will see them in your history.':''):!coachMode&&hasCoach()&&!planEditOn()?'Your coach will see any supersets you add.':'Undo a pair from either move’s More menu.'}</p>
+    ${!live&&!coachMode&&hasCoach()&&(state.memberPairs||[]).some(p=>p[0]===key)?`<button class="btn block" data-action="ssundo" data-k="${key}">Undo my supersets in this workout</button>`:''}
     <button class="btn ghost block" data-action="${live?'flist':'closemodal'}">Not now</button>`);
   setTimeout(()=>window.StrongStartPoseDemos?.hydratePreviews(document.querySelector('#modal'),APP_ENV),30);
 }
-function ssPairPlan(key,a,b){ const c=customEnsure(key); c.pairs=c.pairs.filter(p=>!p.includes(a)&&!p.includes(b)); c.pairs.push([a,b]); }
+function ssPairPlan(key,a,b){ const c=customEnsure(key); c.pairs=c.pairs.filter(p=>!p.includes(a)&&!p.includes(b)); c.pairs.push([a,b]);
+  // A member with a coach pairing moves themselves: remembered so they can undo it, and their coach sees it in Since you last looked.
+  if(!coachMode&&hasCoach()&&!planEditOn()){ state.memberPairs=[...(state.memberPairs||[]).filter(p=>!(p[0]===key&&(p.includes(a)||p.includes(b)))),[key,a,b]]; } }
+function ssUndoMine(key){ const mine=(state.memberPairs||[]).filter(p=>p[0]===key), c=customOf(key); if(c&&Array.isArray(c.pairs)) c.pairs=c.pairs.filter(pr=>!mine.some(m=>pr.includes(m[1])&&pr.includes(m[2]))); state.memberPairs=(state.memberPairs||[]).filter(p=>p[0]!==key); }
 function ssPairWorkout(a,b){ const d=state.draft; if(!d) return; const groups=fShapeGroups(d), ga=groups.find(g=>g.length===1&&g[0][0]===a), gb=groups.find(g=>g.length===1&&g[0][0]===b); if(!ga||!gb) return;
-  const rest=groups.filter(g=>g!==gb), i=rest.indexOf(ga); rest.splice(i+1,0,[[b,ga[0][1]]]); d.shape=rest.flat(); save(); }
+  const rest=groups.filter(g=>g!==gb), i=rest.indexOf(ga); rest.splice(i+1,0,[[b,ga[0][1]]]); d.shape=rest.flat();
+  const sl=dSlots(), n=pk=>{ const x=sl.find(z=>z.pk===pk); return x?EX[x.id].n:''; }; d.ssPaired=[...(d.ssPaired||[]),[n(a),n(b)]]; save(); }
 function planEditAction(a,b){
   const k=b.dataset.k, pk=b.dataset.pk;
   if(a==='exmore'){ exMoreSheet(k,pk); return true; }
@@ -8067,7 +8078,8 @@ function planEditAction(a,b){
   if(a==='baladdday'){ const A=ui.balAdd; if(!A) return true; const d=b.dataset.v; A.days=A.days.includes(d)?A.days.filter(x=>x!==d):[...A.days,d].sort((x,y)=>weekKeys().indexOf(x)-weekKeys().indexOf(y)); balAddDraw(); return true; }
   if(a==='baladdpick'){ const A=ui.balAdd, id=b.dataset.id; if(!A||!EX[id]||!A.days.length) return true; A.days.forEach(d=>exAdd(d,id)); ui.balAdd=null; closeModal(); render(); toast(`Added ${EX[id].n} to ${A.days.map(d=>tplOf(d).name).join(' and ')}`); return true; }
   if(a==='ssideas'){ ssIdeasSheet('plan',k); return true; }
-  if(a==='sspair'||a==='sspairall'){ const S=ui.ss; if(!S) return true; const list=a==='sspair'?[S.ideas[+b.dataset.i]]:S.ideas; list.forEach(([x,y])=>ssPairPlan(S.key,x,y)); closeModal(); render(); toast(list.length>1?`${list.length} supersets added`:'Superset added'); return true; }
+  if(a==='ssundo'){ ssUndoMine(k); save(); closeModal(); render(); toast('Your supersets were undone'); return true; }
+  if(a==='sspair'||a==='sspairall'){ const S=ui.ss; if(!S) return true; const list=a==='sspair'?[S.ideas[+b.dataset.i]]:S.ideas; list.forEach(([x,y])=>ssPairPlan(S.key,x,y)); if(!coachMode&&!planEditOn()) save(); closeModal(); render(); toast(list.length>1?`${list.length} supersets added`:'Superset added'); return true; }
   if(a==='baladdall'){ const A=ui.balAdd; if(!A) return true; ui.balAdd=null; exAddSheet(A.days[0]||weekKeys()[0],{body:A.k}); return true; }
   if(a==='balopen'){ ui.balOpen=ui.balOpen||{}; ui.balOpen[b.dataset.v]=!ui.balOpen[b.dataset.v]; render(); return true; }
   if(a==='balwhy'){ balanceWhy(); return true; }
@@ -8169,7 +8181,7 @@ document.addEventListener('click', async e=>{
   if(a==='synccopy'){ copySyncRecovery(); return; }
   if(a==='syncretry'){ closeModal(); persistLocal(); if(CLOUD.ok) pushCloud(); else if(AUTH.user) onSignedIn(AUTH.user); return; }
   if(a==='closemodal'){ if(e.target!==b && b.classList.contains('scrim')) return; closeModal(); return; }
-  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall'].includes(a)&&planEditAction(a,b)) return;
+  if(['exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall','ssundo'].includes(a)&&planEditAction(a,b)) return;
   if(a==='coachremove'){ coachRemoveSheet(); return; }
   if(a==='coachremovego'){ memberCoaching('remove'); return; }
   if(a==='coachrejoin'){ memberCoaching('rejoin'); return; }
