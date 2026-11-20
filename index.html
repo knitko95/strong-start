@@ -1055,6 +1055,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.25.0",
+    "date": "2026-11-20",
+    "title": "Exercise demonstrations and forward-lean moves",
+    "notes": [
+      "Approved exercise demonstrations now play in the live app, in workouts, exercise how-tos and the Today workout list.",
+      "New in the library: Forward-Lean Bulgarian Split Squat and Forward-Lean Reverse Lunge, which put more of the work on your glutes. The regular Bulgarian split squat keeps its upright instructions and now counts quads as its main muscle."
+    ]
+  },
+  {
     "version": "0.24.0",
     "date": "2026-11-20",
     "title": "Smarter set counting",
@@ -1661,7 +1670,9 @@ Single-Leg Hip Thrust|bn|glute|S|Glutes|2|B|1|Opposite knee pulled to the chest.
 Stability Ball Single-Leg Bridge|sb|glute|S|Glutes, hamstrings|2|R|1|Heel on the ball, hips stay level.
 Cable Glute Kickback|cb|glute|S|Glutes|2|L|1|Hinge slightly, kick back and up.
 Bulgarian Split Squat|db,bn|sl_knee|S|Quads, glutes|1|L|1|Rear foot on the bench; drop the back knee straight down.
+Forward-Lean Bulgarian Split Squat|db,bn|sl_knee|S|Glutes, quads|1|L|1|Rear foot on the bench, front foot a long step out; lean your chest slightly forward and sink the hips back and down.
 Barbell Reverse Lunge|bb|sl_knee|S|Quads, glutes|1|L|1|Long step back, front shin near vertical.
+Forward-Lean Reverse Lunge|db|sl_knee|S|Glutes, quads|1|L|1|Take a long step back and lean your chest slightly forward over the front foot; drive through the front heel to stand.
 Dumbbell Walking Lunge|db|sl_knee|S|Quads, glutes|2|L|0|Count each leg as one rep; stay tall.
 Front-Foot-Elevated Split Squat|db|sl_knee|S|Quads, glutes|2|L|1|Front foot on a plate for extra depth.
 Kettlebell Goblet Reverse Lunge|kb|sl_knee|S|Quads, glutes, core|2|L|1|Bell at the chest, step back softly.
@@ -1857,7 +1868,7 @@ const MACH_BY_NAME = [[/Smith/,'smith'],[/Leg Press/,'legpress'],[/Hack Squat/,'
 const RACK_LIFTS = /^(Barbell Back Squat|Front Squat|Box Squat|Zercher Squat|Barbell Bench Press|Incline Barbell Bench Press|Close-Grip Bench Press|Standing Barbell Overhead Press|Push Press|Z Press|Good Morning|Barbell Reverse Lunge|Barbell Calf Raise)$/;
 const INCLINE = /Incline|Seated Dumbbell Shoulder Press|Arnold Press|Chest-Supported/;
 const STEP_UPS = /^(Step-Up|High Step-Up|Lateral Step-Up|Peterson Step-Up)$/;
-const SPLIT_BENCH = /^Bulgarian Split Squat$/;
+const SPLIT_BENCH = /^(Forward-Lean )?Bulgarian Split Squat$/;
 const BOX_STEPS = /Box Step|Step-Down|Decline Push-Up|Box Bulgarian/;
 // Jumps that land on a platform can use a plyo box or a sturdy aerobic step
 const PLATFORM_JUMPS = /^(Box Jump|Lateral Box Jump)$/;
@@ -4637,7 +4648,7 @@ function renderPlanExercises(slots, simple=false, opt={}){
         <div class="row plan-move-actions ed-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}<button class="linkbtn plan-textbtn" data-action="exmore" data-k="${opt.key}" data-pk="${s.pk}" aria-label="More options for ${esc(ex.n)}">More</button></div></div></div>`; }).join('')}</div>
     <button class="linkbtn plan-textbtn ed-add" data-action="exadd" data-k="${opt.key}">+ Add exercise</button>`;
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row has-preview"><span class="pnum">${i+1}</span>${true?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   return `<div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
@@ -7529,7 +7540,7 @@ document.addEventListener('focusout',e=>{ if(e.target.id==='coachnotes'&&coachMo
 // them, as time allows. The person and their coach can both set it; the coach's choice wins.
 const FOCUS={glutes:['Glutes',['glutes','abductors']],legs:['Legs',['quads','hamstrings','calves']],chest:['Chest',['chest']],back:['Back',['lats','upper_back']],
   shoulders:['Shoulders',['front_delts','side_delts','rear_delts']],arms:['Arms',['biceps','triceps']],core:['Abs and core',['abs','obliques']]};
-const FOCUS_NOTE={glutes:'Leg days lean on moves that work your glutes hard, like hip thrusts and Bulgarian split squats, plus one extra glute exercise.',
+const FOCUS_NOTE={glutes:'Leg days lean on moves that work your glutes hard, like hip thrusts and forward-lean Bulgarian split squats, plus one extra glute exercise.',
   legs:'Leg days lean on moves that work your quads, hamstrings and calves hard, plus one extra leg exercise. For glutes, pick the Glutes focus too.',chest:'Upper and push days lean on chest-heavy presses, plus one extra chest exercise.',
   back:'Upper and pull days lean on back-heavy rows and pulldowns, plus one extra back exercise.',shoulders:'Upper days add one extra shoulder exercise.',
   arms:'Upper days add one extra biceps or triceps exercise.',core:'Workouts add one extra abs or rotation exercise.'};
@@ -7615,7 +7626,7 @@ const SIMILAR_GROUPS=[
   ['One-arm row',['single-arm-dumbbell-row', 'meadows-row', 'kettlebell-single-arm-row', 'trx-single-arm-row', 'half-kneeling-single-arm-cable-row', 'ball-supported-dumbbell-row', 'tube-single-arm-row', 'kettlebell-gorilla-row']],
   ['Straight-arm pull',['straight-arm-cable-pulldown', 'dumbbell-pullover']],
   ['Two-leg squat',['barbell-back-squat', 'front-squat', 'zercher-squat', 'hack-squat', 'leg-press', 'smith-machine-squat', 'goblet-squat', 'double-kettlebell-front-squat', 'heel-elevated-dumbbell-squat', 'stability-ball-wall-squat', 'bosu-squat', 'sandbag-squat']],
-  ['Lunge / split squat',['bulgarian-split-squat', 'box-bulgarian-split-squat', 'barbell-reverse-lunge', 'dumbbell-walking-lunge', 'front-foot-elevated-split-squat', 'kettlebell-goblet-reverse-lunge', 'smith-machine-split-squat', 'bosu-reverse-lunge']],
+  ['Lunge / split squat',['bulgarian-split-squat', 'forward-lean-bulgarian-split-squat', 'forward-lean-reverse-lunge', 'box-bulgarian-split-squat', 'barbell-reverse-lunge', 'dumbbell-walking-lunge', 'front-foot-elevated-split-squat', 'kettlebell-goblet-reverse-lunge', 'smith-machine-split-squat', 'bosu-reverse-lunge']],
   ['Step-up',['step-up', 'box-step-up', 'box-step-up-with-knee-drive', 'high-step-up']],
   ['Single-leg squat',['single-leg-leg-press', 'trx-single-leg-squat', 'pistol-squat-to-bench', 'skater-squat']],
   ['Knee extension',['leg-extension', 'single-leg-extension', 'sissy-squat', 'reverse-nordic']],
@@ -7698,7 +7709,9 @@ const COUNT_FIX=Object.assign(
    'double-kettlebell-deadlift':CNT(['glutes','hamstrings'],['quads','lower_back']),'trap-bar-deadlift':CNT(['quads','glutes'],['hamstrings','lower_back']),
    'kettlebell-swing':CNT([],['glutes','hamstrings']),'kettlebell-snatch':CNT([],['glutes','hamstrings']),
    'cable-pull-through':CNT(['glutes'],['hamstrings']),'band-pull-through':CNT(['glutes'],['hamstrings']),
-   'bulgarian-split-squat':CNT(['quads','glutes'],['adductors']),'box-bulgarian-split-squat':CNT(['quads','glutes'],['adductors']),
+   // Bulgarian split squats are taught upright (glutes ½); the forward-lean versions are the glute-main ones (owner decision Nov 20, 2026).
+   'bulgarian-split-squat':CNT_PAT.lunge,'box-bulgarian-split-squat':CNT_PAT.lunge,
+   'forward-lean-bulgarian-split-squat':CNT(['quads','glutes'],['adductors']),'forward-lean-reverse-lunge':CNT(['quads','glutes'],['adductors']),
    'high-step-up':CNT(['quads','glutes']),'b-stance-romanian-deadlift':CNT(['glutes','hamstrings']),
    'cossack-squat':CNT(['quads','adductors'],['glutes']),'lateral-step-up':CNT(['quads'],['glutes','abductors']),'lateral-box-step-up':CNT(['quads'],['glutes','abductors']),
    'curtsy-lunge':CNT(['quads'],['glutes','adductors','abductors']),'crossover-box-step-up':CNT(['quads'],['glutes','abductors']),

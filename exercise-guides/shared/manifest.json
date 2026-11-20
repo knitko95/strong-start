@@ -5465,6 +5465,37 @@
       ]
     },
     {
+      "id": "forward-lean-bulgarian-split-squat",
+      "name": "Forward-Lean Bulgarian Split Squat",
+      "category": "strength",
+      "main": [
+        "rectus_femoris",
+        "vastus_lateralis",
+        "vastus_medialis",
+        "gluteus_maximus"
+      ],
+      "supporting": [
+        "adductors",
+        "gluteus_medius"
+      ],
+      "mainLabel": "glutes, quads",
+      "supportingLabel": "adductors, abductors",
+      "target": "0m 0.781m -0.045m",
+      "radius": 4.1,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/forward-lean-bulgarian-split-squat.0ac0e0c9249cbf08.json",
+        "bytes": 11596,
+        "sha256": "0ac0e0c9249cbf083cf840423d5a67b22ef8d1f8267487b4eb5a902f8cdfabf8"
+      },
+      "reviewStatus": "awaiting-owner-review",
+      "enabledEnvironments": [
+        "development"
+      ]
+    },
+    {
       "id": "barbell-reverse-lunge",
       "name": "Barbell Reverse Lunge",
       "category": "strength",
@@ -5489,6 +5520,37 @@
         "url": "assets/barbell-reverse-lunge.b758f865baa81a2f.json",
         "bytes": 11309,
         "sha256": "b758f865baa81a2f66089215a1373c4efe751960d8728840c18d2bcccf3f1ac9"
+      },
+      "reviewStatus": "awaiting-owner-review",
+      "enabledEnvironments": [
+        "development"
+      ]
+    },
+    {
+      "id": "forward-lean-reverse-lunge",
+      "name": "Forward-Lean Reverse Lunge",
+      "category": "strength",
+      "main": [
+        "rectus_femoris",
+        "vastus_lateralis",
+        "vastus_medialis",
+        "gluteus_maximus"
+      ],
+      "supporting": [
+        "adductors",
+        "gluteus_medius"
+      ],
+      "mainLabel": "glutes, quads",
+      "supportingLabel": "adductors, abductors",
+      "target": "0m 0.781m -0.040m",
+      "radius": 4.1,
+      "orbit": "35deg 78deg",
+      "floor": false,
+      "wide": false,
+      "scene": {
+        "url": "assets/forward-lean-reverse-lunge.903772501eccd4c2.json",
+        "bytes": 11314,
+        "sha256": "903772501eccd4c2e6cb407ff2b3870fc6554893230370fac4e6b7085fbf367e"
       },
       "reviewStatus": "awaiting-owner-review",
       "enabledEnvironments": [
