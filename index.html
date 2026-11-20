@@ -1028,7 +1028,6 @@ body.dragging-plan{cursor:grabbing}
 .plan-textbtn{font-weight:700;text-decoration:none;color:var(--accent);font-size:var(--text-md);min-height:44px;padding:0 2px}
 .plan-move-meta{margin:2px 0 0}
 /* Owner request: Exercise library title stays upright and bold. */
-h1.library-title{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-weight:700;font-style:normal;letter-spacing:.01em}
 </style>
 </head>
 <body>
@@ -1051,6 +1050,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.21.1",
+    "date": "2026-11-20",
+    "title": "Library title matches other pages",
+    "notes": ["The Exercise library title now uses the same style as the other page titles."]
+  },
   {
     "version": "0.21.0",
     "date": "2026-11-20",
