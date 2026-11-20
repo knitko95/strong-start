@@ -1019,7 +1019,8 @@ body.dragging-plan{cursor:grabbing}
 .ceb-short{display:none}
 @media (max-width:370px){.ceb-long{display:none}.ceb-short{display:inline}}
 .coach-ren{min-height:32px;padding:0;font-size:var(--text-sm)}
-.coach-chev{flex:none;border:0;background:none;color:var(--muted);font-size:16px;min-width:40px;min-height:40px}
+.coach-chev{flex:none;border:0;background:none;color:var(--muted);font-size:16px;min-width:40px;min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+.coach-next .plan-number{color:var(--accent)}
 .coach-renamed{font-size:11px;font-weight:750;color:var(--good);background:var(--good-soft);padding:2px 8px;border-radius:999px;white-space:nowrap}
 .coach-discard{color:var(--warn)}
 /* Plan moves: plain bold text actions and the Today-style sets/reps/muscle line. */
@@ -1050,6 +1051,16 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.21.0",
+    "date": "2026-11-20",
+    "title": "One plan layout everywhere",
+    "notes": [
+      "The Plan page now looks the same in your own app, when you coach yourself, and when a coach views a client: Your workouts sits inside one card with the workouts listed in it.",
+      "Members now see their split and focus areas on the Plan page. Tap Change to pick focus areas, unless your coach set them.",
+      "Training days, the Up next tag, the Renamed tag and the open/close arrows match across every view."
+    ]
+  },
   {
     "version": "0.20.1",
     "date": "2026-11-20",
@@ -4589,12 +4600,13 @@ function renderPlanExercises(slots, simple=false, opt={}){
         <div class="row plan-move-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
 }
 
+// One plan layout for every view: the member's own app, people coaching themselves, and a coach viewing a client.
 function renderCoachPlan(){
-  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey(), s=state.settings, edit=planEditOn(), self=!coachMode;
-  let h=`<section class="coach-plan-head"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>${self?'Your plan':esc(coachMode.name)+'’s plan'}</h1></div>${edit?'':'<button class="coach-editbtn" data-action="coachedit">✎ Edit plan</button>'}</section>`;
+  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey(), s=state.settings, edit=planEditOn(), self=!coachMode, coached=self&&!coachSelf(), canEdit=!coached;
+  let h=`<section class="coach-plan-head"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>${self?'Your plan':esc(coachMode.name)+'’s plan'}</h1></div>${edit||!canEdit?'':'<button class="coach-editbtn" data-action="coachedit">✎ Edit plan</button>'}</section>`;
   if(!edit){
-    h+=`<section class="card stack plan-schedule" aria-label="Schedule"><h3>Schedule</h3><p class="small muted" style="margin:0">${nDays()} workouts a week · ${s.mins||45} min each</p>
-      ${isFlex()?'<p class="small plan-flex" style="margin:0">Any days that work for them</p>':`<div class="coach-vdays" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<span role="listitem" class="${ds.includes(d)?'on':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'training day':'not scheduled'}">${DAYN[d]}</span>`).join('')}</div>`}</section>
+    h+=`<section class="card stack plan-schedule" aria-label="Schedule"><div class="row between"><h3>Schedule</h3>${self?'<button class="linkbtn" data-action="planeditschedule">Edit schedule</button>':''}</div><p class="small muted" style="margin:0">${nDays()} workouts a week · ${s.mins||45} min each</p>
+      ${isFlex()?`<p class="small plan-flex" style="margin:0">Any days that work for ${self?'you':'them'}</p>`:`<div class="coach-vdays" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<span role="listitem" class="${ds.includes(d)?'on':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'training day':'not scheduled'}">${DAYN[d]}</span>`).join('')}</div>`}</section>
       <section class="card stack"><h3>Split</h3><div><b class="coach-split">${esc(SPLITS[splitId()].label)}</b><div class="small muted">${esc(SPLITS[splitId()].d)}</div></div></section>`;
   } else {
     h+=`<section class="card stack" aria-label="Schedule"><h3>Schedule</h3>
@@ -4605,39 +4617,27 @@ function renderCoachPlan(){
       <section class="card stack"><h3>Split</h3><div class="tiny muted">For ${nDays()} workouts a week</div>${SPLITS_FOR(splitN()).map(k=>{ const o=SPLITS[k], on=splitId()===k;
         return `<button class="opt ${on?'sel':''}" data-action="setsplit" data-v="${k}" aria-pressed="${on}" style="padding:12px 14px"><span style="flex:1"><b>${esc(o.label)}${SPLIT_DEFAULT[splitN()]===k?' <span class="chip acc">Recommended</span>':''}</b><span class="d">${esc(o.d)}</span></span><span class="tkb">${on?'&#10003;':''}</span></button>`; }).join('')}</section>`;
   }
-  h+=`<section class="card stack coach-focus"><div class="row between"><h3>Focus areas</h3>${!edit?`<span class="small muted">${esc(focusLabel())}</span>`:''}</div>${edit?`${focusChips('setfocus',false)}${focusNotes()}`:focusAreas().length?'':'<p class="tiny muted" style="margin:0">Balanced. Tap Edit plan to add up to two.</p>'}</section>`;
-  h+=`${state.places.length>1?placeSwitch():''}<section class="card coach-wlist"><h3 class="coach-wlist-title">Workouts</h3>${edit?'<p class="tiny muted" style="margin:2px 0 0">Hold any workout or exercise, then drag to reorder. Tap a workout to change its exercises.</p>':''}<div data-drop-list="w">`;
+  const focusHint=coached?(focusLocked()?'':'<button class="linkbtn" data-action="planeditfocus">Change</button>'):'';
+  h+=`<section class="card stack coach-focus"><div class="row between"><h3>Focus areas</h3>${!edit?(focusHint||`<span class="small muted">${esc(focusLabel())}</span>`):''}</div>${edit?`${focusChips('setfocus',false)}${focusNotes()}`
+    :coached?`<p class="small muted" style="margin:0">${esc(focusLabel())}${focusLocked()?' · set by your coach':''}</p>`
+    :focusAreas().length?'':`<p class="tiny muted" style="margin:0">Balanced. Tap Edit plan to add up to two.</p>`}</section>`;
+  h+=state.places.length>1?placeSwitch():`<div class="row between small plan-place"><span class="muted">Exercises for</span><span>${esc(curPlace().n)}</span></div>`;
+  h+=`<section class="card coach-wlist"><h3 class="coach-wlist-title">${self?'Your workouts':'Workouts'}</h3>${edit?'<p class="tiny muted" style="margin:2px 0 0">Hold any workout or exercise, then drag to reorder. Tap a workout to change its exercises.</p>':`<p class="tiny muted" style="margin:2px 0 0">Workouts follow this order whenever ${self?'you train':'they train'}.</p>`}<div data-drop-list="w">`;
   keys.forEach((k,j)=>{
     const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id], renamed=t.name!==tplDefaultName(k);
-    h+=`<div class="coach-wrow"${edit?` data-drag="w" data-k="${k}"`:''}><div class="coach-whead" data-action="sectoggle" data-v="${id}">${edit?gripBtn('w','Move '+t.name):''}<span class="plan-number" aria-hidden="true">${j+1}</span>
-      <div class="coach-wlabel"><div class="coach-wtitle"><button class="sec-t coach-wname" data-action="sectoggle" data-v="${id}" aria-expanded="${open}">${esc(t.name)}</button>${edit?`<button class="linkbtn plan-textbtn coach-ren" data-action="coachrename" data-k="${k}">Rename</button>${renamed?'<span class="coach-renamed">Renamed</span>':''}`:(k===next?'<span class="chip acc">Up next</span>':'')}</div>
+    h+=`<div class="coach-wrow${!edit&&k===next?' coach-next':''}"${edit?` data-drag="w" data-k="${k}"`:''}><div class="coach-whead" data-action="sectoggle" data-v="${id}">${edit?gripBtn('w','Move '+t.name):''}<span class="plan-number" aria-hidden="true">${j+1}</span>
+      <div class="coach-wlabel"><div class="coach-wtitle"><button class="sec-t coach-wname" data-action="sectoggle" data-v="${id}" aria-expanded="${open}">${esc(t.name)}</button>${edit?`<button class="linkbtn plan-textbtn coach-ren" data-action="coachrename" data-k="${k}">Rename</button>`:(k===next?'<span class="chip acc">Up next</span>':'')}${renamed?'<span class="coach-renamed">Renamed</span>':''}</div>
         <span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></div>
-      <button class="coach-chev" data-action="sectoggle" data-v="${id}" aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${esc(t.name)} exercises">${open?'▴':'▾'}</button></div>
+      <button class="coach-chev" data-action="sectoggle" data-v="${id}" aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${esc(t.name)} exercises"><span class="prof-chev" aria-hidden="true"></span></button></div>
       ${open?`<div class="stack sec-body">${renderPlanExercises(ss,false,{edit,key:k})}</div>`:''}</div>`;
   });
-  return h+'</div></section>'+balanceCard(self?'you':coachMode.name)+sec('plan-muscles',self?'Muscles in your plan':'Muscles in their plan','',renderMuscleMap(undefined,true))+coachNotesCard();
+  h+='</div></section>';
+  if(canEdit) h+=balanceCard(self?'you':coachMode.name);
+  h+=sec('plan-muscles',self?'Muscles in your plan':'Muscles in their plan','',renderMuscleMap(undefined,true));
+  if(!self) return h+coachNotesCard();
+  return h+whyCard()+`<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. Adjust changes sets, reps, rest, recovery, or weight.</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
 }
-function renderPlan(){
-  if(coachMode||selfEditOn()) return renderCoachPlan();
-  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey();
-  const selfCoach=coachSelf();
-  let h=`<section class="${selfCoach?'coach-plan-head':'stack'}"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>Your plan</h1>
-    </div>${selfCoach?'<button class="coach-editbtn" data-action="coachedit">✎ Edit plan</button>':''}</section>
-    <section class="card stack plan-schedule" aria-label="Schedule">
-      <div class="row between"><h3>Schedule</h3><button class="linkbtn" data-action="planeditschedule">Edit schedule</button></div>
-      <p class="small muted" style="margin:0">${nDays()} workouts a week · ${state.settings.mins||45} min each</p>
-      ${isFlex()?'<p class="small plan-flex" style="margin:0">Any days that work for you</p>':`<div class="plan-days" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<div role="listitem" class="plan-day ${ds.includes(d)?'planned':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'planned training day':'not scheduled'}"><span>${DAYN[d]}</span><b aria-hidden="true">${ds.includes(d)?'●':'–'}</b></div>`).join('')}</div>`}
-    </section>
-    ${state.places.length>1?placeSwitch():`<div class="row between small plan-place"><span class="muted">Exercises for</span><span>${esc(curPlace().n)}</span></div>`}
-    <section class="stack" style="gap:4px"><h3>Your workouts</h3><p class="small muted" style="margin:0">Workouts follow this order whenever you train.</p></section>`;
-  keys.forEach((k,j)=>{
-    const t=tplOf(k), ss=sessionSlots(k), id='plan-'+k, open=!!ui.open?.[id];
-    h+=`<section class="card plan-workout ${k===next?'plan-next':''}">
-      <button class="sec-head" data-action="sectoggle" data-v="${id}" aria-expanded="${open}"><span class="plan-number" aria-hidden="true">${j+1}</span><span class="plan-workout-label"><span class="row"><b class="sec-t">${esc(t.name)}</b>${k===next?'<span class="chip acc">Up next</span>':''}${t.name!==tplDefaultName(k)?'<span class="coach-renamed">Renamed</span>':''}</span><span class="tiny muted">${esc(t.focus)} · ${lenText(k)}</span></span><span class="prof-chev" aria-hidden="true">${open?'▴':'▾'}</span></button>
-      ${open?`<div class="stack sec-body">${renderPlanExercises(ss)}</div>`:''}</section>`;
-  });
-  return h + (selfCoach?balanceCard('you'):'') + sec('plan-muscles','Muscles in your plan','',renderMuscleMap(undefined,true)) + whyCard() + `<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. ${coachMode?'Adjust changes sets, reps, rest, and recovery; working weights are view-only.':'Adjust changes sets, reps, rest, recovery, or weight.'}</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
-}
+function renderPlan(){ return renderCoachPlan(); }
 
 // Simple library filters: equipment type, body part, movement
 const LIB_EQ=[['mc','Machines'],['cb','Cables'],['db','Dumbbells'],['bb','Barbell'],['kb','Kettlebells'],['bw','Bodyweight'],['bd','Bands'],['mb','Medicine ball'],['sb','Stability ball'],['trx','TRX'],['pu','Pull-up bar'],['dp','Dip bars'],['bx','Box or step'],['bs','BOSU'],['lm','Landmine'],['rp','Battle ropes'],['pl','Weight plate']];
@@ -6790,7 +6790,7 @@ function renderCoachSettings(){
       ${row('Schedule',`${nDays()} days a week${isFlex()?' · flexible':' · '+trainDays().map(d=>DAYL[d]).join(', ')} · ${splitLabel()} · ${s.mins||45} minutes`)}
       ${row('Limitations',(s.pain||[]).map(k=>PAIN[k].n).join(', ')||'None selected')}
     </section><section class="card stack"><h3>Places and equipment · view only</h3>
-      ${(state.places||[]).map((p,i)=>row(p.n+(i===0?' (main)':''),p.eq.map(k=>EQ_NAME[k]||k).join(', '))).join('')}
+      ${(state.places||[]).map((p,i)=>row(p.n+(i===0?' (main)':''),p.eq.map(k=>EQ_NAME[k]||({mc:'Machines',bw:'Bodyweight'})[k]||k).join(', '))).join('')}
     </section>`;
 }
 // Settings navigation stores presentation state only, never account or workout data.
@@ -7979,6 +7979,7 @@ document.addEventListener('click', async e=>{
     case 'settingspage': if(SETTINGS_PAGES[b.dataset.v])settingsGo({settingsGroup:SETTINGS_PAGES[b.dataset.v][1],settingsPage:b.dataset.v}); break;
     case 'settingsback': settingsBack(); break;
     case 'planeditschedule': settingsGo({settingsGroup:'training',settingsPage:'schedule'}); break;
+    case 'planeditfocus': settingsGo({settingsGroup:'training',settingsPage:'focus'}); break;
     case 'settingshome': settingsGo({}); break;
     case 'proftoggle': ui.profOpen=!ui.profOpen; render(); break;
     case 'sectoggle': ui.open=ui.open||{}; ui.open[b.dataset.v]=!ui.open[b.dataset.v]; render(); break;
