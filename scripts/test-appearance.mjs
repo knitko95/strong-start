@@ -26,8 +26,8 @@ assert.deepEqual(run(source,'http://localhost:8731/privacy.html',{values:{[dev]:
 const d=run(source.replace("const BUILD_ENV = 'auto';","const BUILD_ENV = 'demo';"),'https://dev2.strongstart.app/privacy.html');d.appearance.set({color:'green',theme:'dark'});assert(d.data.has(demo));assert(!d.data.has(dev));
 a.data.set(dev,JSON.stringify({theme:'dark',color:'green'}));a.listeners.storage({key:dev});assert.deepEqual(a.dataset,{theme:'dark',color:'green'});
 a.data.delete(dev);a.listeners.pageshow();assert.deepEqual(a.dataset,{});
-// Style-only policy work must preserve the reviewed headings/body copy.
-for(const [file,expected] of [['privacy.html','8248f03c7e1b6493f77c8a408ef5ed73e9e43eec2df034070186a30acf43cacc'],['terms.html','b59240f74f06551433a134e5ce64786fdb05abb577e5d2a10fd88222283ba514']]){
+// Style-only policy work must preserve the reviewed headings/body copy (privacy wording updated with owner approval Nov 19, 2026).
+for(const [file,expected] of [['privacy.html','043105fdefa00772cf4ff5c51ca477998bf362ab8da4d46a28873968f64a7c5f'],['terms.html','b59240f74f06551433a134e5ce64786fdb05abb577e5d2a10fd88222283ba514']]){
   const html=readFileSync(new URL('../'+file,import.meta.url),'utf8');
   const text=[...html.matchAll(/<(h1|h2|p|li)(?:\s[^>]*)?>[\s\S]*?<\/\1>/g)].map(m=>m[0].replace(/<[^>]*>/g,'').replace(/\s+/g,' ').trim());
   assert.equal(createHash('sha256').update(JSON.stringify(text)).digest('hex'),expected,file+' policy wording changed');

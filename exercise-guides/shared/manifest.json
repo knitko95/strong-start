@@ -1089,7 +1089,7 @@
     },
     {
       "id": "half-kneeling-single-arm-cable-press",
-      "name": "Half-Kneeling Single-Arm Cable Press",
+      "name": "Half-Kneeling Single-Arm Cable Chest Press",
       "category": "strength",
       "main": [
         "deltoid_front",
@@ -5955,7 +5955,7 @@
     },
     {
       "id": "lateral-lunge",
-      "name": "Lateral Lunge",
+      "name": "Side Lunge",
       "category": "strength",
       "main": [
         "adductors",

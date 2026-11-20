@@ -6,7 +6,7 @@ import {randomBytes} from 'node:crypto';
 import {PoseReviewStore,ReviewError,parseJSON} from './lib/pose-review-store.mjs';
 
 export const root=fileURLToPath(new URL('../',import.meta.url));
-export function appCatalogue(){const html=readFileSync(path.join(root,'index.html'),'utf8'),raw=html.match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1];return Object.fromEntries(raw.trim().split('\n').map(line=>{const name=line.split('|')[0].trim();return [name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),name];}));}
+export function appCatalogue(){const html=readFileSync(path.join(root,'index.html'),'utf8'),raw=html.match(/const LIB_RAW\s*=\s*`([\s\S]*?)`/)[1];return Object.fromEntries(raw.trim().split('\n').map(line=>{const fields=line.split('|'),name=fields[0].trim();return [fields[9]||name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),name];}));}
 export function storeFor(workspace){const resolved=path.resolve(workspace);if(['exercise-guides','dist','hosting'].some(name=>resolved===path.join(root,name)||resolved.startsWith(path.join(root,name)+path.sep)))throw new ReviewError('Keep the private workspace outside public/runtime folders');const seed=JSON.parse(readFileSync(path.join(root,'exercise-guides/pose-review/seed.v1.json'),'utf8'));const store=new PoseReviewStore({workspace,seed,catalogue:appCatalogue()});store.initialize();return store;}
 export async function startReviewServer({workspace=path.join(root,'output/pose-review-workspace'),port=8734}={}){
  const store=storeFor(workspace),token=randomBytes(32).toString('hex');let origin;
