@@ -936,6 +936,8 @@ button.link.tiny,button.linkbtn.tiny{font-size:var(--text-md)}
 h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .eyebrow{font-family:var(--body);font-weight:700;letter-spacing:var(--label-track)}
 .brand{font-style:normal;font-weight:400}
+/* Page titles: the same space between a small label and its title everywhere (owner request Nov 20, 2026). */
+.eyebrow+h1{margin-top:8px}
 /* Wordmark only: Playfair Display bold italic (owner choice Nov 20, 2026). Used nowhere else. */
 .brand .bword{font-family:"Playfair Display",Georgia,"Times New Roman",serif;font-style:italic;font-weight:700;letter-spacing:0}
 .stat .v,.day .idx,.plan-number,.day .t,.ex .name,.ex .n,
@@ -958,7 +960,7 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .ceb-u:disabled{opacity:.4}
 .ceb-icon{padding:0;min-width:40px}
 .ceb-d{border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:var(--text-sm);font-weight:750;border-radius:999px;min-height:40px;padding:0 14px}
-.coach-plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-bottom:12px}
+.coach-plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
 .coach-editbtn{flex:none;min-height:44px;padding:0 16px;border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);font:inherit;font-weight:700}
 .coach-vdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .coach-vdays span{text-align:center;padding:8px 0;border-radius:10px;font-size:var(--text-xs);font-weight:650;color:var(--muted)}
@@ -1052,6 +1054,12 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.21.3",
+    "date": "2026-11-20",
+    "title": "Even spacing around page titles",
+    "notes": ["Page titles like Your plan, Progress and Exercise library now have the same space above and below them."]
+  },
   {
     "version": "0.21.2",
     "date": "2026-11-20",
@@ -4690,7 +4698,7 @@ function renderLibrary(){
     ...list.map(e=>row(available(e)?'':' style="opacity:.5"',musThumb(e.id,false),`${painWarningBubble(e)}<span>${esc(e.n)}</span>`,`data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}"`)),
     ...prep.map(m=>row(prepAvailable(m)?'':' style="opacity:.5"',prepThumb(m),`<span>${esc(m.t)}</span>`,`data-action="preplibinfo" data-id="${m.id}" aria-label="How to do ${esc(m.t)}"`))
   ];
-  return `<section class="stack"><div><div class="eyebrow">${gym} exercises for your gym · ${LIB.filter(allowed).length+PREP_LIB.length} fit your level</div><h1 class="library-title">Exercise library</h1></div>
+  return `<section class="stack"><div style="margin-bottom:4px"><div class="eyebrow">${gym} exercises for your gym · ${LIB.filter(allowed).length+PREP_LIB.length} fit your level</div><h1 class="library-title">Exercise library</h1></div>
     <div class="filters">
       ${filters}
     </div>
