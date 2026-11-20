@@ -1058,7 +1058,7 @@ const APP_RELEASES = [
     "version": "0.23.0",
     "date": "2026-11-20",
     "title": "One warm-up set",
-    "notes": ["Workouts now have the mobility warm-up, then one lighter warm-up set before your first lift. The extra ramp-up sets are gone.", "The Schedule card on Plan no longer has its own Edit schedule link. Use Edit plan, or Profile & settings › Schedule."]
+    "notes": ["The warm-up is just mobility moves now. Your first lift starts with one lighter warm-up set (10 reps at about half your working weight), counted with its sets: 3 working sets show as 4. The extra ramp-up sets are gone.", "The Schedule card on Plan no longer has its own Edit schedule link. Use Edit plan, or Profile & settings › Schedule."]
   },
   {
     "version": "0.22.0",
@@ -4619,18 +4619,19 @@ function gripBtn(kind,label){ return `<button type="button" class="drag-grip" da
 function suggOf(id){ const g=state.sugg&&state.sugg[id]; return g&&typeof g==='object'&&+g.w>0?{w:+g.w,u:g.u==='kg'?'kg':'lb'}:null; }
 function suggTag(id){ const g=suggOf(id); return g?`<span class="coach-tag">Coach: try ${weightNumber(g.w)} ${g.u}</span>`:''; }
 function renderPlanExercises(slots, simple=false, opt={}){
+  const wuPk=(slots.find(x=>EX[x.id]&&usesLoad(EX[x.id])&&EX[x.id].mode==='L')||{}).pk, wu=s=>s.pk===wuPk?'1 warm-up + ':'';
   if(opt.edit) return `<div class="ed-list" data-drop-list="x" data-k="${opt.key}">${slots.map((s,i)=>{ const ex=EX[s.id], tg=target(s), pair=s.cfg.ssLen>1;
         return `<div class="slotrow mrow3 ed-row${pair?' ed-pair'+(s.cfg.ssPos===0?' first':' second'):''}" data-drag="x" data-k="${opt.key}" data-pk="${s.pk}">${gripBtn('x','Move '+ex.n)}${musThumb(ex.id)}<div><div style="font-weight:600"><span>${s.label}. ${esc(ex.n)}</span></div>${pair&&s.cfg.ssPos===0?'<div class="tiny ed-sslabel">Superset with the next move</div>':''}
-        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}
+        <p class="today-strength-meta plan-move-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}
         <div class="row plan-move-actions ed-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}<button class="linkbtn plan-textbtn" data-action="exmore" data-k="${opt.key}" data-pk="${s.pk}" aria-label="More options for ${esc(ex.n)}">More</button></div></div></div>`; }).join('')}</div>
     <button class="linkbtn plan-textbtn ed-add" data-action="exadd" data-k="${opt.key}">+ Add exercise</button>`;
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row${APP_ENV==='development'?' has-preview':''}"><span class="pnum">${i+1}</span>${APP_ENV==='development'?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
   }).join('')}</div>`;
   return `<div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
         return `<div class="slotrow mrow3">${musThumb(ex.id)}<div><div ${simple?'class="today-exercise-name"':'style="font-weight:600"'}><span>${s.label}. ${esc(ex.n)}${sw?' <span class="chip warn">Swapped</span>':''}${s.placeFrom?` <span class="chip acc">${esc(curPlace().n)} swap</span>`:''}${tw?' <span class="chip">Tweaked</span>':''}</span>${simple?`<span class="today-muscle" aria-label="Main muscles: ${esc(mainMuscleLabel(ex.id))}">${esc(mainMuscleLabel(ex.id))}</span>`:''}</div>${sw?`<div class="tiny muted">Instead of ${esc(EX[o].n)}</div>`:''}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}</div>`:''}
-        <p class="today-strength-meta plan-move-meta">${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}</div>
+        <p class="today-strength-meta plan-move-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}</div>
         <div class="row plan-move-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div></div>`; }).join('')}</div>`;
 }
 
@@ -5362,18 +5363,20 @@ function fPathCurrent(d,slots){
   return st;
 }
 function fPathSetId(moves,pk,i){return `s${i}${moves.length>1?String.fromCharCode(97+moves.findIndex(m=>m.pk===pk)):''}`;}
-function workoutPath(d,slots,s){
+function workoutPath(d,slots,s,wu){
+  const wn=wu?wu.n:0;   // warm-up set(s) shown first and counted in the numbering
   const pair=fPair(d,slots,s.pk),moves=pair?.moves||[s],count=Math.max(...moves.map(m=>(d.sets[m.pk]||[]).length));
   if(!count)return '';
   const st=d.step,cur=fPathCurrent(d,slots),same=moves.some(m=>m.pk===cur.pk),round=fSetIndex(d,cur),restRound=cur.afterRound??d.rest?.afterRound??Math.max(0,round-1);
-  const selected=st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:fPathSetId(moves,st.pk,fSetIndex(d,st));
-  const active=same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?fPathSetId(moves,cur.pk,round):''):'';
+  const selected=wu&&wu.cur?'':st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:fPathSetId(moves,st.pk,fSetIndex(d,st));
+  const active=wu&&wu.cur?'':same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?fPathSetId(moves,cur.pk,round):''):'';
   const nodes=[];
+  for(let w=0;w<wn;w++) nodes.push(`<div class="path-stop"><span class="path-set ${wu.cur?'current':'done'}" aria-label="Set ${w+1}, warm-up${wu.cur?', current':', done'}"><span>Set ${w+1}</span></span><span class="path-status">Warm-up</span></div><div class="path-stop rest" aria-hidden="true"></div>`);
   for(let i=0;i<count;i++){
     const available=moves.filter(m=>d.sets[m.pk]?.[i]);
     for(const move of available){
       const row=d.sets[move.pk][i],id=fPathSetId(moves,move.pk,i),letter=pair?String.fromCharCode(65+moves.indexOf(move)):'';
-      nodes.push(`<div class="path-stop"><button class="path-set ${row.done?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${move.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${row.done?'Edit':'Go to'} set ${i+1}${letter}${pair?', '+esc(EX[move.id].n):''}${row.done?', completed':active===id?', current':', remaining'}"><span>Set ${i+1}${letter}</span></button><span class="path-status">${active===id?'Current':''}</span></div>`);
+      nodes.push(`<div class="path-stop"><button class="path-set ${row.done?'done':''} ${active===id?'current':''}" data-action="fset" data-pk="${move.pk}" data-i="${i}" data-path-id="${id}" aria-pressed="${selected===id}" ${active===id?'aria-current="step"':''} aria-label="${row.done?'Edit':'Go to'} set ${i+1+wn}${letter}${pair?', '+esc(EX[move.id].n):''}${row.done?', completed':active===id?', current':', remaining'}"><span>Set ${i+1+wn}${letter}</span></button><span class="path-status">${active===id?'Current':''}</span></div>`);
     }
     if(i<count-1){const rid=`r${i}`,last=available[available.length-1],sec=Number(last.cfg.rest)||0,letter=pair?String.fromCharCode(65+moves.indexOf(last)):'';
       nodes.push(`<div class="path-stop rest"><button class="path-rest ${active===rid?'current':''}" data-action="frest" data-pk="${s.pk}" data-round="${i}" data-sec="${sec}" data-path-id="${rid}" aria-pressed="${selected===rid}" ${active===rid?'aria-current="step"':''} aria-label="Rest after set ${i+1}${letter}, ${sec} seconds"><span class="path-clock" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M12 2v3m6 1 1.5-1.5"/><circle cx="12" cy="14" r="8"/><path d="M12 9v5"/></svg></span></button><span class="path-status">${active===rid?'Current':''}</span></div>`);
@@ -5565,19 +5568,19 @@ function renderFocus(){
       ${aFoot(`<button class="btn primary fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button>`)}</div>`;
   }
   // lighter warm-up sets before the first lift
-  if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp&&!x.prepSkipped).length) return renderRamp(d,s,X);
+  if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp&&!x.prepSkipped).length) return renderRamp(d,s,X,`Exercise ${gi+1} of ${gs.length}`);
   // exercise screen
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
-  const cur=sets[kk],lastTxt=workoutSetHint(tg);
+  const cur=sets[kk],lastTxt=workoutSetHint(tg), wuN=X.rampPk===s.pk&&(d.rampDone||0)>0&&d.rampDone<99?X.warm.filter(x=>x.ramp&&!x.prepSkipped).length:0;
   const label = `Exercise ${gi+1} of ${gs.length}`;
   const secs = tg.unit==='sec', goal = (load?`${tg.lo}–${tg.hi} reps`:`${tg.r} ${tg.unit}`)+per;
   return `<div class="focus demo-first">${fTop(d,slots,label)}
     <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div>${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, since you’re at ${esc(curPlace().n.toLowerCase())}</div>`:''}</div>
     ${workoutHero(ex,s.pk)}
-    <section class="card acard"><div class="ach"><b>Set ${kk+1}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} <span>of ${sets.length}</span></b><span class="goal">${goal}</span></div>
+    <section class="card acard"><div class="ach"><b>Set ${kk+1+wuN}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} <span>of ${sets.length+wuN}</span></b><span class="goal">${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
-      ${workoutPath(d,slots,s)}
+      ${workoutPath(d,slots,s,wuN?{n:wuN}:null)}
     <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':'Log set'}</button></div>${pair?'':upNext(kk)}</div></section></div>`;
 }
 function flistSheet(){
@@ -6503,19 +6506,21 @@ function rampSet(d,s,k){
   }
   return rows[k];
 }
-function renderRamp(d,s,X){
-  const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), k=d.rampDone||0, r=ramps[k], ex=EX[s.id];
+// The warm-up set is the first set of the first lift: same screen as its working sets, numbered with them, not logged.
+function renderRamp(d,s,X,label){
+  const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), k=d.rampDone||0, r=ramps[k], ex=EX[s.id], total=(d.sets[s.pk]||[]).length+ramps.length;
   const m=(r.d||'').match(/^(.*?) × (\d+)$/), row=rampSet(d,s,k);
   const each=(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
-  return `<div class="focus">${fTop(d,dSlots(),ramps.length>1?`Warm-up set ${k+1} of ${ramps.length}`:'Warm-up set')}
-    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="asub">${musLine(ex.id)}<button class="howbtn" data-action="exinfo" data-id="${ex.id}" data-pk="${s.pk}">${ICON.play}How to</button></div></div>
-    <section class="card acard"><div class="ach"><b>Warm-up set</b><span class="goal">Not logged</span></div>
+  return `<div class="focus demo-first">${fTop(d,dSlots(),label||'Exercise 1')}
+    <div class="ahead"><h1>${esc(ex.n)}</h1><div class="exercise-muscles">${esc((EXM[ex.id]?.p||[]).map(k=>MUSCLES[k]).join(' · '))}</div></div>
+    ${workoutHero(ex,s.pk)}
+    <section class="card acard"><div class="ach"><b>Set ${k+1} <span>of ${total}</span> · Warm-up</b><span class="goal">${esc(m?m[2]:'')} reps, light</span></div>
       <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep fixed"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
       ${row.w===''?`<div class="tiny muted" style="text-align:center">${esc(m?m[1]:r.d)}</div>`:''}
-      <div class="tiny muted" style="text-align:center">Easy and smooth. This gets you ready for your working sets.</div></section>
-    <p class="atip"><b>Tip:</b> ${esc(ex.cue)}</p>
+      <div class="tiny muted" style="text-align:center">About half your working weight. Easy and smooth, not logged.</div>
+      ${workoutPath(d,dSlots(),s,{n:ramps.length,cur:true})}
     <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button></div>
-      <button class="btn ghost block" data-action="frampskip">Skip warm-up set${ramps.length>1?'s':''}</button></div></div>`;
+      <button class="linkbtn tiny" data-action="frampskip" style="align-self:center">Skip warm-up set</button></div></section></div>`;
 }
 
 /* ---------------- Home screen ---------------- */
@@ -6605,7 +6610,6 @@ function savedPrep(key,place){return state.prep?.[prepKey(key,place)]||{items:{}
 function prepBuckets(X){return [
   {id:'warm-cardio',name:'Warm-up cardio',group:'warm',items:X.warm.filter(x=>x.k==='c')},
   {id:'mobility',name:'Mobility',group:'warm',items:X.warm.filter(x=>!x.ramp&&x.k!=='c')},
-  {id:'ramps',name:'Warm-up set',group:'warm',items:X.warm.filter(x=>x.ramp)},
   {id:'cardio',name:'Cardio',group:'cool',items:X.finisher?[X.finisher]:[]},
   {id:'walk',name:'Easy movement',group:'cool',items:X.cool.filter(x=>x.k==='w')},
   {id:'recovery',name:'Muscle recovery',group:'cool',items:X.cool.filter(x=>!x.stretch&&x.k!=='w')},
