@@ -1003,7 +1003,7 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .z-min .bal-fill,.z-none .bal-fill{background:#c98a3b}.z-min .bal-right span,.z-none .bal-right span{color:#9a6223}.z-build .bal-right span,.z-once .bal-right span{color:#8d7a4a}.z-ok .bal-right span,.z-twice .bal-right span{color:var(--good)}.z-high .bal-right span{color:var(--accent)}
 .bal-kids{margin:0 0 4px 22px;padding:2px 0 4px 12px;border-left:2px solid var(--accent-soft)}
 .bal-krow{display:flex;justify-content:space-between;font-size:var(--text-sm);min-height:28px;align-items:center}.bal-krow b{font-weight:600}.bal-krow.zero b{color:#9a6223}
-.bal-knote{font-size:12px;color:#9a6223;margin:2px 0 4px}.bal-add{align-self:flex-start;margin:0 0 4px 22px;font-size:13px}.bal-why{align-self:flex-start;margin-top:6px}
+.bal-knote{font-size:12px;color:#9a6223;margin:2px 0 4px}.core-stab{font-size:12px;color:var(--muted);margin:-2px 0 6px 22px;line-height:1.35}.core-stab b{color:var(--ink);font-weight:600}.z-stab .bal-right span{color:var(--good)}.z-stabwarn .bal-right span{color:#9a6223}.z-stab .bal-fill{background:var(--good);opacity:.45}.z-stabwarn .bal-fill{background:#c98a3b}.bal-add{align-self:flex-start;margin:0 0 4px 22px;font-size:13px}.bal-why{align-self:flex-start;margin-top:6px}
 .bal-tbl{width:100%;border-collapse:collapse;font-size:var(--text-sm)}.bal-tbl td{padding:7px 4px;border-top:1px solid var(--line);vertical-align:top}.bal-tbl td:first-child{white-space:nowrap;padding-right:10px}
 .b2b-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.b2b-strip span{text-align:center;padding:8px 0;border-radius:10px;font-size:var(--text-sm);border:1px solid var(--line);color:var(--muted)}.b2b-strip span.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:650}
 
@@ -1054,6 +1054,17 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.24.0",
+    "date": "2026-11-20",
+    "title": "Smarter set counting",
+    "notes": [
+      "Balance this week now counts a full set for the muscle a move mainly works, half a set for muscles that help, and nothing for muscles that only hold you steady. Lunges, for example, count fully for quads and half for glutes.",
+      "Jumps, throws, slams and battle ropes are power and conditioning work and aren't counted as sets. Kettlebell swings and push presses count as half.",
+      "Planks, dead bugs, Pallof presses and carries show as core stability work. With only stability work, Core reads Stability only: green for most goals, amber with a tip for Build muscle.",
+      "Focus extras only use moves that mainly work the focus muscle, and harder moves like Nordic curls and BOSU work aren't added as surprise extras for people just starting or getting back into it."
+    ]
+  },
   {
     "version": "0.23.0",
     "date": "2026-11-20",
@@ -7525,24 +7536,30 @@ const FOCUS_NOTE={glutes:'Leg days lean on moves that work your glutes hard, lik
 function focusAreas(){ const f=state&&state.settings&&state.settings.focus; return Array.isArray(f)?f.filter(k=>FOCUS[k]).slice(0,2):[]; }
 function focusLocked(){ return !coachMode&&state.settings.focusBy==='coach'&&hasCoach(); }
 function focusMuscles(){ return [...new Set(focusAreas().flatMap(k=>FOCUS[k][1]))]; }
-function focusHit(e,areas=focusAreas()){ const m=EXM[e.id]; return !!m&&areas.some(k=>FOCUS[k][1].some(x=>m.p.includes(x))); }
+function focusHit(e,areas=focusAreas()){ const m=countOf(e.id).m; return areas.some(k=>FOCUS[k][1].some(x=>m.includes(x))); }
 function focusLabel(){ const f=focusAreas(); return f.length?f.map(k=>FOCUS[k][0]).join(', '):'Keep it balanced'; }
 // Little room: 2 days of 30 minutes (or less time overall) leaves space only for the main moves.
 function focusTight(){ return focusAreas().length>0 && nDays()<=2 && (state.settings.mins||45)<=30; }
 // The extra move for one area in one workout: a part of the area the workout doesn't train yet, if there is one.
+// Not picked as a surprise extra for people just starting or getting back into it (still available to choose).
+const FOCUS_HARD=/BOSU|Fly on Stability Ball|Push-Up on Stability Ball|Feet-on-Ball|Ball-Supported|Stability Ball Rollout|Bench Dip|Weighted Dip|TRX Fly|Deficit Push-Up|L-Sit|Pike Push-Up|Nordic|Glute-Ham|Sissy|Rollout|Toes-to-Bar|Windshield|TRX Pike|Stability Ball Pike|Jackknife|Dumbbell Leg Curl/;
+const FOCUS_LOWPRI=new Set(['renegade-row','trx-power-pull','dumbbell-pullover']);
 function focusExtra(key,area,out){
   const pk=`fx.${key}_${area}`, have=new Set(out.map(x=>x.id)), ms=FOCUS[area][1];
-  const hit=new Set(out.flatMap(x=>(EXM[x.id]||{p:[]}).p)); if(!ms.some(m=>hit.has(m))) return null;   // only on days that train the area
+  const hit=new Set(out.flatMap(x=>{ const c=countOf(x.id); return area==='core'&&c.stab?['abs','obliques',...c.m]:c.m; })); if(!ms.some(m=>hit.has(m))) return null;   // only on days that train the area
   const saved=state.block&&state.block.plan[pk]; if(saved&&EX[saved]&&!have.has(saved)) return {pk,id:saved};
   const eqset=placeEq(homeBase()), missing=ms.filter(m=>!hit.has(m)), L=lvl();
   const roleOf=e=>{ const t=Object.values(TPL).flatMap(x=>x.slots).find(s=>e.slots.includes(s.s)); return t?t.role:''; };
   let best=null, bs=-1e9;
-  for(const e of LIB){ const m=EXM[e.id]; if(!m||have.has(e.id)||!allowed(e)||!hasEq(e,eqset)||!ms.some(x=>m.p.includes(x))) continue;
+  for(const e of LIB){ const m=EXM[e.id], c=countOf(e.id), stabOnly=area==='core'&&c.stab&&!ms.some(x=>c.m.includes(x));
+    // Only moves where the focus muscle is a main muscle (core holds are a last resort for a core focus).
+    if(!m||have.has(e.id)||!allowed(e)||!hasEq(e,eqset)||(!ms.some(x=>c.m.includes(x))&&!stabOnly)||COUNT_HALF.has(e.id)) continue;
+    if(['start','back'].includes(L)&&FOCUS_HARD.test(e.n)) continue;
     const r=roleOf(e); if(!['acc','iso','core','main2'].includes(r)) continue;
     // Not a near-copy of a move already in the workout
     if(SIMILAR_OF[e.id]&&out.some(x=>SIMILAR_OF[x.id]===SIMILAR_OF[e.id])) continue;
     const near=out.some(x=>e.slots.includes(x.cfg.s))?1:0;
-    let sc=(missing.some(x=>m.p.includes(x))?3:0)+(['acc','iso'].includes(r)?1:0)+prefBonus(e)+(STARTER.has(e.id)?(L==='start'?0.6:0.3):0)-(ADV.test(e.n)?1:0)-(e.uni?0.2:0)
+    let sc=(missing.some(x=>c.m.includes(x))?3:0)-(stabOnly?4:0)-(FOCUS_LOWPRI.has(e.id)?1.5:0)+(['acc','iso'].includes(r)?1:0)+prefBonus(e)+(STARTER.has(e.id)?(L==='start'?0.6:0.3):0)-(ADV.test(e.n)?1:0)-(e.uni?0.2:0)
       -(e.mode==='R'&&['regular','up','back'].includes(L)?0.8:0)+(['mc','cb'].includes(primeEq(e))?0.4:0)-near*1.5;
     if(sc>bs||(sc===bs&&e.id<best.id)){ bs=sc; best=e; } }
   return best?{pk,id:best.id}:null;
@@ -7662,6 +7679,49 @@ function planWarnCheck(){
   if(first||!editing||!fresh.length||$('#modal .sheet')) return;
   const f=fresh[0]; setTimeout(()=>{ if(f.startsWith('b2b:')) b2bSheet(); else similarSheet(pairs.find(p=>simId(p)===f)); },60);
 }
+// How each move counts toward weekly sets (owner-approved Nov 20, 2026, after an independent review):
+// main muscle = 1 set, support = ½ set, muscles that only hold you steady = not counted.
+// Lower-body moves are set by movement pattern as the app teaches them; listed moves are the agreed exceptions.
+// Muscle keys: quads, glutes, hamstrings, adductors (inner thighs), abductors (glute med), lower_back, calves.
+const CNT=(m,h=[])=>({m,h});
+const CNT_PAT={squat:CNT(['quads'],['glutes','adductors']),hinge:CNT(['glutes','hamstrings'],['lower_back']),lunge:CNT(['quads'],['glutes','adductors']),
+  step:CNT(['quads'],['glutes']),slhinge:CNT(['glutes','hamstrings'],['abductors']),side:CNT(['quads'],['glutes','adductors'])};
+const COUNT_FIX=Object.assign(
+  Object.fromEntries([['squat',['front-squat','zercher-squat','hack-squat','leg-press','smith-machine-squat','goblet-squat','double-kettlebell-front-squat','heel-elevated-dumbbell-squat','stability-ball-wall-squat','bosu-squat','sandbag-squat']],
+    ['hinge',['romanian-deadlift','dumbbell-romanian-deadlift','good-morning','weighted-back-extension','back-extension','band-good-morning']],
+    ['lunge',['dumbbell-walking-lunge','front-foot-elevated-split-squat','smith-machine-split-squat','single-leg-leg-press','trx-single-leg-squat','pistol-squat-to-bench','skater-squat','medicine-ball-lunge-with-rotation','bosu-reverse-lunge','barbell-reverse-lunge','kettlebell-goblet-reverse-lunge']],
+    ['step',['step-up','box-step-up','box-step-up-with-knee-drive']],
+    ['slhinge',['single-leg-romanian-deadlift','kettlebell-single-leg-deadlift','landmine-single-leg-romanian-deadlift','cable-single-leg-romanian-deadlift','bosu-single-leg-romanian-deadlift']],
+    ['side',['lateral-lunge','landmine-lateral-lunge','trx-lateral-lunge','side-step-lunge-to-balance','transverse-lunge']]].flatMap(([p,ids])=>ids.map(id=>[id,CNT_PAT[p]]))),
+  {'barbell-back-squat':CNT(['quads','glutes'],['adductors']),'box-squat':CNT(['quads','glutes'],['adductors']),
+   'conventional-deadlift':CNT(['glutes','hamstrings'],['quads','adductors','lower_back']),'sumo-deadlift':CNT(['glutes','adductors'],['quads','hamstrings','lower_back']),
+   'double-kettlebell-deadlift':CNT(['glutes','hamstrings'],['quads','lower_back']),'trap-bar-deadlift':CNT(['quads','glutes'],['hamstrings','lower_back']),
+   'kettlebell-swing':CNT([],['glutes','hamstrings']),'kettlebell-snatch':CNT([],['glutes','hamstrings']),
+   'cable-pull-through':CNT(['glutes'],['hamstrings']),'band-pull-through':CNT(['glutes'],['hamstrings']),
+   'bulgarian-split-squat':CNT(['quads','glutes'],['adductors']),'box-bulgarian-split-squat':CNT(['quads','glutes'],['adductors']),
+   'high-step-up':CNT(['quads','glutes']),'b-stance-romanian-deadlift':CNT(['glutes','hamstrings']),
+   'cossack-squat':CNT(['quads','adductors'],['glutes']),'lateral-step-up':CNT(['quads'],['glutes','abductors']),'lateral-box-step-up':CNT(['quads'],['glutes','abductors']),
+   'curtsy-lunge':CNT(['quads'],['glutes','adductors','abductors']),'crossover-box-step-up':CNT(['quads'],['glutes','abductors']),
+   'bosu-lateral-step-over':CNT([]),'copenhagen-plank':CNT(['adductors']),'cable-external-rotation':CNT([]),
+   'trx-y-t-w':CNT(['upper_back'],['rear_delts']),'ball-prone-y-t-w':CNT(['upper_back'],['rear_delts']),'y-raise-on-stability-ball':CNT(['upper_back'],['rear_delts'])});
+// Loaded explosive lifts count half for their main muscles; jumps, throws, slams and battle ropes are power and conditioning work, not counted.
+const COUNT_HALF=new Set(['push-press','kettlebell-clean-and-press','landmine-rotational-push-press','turkish-get-up']);
+const countPower=e=>e.mode==='P'||e.slots.includes('jump')||/^battle-rope/.test(e.id);
+// Core holds and anti-movement work: shown as stability work, not counted as abs/oblique sets.
+const CORE_STAB=new Set(['plank','side-plank','bosu-side-plank','hollow-body-hold','copenhagen-plank','dead-bug','pallof-press','half-kneeling-pallof-press','band-pallof-press','trx-anti-rotation-press',
+  'kettlebell-halo','plate-halo','kettlebell-around-the-world','stir-the-pot','trx-body-saw','bosu-mountain-climber','turkish-get-up','renegade-row']);
+const CORE_K=['abs','obliques'];
+function countOf(id){
+  const e=EX[id], x=EXM[id]; if(!e||!x) return {m:[],h:[],stab:false};
+  if(countPower(e)&&!COUNT_FIX[id]) return {m:[],h:[],stab:false};
+  let {m,h}=COUNT_FIX[id]||{m:x.p,h:x.s};
+  if(COUNT_HALF.has(id)){ h=[...new Set([...m,...h.filter(k=>CORE_K.includes(k))])]; m=[]; h=h.filter(k=>!CORE_K.includes(k)||!CORE_STAB.has(id)); }
+  const stab=CORE_STAB.has(id)||e.slots.includes('carry');
+  const direct=e.slots.some(s=>s==='core'||s==='rot');
+  // Abs and obliques count only from direct core work; bracing during other lifts isn't counted.
+  if(stab||!direct){ m=m.filter(k=>!CORE_K.includes(k)); h=h.filter(k=>!CORE_K.includes(k)); }
+  return {m,h,stab};
+}
 // Weekly sets per muscle, based on research (owner decisions Nov 19-20 2026): about 10+ weekly sets per muscle
 // and each muscle at least twice a week (ACSM Position Stand 2026); about 4 sets is the least that shows measurable growth;
 // supporting work counts as half a set (Pelland et al. 2026). Focus muscles aim higher. Parts have no published targets.
@@ -7677,23 +7737,29 @@ const BAL_TREE=[
     ['glutes','Glutes & hips',['glutes','abductors'],'glutes',[['Glute max',m=>m.includes('glutes')],['Glute med (side of hip)',m=>m.includes('abductors')],['Inner thighs',m=>m.includes('adductors')]]],
     ['quads','Quads',['quads'],'quads',[]],['hamstrings','Hamstrings',['hamstrings'],'hamstrings',[]],['calves','Calves',['calves'],'calves',[]]]]];
 const BAL_FOCUS={glutes:['glutes'],legs:['quads','hamstrings','calves'],chest:['chest'],back:['back'],shoulders:['shoulders'],arms:['biceps','triceps'],core:['core']};
-const BAL_ZONE={min:'Not enough',build:'Building',ok:'On target',high:'High volume',once:'Once a week',twice:'2× a week',none:'Not trained'};
+const BAL_ZONE={min:'Not enough',build:'Building',ok:'On target',high:'High volume',once:'Once a week',twice:'2× a week',none:'Not trained',stab:'Stability only',stabwarn:'Stability only'};
 // Build muscle and Lose weight use set targets; Get stronger, Feel healthier and Move more athletically check twice a week.
 function balMode(){ return hasGoal('muscle')||hasGoal('lose')?'sets':'freq'; }
 function balFocusSet(){ return new Set(focusAreas().flatMap(a=>BAL_FOCUS[a]||[])); }
 function weekBalance(){
   const slots=weekKeys().flatMap(k=>sessionSlots(k).map(s=>({s,k}))).filter(x=>EXM[x.s.id]), F=balFocusSet(), mode=balMode();
-  const count=t=>{ let v=0; const days=new Set(); for(const {s,k} of slots){ const m=EXM[s.id];
-      if(t(m.p,s.id)){ v+=s.cfg.sets; days.add(k); } else if(t(m.s,s.id)){ v+=s.cfg.sets*0.5; days.add(k); } } return {sets:Math.round(v),days:days.size}; };
-  return BAL_TREE.map(([area,gs])=>[area,gs.map(([k,n,ms,body,kids])=>{ const {sets,days}=count(m=>ms.some(x=>m.includes(x))), focus=F.has(k), [lo,hi]=focus?[15,25]:[10,20];
-    const zone=mode==='sets'?(sets<4?'min':sets<lo?'build':sets<=hi?'ok':'high'):(days>=2?'twice':days===1?'once':'none');
-    return {k,n,body,sets,days,lo,hi,focus,zone,kids:kids.map(([cn,t])=>({n:cn,...count(t)}))}; })]);
+  const count=t=>{ let v=0; const days=new Set(); for(const {s,k} of slots){ const c=countOf(s.id);
+      if(t(c.m,s.id)){ v+=s.cfg.sets; days.add(k); } else if(t(c.h,s.id)){ v+=s.cfg.sets*0.5; days.add(k); } } return {sets:Math.round(v),days:days.size,ds:days}; };
+  // Core stability work (planks, Pallof presses, carries): listed, not counted as sets.
+  const stabSlots=slots.filter(({s})=>countOf(s.id).stab), stabNames=[...new Set(stabSlots.map(({s})=>EX[s.id].n))], stabDays=new Set(stabSlots.map(({k})=>k));
+  return BAL_TREE.map(([area,gs])=>[area,gs.map(([k,n,ms,body,kids])=>{ let {sets,days}=count(m=>ms.some(x=>m.includes(x))); const focus=F.has(k), [lo,hi]=focus?[15,25]:[10,20];
+    const stab=k==='core'?stabNames:[];
+    if(stab.length) days=new Set([...count(m=>ms.some(x=>m.includes(x))).ds,...stabDays]).size;
+    let zone=mode==='sets'?(sets<4?'min':sets<lo?'build':sets<=hi?'ok':'high'):(days>=2?'twice':days===1?'once':'none');
+    // Stability work but under 4 counted sets: fine for most goals; for building muscle it still needs loaded ab work.
+    if(stab.length&&mode==='sets'&&sets<4) zone=hasGoal('muscle')?'stabwarn':'stab';
+    return {k,n,body,sets,days,lo,hi,focus,zone,stab,kids:kids.map(([cn,t])=>{ const c=count(t); return {n:cn,sets:c.sets,days:c.days}; })}; })]);
 }
 function balanceCard(who){
   const D=weekBalance(), mode=balMode(), open=ui.balOpen||{}, M=30;
   const bar=g=>{ const z1=g.lo/M*100,z2=g.hi/M*100,f=Math.min(100,g.sets/M*100);
     return `<span class="bal-track" aria-hidden="true">${mode==='sets'?`<span class="bal-zone" style="left:${z1}%;width:${z2-z1}%"></span>`:''}<span class="bal-fill" style="width:${f}%"></span></span>`; };
-  const low=g=>mode==='sets'?g.zone==='min':g.zone==='none';   // Building is fine; only 'not enough' offers a fix
+  const low=g=>mode==='sets'?g.zone==='min'||g.zone==='stabwarn':g.zone==='none';   // Building is fine; only 'not enough' offers a fix
   const canAdd=planEditOn()||!!coachMode||coachSelf();
   return `<section class="card stack balance-card"><div class="row between"><h3>Balance this week</h3><span class="tiny muted">Sets per week</span></div>
     ${focusAreas().length?`<div class="bal-focus"><span>Focus:</span>${focusAreas().map(f=>`<span class="bal-fchip">${esc(FOCUS[f][0])}</span>`).join('')}</div>`:''}
@@ -7702,7 +7768,8 @@ function balanceCard(who){
       return `<button class="bal-row z-${g.zone}${o?' open':''}" ${g.kids.length?`data-action="balopen" data-v="${g.k}" aria-expanded="${o}"`:'tabindex="-1"'}>
         <span class="bal-chev" aria-hidden="true">${g.kids.length?'›':''}</span>
         <span class="bal-mid"><span class="bal-top"><span class="bal-name">${g.n}</span>${g.focus?'<span class="bal-ftag">Focus</span>':''}<span class="bal-freq${g.days>=2?' ok':''}">${g.days>=2?'✓ ':''}${g.days}× a week</span></span>${bar(g)}</span>
-        <span class="bal-right"><b class="num">${g.sets} sets</b><span>${BAL_ZONE[g.zone]}</span></span></button>
+        <span class="bal-right"><b class="num">${g.stab&&g.stab.length&&!g.sets?'—':g.sets+' sets'}</b><span>${BAL_ZONE[g.zone]}</span></span></button>
+        ${g.stab&&g.stab.length?`<p class="core-stab">${g.sets?'Also ':''}<b>${g.stab.length} stability move${g.stab.length>1?'s':''}</b>: ${esc(g.stab.slice(0,4).join(', '))}${g.stab.length>4?'…':''}.${g.zone==='stabwarn'?' Add a cable crunch or hanging leg raise to build the abs.':''}</p>`:''}
         ${o?`<div class="bal-kids">${g.kids.map(c=>`<div class="bal-krow${c.sets?'':' zero'}"><span>${c.n}</span><b class="num">${c.sets}</b></div>`).join('')}
           ${g.kids.some(c=>!c.sets)?`<p class="bal-knote">${g.kids.filter(c=>!c.sets).map(c=>c.n).join(', ')}: nothing this week.${canAdd?' Add a move that targets it.':''}</p>`:''}</div>`:''}
         ${canAdd&&low(g)&&(o||!g.kids.length)?`<button class="linkbtn plan-textbtn bal-add" data-action="baladd" data-v="${g.k}">+ Add a ${esc(g.n.toLowerCase().replace(' & hips',''))} move</button>`:''}`; }).join('')).join('')}
@@ -7713,11 +7780,13 @@ function balanceWhy(){
   modal(`<div><div class="eyebrow">Balance this week</div><h2>How targets are set</h2></div>
     <p class="small" style="margin:0"><b>What it’s for:</b> a quick look at what the plan does for each main muscle each week${F.length?', including the extra work for focus areas':''}.</p>
     <div class="note2 small"><b>${coachMode?esc(coachMode.name)+'’s goal':'Your goal'}: ${esc(g)}.</b> ${mode==='sets'?`The card checks weekly sets: 10–20 per muscle${F.length?', and 15–25 for focus muscles':''}.`:'The card checks that each muscle is trained at least twice a week. Sets are shown for information, without a target.'}</div>
-    <p class="small" style="margin:0"><b>How sets are counted:</b> every hard set of every exercise that works the muscle in a week, added together. For example, bench press 3 sets and incline press 3 sets on Monday, then the same on Thursday, is 12 chest sets. A move where the muscle only helps counts as half a set: 4 sets of rows add 2 biceps sets. Warm-up sets don’t count.</p>
+    <p class="small" style="margin:0"><b>How sets are counted:</b> every hard set of every exercise that works the muscle in a week, added together. For example, bench press 3 sets and incline press 3 sets on Monday, then the same on Thursday, is 12 chest sets. The muscle a move mainly works gets a full set. A muscle that helps gets half a set: 4 sets of rows add 2 biceps sets. Muscles that only hold you steady, like your core during squats, aren’t counted. Warm-up sets don’t count. These are estimates, not exact measurements.</p>
+    <p class="small" style="margin:0"><b>Not counted as sets:</b> jumps, throws, slams and battle ropes are power and conditioning work. Kettlebell swings and push presses count as half. Core holds like planks, dead bugs and Pallof presses show as stability work under Core.</p>
     <table class="bal-tbl">${mode==='sets'?`<tr><td><b>Not enough</b></td><td>Under 4 sets. Less than the smallest amount shown to make a difference.</td></tr>
       <tr><td><b>Building</b></td><td>4–9 sets. The muscle is getting stronger and growing, just more slowly than it could.</td></tr>
       <tr><td><b>On target</b></td><td>10–20 sets${F.length?' (15–25 for focus muscles)':''}. The amount recommended for growing a muscle.</td></tr>
-      <tr><td><b>High volume</b></td><td>More than the target. Not wrong, just more to recover from. Worth a look if someone feels run down.</td></tr>`
+      <tr><td><b>High volume</b></td><td>More than the target. Not wrong, just more to recover from. Worth a look if someone feels run down.</td></tr>
+      <tr><td><b>Stability only</b></td><td>Core only: holds like planks, with under 4 sets of moves that load the abs. Fine for general fitness. To build the abs, add a loaded move like a cable crunch.</td></tr>`
       :`<tr><td><b>2× a week</b></td><td>Trained at least twice a week, as recommended.</td></tr><tr><td><b>Once a week</b></td><td>Trained once. Twice a week is better when there’s time.</td></tr><tr><td><b>Not trained</b></td><td>No work for this muscle this week.</td></tr>`}</table>
     ${['start','back'].includes(L)?'<p class="small" style="margin:0"><b>New or getting back into it?</b> Building is a good place to start. Muscles respond well to less at first, and the work can grow over time.</p>':''}
     <ul class="small" style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px">
@@ -7745,8 +7814,8 @@ function balanceAdd(k){
 function balAddCands(k){
   const g=balGroup(k), ms=g[2], eqset=placeEq(homeBase()), L=lvl(), inPlan=new Set(weekKeys().flatMap(key=>sessionSlots(key).map(s=>s.id)));
   const roleOf=e=>{ const t=Object.values(TPL).flatMap(x=>x.slots).find(s=>e.slots.includes(s.s)); return t?t.role:''; };
-  return LIB.filter(e=>{ const m=EXM[e.id]; return m&&ms.some(x=>m.p.includes(x))&&allowed(e)&&hasEq(e,eqset)&&!inPlan.has(e.id)&&['acc','iso','core','main2','main'].includes(roleOf(e)); })
-    .map(e=>({e,sc:(ms.includes(EXM[e.id].p[0])?2:0)+(['acc','iso'].includes(roleOf(e))?1:0)+(['mc','cb'].includes(primeEq(e))?0.4:0)+(STARTER.has(e.id)?(L==='start'?0.6:0.3):0)-(ADV.test(e.n)?1:0)+prefBonus(e)-(e.uni?0.2:0)}))
+  return LIB.filter(e=>{ const m=EXM[e.id], c=countOf(e.id); return m&&ms.some(x=>c.m.includes(x))&&allowed(e)&&hasEq(e,eqset)&&!inPlan.has(e.id)&&['acc','iso','core','main2','main'].includes(roleOf(e)); })
+    .map(e=>({e,sc:(ms.includes(countOf(e.id).m[0])?2:0)+(['acc','iso'].includes(roleOf(e))?1:0)+(['mc','cb'].includes(primeEq(e))?0.4:0)+(STARTER.has(e.id)?(L==='start'?0.6:0.3):0)-(ADV.test(e.n)?1:0)+prefBonus(e)-(e.uni?0.2:0)}))
     .sort((a,b)=>b.sc-a.sc||a.e.n.localeCompare(b.e.n)).slice(0,3).map(x=>x.e);
 }
 // Try the add on a copy of the plan and report the week's sets and each day's minutes.
