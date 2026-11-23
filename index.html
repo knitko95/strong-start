@@ -1068,7 +1068,8 @@ const APP_RELEASES = [
       "On Today, warm-up and cool-down moves can be swapped, removed, reordered and added, just like exercises. Removing a move asks whether it is just for the next time or every week.",
       "During a workout, the list shows the warm-up and cool-down as groups you can open. Moves you haven't done yet can be swapped, moved to the end, removed or added.",
       "Exercises on Today can be removed the same way, for the next workout or every week.",
-      "Moves you remove for every week are listed in Profile & settings under Hidden moves, where you can bring them back. The Library marks them Hidden too.",
+      "Every warm-up and cool-down move now has similar moves to swap to.",
+      "Moves you remove for every week are listed in Profile & settings under Hidden moves, and the Library marks them Hidden. Bringing a move back lets the app choose it again for new plans; to use it now, add it to a workout.",
       "Workout order in Settings now shows your workout names."
     ]
   },
@@ -2347,10 +2348,11 @@ function stalled(id){ if(PAGE.active){const x=PAGE.summary?.experience[id];retur
   if(w.length<4) return false; return Math.max(...w.slice(-3)) <= Math.max(...w.slice(0,-3)); }
 function programsWith(id){ if(PAGE.active)return PAGE.summary?.experience[id]?.programs||0;return new Set(logs.filter(l=>l.entries.some(e=>e.ex===id)).map(l=>l.block)).size; }
 function generatePlan(prev, opts={}){
-  const plan={}, used=new Set(), eqset=placeEq(homeBase()), L=lvl();
+  const plan={}, used=new Set(hiddenList().filter(h=>h.kind==='ex'&&h.exId).map(h=>h.exId)), eqset=placeEq(homeBase()), L=lvl();
+  if(state) delete state.prepOut;   // brought-back warm-up/cool-down moves become normal choices in the new plan
   // Decide what carries over from the last 6-week program (Exercise variety setting)
   const V = opts.keepAll ? 'keep' : varietyOf(), nNext = state.block ? state.block.n+1 : 1, keep=new Set(), small=[];
-  const valid=(pk,slot)=>{ const e=prev&&EX[prev[pk]]; return e && allowed(e) && hasEq(e,eqset) && !(slot.s==='jump'&&IN_PLACE_JUMPS.has(e.id)) ? e : null; };
+  const valid=(pk,slot)=>{ const e=prev&&EX[prev[pk]]; return e && allowed(e) && !hiddenList().some(h=>h.kind==='ex'&&h.exId===e.id) && hasEq(e,eqset) && !(slot.s==='jump'&&IN_PLACE_JUMPS.has(e.id)) ? e : null; };
   if(prev) for(const key of ['push','pull','legsA','legsB','jump']) TPL[key].slots.forEach((slot,i)=>{ const pk=`${key}.${i}`, e=valid(pk,slot); if(!e) return;
     if(/^main/.test(slot.role)){ if(V==='keep' || (V==='some' && !(programsWith(e.id)>=2 && stalled(e.id)))) keep.add(pk); }
     else small.push(pk); });
@@ -5342,6 +5344,7 @@ function sessionExtras(d, slots){
   else if(eq.has('mball') && ball.length) cool.push({k:'foam', t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.', alts:[]});
   const hasRoll=cool.some(x=>x.k==='foam'), seen=new Set(), str=STRETCH_BY_MUSCLE.filter(([m])=>worked[m]).sort((a,b)=>worked[b[0]]-worked[a[0]]).filter(([,t])=>!seen.has(t)&&seen.add(t)).slice(0, CF.st+(hasRoll?0:1));
   str.forEach(([m,t,dd],i)=>cool.push({k:'s'+i, t, d:dd, stretch:true}));
+  prepSimilar({warm,cool},eq,d.key,hurtW);
   return prepPost(applyPrepExtras({warm, cool, finisher, min:Math.round(cw.phases.reduce((t,x)=>t+x.sec,0)/60 + warm.filter(x=>!x.ramp&&x.k!=='c').length*0.75), coolMin:CF.min, rampPk: first?first.pk:null},prep),d);
 }
 function xRow(group, it, d){
@@ -6801,13 +6804,15 @@ function prepKey(key,place){return `${state.block?.n||0}:${key}:${place||state.c
 // and moves removed just for the next workout (state.skipNext, applied when that workout starts).
 function hiddenList(){ return Array.isArray(state.hidden)?state.hidden:[]; }
 function prepHidden(key,group,name){ return hiddenList().some(h=>h.kind===group&&h.key===key&&h.name===name); }
+// A brought-back warm-up/cool-down move stays out of the current plan until the person adds it again or a new plan is made (owner, Nov 23, 2026).
+function prepOut(key,group,name){ const o=state.prepOut&&state.prepOut[key]; return !!(o&&Array.isArray(o[group])&&o[group].includes(name)); }
 function skipNextOf(key){ const x=state.skipNext&&state.skipNext[key]; return x&&typeof x==='object'?x:{}; }
 function prepPost(X,d){
   const key=d.key, pk=prepKey(key,d.place), live=!!d.startedAt, perm=(state.prepAdd||{})[pk]||{}, today=d.prepAdd||{};
   ['warm','cool'].forEach(g=>{
+    X[g]=X[g].filter(it=>it.ramp||!(prepHidden(key,g,it.t)||prepOut(key,g,it.t)));
     const have=new Set(X[g].map(x=>x.t)), adds=[...(perm[g]||[]).map((m,i)=>({...m,k:'pa'+i})),...(today[g]||[]).map((m,i)=>({...m,k:'da'+i}))];
     adds.forEach(m=>{ if(!m||!m.t||have.has(m.t)) return; have.add(m.t); const it={k:m.k,t:m.t,d:m.d||'',alts:[],added:true}; it._prepBase=it.t; it._prepOptions=[{...it}]; if(g==='warm'){ const r=X.warm.findIndex(x=>x.ramp); if(r<0) X.warm.push(it); else X.warm.splice(r,0,it); } else X.cool.push(it); });
-    X[g]=X[g].filter(it=>it.ramp||!prepHidden(key,g,it.t));
     const sn=skipNextOf(key)[g]||[]; if(!live) X[g].forEach(it=>{ if(sn.includes(it.t)) it.skipNext=true; });
     const ord=(d.prepOrder||{})[g]||((state.prepOrder||{})[pk]||{})[g];
     if(Array.isArray(ord)&&ord.length){ const pos=t=>{ const i=ord.indexOf(t); return i<0?999:i; }; const ramps=X[g].filter(x=>x.ramp), rest=X[g].filter(x=>!x.ramp).map((x,i)=>[x,i]).sort((a,b)=>pos(a[0].t)-pos(b[0].t)||a[1]-b[1]).map(x=>x[0]); X[g]=[...rest,...ramps]; }
@@ -6815,6 +6820,18 @@ function prepPost(X,d){
   const warmCnt=X.warm.filter(x=>!x.ramp&&x.k!=='c'&&!x.prepSkipped&&!x.skipNext).length, cw=X.warm.find(x=>x.k==='c'&&!x.skipNext);
   X.min=Math.max(1,Math.round((cw&&cw.phases?cw.phases.reduce((t,x)=>t+x.sec,0)/60:0)+warmCnt*0.75));
   return X;
+}
+// Every warm-up and cool-down move gets swap choices (owner, Nov 23, 2026): when a move has fewer than three
+// built-in alternatives, add library moves of the same kind that work the same body areas and fit the equipment.
+function prepSimilar(X,eq,key,hurt){
+  const LOW=new Set(['quads','hamstrings','glutes','hips','inner','calves']), region=m=>{ const b=[...m.body]; return !b.length?'':b.every(x=>LOW.has(x))?'low':b.some(x=>LOW.has(x))?'':'up'; };
+  const lib=new Map(PREP_LIB.map(m=>[m.t,m])), fits=m=>[...m.gear].every(g=>!PREP_EQ_NEEDS[g]||PREP_EQ_NEEDS[g].some(k=>eq.has(k)));
+  ['warm','cool'].forEach(g=>{ const have=new Set(X[g].map(x=>x.t));
+    X[g].forEach(it=>{ if(it.ramp||it.phases||!/^(m|s)\d/.test(it.k)) return; const me=lib.get(it.t); if(!me) return;
+      it.alts=it.alts||[]; if(it.alts.length>=3) return; const taken=new Set([it.t,...it.alts.map(a=>a.t)]);
+      const extra=PREP_LIB.filter(m=>m.type===me.type&&!taken.has(m.t)&&!have.has(m.t)&&fits(m)&&!(hurt||[]).some(re=>re.test(m.t))&&!prepHidden(key,g,m.t))
+        .map(m=>({m,o:[...m.body].filter(b=>me.body.has(b)).length*10+(region(m)&&region(m)===region(me)?1:0)})).filter(x=>x.o>0||!me.body.size).sort((a,b)=>b.o-a.o||a.m.t.localeCompare(b.m.t));
+      extra.slice(0,3-it.alts.length).forEach(({m})=>it.alts.push({t:m.t,d:m.d||''})); }); });
 }
 function prepOptionsFor(key,group,it){ return (it._prepOptions||[it]).filter(o=>!prepHidden(key,group,o.t)); }
 function prepCatalog(group,key,place,X){
@@ -6834,14 +6851,15 @@ function tpRemoveSheet(key,group,k){
     <button class="btn ghost block" data-action="closemodal">Keep it</button>`);
 }
 function hideMove(kind,key,name,exId,label){ state.hidden=[...hiddenList().filter(h=>!(h.kind===kind&&h.key===key&&h.name===name)),{kind,key,name,...(exId?{exId}:{}),...(label&&label!==name?{label}:{}),at:new Date().toISOString().slice(0,10)}]; }
+// Bringing a move back only makes it an option again for new plans; it is not put back into the current plan (owner, Nov 23, 2026).
 function bringBack(i){ const h=hiddenList()[i]; if(!h) return; state.hidden=hiddenList().filter((_,j)=>j!==i);
-  if(h.kind==='ex'&&h.exId&&EX[h.exId]&&state.block&&tplOf(h.key)&&!sessionSlots(h.key).some(x=>x.id===h.exId)) exAdd(h.key,h.exId);
+  if(h.kind!=='ex'){ state.prepOut=state.prepOut||{}; const o=state.prepOut[h.key]=state.prepOut[h.key]||{}; const L=o[h.kind]=o[h.kind]||[]; if(!L.includes(h.name)) L.push(h.name); }
   save(); return h; }
 function hiddenWhere(h){ return `${tplOf(h.key)?tplOf(h.key).name:'A workout'} · ${h.kind==='ex'?'exercise':h.kind==='warm'?'warm-up':'cool-down'}`; }
 function hiddenMovesCard(){ const L=hiddenList();
   return `<div><b>Hidden moves</b><div class="tiny muted">Moves you removed from a workout for every week. The app won’t pick them there again until you bring them back.</div></div>
     ${L.length?L.map((h,i)=>`<div class="hm-row"><div><b>${esc(h.label||h.name)}</b><span>${esc(hiddenWhere(h))}${h.at?' · Removed '+esc(new Date(h.at+'T12:00').toLocaleDateString([], {month:'short',day:'numeric'})):''}</span></div><button class="btn sm" data-action="hiddenback" data-i="${i}">Bring back</button></div>`).join(''):'<p class="small muted" style="margin:0">Nothing hidden. When you remove a move for every week, it shows here.</p>'}
-    <p class="tiny muted" style="margin:0">Bringing a move back lets the app choose it again the next time it builds that workout. A brought-back exercise goes at the end of the workout.</p>`; }
+    <p class="tiny muted" style="margin:0">Bringing a move back lets the app choose it again when it builds a new plan.</p>`; }
 function hiddenFor(id,name){ return hiddenList().map((h,i)=>({h,i})).filter(({h})=>(id&&h.exId===id)||(name&&h.kind!=='ex'&&(h.name===name||h.label===name))); }
 function hiddenBanner(id,name){ return hiddenFor(id,name).map(({h,i})=>`<div class="hm-note"><div><b>Hidden from your ${esc(tplOf(h.key)?tplOf(h.key).name:'')} ${h.kind==='ex'?'workout':h.kind==='warm'?'warm-up':'cool-down'}.</b><br><span class="muted">You removed it for every week${h.at?' on '+esc(new Date(h.at+'T12:00').toLocaleDateString([], {month:'short',day:'numeric'})):''}.</span></div><button class="btn sm" data-action="hiddenback" data-i="${i}" data-reopen="${esc(id||'')}">Bring back</button></div>`).join(''); }
 function tpPickSheet(kind,key,group,k){
@@ -8447,7 +8465,7 @@ document.addEventListener('click', async e=>{
       else { state.prepAdd=state.prepAdd||{}; const pa=state.prepAdd[C.pk]=state.prepAdd[C.pk]||{}; (pa[P.group]=pa[P.group]||[]).push({t:o.t,d:o.d}); toast(`Added ${o.t}`); }
       save(); closeModal(); render(); break; }
     case 'toastundo': { const fn=toast.undo; toast.undo=null; $('#toast').innerHTML=''; if(fn) fn(); break; }
-    case 'hiddenback': { const h=bringBack(+b.dataset.i); if(h){ toast(`${h.label||h.name} is back`); render(); if(b.dataset.reopen){ closeModal(); if(EX[b.dataset.reopen]) exInfo(b.dataset.reopen); } else if(b.dataset.reopenprep){ closeModal(); prepLibraryInfo(b.dataset.reopenprep); } else if(b.closest('#modal')&&!b.closest('.settings-page')){ closeModal(); } } break; }
+    case 'hiddenback': { const h=bringBack(+b.dataset.i); if(h){ toast(`${h.label||h.name} can be picked again. To use it now, add it to a workout.`); render(); if(b.dataset.reopen){ closeModal(); if(EX[b.dataset.reopen]) exInfo(b.dataset.reopen); } else if(b.dataset.reopenprep){ closeModal(); prepLibraryInfo(b.dataset.reopenprep); } else if(b.closest('#modal')&&!b.closest('.settings-page')){ closeModal(); } } break; }
     case 'reorder': reorderSheet(b.dataset.key); break;
     case 'settstyle': { state.settings.tstyle=b.dataset.v; delete state.settings.tstyleAuto; const n=applyStylePref(); save(); render(); if(n) toast(`${n} move${n>1?'s':''} you haven’t done yet switched to match`); break; }
     case 'setvariety': state.settings.variety=b.dataset.v; save(); render(); toast('Takes effect when your next 6-week program starts'); break;
