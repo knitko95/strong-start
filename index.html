@@ -1061,6 +1061,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.28.1",
+    "date": "2026-11-23",
+    "title": "Tap any set, including the warm-up set",
+    "notes": [
+      "During a workout you can tap the warm-up set in the set line to check or change its weight, then go back to where you were.",
+      "The set line keeps the same numbers on set and rest screens, so the warm-up set no longer disappears during rests."
+    ]
+  },
+  {
     "version": "0.28.0",
     "date": "2026-11-23",
     "title": "Change your warm-up and cool-down",
@@ -5429,6 +5438,8 @@ function fKeepPosition(d){
   const slots=dSlots(),moves=fPair(d,slots,d.step.pk)?.moves||slots.filter(s=>s.pk===d.step.pk);
   if(d.step.ph==='ex'&&moves.length&&moves.every(s=>!openN(d,s.pk))){d.pathCurrent.ph='exdone';delete d.pathCurrent.i;}
 }
+// Warm-up sets stay in the set path (same numbering on set and rest screens) once started, and stay tappable (owner, Nov 23, 2026).
+function fWuPath(d,X,s,cur){ const n=X.rampPk===s.pk&&(d.rampDone||0)<99?X.warm.filter(x=>x.ramp&&!x.prepSkipped).length:0; if(!n) return null; if(!cur&&!(d.rampDone>0)) return null; return {n,cur:cur!=null?cur:null,done:Math.min(n,d.rampDone||0)}; }
 function fPathCurrent(d,slots){
   let st=d.pathCurrent||d.step;
   if(!slots.some(s=>s.pk===st.pk))st=d.step;
@@ -5440,10 +5451,11 @@ function workoutPath(d,slots,s,wu){
   const pair=fPair(d,slots,s.pk),moves=pair?.moves||[s],count=Math.max(...moves.map(m=>(d.sets[m.pk]||[]).length));
   if(!count)return '';
   const st=d.step,cur=fPathCurrent(d,slots),same=moves.some(m=>m.pk===cur.pk),round=fSetIndex(d,cur),restRound=cur.afterRound??d.rest?.afterRound??Math.max(0,round-1);
-  const selected=wu&&wu.cur?'':st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:fPathSetId(moves,st.pk,fSetIndex(d,st));
-  const active=wu&&wu.cur?'':same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?fPathSetId(moves,cur.pk,round):''):'';
+  const onWu=wu&&wu.cur!=null;
+  const selected=onWu?'':st.ph==='rest'?`r${st.afterRound??d.rest?.afterRound??Math.max(0,fSetIndex(d,st)-1)}`:fPathSetId(moves,st.pk,fSetIndex(d,st));
+  const active=onWu?'':same?(cur.ph==='rest'&&!cur.restPreview?`r${restRound}`:cur.ph==='ex'?fPathSetId(moves,cur.pk,round):''):'';
   const nodes=[];
-  for(let w=0;w<wn;w++) nodes.push(`<div class="path-stop"><span class="path-set ${wu.cur?'current':'done'}" aria-label="Set ${w+1}, warm-up${wu.cur?', current':', done'}"><span>Set ${w+1}</span></span><span class="path-status">Warm-up</span></div><div class="path-stop rest" aria-hidden="true"></div>`);
+  for(let w=0;w<wn;w++){ const isCur=wu.cur===w, done=w<(wu.done||0); nodes.push(`<div class="path-stop"><button class="path-set ${done&&!isCur?'done':''} ${isCur?'current':''}" data-action="frampview" data-i="${w}" data-path-id="w${w}" aria-pressed="${isCur}" ${isCur?'aria-current="step"':''} aria-label="${done?'Edit':'Go to'} set ${w+1}, warm-up${isCur?', current':done?', done':''}"><span>Set ${w+1}</span></button><span class="path-status">Warm-up</span></div><div class="path-stop rest" aria-hidden="true"></div>`); }
   for(let i=0;i<count;i++){
     const available=moves.filter(m=>d.sets[m.pk]?.[i]);
     for(const move of available){
@@ -5617,7 +5629,7 @@ function renderFocus(){
             <circle id="fring" cx="130" cy="130" r="${R}" fill="none" stroke="var(--accent)" stroke-width="16" stroke-linecap="round" stroke-dasharray="${(C*left/tot).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 130 130)"/>
             <text id="fclock" x="130" y="154" text-anchor="middle" class="fclock">${mmss(left)}</text></svg>
           <button class="aside" data-action="tadd" data-sec="15" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div></div>
-        ${workoutPath(d,slots,s)}
+        ${workoutPath(d,slots,s,fWuPath(d,X,s))}
 
       <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="${preview?'freststart':'fready'}" ${preview&&planned<=0?'disabled':''}>${preview?'Start rest':'Ready'}</button></div></div></section></div>`;
   }
@@ -5640,6 +5652,7 @@ function renderFocus(){
       ${aFoot(`<button class="btn primary fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button>`)}</div>`;
   }
   // lighter warm-up sets before the first lift
+  if(X.rampPk===s.pk && Number.isInteger(d.rampView) && st.ph==='ex') return renderRamp(d,s,X,`Exercise ${gi+1} of ${gs.length}`);
   if(X.rampPk===s.pk && doneN(d,s.pk)===0 && (d.rampDone||0) < X.warm.filter(x=>x.ramp&&!x.prepSkipped).length) return renderRamp(d,s,X,`Exercise ${gi+1} of ${gs.length}`);
   // exercise screen
   const sets=d.sets[s.pk], k=sets.findIndex(x=>!x.done), kk=Number.isInteger(st.i)&&sets[st.i]?st.i:k<0?sets.length-1:k; setDefaults(d,s,tg,kk);
@@ -5652,7 +5665,7 @@ function renderFocus(){
     <section class="card acard"><div class="ach"><b>Set ${kk+1+wuN}${pair?String.fromCharCode(65+pair.moves.findIndex(move=>move.pk===s.pk)):''} <span>of ${sets.length+wuN}</span></b><span class="goal">${goal}</span></div>
       <div class="asteps">${load?stepper(s.pk,kk,'w',cur.w,(ex.mode==='B'?'+':'')+state.settings.units+each,'Weight'):''}${stepper(s.pk,kk,'r',cur.r,secs?'sec':'',secs?'Seconds':'Reps')}</div>
       ${lastTxt?`<div class="tiny muted" style="text-align:center">${esc(lastTxt)}</div>`:''}
-      ${workoutPath(d,slots,s,wuN?{n:wuN}:null)}
+      ${workoutPath(d,slots,s,fWuPath(d,X,s))}
     <div class="ffoot"><div class="afoot">${moreBtn}<button class="btn primary fbig" data-action="fdone" data-pk="${s.pk}" data-i="${kk}">${cur.done?'Save changes':'Log set'}</button></div>${pair?'':upNext(kk)}</div></section></div>`;
 }
 function flistSheet(){
@@ -5956,7 +5969,8 @@ function fAction(a,b){
     case 'fundo':
     case 'fset': { const pk=b.dataset.pk, i=+b.dataset.i;
       if(!Number.isInteger(i)||!d.sets[pk]?.[i]||!dSlots().some(s=>s.pk===pk)) return true;
-      fKeepPosition(d);
+      fKeepPosition(d); delete d.rampView; delete d.rampReturn;
+      { const X=d._x; if(X&&X.rampPk===pk&&doneN(d,pk)===0){ const n=X.warm.filter(x=>x.ramp&&!x.prepSkipped).length; if((d.rampDone||0)<n) d.rampDone=n; } }
       if(!d.rest||ui.timer?.label!=='Rest') fClearTimer();
       d.step={ph:'ex',pk,i}; save(); render(); return true; }
     case 'frest': { const slots=dSlots(), explicit=b.dataset.round!=null, r=+b.dataset.round, running=d.rest&&ui.timer?.label==='Rest';
@@ -6682,7 +6696,12 @@ function gAction(a,b){
     case 'glist': gStoreMove();d.listView=true;save();render();return true;
     case 'gguide': d.listView=false;if(!d.guide||d.guide.ph!==d.step.ph)gStart(d.step.ph);else{const items=gItems(G.ph),it=items[G.i];if(it&&d[it.g]?.[it.k]){const next=items.findIndex(move=>!d[move.g]?.[move.k]);if(next>=0)gChooseMove(next);}for(const move of items)if(d[move.g]?.[move.k])delete G.positions?.[gMoveKey(move)];}save();render();return true;
     case 'gback': {const items=gItems(G.ph);G.mode='ready';G.i=Math.max(0,items.length-1);G.s=0;G.end=null;delete G.pmode;delete G.left;const saved=items[G.i]&&G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);gPrepareMove(G,items);save();render();return true;}
-    case 'framp': d.rampDone=(d.rampDone||0)+1; save(); render(); window.scrollTo(0,0); return true;
+    case 'framp': d.rampDone=(d.rampDone||0)+1; delete d.rampView; delete d.rampReturn; save(); render(); window.scrollTo(0,0); return true;
+    case 'frampview': { const i=+b.dataset.i, X=d._x||sessionExtras(d,dSlots()), n=X.warm.filter(x=>x.ramp&&!x.prepSkipped).length; if(!Number.isInteger(i)||i<0||i>=n) return true;
+      if(i>=(d.rampDone||0)&&doneN(d,X.rampPk)===0){ delete d.rampView; d.rampDone=i; d.step={ph:'ex',pk:X.rampPk,i:0}; }
+      else { fKeepPosition(d); if(!Number.isInteger(d.rampView)) d.rampReturn=JSON.parse(JSON.stringify(d.step||null)); d.rampView=i; if(d.step.ph!=='ex'||d.step.pk!==X.rampPk) d.step={ph:'ex',pk:X.rampPk,i:d.step.i||0}; }
+      save(); render(); return true; }
+    case 'frampclose': delete d.rampView; if(d.rampReturn){ d.step=d.rampReturn; } delete d.rampReturn; save(); render(); return true;
     case 'frampskip': d.rampDone=99; save(); render(); return true;
   }
   return false;
@@ -6700,7 +6719,7 @@ function rampSet(d,s,k){
 }
 // The warm-up set is the first set of the first lift: same screen as its working sets, numbered with them, not logged.
 function renderRamp(d,s,X,label){
-  const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), k=d.rampDone||0, r=ramps[k], ex=EX[s.id], total=(d.sets[s.pk]||[]).length+ramps.length;
+  const ramps=X.warm.filter(x=>x.ramp&&!x.prepSkipped), review=Number.isInteger(d.rampView)&&ramps[d.rampView], k=review?d.rampView:d.rampDone||0, r=ramps[k], ex=EX[s.id], total=(d.sets[s.pk]||[]).length+ramps.length;
   const m=(r.d||'').match(/^(.*?) × (\d+)$/), row=rampSet(d,s,k);
   const each=(primeEq(ex)==='db'||(primeEq(ex)==='kb'&&!ex.uni&&/Farmer|Double|Gorilla|Rack/.test(ex.n)))?' each':'';
   return `<div class="focus demo-first">${fTop(d,dSlots(),label||'Exercise 1')}
@@ -6710,9 +6729,9 @@ function renderRamp(d,s,X,label){
       <div class="asteps">${stepper(s.pk,k,'w',row.w,state.settings.units+each,'Weight',true)}<div class="fstep fixed"><div class="fl">Reps</div><span class="num big">${esc(m?m[2]:'')}</span></div></div>
       ${row.w===''?`<div class="tiny muted" style="text-align:center">${esc(m?m[1]:r.d)}</div>`:''}
       <div class="tiny muted" style="text-align:center">About half your working weight. Easy and smooth, not logged.</div>
-      ${workoutPath(d,dSlots(),s,{n:ramps.length,cur:true})}
-    <div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button></div>
-      <button class="linkbtn tiny" data-action="frampskip" style="align-self:center">Skip warm-up set</button></div></section></div>`;
+      ${workoutPath(d,dSlots(),s,{n:ramps.length,cur:k,done:Math.min(ramps.length,d.rampDone||0)})}
+    <div class="ffoot"><div class="afoot">${review?`<button class="btn primary fbig" data-action="frampclose">${k<(d.rampDone||0)?'Save changes':'Back to your sets'}</button>`:`<button class="btn primary fbig" data-action="framp">${k+1<ramps.length?'Done, next warm-up set':'Done, start working sets'}</button>`}</div>
+      ${review?'':`<button class="linkbtn tiny" data-action="frampskip" style="align-self:center">Skip warm-up set</button>`}</div></section></div>`;
 }
 
 /* ---------------- Home screen ---------------- */
@@ -8376,7 +8395,7 @@ document.addEventListener('click', async e=>{
   if(a.startsWith('su') && a!=='subtoday' && state.setup){ if(a==='suresume'){ syncPausedSetup(); if(state.setup) state.setup.paused=false; save(); render(); window.scrollTo(0,0); return; } setupAction(a,b); return; }
   if(a[0]==='f' && fAction(a,b)) return;
   if(a[0]==='c' && cAction(a,b)) return;
-  if((a[0]==='g'||a==='framp'||a==='frampskip') && gAction(a,b)) return;
+  if((a[0]==='g'||a==='framp'||a==='frampskip'||a==='frampview'||a==='frampclose') && gAction(a,b)) return;
   switch(a){
     case 'tab': {
       const next=b.dataset.tab;
