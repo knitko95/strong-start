@@ -611,6 +611,7 @@ body.in-focus #app{flex:1}
 .fx-row{display:flex;align-items:flex-start;gap:4px;border-top:1px solid var(--line)}.fx-row .fli{border-top:0}.fx-row .fx-body{flex:1;min-width:0}.fx-row .drag-grip{margin-top:12px}.fli-line{display:flex;align-items:center;gap:6px}.fli-line .fli{flex:1}.fli-more{font-size:var(--text-sm);font-weight:600;padding:8px 2px}.fli-add{margin:10px 0 2px;font-weight:650;align-self:flex-start}.fli-hint{margin:2px 0 6px}
 .ed-addrow{display:flex;gap:6px 14px;align-items:center;flex-wrap:wrap;margin:6px 0 2px}.ed-addrow .linkbtn{width:auto;flex:none;margin:0;font-weight:650;white-space:nowrap}.ss-badge{display:inline-block;margin-left:2px;text-decoration:none;vertical-align:1px;font-size:11px;font-weight:700;background:var(--good-soft,#e3efe3);color:var(--good);border-radius:999px;padding:2px 8px;white-space:nowrap}
 .ss-card{border:1px solid var(--line);border-radius:16px;padding:12px}.ss-pair{display:flex;align-items:center;gap:10px}.ss-names{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px;font-size:var(--text-sm)}.ss-plus{color:var(--accent);font-weight:800}.ss-save{font-size:12px;font-weight:700;color:var(--good)}
+.pm-bucket{display:flex;flex-direction:column}.pm-bucket>b{font-size:var(--text-sm);margin:10px 0 2px}.pm-row{display:flex;align-items:center;gap:6px;padding:8px 0;border-top:1px solid var(--line)}.pm-bucket>b+.pm-row{border-top:0}.pm-txt{flex:1;min-width:0;display:flex;flex-direction:column}.today-row-acts{display:flex;align-items:center;gap:2px;flex:none}.pm-x{border:0;background:none;color:var(--muted);font-size:20px;line-height:1;min-width:36px;min-height:40px;cursor:pointer}.pm-add{display:block;margin:8px 0 0;font-weight:650}.pm-hint{margin:2px 0 4px}.today-skipnext{margin:4px 0}.hm-row{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--line)}.hm-row div{flex:1;min-width:0}.hm-row b{display:block}.hm-row span{font-size:12px;color:var(--muted)}.hm-note{background:var(--sunk);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:center}.hm-note div{flex:1;font-size:var(--text-sm)}.hm-chip{font-size:11px;font-weight:700;background:var(--sunk);color:var(--muted);border-radius:999px;padding:2px 8px;margin-left:6px;vertical-align:2px}.toast-undo{display:flex;align-items:center;gap:12px;justify-content:space-between}.toast-btn{border:0;background:none;color:inherit;font-weight:800;text-decoration:underline;font:inherit;cursor:pointer;white-space:nowrap}.fpg-body{padding:0 0 6px 30px}.fpg-head{display:flex;align-items:center}.fpg-head .fli{flex:1}.fpg-caret{border:0;background:none;color:var(--muted);min-width:40px;min-height:44px;font-size:16px}
 .fadd-chips{display:flex;gap:6px;flex-wrap:wrap}.fadd-chip{font:inherit;font-size:13px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;background:var(--surface);color:var(--ink);min-height:34px}.fadd-chip[aria-pressed=true]{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}.fadd-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}.fadd-row:first-child{border-top:0}.danger-text{color:var(--danger,#b3261e)}
 .fmark{flex:none;width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--sunk);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:var(--text-sm);color:var(--muted)}
 .fmark.d{background:var(--good-soft);color:var(--good);border-color:transparent}.fmark.c{background:var(--accent);color:var(--on-accent);border-color:transparent}
@@ -1059,6 +1060,19 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.28.0",
+    "date": "2026-11-23",
+    "title": "Change your warm-up and cool-down",
+    "notes": [
+      "On Today, warm-up and cool-down moves can be swapped, removed, reordered and added, just like exercises. Removing a move asks whether it is just for the next time or every week.",
+      "During a workout, the list shows the warm-up and cool-down as groups you can open. Moves you haven't done yet can be swapped, moved to the end, removed or added.",
+      "Exercises on Today can be removed the same way, for the next workout or every week.",
+      "Every warm-up and cool-down move now has similar moves to swap to.",
+      "Moves you remove for every week are listed in Profile & settings under Hidden moves, and the Library marks them Hidden. Bringing a move back lets the app choose it again for new plans; to use it now, add it to a workout.",
+      "Workout order in Settings now shows your workout names."
+    ]
+  },
   {
     "version": "0.27.0",
     "date": "2026-11-20",
@@ -2334,10 +2348,11 @@ function stalled(id){ if(PAGE.active){const x=PAGE.summary?.experience[id];retur
   if(w.length<4) return false; return Math.max(...w.slice(-3)) <= Math.max(...w.slice(0,-3)); }
 function programsWith(id){ if(PAGE.active)return PAGE.summary?.experience[id]?.programs||0;return new Set(logs.filter(l=>l.entries.some(e=>e.ex===id)).map(l=>l.block)).size; }
 function generatePlan(prev, opts={}){
-  const plan={}, used=new Set(), eqset=placeEq(homeBase()), L=lvl();
+  const plan={}, used=new Set(hiddenList().filter(h=>h.kind==='ex'&&h.exId).map(h=>h.exId)), eqset=placeEq(homeBase()), L=lvl();
+  if(state) delete state.prepOut;   // brought-back warm-up/cool-down moves become normal choices in the new plan
   // Decide what carries over from the last 6-week program (Exercise variety setting)
   const V = opts.keepAll ? 'keep' : varietyOf(), nNext = state.block ? state.block.n+1 : 1, keep=new Set(), small=[];
-  const valid=(pk,slot)=>{ const e=prev&&EX[prev[pk]]; return e && allowed(e) && hasEq(e,eqset) && !(slot.s==='jump'&&IN_PLACE_JUMPS.has(e.id)) ? e : null; };
+  const valid=(pk,slot)=>{ const e=prev&&EX[prev[pk]]; return e && allowed(e) && !hiddenList().some(h=>h.kind==='ex'&&h.exId===e.id) && hasEq(e,eqset) && !(slot.s==='jump'&&IN_PLACE_JUMPS.has(e.id)) ? e : null; };
   if(prev) for(const key of ['push','pull','legsA','legsB','jump']) TPL[key].slots.forEach((slot,i)=>{ const pk=`${key}.${i}`, e=valid(pk,slot); if(!e) return;
     if(/^main/.test(slot.role)){ if(V==='keep' || (V==='some' && !(programsWith(e.id)>=2 && stalled(e.id)))) keep.add(pk); }
     else small.push(pk); });
@@ -4643,6 +4658,11 @@ function startWorkout(key){
     state.draft.planCounts[s.pk]=t.sets;
   }
   lockShape(state.draft);
+  const sn=skipNextOf(key), d=state.draft;
+  if(Object.keys(sn).length){ d.wskip=d.wskip||{}; const X=sessionExtras(d,dSlots());
+    ['warm','cool'].forEach(g=>(X[g]||[]).forEach(it=>{ if((sn[g]||[]).includes(it.t)) d.wskip[g+it.k]=true; }));
+    (sn.ex||[]).forEach(pk=>{ if(!d.sets[pk]) return; const sl=dSlots().find(x=>x.pk===pk); d.shape=d.shape.filter(e=>e[0]!==pk); delete d.sets[pk]; delete d.planCounts[pk]; if(d.planned) delete d.planned[pk]; if(sl) d.removed=[...new Set([...(d.removed||[]),EX[sl.id].n])]; });
+    delete state.skipNext[key]; }
   save();
   USAGE.capture('workout_started');
 }
@@ -4676,7 +4696,7 @@ function renderPlanExercises(slots, simple=false, opt={}){
         <div class="row plan-move-actions ed-actions"><button class="linkbtn plan-textbtn" data-action="adjust" data-pk="${s.pk}">Adjust</button>${s.placeFrom?'':`<button class="linkbtn plan-textbtn" data-action="swap" data-pk="${s.pk}">Swap</button>`}<button class="linkbtn plan-textbtn" data-action="exmore" data-k="${opt.key}" data-pk="${s.pk}" aria-label="More options for ${esc(ex.n)}">More</button></div></div></div>`; }).join('')}</div>
     <div class="ed-addrow"><button class="linkbtn plan-textbtn ed-add" data-action="exadd" data-k="${opt.key}">+ Add exercise</button>${(()=>{ const ss=ssIdeas(slots); return ss.length?`<button class="linkbtn plan-textbtn ed-ss" data-action="ssideas" data-k="${opt.key}">⇄ Superset ideas</button>`:''; })()}</div>`;
   if(simple)return `<div>${slots.map((s,i)=>{const ex=EX[s.id],tg=target(s);
-    return `<div class="slotrow today-strength-row has-preview"><span class="pnum">${i+1}</span>${true?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div>${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}</div>`;
+    return `<div class="slotrow today-strength-row has-preview"><span class="pnum">${i+1}</span>${true?`<button type="button" class="today-exercise-preview" data-pose-id="${esc(ex.id)}" data-action="exinfo" data-id="${esc(ex.id)}" data-pk="${esc(s.pk)}" aria-label="View ${esc(ex.n)} demonstration" aria-haspopup="dialog">${ICON.play}</button>`:''}<div><div class="today-strength-name">${esc(ex.n)}</div><p class="today-strength-meta">${wu(s)}${tg.sets} × ${tg.unit==='sec'?esc(tg.r)+' sec':tg.lo+'–'+tg.hi}${ex.uni?' per side':''} · <span class="today-strength-muscle">${esc(mainMuscleLabel(ex.id))}</span></p>${suggTag(ex.id)}${s.placeFrom?`<div class="tiny muted">Instead of ${esc(EX[s.placeFrom].n)}, for ${esc(curPlace().n)}</div>`:''}</div><span class="today-row-acts">${s.placeFrom?'':`<button class="btn sm ghost" data-action="swap" data-pk="${s.pk}">Swap</button>`}${opt.today?`<button class="pm-x" data-action="tpremove" data-key="${opt.today}" data-g="ex" data-k="${s.pk}" aria-label="Remove ${esc(ex.n)}">×</button>`:''}</span></div>`;
   }).join('')}</div>`;
   return `<div>${slots.map(s=>{ const ex=EX[s.id], tg=target(s), o=origId(s.pk);
         const sw = !s.placeFrom && o && s.id!==o, tw = state.adj[s.pk] && state.adj[s.pk].ex===s.id;
@@ -4760,8 +4780,8 @@ function renderLibrary(){
   const row=(cls,thumb,title,attrs)=>`<div class="lib-item"${cls}><button class="lt" ${attrs} aria-haspopup="dialog">
       <div class="row" style="flex-wrap:nowrap;gap:10px">${thumb}<div style="flex:1;min-width:0"><div class="ln pain-warning-title">${title}</div></div><span class="lib-arrow" aria-hidden="true">›</span></div></button></div>`;
   const rows=[
-    ...list.map(e=>row(available(e)?'':' style="opacity:.5"',musThumb(e.id,false),`${painWarningBubble(e)}<span>${esc(e.n)}</span>`,`data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}"`)),
-    ...prep.map(m=>row(prepAvailable(m)?'':' style="opacity:.5"',prepThumb(m),`<span>${esc(m.t)}</span>`,`data-action="preplibinfo" data-id="${m.id}" aria-label="How to do ${esc(m.t)}"`))
+    ...list.map(e=>row(available(e)?'':' style="opacity:.5"',musThumb(e.id,false),`${painWarningBubble(e)}<span>${esc(e.n)}</span>${hiddenFor(e.id).length?' <span class="hm-chip">Hidden</span>':''}`,`data-action="exinfo" data-id="${e.id}" aria-label="How to do ${esc(e.n)}${painConflicts(e).length?esc('. Caution: may aggravate your '+painAreas(painConflicts(e))):''}"`)),
+    ...prep.map(m=>row(prepAvailable(m)?'':' style="opacity:.5"',prepThumb(m),`<span>${esc(m.t)}</span>${hiddenFor(null,m.t).length?' <span class="hm-chip">Hidden</span>':''}`,`data-action="preplibinfo" data-id="${m.id}" aria-label="How to do ${esc(m.t)}"`))
   ];
   return `<section class="stack"><div style="margin-bottom:4px"><div class="eyebrow">${gym} exercises for your gym · ${LIB.filter(allowed).length+PREP_LIB.length} fit your level</div><h1 class="library-title">Exercise library</h1></div>
     <div class="filters">
@@ -5324,7 +5344,8 @@ function sessionExtras(d, slots){
   else if(eq.has('mball') && ball.length) cool.push({k:'foam', t:`Massage ball: ${listTxt(ball)}`, d:'About 30 seconds each. Lean in gently and make small circles.', alts:[]});
   const hasRoll=cool.some(x=>x.k==='foam'), seen=new Set(), str=STRETCH_BY_MUSCLE.filter(([m])=>worked[m]).sort((a,b)=>worked[b[0]]-worked[a[0]]).filter(([,t])=>!seen.has(t)&&seen.add(t)).slice(0, CF.st+(hasRoll?0:1));
   str.forEach(([m,t,dd],i)=>cool.push({k:'s'+i, t, d:dd, stretch:true}));
-  return applyPrepExtras({warm, cool, finisher, min:Math.round(cw.phases.reduce((t,x)=>t+x.sec,0)/60 + warm.filter(x=>!x.ramp&&x.k!=='c').length*0.75), coolMin:CF.min, rampPk: first?first.pk:null},prep);
+  prepSimilar({warm,cool},eq,d.key,hurtW);
+  return prepPost(applyPrepExtras({warm, cool, finisher, min:Math.round(cw.phases.reduce((t,x)=>t+x.sec,0)/60 + warm.filter(x=>!x.ramp&&x.k!=='c').length*0.75), coolMin:CF.min, rampPk: first?first.pk:null},prep),d);
 }
 function xRow(group, it, d){
   const sub=(d.wsub||{})[group+it.k], cur = sub!=null && it.alts && it.alts[sub] ? it.alts[sub] : it, skip=it.prepSkipped||(d.wskip||{})[group+it.k], done=d[group][it.k];
@@ -5640,7 +5661,7 @@ function flistSheet(){
   const row=(to,name,sub,state1)=>`<button class="fli" data-action="fjump" data-to="${to}"><span class="fmark ${state1}">${state1==='d'?'✓':state1==='c'?'▶':''}</span><span style="flex:1;text-align:left"><b>${esc(name)}</b><br><span class="tiny muted">${esc(sub)}</span></span>${state1==='c'?'<span class="chip acc">Now</span>':''}</button>`;
   const curPk=['ex','rest','exdone'].includes(st.ph)?st.pk:null;
   let h=`<div class="focus">${aTop('Workout list','closemodal','')}<div class="ahead"><h1>Today’s workout</h1><div class="small muted">Tap any exercise to jump to it, like when a machine is taken.</div></div><section class="card acard"><div class="ach"><b>Session order</b><span class="goal">${mins} min in</span></div><div class="aworkout-list" data-drop-list="f">`;
-  h+=row('warm','Warm-up',`${d._x?d._x.min:5} min`, st.ph==='warm'?'c':'d');
+  h+=fPrepGroup('warm', st.ph==='warm'?'c':'d');
   gs.forEach(g=>{ const pks=g.map(i=>slots[i].pk), locked=pks.some(pk=>doneN(d,pk)>0||pk===curPk);
     const inner=g.map(i=>{ const s=slots[i], tg=target(s), dn=doneN(d,s.pk), n=d.sets[s.pk].length, cur=s.pk===curPk;
       const r=row(s.pk,EX[s.id].n, (d.skipped||{})[s.pk]&&!dn?'Skipped':dn>=n?`${n} sets done`:dn?`${dn} of ${n} sets done`:`${n} × ${usesLoad(tg.ex)?`${tg.lo}–${tg.hi}`:tg.r} ${tg.unit}`, dn>=n?'d':cur?'c':'');
@@ -5649,9 +5670,35 @@ function flistSheet(){
   const ssN=ssIdeas(slots,s=>doneN(d,s.pk)===0&&s.pk!==curPk);
   h+=`<div class="ed-addrow"><button class="linkbtn plan-textbtn fli-add" data-action="fadd">+ Add exercise</button>${ssN.length?`<button class="linkbtn plan-textbtn ed-ss" data-action="fss">⇄ Superset ideas</button>`:''}</div>
     ${gs.length>1?'<p class="tiny muted fli-hint">Hold ⠿ and drag to change the order. Exercises you’ve started stay put.</p>':''}`;
-  h+=row('cool','Cardio and cool-down','Optional cardio, walk and stretches', st.ph==='cool'?'c':'');
+  h+=fPrepGroup('cool', st.ph==='cool'?'c':'');
   h+=`</div></section>${aFoot('<button class="btn primary fbig" data-action="closemodal">Back to workout</button>','',`<button class="amore" data-action="fexit" aria-label="Pause or end workout">${ICON.more}</button>`)}</div>`;
   modal(h,{sheetClass:'workout-sheet'});
+}
+// Warm-up and cool-down in the workout list: collapsible, with the same changes as exercises (Nov 23, 2026).
+function fPrepItems(group){ const d=state.draft, X=d._x||sessionExtras(d,dSlots()), ws=d.wsub||{};
+  return (X[group]||[]).filter(it=>!it.ramp&&!it.prepSkipped).map(it=>{ const i=ws[group+it.k], cur=i!=null&&it.alts&&it.alts[i]?{...it,...it.alts[i],k:it.k}:it; return {it,cur,skip:!!(d.wskip||{})[group+it.k],locked:prepLocked(d,group,it)}; }); }
+function fPrepGroup(group,mark){
+  const d=state.draft, X=d._x||sessionExtras(d,dSlots()), open=!!(ui.flOpen||{})[group], items=fPrepItems(group), name=group==='warm'?'Warm-up':'Cardio and cool-down';
+  const live=items.filter(x=>!x.skip), sub=group==='warm'?`${live.length} moves · ${X.min} min`:`${live.length} moves · ${X.coolMin} min${X.finisher&&!X.finisher.prepSkipped?' + optional cardio':''}`;
+  const head=`<div class="fpg-head"><button class="fli" data-action="fjump" data-to="${group}"><span class="fmark ${mark}">${mark==='d'?'✓':mark==='c'?'▶':''}</span><span style="flex:1;text-align:left"><b>${name}</b><br><span class="tiny muted">${esc(sub)}</span></span>${mark==='c'?'<span class="chip acc">Now</span>':''}</button><button class="fpg-caret" data-action="fpgtoggle" data-g="${group}" aria-expanded="${open}" aria-label="${open?'Hide':'Show'} ${name.toLowerCase()} moves">${open?'▴':'▾'}</button></div>`;
+  if(!open) return `<div class="fpg">${head}</div>`;
+  const body=items.map(({it,cur,skip,locked})=>{ const done=(d[group]||{})[it.k];
+    const txt=`<span class="pm-txt"><b class="small">${esc(cur.t)}</b><span class="tiny muted">${esc(cur.d||'')}${skip?' · Removed for today':done?' · Done':locked?' · Now':''}</span></span>`;
+    return locked||skip?`<div class="pm-row pm-locked">${txt}</div>`:`<div class="pm-row" data-drag="q" data-g="${group}" data-t="${esc(it.t)}">${gripBtn('q','Move '+cur.t)}${txt}<button class="linkbtn fli-more" data-action="fpmore" data-g="${group}" data-k="${it.k}">More</button></div>`; }).join('');
+  return `<div class="fpg">${head}<div class="fpg-body" data-drop-list="q">${body}</div><div class="fpg-body"><button class="linkbtn plan-textbtn pm-add" data-action="fpadd" data-g="${group}">+ Add a ${group==='warm'?'warm-up':'cool-down'} move</button></div></div>`;
+}
+function fPrepChanged(group){ const d=state.draft, G=d.guide; let curK=null; try{ if(G&&G.ph===group) curK=(gItems(group)[G.i]||{}).k; }catch(e){}
+  delete d._x; if(curK!=null){ const i=gItems(group).findIndex(x=>x.k===curK); if(i>=0) G.i=i; } save(); }
+function fPrepMoreSheet(group,k){
+  const d=state.draft, row=fPrepItems(group).find(x=>x.it.k===k); if(!row) return; const {it,cur}=row; ui.fScope='today'; ui.fScopeQ='Remove it from this workout every week?';
+  const opts=prepOptionsFor(d.key,group,it);
+  modal(`<div><div class="eyebrow">${group==='warm'?'Warm-up':'Cool-down'} · during your workout</div><h2>${esc(cur.t)}</h2><p class="small muted" style="margin:4px 0 0">${esc(cur.d||'')} · not started</p></div>
+    ${opts.length>1||(it.alts||[]).length?`<button class="btn block" data-action="fpswap" data-g="${group}" data-k="${k}">Swap for a similar move</button>`:''}
+    <button class="btn block" data-action="fpend" data-g="${group}" data-k="${k}">Move to the end of the ${group==='warm'?'warm-up':'cool-down'}</button>
+    <button class="btn block danger-text" data-action="fpremove" data-g="${group}" data-k="${k}">Remove from today’s ${group==='warm'?'warm-up':'cool-down'}</button>
+    ${fScopeSeg()}
+    <p class="tiny muted" style="margin:0">Moves you’ve done stay in today’s record.</p>
+    <button class="btn ghost block" data-action="flist">Back to the list</button>`);
 }
 // In-workout changes (owner decision Nov 20, 2026): add, remove and reorder exercises from the workout list.
 // 'Just today' changes only this workout; 'Every week' also changes the plan, for people without a coach
@@ -5682,7 +5729,7 @@ function fRemoveExercise(pk){
   const d=state.draft; if(!d||doneN(d,pk)>0) return; lockShape(d); const s=dSlots().find(x=>x.pk===pk); const name=s?EX[s.id].n:'';
   d.shape=d.shape.filter(e=>e[0]!==pk); delete d.sets[pk]; if(d.planCounts) delete d.planCounts[pk]; if(d.planned) delete d.planned[pk]; if(d.adds) delete d.adds[pk];
   d.addedPks=(d.addedPks||[]).filter(x=>x!==pk);
-  if(ui.fScope==='week'&&fCanPlan()&&!pk.startsWith('w.')) exRemove(d.key,pk); else if(name) d.removed=[...new Set([...(d.removed||[]),name])];
+  if(ui.fScope==='week'&&fCanPlan()&&!pk.startsWith('w.')){ exRemove(d.key,pk); if(s) hideMove('ex',d.key,name,s.id); } else if(name) d.removed=[...new Set([...(d.removed||[]),name])];
   save(); return name;
 }
 function fExMoreSheet(pk){
@@ -5792,7 +5839,7 @@ function exInfo(id, pk){
   }
   modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(ex.n)}</h2>
       ${ex.uni?'<div class="small" style="margin-top:6px">One side at a time</div>':''}${eqLabelList(ex).length?`<div class="small muted" style="margin-top:6px">You’ll need: ${esc(eqLabelList(ex).join(', '))}</div>`:''}</div>
-    ${painWarningCard(ex)}
+    ${painWarningCard(ex)}${hiddenBanner(id)}
     <div class="exercise-guide-mount"></div>
     ${med&&med.video?`<div class="exmedia"><video src="${med.video}" controls playsinline muted loop></video></div>`:''}
     ${EX_PHOTOS.has(id)?`<div class="expics">${[['a','Start'],['b','Finish']].map(([k,l])=>`<figure class="expic"><img src="img/${id}-${k}.jpg" alt="${esc(ex.n)}, ${l.toLowerCase()} position" loading="lazy"><figcaption>${l}</figcaption></figure>`).join('')}</div>`:''}
@@ -5868,6 +5915,16 @@ function fAction(a,b){
     case 'fexremove': { const n=fRemoveExercise(b.dataset.pk); render(); flistSheet(); toast(n?`Removed ${n}${ui.fScope==='week'&&fCanPlan()?' from your plan':' for today'}`:'Already started, so it stays'); return true; }
     case 'fadd': fAddSheet(); return true;
     case 'fss': ssIdeasSheet('workout',d.key); return true;
+    case 'fpgtoggle': ui.flOpen=ui.flOpen||{}; ui.flOpen[b.dataset.g]=!ui.flOpen[b.dataset.g]; flistSheet(); return true;
+    case 'fpmore': fPrepMoreSheet(b.dataset.g,b.dataset.k); return true;
+    case 'fpswap': xSwapSheet(b.dataset.g,b.dataset.k); return true;
+    case 'fpend': { const g=b.dataset.g, items=fPrepItems(g), me=items.find(x=>x.it.k===b.dataset.k); if(me){ d.prepOrder=d.prepOrder||{}; d.prepOrder[g]=[...items.filter(x=>x!==me).map(x=>x.it.t),me.it.t]; fPrepChanged(g); } ui.flOpen=ui.flOpen||{}; ui.flOpen[g]=true; render(); flistSheet(); toast('Moved to the end'); return true; }
+    case 'fpremove': { const g=b.dataset.g, row=fPrepItems(g).find(x=>x.it.k===b.dataset.k); if(row){ d.wskip=d.wskip||{}; d.wskip[g+row.it.k]=true; if(ui.fScope==='week'&&fCanPlan()) hideMove(g,d.key,row.it.t,null,row.cur.t); fPrepChanged(g); } ui.flOpen=ui.flOpen||{}; ui.flOpen[g]=true; render(); flistSheet(); toast(row?`Removed ${row.cur.t}${ui.fScope==='week'&&fCanPlan()?' for every week':' for today'}`:'Already done'); return true; }
+    case 'fpadd': tpPickSheet('fadd',d.key,b.dataset.g); return true;
+    case 'fpaddpick': { const P=ui.tpPick; if(!P) return true; const o=P.opts[+b.dataset.i]; if(!o) return true; const g=P.group;
+      if(ui.fScope==='week'&&fCanPlan()){ const pk=prepKey(d.key,d.place); state.prepAdd=state.prepAdd||{}; const pa=state.prepAdd[pk]=state.prepAdd[pk]||{}; (pa[g]=pa[g]||[]).push({t:o.t,d:o.d}); }
+      else { d.prepAdd=d.prepAdd||{}; (d.prepAdd[g]=d.prepAdd[g]||[]).push({t:o.t,d:o.d}); }
+      fPrepChanged(g); ui.flOpen=ui.flOpen||{}; ui.flOpen[g]=true; render(); flistSheet(); toast(`Added ${o.t}`); return true; }
     case 'fsspair': case 'fsspairall': { const S=ui.ss; if(!S) return true; const list=a==='fsspair'?[S.ideas[+b.dataset.i]]:S.ideas; list.forEach(([x,y])=>ssPairWorkout(x,y)); render(); flistSheet(); toast(list.length>1?`${list.length} supersets for today`:'Superset for today'); return true; }
     case 'faddchip': if(ui.fAdd){ ui.fAdd.chip=b.dataset.v; ui.fAdd.q=''; const q=$('#faddq'); if(q) q.value=''; document.querySelectorAll('.fadd-chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.v===b.dataset.v)); const r=$('#faddres'); if(r) r.innerHTML=fAddResults(); } return true;
     case 'faddpick': { const id=b.dataset.id, wk=ui.fScope==='week'&&fCanPlan(); fAddExercise(id); render(); flistSheet(); toast(`Added ${EX[id].n}${wk?' to your plan':' for today'}`); return true; }
@@ -6527,6 +6584,7 @@ function prepLibraryInfo(id){
   modal(`<div><div class="eyebrow">How to do it</div><h2>${esc(m.t)}</h2>
       <div class="musline" style="margin-top:6px"><span class="dotp"></span>${esc([...m.body].map(k=>LIB_BODY_ALL[k][0]).join(', '))} <span class="dots"></span>${esc(PREP_TYPE[m.type])}</div>
       <div class="small muted" style="margin-top:6px">${esc(m.d)} · You’ll need: ${esc(prepGearLabel(m))}</div></div>
+    ${hiddenBanner(null,m.t).replace(/data-reopen="[^"]*"/g,`data-reopenprep="${esc(m.id)}"`)}
     <div class="exercise-guide-mount"></div>
     ${m.how?`<div class="small"><b>Where:</b> ${esc(m.how[0])}</div>`:''}
     <div><div class="eyebrow" style="margin-bottom:6px">Steps</div><ol class="howto">${steps.map(t=>`<li>${esc(t)}</li>`).join('')}</ol></div>
@@ -6740,6 +6798,82 @@ function todayResumeNext(d,slots){
   const n=nextGroupStart(d,slots,-1); return n>=0?EX[slots[n].id].n:'Cool-down';
 }
 function prepKey(key,place){return `${state.block?.n||0}:${key}:${place||state.curPlace||homeBase()}`;}
+// Warm-up and cool-down changes (owner decisions Nov 20-23, 2026):
+// added moves (state.prepAdd for every week, d.prepAdd for today), own order (state.prepOrder / d.prepOrder),
+// moves removed for every week (state.hidden, brought back from Settings › Hidden moves or the Library)
+// and moves removed just for the next workout (state.skipNext, applied when that workout starts).
+function hiddenList(){ return Array.isArray(state.hidden)?state.hidden:[]; }
+function prepHidden(key,group,name){ return hiddenList().some(h=>h.kind===group&&h.key===key&&h.name===name); }
+// A brought-back warm-up/cool-down move stays out of the current plan until the person adds it again or a new plan is made (owner, Nov 23, 2026).
+function prepOut(key,group,name){ const o=state.prepOut&&state.prepOut[key]; return !!(o&&Array.isArray(o[group])&&o[group].includes(name)); }
+function skipNextOf(key){ const x=state.skipNext&&state.skipNext[key]; return x&&typeof x==='object'?x:{}; }
+function prepPost(X,d){
+  const key=d.key, pk=prepKey(key,d.place), live=!!d.startedAt, perm=(state.prepAdd||{})[pk]||{}, today=d.prepAdd||{};
+  ['warm','cool'].forEach(g=>{
+    X[g]=X[g].filter(it=>it.ramp||!(prepHidden(key,g,it.t)||prepOut(key,g,it.t)));
+    const have=new Set(X[g].map(x=>x.t)), adds=[...(perm[g]||[]).map((m,i)=>({...m,k:'pa'+i})),...(today[g]||[]).map((m,i)=>({...m,k:'da'+i}))];
+    adds.forEach(m=>{ if(!m||!m.t||have.has(m.t)) return; have.add(m.t); const it={k:m.k,t:m.t,d:m.d||'',alts:[],added:true}; it._prepBase=it.t; it._prepOptions=[{...it}]; if(g==='warm'){ const r=X.warm.findIndex(x=>x.ramp); if(r<0) X.warm.push(it); else X.warm.splice(r,0,it); } else X.cool.push(it); });
+    const sn=skipNextOf(key)[g]||[]; if(!live) X[g].forEach(it=>{ if(sn.includes(it.t)) it.skipNext=true; });
+    const ord=(d.prepOrder||{})[g]||((state.prepOrder||{})[pk]||{})[g];
+    if(Array.isArray(ord)&&ord.length){ const pos=t=>{ const i=ord.indexOf(t); return i<0?999:i; }; const ramps=X[g].filter(x=>x.ramp), rest=X[g].filter(x=>!x.ramp).map((x,i)=>[x,i]).sort((a,b)=>pos(a[0].t)-pos(b[0].t)||a[1]-b[1]).map(x=>x[0]); X[g]=[...rest,...ramps]; }
+  });
+  const warmCnt=X.warm.filter(x=>!x.ramp&&x.k!=='c'&&!x.prepSkipped&&!x.skipNext).length, cw=X.warm.find(x=>x.k==='c'&&!x.skipNext);
+  X.min=Math.max(1,Math.round((cw&&cw.phases?cw.phases.reduce((t,x)=>t+x.sec,0)/60:0)+warmCnt*0.75));
+  return X;
+}
+// Every warm-up and cool-down move gets swap choices (owner, Nov 23, 2026): when a move has fewer than three
+// built-in alternatives, add library moves of the same kind that work the same body areas and fit the equipment.
+function prepSimilar(X,eq,key,hurt){
+  const LOW=new Set(['quads','hamstrings','glutes','hips','inner','calves']), region=m=>{ const b=[...m.body]; return !b.length?'':b.every(x=>LOW.has(x))?'low':b.some(x=>LOW.has(x))?'':'up'; };
+  const lib=new Map(PREP_LIB.map(m=>[m.t,m])), fits=m=>[...m.gear].every(g=>!PREP_EQ_NEEDS[g]||PREP_EQ_NEEDS[g].some(k=>eq.has(k)));
+  ['warm','cool'].forEach(g=>{ const have=new Set(X[g].map(x=>x.t));
+    X[g].forEach(it=>{ if(it.ramp||it.phases||!/^(m|s)\d/.test(it.k)) return; const me=lib.get(it.t); if(!me) return;
+      it.alts=it.alts||[]; if(it.alts.length>=3) return; const taken=new Set([it.t,...it.alts.map(a=>a.t)]);
+      const extra=PREP_LIB.filter(m=>m.type===me.type&&!taken.has(m.t)&&!have.has(m.t)&&fits(m)&&!(hurt||[]).some(re=>re.test(m.t))&&!prepHidden(key,g,m.t))
+        .map(m=>({m,o:[...m.body].filter(b=>me.body.has(b)).length*10+(region(m)&&region(m)===region(me)?1:0)})).filter(x=>x.o>0||!me.body.size).sort((a,b)=>b.o-a.o||a.m.t.localeCompare(b.m.t));
+      extra.slice(0,3-it.alts.length).forEach(({m})=>it.alts.push({t:m.t,d:m.d||''})); }); });
+}
+function prepOptionsFor(key,group,it){ return (it._prepOptions||[it]).filter(o=>!prepHidden(key,group,o.t)); }
+function prepCatalog(group,key,place,X){
+  const types=group==='warm'?['mobility','activation','dynamic','power']:['stretch','roll','massage'], have=new Set((X[group]||[]).map(x=>x.t));
+  return PREP_LIB.filter(m=>types.includes(m.type)&&prepAvailable(m)&&!have.has(m.t)&&!prepHidden(key,group,m.t)).sort((a,b)=>a.t.localeCompare(b.t));
+}
+function tpCtx(key){ const C=todayPrepContext(key); return {...C,pk:prepKey(key,C.d.place)}; }
+function tpItem(C,group,k){ return (C.X[group]||[]).find(x=>x.k===k); }
+function tpRemoveSheet(key,group,k){
+  const C=tpCtx(key), W=tplOf(key).name, isEx=group==='ex', s=isEx?C.slots.find(x=>x.pk===k):null, it=isEx?null:tpItem(C,group,k);
+  const name=isEx?(s&&EX[s.id].n):(it&&it.t); if(!name) return;
+  ui.tp={key,group,k,name,exId:s?s.id:null};
+  modal(`<div><div class="eyebrow">${esc(W)} · ${isEx?'Exercises':group==='warm'?'Warm-up':'Cool-down'}</div><h2>Remove ${esc(name)}?</h2></div>
+    <button class="btn block primary" data-action="tprmnext">Just the next ${esc(W)} workout</button>
+    ${hasCoach()?'':`<button class="btn block" data-action="tprmall">Every ${esc(W)} workout</button>
+    <p class="tiny muted" style="margin:0">Every ${esc(W)} workout means the app won’t pick it for this workout again. You can bring it back anytime from Profile &amp; settings › Hidden moves.</p>`}
+    <button class="btn ghost block" data-action="closemodal">Keep it</button>`);
+}
+function hideMove(kind,key,name,exId,label){ state.hidden=[...hiddenList().filter(h=>!(h.kind===kind&&h.key===key&&h.name===name)),{kind,key,name,...(exId?{exId}:{}),...(label&&label!==name?{label}:{}),at:new Date().toISOString().slice(0,10)}]; }
+// Bringing a move back only makes it an option again for new plans; it is not put back into the current plan (owner, Nov 23, 2026).
+function bringBack(i){ const h=hiddenList()[i]; if(!h) return; state.hidden=hiddenList().filter((_,j)=>j!==i);
+  if(h.kind!=='ex'){ state.prepOut=state.prepOut||{}; const o=state.prepOut[h.key]=state.prepOut[h.key]||{}; const L=o[h.kind]=o[h.kind]||[]; if(!L.includes(h.name)) L.push(h.name); }
+  save(); return h; }
+function hiddenWhere(h){ return `${tplOf(h.key)?tplOf(h.key).name:'A workout'} · ${h.kind==='ex'?'exercise':h.kind==='warm'?'warm-up':'cool-down'}`; }
+function hiddenMovesCard(){ const L=hiddenList();
+  return `<div><b>Hidden moves</b><div class="tiny muted">Moves you removed from a workout for every week. The app won’t pick them there again until you bring them back.</div></div>
+    ${L.length?L.map((h,i)=>`<div class="hm-row"><div><b>${esc(h.label||h.name)}</b><span>${esc(hiddenWhere(h))}${h.at?' · Removed '+esc(new Date(h.at+'T12:00').toLocaleDateString([], {month:'short',day:'numeric'})):''}</span></div><button class="btn sm" data-action="hiddenback" data-i="${i}">Bring back</button></div>`).join(''):'<p class="small muted" style="margin:0">Nothing hidden. When you remove a move for every week, it shows here.</p>'}
+    <p class="tiny muted" style="margin:0">Bringing a move back lets the app choose it again when it builds a new plan.</p>`; }
+function hiddenFor(id,name){ return hiddenList().map((h,i)=>({h,i})).filter(({h})=>(id&&h.exId===id)||(name&&h.kind!=='ex'&&(h.name===name||h.label===name))); }
+function hiddenBanner(id,name){ return hiddenFor(id,name).map(({h,i})=>`<div class="hm-note"><div><b>Hidden from your ${esc(tplOf(h.key)?tplOf(h.key).name:'')} ${h.kind==='ex'?'workout':h.kind==='warm'?'warm-up':'cool-down'}.</b><br><span class="muted">You removed it for every week${h.at?' on '+esc(new Date(h.at+'T12:00').toLocaleDateString([], {month:'short',day:'numeric'})):''}.</span></div><button class="btn sm" data-action="hiddenback" data-i="${i}" data-reopen="${esc(id||'')}">Bring back</button></div>`).join(''); }
+function tpPickSheet(kind,key,group,k){
+  // kind 'swap' (Today, saved for this workout) | 'add' (Today) | 'fadd' (during a workout)
+  const C=kind==='fadd'?{X:state.draft._x||sessionExtras(state.draft,dSlots()),d:state.draft}:tpCtx(key), it=k!=null?tpItem(C,group,k):null;
+  let opts; if(kind==='swap'){ opts=prepOptionsFor(key,group,it).map(o=>({t:o.t,d:o.d||'',sel:o.t===it.t})); }
+  else opts=prepCatalog(group,key,C.d.place,C.X).map(m=>({t:m.t,d:m.d||''}));
+  ui.tpPick={kind,key,group,k,opts}; if(kind==='fadd'){ ui.fScope='today'; ui.fScopeQ='Keep it in this workout?'; }
+  modal(`<div><div class="eyebrow">${esc(tplOf(key).name)} · ${group==='warm'?'Warm-up':'Cool-down'}</div><h2>${kind==='swap'?'Pick something similar':`Add a ${group==='warm'?'warm-up':'cool-down'} move`}</h2></div>
+    ${kind==='fadd'?fScopeSeg():''}
+    <div class="ed-addlist">${opts.map((o,i)=>`<button class="ed-addpick${o.sel?' sel':''}" data-action="${kind==='fadd'?'fpaddpick':'tppick'}" data-i="${i}"><span style="flex:1;text-align:left"><b>${esc(o.t)}</b><br><span class="tiny muted">${esc(o.d)}</span></span>${o.sel?'<span class="chip acc">Now</span>':''}</button>`).join('')||'<p class="small muted">Nothing else fits your equipment.</p>'}</div>
+    <button class="btn ghost block" data-action="${kind==='fadd'?'flist':'closemodal'}">${kind==='fadd'?'Back to the list':'Close'}</button>`);
+}
+function toastUndo(t,fn){ const el=$('#toast'); toast.undo=fn; el.innerHTML=`<div class="toast toast-undo" role="status"><span>${esc(t)}</span><button class="toast-btn" data-action="toastundo">Undo</button></div>`; clearTimeout(toast.t); toast.t=setTimeout(()=>{ el.innerHTML=''; toast.undo=null; },6000); }
 function savedPrep(key,place){return state.prep?.[prepKey(key,place)]||{items:{}};}
 function prepBuckets(X){return [
   {id:'warm-cardio',name:'Warm-up cardio',group:'warm',items:X.warm.filter(x=>x.k==='c')},
@@ -6837,8 +6971,15 @@ function savePrepEditor(){
 }
 function renderWorkoutPlan(key, slots, draft, {reorder=false,scope='today'}={}){
   const d=draft||{key,place:state.curPlace,warm:{},cool:{},wsub:{},wskip:{}}, X=draft?draft._x||sessionExtras(d,slots):sessionExtras(d,slots);
-  const buckets=prepBuckets(X);
-  const items=group=>`<ul class="today-plan-items">${buckets.filter(b=>b.group===group&&b.id!=='cardio'&&b.items.length).map(b=>{
+  const buckets=prepBuckets(X), editable=scope==='today'&&!draft&&!coachMode, sn=skipNextOf(key);
+  const gname={warm:'warm-up',cool:'cool-down'};
+  const skipLine=(names,g)=>names&&names.length?`<p class="tiny muted today-skipnext">Skipping next time: ${esc(names.join(', '))} · <button class="linkbtn tiny" data-action="tpunskip" data-key="${key}" data-g="${g}">Undo</button></p>`:'';
+  const editItems=group=>`<div class="today-plan-items" data-drop-list="p" data-g="${group}">${buckets.filter(b=>b.group===group&&b.id!=='cardio'&&b.items.some(it=>!it.skipNext)).map(b=>`<div class="pm-bucket"><b>${b.name}</b>${b.items.filter(it=>!it.skipNext).map(it=>{
+      const opts=prepOptionsFor(key,group,it);
+      return `<div class="pm-row" data-drag="p" data-key="${key}" data-g="${group}" data-t="${esc(it.t)}">${gripBtn('p','Move '+it.t)}<span class="pm-txt"><span class="small">${esc(it.t)}</span><span class="tiny muted">${esc(it.d||'')}</span></span><span class="today-row-acts">${opts.length>1?`<button class="btn sm ghost" data-action="tpswap" data-key="${key}" data-g="${group}" data-k="${it.k}">Swap</button>`:''}<button class="pm-x" data-action="tpremove" data-key="${key}" data-g="${group}" data-k="${it.k}" aria-label="Remove ${esc(it.t)}">×</button></span></div>`; }).join('')}</div>`).join('')}</div>
+    <button class="linkbtn plan-textbtn pm-add" data-action="tpadd" data-key="${key}" data-g="${group}">+ Add a ${gname[group]} move</button>${skipLine(sn[group],group)}
+    <p class="tiny muted pm-hint">Hold ⠿ to reorder. Changes apply to this workout from now on.</p>`;
+  const items=group=>editable?editItems(group):`<ul class="today-plan-items">${buckets.filter(b=>b.group===group&&b.id!=='cardio'&&b.items.length).map(b=>{
     return `<li><b>${b.name}</b><ul class="today-plan-movements">${b.items.map(it=>{
       const sub=d.wsub?.[group+it.k],move=sub!=null&&it.alts?.[sub]?it.alts[sub]:it,skip=it.prepSkipped||d.wskip?.[group+it.k],done=d[group]?.[it.k];
       return `<li${skip?' class="skipped"':''}><span class="small">${esc(move.t)}</span><span class="tiny muted">${esc(move.d)}${skip?' · Skipped':done?' · Done':''}</span></li>`;
@@ -6854,7 +6995,8 @@ function renderWorkoutPlan(key, slots, draft, {reorder=false,scope='today'}={}){
   const phase=(name,time,body,action='')=>`<section class="today-plan-phase" aria-label="${name}"><h2 class="today-plan-heading"><span>${icon(name)}${name}</span><span><small>${time}</small>${action}</span></h2>${body}</section>`;
   const fold=(name,group,time,body=items(group))=>{const id=(scope==='today'?'':'preview:')+key+':'+group,open=!!ui.todayPrepOpen?.[id];return `<details class="today-plan-phase today-plan-fold${group==='cardio'?' today-plan-cardio':''}" data-prep-key="${id}" aria-label="${name}" ${open?'open':''}><summary class="today-plan-heading"><span>${icon(name)}${name}${group==='cardio'?' <span class="chip acc">Optional</span>':''}</span><span class="today-plan-fold-end"><small>${time}</small><span class="today-plan-caret" aria-hidden="true">▾</span></span></summary>${body}</details>`;};
   return fold('Warm-up','warm',`${X.min} min`)
-    +phase('Exercises',`${slots.length} exercise${slots.length===1?'':'s'}`,renderPlanExercises(slots,true),reorder?`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`:'')
+    +(()=>{ const shown=editable?slots.filter(s=>!(sn.ex||[]).includes(s.pk)):slots, names=editable?slots.filter(s=>(sn.ex||[]).includes(s.pk)).map(s=>EX[s.id].n):[];
+      return phase('Exercises',`${shown.length} exercise${shown.length===1?'':'s'}`,renderPlanExercises(shown,true,editable?{today:key}:{})+skipLine(names,'ex'),reorder?`<button class="linkbtn small" data-action="reorder" data-key="${key}">Reorder</button>`:''); })()
     +fold('Cardio','cardio',X.finisher&&!X.finisher.prepSkipped?X.finisher.min+' min':'Off',`<div class="today-plan-group"><div><b>${X.finisher?esc(X.finisher.t):'After lifting'}</b><span class="tiny muted">${X.finisher?esc(X.finisher.d):'No extra cardio included'}</span></div></div>`)
     +fold('Cool-down','cool',`${X.coolMin} min`);
 }
@@ -6983,6 +7125,7 @@ const SETTINGS_PAGES={
   level:['Experience level','training','Your experience and comfort with equipment.','level'],
   pain:['Pain & limitations','training','Choose areas your plan should account for.','heart'],
   exch:['Exercise preferences','training','Equipment preferences and variety in your next program.','shuffle'],
+  hidden:['Hidden moves','training','Moves you removed for every week.','shuffle'],
   block:['Your 6-week program','training','Review your current program and next steps.','calendar'],
   cardio:['Cardio','workout','Before and after lifting.','walk'],
   timers:['Timers & sounds','workout','Rest, recovery and timer sounds.','timer'],
@@ -7068,7 +7211,7 @@ function renderSettings(){
     content+=`<section class="settings-list settings-profile-link">${settingsLink(state.settings.name||'Your profile','Personal details & weigh-in preferences','settingspage','profile','user')}</section><h2 class="settings-section-label">Make it yours</h2><section class="settings-menu settings-list" aria-label="Settings categories">${Object.entries(SETTINGS_GROUPS).map(([id,g])=>settingsLink(g[0],g[1],'settingsgroup',id,g[2])).join('')}</section>`;
   }else if(!page&&ui.settingsGroup==='account')content+=settingsAccount();
   else if(!page){
-    const summaries={goals:goals().map(k=>GOALS[k].n).join(' · '),schedule:`${nDays()} days · ${state.settings.mins||45} minutes`,split:splitLabel(),order:weekKeys().map((k,i)=>`Workout ${i+1}`).join(' → '),places:state.places.map(p=>p.n).join(' · '),level:LEVELS[lvl()].n,pain:(state.settings.pain||[]).map(k=>PAIN[k].n).join(', ')||'None selected',exch:'Equipment preferences and exercise variety',block:`Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen}`,cardio:'Warm-up and after-workout cardio',timers:'Rest, recovery and beeps',appearance:(COLORS[state.settings.color||'blush']||COLORS.blush).n,units:state.settings.units==='kg'?'Kilograms (kg)':'Pounds (lb)'};
+    const summaries={goals:goals().map(k=>GOALS[k].n).join(' · '),schedule:`${nDays()} days · ${state.settings.mins||45} minutes`,split:splitLabel(),order:weekKeys().map(k=>(tplOf(k)||{}).name||'Workout').join(' → '),places:state.places.map(p=>p.n).join(' · '),level:LEVELS[lvl()].n,pain:(state.settings.pain||[]).map(k=>PAIN[k].n).join(', ')||'None selected',exch:'Equipment preferences and exercise variety',hidden:hiddenList().length?`${hiddenList().length} move${hiddenList().length>1?'s':''} you removed for good`:'Nothing hidden',block:`Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen}`,cardio:'Warm-up and after-workout cardio',timers:'Rest, recovery and beeps',appearance:(COLORS[state.settings.color||'blush']||COLORS.blush).n,units:state.settings.units==='kg'?'Kilograms (kg)':'Pounds (lb)'};
     content+=`<section class="settings-menu settings-list" aria-label="${esc(title)} options">${Object.entries(SETTINGS_PAGES).filter(([id,p])=>p[1]===ui.settingsGroup&&!['restore'].includes(id)).map(([id,p])=>settingsLink(p[0],summaries[id]||p[2],'settingspage',id,p[3])).join('')}</section>`;
   }else{
     if(ui.settingsPage==='profile')content+=settingsProfile();
@@ -7119,6 +7262,7 @@ function settingsFields(){
       ${VARIETY.map(([v,t,d])=>`<button class="opt ${varietyOf()===v?'sel':''}" data-action="setvariety" data-v="${v}" aria-pressed="${varietyOf()===v}"><span style="flex:1;text-align:left"><b>${t}${v==='some'?' <span class="chip acc">Recommended</span>':''}</b><span class="d">${d}</span></span></button>`).join('')}</div>
     <label class="toggle" for="set-jumps"><span>Jumps and explosive moves<span class="tiny muted" style="display:block;font-weight:400">${jumpFits()?'Recommended for your level and goals. Turn off to leave them out.':'Not added at your level or with your goals.'}</span></span><input type="checkbox" id="set-jumps" ${jumpFits()&&!noJumps()?'checked':''} ${jumpFits()?'':'disabled'}></label>
   `)}
+  ${setting('training','hidden','Hidden moves','',hiddenMovesCard())}
   ${setting('workout','cardio','Cardio',(()=>{ const c=cSet(); return c?`${esc(cStyleLabel(c.style))} · after lifting: ${(c.after==null?cAfterDefault():c.after)?((c.after==null?cAfterDefault():c.after)+' min'):'off'}`:'Tell us how you like to do cardio'; })(),cardioSettings())}
   ${ui.settingsPage==='profile'?'<h2 class="settings-section-label">Weigh-ins</h2>':''}
   ${setting('profile','weigh','Weekly weigh-in',state.weigh.on?`On · ${DAYL[state.weigh.day]}s`:'Off',`
@@ -8095,7 +8239,7 @@ document.addEventListener('change',e=>{ if(!ui.exAdd) return; if(e.target.id==='
 // Hold a row (or press its handle) and drag it. A dashed "Drop here" spot shows where it will land.
 const DRAG={p:null,on:null,skipClick:false};
 function dragItems(list,kind){ return [...list.children].filter(x=>x.dataset.drag===kind); }
-function dragLabel(kind,n){ return `Drop here · becomes ${kind==='w'?'workout':'exercise'} ${n}`; }
+function dragLabel(kind,n){ return `Drop here · becomes ${kind==='w'?'workout':kind==='p'||kind==='q'?'move':'exercise'} ${n}`; }
 function dragCancelPending(){ if(DRAG.p){ clearTimeout(DRAG.p.timer); DRAG.p=null; } }
 function dragBegin(){
   const P=DRAG.p; DRAG.p=null; if(!P||!P.row.isConnected) return;
@@ -8125,6 +8269,12 @@ function dragEnd(cancel){
   const D=DRAG.on; if(!D) return; DRAG.on=null; cancelAnimationFrame(D.raf); document.body.classList.remove('dragging-plan');
   const order=[...D.list.children].filter(x=>x===D.slot||(x.dataset.drag===D.kind&&x!==D.row)).map(x=>x===D.slot?D.row:x);
   const to=order.indexOf(D.row); DRAG.skipClick=true; setTimeout(()=>{DRAG.skipClick=false;},80);
+  if(D.kind==='p'||D.kind==='q'){ if(!cancel&&to!==D.start){ const box=D.list.closest('[data-drop-list]')||D.list, g=D.row.dataset.g;
+      const names=[...box.querySelectorAll(`[data-drag="${D.kind}"], .drop-slot`)].filter(x=>x!==D.row).map(x=>x===D.slot?D.row:x).filter(x=>x.dataset&&x.dataset.t!=null).map(x=>x.dataset.t);
+      const uniq=[...new Set(names)];
+      if(D.kind==='p'){ const C=tpCtx(D.row.dataset.key); state.prepOrder=state.prepOrder||{}; const o=state.prepOrder[C.pk]=state.prepOrder[C.pk]||{}; o[g]=uniq; save(); render(); toast('Order saved for this workout'); }
+      else { const d=state.draft; d.prepOrder=d.prepOrder||{}; d.prepOrder[g]=uniq; fPrepChanged(g); render(); flistSheet(); toast('Order changed for today'); } }
+    else { if(D.kind==='q') flistSheet(); else render(); } return; }
   if(D.kind==='f'){ if(!cancel&&to!==D.start){
       const rows=[...D.list.children].filter(x=>x===D.slot||(x.classList.contains('fx-row')&&x!==D.row)).map(x=>x===D.slot?D.row:x);
       fSetOrder(rows.map(x=>x.dataset.pks?x.dataset.pks.split('|'):[...x.querySelectorAll('[data-to]')].map(y=>y.dataset.to)));
@@ -8136,7 +8286,7 @@ function dragEnd(cancel){
 document.addEventListener('pointerdown',e=>{
   if(DRAG.on||(e.pointerType==='mouse'&&e.button!==0)) return;
   const grip=e.target.closest('.drag-grip'), row=e.target.closest('[data-drag]'); if(!row) return;
-  if(row.dataset.drag==='f'?!state.draft:!planEditOn()) return;
+  const dk=row.dataset.drag; if(dk==='f'||dk==='q'?!state.draft:dk==='p'?!!coachMode:!planEditOn()) return;
   if(!grip&&e.target.closest('input,select,textarea')) return;
   DRAG.p={row,grip:!!grip,x:e.clientX,y:e.clientY,id:e.pointerId,timer:setTimeout(dragBegin,grip?120:380)};
 });
@@ -8301,6 +8451,21 @@ document.addEventListener('click', async e=>{
     case 'workoutmuscles': workoutMuscleInfo(b.dataset.key); break;
     case 'workoutmusclepick': workoutMuscleInfo(b.dataset.key,b.dataset.v); break;
     case 'exinfo': exInfo(b.dataset.id, b.dataset.pk); break;
+    case 'tpremove': tpRemoveSheet(b.dataset.key,b.dataset.g,b.dataset.k); break;
+    case 'tprmnext': case 'tprmall': { const T=ui.tp; if(!T) break; const all=a==='tprmall'&&!hasCoach(); const before=JSON.stringify({sn:state.skipNext||{},h:state.hidden||[],c:state.custom||{},o:state.order||{}});
+      if(all){ if(T.group==='ex'){ exRemove(T.key,T.k); hideMove('ex',T.key,T.name,T.exId); } else hideMove(T.group,T.key,T.name); }
+      else { state.skipNext=state.skipNext||{}; const x=state.skipNext[T.key]=state.skipNext[T.key]||{}; const list=x[T.group]=x[T.group]||[]; const v=T.group==='ex'?T.k:T.name; if(!list.includes(v)) list.push(v); }
+      save(); closeModal(); render();
+      toastUndo(`${T.name} removed ${all?'from every':'for the next'} ${tplOf(T.key).name} workout`,()=>{ const o=JSON.parse(before); state.skipNext=o.sn; state.hidden=o.h; state.custom=o.c; state.order=o.o; save(); render(); }); break; }
+    case 'tpunskip': { const x=state.skipNext&&state.skipNext[b.dataset.key]; if(x){ delete x[b.dataset.g]; if(!Object.keys(x).length) delete state.skipNext[b.dataset.key]; } save(); render(); break; }
+    case 'tpswap': tpPickSheet('swap',b.dataset.key,b.dataset.g,b.dataset.k); break;
+    case 'tpadd': tpPickSheet('add',b.dataset.key,b.dataset.g); break;
+    case 'tppick': { const P=ui.tpPick; if(!P) break; const o=P.opts[+b.dataset.i]; if(!o) break; const C=tpCtx(P.key);
+      if(P.kind==='swap'){ const it=tpItem(C,P.group,P.k); if(it){ if(it.added){ const L=((state.prepAdd||{})[C.pk]||{})[P.group]||[]; const m=L.find(x=>x.t===it.t); if(m){ m.t=o.t; m.d=o.d; } } else { state.prep=state.prep||{}; const pr=state.prep[C.pk]=state.prep[C.pk]||{items:{}}; pr.items=pr.items||{}; pr.items[P.group+it.k]={...(pr.items[P.group+it.k]||{}),base:it._prepBase||it.t,choice:o.t}; } } toast(`Swapped for ${o.t}`); }
+      else { state.prepAdd=state.prepAdd||{}; const pa=state.prepAdd[C.pk]=state.prepAdd[C.pk]||{}; (pa[P.group]=pa[P.group]||[]).push({t:o.t,d:o.d}); toast(`Added ${o.t}`); }
+      save(); closeModal(); render(); break; }
+    case 'toastundo': { const fn=toast.undo; toast.undo=null; $('#toast').innerHTML=''; if(fn) fn(); break; }
+    case 'hiddenback': { const h=bringBack(+b.dataset.i); if(h){ toast(`${h.label||h.name} can be picked again. To use it now, add it to a workout.`); render(); if(b.dataset.reopen){ closeModal(); if(EX[b.dataset.reopen]) exInfo(b.dataset.reopen); } else if(b.dataset.reopenprep){ closeModal(); prepLibraryInfo(b.dataset.reopenprep); } else if(b.closest('#modal')&&!b.closest('.settings-page')){ closeModal(); } } break; }
     case 'reorder': reorderSheet(b.dataset.key); break;
     case 'settstyle': { state.settings.tstyle=b.dataset.v; delete state.settings.tstyleAuto; const n=applyStylePref(); save(); render(); if(n) toast(`${n} move${n>1?'s':''} you haven’t done yet switched to match`); break; }
     case 'setvariety': state.settings.variety=b.dataset.v; save(); render(); toast('Takes effect when your next 6-week program starts'); break;
