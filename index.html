@@ -1061,6 +1061,15 @@ const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
   {
+    "version": "0.29.0",
+    "date": "2026-11-23",
+    "title": "Cardio after lifting on your plan",
+    "notes": [
+      "Your plan now shows your cardio after lifting: how long and which types.",
+      "Coaches can set cardio after lifting for the people they coach, and it is sent with their other plan changes."
+    ]
+  },
+  {
     "version": "0.28.0",
     "date": "2026-11-23",
     "title": "Change your warm-up and cool-down",
@@ -4574,9 +4583,11 @@ function coachBanner(){ const adm=ui.coachless&&ui.coachless[coachMode.uid]; ret
 // Coach edit mode (owner design Nov 19): one Edit plan button, a pinned bar with Undo/Redo and Done, Done sends.
 const COACH_KEYS=['plan','orig','adj','settings','names'];
 function coachSnap(){ return JSON.stringify({plan:state.block&&state.block.plan, orig:state.block&&state.block.orig, adj:state.adj||{}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}, sugg:state.sugg||{},
-  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy}))(state.settings)}); }
+  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy}))(state.settings)}); }
 function coachRestore(js){ const v=JSON.parse(js); if(state.block){ state.block.plan=v.plan; state.block.orig=v.orig; } state.adj=v.adj; state.names=v.names; state.order=v.order||{}; state.custom=v.custom||{}; state.sugg=v.sugg||{};
-  for(const k of ['split','days','flex','nDays','mins','order','level']){ if(v.settings[k]===undefined) delete state.settings[k]; else state.settings[k]=v.settings[k]; } }
+  for(const k of ['split','days','flex','nDays','mins','order','level']){ if(v.settings[k]===undefined) delete state.settings[k]; else state.settings[k]=v.settings[k]; }
+  if(v.settings.cardio){ state.settings.cardio=Object.assign(state.settings.cardio||{jog:'none',adj:0,checks:0},v.settings.cardio); if(v.settings.cardio.after===undefined) delete state.settings.cardio.after; } else delete state.settings.cardio;
+  if(v.settings.cardioBy===undefined) delete state.settings.cardioBy; else state.settings.cardioBy=v.settings.cardioBy; }
 // Every render notices a coach change: it enters edit mode and records an undo step.
 function coachTrack(){
   if(!coachMode){ if(!selfEditOn()||!state.block) return; const E=SELF.edit, now=coachSnap();
@@ -4599,7 +4610,7 @@ function coachEditBar(){
     <div class="row" style="gap:6px;flex-wrap:nowrap">${E.redo.length?'<button class="ceb-u ceb-icon" data-action="coachredo" aria-label="Redo">↷</button>':''}<button class="ceb-u" data-action="coachundo" ${E.undo.length?'':'disabled'}>↶ Undo</button><button class="ceb-d" data-action="coachdone">${self?'Save':'Done'}</button></div></section>`;
 }
 function coachDiscard(){ const B=coachMode.base; if(B){ coachRestore(JSON.stringify({plan:B.block.plan,orig:B.block.orig,adj:B.adj||{},names:B.names||{},order:B.order||{},custom:B.custom||{},sugg:B.sugg||{},
-  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy}))(B.settings)})); }
+  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy}))(B.settings)})); }
   coachMode.edit={undo:[],redo:[],last:null,on:false}; }
 
 function ringStats(w, keys, wl, o){
@@ -4727,6 +4738,7 @@ function renderCoachPlan(){
   h+=`<section class="card stack coach-focus"><div class="row between"><h3>Focus areas</h3>${!edit?(focusHint||`<span class="small muted">${esc(focusLabel())}</span>`):''}</div>${edit?`${focusChips('setfocus',false)}${focusNotes()}`
     :coached?`<p class="small muted" style="margin:0">${esc(focusLabel())}${focusLocked()?' · set by your coach':''}</p>`
     :focusAreas().length?'':`<p class="tiny muted" style="margin:0">Balanced. Tap Edit plan to add up to two.</p>`}</section>`;
+  h+=cardioPlanCard(edit, self, coached);
   h+=state.places.length>1?placeSwitch():`<div class="row between small plan-place"><span class="muted">Exercises for</span><span>${esc(curPlace().n)}</span></div>`;
   h+=`<section class="card coach-wlist"><h3 class="coach-wlist-title">${self?'Your workouts':'Workouts'}</h3>${edit?'<p class="tiny muted" style="margin:2px 0 0">Hold any workout or exercise, then drag to reorder. Tap a workout to change its exercises.</p>':`<p class="tiny muted" style="margin:2px 0 0">Workouts follow this order whenever ${self?'you train':'they train'}.</p>`}<div data-drop-list="w">`;
   keys.forEach((k,j)=>{
@@ -6022,6 +6034,16 @@ function cLevel(){ const c=cSet()||{}; const base={none:0,'5':1,'15':2,'20':3}[c
 // Cardio after lifting: on by default only when a goal calls for it, and explained for that goal
 function cGoal(){ return hasGoal('lose')?'lose':hasGoal('health')?'health':hasGoal('sport')?'sport':'lift'; }
 function cAfterDefault(){ return {lose:15, health:10, sport:10, lift:0}[cGoal()]; }
+function cAfterOf(st){ const c=(st||state.settings).cardio; return c&&c.after!=null ? +c.after : cAfterDefault(); }
+// Cardio after lifting on the Plan (Nov 23 2026): coaches set it for their people; everyone sees it there.
+function cardioPlanCard(edit, self, coached){
+  const c=cSet()||{style:'walk'}, af=cAfterOf(), on=cStyles(c.style), by=coached&&state.settings.cardioBy==='coach';
+  const sum=af?`${af} min · ${esc(cStyleLabel(c.style))}`:'Off';
+  if(!edit) return `<section class="card stack coach-cardio"><div class="row between"><h3>Cardio after lifting</h3><span class="small muted">${sum}</span></div>${by?'<p class="tiny muted" style="margin:0">Set by your coach. You can always skip it on the day.</p>':''}</section>`;
+  return `<section class="card stack coach-cardio"><h3>Cardio after lifting</h3><div class="tiny muted">Offered at the end of each workout. ${self?'You':'They'} can always skip it.</div>
+    <div class="seg" role="group" aria-label="Cardio after lifting">${[[0,'Off'],[10,'10 min'],[15,'15 min'],[20,'20 min']].map(([v,l])=>`<button data-action="plcafter" data-v="${v}" aria-pressed="${af===v}">${l}</button>`).join('')}</div>
+    ${af?`<div class="small"><b>Types</b></div><div class="chips">${C_STYLES.map(([k,l])=>`<button class="painchip ${on.includes(k)?'on':''}" data-action="plcstyle" data-v="${k}" aria-pressed="${on.includes(k)}">${l}</button>`).join('')}</div>`:''}</section>`;
+}
 function cWhy(){ return {lose:'Burns a little extra for your fat-loss goal. After lifting is the best time for longer cardio.',
   health:'Good for your heart, energy and sleep. Lifting alone doesn’t cover the cardio your body needs each week.',
   sport:'Builds stamina for your sport without taking away from your lifting.',
@@ -6182,7 +6204,7 @@ function cAction(a,b){
     case 'cqopen': newQsPopup(); return true;
     case 'cstyle': { const c=cSet()||{jog:'none',adj:0}, nx=cToggle(c.style,v); if(!nx){ toast('Keep at least one'); return true; } state.settings.cardio=Object.assign(c,{style:nx}); save(); render(); return true; }
     case 'cjog': state.settings.cardio=Object.assign(cSet()||{style:'walk'},{jog:v,adj:0,checks:0}); save(); render(); return true;
-    case 'cafter': state.settings.cardio=Object.assign(cSet()||{style:'walk',jog:'none',adj:0},{after:+v}); save(); render(); return true;
+    case 'cafter': state.settings.cardio=Object.assign(cSet()||{style:'walk',jog:'none',adj:0},{after:+v}); state.settings.cardioBy=coachMode?'coach':'me'; save(); render(); return true;
   }
   return false;
 }
@@ -7306,7 +7328,10 @@ function planCode(){ const s=state.settings;
   return JSON.stringify({t:'ssplan', v:1, plan:state.block.plan, orig:state.block.orig, adj:state.adj, note:(state.coach&&state.coach.note)||'', level:s.level,
     sched:{split:s.split||splitId(), days:(s.days||[]).slice(), flex:!!s.flex, nDays:+s.nDays||nDays(), mins:+s.mins||45, order:s.order||{}}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}, sugg:state.sugg||{},
     // Focus areas travel only when the coach changed them, so a member's own focus isn't reset by other edits.
-    ...(coachMode&&coachMode.base&&JSON.stringify(coachMode.base.settings.focus||[])!==JSON.stringify(s.focus||[])?{focus:focusAreas()}:{})}); }
+    ...(coachMode&&coachMode.base&&JSON.stringify(coachMode.base.settings.focus||[])!==JSON.stringify(s.focus||[])?{focus:focusAreas()}:{}),
+    // Cardio after lifting travels only when the coach changed it (Nov 23 2026).
+    ...(coachMode&&coachMode.base&&cardioCoachKey(coachMode.base.settings)!==cardioCoachKey(s)?{cardio:{after:cAfterOf(s),style:(s.cardio&&s.cardio.style)||'walk'}}:{})}); }
+  function cardioCoachKey(st){ const c=st.cardio||{}; return JSON.stringify([c.after==null?null:+c.after, c.style||'walk']); }
 // Bring older saved data up to date
 function migrate(st){
   if(!st) return st;
@@ -7664,7 +7689,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','plcafter','plcstyle','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -8519,6 +8544,8 @@ document.addEventListener('click', async e=>{
     case 'weekordreset': { if(state.settings.order) delete state.settings.order[splitId()]; save(); render(); toast('Back to the recommended order'); break; }
     case 'setsplit': { if(state.draft){ toast('Finish or discard your current workout first'); return; } state.settings.split=b.dataset.v; save();USAGE.capture('settings_changed',{action:'setsplit'}); render(); toast(`Split: ${SPLITS[b.dataset.v].label}`); break; }
     case 'setflex': state.settings.flex = b.dataset.v==='1'; if(state.settings.flex && !state.settings.nDays) state.settings.nDays=Math.max(2,Math.min(5,(state.settings.days||[]).length||3)); save();USAGE.capture('settings_changed',{action:'setflex'}); render(); break;
+    case 'plcafter': state.settings.cardio=Object.assign(cSet()||{style:'walk',jog:'none',adj:0,checks:0},{after:+b.dataset.v}); state.settings.cardioBy=coachMode?'coach':'me'; save(); render(); break;
+    case 'plcstyle': { const c=cSet()||{style:'walk',jog:'none',adj:0,checks:0}, nx=cToggle(c.style,b.dataset.v); if(!nx){ toast('Keep at least one'); return; } state.settings.cardio=Object.assign(c,{style:nx,after:cAfterOf()}); state.settings.cardioBy=coachMode?'coach':'me'; save(); render(); break; }
     case 'setndays': state.settings.nDays=+b.dataset.v; save();USAGE.capture('settings_changed',{action:'setndays'}); render(); break;
     case 'setfocus': { if(focusLocked()) return; const was=focusAreas().length; if(!focusToggle(b.dataset.v)) return; save(); render(); if(!was&&focusTight()) focusTightSheet(); else toast(focusAreas().length?'Focus: '+focusLabel():'Keeping it balanced'); break; }
     case 'focustime': closeModal(); if(coachMode){ render(); window.scrollTo(0,0); toast('Change days or length in Schedule'); } else settingsGo({settingsGroup:'training',settingsPage:'schedule'}); break;
