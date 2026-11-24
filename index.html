@@ -967,6 +967,13 @@ h1,h2,h3{font-style:normal;font-weight:400;letter-spacing:0}
 .ceb-icon{padding:0;min-width:40px}
 .ceb-d{border:0;background:var(--surface);color:var(--ink);font:inherit;font-size:var(--text-sm);font-weight:750;border-radius:999px;min-height:40px;padding:0 14px}
 .coach-plan-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.plan-switch{display:flex;align-items:flex-start;gap:12px;width:100%;padding:0;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.plan-switch .ps-text{flex:1;display:flex;flex-direction:column;gap:4px}
+.plan-switch .ps-track{flex:none;position:relative;width:50px;height:30px;border-radius:999px;background:var(--line);transition:background .15s}
+.plan-switch .ps-track i{position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2);transition:left .15s}
+.plan-switch[aria-checked="true"] .ps-track{background:var(--accent)}
+.plan-switch[aria-checked="true"] .ps-track i{left:23px}
+.plan-access-note{margin:0 2px}
 .coach-editbtn{flex:none;min-height:44px;padding:0 16px;border:0;border-radius:999px;background:var(--accent);color:var(--on-accent);font:inherit;font-weight:700}
 .coach-vdays{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
 .coach-vdays span{text-align:center;padding:8px 0;border-radius:10px;font-size:var(--text-xs);font-weight:650;color:var(--muted)}
@@ -1060,6 +1067,16 @@ const IS_PRODUCTION = (location.origin === 'https://strongstart.app' &&
 const APP_ENV = IS_PRODUCTION ? 'production' : 'development';
 /* Release history: newest first; keep prior entries unchanged. JSON for build validation. */
 const APP_RELEASES = [
+  {
+    "version": "0.30.0",
+    "date": "2026-11-24",
+    "title": "Coaches choose who can edit their plan",
+    "notes": [
+      "If you have a coach, your coach manages your plan unless they let you edit it. You can still swap, skip and change weights during any workout.",
+      "Coaches can turn plan editing on or off for each person from the top of their Plan.",
+      "Fixed: a coach change to cardio after lifting on its own is now sent."
+    ]
+  },
   {
     "version": "0.29.0",
     "date": "2026-11-23",
@@ -4075,6 +4092,8 @@ function coachChanges(){
   if(adjN) out.push(`New sets, reps or rest for ${adjN} exercise${adjN>1?'s':''}`);
   if(o.level!==s.level) out.push('Level: '+LEVELS[lvl()].n);
   if(JSON.stringify(o.focus||[])!==JSON.stringify(s.focus||[])) out.push('Focus: '+focusLabel());
+  if(cardioCoachKey(o)!==cardioCoachKey(s)) out.push(cAfterOf(s)?`Cardio after lifting: ${cAfterOf(s)} min (${cStyleLabel(s.cardio&&s.cardio.style)})`:'Cardio after lifting: off');
+  if(!!o.planOpen!==!!s.planOpen) out.push(s.planOpen?'Plan editing turned on':'Plan editing turned off');
   out.push(...workoutEditChanges(b));
   const sg=new Set([...Object.keys(b.sugg||{}),...Object.keys(state.sugg||{})]);
   sg.forEach(id=>{ if(!EX[id]) return; const was=(b.sugg||{})[id], now=suggOf(id); if(cur(was||null)===cur((state.sugg||{})[id]||null)) return;
@@ -4583,11 +4602,12 @@ function coachBanner(){ const adm=ui.coachless&&ui.coachless[coachMode.uid]; ret
 // Coach edit mode (owner design Nov 19): one Edit plan button, a pinned bar with Undo/Redo and Done, Done sends.
 const COACH_KEYS=['plan','orig','adj','settings','names'];
 function coachSnap(){ return JSON.stringify({plan:state.block&&state.block.plan, orig:state.block&&state.block.orig, adj:state.adj||{}, names:state.names||{}, order:state.order||{}, custom:state.custom||{}, sugg:state.sugg||{},
-  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy}))(state.settings)}); }
+  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy,planOpen})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy,planOpen:!!planOpen}))(state.settings)}); }
 function coachRestore(js){ const v=JSON.parse(js); if(state.block){ state.block.plan=v.plan; state.block.orig=v.orig; } state.adj=v.adj; state.names=v.names; state.order=v.order||{}; state.custom=v.custom||{}; state.sugg=v.sugg||{};
   for(const k of ['split','days','flex','nDays','mins','order','level']){ if(v.settings[k]===undefined) delete state.settings[k]; else state.settings[k]=v.settings[k]; }
   if(v.settings.cardio){ state.settings.cardio=Object.assign(state.settings.cardio||{jog:'none',adj:0,checks:0},v.settings.cardio); if(v.settings.cardio.after===undefined) delete state.settings.cardio.after; } else delete state.settings.cardio;
-  if(v.settings.cardioBy===undefined) delete state.settings.cardioBy; else state.settings.cardioBy=v.settings.cardioBy; }
+  if(v.settings.cardioBy===undefined) delete state.settings.cardioBy; else state.settings.cardioBy=v.settings.cardioBy;
+  if(v.settings.planOpen) state.settings.planOpen=true; else delete state.settings.planOpen; }
 // Every render notices a coach change: it enters edit mode and records an undo step.
 function coachTrack(){
   if(!coachMode){ if(!selfEditOn()||!state.block) return; const E=SELF.edit, now=coachSnap();
@@ -4610,7 +4630,7 @@ function coachEditBar(){
     <div class="row" style="gap:6px;flex-wrap:nowrap">${E.redo.length?'<button class="ceb-u ceb-icon" data-action="coachredo" aria-label="Redo">↷</button>':''}<button class="ceb-u" data-action="coachundo" ${E.undo.length?'':'disabled'}>↶ Undo</button><button class="ceb-d" data-action="coachdone">${self?'Save':'Done'}</button></div></section>`;
 }
 function coachDiscard(){ const B=coachMode.base; if(B){ coachRestore(JSON.stringify({plan:B.block.plan,orig:B.block.orig,adj:B.adj||{},names:B.names||{},order:B.order||{},custom:B.custom||{},sugg:B.sugg||{},
-  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy}))(B.settings)})); }
+  settings:(({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio,cardioBy,planOpen})=>({split,days,flex,nDays,mins,order,level,focus,focusBy,cardio:cardio?{after:cardio.after,style:cardio.style}:cardio,cardioBy,planOpen:!!planOpen}))(B.settings)})); }
   coachMode.edit={undo:[],redo:[],last:null,on:false}; }
 
 function ringStats(w, keys, wl, o){
@@ -4719,8 +4739,9 @@ function renderPlanExercises(slots, simple=false, opt={}){
 
 // One plan layout for every view: the member's own app, people coaching themselves, and a coach viewing a client.
 function renderCoachPlan(){
-  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey(), s=state.settings, edit=planEditOn(), self=!coachMode, coached=self&&!coachSelf(), canEdit=!coached;
+  const keys=weekKeys(), ds=trainDays(), next=nextWorkoutKey(), s=state.settings, edit=planEditOn(), self=!coachMode, coached=self&&!coachSelf()&&!s.planOpen, canEdit=!coached;
   let h=`<section class="coach-plan-head"><div><div class="eyebrow">Week ${Math.min(weekNum(),PROGRAM.blockLen)} of ${PROGRAM.blockLen} · ${esc(LEVELS[lvl()].n)}</div><h1>${self?'Your plan':esc(coachMode.name)+'’s plan'}</h1></div>${edit||!canEdit?'':'<button class="coach-editbtn" data-action="coachedit">✎ Edit plan</button>'}</section>`;
+  h+=planAccessCard(self, coached, edit);
   if(!edit){
     h+=`<section class="card stack plan-schedule" aria-label="Schedule"><h3>Schedule</h3><p class="small muted" style="margin:0">${nDays()} workouts a week · ${s.mins||45} min each</p>
       ${isFlex()?`<p class="small plan-flex" style="margin:0">Any days that work for ${self?'you':'them'}</p>`:`<div class="coach-vdays" role="list" aria-label="Planned training days">${[1,2,3,4,5,6,0].map(d=>`<span role="listitem" class="${ds.includes(d)?'on':''}" aria-label="${DAYL[d]}: ${ds.includes(d)?'training day':'not scheduled'}">${DAYN[d]}</span>`).join('')}</div>`}</section>
@@ -4756,6 +4777,15 @@ function renderCoachPlan(){
   return h+whyCard()+`<details class="why plan-help"><summary>Plan help</summary><div class="why-body"><p class="small" style="margin:0">Machine taken or a move doesn’t feel right? Tap Swap for a similar one. Adjust changes sets, reps, rest, recovery, or weight.</p><p class="small" style="margin:0">Workouts repeat in order, even when you start midweek or miss a day. Times include warm-up and cool-down; optional cardio adds extra time.</p></div></details>`;
 }
 function renderPlan(){ return renderCoachPlan(); }
+// Plan editing switch (owner decision Nov 24 2026): off by default for everyone with a coach; the coach turns it on or off.
+// Locked or not, members can swap, skip and change weights during a workout, and the coach can always edit.
+function planAccessCard(self, coached, edit){
+  if(!self){ const on=!!state.settings.planOpen, n=esc(coachMode.name);
+    return `<section class="card stack plan-access"><button class="plan-switch" data-action="planopen" role="switch" aria-checked="${on}"><span class="ps-text"><b>Let ${n} edit their plan</b><span class="tiny muted">${on?`${n} can use Edit plan, like you. You’ll see every change they make, and you can still edit or lock it anytime.`:`Off: you manage ${n}’s plan. They can still swap, skip and change weights in a workout, and you’ll see what they did.`}</span></span><span class="ps-track" aria-hidden="true"><i></i></span></button></section>`; }
+  if(edit||!hasCoach()) return '';
+  if(coached) return `<section class="card stack plan-access"><b>Your coach manages your plan</b><p class="small muted" style="margin:0">You can still swap, skip and change weights during a workout. Want something changed for good? Message your coach.</p><button class="btn block" data-action="cmopen">${settingsIcon('message')} Message ${esc(coachName())}</button></section>`;
+  return `<p class="tiny muted plan-access-note">Your coach lets you edit your plan. Your coach sees any changes you make.</p>`;
+}
 
 // Simple library filters: equipment type, body part, movement
 const LIB_EQ=[['mc','Machines'],['cb','Cables'],['db','Dumbbells'],['bb','Barbell'],['kb','Kettlebells'],['bw','Bodyweight'],['bd','Bands'],['mb','Medicine ball'],['sb','Stability ball'],['trx','TRX'],['pu','Pull-up bar'],['dp','Dip bars'],['bx','Box or step'],['bs','BOSU'],['lm','Landmine'],['rp','Battle ropes'],['pl','Weight plate']];
@@ -7330,7 +7360,9 @@ function planCode(){ const s=state.settings;
     // Focus areas travel only when the coach changed them, so a member's own focus isn't reset by other edits.
     ...(coachMode&&coachMode.base&&JSON.stringify(coachMode.base.settings.focus||[])!==JSON.stringify(s.focus||[])?{focus:focusAreas()}:{}),
     // Cardio after lifting travels only when the coach changed it (Nov 23 2026).
-    ...(coachMode&&coachMode.base&&cardioCoachKey(coachMode.base.settings)!==cardioCoachKey(s)?{cardio:{after:cAfterOf(s),style:(s.cardio&&s.cardio.style)||'walk'}}:{})}); }
+    ...(coachMode&&coachMode.base&&cardioCoachKey(coachMode.base.settings)!==cardioCoachKey(s)?{cardio:{after:cAfterOf(s),style:(s.cardio&&s.cardio.style)||'walk'}}:{}),
+    // Plan editing switch (Nov 24 2026): sent only when the coach changed it.
+    ...(coachMode&&coachMode.base&&!!coachMode.base.settings.planOpen!==!!s.planOpen?{open:!!s.planOpen}:{})}); }
   function cardioCoachKey(st){ const c=st.cardio||{}; return JSON.stringify([c.after==null?null:+c.after, c.style||'walk']); }
 // Bring older saved data up to date
 function migrate(st){
@@ -7689,7 +7721,7 @@ function finishWorkout(){
 function coachActionAllowed(a,b){
   if(a==='tab') return b.dataset.tab==='settings'||TABS.some(([k])=>k===b.dataset.tab);
   if(a==='sectoggle') return (b.dataset.v||'').startsWith('plan-');
-  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','plcafter','plcstyle','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall'].includes(a);
+  return ['syncdetails','closemodal','coachexit','coachsendopen','coachsend','open','todayexercises','previewplan','openmap','muscle','choosemuscle','pickmuscle','musinfo','workoutmuscles','workoutmusclepick','exinfo','preplibinfo','libshowall','libopen','histrefresh','histmore','histfirst','histopen','histview','histarea','histfilter','histexopen','histreveal','swap','swapmore','swapbrowse','swapsuggest','swapload','swapclear','swapselect','swapback','swapapply','libpick','doswap','adjust','adjsave','adjreset','pickLevel','setlevel','setplace','coachsched','setflex','setday','setndays','setmins','plcafter','plcstyle','planopen','setsplit','coachrename','coachrenamesave','coachrenamereset','coachedit','coachdone','coachundo','coachredo','coachdiscard','exmore','exadd','exaddpick','exremove','expair','exunpair','baladd','warnkeep','b2bspread','simswap','coachnotessave','coachlook','setfocus','focustime','balopen','balwhy','baladdday','baladdpick','baladdall','ssideas','sspair','sspairall'].includes(a);
 }
 // Development-only configuration is replaced by build-dev; source and production stay off.
 const USAGE_CONFIG = {enabled:false,token:'',host:'https://us.i.posthog.com'};
@@ -8546,6 +8578,7 @@ document.addEventListener('click', async e=>{
     case 'setflex': state.settings.flex = b.dataset.v==='1'; if(state.settings.flex && !state.settings.nDays) state.settings.nDays=Math.max(2,Math.min(5,(state.settings.days||[]).length||3)); save();USAGE.capture('settings_changed',{action:'setflex'}); render(); break;
     case 'plcafter': state.settings.cardio=Object.assign(cSet()||{style:'walk',jog:'none',adj:0,checks:0},{after:+b.dataset.v}); state.settings.cardioBy=coachMode?'coach':'me'; save(); render(); break;
     case 'plcstyle': { const c=cSet()||{style:'walk',jog:'none',adj:0,checks:0}, nx=cToggle(c.style,b.dataset.v); if(!nx){ toast('Keep at least one'); return; } state.settings.cardio=Object.assign(c,{style:nx,after:cAfterOf()}); state.settings.cardioBy=coachMode?'coach':'me'; save(); render(); break; }
+    case 'planopen': if(!coachMode) return; if(state.settings.planOpen) delete state.settings.planOpen; else state.settings.planOpen=true; render(); break;
     case 'setndays': state.settings.nDays=+b.dataset.v; save();USAGE.capture('settings_changed',{action:'setndays'}); render(); break;
     case 'setfocus': { if(focusLocked()) return; const was=focusAreas().length; if(!focusToggle(b.dataset.v)) return; save(); render(); if(!was&&focusTight()) focusTightSheet(); else toast(focusAreas().length?'Focus: '+focusLabel():'Keeping it balanced'); break; }
     case 'focustime': closeModal(); if(coachMode){ render(); window.scrollTo(0,0); toast('Change days or length in Schedule'); } else settingsGo({settingsGroup:'training',settingsPage:'schedule'}); break;
