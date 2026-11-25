@@ -1085,6 +1085,8 @@ const APP_RELEASES = [
       "Moves done in parts show each part: arm circles forward then backward, and leg swings on each side.",
       "Prone Y-T-W raises are now one flowing move on a 30-second timer: Y to T to W and back.",
       "Warm-up and cool-down moves show their demo on the screen, with How to in the corner. Cardio and the walk don't have demos.",
+      "Every timer has −15 s and +15 s, including before it starts, so you can lengthen or shorten any timed move, walk or rest.",
+      "Rhythmic warm-ups such as arm circles, hip circles, leg swings, cat-cow and marching can be done by Timer or Reps; the app remembers your choice for each move.",
       "Fixed: lateral band walks were treated as a 10-second timer."
     ]
   },
@@ -5745,7 +5747,7 @@ function renderFocus(){
     return `<div class="focus">${fTop(d,slots)}
       <div class="ahead"><h1>${gSlots.length>1?'Superset complete.':'Exercise complete.'}</h1><div class="small muted">Review your sets and what comes next.</div></div>
       <section class="card acard"><div class="ach"><b>${gSlots.length>1?'Your pair':'Your sets'}</b><span class="goal">✓ Logged</span></div>${blocks}
-        ${T&&ns?`<div class="asection"><div class="row between"><b>Move to the next station</b><span id="fclock" class="num">${mmss(Math.max(0,Math.ceil((T.end-Date.now())/1000)))}</span></div><div class="small muted">${esc(T.tip||'')}</div></div>`:''}
+        ${T&&ns?`<div class="asection"><div class="row between"><b>Move to the next station</b><span class="row" style="gap:10px;align-items:center"><button class="linkbtn tiny" data-action="tadd" data-sec="-15" aria-label="15 seconds less">−15 s</button><span id="fclock" class="num">${mmss(Math.max(0,Math.ceil((T.end-Date.now())/1000)))}</span><button class="linkbtn tiny" data-action="tadd" data-sec="15" aria-label="15 seconds more">+15 s</button></span></div><div class="small muted">${esc(T.tip||'')}</div></div>`:''}
         <div class="asection aresult-next"><div class="eyebrow">${ns?'Up next':'Lifting done'}</div>${ns?`<b>${esc(EX[ns.id].n)}</b><div class="small muted">${ntg.sets} × ${usesLoad(ntg.ex)?`${ntg.lo}–${ntg.hi}`:ntg.r} ${ntg.unit}${EX[ns.id].uni?' per side':''}${usesLoad(ntg.ex)&&(ntg.w??ntg.sug)!=null?' · '+fmtW(ntg.w??ntg.sug):''}</div>`:'<b>Time to cool down.</b>'}</div></section>
       ${aFoot(`<button class="btn primary fbig" data-action="fnext">${ns?`Start ${esc(EX[ns.id].n.replace(/\s*\(.*\)$/,''))}`:'On to the cool-down'}</button>`)}</div>`;
   }
@@ -6324,8 +6326,22 @@ function repSetsFor(it){
   if((m=d.match(/^(.+), (\d+) reps$/))) return {...one(m[2],'reps',''),sum:m[1].replace(/, pull /,', then pull ').replace(/pull elbows/,'pull your elbows')};
   return null;
 }
+// Rhythmic warm-up moves that work by time or by reps: people pick, like foam rolling (owner, Nov 25, 2026).
+const EITHER_MOVES={
+  'Arm circles':[20,['Forward','Backward'],'each way'], 'Shoulder rolls':[20,['Forward','Backward'],'each way'], 'Kettlebell halos':[20,['One way','Other way'],'each way'],
+  'Hip circles':[20,['First side','Second side'],'per side'], 'Quadruped hip circles':[20,['First side','Second side'],'per side'], 'Ankle rocks against a wall':[20,['First side','Second side'],'per side'],
+  'Leg swings, front to back':[20,['First side','Second side'],'per side'], 'Leg swings, front to back and side to side':[30,['First side','Second side'],'per side'],
+  'Marching knee lifts':[30], 'Standing knee hugs':[30], 'Walking knee hugs':[30], 'Cat-cow':[30], 'Hug-yourself twists':[30], 'Seated twists':[30], 'Reverse arm swings':[30],
+  'Plank shoulder taps':[30], 'Shoulder taps on the wall':[30],
+};
+function moveMode(t){ return state.settings.moveModes?.[t]==='timer'?'timer':'reps'; }
 function wRepsOf(it,s){ const v=state.draft?.wreps?.[it.g+it.k]?.[s]; return Number.isFinite(+v)&&+v>0?+v:null; }
 function segsFor(it){
+  const em=EITHER_MOVES[it.t];
+  const emRs=em&&repSetsFor(it);
+  if(emRs){ const rs=emRs;
+    if(moveMode(it.t)==='timer'){ const [sec,parts,how]=em; return {timer:true, either:em, repsN:rs.sets[0].n, sum:`${sec} s${parts?' '+how:''}`, segs:parts?parts.map(label=>({sec,label})):[{sec,label:''}], gap:parts?5:0, gapLabel:how==='per side'?'Switch sides':'Switch directions'}; }
+    return {timer:false, ...rs, either:em, repsN:rs.sets[0].n}; }
   if(it.prepSegments)return {timer:true,segs:it.prepSegments.segs.map(s=>({...s})),gap:it.prepSegments.gap,gapLabel:it.prepSegments.gapLabel};
   if(it.phases) return {timer:true, segs:it.phases.map(p=>({...p})), gap:0};
   const d=(it.d||'').trim(); let m;
@@ -6389,7 +6405,7 @@ function gStoreMove(){
 function gChooseMove(i){
   const d=state.draft,G=d?.guide,items=G&&gItems(G.ph);if(!items||!['ready','reps','run','gap','paused'].includes(G.mode)||!Number.isInteger(i)||!items[i]||i===G.i)return false;
   gStoreMove();const saved=G.positions?.[gMoveKey(items[i])];
-  for(const key of ['pmode','left','tot','lastBeep','feelChoice'])delete G[key];
+  for(const key of ['pmode','left','tot','lastBeep','feelChoice','adj'])delete G[key];
   G.i=i;G.s=0;G.mode='ready';G.end=null;
   if(saved)Object.assign(G,saved);gPrepareMove(G,items);return true;
 }
@@ -6460,7 +6476,7 @@ function gNextItem(markDone){
   const d=state.draft, G=d.guide, items=gItems(G.ph), it=items[G.i];
   if(it && markDone){ d[it.g]=d[it.g]||{}; d[it.g][it.k]=true; if(it.cardio==='after') d.cardioDone={type:it.ctype,min:it.min,mode:it.mode}; }
   if(markDone&&it)delete G.positions?.[gMoveKey(it)];else gStoreMove();
-  G.i++; G.s=0;
+  G.i++; G.s=0; delete G.adj;
   if(G.i>=items.length){ gFinishPhase(); return; }
   G.mode='ready'; G.end=null; G.lastBeep=null;delete G.pmode;delete G.left;
   const saved=G.positions?.[gMoveKey(items[G.i])];if(saved)Object.assign(G,saved);gPrepareMove(G,items);
@@ -6481,7 +6497,7 @@ function gAdvance(){
   const S=segsFor(it);
   if(G.mode==='ready'){
     if(!S.timer){ G.mode='reps'; G.end=null; return; }
-    G.mode='run'; G.s=Math.max(0,Math.min(G.s||0,S.segs.length-1)); G.tot=S.segs[G.s].sec; G.end=Date.now()+G.tot*1000; beep(); buzz(150); return;
+    G.mode='run'; G.s=Math.max(0,Math.min(G.s||0,S.segs.length-1)); G.tot=Math.max(5,S.segs[G.s].sec+(G.adj||0)); delete G.adj; G.end=Date.now()+G.tot*1000; beep(); buzz(150); return;
   }
   if(G.mode==='run'){
     if(G.s+1<S.segs.length){
@@ -6790,15 +6806,15 @@ function renderGuide(){
   const stretches=items.filter(move=>move.stretch),warmMoves=items.filter(move=>!move.phases),ro=rollOf(it),rolls=items.filter(move=>rollOf(move));
   const label0=G.ph==='warm'?(it.phases?`Warm-up · Part ${G.s+1} of ${S.segs.length}`:`Warm-up · Move ${warmMoves.indexOf(it)+1} of ${warmMoves.length}`):it.phases?`Cardio · Part ${G.s+1} of ${S.segs.length}`:it.stretch?`Stretches · ${stretches.indexOf(it)+1} of ${stretches.length}`:it.k==='w'?'Cool-down walk':ro?`${ro.tool==='ball'?'Massage ball':'Foam roll'} · ${rolls.indexOf(it)+1} of ${rolls.length}`:'Recovery';
   const header=fTop(d,slots,label0,progress);
-  const n=(it.d.match(/^(\d+(?:–\d+)?)\s*(.*)$/)||[]),total=ready?(seg?.sec||0):Math.max(1,G.tot||(inGap?S.gap:seg?.sec)||1);
+  const n=(it.d.match(/^(\d+(?:–\d+)?)\s*(.*)$/)||[]),total=ready?Math.max(5,(seg?.sec||0)+(G.adj||0)):Math.max(1,G.tot||(inGap?S.gap:seg?.sec)||1);
   const left=ready?total:paused?Math.ceil((G.left||0)/1000):Math.max(0,Math.ceil((G.end-Date.now())/1000));
   const title=paused?'Paused':ready?'Ready':pm==='reps'?(S.passes?'Passes':'At your pace'):inGap?(G.gapLabel||S.gapLabel||'Get ready'):'Time left';
   const rsI=Math.min(G.s||0,(RS||[1]).length-1), rsSet=RS&&RS[rsI], rsN=rsSet?(wRepsOf(it,rsI)??rsSet.n):0;
   const titleHtml=RS&&RS.length>1&&pm==='reps'?(rsSet.label?`${esc(rsSet.label)} <span>${rsI+1} of ${RS.length}</span>`:`Set ${rsI+1} <span>of ${RS.length}</span>`):esc(title);
   const rsGoal=RS&&pm==='reps'?`${rsSet.n} ${rsSet.unit}${S.note?', '+S.note:''}`:'';
-  const goal=RS?(S.sum||it.d):ro?[S.passes?`${rollPasses(it.k)} slow passes${ro.side?' per side':''}`:it.d,!S.passes&&S.segs?.length>1&&!inGap?seg?.label:'',!S.passes&&inGap&&G.gapLabel?'starts in a moment':''].filter(Boolean).join(' · '):it.phases?`${seg.sec%60===0?seg.sec/60+' min':mmss(seg.sec)}${G.ph==='warm'?' · Warm-up cardio':''}${seg.round?` · Round ${seg.round} of ${seg.of}`:''}`:seg?.round?`Round ${seg.round} of ${seg.of} · ${seg.label}`:[it.d,S.segs?.length>1?seg?.label:''].filter(Boolean).join(' · ');
+  const goal=S.either&&S.timer?[S.sum,S.segs.length>1&&!inGap?seg?.label:''].filter(Boolean).join(' · '):RS?(S.sum||it.d):ro?[S.passes?`${rollPasses(it.k)} slow passes${ro.side?' per side':''}`:it.d,!S.passes&&S.segs?.length>1&&!inGap?seg?.label:'',!S.passes&&inGap&&G.gapLabel?'starts in a moment':''].filter(Boolean).join(' · '):it.phases?`${seg.sec%60===0?seg.sec/60+' min':mmss(seg.sec)}${G.ph==='warm'?' · Warm-up cardio':''}${seg.round?` · Round ${seg.round} of ${seg.of}`:''}`:seg?.round?`Round ${seg.round} of ${seg.of} · ${seg.label}`:[it.d,S.segs?.length>1?seg?.label:''].filter(Boolean).join(' · ');
   const pause=!ready&&pm!=='reps'?`<button class="guide-pause" data-action="${paused?'gresume':'gpause'}" aria-label="${paused?'Resume timer':'Pause timer'}">${paused?ICON.play:ICON.pause}</button>`:'';
-  const fine=!!it.phases||(!!ro&&S.timer)||(!!RS&&inGap),seekable=pm==='run'||((!!ro||!!RS)&&pm==='gap');
+  const fine=!!S.timer||(!!RS&&inGap),seekable=fine;
   const unitLbl=u=>u==='steps each way'?'Steps each way':u==='each way'?'Each way':u==='per side'||u==='each side'?'Reps per side':'Reps';
   const ring=RS&&pm==='reps'?`<div class="asteps roll-passes"><div class="fstep"><div class="fl">${unitLbl(rsSet.unit)}</div><span class="fval"><span class="num big">${rsN}</span></span><div class="abtns"><button class="abtn" data-action="gwr" data-dir="-1" aria-label="One fewer">−</button><button class="abtn" data-action="gwr" data-dir="1" aria-label="One more">+</button></div></div></div>`:S.passes?`<div class="asteps roll-passes"><div class="fstep"><div class="fl">Passes${ro.side?' per side':''}</div><span class="fval"><span class="num big">${rollPasses(it.k)}</span></span><div class="abtns"><button class="abtn" data-action="grollp" data-dir="-1" aria-label="One pass fewer">−</button><button class="abtn" data-action="grollp" data-dir="1" aria-label="One pass more">+</button></div></div></div>`:S.timer||(RS&&inGap)?gRing(left,total,'',inGap):`<div class="guide-reps"><span class="num">${esc(n[1]||'')}</span><span>${esc(n[1]?(n[2]||'reps'):it.d)}</span></div>`;
   const timer=RS&&pm==='reps'?ring:fine?`<div class="atimer"><button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gprev" aria-label="15 seconds less"><b>−</b><span>15 s</span></button>${ring}<button class="aside ${seekable?'':'guide-seek-hidden'}" ${seekable?'':'disabled'} data-action="gskip" aria-label="15 seconds more"><b>+</b><span>15 s</span></button></div>`:S.passes?ring:`<div class="guide-timer">${ring}</div>`;
@@ -6810,12 +6826,13 @@ function renderGuide(){
   const nextPart=it.phases&&S.segs[G.s+1];
   const nextLabel=nextPart?guidePartTitle(it,nextPart):next?next.t:G.ph==='warm'?(first>=0?EX[slots[first].id].n:'Cool-down'):'Finish workout';
   const moveTitle=it.phases?guidePartTitle(it,seg):it.t;
+  const eitherSeg=S.either?`<div class="seg wide roll-mode" role="group" aria-label="Count by time or reps"><button data-action="gmovemode" data-v="timer" aria-pressed="${!!S.timer}">Timer · ${S.either[0]} s</button><button data-action="gmovemode" data-v="reps" aria-pressed="${!S.timer}">Reps · ${S.repsN}</button></div>`:'';
   const rollSeg=ro?`<div class="seg wide roll-mode" role="group" aria-label="Count by time or passes"><button data-action="grollmode" data-v="timer" aria-pressed="${!S.passes}">Timer · ${ROLL_SEC} s</button><button data-action="grollmode" data-v="passes" aria-pressed="${!!S.passes}">Passes · ${ROLL_PASSES}</button></div>`:'';
   // Demos show for every warm-up and cool-down move except cardio and the walk (owner, Nov 25, 2026).
   const demoId=!it.phases&&it.k!=='w'?guideAnimationId(it):null;
   const hero=demoId?`<div class="exercise-hero"><div class="workout-demo" data-exercise-id="${esc(demoId)}"></div><button class="howbtn hero-how" data-action="ghowto" aria-haspopup="dialog">${ICON.play}How to</button></div>`:'';
   return `<div class="focus guide-focus grouped-guide${demoId?' demo-first':''}">${header}<div class="ahead"><h1>${esc(moveTitle)}</h1><div class="guide-meta"><span class="small muted">${esc(goal)}</span>${demoId?'':`<button class="howbtn" data-action="ghowto">${ICON.play}How to</button>`}</div></div>${hero}
-    <section class="card acard"><div class="ach"><b>${titleHtml}</b>${rsGoal?`<span class="goal">${esc(rsGoal)}</span>`:pause}</div>${rollSeg}${timer}
+    <section class="card acard"><div class="ach"><b>${titleHtml}</b>${rsGoal?`<span class="goal">${esc(rsGoal)}</span>`:pause}</div>${rollSeg}${eitherSeg}${timer}
       ${hint?`<p class="guide-hint">${esc(hint)}</p>`:''}
       ${guidePath(d,G,items)}<div class="ffoot"><div class="afoot"><button class="btn primary fbig" data-action="${act}">${label}</button></div><div class="guide-next">Next: <span>${esc(nextLabel)}</span></div></div></section></div>`;
 
@@ -6842,14 +6859,19 @@ function gAction(a,b){
     case 'gseg': { closeModal(); const it=gItems(G.ph)[G.i], S=it&&segsFor(it), n=+b.dataset.n; if(!S||!S.segs[n]) return true;
       if(gChooseStep(G.i,n)){save();render();}return true; }
     case 'gskipall': if(G.mode==='paused') G.mode=G.pmode; gNextItem(false); save(); render(); window.scrollTo(0,0); return true;
-    case 'gskip': {const it=gItems(G.ph)[G.i],mode=G.mode==='paused'?G.pmode:G.mode;if((it?.phases&&mode==='run')||(rollOf(it)&&['run','gap'].includes(mode)))gAdjustTime(15);else gNextItem(false);save();render();return true;}
-    case 'gprev': {const it=gItems(G.ph)[G.i],mode=G.mode==='paused'?G.pmode:G.mode;if((it?.phases&&mode==='run')||(rollOf(it)&&['run','gap'].includes(mode)))gAdjustTime(-15);else gChooseMove(Math.max(0,G.i-1));save();render();return true;}
+    case 'gskip': case 'gprev': {const it=gItems(G.ph)[G.i],mode=G.mode==='paused'?G.pmode:G.mode,S=it&&segsFor(it),sec=a==='gskip'?15:-15;
+      // Every timer can be lengthened or shortened, also before it starts (owner, Nov 25, 2026).
+      if(S&&(S.timer||S.sets)&&['run','gap'].includes(mode))gAdjustTime(sec);
+      else if(S&&S.timer&&mode==='ready'){const base=S.segs[G.s||0]?.sec||0;G.adj=Math.max(5-base,Math.min(3600,(G.adj||0)+sec));if(!G.adj)delete G.adj;}
+      else if(a==='gskip')gNextItem(false);else gChooseMove(Math.max(0,G.i-1));save();render();return true;}
     case 'gpause': gPauseMove();save();render();return true;
     case 'gresume': closeModal(); if(G.mode==='paused'){ G.mode=G.pmode; G.end=Date.now()+G.left; save(); } render(); return true;
     case 'ghowto': { const it=gItems(G.ph)[G.i]; if(!it) return true; if(['run','gap'].includes(G.mode)){gPauseMove();save();render();}modal(gHowTo(it)); window.StrongStartExerciseGuides?.attach({exerciseId:guideAnimationId(it),mount:$('#modal .exercise-guide-mount'),environment:APP_ENV}); return true; }
     case 'grollmode': { const v=b.dataset.v==='passes'?'passes':'timer'; if(rollMode()===v) return true; state.settings.rollMode=v;
       if(G&&rollOf(gItems(G.ph)[G.i])){ G.s=0; G.end=null; delete G.pmode; delete G.left; delete G.gapLabel; G.mode=v==='passes'?'reps':'ready'; gPrepareMove(G); }
       save(); render(); return true; }
+    case 'gmovemode': { const it=G&&gItems(G.ph)[G.i]; if(!it||!EITHER_MOVES[it.t]) return true; const v=b.dataset.v==='timer'?'timer':'reps'; if(moveMode(it.t)===v) return true;
+      state.settings.moveModes={...(state.settings.moveModes||{}),[it.t]:v}; G.s=0; G.end=null; delete G.pmode; delete G.left; delete G.gapLabel; delete G.adj; G.mode=v==='timer'?'ready':'reps'; gPrepareMove(G,gItems(G.ph)); save(); render(); return true; }
     case 'grollp': { const it=G&&gItems(G.ph)[G.i]; if(!it) return true; d.rollPasses=d.rollPasses||{}; d.rollPasses[it.k]=Math.max(1,Math.min(40,rollPasses(it.k)+(+b.dataset.dir||0))); save(); render(); return true; }
     case 'gmute': state.settings.sound = state.settings.sound===false; save(); render(); return true;
     case 'glist': gStoreMove();d.listView=true;save();render();return true;
